@@ -172,6 +172,7 @@ TENANT_APPS = (
     'maintenance.eclairage',
     'maintenance.autres_interventions.moteur.remplacement_moteur',
     'maintenance.autres_interventions.moteur.turbo',
+    'maintenance.autres_interventions.moteur.montage_turbo.apps.MontageTurboConfig',
     'maintenance.autres_interventions.boite_de_vitesse.remplacement_boite',
     'maintenance.autres_interventions.boite_de_vitesse.casse_boite.apps.CasseBoiteConfig',
     'maintenance.autres_interventions.bte_vitesse_auto.remplacement_bte_auto',

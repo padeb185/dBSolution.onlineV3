@@ -44,10 +44,14 @@
 
 <br>
 {% if is_checkup_allowed %}
-<div>
+<div class="flex flex-wrap gap-2">
     <a href="{% url 'turbo:turbo_check' exemplaire.id %}"
          class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
         {% trans "Ajouter un contrôle" %}
+    </a>
+    <a href="{% url 'montage_turbo:montage_turbo_list' exemplaire.id %}"
+         class="flex-1 bg-orange-600 text-white px-5 py-4 rounded hover:bg-orange-400 font-semibold text-center">
+        {% trans "Montage d'un turbo plus gros" %}
     </a>
 </div>
 {% endif %}

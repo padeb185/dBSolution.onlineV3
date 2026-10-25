@@ -61997,10 +61997,6 @@ msgid "Casses boîte manuelle"
 msgstr "Manual gearbox failures"
 
 #: maintenance/autres_interventions/boite_de_vitesse/casse_boite
-msgid "Cette variation est supérieure à 2 000 km. Voulez-vous vraiment enregistrer ce kilométrage ?"
-msgstr "This change is greater than 2,000 km. Do you really want to save this mileage?"
-
-#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
 msgid "Choc de couple (départ arraché, launch control, saut de roue)"
 msgstr "Torque shock (hard launch, launch control, wheel hop)"
 
@@ -62523,10 +62519,6 @@ msgid "Ancrages et fixations des harnais"
 msgstr "Harness anchorages and mountings"
 
 #: maintenance/autres_interventions/securite
-msgid "Arceau, extincteur, baquets, câblage, boîtier, moteur, échappement, démontage, air jack"
-msgstr "Roll cage, extinguisher, bucket seats, wiring, ECU, engine, exhaust, stripping, air jack"
-
-#: maintenance/autres_interventions/securite
 msgid "Boucles et enrouleurs de ceinture"
 msgstr "Seat belt buckles and retractors"
 
@@ -62579,10 +62571,6 @@ msgid "Intervention sécurité"
 msgstr "Safety service"
 
 #: maintenance/autres_interventions/securite
-msgid "Le kilométrage ne peut pas être inférieur au kilométrage actuel du véhicule."
-msgstr "Mileage cannot be lower than the vehicle's current mileage."
-
-#: maintenance/autres_interventions/securite
 msgid "Modification intervention sécurité"
 msgstr "Safety service update"
 
@@ -62603,13 +62591,393 @@ msgid "Validité FIA"
 msgstr "FIA validity"
 
 #: maintenance/autres_interventions/securite
-msgid "Vous devez confirmer que le serrage des roues est FAIT avant de valider."
-msgstr "You must confirm that wheel tightening is DONE before validating."
-
-#: maintenance/autres_interventions/securite
 msgid "périmé"
 msgstr "expired"
 
 #: maintenance/autres_interventions/securite
 msgid "Sécurité (ceintures, airbags, radar)"
 msgstr "Safety (seat belts, airbags, radar)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "A/R carter turbine"
+msgstr "Turbine housing A/R"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Ancien"
+msgstr "Old"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Ancien / nouveau turbo"
+msgstr "Old / new turbo"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Ancien turbo (déposé)"
+msgstr "Old turbo (removed)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Aucun dépassement de limite détecté avec les valeurs renseignées."
+msgstr "No limit exceeded with the values entered."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Bi-turbo / séquentiel"
+msgstr "Twin-turbo / sequential"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Bride d'entrée turbine"
+msgstr "Turbine inlet flange"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Capacité du turbo utilisée"
+msgstr "Turbo capacity used"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Capteur de pression de suralimentation (MAP)"
+msgstr "Boost pressure sensor (MAP)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Caractéristique"
+msgstr "Characteristic"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Collecteur d'échappement / adaptateur"
+msgstr "Exhaust manifold / adapter"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Compresseur – exducer (mm)"
+msgstr "Compressor – exducer (mm)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Compresseur – inducer (mm)"
+msgstr "Compressor – inducer (mm)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Couple après (Nm)"
+msgstr "Torque after (Nm)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Couple avant (Nm)"
+msgstr "Torque before (Nm)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Couple avant → après"
+msgstr "Torque before → after"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+#, python-format
+msgid "Coupure overboost (%(c)s bar) au-delà de la pression maxi du turbo (%(m)s bar)."
+msgstr "Overboost cut (%(c)s bar) above the turbo's maximum pressure (%(m)s bar)."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Coupure overboost (bar)"
+msgstr "Overboost cut (bar)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Dimensions, capacité, limites, kit de montage, banc"
+msgstr "Dimensions, capacity, limits, fitting kit, dyno"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Downpipe / descente de turbo"
+msgstr "Downpipe"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Dump valve / blow-off"
+msgstr "Dump valve / blow-off"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Durites de suralimentation (silicone)"
+msgstr "Boost hoses (silicone)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Débit d'air maxi (lb/min)"
+msgstr "Maximum airflow (lb/min)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "EGT limite / mesurée"
+msgstr "EGT limit / measured"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "EGT maxi admise"
+msgstr "Maximum allowed EGT"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "EGT maxi mesurée (°C)"
+msgstr "Maximum measured EGT (°C)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+#, python-format
+msgid "EGT mesurée (%(t)s °C) au-delà de la limite (%(l)s °C)."
+msgstr "Measured EGT (%(t)s °C) above the limit (%(l)s °C)."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Embrayage renforcé"
+msgstr "Uprated clutch"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Fiches turbo non renseignées."
+msgstr "Turbo data sheets not filled in."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+#, python-format
+msgid "Gain > 30 %% : vérifier %(p)s."
+msgstr "Gain > 30 %%: check %(p)s."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Géométrie fixe – wastegate externe"
+msgstr "Fixed geometry – external wastegate"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Géométrie fixe – wastegate interne"
+msgstr "Fixed geometry – internal wastegate"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Géométrie variable (VNT / VGT)"
+msgstr "Variable geometry (VNT / VGT)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Huile + eau"
+msgstr "Oil + water"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Huile moteur et filtre (après montage)"
+msgstr "Engine oil and filter (after fitting)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Injecteurs (plus gros débit)"
+msgstr "Injectors (higher flow)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Intervention montage turbo plus gros"
+msgstr "Bigger turbo fitting service"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Joints, goujons et visserie"
+msgstr "Gaskets, studs and fasteners"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Kit de montage"
+msgstr "Fitting kit"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "La coupure overboost doit être supérieure à la pression cible."
+msgstr "The overboost cut must be higher than the target pressure."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Lambda mesuré pauvre (> 0,90) en pleine charge : enrichir la cartographie."
+msgstr "Lean measured lambda (> 0.90) at full load: richen the map."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Lambda mesuré pleine charge"
+msgstr "Measured full-load lambda"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Lambda pleine charge pauvre (> 0,90) : risque de surchauffe / détonation."
+msgstr "Lean full-load lambda (> 0.90): risk of overheating / knock."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Lambda visé / mesuré"
+msgstr "Target / measured lambda"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Lambda visé pleine charge"
+msgstr "Target full-load lambda"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Lignes d'huile (arrivée / retour)"
+msgstr "Oil lines (feed / return)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Lignes de refroidissement (eau)"
+msgstr "Coolant lines (water)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Limite EGT réglée (°C)"
+msgstr "Set EGT limit (°C)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Limites"
+msgstr "Limits"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Modification intervention montage turbo plus gros"
+msgstr "Bigger turbo fitting service update"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Montage d'un turbo plus gros"
+msgstr "Fitting a bigger turbo"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Montage turbo plus gros"
+msgstr "Bigger turbo fitting"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Nouveau"
+msgstr "New"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Nouveau turbo : dimensions, capacité et limites"
+msgstr "New turbo: dimensions, capacity and limits"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Paliers"
+msgstr "Bearings"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Paliers lisses (journal bearing)"
+msgstr "Journal bearings"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Pompe à carburant renforcée"
+msgstr "Uprated fuel pump"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+#, python-format
+msgid "Pression cible (%(c)s bar) supérieure à la pression maxi du turbo (%(m)s bar)."
+msgstr "Target pressure (%(c)s bar) above the turbo's maximum pressure (%(m)s bar)."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Pression cible / overboost"
+msgstr "Target pressure / overboost"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Pression de suralimentation cible (bar)"
+msgstr "Target boost pressure (bar)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Pression de suralimentation maxi (bar)"
+msgstr "Maximum boost pressure (bar)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Pression maxi mesurée"
+msgstr "Maximum measured pressure"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Pression maxi mesurée (bar)"
+msgstr "Maximum measured pressure (bar)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+#, python-format
+msgid "Pression mesurée (%(p)s bar) au-delà de la pression maxi du turbo (%(m)s bar)."
+msgstr "Measured pressure (%(p)s bar) above the turbo's maximum pressure (%(m)s bar)."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+#, python-format
+msgid "Pression mesurée (%(p)s bar) ≥ coupure overboost (%(o)s bar)."
+msgstr "Measured pressure (%(p)s bar) ≥ overboost cut (%(o)s bar)."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Préparateur / cartographie"
+msgstr "Tuner / map"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Puissance après (ch)"
+msgstr "Power after (hp)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Puissance avant (ch)"
+msgstr "Power before (hp)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Puissance avant → après"
+msgstr "Power before → after"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Puissance maxi supportée (ch)"
+msgstr "Maximum supported power (hp)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+#, python-format
+msgid "Puissance obtenue au-delà de la capacité du turbo (%(u)s %%)."
+msgstr "Power achieved beyond the turbo's capacity (%(u)s %%)."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Reprogrammation / cartographie"
+msgstr "Remapping / map"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Roulements à billes (ball bearing)"
+msgstr "Ball bearings"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Rupteur moteur (tr/min)"
+msgstr "Engine rev limiter (rpm)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Référence / modèle"
+msgstr "Reference / model"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Régime maxi de l'arbre"
+msgstr "Maximum shaft speed"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Régime maxi de l'arbre (tr/min)"
+msgstr "Maximum shaft speed (rpm)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Réglages et limites appliqués"
+msgstr "Settings and limits applied"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Réglages et résultats"
+msgstr "Settings and results"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Résultats (banc / essais)"
+msgstr "Results (dyno / tests)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Sonde de température d'échappement (EGT)"
+msgstr "Exhaust gas temperature sensor (EGT)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Spécifique constructeur"
+msgstr "Manufacturer-specific"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Suppression de l'intervention montage turbo plus gros"
+msgstr "Bigger turbo fitting service deletion"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Température maxi des gaz admise (°C)"
+msgstr "Maximum allowed gas temperature (°C)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Trim compresseur"
+msgstr "Compressor trim"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Turbine – exducer (mm)"
+msgstr "Turbine – exducer (mm)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Turbine – inducer (mm)"
+msgstr "Turbine – inducer (mm)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Turbo (nouveau, plus gros)"
+msgstr "Turbo (new, bigger)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+#, python-format
+msgid "Turbo utilisé à %(u)s %% de sa capacité : marge de sécurité faible."
+msgstr "Turbo used at %(u)s %% of its capacity: low safety margin."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Turbo à assistance électrique"
+msgstr "Electrically assisted turbo"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Twin-scroll"
+msgstr "Twin-scroll"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Type de paliers"
+msgstr "Bearing type"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Type de turbo"
+msgstr "Turbo type"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Wastegate externe"
+msgstr "External wastegate"

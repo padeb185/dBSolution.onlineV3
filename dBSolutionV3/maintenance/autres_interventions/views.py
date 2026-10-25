@@ -33,6 +33,7 @@ from maintenance.autres_interventions.moteur.culasse.models import Culasse
 from maintenance.autres_interventions.moteur.bas_moteur.models import BasMoteur
 from maintenance.autres_interventions.moteur.metrologie_moteur.models import MetrologieMoteur
 from maintenance.autres_interventions.moteur.casse_moteur.models import CasseMoteur
+from maintenance.autres_interventions.moteur.montage_turbo.models import MontageTurbo
 from maintenance.autres_interventions.boite_de_vitesse.casse_boite.models import CasseBoite
 from maintenance.autres_interventions.moteur.bougies.composants import total_bougies
 from maintenance.autres_interventions.moteur.electronique_moteur.models import ElectroniqueMoteur
@@ -308,6 +309,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
                     + electronique.count()
                     + lubrification.count()
                     + turbo.count()
+                    + MontageTurbo.objects.filter(voiture_exemplaire=exemplaire).count()
                     + remplacement_moteur.count()
                     + allumage.count()
             )
@@ -333,6 +335,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
                 + electronique.count()
                 + lubrification.count()
                 + turbo.count()
+                + MontageTurbo.objects.filter(voiture_exemplaire=exemplaire).count()
                 + remplacement_moteur.count()
                 + allumage.count()
 

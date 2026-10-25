@@ -29,6 +29,7 @@ class Maintenance(models.Model):
         BOITE_AUTO = "BOITE_AUTO", _("Boite automatique")
         ADMISSION = "ADMISSION", _("Admission")
         TURBO = "TURBO", _("Turbo")
+        MONTAGE_TURBO = "MONTAGE_TURBO", _("Montage d'un turbo plus gros")
         CARROSSERIE_INTERNE = "CARROSSERIE_INTERNE", _("Carrosserie interne")
         REMPLACEMENT_MOTEUR = "REMPLACEMENT_MOTEUR", _("Remplacement moteur")
         COURROIE_DISTRI = "COURROIE_DISTRI", _("Courroie de distribution")

@@ -1,0 +1,859 @@
+{% load i18n static format_numbers %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    </style>
+</head>
+<body>
+{% if montage_turbo.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ montage_turbo.tech_societe.nom }}
+            </div>
+
+            {% if montage_turbo.tech_societe.adresse %}
+                <div>
+                    {{ montage_turbo.tech_societe.adresse.rue }}
+                    {{ montage_turbo.tech_societe.adresse.numero }}
+                    {% if montage_turbo.tech_societe.adresse.boite %}
+                        / {{ montage_turbo.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ montage_turbo.tech_societe.adresse.code_postal }}
+                    {{ montage_turbo.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if montage_turbo.tech_societe.adresse.pays %}
+                <div>{{ montage_turbo.tech_societe.adresse.pays }}
+                    {{ montage_turbo.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if montage_turbo.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ montage_turbo.tech_societe.numero_tva|format_tva }}
+                </div>
+            {% endif %}
+             {% if montage_turbo.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ montage_turbo.tech_societe.iban|format_iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ montage_turbo.tech_societe.nom }}.png"
+                alt="{{ montage_turbo.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+<h1>{% trans "Montage turbo plus gros" %}</h1>
+
+<!-- ================= INFOS ================= -->
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ montage_turbo.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ montage_turbo.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ montage_turbo.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ montage_turbo.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage véhicule" %} :</span>
+            {{ montage_turbo.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage de l'intervention" %} :</span>
+            {{ montage_turbo.kilometrage_montage_turbo }} km
+        </div>
+
+
+
+<!-- ================= TAG ================= -->
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if montage_turbo.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ montage_turbo.get_tag_display }}
+                </span>
+
+            {% elif montage_turbo.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ montage_turbo.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ montage_turbo.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<h2>{% trans "Ancien / nouveau turbo" %}</h2>
+{% with c=montage_turbo.comparatif %}{% if c %}
+<table class="table-2-cols">
+    <thead><tr><th>{% trans "Caractéristique" %}</th><th>{% trans "Ancien" %}</th><th>{% trans "Nouveau" %}</th><th>{% trans "Écart" %}</th></tr></thead>
+    <tbody>{% for l in c %}<tr><td>{{ l.label }}</td><td>{{ l.ancien|default:"-" }}</td><td><strong>{{ l.nouveau|default:"-" }}</strong></td><td>{% if l.ecart is not None %}{% if l.ecart > 0 %}+{% endif %}{{ l.ecart }} %{% else %}-{% endif %}</td></tr>{% endfor %}</tbody>
+</table>
+{% else %}<p>{% trans "Fiches turbo non renseignées." %}</p>{% endif %}{% endwith %}
+<p style="font-size:10px">
+    {% if montage_turbo.nv_palier %}{% trans "Paliers" %} : {{ montage_turbo.get_nv_palier_display }} – {% endif %}
+    {% if montage_turbo.nv_refroidissement %}{% trans "Refroidissement" %} : {{ montage_turbo.get_nv_refroidissement_display }} – {% endif %}
+    {% if montage_turbo.nv_bride_turbine %}{% trans "Bride d'entrée turbine" %} : {{ montage_turbo.get_nv_bride_turbine_display }} – {% endif %}
+    {% if montage_turbo.nv_regime_max_trmin %}{% trans "Régime maxi de l'arbre" %} : {{ montage_turbo.nv_regime_max_trmin }} tr/min – {% endif %}
+    {% if montage_turbo.nv_egt_max_c %}{% trans "EGT maxi admise" %} : {{ montage_turbo.nv_egt_max_c }} °C{% endif %}
+</p>
+
+<h2>{% trans "Réglages et résultats" %}</h2>
+<table class="table-2-cols"><tbody>
+    <tr><td>{% trans "Pression cible / overboost" %}</td><td>{{ montage_turbo.reg_pression_cible_bar|default:"-" }} / {{ montage_turbo.reg_overboost_bar|default:"-" }} bar</td></tr>
+    <tr><td>{% trans "Pression maxi mesurée" %}</td><td>{{ montage_turbo.res_pression_mesuree_bar|default:"-" }} bar</td></tr>
+    <tr><td>{% trans "EGT limite / mesurée" %}</td><td>{{ montage_turbo.reg_egt_max_c|default:"-" }} / {{ montage_turbo.res_egt_mesuree_c|default:"-" }} °C</td></tr>
+    <tr><td>{% trans "Lambda visé / mesuré" %}</td><td>{{ montage_turbo.reg_lambda_pleine_charge|default:"-" }} / {{ montage_turbo.res_lambda_mesure|default:"-" }}</td></tr>
+    <tr><td>{% trans "Puissance avant → après" %}</td><td>{{ montage_turbo.res_puissance_avant_ch|default:"-" }} → {{ montage_turbo.res_puissance_apres_ch|default:"-" }} ch{% if montage_turbo.gain_puissance is not None %} (+{{ montage_turbo.gain_puissance }} ch, {{ montage_turbo.gain_puissance_pct }} %){% endif %}</td></tr>
+    <tr><td>{% trans "Couple avant → après" %}</td><td>{{ montage_turbo.res_couple_avant_nm|default:"-" }} → {{ montage_turbo.res_couple_apres_nm|default:"-" }} Nm</td></tr>
+    {% if montage_turbo.utilisation_capacite_pct is not None %}<tr><td>{% trans "Capacité du turbo utilisée" %}</td><td>{{ montage_turbo.utilisation_capacite_pct }} %</td></tr>{% endif %}
+    {% if montage_turbo.reg_preparateur %}<tr><td>{% trans "Préparateur / cartographie" %}</td><td>{{ montage_turbo.reg_preparateur }}</td></tr>{% endif %}
+</tbody></table>
+
+<h2>{% trans "Limites" %}</h2>
+{% with a=montage_turbo.alertes_limites %}{% if a %}<ul>{% for x in a %}<li><span class="not-ok">{{ x }}</span></li>{% endfor %}</ul>
+{% else %}<p><span class="ok">{% trans "Aucun dépassement de limite détecté avec les valeurs renseignées." %}</span></p>{% endif %}{% endwith %}
+
+<!-- ================= MONTAGE D'UN TURBO PLUS GROS ================= -->
+<h2>{% trans "Kit de montage" %}</h2>
+
+<div>
+
+    <table class="table-2-cols">
+
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% if montage_turbo.turbo_neuf != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Turbo (nouveau, plus gros)" %}</td>
+                <td>
+                    {% if montage_turbo.turbo_neuf == "OK" %}<span class="ok">{{ montage_turbo.get_turbo_neuf_display }}</span>
+                    {% elif montage_turbo.turbo_neuf == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_turbo_neuf_display }}</span>
+                    {% elif montage_turbo.turbo_neuf == "REMPLACE" or montage_turbo.turbo_neuf == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_turbo_neuf_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_turbo_neuf_display }}</span>{% endif %}
+                    {% if montage_turbo.turbo_neuf_fabricant and montage_turbo.turbo_neuf_fabricant != "CHOISIR" %} — {{ montage_turbo.get_turbo_neuf_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if montage_turbo.collecteur_turbo != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Collecteur d'échappement / adaptateur" %}</td>
+                <td>
+                    {% if montage_turbo.collecteur_turbo == "OK" %}<span class="ok">{{ montage_turbo.get_collecteur_turbo_display }}</span>
+                    {% elif montage_turbo.collecteur_turbo == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_collecteur_turbo_display }}</span>
+                    {% elif montage_turbo.collecteur_turbo == "REMPLACE" or montage_turbo.collecteur_turbo == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_collecteur_turbo_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_collecteur_turbo_display }}</span>{% endif %}
+                    {% if montage_turbo.collecteur_turbo_fabricant and montage_turbo.collecteur_turbo_fabricant != "CHOISIR" %} — {{ montage_turbo.get_collecteur_turbo_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if montage_turbo.downpipe != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Downpipe / descente de turbo" %}</td>
+                <td>
+                    {% if montage_turbo.downpipe == "OK" %}<span class="ok">{{ montage_turbo.get_downpipe_display }}</span>
+                    {% elif montage_turbo.downpipe == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_downpipe_display }}</span>
+                    {% elif montage_turbo.downpipe == "REMPLACE" or montage_turbo.downpipe == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_downpipe_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_downpipe_display }}</span>{% endif %}
+                    {% if montage_turbo.downpipe_fabricant and montage_turbo.downpipe_fabricant != "CHOISIR" %} — {{ montage_turbo.get_downpipe_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if montage_turbo.wastegate_externe != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Wastegate externe" %}</td>
+                <td>
+                    {% if montage_turbo.wastegate_externe == "OK" %}<span class="ok">{{ montage_turbo.get_wastegate_externe_display }}</span>
+                    {% elif montage_turbo.wastegate_externe == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_wastegate_externe_display }}</span>
+                    {% elif montage_turbo.wastegate_externe == "REMPLACE" or montage_turbo.wastegate_externe == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_wastegate_externe_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_wastegate_externe_display }}</span>{% endif %}
+                    {% if montage_turbo.wastegate_externe_fabricant and montage_turbo.wastegate_externe_fabricant != "CHOISIR" %} — {{ montage_turbo.get_wastegate_externe_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if montage_turbo.dump_valve != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Dump valve / blow-off" %}</td>
+                <td>
+                    {% if montage_turbo.dump_valve == "OK" %}<span class="ok">{{ montage_turbo.get_dump_valve_display }}</span>
+                    {% elif montage_turbo.dump_valve == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_dump_valve_display }}</span>
+                    {% elif montage_turbo.dump_valve == "REMPLACE" or montage_turbo.dump_valve == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_dump_valve_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_dump_valve_display }}</span>{% endif %}
+                    {% if montage_turbo.dump_valve_fabricant and montage_turbo.dump_valve_fabricant != "CHOISIR" %} — {{ montage_turbo.get_dump_valve_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if montage_turbo.intercooler_upgrade != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Intercooler" %}</td>
+                <td>
+                    {% if montage_turbo.intercooler_upgrade == "OK" %}<span class="ok">{{ montage_turbo.get_intercooler_upgrade_display }}</span>
+                    {% elif montage_turbo.intercooler_upgrade == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_intercooler_upgrade_display }}</span>
+                    {% elif montage_turbo.intercooler_upgrade == "REMPLACE" or montage_turbo.intercooler_upgrade == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_intercooler_upgrade_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_intercooler_upgrade_display }}</span>{% endif %}
+                    {% if montage_turbo.intercooler_upgrade_fabricant and montage_turbo.intercooler_upgrade_fabricant != "CHOISIR" %} — {{ montage_turbo.get_intercooler_upgrade_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if montage_turbo.durites_suralim != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Durites de suralimentation (silicone)" %}</td>
+                <td>
+                    {% if montage_turbo.durites_suralim == "OK" %}<span class="ok">{{ montage_turbo.get_durites_suralim_display }}</span>
+                    {% elif montage_turbo.durites_suralim == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_durites_suralim_display }}</span>
+                    {% elif montage_turbo.durites_suralim == "REMPLACE" or montage_turbo.durites_suralim == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_durites_suralim_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_durites_suralim_display }}</span>{% endif %}
+                    {% if montage_turbo.durites_suralim_fabricant and montage_turbo.durites_suralim_fabricant != "CHOISIR" %} — {{ montage_turbo.get_durites_suralim_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if montage_turbo.lignes_huile_turbo != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Lignes d'huile (arrivée / retour)" %}</td>
+                <td>
+                    {% if montage_turbo.lignes_huile_turbo == "OK" %}<span class="ok">{{ montage_turbo.get_lignes_huile_turbo_display }}</span>
+                    {% elif montage_turbo.lignes_huile_turbo == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_lignes_huile_turbo_display }}</span>
+                    {% elif montage_turbo.lignes_huile_turbo == "REMPLACE" or montage_turbo.lignes_huile_turbo == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_lignes_huile_turbo_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_lignes_huile_turbo_display }}</span>{% endif %}
+                    {% if montage_turbo.lignes_huile_turbo_fabricant and montage_turbo.lignes_huile_turbo_fabricant != "CHOISIR" %} — {{ montage_turbo.get_lignes_huile_turbo_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if montage_turbo.lignes_eau_turbo != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Lignes de refroidissement (eau)" %}</td>
+                <td>
+                    {% if montage_turbo.lignes_eau_turbo == "OK" %}<span class="ok">{{ montage_turbo.get_lignes_eau_turbo_display }}</span>
+                    {% elif montage_turbo.lignes_eau_turbo == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_lignes_eau_turbo_display }}</span>
+                    {% elif montage_turbo.lignes_eau_turbo == "REMPLACE" or montage_turbo.lignes_eau_turbo == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_lignes_eau_turbo_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_lignes_eau_turbo_display }}</span>{% endif %}
+                    {% if montage_turbo.lignes_eau_turbo_fabricant and montage_turbo.lignes_eau_turbo_fabricant != "CHOISIR" %} — {{ montage_turbo.get_lignes_eau_turbo_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if montage_turbo.joints_goujons != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Joints, goujons et visserie" %}</td>
+                <td>
+                    {% if montage_turbo.joints_goujons == "OK" %}<span class="ok">{{ montage_turbo.get_joints_goujons_display }}</span>
+                    {% elif montage_turbo.joints_goujons == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_joints_goujons_display }}</span>
+                    {% elif montage_turbo.joints_goujons == "REMPLACE" or montage_turbo.joints_goujons == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_joints_goujons_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_joints_goujons_display }}</span>{% endif %}
+                    {% if montage_turbo.joints_goujons_fabricant and montage_turbo.joints_goujons_fabricant != "CHOISIR" %} — {{ montage_turbo.get_joints_goujons_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if montage_turbo.injecteurs_upgrade != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Injecteurs (plus gros débit)" %}</td>
+                <td>
+                    {% if montage_turbo.injecteurs_upgrade == "OK" %}<span class="ok">{{ montage_turbo.get_injecteurs_upgrade_display }}</span>
+                    {% elif montage_turbo.injecteurs_upgrade == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_injecteurs_upgrade_display }}</span>
+                    {% elif montage_turbo.injecteurs_upgrade == "REMPLACE" or montage_turbo.injecteurs_upgrade == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_injecteurs_upgrade_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_injecteurs_upgrade_display }}</span>{% endif %}
+                    {% if montage_turbo.injecteurs_upgrade_fabricant and montage_turbo.injecteurs_upgrade_fabricant != "CHOISIR" %} — {{ montage_turbo.get_injecteurs_upgrade_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if montage_turbo.pompe_carburant_upgrade != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Pompe à carburant renforcée" %}</td>
+                <td>
+                    {% if montage_turbo.pompe_carburant_upgrade == "OK" %}<span class="ok">{{ montage_turbo.get_pompe_carburant_upgrade_display }}</span>
+                    {% elif montage_turbo.pompe_carburant_upgrade == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_pompe_carburant_upgrade_display }}</span>
+                    {% elif montage_turbo.pompe_carburant_upgrade == "REMPLACE" or montage_turbo.pompe_carburant_upgrade == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_pompe_carburant_upgrade_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_pompe_carburant_upgrade_display }}</span>{% endif %}
+                    {% if montage_turbo.pompe_carburant_upgrade_fabricant and montage_turbo.pompe_carburant_upgrade_fabricant != "CHOISIR" %} — {{ montage_turbo.get_pompe_carburant_upgrade_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if montage_turbo.capteur_map != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Capteur de pression de suralimentation (MAP)" %}</td>
+                <td>
+                    {% if montage_turbo.capteur_map == "OK" %}<span class="ok">{{ montage_turbo.get_capteur_map_display }}</span>
+                    {% elif montage_turbo.capteur_map == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_capteur_map_display }}</span>
+                    {% elif montage_turbo.capteur_map == "REMPLACE" or montage_turbo.capteur_map == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_capteur_map_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_capteur_map_display }}</span>{% endif %}
+                    {% if montage_turbo.capteur_map_fabricant and montage_turbo.capteur_map_fabricant != "CHOISIR" %} — {{ montage_turbo.get_capteur_map_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if montage_turbo.sonde_egt != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Sonde de température d'échappement (EGT)" %}</td>
+                <td>
+                    {% if montage_turbo.sonde_egt == "OK" %}<span class="ok">{{ montage_turbo.get_sonde_egt_display }}</span>
+                    {% elif montage_turbo.sonde_egt == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_sonde_egt_display }}</span>
+                    {% elif montage_turbo.sonde_egt == "REMPLACE" or montage_turbo.sonde_egt == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_sonde_egt_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_sonde_egt_display }}</span>{% endif %}
+                    {% if montage_turbo.sonde_egt_fabricant and montage_turbo.sonde_egt_fabricant != "CHOISIR" %} — {{ montage_turbo.get_sonde_egt_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if montage_turbo.sonde_lambda_lb != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Sonde lambda large bande" %}</td>
+                <td>
+                    {% if montage_turbo.sonde_lambda_lb == "OK" %}<span class="ok">{{ montage_turbo.get_sonde_lambda_lb_display }}</span>
+                    {% elif montage_turbo.sonde_lambda_lb == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_sonde_lambda_lb_display }}</span>
+                    {% elif montage_turbo.sonde_lambda_lb == "REMPLACE" or montage_turbo.sonde_lambda_lb == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_sonde_lambda_lb_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_sonde_lambda_lb_display }}</span>{% endif %}
+                    {% if montage_turbo.sonde_lambda_lb_fabricant and montage_turbo.sonde_lambda_lb_fabricant != "CHOISIR" %} — {{ montage_turbo.get_sonde_lambda_lb_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if montage_turbo.embrayage_renforce != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Embrayage renforcé" %}</td>
+                <td>
+                    {% if montage_turbo.embrayage_renforce == "OK" %}<span class="ok">{{ montage_turbo.get_embrayage_renforce_display }}</span>
+                    {% elif montage_turbo.embrayage_renforce == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_embrayage_renforce_display }}</span>
+                    {% elif montage_turbo.embrayage_renforce == "REMPLACE" or montage_turbo.embrayage_renforce == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_embrayage_renforce_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_embrayage_renforce_display }}</span>{% endif %}
+                    {% if montage_turbo.embrayage_renforce_fabricant and montage_turbo.embrayage_renforce_fabricant != "CHOISIR" %} — {{ montage_turbo.get_embrayage_renforce_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if montage_turbo.huile_filtre_turbo != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Huile moteur et filtre (après montage)" %}</td>
+                <td>
+                    {% if montage_turbo.huile_filtre_turbo == "OK" %}<span class="ok">{{ montage_turbo.get_huile_filtre_turbo_display }}</span>
+                    {% elif montage_turbo.huile_filtre_turbo == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_huile_filtre_turbo_display }}</span>
+                    {% elif montage_turbo.huile_filtre_turbo == "REMPLACE" or montage_turbo.huile_filtre_turbo == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_huile_filtre_turbo_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_huile_filtre_turbo_display }}</span>{% endif %}
+                    {% if montage_turbo.huile_filtre_turbo_fabricant and montage_turbo.huile_filtre_turbo_fabricant != "CHOISIR" %} — {{ montage_turbo.get_huile_filtre_turbo_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if montage_turbo.reprogrammation != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Reprogrammation / cartographie" %}</td>
+                <td>
+                    {% if montage_turbo.reprogrammation == "OK" %}<span class="ok">{{ montage_turbo.get_reprogrammation_display }}</span>
+                    {% elif montage_turbo.reprogrammation == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_reprogrammation_display }}</span>
+                    {% elif montage_turbo.reprogrammation == "REMPLACE" or montage_turbo.reprogrammation == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_reprogrammation_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_reprogrammation_display }}</span>{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if montage_turbo.passage_banc != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Passage au banc de puissance" %}</td>
+                <td>
+                    {% if montage_turbo.passage_banc == "OK" %}<span class="ok">{{ montage_turbo.get_passage_banc_display }}</span>
+                    {% elif montage_turbo.passage_banc == "NOT_OK" %}<span class="not-ok">{{ montage_turbo.get_passage_banc_display }}</span>
+                    {% elif montage_turbo.passage_banc == "REMPLACE" or montage_turbo.passage_banc == "AJOUTER" %}<span class="remplace">{{ montage_turbo.get_passage_banc_display }}</span>
+                    {% else %}<span>{{ montage_turbo.get_passage_banc_display }}</span>{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+
+    </table>
+
+</div>
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ montage_turbo.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if montage_turbo.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire HTVA" %} :</span>
+                {{ montage_turbo.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
+                {{ montage_turbo.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ montage_turbo.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div>
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        <td class="text-right">
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ montage_turbo.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ montage_turbo.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
+
+        <table class="table-2-cols">
+            <tbody>
+
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ montage_turbo.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ montage_turbo.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    {% endif %}
+
+</div>
+
+<br>
+{% include "piece/stock/_pieces_utilisees_pdf.html" with maintenance=montage_turbo.maintenance %}
+<!-- ================= REMARQUES ================= -->
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ montage_turbo.remarques|default:_("Aucune remarque.") }}
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

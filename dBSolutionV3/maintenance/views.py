@@ -51,6 +51,7 @@ from maintenance.autres_interventions.moteur.lubrification.models import Lubrifi
 from maintenance.autres_interventions.batterie.models import Batterie
 from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
 from maintenance.autres_interventions.moteur.turbo.models import Turbo
+from maintenance.autres_interventions.moteur.montage_turbo.models import MontageTurbo
 from maintenance.check_up.models import Checkup
 from maintenance.autres_interventions.echappement.models import Echappement
 from maintenance.autres_interventions.echappement.composants import total_composants_echappement
@@ -275,6 +276,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             + electronique.count()
             + lubrification.count()
             + turbo.count()
+            + MontageTurbo.objects.filter(voiture_exemplaire=exemplaire).count()
             + remplacement_moteur.count()
             + abs_qs.count()
             + Esp.objects.filter(voiture_exemplaire=exemplaire).count()

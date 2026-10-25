@@ -27,6 +27,7 @@ MODELES_INTERVENTIONS_MOTEUR = [
     ("remplacement_moteur", "RemplacementMoteur", "remplacement_moteur:remplacement_moteur_detail", "remplacement_moteur_id"),
     ("rodage", "Rodage", "rodage:rodage_detail", "rodage_id"),
     ("turbo", "Turbo", "turbo:turbo_detail", "turbo_id"),
+    ("montage_turbo", "MontageTurbo", "montage_turbo:montage_turbo_detail", "montage_turbo_id"),
 ]
 
 

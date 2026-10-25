@@ -26,6 +26,7 @@ from maintenance.autres_interventions.moteur.electronique_moteur.models import E
 from maintenance.autres_interventions.moteur.lubrification.models import Lubrification
 from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
 from maintenance.autres_interventions.moteur.turbo.models import Turbo
+from maintenance.autres_interventions.moteur.montage_turbo.models import MontageTurbo
 from maintenance.check_up.models import Checkup
 
 
@@ -110,6 +111,7 @@ def dashboard_moteur_view(request, exemplaire_id):
     total_lubrification = lubrification.count()
     total_remplacement_moteur = moteur_remplacement.count()
     total_turbo = turbo.count()
+    total_montage_turbo = MontageTurbo.objects.filter(voiture_exemplaire=exemplaire).count()
     total_rodage = rodage.count()
     total_allumage = allumage.count()
     total_injection = injection.count()
@@ -117,7 +119,7 @@ def dashboard_moteur_view(request, exemplaire_id):
     from maintenance.autres_interventions.moteur.bougies.composants import total_bougies
     total_bougies_moteur = total_bougies(exemplaire)
 
-    total_int_moteur = total_bougies_moteur + total_admission + total_injection + total_allumage + total_alternateur + total_courroie + total_chaine + total_culasse + total_bas_moteur + total_metrologie + total_casse + total_electronique + total_lubrification + total_remplacement_moteur + total_turbo + total_rodage
+    total_int_moteur = total_bougies_moteur + total_admission + total_injection + total_allumage + total_alternateur + total_courroie + total_chaine + total_culasse + total_bas_moteur + total_metrologie + total_casse + total_electronique + total_lubrification + total_remplacement_moteur + total_turbo + total_montage_turbo + total_rodage
 
 
     # --- POST ---
@@ -161,6 +163,7 @@ def dashboard_moteur_view(request, exemplaire_id):
         "total_lubrification": total_lubrification,
         "total_remplacement_moteur": total_remplacement_moteur,
         "total_turbo": total_turbo,
+        "total_montage_turbo": total_montage_turbo,
         "total_rodage": total_rodage,
         "total_allumage": total_allumage,
         "total_injection": total_injection,

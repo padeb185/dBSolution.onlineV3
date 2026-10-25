@@ -257,6 +257,7 @@ urlpatterns += i18n_patterns(
     path("remplacement_moteur/",include(("maintenance.autres_interventions.moteur.remplacement_moteur.urls", "remplacement_moteur"), namespace="remplacement_moteur")),
 
     path("turbo/",include(("maintenance.autres_interventions.moteur.turbo.urls", "turbo"),namespace="turbo")),
+    path("montage-turbo/", include(("maintenance.autres_interventions.moteur.montage_turbo.urls", "montage_turbo"), namespace="montage_turbo")),
 
     path("remplacement_boite/",include(("maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.urls", "remplacement_boite"),namespace="remplacement_boite")),
     path("casse_boite/", include(("maintenance.autres_interventions.boite_de_vitesse.casse_boite.urls", "casse_boite"), namespace="casse_boite")),

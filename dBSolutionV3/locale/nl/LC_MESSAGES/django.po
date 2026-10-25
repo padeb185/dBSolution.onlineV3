@@ -62325,10 +62325,6 @@ msgid "Casses boîte manuelle"
 msgstr "Defecten handgeschakelde bak"
 
 #: maintenance/autres_interventions/boite_de_vitesse/casse_boite
-msgid "Cette variation est supérieure à 2 000 km. Voulez-vous vraiment enregistrer ce kilométrage ?"
-msgstr "Deze afwijking is groter dan 2.000 km. Wilt u deze kilometerstand echt opslaan?"
-
-#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
 msgid "Choc de couple (départ arraché, launch control, saut de roue)"
 msgstr "Koppelschok (snelle start, launch control, wielhop)"
 
@@ -62851,10 +62847,6 @@ msgid "Ancrages et fixations des harnais"
 msgstr "Verankeringen en bevestigingen van de gordels"
 
 #: maintenance/autres_interventions/securite
-msgid "Arceau, extincteur, baquets, câblage, boîtier, moteur, échappement, démontage, air jack"
-msgstr "Rolkooi, brandblusser, kuipstoelen, bekabeling, ECU, motor, uitlaat, demontage, air jack"
-
-#: maintenance/autres_interventions/securite
 msgid "Boucles et enrouleurs de ceinture"
 msgstr "Gordelsloten en -oprolmechanismen"
 
@@ -62907,10 +62899,6 @@ msgid "Intervention sécurité"
 msgstr "Interventie veiligheid"
 
 #: maintenance/autres_interventions/securite
-msgid "Le kilométrage ne peut pas être inférieur au kilométrage actuel du véhicule."
-msgstr "De kilometerstand mag niet lager zijn dan de huidige kilometerstand van het voertuig."
-
-#: maintenance/autres_interventions/securite
 msgid "Modification intervention sécurité"
 msgstr "Wijziging interventie veiligheid"
 
@@ -62931,13 +62919,393 @@ msgid "Validité FIA"
 msgstr "FIA-geldigheid"
 
 #: maintenance/autres_interventions/securite
-msgid "Vous devez confirmer que le serrage des roues est FAIT avant de valider."
-msgstr "U moet bevestigen dat het aanhalen van de wielen GEDAAN is voor u valideert."
-
-#: maintenance/autres_interventions/securite
 msgid "périmé"
 msgstr "verlopen"
 
 #: maintenance/autres_interventions/securite
 msgid "Sécurité (ceintures, airbags, radar)"
 msgstr "Veiligheid (gordels, airbags, radar)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "A/R carter turbine"
+msgstr "A/R turbinehuis"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Ancien"
+msgstr "Oud"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Ancien / nouveau turbo"
+msgstr "Oude / nieuwe turbo"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Ancien turbo (déposé)"
+msgstr "Oude turbo (gedemonteerd)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Aucun dépassement de limite détecté avec les valeurs renseignées."
+msgstr "Geen overschrijding van limieten met de ingevoerde waarden."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Bi-turbo / séquentiel"
+msgstr "Biturbo / sequentieel"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Bride d'entrée turbine"
+msgstr "Inlaatflens turbine"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Capacité du turbo utilisée"
+msgstr "Gebruikte turbocapaciteit"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Capteur de pression de suralimentation (MAP)"
+msgstr "Laaddruksensor (MAP)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Caractéristique"
+msgstr "Kenmerk"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Collecteur d'échappement / adaptateur"
+msgstr "Uitlaatspruitstuk / adapter"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Compresseur – exducer (mm)"
+msgstr "Compressor – exducer (mm)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Compresseur – inducer (mm)"
+msgstr "Compressor – inducer (mm)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Couple après (Nm)"
+msgstr "Koppel na (Nm)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Couple avant (Nm)"
+msgstr "Koppel voor (Nm)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Couple avant → après"
+msgstr "Koppel voor → na"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+#, python-format
+msgid "Coupure overboost (%(c)s bar) au-delà de la pression maxi du turbo (%(m)s bar)."
+msgstr "Overboost-begrenzing (%(c)s bar) boven de maximale turbodruk (%(m)s bar)."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Coupure overboost (bar)"
+msgstr "Overboost-begrenzing (bar)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Dimensions, capacité, limites, kit de montage, banc"
+msgstr "Afmetingen, capaciteit, limieten, montagekit, rollenbank"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Downpipe / descente de turbo"
+msgstr "Downpipe"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Dump valve / blow-off"
+msgstr "Dump valve / blow-off"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Durites de suralimentation (silicone)"
+msgstr "Turbo-slangen (silicone)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Débit d'air maxi (lb/min)"
+msgstr "Maximaal luchtdebiet (lb/min)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "EGT limite / mesurée"
+msgstr "EGT-limiet / gemeten"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "EGT maxi admise"
+msgstr "Maximaal toegelaten EGT"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "EGT maxi mesurée (°C)"
+msgstr "Maximaal gemeten EGT (°C)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+#, python-format
+msgid "EGT mesurée (%(t)s °C) au-delà de la limite (%(l)s °C)."
+msgstr "Gemeten EGT (%(t)s °C) boven de limiet (%(l)s °C)."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Embrayage renforcé"
+msgstr "Versterkte koppeling"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Fiches turbo non renseignées."
+msgstr "Turbofiches niet ingevuld."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+#, python-format
+msgid "Gain > 30 %% : vérifier %(p)s."
+msgstr "Winst > 30 %%: controleer %(p)s."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Géométrie fixe – wastegate externe"
+msgstr "Vaste geometrie – externe wastegate"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Géométrie fixe – wastegate interne"
+msgstr "Vaste geometrie – interne wastegate"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Géométrie variable (VNT / VGT)"
+msgstr "Variabele geometrie (VNT / VGT)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Huile + eau"
+msgstr "Olie + water"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Huile moteur et filtre (après montage)"
+msgstr "Motorolie en filter (na montage)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Injecteurs (plus gros débit)"
+msgstr "Injectoren (groter debiet)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Intervention montage turbo plus gros"
+msgstr "Interventie montage grotere turbo"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Joints, goujons et visserie"
+msgstr "Pakkingen, tapeinden en bevestigingsmateriaal"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Kit de montage"
+msgstr "Montagekit"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "La coupure overboost doit être supérieure à la pression cible."
+msgstr "De overboost-begrenzing moet hoger zijn dan de doeldruk."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Lambda mesuré pauvre (> 0,90) en pleine charge : enrichir la cartographie."
+msgstr "Gemeten lambda arm (> 0,90) bij vollast: kaart rijker afstellen."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Lambda mesuré pleine charge"
+msgstr "Gemeten lambda bij vollast"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Lambda pleine charge pauvre (> 0,90) : risque de surchauffe / détonation."
+msgstr "Arme lambda bij vollast (> 0,90): risico op oververhitting / pingelen."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Lambda visé / mesuré"
+msgstr "Doel- / gemeten lambda"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Lambda visé pleine charge"
+msgstr "Doellambda bij vollast"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Lignes d'huile (arrivée / retour)"
+msgstr "Olieleidingen (aanvoer / retour)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Lignes de refroidissement (eau)"
+msgstr "Koelleidingen (water)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Limite EGT réglée (°C)"
+msgstr "Ingestelde EGT-limiet (°C)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Limites"
+msgstr "Limieten"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Modification intervention montage turbo plus gros"
+msgstr "Wijziging interventie montage grotere turbo"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Montage d'un turbo plus gros"
+msgstr "Montage van een grotere turbo"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Montage turbo plus gros"
+msgstr "Montage grotere turbo"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Nouveau"
+msgstr "Nieuw"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Nouveau turbo : dimensions, capacité et limites"
+msgstr "Nieuwe turbo: afmetingen, capaciteit en limieten"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Paliers"
+msgstr "Lagers"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Paliers lisses (journal bearing)"
+msgstr "Glijlagers (journal bearing)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Pompe à carburant renforcée"
+msgstr "Versterkte brandstofpomp"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+#, python-format
+msgid "Pression cible (%(c)s bar) supérieure à la pression maxi du turbo (%(m)s bar)."
+msgstr "Doeldruk (%(c)s bar) hoger dan de maximale turbodruk (%(m)s bar)."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Pression cible / overboost"
+msgstr "Doeldruk / overboost"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Pression de suralimentation cible (bar)"
+msgstr "Doellaaddruk (bar)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Pression de suralimentation maxi (bar)"
+msgstr "Maximale laaddruk (bar)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Pression maxi mesurée"
+msgstr "Maximaal gemeten druk"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Pression maxi mesurée (bar)"
+msgstr "Maximaal gemeten druk (bar)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+#, python-format
+msgid "Pression mesurée (%(p)s bar) au-delà de la pression maxi du turbo (%(m)s bar)."
+msgstr "Gemeten druk (%(p)s bar) boven de maximale turbodruk (%(m)s bar)."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+#, python-format
+msgid "Pression mesurée (%(p)s bar) ≥ coupure overboost (%(o)s bar)."
+msgstr "Gemeten druk (%(p)s bar) ≥ overboost-begrenzing (%(o)s bar)."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Préparateur / cartographie"
+msgstr "Tuner / kaart"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Puissance après (ch)"
+msgstr "Vermogen na (pk)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Puissance avant (ch)"
+msgstr "Vermogen voor (pk)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Puissance avant → après"
+msgstr "Vermogen voor → na"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Puissance maxi supportée (ch)"
+msgstr "Maximaal ondersteund vermogen (pk)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+#, python-format
+msgid "Puissance obtenue au-delà de la capacité du turbo (%(u)s %%)."
+msgstr "Behaald vermogen boven de turbocapaciteit (%(u)s %%)."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Reprogrammation / cartographie"
+msgstr "Herprogrammering / kaart"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Roulements à billes (ball bearing)"
+msgstr "Kogellagers (ball bearing)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Rupteur moteur (tr/min)"
+msgstr "Toerentalbegrenzer (tpm)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Référence / modèle"
+msgstr "Referentie / model"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Régime maxi de l'arbre"
+msgstr "Maximaal astoerental"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Régime maxi de l'arbre (tr/min)"
+msgstr "Maximaal astoerental (tpm)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Réglages et limites appliqués"
+msgstr "Toegepaste instellingen en limieten"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Réglages et résultats"
+msgstr "Instellingen en resultaten"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Résultats (banc / essais)"
+msgstr "Resultaten (rollenbank / tests)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Sonde de température d'échappement (EGT)"
+msgstr "Uitlaatgastemperatuursensor (EGT)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Spécifique constructeur"
+msgstr "Fabrikantspecifiek"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Suppression de l'intervention montage turbo plus gros"
+msgstr "Verwijdering interventie montage grotere turbo"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Température maxi des gaz admise (°C)"
+msgstr "Maximaal toegelaten gastemperatuur (°C)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Trim compresseur"
+msgstr "Compressortrim"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Turbine – exducer (mm)"
+msgstr "Turbine – exducer (mm)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Turbine – inducer (mm)"
+msgstr "Turbine – inducer (mm)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Turbo (nouveau, plus gros)"
+msgstr "Turbo (nieuw, groter)"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+#, python-format
+msgid "Turbo utilisé à %(u)s %% de sa capacité : marge de sécurité faible."
+msgstr "Turbo gebruikt op %(u)s %% van zijn capaciteit: kleine veiligheidsmarge."
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Turbo à assistance électrique"
+msgstr "Elektrisch ondersteunde turbo"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Twin-scroll"
+msgstr "Twin-scroll"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Type de paliers"
+msgstr "Type lagers"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Type de turbo"
+msgstr "Type turbo"
+
+#: maintenance/autres_interventions/moteur/montage_turbo
+msgid "Wastegate externe"
+msgstr "Externe wastegate"

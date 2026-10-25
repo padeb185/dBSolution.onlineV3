@@ -407,6 +407,34 @@
         </a>
 
         <!-- ================================================== -->
+        <!-- MONTAGE D'UN TURBO PLUS GROS -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'montage_turbo:montage_turbo_list' exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Montage turbo plus gros" %}
+                </h2>
+                <p class="text-xs text-gray-500 mb-1">{% trans "Dimensions, capacité, limites, kit de montage, banc" %}</p>
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_montage_turbo|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/montage_turbo.png' %}"
+                alt="{% trans 'Montage turbo plus gros' %}"
+                class="h-[60px] w-[60px]"
+            >
+        </a>
+
+        <!-- ================================================== -->
         <!-- RODAGE -->
         <!-- ================================================== -->
 

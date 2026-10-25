@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Montage turbo plus gros" %}{% endblock %}
+
+{% block content %}
+    {% url 'montage_turbo:modifier_montage_turbo' montage_turbo.pk as url_modifier %}
+    {% url 'montage_turbo:montage_turbo_detail_pdf' montage_turbo.pk as url_pdf %}
+    {% url 'montage_turbo:delete_montage_turbo' montage_turbo.pk as url_delete %}
+    {% if exemplaire %}{% url 'montage_turbo:montage_turbo_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Montage turbo plus gros" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=montage_turbo km_controle=montage_turbo.kilometrage_montage_turbo icone="montage_turbo.png" extra_template="montage_turbo/_fiche_turbo.html" %}
+{% endblock %}

@@ -1,0 +1,55 @@
+{% load i18n %}{% with m=obj %}
+<!-- Comparatif ancien / nouveau turbo -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Ancien / nouveau turbo" %}</h2>
+    {% with c=m.comparatif %}{% if c %}
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead><tr class="bg-gray-100">
+            <th class="border px-2 py-1 text-left">{% trans "Caractéristique" %}</th>
+            <th class="border px-2 py-1 text-right">{% trans "Ancien" %}</th>
+            <th class="border px-2 py-1 text-right">{% trans "Nouveau" %}</th>
+            <th class="border px-2 py-1 text-right">{% trans "Écart" %}</th>
+        </tr></thead>
+        <tbody>{% for l in c %}
+            <tr>
+                <td class="border px-2 py-1">{{ l.label }}</td>
+                <td class="border px-2 py-1 text-right">{{ l.ancien|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-semibold">{{ l.nouveau|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right {% if l.ecart and l.ecart > 0 %}text-green-700{% elif l.ecart and l.ecart < 0 %}text-red-700{% endif %}">{% if l.ecart is not None %}{% if l.ecart > 0 %}+{% endif %}{{ l.ecart }} %{% else %}—{% endif %}</td>
+            </tr>{% endfor %}
+        </tbody>
+    </table>
+    {% else %}<p class="text-gray-500">{% trans "Fiches turbo non renseignées." %}</p>{% endif %}{% endwith %}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm mt-4">
+        {% if m.nv_palier %}<p><strong>{% trans "Paliers" %} :</strong> {{ m.get_nv_palier_display }}</p>{% endif %}
+        {% if m.nv_refroidissement %}<p><strong>{% trans "Refroidissement" %} :</strong> {{ m.get_nv_refroidissement_display }}</p>{% endif %}
+        {% if m.nv_bride_turbine %}<p><strong>{% trans "Bride d'entrée turbine" %} :</strong> {{ m.get_nv_bride_turbine_display }}</p>{% endif %}
+        {% if m.nv_regime_max_trmin %}<p><strong>{% trans "Régime maxi de l'arbre" %} :</strong> {{ m.nv_regime_max_trmin }} tr/min</p>{% endif %}
+        {% if m.nv_egt_max_c %}<p><strong>{% trans "EGT maxi admise" %} :</strong> {{ m.nv_egt_max_c }} °C</p>{% endif %}
+    </div>
+</div>
+
+<!-- Réglages, résultats et limites -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Réglages et résultats" %}</h2>
+        <table class="min-w-full text-sm">
+            <tr><td class="py-1">{% trans "Pression cible / overboost" %}</td><td class="py-1 text-right">{{ m.reg_pression_cible_bar|default:"—" }} / {{ m.reg_overboost_bar|default:"—" }} bar</td></tr>
+            <tr><td class="py-1">{% trans "Pression maxi mesurée" %}</td><td class="py-1 text-right">{{ m.res_pression_mesuree_bar|default:"—" }} bar</td></tr>
+            <tr><td class="py-1">{% trans "EGT limite / mesurée" %}</td><td class="py-1 text-right">{{ m.reg_egt_max_c|default:"—" }} / {{ m.res_egt_mesuree_c|default:"—" }} °C</td></tr>
+            <tr><td class="py-1">{% trans "Lambda visé / mesuré" %}</td><td class="py-1 text-right">{{ m.reg_lambda_pleine_charge|default:"—" }} / {{ m.res_lambda_mesure|default:"—" }}</td></tr>
+            <tr><td class="py-1">{% trans "Puissance avant → après" %}</td><td class="py-1 text-right">{{ m.res_puissance_avant_ch|default:"—" }} → <strong>{{ m.res_puissance_apres_ch|default:"—" }}</strong> ch{% if m.gain_puissance is not None %} <span class="text-green-700">(+{{ m.gain_puissance }} ch, {{ m.gain_puissance_pct }} %)</span>{% endif %}</td></tr>
+            <tr><td class="py-1">{% trans "Couple avant → après" %}</td><td class="py-1 text-right">{{ m.res_couple_avant_nm|default:"—" }} → <strong>{{ m.res_couple_apres_nm|default:"—" }}</strong> Nm{% if m.gain_couple is not None %} <span class="text-green-700">(+{{ m.gain_couple }} Nm)</span>{% endif %}</td></tr>
+            {% if m.utilisation_capacite_pct is not None %}<tr><td class="py-1">{% trans "Capacité du turbo utilisée" %}</td><td class="py-1 text-right font-semibold">{{ m.utilisation_capacite_pct }} %</td></tr>{% endif %}
+            {% if m.reg_preparateur %}<tr><td class="py-1">{% trans "Préparateur / cartographie" %}</td><td class="py-1 text-right">{{ m.reg_preparateur }}</td></tr>{% endif %}
+        </table>
+    </div>
+    {% with a=m.alertes_limites %}
+    <div class="{% if a %}bg-red-50 border border-red-300{% else %}bg-green-50 border border-green-300{% endif %} shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Limites" %}</h2>
+        {% if a %}<ul class="list-disc ml-6 text-sm text-red-800">{% for x in a %}<li>{{ x }}</li>{% endfor %}</ul>
+        {% else %}<p class="text-green-800 text-sm">{% trans "Aucun dépassement de limite détecté avec les valeurs renseignées." %}</p>{% endif %}
+    </div>
+    {% endwith %}
+</div>
+{% endwith %}

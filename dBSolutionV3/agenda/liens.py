@@ -26,6 +26,7 @@ URLS_MAINTENANCE = {
     "BOITE_AUTO": ["bte_vitesse_auto:bte_auto_check", "bte_auto:bte_auto_check", "bte_auto:dashboard_bte_auto"],
     "ADMISSION": ["admission:admission_check"],
     "TURBO": ["turbo:turbo_check"],
+    "MONTAGE_TURBO": ["montage_turbo:montage_turbo_form", "montage_turbo:montage_turbo_list"],
     "CARROSSERIE_INTERNE": ["carrosserie_interne:carrosserie_interne_create", "carrosserie_interne:carrosserie_interne_list"],
     "REMPLACEMENT_MOTEUR": ["remplacement_moteur:remplacement_moteur_form"],
     "COURROIE_DISTRI": ["courroie:courroie_form"],
