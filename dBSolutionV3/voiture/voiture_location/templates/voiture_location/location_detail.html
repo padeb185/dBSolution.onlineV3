@@ -119,6 +119,13 @@
                 <p>{{ location.deuxieme_pilote_nom }} = <strong>{{ location.total_deuxieme_pilote_tvac|floatformat:2 }} €</strong> {% trans "TVAC" %}</p>
             </div>
             {% endif %}
+            {% if location.carburant_inclus %}
+            <div class="bg-gray-50 border rounded p-3">
+                <p class="font-semibold mb-1">⛽ {% trans "Carburant inclus" %}</p>
+                <p>{% if location.total_carburant_tvac %}{% trans "Forfait" %} = <strong>{{ location.total_carburant_tvac|floatformat:2 }} €</strong> {% trans "TVAC" %}
+                   {% else %}{% trans "Compris dans le prix de la location" %}{% endif %}</p>
+            </div>
+            {% endif %}
             {% if location.km_supplementaires %}
             <div class="bg-orange-50 border border-orange-300 rounded p-3">
                 <p class="font-semibold mb-1">{% trans "Kilomètres supplémentaires" %} :</p>

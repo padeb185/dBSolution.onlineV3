@@ -301,6 +301,15 @@ class Location(models.Model):
         help_text=_("Ajouté au prix de la location (sans remise)."),
     )
 
+    # Option carburant : le client rend le véhicule sans avoir à refaire le plein
+    carburant_inclus = models.BooleanField(default=False, verbose_name=_("Carburant inclus"))
+    prix_carburant = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True,
+        validators=[MinValueValidator(Decimal("0"))],
+        verbose_name=_("Supplément carburant TVAC (€)"),
+        help_text=_("Vide ou 0 : carburant compris dans le prix de la location."),
+    )
+
     # Kilomètres supplémentaires (extra mileage) : au-delà du kilométrage prévu
     # (ou des tours prévus sur circuit), constatés au retour du véhicule
     prix_km_supplementaire = models.DecimalField(
@@ -500,6 +509,25 @@ class Location(models.Model):
             return ""
         return gettext("Deuxième pilote %(nom)s") % {"nom": self.deuxieme_pilote_nom}
 
+    # Carburant inclus : supplément forfaitaire TVAC (sans remise)
+    @property
+    def total_carburant_tvac(self):
+        if not self.carburant_inclus or not self.prix_carburant:
+            return Decimal("0.00")
+        return Decimal(str(self.prix_carburant)).quantize(DEUX_DECIMALES, rounding=ROUND_HALF_UP)
+
+    @property
+    def total_carburant_htva(self):
+        return prix_htva_depuis_tvac(self.total_carburant_tvac, self.taux_tva)
+
+    @property
+    def libelle_carburant(self):
+        if not self.carburant_inclus:
+            return ""
+        if self.total_carburant_tvac:
+            return gettext("Option carburant inclus (forfait)")
+        return gettext("Carburant inclus dans le prix de la location")
+
     # Kilomètres supplémentaires : km × prix par km TVAC
     @property
     def total_km_supplementaires_tvac(self):
@@ -527,7 +555,8 @@ class Location(models.Model):
     @property
     def prix_tvac(self):
         return (self.prix_vehicule_tvac + self.total_boxes_tvac + self.total_instructeur_tvac
-                + self.total_deuxieme_pilote_tvac + self.total_km_supplementaires_tvac).quantize(DEUX_DECIMALES)
+                + self.total_deuxieme_pilote_tvac + self.total_carburant_tvac
+                + self.total_km_supplementaires_tvac).quantize(DEUX_DECIMALES)
 
     @property
     def prix_htva(self):
@@ -717,6 +746,9 @@ class Location(models.Model):
             errors["deuxieme_client"] = _("Le deuxième pilote doit être différent du premier.")
         if not (self.deuxieme_client_id or self.deuxieme_client_pilotage_id):
             self.prix_deuxieme_pilote = None
+        # Supplément carburant uniquement si l'option est cochée
+        if not self.carburant_inclus:
+            self.prix_carburant = None
 
         # Instructeur : heures et prix à l'heure obligatoires
         if self.instructeur_id:

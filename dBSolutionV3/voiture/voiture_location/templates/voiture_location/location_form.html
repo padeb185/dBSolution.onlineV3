@@ -128,6 +128,8 @@
 
         {% include "voiture_location/_instructeur_form.html" %}
 
+        {% include "voiture_location/_carburant_form.html" %}
+
         <br>
 
         {% else %}
@@ -173,6 +175,8 @@
         <br>
 
         {% include "voiture_location/_instructeur_form.html" %}
+
+        {% include "voiture_location/_carburant_form.html" %}
 
         <br>
 
@@ -412,9 +416,17 @@
             corps.appendChild(tr);
             sousTotal += deuxieme;
         }
+        // Carburant inclus : forfait ajouté au total, sans remise
+        const carburant = window.totalCarburant ? window.totalCarburant() : 0;
+        if (carburant) {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td class="border px-3 py-2">{{ _("Carburant inclus")|escapejs }}</td><td class="border px-3 py-2 text-right">${fmt(carburant)}</td>`;
+            corps.appendChild(tr);
+            sousTotal += carburant;
+        }
         const pct = Math.min(Math.max(num(remise && remise.value), 0), 99.99);
         // Même calcul que le serveur : remise arrondie sur chaque véhicule
-        let total = boxes + instructeur + deuxieme;
+        let total = boxes + instructeur + deuxieme + carburant;
         fiches().forEach(f => {
             const prix = f.querySelector("[name='prix'], [name$='-prix']");
             total += r2(num(prix && prix.value) * (100 - pct) / 100);

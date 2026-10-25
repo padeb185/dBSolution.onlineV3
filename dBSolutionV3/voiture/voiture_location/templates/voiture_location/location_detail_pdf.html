@@ -330,7 +330,7 @@
         </thead>
         <tbody>
             {% with boxes=location.boxes_liste %}
-            {% if boxes or location.instructeur_id or location.total_deuxieme_pilote_tvac %}
+            {% if boxes or location.instructeur_id or location.total_deuxieme_pilote_tvac or location.carburant_inclus or location.total_km_supplementaires_tvac %}
             <tr>
                 <td>{{ location.libelle_facture }}</td>
                 <td class="text-right">{{ location.prix_vehicule_htva|floatformat:2 }} €</td>
@@ -351,6 +351,22 @@
                 <td class="text-right">{{ location.total_deuxieme_pilote_htva|floatformat:2 }} €</td>
                 <td class="text-right"></td>
                 <td class="text-right">{{ location.total_deuxieme_pilote_tvac|floatformat:2 }} €</td>
+            </tr>
+            {% endif %}
+            {% if location.carburant_inclus %}
+            <tr>
+                <td>{{ location.libelle_carburant }}</td>
+                <td class="text-right">{{ location.total_carburant_htva|floatformat:2 }} €</td>
+                <td class="text-right"></td>
+                <td class="text-right">{{ location.total_carburant_tvac|floatformat:2 }} €</td>
+            </tr>
+            {% endif %}
+            {% if location.total_km_supplementaires_tvac %}
+            <tr>
+                <td>{{ location.libelle_km_supplementaires }}</td>
+                <td class="text-right">{{ location.total_km_supplementaires_htva|floatformat:2 }} €</td>
+                <td class="text-right"></td>
+                <td class="text-right">{{ location.total_km_supplementaires_tvac|floatformat:2 }} €</td>
             </tr>
             {% endif %}
             {% if location.instructeur_id %}

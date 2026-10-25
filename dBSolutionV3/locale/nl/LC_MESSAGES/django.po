@@ -63526,3 +63526,43 @@ msgstr "Het bestand overschrijdt de maximale grootte van 10 MB."
 #: assurance_police/forms
 msgid "Le fichier n'est pas un PDF valide."
 msgstr "Het bestand is geen geldige PDF."
+
+#: voiture/voiture_location/carburant
+msgid "Carburant inclus"
+msgstr "Brandstof inbegrepen"
+
+#: voiture/voiture_location/carburant
+msgid "Supplément carburant TVAC (€)"
+msgstr "Toeslag brandstof incl. btw (€)"
+
+#: voiture/voiture_location/carburant
+msgid "Vide ou 0 : carburant compris dans le prix de la location."
+msgstr "Leeg of 0: brandstof inbegrepen in de huurprijs."
+
+#: voiture/voiture_location/carburant
+msgid "Option carburant inclus (forfait)"
+msgstr "Optie brandstof inbegrepen (forfait)"
+
+#: voiture/voiture_location/carburant
+msgid "Carburant inclus dans le prix de la location"
+msgstr "Brandstof inbegrepen in de huurprijs"
+
+#: voiture/voiture_location/carburant
+msgid "Coché : le client n'a pas à refaire le plein au retour."
+msgstr "Aangevinkt: de klant hoeft bij terugkeer niet te tanken."
+
+#: voiture/voiture_location/carburant
+msgid "Forfait"
+msgstr "Forfait"
+
+#: voiture/voiture_location/carburant
+msgid "Compris dans le prix de la location"
+msgstr "Inbegrepen in de huurprijs"
+
+#: voiture/voiture_location/carburant
+msgid "Carburant inclus : pas de plein à refaire par le client."
+msgstr "Brandstof inbegrepen: de klant hoeft niet te tanken."
+
+#: voiture/voiture_location/carburant
+msgid "Carburant non inclus : niveau plus bas qu'au départ, le plein est à charge du client."
+msgstr "Brandstof niet inbegrepen: peil lager dan bij vertrek, tanken is ten laste van de klant."

@@ -63198,3 +63198,43 @@ msgstr "The file exceeds the maximum size of 10 MB."
 #: assurance_police/forms
 msgid "Le fichier n'est pas un PDF valide."
 msgstr "The file is not a valid PDF."
+
+#: voiture/voiture_location/carburant
+msgid "Carburant inclus"
+msgstr "Fuel included"
+
+#: voiture/voiture_location/carburant
+msgid "Supplément carburant TVAC (€)"
+msgstr "Fuel supplement incl. VAT (€)"
+
+#: voiture/voiture_location/carburant
+msgid "Vide ou 0 : carburant compris dans le prix de la location."
+msgstr "Empty or 0: fuel included in the rental price."
+
+#: voiture/voiture_location/carburant
+msgid "Option carburant inclus (forfait)"
+msgstr "Fuel included option (flat rate)"
+
+#: voiture/voiture_location/carburant
+msgid "Carburant inclus dans le prix de la location"
+msgstr "Fuel included in the rental price"
+
+#: voiture/voiture_location/carburant
+msgid "Coché : le client n'a pas à refaire le plein au retour."
+msgstr "Ticked: the customer does not have to refuel on return."
+
+#: voiture/voiture_location/carburant
+msgid "Forfait"
+msgstr "Flat rate"
+
+#: voiture/voiture_location/carburant
+msgid "Compris dans le prix de la location"
+msgstr "Included in the rental price"
+
+#: voiture/voiture_location/carburant
+msgid "Carburant inclus : pas de plein à refaire par le client."
+msgstr "Fuel included: the customer does not need to refuel."
+
+#: voiture/voiture_location/carburant
+msgid "Carburant non inclus : niveau plus bas qu'au départ, le plein est à charge du client."
+msgstr "Fuel not included: level lower than at departure, refuelling is charged to the customer."

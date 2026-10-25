@@ -63554,3 +63554,43 @@ msgstr "Το αρχείο υπερβαίνει το μέγιστο μέγεθο�
 #: assurance_police/forms
 msgid "Le fichier n'est pas un PDF valide."
 msgstr "Το αρχείο δεν είναι έγκυρο PDF."
+
+#: voiture/voiture_location/carburant
+msgid "Carburant inclus"
+msgstr "Συμπεριλαμβάνεται καύσιμο"
+
+#: voiture/voiture_location/carburant
+msgid "Supplément carburant TVAC (€)"
+msgstr "Επιβάρυνση καυσίμου με ΦΠΑ (€)"
+
+#: voiture/voiture_location/carburant
+msgid "Vide ou 0 : carburant compris dans le prix de la location."
+msgstr "Κενό ή 0: το καύσιμο περιλαμβάνεται στην τιμή μίσθωσης."
+
+#: voiture/voiture_location/carburant
+msgid "Option carburant inclus (forfait)"
+msgstr "Επιλογή με καύσιμο (κατ' αποκοπή)"
+
+#: voiture/voiture_location/carburant
+msgid "Carburant inclus dans le prix de la location"
+msgstr "Το καύσιμο περιλαμβάνεται στην τιμή μίσθωσης"
+
+#: voiture/voiture_location/carburant
+msgid "Coché : le client n'a pas à refaire le plein au retour."
+msgstr "Επιλεγμένο: ο πελάτης δεν χρειάζεται να γεμίσει ρεζερβουάρ στην επιστροφή."
+
+#: voiture/voiture_location/carburant
+msgid "Forfait"
+msgstr "Κατ' αποκοπή"
+
+#: voiture/voiture_location/carburant
+msgid "Compris dans le prix de la location"
+msgstr "Περιλαμβάνεται στην τιμή μίσθωσης"
+
+#: voiture/voiture_location/carburant
+msgid "Carburant inclus : pas de plein à refaire par le client."
+msgstr "Συμπεριλαμβάνεται καύσιμο: ο πελάτης δεν χρειάζεται να γεμίσει."
+
+#: voiture/voiture_location/carburant
+msgid "Carburant non inclus : niveau plus bas qu'au départ, le plein est à charge du client."
+msgstr "Δεν περιλαμβάνεται καύσιμο: στάθμη χαμηλότερη από την αναχώρηση, το γέμισμα χρεώνεται στον πελάτη."

@@ -63496,3 +63496,43 @@ msgstr "El archivo supera el tamaño máximo de 10 MB."
 #: assurance_police/forms
 msgid "Le fichier n'est pas un PDF valide."
 msgstr "El archivo no es un PDF válido."
+
+#: voiture/voiture_location/carburant
+msgid "Carburant inclus"
+msgstr "Combustible incluido"
+
+#: voiture/voiture_location/carburant
+msgid "Supplément carburant TVAC (€)"
+msgstr "Suplemento combustible IVA incl. (€)"
+
+#: voiture/voiture_location/carburant
+msgid "Vide ou 0 : carburant compris dans le prix de la location."
+msgstr "Vacío o 0: combustible incluido en el precio del alquiler."
+
+#: voiture/voiture_location/carburant
+msgid "Option carburant inclus (forfait)"
+msgstr "Opción combustible incluido (tarifa plana)"
+
+#: voiture/voiture_location/carburant
+msgid "Carburant inclus dans le prix de la location"
+msgstr "Combustible incluido en el precio del alquiler"
+
+#: voiture/voiture_location/carburant
+msgid "Coché : le client n'a pas à refaire le plein au retour."
+msgstr "Marcado: el cliente no tiene que repostar a la devolución."
+
+#: voiture/voiture_location/carburant
+msgid "Forfait"
+msgstr "Tarifa plana"
+
+#: voiture/voiture_location/carburant
+msgid "Compris dans le prix de la location"
+msgstr "Incluido en el precio del alquiler"
+
+#: voiture/voiture_location/carburant
+msgid "Carburant inclus : pas de plein à refaire par le client."
+msgstr "Combustible incluido: el cliente no tiene que repostar."
+
+#: voiture/voiture_location/carburant
+msgid "Carburant non inclus : niveau plus bas qu'au départ, le plein est à charge du client."
+msgstr "Combustible no incluido: nivel más bajo que a la salida, el repostaje corre a cargo del cliente."

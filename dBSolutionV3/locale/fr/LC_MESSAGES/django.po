@@ -62777,3 +62777,43 @@ msgstr "Le fichier dépasse la taille maximale de 10 Mo."
 #: assurance_police/forms
 msgid "Le fichier n'est pas un PDF valide."
 msgstr "Le fichier n'est pas un PDF valide."
+
+#: voiture/voiture_location/carburant
+msgid "Carburant inclus"
+msgstr "Carburant inclus"
+
+#: voiture/voiture_location/carburant
+msgid "Supplément carburant TVAC (€)"
+msgstr "Supplément carburant TVAC (€)"
+
+#: voiture/voiture_location/carburant
+msgid "Vide ou 0 : carburant compris dans le prix de la location."
+msgstr "Vide ou 0 : carburant compris dans le prix de la location."
+
+#: voiture/voiture_location/carburant
+msgid "Option carburant inclus (forfait)"
+msgstr "Option carburant inclus (forfait)"
+
+#: voiture/voiture_location/carburant
+msgid "Carburant inclus dans le prix de la location"
+msgstr "Carburant inclus dans le prix de la location"
+
+#: voiture/voiture_location/carburant
+msgid "Coché : le client n'a pas à refaire le plein au retour."
+msgstr "Coché : le client n'a pas à refaire le plein au retour."
+
+#: voiture/voiture_location/carburant
+msgid "Forfait"
+msgstr "Forfait"
+
+#: voiture/voiture_location/carburant
+msgid "Compris dans le prix de la location"
+msgstr "Compris dans le prix de la location"
+
+#: voiture/voiture_location/carburant
+msgid "Carburant inclus : pas de plein à refaire par le client."
+msgstr "Carburant inclus : pas de plein à refaire par le client."
+
+#: voiture/voiture_location/carburant
+msgid "Carburant non inclus : niveau plus bas qu'au départ, le plein est à charge du client."
+msgstr "Carburant non inclus : niveau plus bas qu'au départ, le plein est à charge du client."

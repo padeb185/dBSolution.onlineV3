@@ -162,6 +162,12 @@
             {% if suivi.niveau_essence_depart %}
             <p class="text-sm text-gray-500 mt-1">{% trans "Au départ" %} : <strong>{{ suivi.get_niveau_essence_depart_display }}</strong></p>
             {% endif %}
+            {% if location.carburant_inclus %}
+            <p class="text-sm font-semibold text-green-700 mt-1">⛽ {% trans "Carburant inclus : pas de plein à refaire par le client." %}</p>
+            {% else %}
+            <p id="alerte-plein" class="hidden text-sm font-semibold text-orange-700 mt-1"
+               data-depart="{{ suivi.niveau_essence_depart }}">⛽ {% trans "Carburant non inclus : niveau plus bas qu'au départ, le plein est à charge du client." %}</p>
+            {% endif %}
         </div>
 
         <!-- Tag -->
@@ -276,9 +282,21 @@
     [avant, apres].forEach(function (el) { if (el) { el.addEventListener("input", majKm); el.addEventListener("input", majKmSup); } });
     document.querySelectorAll('input[name="controle_carrosserie"], input[name="bruit_moteur"]')
         .forEach(function (el) { el.addEventListener("change", majTag); });
+    /* ---------- Carburant non inclus : plein à charge du client ---------- */
+    var alertePlein = document.getElementById("alerte-plein");
+    var ORDRE_ESSENCE = ["RESERVE", "1_4", "1_2", "3_4", "PLEIN"];
+    function majPlein() {
+        if (!alertePlein) return;
+        var depart = ORDRE_ESSENCE.indexOf(alertePlein.dataset.depart),
+            retour = ORDRE_ESSENCE.indexOf(valeur("niveau_essence_retour"));
+        alertePlein.classList.toggle("hidden", !(depart >= 0 && retour >= 0 && retour < depart));
+    }
+    document.querySelectorAll('input[name="niveau_essence_retour"]').forEach(function (el) { el.addEventListener("change", majPlein); });
+
     majKm();
     majKmSup();
     majTag();
+    majPlein();
 })();
 </script>
 {% endif %}

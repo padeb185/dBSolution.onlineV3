@@ -1,0 +1,31 @@
+{% load i18n static %}
+<div class="border rounded-lg p-4 mb-4 bg-gray-50" id="bloc-carburant">
+    <p class="font-semibold mb-2 flex items-center gap-2">
+        <img src="{% static 'icons/pompe-a-carburant.png' %}" alt="" class="w-8 h-8">
+        {% trans "Carburant" %}
+    </p>
+    <label class="inline-flex items-center gap-2 mb-2">
+        {{ form.carburant_inclus }}
+        <span class="font-semibold">{{ form.carburant_inclus.label }}</span>
+    </label>
+    <p class="text-xs text-gray-500 mb-2">{% trans "Coché : le client n'a pas à refaire le plein au retour." %}</p>
+    <div id="bloc-prix-carburant">
+        {% include "voiture_location/_champ.html" with field=form.prix_carburant %}
+    </div>
+</div>
+<script>
+(function () {
+    var coche = document.getElementById('id_carburant_inclus');
+    var prix = document.getElementById('id_prix_carburant');
+    if (!coche || !prix) return;
+    var num = function (v) { var x = parseFloat(String(v || '').replace(',', '.')); return isNaN(x) ? 0 : x; };
+    window.totalCarburant = function () {
+        return coche.checked ? Math.round(num(prix.value) * 100) / 100 : 0;
+    };
+    function maj() {
+        document.getElementById('bloc-prix-carburant').style.display = coche.checked ? '' : 'none';
+    }
+    coche.addEventListener('change', maj);
+    maj();
+})();
+</script>

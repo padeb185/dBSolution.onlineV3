@@ -63548,3 +63548,43 @@ msgstr "Die Datei überschreitet die maximale Größe von 10 MB."
 #: assurance_police/forms
 msgid "Le fichier n'est pas un PDF valide."
 msgstr "Die Datei ist kein gültiges PDF."
+
+#: voiture/voiture_location/carburant
+msgid "Carburant inclus"
+msgstr "Kraftstoff inklusive"
+
+#: voiture/voiture_location/carburant
+msgid "Supplément carburant TVAC (€)"
+msgstr "Kraftstoffzuschlag inkl. MwSt. (€)"
+
+#: voiture/voiture_location/carburant
+msgid "Vide ou 0 : carburant compris dans le prix de la location."
+msgstr "Leer oder 0: Kraftstoff im Mietpreis enthalten."
+
+#: voiture/voiture_location/carburant
+msgid "Option carburant inclus (forfait)"
+msgstr "Option Kraftstoff inklusive (Pauschale)"
+
+#: voiture/voiture_location/carburant
+msgid "Carburant inclus dans le prix de la location"
+msgstr "Kraftstoff im Mietpreis enthalten"
+
+#: voiture/voiture_location/carburant
+msgid "Coché : le client n'a pas à refaire le plein au retour."
+msgstr "Angekreuzt: der Kunde muss bei der Rückgabe nicht volltanken."
+
+#: voiture/voiture_location/carburant
+msgid "Forfait"
+msgstr "Pauschale"
+
+#: voiture/voiture_location/carburant
+msgid "Compris dans le prix de la location"
+msgstr "Im Mietpreis enthalten"
+
+#: voiture/voiture_location/carburant
+msgid "Carburant inclus : pas de plein à refaire par le client."
+msgstr "Kraftstoff inklusive: der Kunde muss nicht volltanken."
+
+#: voiture/voiture_location/carburant
+msgid "Carburant non inclus : niveau plus bas qu'au départ, le plein est à charge du client."
+msgstr "Kraftstoff nicht inklusive: Füllstand niedriger als bei Abfahrt, Tanken geht zu Lasten des Kunden."
