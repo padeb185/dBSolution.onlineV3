@@ -63536,3 +63536,15 @@ msgstr "ausgestellt"
 #: voiture/voiture_location/km_supplementaires
 msgid "Facturer les kilomètres supplémentaires (facture complémentaire)"
 msgstr "Mehrkilometer berechnen (Ergänzungsrechnung)"
+
+#: assurance_police/forms
+msgid "Seuls les fichiers PDF sont acceptés."
+msgstr "Nur PDF-Dateien werden akzeptiert."
+
+#: assurance_police/forms
+msgid "Le fichier dépasse la taille maximale de 10 Mo."
+msgstr "Die Datei überschreitet die maximale Größe von 10 MB."
+
+#: assurance_police/forms
+msgid "Le fichier n'est pas un PDF valide."
+msgstr "Die Datei ist kein gültiges PDF."

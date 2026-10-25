@@ -20,7 +20,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.autres_interventions.preparation_course.sieges_baquets.models import SiegesBaquets
 from maintenance.autres_interventions.preparation_course.sieges_baquets.forms import SiegesBaquetsForm
 from weasyprint import HTML
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -57,7 +57,7 @@ class SiegesBaquetsListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -93,7 +93,7 @@ def pc_sieges_form_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -581,6 +581,7 @@ def pc_sieges_detail_view(request, pc_sieges_id):
 
 
 @login_required
+@atelier_requis
 def modifier_pc_sieges_view(request, pc_sieges_id):
     tenant = request.user.societe
 

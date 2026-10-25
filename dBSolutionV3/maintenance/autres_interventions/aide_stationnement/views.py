@@ -20,7 +20,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.autres_interventions.aide_stationnement.models import AideStationnement
 from maintenance.autres_interventions.aide_stationnement.forms import AideStationnementForm
 from weasyprint import HTML
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -57,7 +57,7 @@ class AideStationnementListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -93,7 +93,7 @@ def aide_stationnement_form_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -611,6 +611,7 @@ def aide_stationnement_detail_view(request, aide_stationnement_id):
 
 
 @login_required
+@atelier_requis
 def modifier_aide_stationnement_view(request, aide_stationnement_id):
     tenant = request.user.societe
 

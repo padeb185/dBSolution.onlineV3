@@ -60,7 +60,7 @@ class BoiteListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -96,7 +96,7 @@ def boite_check_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"

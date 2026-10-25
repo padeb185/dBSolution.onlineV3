@@ -20,7 +20,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.autres_interventions.preparation_course.boitier_competition.models import BoitierCompetition
 from maintenance.autres_interventions.preparation_course.boitier_competition.forms import BoitierCompetitionForm
 from weasyprint import HTML
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -57,7 +57,7 @@ class BoitierCompetitionListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -93,7 +93,7 @@ def pc_boitier_form_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -576,6 +576,7 @@ def pc_boitier_detail_view(request, pc_boitier_id):
 
 
 @login_required
+@atelier_requis
 def modifier_pc_boitier_view(request, pc_boitier_id):
     tenant = request.user.societe
 

@@ -245,6 +245,7 @@ def proprietaire_voiture_form_view(request):
 
 
 
+@login_required
 def total_part_voiture(request, voiture_id):
     total = (
         ProprietaireVoiture.objects

@@ -23,7 +23,7 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from weasyprint import HTML, pdf
 from django.core.exceptions import ValidationError
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 # Icônes des pièces à démonter (dépose / repose)
@@ -81,7 +81,7 @@ class RemplacementBoiteListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -115,7 +115,7 @@ def remplacement_boite_form_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction",
@@ -425,6 +425,7 @@ def remplacement_boite_detail_view(request, remplacement_boite_id):
 
 
 @login_required
+@atelier_requis
 def modifier_remplacement_boite_view(request, remplacement_boite_id):
 
     remplacement_boite = get_object_or_404(

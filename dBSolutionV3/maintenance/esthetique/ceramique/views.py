@@ -20,7 +20,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.esthetique.ceramique.models import Ceramique
 from maintenance.esthetique.ceramique.forms import CeramiqueForm
 from weasyprint import HTML
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -57,7 +57,7 @@ class CeramiqueListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -93,7 +93,7 @@ def ceramique_form_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -576,6 +576,7 @@ def ceramique_detail_view(request, ceramique_id):
 
 
 @login_required
+@atelier_requis
 def modifier_ceramique_view(request, ceramique_id):
     tenant = request.user.societe
 

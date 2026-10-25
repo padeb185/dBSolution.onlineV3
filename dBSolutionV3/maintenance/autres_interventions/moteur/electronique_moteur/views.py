@@ -20,7 +20,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.autres_interventions.moteur.electronique_moteur.models import ElectroniqueMoteur
 from maintenance.autres_interventions.moteur.electronique_moteur.forms import ElectroniqueMoteurForm
 from weasyprint import HTML
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -57,7 +57,7 @@ class ElectroniqueMoteurListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -93,7 +93,7 @@ def electronique_form_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -701,6 +701,7 @@ def electronique_detail_view(request, electronique_id):
 
 
 @login_required
+@atelier_requis
 def modifier_electronique_view(request, electronique_id):
     tenant = request.user.societe
 

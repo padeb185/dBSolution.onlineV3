@@ -22,7 +22,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 from .forms import TurboForm
 from .models import Turbo
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -56,7 +56,7 @@ class TurboListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -91,7 +91,7 @@ def turbo_check_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -512,6 +512,7 @@ def turbo_detail_view(request, turbo_id):
 
 
 @login_required
+@atelier_requis
 def modifier_turbo_view(request, turbo_id):
     tenant = request.user.societe
 

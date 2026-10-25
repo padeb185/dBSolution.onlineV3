@@ -20,7 +20,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.autres_interventions.moteur.bougies.bougies_allumage.models import BougiesAllumage
 from maintenance.autres_interventions.moteur.bougies.bougies_allumage.forms import BougiesAllumageForm
 from weasyprint import HTML
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -57,7 +57,7 @@ class BougiesAllumageListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -93,7 +93,7 @@ def bougies_allumage_form_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -541,6 +541,7 @@ def bougies_allumage_detail_view(request, bougies_allumage_id):
 
 
 @login_required
+@atelier_requis
 def modifier_bougies_allumage_view(request, bougies_allumage_id):
     tenant = request.user.societe
 

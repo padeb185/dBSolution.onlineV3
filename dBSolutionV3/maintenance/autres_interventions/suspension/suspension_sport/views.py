@@ -20,7 +20,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.autres_interventions.suspension.suspension_sport.models import SuspensionSport
 from maintenance.autres_interventions.suspension.suspension_sport.forms import SuspensionSportForm
 from weasyprint import HTML
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -57,7 +57,7 @@ class SuspensionSportListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -93,7 +93,7 @@ def suspension_sport_form_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -611,6 +611,7 @@ def suspension_sport_detail_view(request, suspension_sport_id):
 
 
 @login_required
+@atelier_requis
 def modifier_suspension_sport_view(request, suspension_sport_id):
     tenant = request.user.societe
 

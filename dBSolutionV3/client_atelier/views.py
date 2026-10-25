@@ -6,7 +6,7 @@ from django.views.generic import ListView
 from adresse.models import Adresse
 import json
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 from client_atelier.forms import ClientAtelierForm
 from societe_cliente.models import SocieteCliente
 from client_particulier.models import ClientParticulier
@@ -313,14 +313,22 @@ def client_atelier_view(request):
 
 
 
-@csrf_exempt  # facultatif si CSRF bien géré côté JS
+@login_required
+@require_POST
 def check_prenom(request):
     if request.method == "POST":
-        data = json.loads(request.body)
-        prenom = data.get("prenom")
+        try:
+            data = json.loads(request.body or b"{}")
+        except (ValueError, UnicodeDecodeError):
+            return JsonResponse({"exist": False}, status=400)
+        prenom = str(data.get("prenom") or "").strip()[:100]
+        if not prenom:
+            return JsonResponse({"exist": False})
 
         try:
-            client = ClientAtelier.objects.select_related("adresse").get(prenom__iexact=prenom)
+            client = ClientAtelier.objects.select_related("adresse").filter(prenom__iexact=prenom).first()
+            if client is None:
+                raise ClientAtelier.DoesNotExist
 
             return JsonResponse({
                 "exist": True,

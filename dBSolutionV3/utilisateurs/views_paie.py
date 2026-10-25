@@ -389,7 +389,8 @@ def paie_payer(request, pk):
             _log(request, f"Paiement paie {paie.mois}/{paie.annee} – {paie.utilisateur}")
             messages.success(request, _("Le salaire net est marqué comme payé."))
 
-    return redirect(request.POST.get("next") or reverse("utilisateurs:paie_detail", args=[paie.pk]))
+    from core.securite import url_sure
+    return redirect(url_sure(request.POST.get("next"), request) or reverse("utilisateurs:paie_detail", args=[paie.pk]))
 
 
 # ==================================================================

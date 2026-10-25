@@ -63542,3 +63542,15 @@ msgstr "εκδόθηκε"
 #: voiture/voiture_location/km_supplementaires
 msgid "Facturer les kilomètres supplémentaires (facture complémentaire)"
 msgstr "Χρέωση επιπλέον χιλιομέτρων (συμπληρωματικό τιμολόγιο)"
+
+#: assurance_police/forms
+msgid "Seuls les fichiers PDF sont acceptés."
+msgstr "Γίνονται δεκτά μόνο αρχεία PDF."
+
+#: assurance_police/forms
+msgid "Le fichier dépasse la taille maximale de 10 Mo."
+msgstr "Το αρχείο υπερβαίνει το μέγιστο μέγεθος των 10 MB."
+
+#: assurance_police/forms
+msgid "Le fichier n'est pas un PDF valide."
+msgstr "Το αρχείο δεν είναι έγκυρο PDF."

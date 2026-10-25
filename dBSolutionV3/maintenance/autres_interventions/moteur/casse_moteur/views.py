@@ -27,7 +27,7 @@ from ..moteur_lie import moteur_actuel
 from .forms import CasseMoteurForm, EssaiCylindreFormSet, PieceCasseeFormSet
 from .models import PISTES_DIAGNOSTIC, CasseMoteur
 
-ROLES_AUTORISES = ["mecanicien", "apprenti", "magasinier", "chef_mecanicien", "direction"]
+ROLES_AUTORISES = ["mecanicien", "apprenti", "apprentis", "magasinier", "chef_mecanicien", "direction"]
 ROLES_SUPPRESSION = ["direction", "chef_mecanicien"]
 
 

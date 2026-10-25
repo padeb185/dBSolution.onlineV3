@@ -8,7 +8,7 @@ from django_tenants.utils import tenant_context
 from adresse.models import Adresse
 import json
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 from client_particulier.forms import ClientParticulierForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -232,14 +232,22 @@ def modifier_client_particulier_view(request, client_particulier_id):
 
 
 
-@csrf_exempt  # facultatif si CSRF bien géré côté JS
+@login_required
+@require_POST
 def check_prenom(request):
     if request.method == "POST":
-        data = json.loads(request.body)
-        prenom = data.get("prenom")
+        try:
+            data = json.loads(request.body or b"{}")
+        except (ValueError, UnicodeDecodeError):
+            return JsonResponse({"exist": False}, status=400)
+        prenom = str(data.get("prenom") or "").strip()[:100]
+        if not prenom:
+            return JsonResponse({"exist": False})
 
         try:
-            client = ClientParticulier.objects.select_related("adresse").get(prenom__iexact=prenom)
+            client = ClientParticulier.objects.select_related("adresse").filter(prenom__iexact=prenom).first()
+            if client is None:
+                raise ClientParticulier.DoesNotExist
 
             return JsonResponse({
                 "exist": True,

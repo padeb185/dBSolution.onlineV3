@@ -20,7 +20,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.autres_interventions.echappement.injecteur_adblue.models import InjecteurAdblue
 from maintenance.autres_interventions.echappement.injecteur_adblue.forms import InjecteurAdblueForm
 from weasyprint import HTML
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -57,7 +57,7 @@ class InjecteurAdblueListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -93,7 +93,7 @@ def injecteur_adblue_form_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -541,6 +541,7 @@ def injecteur_adblue_detail_view(request, injecteur_adblue_id):
 
 
 @login_required
+@atelier_requis
 def modifier_injecteur_adblue_view(request, injecteur_adblue_id):
     tenant = request.user.societe
 

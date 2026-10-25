@@ -40,3 +40,35 @@ def refuser_suppression(request):
 
     messages.error(request, _("Accès refusé"))
     return redirect("utilisateurs:dashboard")
+
+
+# ------------------------------------------------------------
+# Interventions (maintenances) : création / modification réservées à l'atelier
+# (même liste que les vues de création ; « apprentis » est la valeur réelle du rôle en base)
+# ------------------------------------------------------------
+ROLES_ATELIER = ("mecanicien", "apprenti", "apprentis", "magasinier", "chef_mecanicien", "direction")
+
+
+def roles_requis(*roles):
+    """
+    Décorateur de vue : accès réservé aux rôles donnés (et au super admin).
+    Usage : @roles_requis(*ROLES_ATELIER)
+    """
+    from functools import wraps
+
+    def decorateur(vue):
+        @wraps(vue)
+        def enveloppe(request, *args, **kwargs):
+            user = request.user
+            if not (getattr(user, "is_superuser", False) or getattr(user, "role", None) in roles):
+                from django.contrib import messages
+                from django.shortcuts import redirect
+                from django.utils.translation import gettext as _
+                messages.error(request, _("Accès refusé"))
+                return redirect("utilisateurs:dashboard")
+            return vue(request, *args, **kwargs)
+        return enveloppe
+    return decorateur
+
+
+atelier_requis = roles_requis(*ROLES_ATELIER)

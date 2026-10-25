@@ -27,7 +27,7 @@ from ..moteur_lie import moteur_actuel
 from .forms import MesureCylindreFormSet, MesureTourillonFormSet, MetrologieMoteurForm
 from .models import MetrologieMoteur
 
-ROLES_AUTORISES = ["mecanicien", "apprenti", "magasinier", "chef_mecanicien", "direction"]
+ROLES_AUTORISES = ["mecanicien", "apprenti", "apprentis", "magasinier", "chef_mecanicien", "direction"]
 ROLES_SUPPRESSION = ["direction", "chef_mecanicien"]
 
 

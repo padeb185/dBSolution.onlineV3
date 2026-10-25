@@ -63186,3 +63186,15 @@ msgstr "issued"
 #: voiture/voiture_location/km_supplementaires
 msgid "Facturer les kilomètres supplémentaires (facture complémentaire)"
 msgstr "Invoice the extra mileage (supplementary invoice)"
+
+#: assurance_police/forms
+msgid "Seuls les fichiers PDF sont acceptés."
+msgstr "Only PDF files are accepted."
+
+#: assurance_police/forms
+msgid "Le fichier dépasse la taille maximale de 10 Mo."
+msgstr "The file exceeds the maximum size of 10 MB."
+
+#: assurance_police/forms
+msgid "Le fichier n'est pas un PDF valide."
+msgstr "The file is not a valid PDF."

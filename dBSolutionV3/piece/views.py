@@ -87,16 +87,23 @@ class PieceDeleteView(LoginRequiredMixin, DeleteView):
 
 import json
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from .models import Piece
 
 
-@csrf_exempt
+@login_required
+@require_POST
 def check_fabricants(request):
 
     if request.method == "POST":
-        data = json.loads(request.body)
+        try:
+            data = json.loads(request.body or b"{}")
+        except (ValueError, UnicodeDecodeError):
+            return JsonResponse({"exist": False}, status=400)
         piece_id = data.get("piece")
+        if not str(piece_id or "").isdigit():
+            return JsonResponse({"exist": False})
 
         try:
             piece = Piece.objects.get(id=piece_id)

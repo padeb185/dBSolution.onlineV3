@@ -1,3 +1,4 @@
+from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -130,6 +131,8 @@ def modifier_voiture_modele(request, voiture_modele_id):
 
 
 
+@login_required
+@require_POST
 def check_nom(request):
     nom = request.POST.get("nom")
     existe = VoitureModele.objects.filter(nom__iexact=nom).exists()

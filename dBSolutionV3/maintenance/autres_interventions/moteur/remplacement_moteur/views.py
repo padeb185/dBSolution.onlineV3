@@ -59,7 +59,7 @@ class RemplacementMoteurListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -87,7 +87,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
         id=exemplaire_id
     )
 
-    roles_autorises = ["mecanicien", "apprenti", "magasinier", "chef_mecanicien", "direction"]
+    roles_autorises = ["mecanicien", "apprenti", "apprentis", "magasinier", "chef_mecanicien", "direction"]
 
     if role not in roles_autorises:
         messages.error(request, _("Accès refusé"))

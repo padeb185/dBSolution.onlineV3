@@ -20,7 +20,7 @@ from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.utils import timezone
 from weasyprint import HTML
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -90,7 +90,7 @@ def nettoyage_exterieur_view(request, exemplaire_id):
 
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -403,6 +403,7 @@ def nettoyage_ext_detail(request, nettoyage_id):
 
 
 @login_required
+@atelier_requis
 def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
     tenant = request.user.societe
 

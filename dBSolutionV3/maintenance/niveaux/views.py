@@ -19,7 +19,7 @@ from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.utils import timezone
 from weasyprint import HTML
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -90,7 +90,7 @@ def niveau_form_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -402,6 +402,7 @@ def niveau_detail_view(request, niveau_id):
 
 
 @login_required
+@atelier_requis
 def modifier_niveau_view(request, niveau_id):
 
     tenant = request.user.societe

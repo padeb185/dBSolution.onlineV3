@@ -104,7 +104,7 @@ def entretien_check_view(request, exemplaire_id):
     # =========================
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction",

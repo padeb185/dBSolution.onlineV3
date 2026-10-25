@@ -20,7 +20,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.esthetique.decontamination.models import Decontamination
 from maintenance.esthetique.decontamination.forms import DecontaminationForm
 from weasyprint import HTML
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -57,7 +57,7 @@ class DecontaminationListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -93,7 +93,7 @@ def decontamination_form_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -571,6 +571,7 @@ def decontamination_detail_view(request, decontamination_id):
 
 
 @login_required
+@atelier_requis
 def modifier_decontamination_view(request, decontamination_id):
     tenant = request.user.societe
 

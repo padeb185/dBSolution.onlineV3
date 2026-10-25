@@ -35,7 +35,7 @@ def dashboard_esthetique_view(request, exemplaire_id):
             "mecanicien",
             "chef_mecanicien",
             "magasinier",
-            "apprenti",
+            "apprenti", "apprentis",
         ],
     }
     context.update(totaux_esthetique(exemplaire))

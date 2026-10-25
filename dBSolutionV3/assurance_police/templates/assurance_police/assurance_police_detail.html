@@ -72,6 +72,12 @@
                 <strong>{% trans "Remarques" %} :</strong><br>
                 {{ assurance_police.remarques }}
             </p>
+            {% if assurance_police.document_pdf %}
+            <p class="mt-3">
+                <strong>{% trans "Document" %} :</strong>
+                <a href="{% url 'assurance_police:document_pdf' assurance_police.pk %}" target="_blank" rel="noopener" class="text-blue-700 underline">📄 {% trans "Voir le PDF de la police" %}</a>
+            </p>
+            {% endif %}
 
         </div>
         <div class="mt-auto w-full">

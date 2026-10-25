@@ -10,7 +10,7 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 
 from .models import AgendaTache
 
-ROLES_TECHNICIENS = ["mecanicien", "apprenti", "magasinier", "chef_mecanicien", "direction"]
+ROLES_TECHNICIENS = ["mecanicien", "apprenti", "apprentis", "magasinier", "chef_mecanicien", "direction"]
 
 
 def cle_alphabetique(texte):

@@ -13,7 +13,7 @@ from .forms import DiagnosticCodeFormSet, DiagnosticForm
 from .models import Diagnostic, DiagnosticCode
 
 # Mêmes autorisations que les maintenances (ex. checkup piste)
-ROLES_LECTURE_ECRITURE = ["mecanicien", "apprenti", "magasinier", "chef_mecanicien", "direction"]
+ROLES_LECTURE_ECRITURE = ["mecanicien", "apprenti", "apprentis", "magasinier", "chef_mecanicien", "direction"]
 ROLES_SUPPRESSION = ["direction", "chef_mecanicien"]
 
 

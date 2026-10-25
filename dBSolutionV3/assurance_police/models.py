@@ -6,6 +6,18 @@ from django.utils.translation import gettext_lazy as _
 
 
 
+
+
+def chemin_document_police(instance, filename):
+    """
+    Nom de fichier imprévisible, rangé par société : le PDF n'est jamais deviné ni servi directement,
+    il passe par la vue protégée « assurance_police:document_pdf ».
+    """
+    import uuid
+    from django.db import connection
+    schema = getattr(connection, "schema_name", "") or "public"
+    return f"prive/assurances/polices/{schema}/{uuid.uuid4().hex}.pdf"
+
 class AssurancePolice(models.Model):
     FREQUENCE_CHOICES = [
         ('mensuel', _('Mensuel')),
@@ -109,7 +121,7 @@ class AssurancePolice(models.Model):
     )
 
     document_pdf = models.FileField(
-        upload_to='assurances/polices/',
+        upload_to=chemin_document_police,
         null=True,
         blank=True
     )

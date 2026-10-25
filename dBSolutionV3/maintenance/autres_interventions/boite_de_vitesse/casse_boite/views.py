@@ -26,7 +26,7 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from .forms import CasseBoiteForm, EssaiRapportFormSet, PieceCasseeFormSet
 from .models import PISTES_DIAGNOSTIC, CasseBoite
 
-ROLES_AUTORISES = ["mecanicien", "apprenti", "magasinier", "chef_mecanicien", "direction"]
+ROLES_AUTORISES = ["mecanicien", "apprenti", "apprentis", "magasinier", "chef_mecanicien", "direction"]
 ROLES_SUPPRESSION = ["direction", "chef_mecanicien"]
 
 

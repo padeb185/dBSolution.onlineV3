@@ -116,6 +116,7 @@ def marques_favorites(request):
     })
 
 
+@login_required
 def ajouter_marque(request):
     tenant = request.user.societe
 
@@ -146,6 +147,7 @@ def ajouter_marque(request):
 
 
 
+@login_required
 @require_POST
 def check_marque(request):
     marque = request.POST.get("marque", "").strip()

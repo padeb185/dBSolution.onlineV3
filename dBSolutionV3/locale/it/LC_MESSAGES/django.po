@@ -63485,3 +63485,15 @@ msgstr "emessa"
 #: voiture/voiture_location/km_supplementaires
 msgid "Facturer les kilomètres supplémentaires (facture complémentaire)"
 msgstr "Fatturare i chilometri extra (fattura integrativa)"
+
+#: assurance_police/forms
+msgid "Seuls les fichiers PDF sont acceptés."
+msgstr "Sono accettati solo file PDF."
+
+#: assurance_police/forms
+msgid "Le fichier dépasse la taille maximale de 10 Mo."
+msgstr "Il file supera la dimensione massima di 10 MB."
+
+#: assurance_police/forms
+msgid "Le fichier n'est pas un PDF valide."
+msgstr "Il file non è un PDF valido."

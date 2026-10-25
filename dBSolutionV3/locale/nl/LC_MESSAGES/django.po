@@ -63514,3 +63514,15 @@ msgstr "uitgegeven"
 #: voiture/voiture_location/km_supplementaires
 msgid "Facturer les kilomètres supplémentaires (facture complémentaire)"
 msgstr "Extra kilometers factureren (aanvullende factuur)"
+
+#: assurance_police/forms
+msgid "Seuls les fichiers PDF sont acceptés."
+msgstr "Alleen PDF-bestanden worden aanvaard."
+
+#: assurance_police/forms
+msgid "Le fichier dépasse la taille maximale de 10 Mo."
+msgstr "Het bestand overschrijdt de maximale grootte van 10 MB."
+
+#: assurance_police/forms
+msgid "Le fichier n'est pas un PDF valide."
+msgstr "Het bestand is geen geldige PDF."

@@ -19,7 +19,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 from .forms import ClimForm
 from .models import Climatisation
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -56,7 +56,7 @@ class ClimListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -80,7 +80,7 @@ def clim_form_view(request, exemplaire_id):
 
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction",
@@ -634,6 +634,7 @@ def clim_detail_view(request, climatisation_id):
 
 
 @login_required
+@atelier_requis
 def modifier_clim_view(request, climatisation_id):
     tenant = request.user.societe
 

@@ -15,6 +15,7 @@ rsync -avz --delete \
     --exclude='.venv/' --exclude='.venv312/' --exclude='.git/' --exclude='.idea/' \
     --exclude='__pycache__/' --exclude='*.pyc' --exclude='.env' \
     --exclude='media/' --exclude='staticfiles/' --exclude='logs/' \
+    --exclude='*.key' --exclude='*.pem' --exclude='localhost+1.crt' \
     -e "ssh -p 2222" \
     "$PROJET/" "$SERVEUR:$DISTANT/"
 

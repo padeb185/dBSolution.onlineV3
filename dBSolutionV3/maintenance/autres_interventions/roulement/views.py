@@ -26,7 +26,7 @@ from .models import Roulement
 
 ROLES_AUTORISES = [
     "mecanicien",
-    "apprenti",
+    "apprenti", "apprentis",
     "magasinier",
     "chef_mecanicien",
     "direction",

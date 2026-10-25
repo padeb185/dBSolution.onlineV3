@@ -4,7 +4,7 @@ from .views import (
     ajouter_assurance_all,
     modifier_assurance_police,
     assurance_police_detail,
-    dashboard_assurances, delete_assurance_police_view,
+    dashboard_assurances, delete_assurance_police_view, document_pdf_view,
 )
 
 app_name = 'assurance_police'
@@ -26,6 +26,7 @@ urlpatterns = [
     ),
 
     path("<uuid:pk>/supprimer/", delete_assurance_police_view, name="delete_assurance_police"),
+    path("<uuid:pk>/document.pdf", document_pdf_view, name="document_pdf"),
 
 
 

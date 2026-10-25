@@ -26,7 +26,7 @@ from .models import Cardan
 
 ROLES_AUTORISES = [
     "mecanicien",
-    "apprenti",
+    "apprenti", "apprentis",
     "magasinier",
     "chef_mecanicien",
     "direction",

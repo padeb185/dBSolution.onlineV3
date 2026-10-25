@@ -20,7 +20,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.autres_interventions.echappement.tuyaux_fap.models import TuyauxFap
 from maintenance.autres_interventions.echappement.tuyaux_fap.forms import TuyauxFapForm
 from weasyprint import HTML
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -57,7 +57,7 @@ class TuyauxFapListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -93,7 +93,7 @@ def tuyaux_fap_form_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -541,6 +541,7 @@ def tuyaux_fap_detail_view(request, tuyaux_fap_id):
 
 
 @login_required
+@atelier_requis
 def modifier_tuyaux_fap_view(request, tuyaux_fap_id):
     tenant = request.user.societe
 

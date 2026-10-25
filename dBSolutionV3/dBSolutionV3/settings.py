@@ -25,7 +25,9 @@ environ.Env.read_env(BASE_DIR / ".env")
 # ------------------------------------------------------------------------------
 
 SECRET_KEY = env("SECRET_KEY")
-DEBUG = True
+# Jamais DEBUG en production : il affiche le code, les variables et les réglages à tout visiteur
+# en cas d'erreur. Activé uniquement si le fichier .env de la machine contient DEBUG=True.
+DEBUG = env.bool("DEBUG", default=False)
 
 
 ALLOWED_HOSTS = [
@@ -375,9 +377,37 @@ SESSION_COOKIE_PATH = "/"
 
 
 
-SECURE_SSL_REDIRECT = False
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
+# ------------------------------------------------------------------------------
+# SÉCURITÉ HTTP (production : HTTPS derrière nginx)
+# ------------------------------------------------------------------------------
+# Cookies de session et CSRF envoyés uniquement en HTTPS hors développement
+SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE", default=not DEBUG)
+CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE", default=not DEBUG)
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SAMESITE = "Lax"
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=["https://carscosts.com", "https://www.carscosts.com"])
+
+# nginx termine le HTTPS : il doit transmettre « X-Forwarded-Proto ».
+# Redirection HTTP → HTTPS et HSTS activables par le .env du serveur (désactivés par défaut).
+if env.bool("BEHIND_HTTPS_PROXY", default=not DEBUG):
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT", default=False)
+SECURE_HSTS_SECONDS = env.int("SECURE_HSTS_SECONDS", default=0)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool("SECURE_HSTS_INCLUDE_SUBDOMAINS", default=False)
+
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_REFERRER_POLICY = "same-origin"
+SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin"
+X_FRAME_OPTIONS = "DENY"
+
+# Content-Security-Policy : True = signaler sans bloquer (console du navigateur)
+CSP_REPORT_ONLY = env.bool("CSP_REPORT_ONLY", default=False)
+
+# Taille maximale d'une requête (formulaires et fichiers envoyés)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 5000
 
 #pour les uploads pdf
 
@@ -394,6 +424,8 @@ MIDDLEWARE = [
     "django_tenants.middleware.TenantSubfolderMiddleware",
 
     "django.middleware.security.SecurityMiddleware",
+    # CSP + Permissions-Policy (voir dBSolutionV3/middleware/securite_headers.py)
+    "dBSolutionV3.middleware.securite_headers.EnTetesSecuriteMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
 
     # LocaleMiddleware nécessite SessionMiddleware.

@@ -22,7 +22,7 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils import timezone
 from weasyprint import HTML
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -94,7 +94,7 @@ def rodage_check_view(request, exemplaire_id):
     # 🔐 Vérification rôles
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -504,6 +504,7 @@ def rodage_detail_view(request, rodage_id):
 #---------------------
 
 @login_required
+@atelier_requis
 def modifier_rodage_view(request, rodage_id):
     tenant = request.user.societe
 

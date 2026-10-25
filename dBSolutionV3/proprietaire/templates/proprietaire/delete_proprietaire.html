@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static %}{% load securite %}
 
 {% block content %}
 
@@ -160,7 +160,7 @@
             {% endif %}
 
             {% url 'proprietaire:proprietaire_list' as url_liste_proprietaires %}
-            <a href="{{ request.META.HTTP_REFERER|default:url_liste_proprietaires|default:'javascript:history.back()' }}" class="block w-full">
+            <a href="{{ request.META.HTTP_REFERER|lien_sur|default:url_liste_proprietaires|default:'javascript:history.back()' }}" class="block w-full">
                 <button type="button"
                         class="w-full bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold">
                     {% trans "Annuler" %}

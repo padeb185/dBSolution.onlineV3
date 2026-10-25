@@ -45,8 +45,9 @@ def garage_ajouter(request):
     if request.method == "POST" and form.is_valid():
         garage = form.save()
         messages.success(request, _("Garage '%(nom)s' créé avec succès.") % {"nom": garage.nom})
-        suivant = request.GET.get("next")
-        if suivant and suivant.startswith("/"):
+        from core.securite import url_sure
+        suivant = url_sure(request.GET.get("next"), request)
+        if suivant:
             return redirect(suivant)
         return redirect("garage_officiel:garage_liste")
     return render(request, "garage_officiel/garage_form.html", {"form": form, "garage": None})

@@ -21,7 +21,7 @@ from .forms import CarrosserieInterneForm
 from .models import CarrosserieInterne
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from maintenance.models import Maintenance
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -102,7 +102,7 @@ def carrosserie_interne_create_view(request, exemplaire_id):
 
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction",
@@ -1229,6 +1229,7 @@ def carrosserie_interne_detail_view(request, carrosserie_interne_id):
 
 
 @login_required
+@atelier_requis
 def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
     tenant = request.user.societe
 

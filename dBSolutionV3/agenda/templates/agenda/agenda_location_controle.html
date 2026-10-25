@@ -192,7 +192,7 @@
     </form>
     {% endif %}
 </div>
-<script>
+{% trans "Calcul par les tours" as t_0 %}{% trans "Calcul par le compteur" as t_1 %}{% trans "valeur modifiée à la main" as t_2 %}{% trans "HTVA" as t_3 %}{% trans "Décrivez le problème constaté (carrosserie, bruit moteur…)" as t_4 %}<script>
 (function () {
     var avant = document.getElementById("id_kilometrage_avant"),
         apres = document.getElementById("id_kilometrage_apres"),
@@ -232,7 +232,7 @@
         if (etoile) etoile.classList.toggle("hidden", !probleme);
         if (remarques) {
             remarques.required = probleme;
-            remarques.placeholder = probleme ? "{% trans 'Décrivez le problème constaté (carrosserie, bruit moteur…)' %}" : "";
+            remarques.placeholder = probleme ? "{{ t_4|escapejs }}" : "";
         }
     }
 
@@ -256,18 +256,18 @@
         if (tours && tours.value !== "" && !isNaN(toursPrevus) && !isNaN(longueur)) {
             var t = Math.max(0, nombre(tours.value) - toursPrevus);
             calc = Math.round(t * longueur);
-            texte = "{% trans 'Calcul par les tours' %} : " + t + " × " + String(longueur).replace(".", ",") + " km";
+            texte = "{{ t_0|escapejs }} : " + t + " × " + String(longueur).replace(".", ",") + " km";
         } else if (avant && apres && avant.value !== "" && apres.value !== "" && !isNaN(prevus)) {
             var parcourus = nombre(apres.value) - nombre(avant.value);
             calc = Math.max(0, parcourus - prevus);
-            texte = "{% trans 'Calcul par le compteur' %} : " + parcourus + " − " + prevus + " km";
+            texte = "{{ t_1|escapejs }} : " + parcourus + " − " + prevus + " km";
         }
         if (!kmSupManuel && !isNaN(calc)) kmSup.value = calc;
-        if (mode) mode.textContent = texte + (kmSupManuel ? " ({% trans 'valeur modifiée à la main' %})" : "");
+        if (mode) mode.textContent = texte + (kmSupManuel ? " ({{ t_2|escapejs }})" : "");
         var km = nombre(kmSup.value) || 0, prix = nombre(prixKm && prixKm.value) || 0;
         var total = (facturer && !facturer.checked) ? 0 : Math.round(km * prix * 100) / 100;
         totalEl.textContent = euro(total);
-        htvaEl.textContent = total ? euro(total / (1 + taux / 100)) + " {% trans 'HTVA' %}" : "";
+        htvaEl.textContent = total ? euro(total / (1 + taux / 100)) + " {{ t_3|escapejs }}" : "";
         bloc.classList.toggle("opacity-60", km === 0);
     }
     if (kmSup) kmSup.addEventListener("input", function () { kmSupManuel = kmSup.value !== ""; majKmSup(); });

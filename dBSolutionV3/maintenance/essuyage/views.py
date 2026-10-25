@@ -21,7 +21,7 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -64,7 +64,7 @@ class EssuyageListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -102,7 +102,7 @@ def essuyage_form_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -562,6 +562,7 @@ def essuyage_detail_view(request, essuyage_id):
 
 
 @login_required
+@atelier_requis
 def modifier_essuyage_view(request, essuyage_id):
     tenant = request.user.societe
 

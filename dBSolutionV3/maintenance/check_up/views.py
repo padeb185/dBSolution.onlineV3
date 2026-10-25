@@ -86,7 +86,7 @@ def controle_total_view(request, exemplaire_id):
     # 🔐 Vérification rôles
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"

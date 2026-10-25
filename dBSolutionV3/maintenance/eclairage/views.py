@@ -71,7 +71,7 @@ class EclairageListView(ListView):
             "mecanicien",
             "chef_mecanicien",
             "magasinier",
-            "apprenti",
+            "apprenti", "apprentis",
         ]
 
         return context
@@ -108,7 +108,7 @@ def eclairage_check_view(request, exemplaire_id):
     # =========================
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction",

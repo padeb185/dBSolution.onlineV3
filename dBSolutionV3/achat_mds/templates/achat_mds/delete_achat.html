@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static format_numbers %}
+{% load i18n static format_numbers %}{% load securite %}
 
 {% block content %}
 
@@ -106,7 +106,7 @@
 
             {# "as" : ne plante pas si le nom d'URL n'existe pas #}
             {% url 'achat:list' as url_liste_achats %}
-            <a href="{{ request.META.HTTP_REFERER|default:url_liste_achats|default:'javascript:history.back()' }}" class="block w-full">
+            <a href="{{ request.META.HTTP_REFERER|lien_sur|default:url_liste_achats|default:'javascript:history.back()' }}" class="block w-full">
                 <button
                     type="button"
                     class="w-full bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold"

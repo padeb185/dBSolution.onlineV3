@@ -112,6 +112,25 @@ class AssurancePoliceForm(forms.ModelForm):
             }),
         }
 
+    TAILLE_MAX_PDF = 10 * 1024 * 1024  # 10 Mo
+
+    def clean_document_pdf(self):
+        """Uniquement de vrais fichiers PDF (extension + signature %PDF), 10 Mo maximum."""
+        from django.utils.translation import gettext as _t
+        fichier = self.cleaned_data.get("document_pdf")
+        if not fichier or not hasattr(fichier, "read") or getattr(fichier, "_committed", False):
+            return fichier  # aucun nouveau fichier envoyé
+        nom = (getattr(fichier, "name", "") or "").lower()
+        if not nom.endswith(".pdf"):
+            raise forms.ValidationError(_t("Seuls les fichiers PDF sont acceptés."))
+        if getattr(fichier, "size", 0) > self.TAILLE_MAX_PDF:
+            raise forms.ValidationError(_t("Le fichier dépasse la taille maximale de 10 Mo."))
+        debut = fichier.read(5)
+        fichier.seek(0)
+        if debut != b"%PDF-":
+            raise forms.ValidationError(_t("Le fichier n'est pas un PDF valide."))
+        return fichier
+
     def clean(self):
         cleaned_data = super().clean()
         prime_annuelle = cleaned_data.get('prime_annuelle')

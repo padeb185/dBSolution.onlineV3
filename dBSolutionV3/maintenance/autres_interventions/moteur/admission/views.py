@@ -24,7 +24,7 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from .models import Admission
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -66,7 +66,7 @@ class AdmissionListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -111,7 +111,7 @@ def admission_check_view(request, exemplaire_id):
     # =========================================================
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction",
@@ -696,6 +696,7 @@ def admission_detail_view(request, admission_id):
 
 @login_required
 @never_cache
+@atelier_requis
 def modifier_admission_view(request, admission_id):
 
     tenant = request.user.societe

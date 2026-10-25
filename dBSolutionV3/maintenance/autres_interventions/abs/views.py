@@ -21,7 +21,7 @@ from weasyprint import HTML
 from .forms import AbsForm
 from .models import Abs
 from ...checkup_track.models import EtatOKNotOK
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -57,7 +57,7 @@ class AbsListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -92,7 +92,7 @@ def abs_form_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -451,6 +451,7 @@ def abs_detail_view(request, abs_id):
 
 @never_cache
 @login_required
+@atelier_requis
 def modifier_abs_view(request, abs_id):
 
     tenant = request.user.societe

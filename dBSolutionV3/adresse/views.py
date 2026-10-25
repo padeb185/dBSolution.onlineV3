@@ -168,7 +168,11 @@ def delete_adresse_view(request, pk):
     if not peut_supprimer(request.user):
         return refuser_suppression(request)
 
-    adresse = get_object_or_404(Adresse.objects.select_related("societe"), pk=pk)
+    # Les adresses sont partagées entre sociétés (schéma public) : uniquement celles de sa société
+    adresses = Adresse.objects.select_related("societe")
+    if not request.user.is_superuser:
+        adresses = adresses.filter(societe=request.user.societe)
+    adresse = get_object_or_404(adresses, pk=pk)
 
     analyse = analyser_suppression(adresse)
     # Une adresse ne doit jamais entraîner la suppression d'un client / fournisseur :

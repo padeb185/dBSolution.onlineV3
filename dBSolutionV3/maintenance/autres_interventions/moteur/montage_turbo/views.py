@@ -20,7 +20,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.autres_interventions.moteur.montage_turbo.models import MontageTurbo
 from maintenance.autres_interventions.moteur.montage_turbo.forms import MontageTurboForm
 from weasyprint import HTML
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -57,7 +57,7 @@ class MontageTurboListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -93,7 +93,7 @@ def montage_turbo_form_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -651,6 +651,7 @@ def montage_turbo_detail_view(request, montage_turbo_id):
 
 
 @login_required
+@atelier_requis
 def modifier_montage_turbo_view(request, montage_turbo_id):
     tenant = request.user.societe
 

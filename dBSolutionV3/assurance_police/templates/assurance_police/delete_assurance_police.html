@@ -117,7 +117,7 @@
         <div class="mb-4 border rounded">
             <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Document" %}</h2>
             <p class="p-4 text-sm">
-                <a href="{{ police.document_pdf.url }}" target="_blank" class="text-blue-700 underline">
+                <a href="{% url 'assurance_police:document_pdf' police.pk %}" target="_blank" class="text-blue-700 underline">
                     {% trans "Voir le PDF de la police" %}
                 </a>
                 <span class="block text-xs text-gray-500 mt-1">

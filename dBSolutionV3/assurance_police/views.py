@@ -242,3 +242,24 @@ def delete_assurance_police_view(request, pk):
             "sinistres_lies": sinistres_lies,
         },
     )
+
+
+@never_cache
+@login_required
+def document_pdf_view(request, pk):
+    """PDF d'une police : servi uniquement aux utilisateurs connectés de la société (schéma du tenant)."""
+    from django.http import FileResponse, Http404
+
+    police = get_object_or_404(AssurancePolice, pk=pk)
+    if not police.document_pdf:
+        raise Http404
+    try:
+        fichier = police.document_pdf.open("rb")
+    except (FileNotFoundError, OSError):
+        raise Http404
+    nom = f"police_{police.numero_contrat or police.pk}.pdf".replace(" ", "_").replace('"', "")
+    reponse = FileResponse(fichier, content_type="application/pdf", as_attachment=False, filename=nom)
+    reponse["X-Content-Type-Options"] = "nosniff"
+    reponse["Content-Security-Policy"] = "default-src 'none'; sandbox"
+    reponse["Cache-Control"] = "private, no-store"
+    return reponse

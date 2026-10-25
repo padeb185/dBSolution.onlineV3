@@ -20,7 +20,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.autres_interventions.echappement.sonde_lambda_amont.models import SondeLambdaAmont
 from maintenance.autres_interventions.echappement.sonde_lambda_amont.forms import SondeLambdaAmontForm
 from weasyprint import HTML
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -57,7 +57,7 @@ class SondeLambdaAmontListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -93,7 +93,7 @@ def sonde_lambda_amont_form_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -541,6 +541,7 @@ def sonde_lambda_amont_detail_view(request, sonde_lambda_amont_id):
 
 
 @login_required
+@atelier_requis
 def modifier_sonde_lambda_amont_view(request, sonde_lambda_amont_id):
     tenant = request.user.societe
 

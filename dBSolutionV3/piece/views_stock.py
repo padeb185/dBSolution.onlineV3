@@ -3,6 +3,8 @@ Stock pièces & fluides : catalogue (un OEM par pièce, plusieurs EAN), fiche av
 journal des mouvements, inventaires physiques et pièces utilisées par maintenance
 (débitées du stock à l'émission de la facture).
 """
+from core.securite import url_sure
+
 import csv
 from decimal import Decimal
 
@@ -396,7 +398,7 @@ def pieces_maintenance_view(request, maintenance_id):
         "lignes": lignes, "total": total, "peut_gerer": peut_gerer,
         "factures": maintenance.factures.all(),
         "fabricants": Fabricant.objects.order_by("nom").values_list("nom", flat=True),
-        "retour": request.GET.get("next") or request.META.get("HTTP_REFERER") or "",
+        "retour": url_sure(request.GET.get("next"), request) or url_sure(request.META.get("HTTP_REFERER"), request),
     })
 
 

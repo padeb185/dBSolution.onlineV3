@@ -20,7 +20,7 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils import timezone
 from weasyprint import HTML
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -91,7 +91,7 @@ def silent_check_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -387,6 +387,7 @@ def silent_detail_view(request, silent_id):
 
 
 @login_required
+@atelier_requis
 def modifier_silent_view(request, silent_id):
     tenant = request.user.societe
 

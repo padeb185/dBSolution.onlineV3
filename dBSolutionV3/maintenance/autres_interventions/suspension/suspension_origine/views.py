@@ -20,7 +20,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.autres_interventions.suspension.suspension_origine.models import SuspensionOrigine
 from maintenance.autres_interventions.suspension.suspension_origine.forms import SuspensionOrigineForm
 from weasyprint import HTML
-from utils.securite import q_intervention_tenant
+from utils.securite import atelier_requis, q_intervention_tenant
 
 
 
@@ -57,7 +57,7 @@ class SuspensionOrigineListView(ListView):
 
         roles_autorises = [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -93,7 +93,7 @@ def suspension_origine_form_view(request, exemplaire_id):
     # 🔐 rôles autorisés
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction"
@@ -591,6 +591,7 @@ def suspension_origine_detail_view(request, suspension_origine_id):
 
 
 @login_required
+@atelier_requis
 def modifier_suspension_origine_view(request, suspension_origine_id):
     tenant = request.user.societe
 

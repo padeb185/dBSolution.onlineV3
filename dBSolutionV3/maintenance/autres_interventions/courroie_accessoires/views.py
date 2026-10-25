@@ -61,7 +61,7 @@ class CourroieAccessoiresListView(ListView):
 
         context["is_checkup_allowed"] = self.request.user.role in [
             "mecanicien",
-            "apprenti",
+            "apprenti", "apprentis",
             "magasinier",
             "chef_mecanicien",
             "direction",
@@ -88,7 +88,7 @@ def courroie_access_form_view(request, exemplaire_id):
 
     roles_autorises = [
         "mecanicien",
-        "apprenti",
+        "apprenti", "apprentis",
         "magasinier",
         "chef_mecanicien",
         "direction",
