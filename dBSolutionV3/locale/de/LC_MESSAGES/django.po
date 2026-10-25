@@ -63588,3 +63588,15 @@ msgstr "Kraftstoff inklusive: der Kunde muss nicht volltanken."
 #: voiture/voiture_location/carburant
 msgid "Carburant non inclus : niveau plus bas qu'au départ, le plein est à charge du client."
 msgstr "Kraftstoff nicht inklusive: Füllstand niedriger als bei Abfahrt, Tanken geht zu Lasten des Kunden."
+
+#: agenda/templates/agenda/agenda_location_controle.html
+msgid "Compteur"
+msgstr "Kilometerzähler"
+
+#: agenda/templates/agenda/agenda_location_controle.html
+msgid "Repris de la sortie"
+msgstr "Von der Ausgabe übernommen"
+
+#: agenda/templates/agenda/agenda_location_controle.html
+msgid "Dépassement"
+msgstr "Überschreitung"

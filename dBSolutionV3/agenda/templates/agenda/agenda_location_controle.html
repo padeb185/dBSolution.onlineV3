@@ -85,68 +85,113 @@
     <form method="post" class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {% csrf_token %}
         <input type="hidden" name="action" value="retour">
-        <!-- Kilométrage -->
-        <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4 items-end bg-gray-50 rounded-lg p-4">
-            <div>
-                <label for="{{ form_retour.kilometrage_avant.id_for_label }}" class="block font-semibold mb-1">{{ form_retour.kilometrage_avant.label }}</label>
-                <div class="flex items-center gap-2">{{ form_retour.kilometrage_avant|add_class:"input text-lg" }}<span class="text-gray-500">km</span></div>
-                {% if form_retour.kilometrage_avant.errors %}<p class="text-red-600 text-sm mt-1">{{ form_retour.kilometrage_avant.errors|striptags }}</p>{% endif %}
-            </div>
-            <div>
-                <label for="{{ form_retour.kilometrage_apres.id_for_label }}" class="block font-semibold mb-1">{{ form_retour.kilometrage_apres.label }} <span class="text-red-600">*</span></label>
-                <div class="flex items-center gap-2">{{ form_retour.kilometrage_apres|add_class:"input text-lg" }}<span class="text-gray-500">km</span></div>
-                {% if form_retour.kilometrage_apres.errors %}<p class="text-red-600 text-sm mt-1">{{ form_retour.kilometrage_apres.errors|striptags }}</p>{% endif %}
-            </div>
-            <div class="text-center">
-                <span class="block text-sm text-gray-500">{% trans "Km parcourus" %}</span>
-                <span id="km-parcourus" class="block text-2xl font-bold text-blue-800">—</span>
-                <span id="km-erreur" class="hidden text-sm font-semibold text-red-700">{% trans "Inférieur au kilométrage avant !" %}</span>
+<style>
+    /* Champs kilométrage : pas de flèches +/− (elles chevauchaient le chiffre et l'unité) */
+    input.sans-fleches::-webkit-outer-spin-button,
+    input.sans-fleches::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    input.sans-fleches[type=number] { -moz-appearance: textfield; appearance: textfield; }
+</style>
+        <!-- Kilométrage : compteur avant → après -->
+        <div class="md:col-span-2 rounded-xl border border-blue-200 bg-blue-50/60 p-4 md:p-5">
+            <h3 class="font-semibold text-blue-900 mb-3 flex items-center gap-2">🧭 {% trans "Compteur" %}</h3>
+            <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] gap-3 md:gap-4 items-stretch">
+                <!-- Avant -->
+                <div class="bg-white rounded-lg border border-gray-200 p-3 flex flex-col">
+                    <label for="{{ form_retour.kilometrage_avant.id_for_label }}" class="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1">{{ form_retour.kilometrage_avant.label }}</label>
+                    <div class="flex items-center gap-2">
+                        {{ form_retour.kilometrage_avant|add_class:"input min-w-0 flex-1 text-2xl font-bold tabular-nums text-right text-gray-700 sans-fleches" }}
+                        <span class="shrink-0 text-gray-400 font-semibold">km</span>
+                    </div>
+                    {% if suivi.sortie_le %}<p class="text-xs text-gray-500 mt-1">{% trans "Repris de la sortie" %} · {{ suivi.sortie_le|date:"d/m/Y H:i" }}</p>{% endif %}
+                    {% if form_retour.kilometrage_avant.errors %}<p class="text-red-600 text-sm mt-1">{{ form_retour.kilometrage_avant.errors|striptags }}</p>{% endif %}
+                </div>
+                <div class="hidden md:flex items-center text-3xl text-blue-300 select-none">→</div>
+                <!-- Après -->
+                <div class="bg-white rounded-lg border-2 border-blue-400 p-3 flex flex-col shadow-sm">
+                    <label for="{{ form_retour.kilometrage_apres.id_for_label }}" class="text-xs font-semibold uppercase tracking-wide text-blue-700 mb-1">{{ form_retour.kilometrage_apres.label }} <span class="text-red-600">*</span></label>
+                    <div class="flex items-center gap-2">
+                        {{ form_retour.kilometrage_apres|add_class:"input min-w-0 flex-1 text-2xl font-bold tabular-nums text-right sans-fleches" }}
+                        <span class="shrink-0 text-gray-400 font-semibold">km</span>
+                    </div>
+                    {% if form_retour.kilometrage_apres.errors %}<p class="text-red-600 text-sm mt-1">{{ form_retour.kilometrage_apres.errors|striptags }}</p>{% endif %}
+                </div>
+                <div class="hidden md:flex items-center text-3xl text-blue-300 select-none">=</div>
+                <!-- Parcourus -->
+                <div class="rounded-lg bg-blue-700 text-white p-3 flex flex-col justify-center text-center">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-100">{% trans "Km parcourus" %}</span>
+                    <span id="km-parcourus" class="block text-3xl font-bold tabular-nums">—</span>
+                    <span id="km-erreur" class="hidden mt-1 text-xs font-semibold bg-red-600 rounded px-2 py-0.5">{% trans "Inférieur au kilométrage avant !" %}</span>
+                </div>
             </div>
         </div>
 
         <!-- Kilomètres supplémentaires (extra mileage) -->
-        <div id="bloc-km-sup" class="md:col-span-2 bg-orange-50 border border-orange-200 rounded-lg p-4"
+        <div id="bloc-km-sup" class="md:col-span-2 rounded-xl border border-orange-200 bg-orange-50/60 p-4 md:p-5 transition-opacity"
              data-km-prevus="{{ location.kilometrage|default_if_none:'' }}"
              data-tours-prevus="{{ location.nombre_tours|default_if_none:'' }}"
              data-longueur="{{ calcul_km.longueur|default_if_none:''|stringformat:'s' }}"
              data-taux="{{ location.taux_tva|stringformat:'s' }}">
-            <h3 class="font-semibold mb-2">{% trans "Kilomètres supplémentaires" %}</h3>
-            <p class="text-sm text-gray-600 mb-3">
-                {% trans "Prévu" %} :
-                {% if location.nombre_tours %}<strong>{{ location.nombre_tours }}</strong> {% trans "tours" %}{% if calcul_km.longueur %} × {{ calcul_km.longueur }} km{% endif %} = {% endif %}
-                <strong>{{ location.kilometrage|default_if_none:"—" }}</strong> km
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+            <h3 class="font-semibold text-orange-900 mb-3 flex items-center gap-2">➕ {% trans "Kilomètres supplémentaires" %}</h3>
+
+            <!-- Récapitulatif prévu / parcouru / supplémentaires -->
+            <div class="grid grid-cols-3 gap-2 md:gap-3 mb-2 text-center">
+                <div class="bg-white rounded-lg border border-gray-200 p-2">
+                    <span class="block text-xs uppercase tracking-wide text-gray-500">{% trans "Prévu" %}</span>
+                    <span class="block text-xl font-bold tabular-nums">{{ location.kilometrage|default_if_none:"—" }} <small class="text-gray-400">km</small></span>
+                    {% if location.nombre_tours %}<span class="block text-xs text-gray-500">{{ location.nombre_tours }} {% trans "tours" %}{% if calcul_km.longueur %} × {{ calcul_km.longueur }} km{% endif %}</span>{% endif %}
+                </div>
+                <div class="bg-white rounded-lg border border-gray-200 p-2">
+                    <span class="block text-xs uppercase tracking-wide text-gray-500">{% trans "Km parcourus" %}</span>
+                    <span id="km-sup-parcourus" class="block text-xl font-bold tabular-nums">—</span>
+                </div>
+                <div class="bg-white rounded-lg border border-orange-300 p-2">
+                    <span class="block text-xs uppercase tracking-wide text-orange-700">{% trans "Dépassement" %}</span>
+                    <span id="km-sup-depassement" class="block text-xl font-bold tabular-nums text-orange-700">—</span>
+                </div>
+            </div>
+            <!-- Jauge prévu / parcouru -->
+            <div class="h-2.5 w-full rounded-full bg-gray-200 overflow-hidden mb-4" aria-hidden="true">
+                <div id="km-sup-jauge" class="h-full rounded-full bg-green-500 transition-all" style="width:0%"></div>
+            </div>
+
+            <div class="grid grid-cols-1 {% if form_retour.tours_effectues %}md:grid-cols-4{% else %}md:grid-cols-3{% endif %} gap-3 md:gap-4 items-stretch">
                 {% if form_retour.tours_effectues %}
-                <div>
-                    <label for="{{ form_retour.tours_effectues.id_for_label }}" class="block font-semibold mb-1">{{ form_retour.tours_effectues.label }}</label>
-                    {{ form_retour.tours_effectues|add_class:"input text-lg" }}
+                <div class="bg-white rounded-lg border border-gray-200 p-3">
+                    <label for="{{ form_retour.tours_effectues.id_for_label }}" class="block text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1">{{ form_retour.tours_effectues.label }}</label>
+                    {{ form_retour.tours_effectues|add_class:"input w-full text-xl font-bold tabular-nums text-right sans-fleches" }}
                     {% if form_retour.tours_effectues.errors %}<p class="text-red-600 text-sm mt-1">{{ form_retour.tours_effectues.errors|striptags }}</p>{% endif %}
                 </div>
                 {% endif %}
-                <div>
-                    <label for="{{ form_retour.km_supplementaires.id_for_label }}" class="block font-semibold mb-1">{{ form_retour.km_supplementaires.label }}</label>
-                    <div class="flex items-center gap-2">{{ form_retour.km_supplementaires|add_class:"input text-lg" }}<span class="text-gray-500">km</span></div>
+                <div class="bg-white rounded-lg border border-gray-200 p-3">
+                    <label for="{{ form_retour.km_supplementaires.id_for_label }}" class="block text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1">{{ form_retour.km_supplementaires.label }}</label>
+                    <div class="flex items-center gap-2">
+                        {{ form_retour.km_supplementaires|add_class:"input min-w-0 flex-1 text-xl font-bold tabular-nums text-right sans-fleches" }}
+                        <span class="shrink-0 text-gray-400 font-semibold">km</span>
+                    </div>
                     <p id="km-sup-mode" class="text-xs text-gray-500 mt-1"></p>
                     {% if form_retour.km_supplementaires.errors %}<p class="text-red-600 text-sm mt-1">{{ form_retour.km_supplementaires.errors|striptags }}</p>{% endif %}
                 </div>
-                <div>
-                    <label for="{{ form_retour.prix_km_supplementaire.id_for_label }}" class="block font-semibold mb-1">{{ form_retour.prix_km_supplementaire.label }}</label>
-                    {{ form_retour.prix_km_supplementaire|add_class:"input text-lg" }}
+                <div class="bg-white rounded-lg border border-gray-200 p-3">
+                    <label for="{{ form_retour.prix_km_supplementaire.id_for_label }}" class="block text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1">{{ form_retour.prix_km_supplementaire.label }}</label>
+                    <div class="flex items-center gap-2">
+                        {{ form_retour.prix_km_supplementaire|add_class:"input min-w-0 flex-1 text-xl font-bold tabular-nums text-right sans-fleches" }}
+                        <span class="shrink-0 text-gray-400 font-semibold">€</span>
+                    </div>
                     {% if form_retour.prix_km_supplementaire.errors %}<p class="text-red-600 text-sm mt-1">{{ form_retour.prix_km_supplementaire.errors|striptags }}</p>{% endif %}
                 </div>
-                <div class="text-center">
-                    <span class="block text-sm text-gray-500">{% trans "À facturer TVAC" %}</span>
-                    <span id="km-sup-total" class="block text-2xl font-bold text-orange-700">0,00 €</span>
-                    <span id="km-sup-htva" class="block text-xs text-gray-500"></span>
+                <div class="rounded-lg bg-orange-600 text-white p-3 flex flex-col justify-center text-center">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-orange-100">{% trans "À facturer TVAC" %}</span>
+                    <span id="km-sup-total" class="block text-3xl font-bold tabular-nums">0,00 €</span>
+                    <span id="km-sup-htva" class="block text-xs text-orange-100"></span>
                 </div>
             </div>
-            <label class="inline-flex items-center gap-2 mt-3">
+
+            <label class="mt-4 flex items-center gap-3 bg-white rounded-lg border border-gray-200 px-3 py-2 cursor-pointer hover:bg-gray-50">
                 {{ form_retour.facturer_km_supplementaires }}
                 <span class="font-semibold">{{ form_retour.facturer_km_supplementaires.label }}</span>
             </label>
             {% with f=location.facture %}{% if f %}
-            <p class="text-xs text-gray-500 mt-1">
+            <p class="text-xs text-gray-500 mt-2">
                 {% if f.statut == "EMISE" %}{% blocktrans with n=f.numero %}Facture {{ n }} déjà émise : un supplément devra être facturé séparément.{% endblocktrans %}
                 {% else %}{% trans "La ligne sera ajoutée à la facture brouillon de la location." %}{% endif %}
             </p>
@@ -219,8 +264,6 @@
         if (isNaN(a) || isNaN(b)) { sortie.textContent = "—"; erreur.classList.add("hidden"); return; }
         var d = b - a;
         sortie.textContent = (d >= 0 ? "+" : "") + d.toLocaleString() + " km";
-        sortie.classList.toggle("text-red-700", d < 0);
-        sortie.classList.toggle("text-blue-800", d >= 0);
         erreur.classList.toggle("hidden", d >= 0);
     }
 
@@ -269,6 +312,20 @@
             texte = "{{ t_1|escapejs }} : " + parcourus + " − " + prevus + " km";
         }
         if (!kmSupManuel && !isNaN(calc)) kmSup.value = calc;
+        // Récapitulatif : km parcourus, dépassement et jauge prévu / parcouru
+        var parcEl = document.getElementById("km-sup-parcourus"),
+            depEl = document.getElementById("km-sup-depassement"),
+            jauge = document.getElementById("km-sup-jauge");
+        var parc = (avant && apres && avant.value !== "" && apres.value !== "") ? nombre(apres.value) - nombre(avant.value) : NaN;
+        if (parcEl) parcEl.innerHTML = isNaN(parc) ? "—" : parc.toLocaleString() + ' <small class="text-gray-400">km</small>';
+        var dep = nombre(kmSup.value);
+        if (depEl) depEl.innerHTML = isNaN(dep) ? "—" : (dep > 0 ? "+" : "") + dep.toLocaleString() + ' <small class="text-orange-300">km</small>';
+        if (jauge) {
+            var ratio = (!isNaN(parc) && prevus > 0) ? parc / prevus : 0;
+            jauge.style.width = Math.max(0, Math.min(100, ratio * 100)) + "%";
+            jauge.classList.toggle("bg-green-500", ratio <= 1);
+            jauge.classList.toggle("bg-orange-500", ratio > 1);
+        }
         if (mode) mode.textContent = texte + (kmSupManuel ? " ({{ t_2|escapejs }})" : "");
         var km = nombre(kmSup.value) || 0, prix = nombre(prixKm && prixKm.value) || 0;
         var total = (facturer && !facturer.checked) ? 0 : Math.round(km * prix * 100) / 100;

@@ -53,19 +53,36 @@ def _locations_societe(request):
     )
 
 
+def _km_vehicule(location):
+    """Kilométrage châssis actuel du véhicule (mis à jour par le checkup piste)."""
+    return getattr(location.voiture_exemplaire, "kilometres_chassis", None) or None
+
+
 def _suivi(location):
-    """AgendaLocation de la location (créé à la première consultation)."""
+    """
+    AgendaLocation de la location (créé à la première consultation).
+    Tant que la sortie n'est pas validée, le kilométrage avant location suit
+    le kilométrage du véhicule : celui saisi au checkup piste de la location,
+    et non celui du checkup précédent (figé à la création du suivi).
+    """
     try:
-        return location.agenda_location
+        suivi = location.agenda_location
     except AgendaLocation.DoesNotExist:
         suivi, _cree = AgendaLocation.objects.get_or_create(
             location=location,
             defaults={
                 "societe_id": location.societe_id,
-                "kilometrage_avant": getattr(location.voiture_exemplaire, "kilometres_chassis", None) or None,
+                "kilometrage_avant": _km_vehicule(location),
             },
         )
         return suivi
+
+    if not suivi.sortie_effectuee:
+        km = _km_vehicule(location)
+        if km is not None and km != suivi.kilometrage_avant:
+            suivi.kilometrage_avant = km
+            suivi.save(update_fields=["kilometrage_avant", "updated_at"])
+    return suivi
 
 
 def nom_client(location):

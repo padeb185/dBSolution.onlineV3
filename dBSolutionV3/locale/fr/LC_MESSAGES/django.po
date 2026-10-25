@@ -62817,3 +62817,15 @@ msgstr "Carburant inclus : pas de plein à refaire par le client."
 #: voiture/voiture_location/carburant
 msgid "Carburant non inclus : niveau plus bas qu'au départ, le plein est à charge du client."
 msgstr "Carburant non inclus : niveau plus bas qu'au départ, le plein est à charge du client."
+
+#: agenda/templates/agenda/agenda_location_controle.html
+msgid "Compteur"
+msgstr "Compteur"
+
+#: agenda/templates/agenda/agenda_location_controle.html
+msgid "Repris de la sortie"
+msgstr "Repris de la sortie"
+
+#: agenda/templates/agenda/agenda_location_controle.html
+msgid "Dépassement"
+msgstr "Dépassement"

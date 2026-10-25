@@ -63536,3 +63536,15 @@ msgstr "Combustible incluido: el cliente no tiene que repostar."
 #: voiture/voiture_location/carburant
 msgid "Carburant non inclus : niveau plus bas qu'au départ, le plein est à charge du client."
 msgstr "Combustible no incluido: nivel más bajo que a la salida, el repostaje corre a cargo del cliente."
+
+#: agenda/templates/agenda/agenda_location_controle.html
+msgid "Compteur"
+msgstr "Cuentakilómetros"
+
+#: agenda/templates/agenda/agenda_location_controle.html
+msgid "Repris de la sortie"
+msgstr "Tomado de la salida"
+
+#: agenda/templates/agenda/agenda_location_controle.html
+msgid "Dépassement"
+msgstr "Exceso"

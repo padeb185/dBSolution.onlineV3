@@ -63594,3 +63594,15 @@ msgstr "Συμπεριλαμβάνεται καύσιμο: ο πελάτης δ�
 #: voiture/voiture_location/carburant
 msgid "Carburant non inclus : niveau plus bas qu'au départ, le plein est à charge du client."
 msgstr "Δεν περιλαμβάνεται καύσιμο: στάθμη χαμηλότερη από την αναχώρηση, το γέμισμα χρεώνεται στον πελάτη."
+
+#: agenda/templates/agenda/agenda_location_controle.html
+msgid "Compteur"
+msgstr "Χιλιομετρητής"
+
+#: agenda/templates/agenda/agenda_location_controle.html
+msgid "Repris de la sortie"
+msgstr "Από την έξοδο"
+
+#: agenda/templates/agenda/agenda_location_controle.html
+msgid "Dépassement"
+msgstr "Υπέρβαση"

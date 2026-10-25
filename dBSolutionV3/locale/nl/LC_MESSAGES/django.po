@@ -63566,3 +63566,15 @@ msgstr "Brandstof inbegrepen: de klant hoeft niet te tanken."
 #: voiture/voiture_location/carburant
 msgid "Carburant non inclus : niveau plus bas qu'au départ, le plein est à charge du client."
 msgstr "Brandstof niet inbegrepen: peil lager dan bij vertrek, tanken is ten laste van de klant."
+
+#: agenda/templates/agenda/agenda_location_controle.html
+msgid "Compteur"
+msgstr "Kilometerteller"
+
+#: agenda/templates/agenda/agenda_location_controle.html
+msgid "Repris de la sortie"
+msgstr "Overgenomen van vertrek"
+
+#: agenda/templates/agenda/agenda_location_controle.html
+msgid "Dépassement"
+msgstr "Overschrijding"
