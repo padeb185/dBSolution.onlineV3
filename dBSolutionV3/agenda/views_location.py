@@ -267,6 +267,10 @@ def agenda_location_controle_view(request, location_id):
                     suivi.retour_par = request.user
                     suivi.save()
                     _reporter_kilometrage(location, suivi)
+                    alerte_facture = _enregistrer_km_supplementaires(location, suivi, form_retour.cleaned_data,
+                                                                     request.user)
+                if alerte_facture:
+                    messages.warning(request, alerte_facture)
                 if suivi.tag_retour == Maintenance.Tag.ROUGE:
                     messages.warning(request, _("Retour enregistré : problème signalé (tag rouge)."))
                 else:
@@ -296,7 +300,47 @@ def agenda_location_controle_view(request, location_id):
         "form_sortie": form_sortie,
         "form_retour": form_retour,
         "url_retour": url_retour,
+        "calcul_km": suivi.calcul_km_supplementaires,
     })
+
+
+def _enregistrer_km_supplementaires(location, suivi, donnees, user=None):
+    """
+    Kilomètres supplémentaires → location (prix TVAC, ajouté au prix de la location), puis facturation :
+    - facture de la location en brouillon : ligne ajoutée / mise à jour ;
+    - facture déjà émise : facture complémentaire (brouillon) créée avec le solde à facturer.
+    Retourne un message à afficher (facture complémentaire), ou None.
+    """
+    from django.urls import reverse
+    from django.utils.html import format_html
+    from facture.services import facturer_km_supplementaires, ligne_km_supplementaires
+
+    km = donnees.get("km_supplementaires")
+    if km is None:
+        km = suivi.calcul_km_supplementaires["km"]
+    location.km_supplementaires = km
+    if donnees.get("prix_km_supplementaire") is not None:
+        location.prix_km_supplementaire = donnees["prix_km_supplementaire"]
+    location.facturer_km_supplementaires = bool(donnees.get("facturer_km_supplementaires"))
+    location.save(update_fields=["km_supplementaires", "prix_km_supplementaire", "facturer_km_supplementaires",
+                                 "updated_at"])
+
+    facture = location.facture
+    if facture is not None and facture.statut == facture.Statut.EMISE:
+        complementaire, creee, solde = facturer_km_supplementaires(location, user)
+        if complementaire is None:
+            if solde < 0:
+                return _("Les kilomètres supplémentaires déjà facturés dépassent le nouveau total "
+                         "(%(montant)s € TVAC à rembourser) : établissez une note de crédit.") % {"montant": f"{-solde:.2f}"}
+            return None
+        texte = (_("La facture %(numero)s est déjà émise : facture complémentaire créée (brouillon) pour les "
+                   "kilomètres supplémentaires – %(montant)s € TVAC.") if creee else
+                 _("La facture %(numero)s est déjà émise : facture complémentaire (brouillon) mise à jour pour les "
+                   "kilomètres supplémentaires – %(montant)s € TVAC.")) % {"numero": facture.numero, "montant": f"{solde:.2f}"}
+        return format_html('{} <a href="{}" class="underline font-semibold">{}</a>', texte,
+                           reverse("facture:detail", kwargs={"pk": complementaire.pk}), _("Voir et émettre la facture"))
+    ligne_km_supplementaires(facture, location)
+    return None
 
 
 def _reporter_kilometrage(location, suivi):

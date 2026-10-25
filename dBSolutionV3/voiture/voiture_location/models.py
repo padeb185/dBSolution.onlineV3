@@ -301,6 +301,22 @@ class Location(models.Model):
         help_text=_("Ajouté au prix de la location (sans remise)."),
     )
 
+    # Kilomètres supplémentaires (extra mileage) : au-delà du kilométrage prévu
+    # (ou des tours prévus sur circuit), constatés au retour du véhicule
+    prix_km_supplementaire = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True,
+        validators=[MinValueValidator(Decimal("0"))],
+        verbose_name=_("Prix par kilomètre supplémentaire TVAC (€)"),
+        help_text=_("Facturé au retour pour chaque kilomètre au-delà du kilométrage (ou des tours) prévu."),
+    )
+    km_supplementaires = models.PositiveIntegerField(
+        null=True, blank=True, verbose_name=_("Kilomètres supplémentaires"),
+        help_text=_("Calculé au retour de location."),
+    )
+    facturer_km_supplementaires = models.BooleanField(
+        default=True, verbose_name=_("Facturer les kilomètres supplémentaires"),
+    )
+
     # Paiement : acompte (montant) ou payé (uniquement si la facture est émise)
     acompte = models.BooleanField(default=False, verbose_name=_("Acompte versé"))
     montant_acompte = models.DecimalField(
@@ -484,10 +500,34 @@ class Location(models.Model):
             return ""
         return gettext("Deuxième pilote %(nom)s") % {"nom": self.deuxieme_pilote_nom}
 
+    # Kilomètres supplémentaires : km × prix par km TVAC
+    @property
+    def total_km_supplementaires_tvac(self):
+        if not self.facturer_km_supplementaires or not self.km_supplementaires or not self.prix_km_supplementaire:
+            return Decimal("0.00")
+        return (Decimal(self.km_supplementaires) * Decimal(str(self.prix_km_supplementaire))).quantize(
+            DEUX_DECIMALES, rounding=ROUND_HALF_UP
+        )
+
+    @property
+    def total_km_supplementaires_htva(self):
+        return prix_htva_depuis_tvac(self.total_km_supplementaires_tvac, self.taux_tva)
+
+    @property
+    def prix_km_supplementaire_htva(self):
+        return prix_htva_depuis_tvac(self.prix_km_supplementaire or 0, self.taux_tva)
+
+    @property
+    def libelle_km_supplementaires(self):
+        return gettext("Kilomètres supplémentaires – %(km)s km × %(prix)s € TVAC") % {
+            "km": self.km_supplementaires or 0,
+            "prix": f"{Decimal(str(self.prix_km_supplementaire or 0)):.2f}",
+        }
+
     @property
     def prix_tvac(self):
         return (self.prix_vehicule_tvac + self.total_boxes_tvac + self.total_instructeur_tvac
-                + self.total_deuxieme_pilote_tvac).quantize(DEUX_DECIMALES)
+                + self.total_deuxieme_pilote_tvac + self.total_km_supplementaires_tvac).quantize(DEUX_DECIMALES)
 
     @property
     def prix_htva(self):
@@ -500,10 +540,22 @@ class Location(models.Model):
     # -------------------------
     # FACTURE
     # -------------------------
+    def _est_facture_complementaire(self, facture):
+        """Facture ne contenant, pour cette location, que des kilomètres supplémentaires."""
+        refs = {l.reference for l in facture.lines.all() if l.location_id == self.pk}
+        return refs == {"KM_SUPP"}
+
+    @property
+    def factures_complementaires(self):
+        """Factures complémentaires (kilomètres supplémentaires facturés après émission de la facture)."""
+        if not self.pk:
+            return []
+        return [f for f in self.factures.all() if self._est_facture_complementaire(f)]
+
     @property
     def facture(self):
-        """Facture liée (émise de préférence, sinon brouillon), ou None."""
-        factures = list(self.factures.all())
+        """Facture principale liée (émise de préférence, sinon brouillon), ou None."""
+        factures = [f for f in self.factures.all() if not self._est_facture_complementaire(f)]
         emises = [f for f in factures if f.statut == "EMISE"]
         return (emises or factures or [None])[0]
 

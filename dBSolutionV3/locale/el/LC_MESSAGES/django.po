@@ -63397,3 +63397,148 @@ msgstr "Δεν μπορείτε να αλλάξετε τον δικό σας ρ�
 #: utilisateurs/profil
 msgid "non modifiable sur votre propre compte"
 msgstr "δεν αλλάζει στον δικό σας λογαριασμό"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Calcul par le compteur"
+msgstr "Υπολογισμός από τον χιλιομετρητή"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Calcul par les tours"
+msgstr "Υπολογισμός από τους γύρους"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Calculé au retour de location."
+msgstr "Υπολογίζεται κατά την επιστροφή της μίσθωσης."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Calculé automatiquement ; modifiable."
+msgstr "Υπολογίζεται αυτόματα· τροποποιήσιμο."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Circuit : nombre de tours réellement effectués (calcul des kilomètres supplémentaires)."
+msgstr "Πίστα: γύροι που έγιναν πραγματικά (υπολογισμός επιπλέον χιλιομέτρων)."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Facturer les kilomètres supplémentaires"
+msgstr "Χρέωση επιπλέον χιλιομέτρων"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Facturé au retour pour chaque kilomètre au-delà du kilométrage (ou des tours) prévu."
+msgstr "Χρεώνεται στην επιστροφή για κάθε χιλιόμετρο πέρα από τα προβλεπόμενα (ή τους γύρους)."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Indiquez le prix par kilomètre supplémentaire."
+msgstr "Συμπληρώστε την τιμή ανά επιπλέον χιλιόμετρο."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Kilomètres supplémentaires"
+msgstr "Επιπλέον χιλιόμετρα"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "La ligne sera ajoutée à la facture brouillon de la location."
+msgstr "Η γραμμή θα προστεθεί στο πρόχειρο τιμολόγιο της μίσθωσης."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Prix par kilomètre supplémentaire TVAC"
+msgstr "Τιμή ανά επιπλέον χιλιόμετρο με ΦΠΑ"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Prix par kilomètre supplémentaire TVAC (€)"
+msgstr "Τιμή ανά επιπλέον χιλιόμετρο με ΦΠΑ (€)"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Prévu"
+msgstr "Προβλεπόμενο"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Tours effectués"
+msgstr "Γύροι που έγιναν"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "non facturés"
+msgstr "δεν χρεώνονται"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "tours"
+msgstr "γύροι"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "valeur modifiée à la main"
+msgstr "τιμή που άλλαξε χειροκίνητα"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "À facturer TVAC"
+msgstr "Προς χρέωση με ΦΠΑ"
+
+#: voiture/voiture_location/km_supplementaires
+#, python-format
+msgid "Kilomètres supplémentaires – %(km)s km × %(prix)s € TVAC"
+msgstr "Επιπλέον χιλιόμετρα – %(km)s km × %(prix)s € με ΦΠΑ"
+
+#: voiture/voiture_location/km_supplementaires
+#, python-format
+msgid "La facture %(numero)s est déjà émise : les kilomètres supplémentaires (%(montant)s € TVAC) doivent être facturés séparément."
+msgstr "Το τιμολόγιο %(numero)s έχει ήδη εκδοθεί: τα επιπλέον χιλιόμετρα (%(montant)s € με ΦΠΑ) πρέπει να τιμολογηθούν χωριστά."
+
+#: voiture/voiture_location/km_supplementaires
+#, python-format
+msgid "Facture %(n)s déjà émise : un supplément devra être facturé séparément."
+msgstr "Το τιμολόγιο %(n)s έχει ήδη εκδοθεί: η επιβάρυνση θα τιμολογηθεί χωριστά."
+
+#: voiture/voiture_location/km_supplementaires
+#, python-format
+msgid "Facture complémentaire : kilomètres supplémentaires de la location (facture %(numero)s)."
+msgstr "Συμπληρωματικό τιμολόγιο: επιπλέον χιλιόμετρα της μίσθωσης (τιμολόγιο %(numero)s)."
+
+#: voiture/voiture_location/km_supplementaires
+#, python-format
+msgid "Complément %(libelle)s"
+msgstr "Συμπλήρωμα %(libelle)s"
+
+#: voiture/voiture_location/km_supplementaires
+#, python-format
+msgid "Les kilomètres supplémentaires déjà facturés dépassent le nouveau total (%(montant)s € TVAC à rembourser) : établissez une note de crédit."
+msgstr "Τα ήδη τιμολογημένα επιπλέον χιλιόμετρα υπερβαίνουν το νέο σύνολο (%(montant)s € με ΦΠΑ προς επιστροφή): εκδώστε πιστωτικό σημείωμα."
+
+#: voiture/voiture_location/km_supplementaires
+#, python-format
+msgid "La facture %(numero)s est déjà émise : facture complémentaire créée (brouillon) pour les kilomètres supplémentaires – %(montant)s € TVAC."
+msgstr "Το τιμολόγιο %(numero)s έχει ήδη εκδοθεί: δημιουργήθηκε συμπληρωματικό τιμολόγιο (πρόχειρο) για τα επιπλέον χιλιόμετρα – %(montant)s € με ΦΠΑ."
+
+#: voiture/voiture_location/km_supplementaires
+#, python-format
+msgid "La facture %(numero)s est déjà émise : facture complémentaire (brouillon) mise à jour pour les kilomètres supplémentaires – %(montant)s € TVAC."
+msgstr "Το τιμολόγιο %(numero)s έχει ήδη εκδοθεί: ενημερώθηκε το συμπληρωματικό τιμολόγιο (πρόχειρο) για τα επιπλέον χιλιόμετρα – %(montant)s € με ΦΠΑ."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Voir et émettre la facture"
+msgstr "Προβολή και έκδοση τιμολογίου"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Cette location n'est pas encore facturée : les kilomètres supplémentaires seront repris dans sa facture."
+msgstr "Η μίσθωση δεν έχει τιμολογηθεί ακόμη: τα επιπλέον χιλιόμετρα θα συμπεριληφθούν στο τιμολόγιό της."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Kilomètres supplémentaires ajoutés à la facture brouillon."
+msgstr "Τα επιπλέον χιλιόμετρα προστέθηκαν στο πρόχειρο τιμολόγιο."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Les kilomètres supplémentaires sont déjà entièrement facturés."
+msgstr "Τα επιπλέον χιλιόμετρα έχουν ήδη τιμολογηθεί πλήρως."
+
+#: voiture/voiture_location/km_supplementaires
+#, python-format
+msgid "Facture complémentaire (brouillon) : %(montant)s € TVAC de kilomètres supplémentaires. Vérifiez-la puis émettez-la."
+msgstr "Συμπληρωματικό τιμολόγιο (πρόχειρο): %(montant)s € με ΦΠΑ επιπλέον χιλιομέτρων. Ελέγξτε το και εκδώστε το."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Facture complémentaire"
+msgstr "Συμπληρωματικό τιμολόγιο"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "émise"
+msgstr "εκδόθηκε"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Facturer les kilomètres supplémentaires (facture complémentaire)"
+msgstr "Χρέωση επιπλέον χιλιομέτρων (συμπληρωματικό τιμολόγιο)"

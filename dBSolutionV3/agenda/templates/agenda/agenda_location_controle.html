@@ -35,6 +35,11 @@
     <p><strong>{% trans "Retour" %} :</strong> {{ suivi.retour_le|date:"d/m/Y H:i" }}
         {% if suivi.retour_par %}– {{ suivi.retour_par.prenom }} {{ suivi.retour_par.nom }}{% endif %}
         · {{ suivi.kilometrage_apres|default_if_none:"—" }} km (+{{ suivi.km_parcourus|default_if_none:"—" }} km)</p>
+    {% if location.km_supplementaires %}
+    <p><strong>{% trans "Kilomètres supplémentaires" %} :</strong> {{ location.km_supplementaires }} km
+        {% if location.facturer_km_supplementaires and location.prix_km_supplementaire %}× {{ location.prix_km_supplementaire|floatformat:2 }} € = <strong>{{ location.total_km_supplementaires_tvac|floatformat:2 }} € {% trans "TVAC" %}</strong>
+        {% else %}<span class="text-gray-500">({% trans "non facturés" %})</span>{% endif %}</p>
+    {% endif %}
     {% endif %}
     <p class="md:col-span-2"><a href="{% url 'voiture_location:location_detail' location.pk %}" class="text-blue-700 hover:underline">{% trans "Voir la location" %} →</a></p>
 </div>
@@ -97,6 +102,55 @@
                 <span id="km-parcourus" class="block text-2xl font-bold text-blue-800">—</span>
                 <span id="km-erreur" class="hidden text-sm font-semibold text-red-700">{% trans "Inférieur au kilométrage avant !" %}</span>
             </div>
+        </div>
+
+        <!-- Kilomètres supplémentaires (extra mileage) -->
+        <div id="bloc-km-sup" class="md:col-span-2 bg-orange-50 border border-orange-200 rounded-lg p-4"
+             data-km-prevus="{{ location.kilometrage|default_if_none:'' }}"
+             data-tours-prevus="{{ location.nombre_tours|default_if_none:'' }}"
+             data-longueur="{{ calcul_km.longueur|default_if_none:''|stringformat:'s' }}"
+             data-taux="{{ location.taux_tva|stringformat:'s' }}">
+            <h3 class="font-semibold mb-2">{% trans "Kilomètres supplémentaires" %}</h3>
+            <p class="text-sm text-gray-600 mb-3">
+                {% trans "Prévu" %} :
+                {% if location.nombre_tours %}<strong>{{ location.nombre_tours }}</strong> {% trans "tours" %}{% if calcul_km.longueur %} × {{ calcul_km.longueur }} km{% endif %} = {% endif %}
+                <strong>{{ location.kilometrage|default_if_none:"—" }}</strong> km
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+                {% if form_retour.tours_effectues %}
+                <div>
+                    <label for="{{ form_retour.tours_effectues.id_for_label }}" class="block font-semibold mb-1">{{ form_retour.tours_effectues.label }}</label>
+                    {{ form_retour.tours_effectues|add_class:"input text-lg" }}
+                    {% if form_retour.tours_effectues.errors %}<p class="text-red-600 text-sm mt-1">{{ form_retour.tours_effectues.errors|striptags }}</p>{% endif %}
+                </div>
+                {% endif %}
+                <div>
+                    <label for="{{ form_retour.km_supplementaires.id_for_label }}" class="block font-semibold mb-1">{{ form_retour.km_supplementaires.label }}</label>
+                    <div class="flex items-center gap-2">{{ form_retour.km_supplementaires|add_class:"input text-lg" }}<span class="text-gray-500">km</span></div>
+                    <p id="km-sup-mode" class="text-xs text-gray-500 mt-1"></p>
+                    {% if form_retour.km_supplementaires.errors %}<p class="text-red-600 text-sm mt-1">{{ form_retour.km_supplementaires.errors|striptags }}</p>{% endif %}
+                </div>
+                <div>
+                    <label for="{{ form_retour.prix_km_supplementaire.id_for_label }}" class="block font-semibold mb-1">{{ form_retour.prix_km_supplementaire.label }}</label>
+                    {{ form_retour.prix_km_supplementaire|add_class:"input text-lg" }}
+                    {% if form_retour.prix_km_supplementaire.errors %}<p class="text-red-600 text-sm mt-1">{{ form_retour.prix_km_supplementaire.errors|striptags }}</p>{% endif %}
+                </div>
+                <div class="text-center">
+                    <span class="block text-sm text-gray-500">{% trans "À facturer TVAC" %}</span>
+                    <span id="km-sup-total" class="block text-2xl font-bold text-orange-700">0,00 €</span>
+                    <span id="km-sup-htva" class="block text-xs text-gray-500"></span>
+                </div>
+            </div>
+            <label class="inline-flex items-center gap-2 mt-3">
+                {{ form_retour.facturer_km_supplementaires }}
+                <span class="font-semibold">{{ form_retour.facturer_km_supplementaires.label }}</span>
+            </label>
+            {% with f=location.facture %}{% if f %}
+            <p class="text-xs text-gray-500 mt-1">
+                {% if f.statut == "EMISE" %}{% blocktrans with n=f.numero %}Facture {{ n }} déjà émise : un supplément devra être facturé séparément.{% endblocktrans %}
+                {% else %}{% trans "La ligne sera ajoutée à la facture brouillon de la location." %}{% endif %}
+            </p>
+            {% endif %}{% endwith %}
         </div>
 
         <!-- Contrôles -->
@@ -182,10 +236,48 @@
         }
     }
 
-    [avant, apres].forEach(function (el) { if (el) el.addEventListener("input", majKm); });
+    /* ---------- Kilomètres supplémentaires ---------- */
+    var bloc = document.getElementById("bloc-km-sup"),
+        tours = document.getElementById("id_tours_effectues"),
+        kmSup = document.getElementById("id_km_supplementaires"),
+        prixKm = document.getElementById("id_prix_km_supplementaire"),
+        facturer = document.getElementById("id_facturer_km_supplementaires"),
+        mode = document.getElementById("km-sup-mode"),
+        totalEl = document.getElementById("km-sup-total"),
+        htvaEl = document.getElementById("km-sup-htva");
+    var kmSupManuel = kmSup && kmSup.value !== "" && {{ location.km_supplementaires|yesno:"true,false" }};
+    function nombre(v) { v = String(v || "").replace(",", "."); return v === "" ? NaN : Number(v); }
+    function euro(n) { return n.toFixed(2).replace(".", ",") + " €"; }
+    function majKmSup() {
+        if (!bloc || !kmSup) return;
+        var prevus = nombre(bloc.dataset.kmPrevus), toursPrevus = nombre(bloc.dataset.toursPrevus),
+            longueur = nombre(bloc.dataset.longueur), taux = nombre(bloc.dataset.taux) || 0;
+        var calc = NaN, texte = "";
+        if (tours && tours.value !== "" && !isNaN(toursPrevus) && !isNaN(longueur)) {
+            var t = Math.max(0, nombre(tours.value) - toursPrevus);
+            calc = Math.round(t * longueur);
+            texte = "{% trans 'Calcul par les tours' %} : " + t + " × " + String(longueur).replace(".", ",") + " km";
+        } else if (avant && apres && avant.value !== "" && apres.value !== "" && !isNaN(prevus)) {
+            var parcourus = nombre(apres.value) - nombre(avant.value);
+            calc = Math.max(0, parcourus - prevus);
+            texte = "{% trans 'Calcul par le compteur' %} : " + parcourus + " − " + prevus + " km";
+        }
+        if (!kmSupManuel && !isNaN(calc)) kmSup.value = calc;
+        if (mode) mode.textContent = texte + (kmSupManuel ? " ({% trans 'valeur modifiée à la main' %})" : "");
+        var km = nombre(kmSup.value) || 0, prix = nombre(prixKm && prixKm.value) || 0;
+        var total = (facturer && !facturer.checked) ? 0 : Math.round(km * prix * 100) / 100;
+        totalEl.textContent = euro(total);
+        htvaEl.textContent = total ? euro(total / (1 + taux / 100)) + " {% trans 'HTVA' %}" : "";
+        bloc.classList.toggle("opacity-60", km === 0);
+    }
+    if (kmSup) kmSup.addEventListener("input", function () { kmSupManuel = kmSup.value !== ""; majKmSup(); });
+    [tours, prixKm, facturer].forEach(function (el) { if (el) { el.addEventListener("input", majKmSup); el.addEventListener("change", majKmSup); } });
+
+    [avant, apres].forEach(function (el) { if (el) { el.addEventListener("input", majKm); el.addEventListener("input", majKmSup); } });
     document.querySelectorAll('input[name="controle_carrosserie"], input[name="bruit_moteur"]')
         .forEach(function (el) { el.addEventListener("change", majTag); });
     majKm();
+    majKmSup();
     majTag();
 })();
 </script>

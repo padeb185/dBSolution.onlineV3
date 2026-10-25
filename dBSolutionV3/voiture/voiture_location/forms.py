@@ -71,6 +71,7 @@ class LocationForm(forms.ModelForm):
             "instructeur_heures",
             "instructeur_prix_heure",
             "prix_deuxieme_pilote",
+            "prix_km_supplementaire",
         )
         widgets = {
             "date_debut": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
@@ -86,6 +87,7 @@ class LocationForm(forms.ModelForm):
             "instructeur_heures": forms.NumberInput(attrs={"step": "0.25", "min": "0"}),
             "instructeur_prix_heure": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
             "prix_deuxieme_pilote": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
+            "prix_km_supplementaire": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
         }
 
     def __init__(self, *args, **kwargs):

@@ -115,12 +115,13 @@ class AgendaLocationRetourForm(forms.ModelForm):
     class Meta:
         model = AgendaLocation
         fields = [
-            "kilometrage_avant", "kilometrage_apres", "controle_carrosserie", "bruit_moteur",
+            "kilometrage_avant", "kilometrage_apres", "tours_effectues", "controle_carrosserie", "bruit_moteur",
             "niveau_essence_retour", "tag_retour", "remarques",
         ]
         widgets = {
             "kilometrage_avant": forms.NumberInput(attrs={"min": 0, "inputmode": "numeric"}),
             "kilometrage_apres": forms.NumberInput(attrs={"min": 0, "inputmode": "numeric"}),
+            "tours_effectues": forms.NumberInput(attrs={"min": 0, "inputmode": "numeric"}),
             "controle_carrosserie": forms.RadioSelect,
             "bruit_moteur": forms.RadioSelect,
             "niveau_essence_retour": forms.RadioSelect,
@@ -128,8 +129,31 @@ class AgendaLocationRetourForm(forms.ModelForm):
             "remarques": forms.Textarea(attrs={"rows": 4}),
         }
 
+    # Kilomètres supplémentaires : enregistrés sur la location
+    km_supplementaires = forms.IntegerField(
+        label=_("Kilomètres supplémentaires"), required=False, min_value=0,
+        widget=forms.NumberInput(attrs={"min": 0, "inputmode": "numeric"}),
+        help_text=_("Calculé automatiquement ; modifiable."),
+    )
+    prix_km_supplementaire = forms.DecimalField(
+        label=_("Prix par kilomètre supplémentaire TVAC (€)"), required=False, min_value=0,
+        max_digits=10, decimal_places=2, widget=forms.NumberInput(attrs={"step": "0.01", "min": 0}),
+    )
+    facturer_km_supplementaires = forms.BooleanField(
+        label=_("Facturer les kilomètres supplémentaires"), required=False,
+    )
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        location = self.instance.location
+        self.fields["km_supplementaires"].initial = (
+            location.km_supplementaires if location.km_supplementaires is not None
+            else self.instance.calcul_km_supplementaires["km"]
+        )
+        self.fields["prix_km_supplementaire"].initial = location.prix_km_supplementaire
+        self.fields["facturer_km_supplementaires"].initial = location.facturer_km_supplementaires
+        if location.type_location != "circuit" or not location.nombre_tours:
+            del self.fields["tours_effectues"]
         # Pas de choix vide sur les boutons
         self.fields["controle_carrosserie"].choices = AgendaLocation.Controle.choices
         self.fields["bruit_moteur"].choices = AgendaLocation.Controle.choices
@@ -146,6 +170,7 @@ class AgendaLocationRetourForm(forms.ModelForm):
             self.initial["tag_retour"] = Maintenance.Tag.JAUNE
         for field in self.fields.values():
             field.widget.attrs.setdefault("class", "input")
+        self.fields["facturer_km_supplementaires"].widget.attrs["class"] = "h-5 w-5"
 
     def clean(self):
         cleaned = super().clean()
@@ -153,6 +178,9 @@ class AgendaLocationRetourForm(forms.ModelForm):
         if avant is not None and apres is not None and apres < avant:
             self.add_error("kilometrage_apres",
                            _("Le kilométrage après location ne peut pas être inférieur au kilométrage avant location."))
+        if (cleaned.get("facturer_km_supplementaires") and cleaned.get("km_supplementaires")
+                and cleaned.get("prix_km_supplementaire") in (None, "")):
+            self.add_error("prix_km_supplementaire", _("Indiquez le prix par kilomètre supplémentaire."))
         # Un problème (carrosserie ou bruit moteur) impose le tag rouge
         if AgendaLocation.Controle.PROBLEME in (cleaned.get("controle_carrosserie"), cleaned.get("bruit_moteur")):
             cleaned["tag_retour"] = Maintenance.Tag.ROUGE

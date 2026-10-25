@@ -501,8 +501,146 @@ def creer_facture_depuis_location(location, type_facture, user):
             unit_price=location.total_deuxieme_pilote_htva,
             vat_rate=location.taux_tva,
         )
+    # Kilomètres supplémentaires (constatés au retour)
+    ligne_km_supplementaires(facture, location, recalculer=False)
     facture.recalculer_totaux()
     return facture
+
+
+REF_KM_SUPPLEMENTAIRES = "KM_SUPP"
+
+
+def _tvac_ligne(ligne):
+    base = arrondi(Decimal(ligne.quantity or 0) * Decimal(ligne.unit_price or 0))
+    return arrondi(base + base * Decimal(ligne.vat_rate or 0) / Decimal("100"))
+
+
+@transaction.atomic
+def facturer_km_supplementaires(location, user):
+    """
+    Kilomètres supplémentaires d'une location dont la facture est déjà émise.
+    Calcule le solde restant (total des km supplémentaires − déjà facturé sur des factures émises) et le place
+    sur une facture brouillon (complémentaire), créée si besoin avec le même client.
+    Retourne (facture, creee, solde_tvac) ; facture = None si rien à facturer.
+    """
+    total = location.total_km_supplementaires_tvac
+    deja = Decimal("0.00")
+    brouillon = None
+    for f in location.factures.all():
+        lignes = [l for l in f.lines.all() if l.location_id == location.pk and l.reference == REF_KM_SUPPLEMENTAIRES]
+        if f.statut == Facture.Statut.EMISE:
+            deja += sum((_tvac_ligne(l) for l in lignes), Decimal("0.00"))
+        elif brouillon is None or lignes:
+            brouillon = f
+    solde = arrondi(total - deja)
+
+    if solde <= 0:
+        # Plus rien à facturer : retirer une éventuelle ligne en attente sur un brouillon
+        if brouillon is not None:
+            lignes = brouillon.lines.filter(location=location, reference=REF_KM_SUPPLEMENTAIRES)
+            if lignes.exists():
+                lignes.delete()
+                if not brouillon.lines.exists():
+                    brouillon.delete()
+                else:
+                    brouillon.recalculer_totaux()
+        return None, False, solde
+
+    creee = False
+    if brouillon is None:
+        principale = location.facture
+        brouillon = Facture.objects.create(
+            type_facture=principale.type_facture if principale else Facture.TypeFacture.CLIENT,
+            societe=(principale.societe if principale else None) or location.societe or getattr(user, "societe", None),
+            voiture_exemplaire=location.voiture_exemplaire,
+            client_particulier=principale.client_particulier if principale else location.client,
+            societe_cliente=principale.societe_cliente if principale else location.societe_cliente,
+            autoliquidation=principale.autoliquidation if principale else False,
+            issue_date=timezone.localdate(),
+            due_date=timezone.localdate() + timedelta(days=30),
+            remarques=(_("Facture complémentaire : kilomètres supplémentaires de la location (facture %(numero)s).")
+                       % {"numero": principale.numero}) if principale and principale.numero else "",
+            cree_par=user,
+        )
+        brouillon.locations.add(location)
+        creee = True
+
+    from voiture.voiture_location.models import prix_htva_depuis_tvac
+    if deja == 0:
+        # Rien encore facturé : ligne détaillée km × prix
+        quantite, unitaire = Decimal(location.km_supplementaires), location.prix_km_supplementaire_htva
+        description = location.libelle_km_supplementaires
+        base = quantite * unitaire
+        tva = (base * location.taux_tva / Decimal("100")).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        if (base + tva).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP) != solde:
+            quantite, unitaire = Decimal("1"), prix_htva_depuis_tvac(solde, location.taux_tva)
+    else:
+        # Complément d'une facturation précédente
+        quantite, unitaire = Decimal("1"), prix_htva_depuis_tvac(solde, location.taux_tva)
+        description = _("Complément %(libelle)s") % {"libelle": location.libelle_km_supplementaires}
+    valeurs = {
+        "type_ligne": FactureLine.TypeLigne.LOCATION,
+        "description": description[:255],
+        "quantity": quantite,
+        "unit_cost": None,
+        "marge": Decimal("0.00"),
+        "unit_price": unitaire,
+        "vat_rate": location.taux_tva,
+    }
+    existante = brouillon.lines.filter(location=location, reference=REF_KM_SUPPLEMENTAIRES).first()
+    if existante is None:
+        ordre = (brouillon.lines.order_by("-ordre").values_list("ordre", flat=True).first() or 0) + 1
+        FactureLine.objects.create(facture=brouillon, location=location, ordre=ordre,
+                                   reference=REF_KM_SUPPLEMENTAIRES, **valeurs)
+    else:
+        for k, v in valeurs.items():
+            setattr(existante, k, v)
+        existante.save()
+    brouillon.recalculer_totaux()
+    return brouillon, creee, solde
+
+
+def ligne_km_supplementaires(facture, location, recalculer=True):
+    """
+    Crée / met à jour / supprime la ligne « kilomètres supplémentaires » d'une facture de location
+    (brouillon uniquement). Retourne True si la facture a été modifiée.
+    """
+    if facture is None or facture.statut != Facture.Statut.BROUILLON:
+        return False
+    existante = facture.lines.filter(location=location, reference=REF_KM_SUPPLEMENTAIRES).first()
+    total_tvac = location.total_km_supplementaires_tvac
+    if not total_tvac:
+        if existante is None:
+            return False
+        existante.delete()
+    else:
+        from voiture.voiture_location.models import prix_htva_depuis_tvac
+        quantite, unitaire = Decimal(location.km_supplementaires), location.prix_km_supplementaire_htva
+        base = quantite * unitaire
+        tva = (base * location.taux_tva / Decimal("100")).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        if (base + tva).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP) != total_tvac:
+            # Arrondi : une seule ligne au total pour retomber exactement sur le montant TVAC
+            quantite, unitaire = Decimal("1"), prix_htva_depuis_tvac(total_tvac, location.taux_tva)
+        valeurs = {
+            "type_ligne": FactureLine.TypeLigne.LOCATION,
+            "description": location.libelle_km_supplementaires[:255],
+            "quantity": quantite,
+            "unit_cost": None,
+            "marge": Decimal("0.00"),
+            "unit_price": unitaire,
+            "vat_rate": location.taux_tva,
+        }
+        if existante is None:
+            ordre = (facture.lines.order_by("-ordre").values_list("ordre", flat=True).first() or 0) + 1
+            FactureLine.objects.create(facture=facture, location=location, ordre=ordre,
+                                       reference=REF_KM_SUPPLEMENTAIRES, **valeurs)
+        else:
+            for k, v in valeurs.items():
+                setattr(existante, k, v)
+            existante.save()
+    if recalculer:
+        facture.recalculer_totaux()
+    return True
 
 
 def creer_facture_depuis_diagnostic(diagnostic, type_facture, user):

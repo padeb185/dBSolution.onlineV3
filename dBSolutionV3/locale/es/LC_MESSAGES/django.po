@@ -63339,3 +63339,148 @@ msgstr "No puede modificar su propio rol."
 #: utilisateurs/profil
 msgid "non modifiable sur votre propre compte"
 msgstr "no modificable en su propia cuenta"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Calcul par le compteur"
+msgstr "Cálculo por el cuentakilómetros"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Calcul par les tours"
+msgstr "Cálculo por las vueltas"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Calculé au retour de location."
+msgstr "Calculado a la devolución del alquiler."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Calculé automatiquement ; modifiable."
+msgstr "Calculado automáticamente; modificable."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Circuit : nombre de tours réellement effectués (calcul des kilomètres supplémentaires)."
+msgstr "Circuito: número de vueltas realmente efectuadas (cálculo de kilómetros adicionales)."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Facturer les kilomètres supplémentaires"
+msgstr "Facturar los kilómetros adicionales"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Facturé au retour pour chaque kilomètre au-delà du kilométrage (ou des tours) prévu."
+msgstr "Facturado a la devolución por cada kilómetro por encima del kilometraje (o vueltas) previsto."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Indiquez le prix par kilomètre supplémentaire."
+msgstr "Indique el precio por kilómetro adicional."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Kilomètres supplémentaires"
+msgstr "Kilómetros adicionales"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "La ligne sera ajoutée à la facture brouillon de la location."
+msgstr "La línea se añadirá a la factura borrador del alquiler."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Prix par kilomètre supplémentaire TVAC"
+msgstr "Precio por kilómetro adicional IVA incl."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Prix par kilomètre supplémentaire TVAC (€)"
+msgstr "Precio por kilómetro adicional IVA incl. (€)"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Prévu"
+msgstr "Previsto"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Tours effectués"
+msgstr "Vueltas efectuadas"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "non facturés"
+msgstr "no facturados"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "tours"
+msgstr "vueltas"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "valeur modifiée à la main"
+msgstr "valor modificado manualmente"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "À facturer TVAC"
+msgstr "A facturar IVA incl."
+
+#: voiture/voiture_location/km_supplementaires
+#, python-format
+msgid "Kilomètres supplémentaires – %(km)s km × %(prix)s € TVAC"
+msgstr "Kilómetros adicionales – %(km)s km × %(prix)s € IVA incl."
+
+#: voiture/voiture_location/km_supplementaires
+#, python-format
+msgid "La facture %(numero)s est déjà émise : les kilomètres supplémentaires (%(montant)s € TVAC) doivent être facturés séparément."
+msgstr "La factura %(numero)s ya está emitida: los kilómetros adicionales (%(montant)s € IVA incl.) deben facturarse por separado."
+
+#: voiture/voiture_location/km_supplementaires
+#, python-format
+msgid "Facture %(n)s déjà émise : un supplément devra être facturé séparément."
+msgstr "Factura %(n)s ya emitida: el suplemento deberá facturarse por separado."
+
+#: voiture/voiture_location/km_supplementaires
+#, python-format
+msgid "Facture complémentaire : kilomètres supplémentaires de la location (facture %(numero)s)."
+msgstr "Factura complementaria: kilómetros adicionales del alquiler (factura %(numero)s)."
+
+#: voiture/voiture_location/km_supplementaires
+#, python-format
+msgid "Complément %(libelle)s"
+msgstr "Complemento %(libelle)s"
+
+#: voiture/voiture_location/km_supplementaires
+#, python-format
+msgid "Les kilomètres supplémentaires déjà facturés dépassent le nouveau total (%(montant)s € TVAC à rembourser) : établissez une note de crédit."
+msgstr "Los kilómetros adicionales ya facturados superan el nuevo total (%(montant)s € IVA incl. a reembolsar): emita una nota de crédito."
+
+#: voiture/voiture_location/km_supplementaires
+#, python-format
+msgid "La facture %(numero)s est déjà émise : facture complémentaire créée (brouillon) pour les kilomètres supplémentaires – %(montant)s € TVAC."
+msgstr "La factura %(numero)s ya está emitida: factura complementaria creada (borrador) para los kilómetros adicionales – %(montant)s € IVA incl."
+
+#: voiture/voiture_location/km_supplementaires
+#, python-format
+msgid "La facture %(numero)s est déjà émise : facture complémentaire (brouillon) mise à jour pour les kilomètres supplémentaires – %(montant)s € TVAC."
+msgstr "La factura %(numero)s ya está emitida: factura complementaria (borrador) actualizada para los kilómetros adicionales – %(montant)s € IVA incl."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Voir et émettre la facture"
+msgstr "Ver y emitir la factura"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Cette location n'est pas encore facturée : les kilomètres supplémentaires seront repris dans sa facture."
+msgstr "Este alquiler aún no está facturado: los kilómetros adicionales se incluirán en su factura."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Kilomètres supplémentaires ajoutés à la facture brouillon."
+msgstr "Kilómetros adicionales añadidos a la factura borrador."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Les kilomètres supplémentaires sont déjà entièrement facturés."
+msgstr "Los kilómetros adicionales ya están totalmente facturados."
+
+#: voiture/voiture_location/km_supplementaires
+#, python-format
+msgid "Facture complémentaire (brouillon) : %(montant)s € TVAC de kilomètres supplémentaires. Vérifiez-la puis émettez-la."
+msgstr "Factura complementaria (borrador): %(montant)s € IVA incl. de kilómetros adicionales. Revísela y emítala."
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Facture complémentaire"
+msgstr "Factura complementaria"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "émise"
+msgstr "emitida"
+
+#: voiture/voiture_location/km_supplementaires
+msgid "Facturer les kilomètres supplémentaires (facture complémentaire)"
+msgstr "Facturar los kilómetros adicionales (factura complementaria)"

@@ -269,6 +269,42 @@ def location_facturer(request, location_id):
     return redirect("facture:modifier", pk=facture.pk)
 
 
+@login_required
+@require_POST
+def location_facturer_km_supplementaires(request, location_id):
+    """Facture complémentaire des kilomètres supplémentaires (la facture de la location est déjà émise)."""
+    if not _peut_facturer(request.user):
+        messages.error(request, _("Accès refusé"))
+        return redirect("voiture_location:location_liste")
+
+    from facture.services import facturer_km_supplementaires, ligne_km_supplementaires
+    location = get_object_or_404(_queryset(request), id=location_id)
+    principale = location.facture
+
+    if principale is None:
+        messages.info(request, _("Cette location n'est pas encore facturée : les kilomètres supplémentaires "
+                                 "seront repris dans sa facture."))
+        return redirect("voiture_location:location_detail", location_id=location.pk)
+    if principale.statut != principale.Statut.EMISE:
+        ligne_km_supplementaires(principale, location)
+        messages.success(request, _("Kilomètres supplémentaires ajoutés à la facture brouillon."))
+        return redirect("facture:modifier", pk=principale.pk)
+
+    facture, creee, solde = facturer_km_supplementaires(location, request.user)
+    if facture is None:
+        if solde < 0:
+            messages.warning(request, _("Les kilomètres supplémentaires déjà facturés dépassent le nouveau total "
+                                        "(%(montant)s € TVAC à rembourser) : établissez une note de crédit.")
+                             % {"montant": f"{-solde:.2f}"})
+        else:
+            messages.info(request, _("Les kilomètres supplémentaires sont déjà entièrement facturés."))
+        return redirect("voiture_location:location_detail", location_id=location.pk)
+    _log(request.user, ACTION_FACTURE_LOCATION, location)
+    messages.success(request, _("Facture complémentaire (brouillon) : %(montant)s € TVAC de kilomètres "
+                                "supplémentaires. Vérifiez-la puis émettez-la.") % {"montant": f"{solde:.2f}"})
+    return redirect("facture:modifier", pk=facture.pk)
+
+
 # -----------------------------
 # Ventes : détail des locations (HTVA / TVA / TVAC)
 # -----------------------------

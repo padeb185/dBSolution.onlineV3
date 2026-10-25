@@ -171,6 +171,10 @@ class AgendaLocation(models.Model):
 
     # ---- Retour
     kilometrage_apres = models.PositiveIntegerField(_("Kilométrage après location"), null=True, blank=True)
+    tours_effectues = models.PositiveIntegerField(
+        _("Tours effectués"), null=True, blank=True,
+        help_text=_("Circuit : nombre de tours réellement effectués (calcul des kilomètres supplémentaires)."),
+    )
     controle_carrosserie = models.CharField(
         _("Contrôle visuel carrosserie"), max_length=10, choices=Controle.choices, blank=True,
     )
@@ -224,6 +228,30 @@ class AgendaLocation(models.Model):
         if self.kilometrage_avant is not None and self.kilometrage_apres is not None:
             return max(0, self.kilometrage_apres - self.kilometrage_avant)
         return None
+
+    # ---- Kilomètres supplémentaires (extra mileage)
+    @property
+    def km_prevus(self):
+        """Kilométrage prévu de la location (saisi ou calculé à partir des tours)."""
+        return self.location.kilometrage
+
+    @property
+    def calcul_km_supplementaires(self):
+        """
+        {"km": int | None, "mode": "tours" | "compteur" | None, "detail": str}
+        - Circuit avec tours prévus et tours effectués : (tours effectués − tours prévus) × longueur du circuit ;
+        - sinon : km parcourus (compteur) − kilométrage prévu.
+        """
+        from decimal import Decimal, ROUND_HALF_UP
+        loc = self.location
+        longueur = loc.longueur_circuit_km if loc.type_location == "circuit" else None
+        if loc.nombre_tours and self.tours_effectues is not None and longueur:
+            tours_sup = max(0, self.tours_effectues - loc.nombre_tours)
+            km = int((Decimal(tours_sup) * Decimal(str(longueur))).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
+            return {"km": km, "mode": "tours", "tours_sup": tours_sup, "longueur": longueur}
+        if self.km_parcourus is not None and self.km_prevus is not None:
+            return {"km": max(0, self.km_parcourus - self.km_prevus), "mode": "compteur", "tours_sup": None, "longueur": longueur}
+        return {"km": None, "mode": None, "tours_sup": None, "longueur": longueur}
 
     @property
     def etat(self):

@@ -17,6 +17,8 @@ urlpatterns = [
     path("interdictions/<uuid:pk>/modifier/", views.interdiction_modifier, name="interdiction_modifier"),
     path("interdictions/<uuid:pk>/supprimer/", views.interdiction_supprimer, name="interdiction_supprimer"),
     path("<uuid:location_id>/facturer/", views.location_facturer, name="location_facturer"),
+    path("<uuid:location_id>/facturer-km-supplementaires/", views.location_facturer_km_supplementaires,
+         name="location_facturer_km_supplementaires"),
     path("<uuid:location_id>/", views.location_detail, name="location_detail"),
     path("<uuid:location_id>/pdf/", views.location_pdf, name="location_pdf"),
     path("<uuid:location_id>/modifier/", views.location_modifier, name="location_modifier"),

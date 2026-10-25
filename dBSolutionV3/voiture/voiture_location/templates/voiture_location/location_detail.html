@@ -73,6 +73,7 @@
                 <p><strong>{% trans "Route / itinéraire" %} :</strong> {{ location.route|default:"—" }}</p>
             {% endif %}
             <p><strong>{% trans "Kilométrage" %} :</strong> {% if location.kilometrage is not None %}{{ location.kilometrage }} km{% else %}—{% endif %}</p>
+            {% if location.prix_km_supplementaire is not None %}<p><strong>{% trans "Prix par kilomètre supplémentaire TVAC" %} :</strong> {{ location.prix_km_supplementaire|floatformat:2 }} €</p>{% endif %}
         </div>
 
         <!-- Période et prix -->
@@ -116,6 +117,28 @@
             <div class="bg-gray-50 border rounded p-3">
                 <p class="font-semibold mb-1">{% trans "Deuxième pilote" %} :</p>
                 <p>{{ location.deuxieme_pilote_nom }} = <strong>{{ location.total_deuxieme_pilote_tvac|floatformat:2 }} €</strong> {% trans "TVAC" %}</p>
+            </div>
+            {% endif %}
+            {% if location.km_supplementaires %}
+            <div class="bg-orange-50 border border-orange-300 rounded p-3">
+                <p class="font-semibold mb-1">{% trans "Kilomètres supplémentaires" %} :</p>
+                <p>{{ location.km_supplementaires }} km × {{ location.prix_km_supplementaire|default:0|floatformat:2 }} € {% trans "TVAC" %}
+                   = <strong>{{ location.total_km_supplementaires_tvac|floatformat:2 }} €</strong>
+                   {% if not location.facturer_km_supplementaires %}<span class="text-gray-500">({% trans "non facturés" %})</span>{% endif %}</p>
+                {% for f in location.factures_complementaires %}
+                <p class="text-sm mt-1">{% trans "Facture complémentaire" %} :
+                    <a href="{% url 'facture:detail' f.pk %}" class="text-blue-700 hover:underline">{{ f.numero|default:_("brouillon") }}</a>
+                    – {{ f.total|floatformat:2 }} € {% trans "TVAC" %}
+                    ({% if f.statut == "EMISE" %}{% trans "émise" %}{% else %}{% trans "brouillon" %}{% endif %})</p>
+                {% endfor %}
+                {% with fp=location.facture %}{% if fp and fp.statut == "EMISE" and location.total_km_supplementaires_tvac %}
+                <form method="post" action="{% url 'voiture_location:location_facturer_km_supplementaires' location.pk %}" class="mt-2">
+                    {% csrf_token %}
+                    <button type="submit" class="bg-orange-600 hover:bg-orange-500 text-white px-3 py-2 rounded text-sm font-semibold">
+                        {% trans "Facturer les kilomètres supplémentaires (facture complémentaire)" %}
+                    </button>
+                </form>
+                {% endif %}{% endwith %}
             </div>
             {% endif %}
             {% if location.instructeur_id %}
