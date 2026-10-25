@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Sécurité" %}{% endblock %}
+
+{% block content %}
+    {% url 'securite:modifier_securite' securite.pk as url_modifier %}
+    {% url 'securite:securite_detail_pdf' securite.pk as url_pdf %}
+    {% url 'securite:delete_securite' securite.pk as url_delete %}
+    {% if exemplaire %}{% url 'securite:securite_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Sécurité" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=securite km_controle=securite.kilometrage_securite icone="securite.png" %}
+{% endblock %}

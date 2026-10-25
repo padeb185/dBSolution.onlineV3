@@ -662,6 +662,8 @@ def tva_view(request):
         "calcul": calcul,
         "a_payer": calcul.tva_a_payer,
         "a_recuperer": calcul.tva_a_recuperer,
+        "journal_a_payer": calcul.journal_a_payer,
+        "journal_a_recuperer": calcul.journal_a_recuperer,
         "declaration": calcul.declaration(pays),
         "pays": pays,
         "pays_choices": TVAConfig.PAYS_CHOICES,
@@ -749,6 +751,27 @@ def _tva_csv(calcul, type_periode, annee, numero, pays, internes, tot_internes):
         w.writerow([l["label"], l["nb"], fmt(l["base"]), fmt(l["tva"]), fmt(l["deductible"]), fmt(l["tva_deductible"]),
                     _("Informatif (hors total)") if l["informatif"] else ""])
     w.writerow([_("Total"), "", fmt(a_recuperer["base"]), fmt(a_recuperer["tva"]), "", fmt(a_recuperer["tva_deductible"]), ""])
+    w.writerow([])
+
+    # Journal des mouvements – TVA à payer
+    natures = {"facture": _("Facture"), "acompte": _("Acompte location"), "location": _("Location réalisée")}
+    w.writerow([_("Journal des mouvements – TVA à payer")])
+    w.writerow([_("Date"), _("Pièce"), _("Client"), _("Libellé"), _("Nature"), _("Taux"), _("Base HTVA"), _("TVA"),
+                _("Cumul TVA"), _("Autoliquidation")])
+    for m in calcul.journal_a_payer:
+        w.writerow([m["date"].strftime("%d/%m/%Y") if m["date"] else "", m["piece"], m["tiers"], m["libelle"],
+                    natures.get(m["nature"], m["nature"]), fmt_taux(m["taux"]), fmt(m["base"]), fmt(m["tva"]),
+                    fmt(m["cumul"]), _("Oui") if m["autoliquidation"] else ""])
+    w.writerow([])
+
+    # Journal des mouvements – TVA à récupérer
+    w.writerow([_("Journal des mouvements – TVA à récupérer")])
+    w.writerow([_("Date"), _("Source"), _("Pièce"), _("Fournisseur"), _("Libellé"), _("Base HTVA"), _("TVA payée"),
+                _("Déductible (%)"), _("TVA à récupérer"), _("Cumul TVA"), _("Remarque")])
+    for m in calcul.journal_a_recuperer:
+        w.writerow([m["date"].strftime("%d/%m/%Y") if m["date"] else "", m["source"], m["piece"], m["tiers"],
+                    m["libelle"], fmt(m["base"]), fmt(m["tva"]), fmt(m["deductible"]), fmt(m["tva_deductible"]),
+                    fmt(m["cumul"]), _("Informatif (hors total)") if m["informatif"] else ""])
     w.writerow([])
 
     # Déclaration nationale

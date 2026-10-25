@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% load i18n widget_tweaks static %}
+
+{% block title %}{% trans "Casse boîte manuelle" %}{% endblock %}
+
+{% block content %}
+<br><br>
+<div class="max-w-7xl mx-auto p-6 bg-white rounded shadow">
+
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold">
+            <div class="flex items-center gap-4">
+                <img src="{% static 'icons/casse_boite.png' %}" alt="{% trans 'Casse boîte manuelle' %}" class="w-20 h-20">
+                <span>{% trans "Casse boîte manuelle" %}{% if casse %} – {% trans "Modifier" %}{% endif %}</span>
+            </div>
+            <div class="flex items-center justify-center gap-4 mt-3">
+                {% static 'images/marques/' as marques_path %}
+                <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                     alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}" class="w-20 h-20 object-contain">
+                <span class="font-semibold">
+                    {{ exemplaire.voiture_modele.nom_modele }}{% if exemplaire.voiture_modele.nom_variante %} {{ exemplaire.voiture_modele.nom_variante }}{% endif %}
+                </span>
+            </div>
+        </h1>
+    </div>
+
+    <div class="mb-4 flex justify-center">{% include "maintenance/partials/plaque.html" %}</div>
+
+    {% if messages %}{% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded {% if message.tags == 'success' %}bg-green-100 text-green-800 border border-green-300{% else %}bg-red-100 text-red-800 border border-red-300{% endif %}">{{ message }}</div>
+    {% endfor %}{% endif %}
+
+    {% if form.errors or pieces_fs.total_error_count or essais_fs.total_error_count %}
+        <div class="bg-red-100 text-red-800 border border-red-300 p-4 rounded mb-6">
+            <strong>{% trans "Erreurs :" %}</strong>
+            <ul>
+                {% for field in form %}{% for error in field.errors %}<li>{{ field.label }} : {{ error }}</li>{% endfor %}{% endfor %}
+                {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+                {% for f in pieces_fs %}{% for field in f %}{% for error in field.errors %}<li>{% trans "Pièce" %} {{ forloop.parentloop.parentloop.counter }} – {{ field.label }} : {{ error }}</li>{% endfor %}{% endfor %}{% endfor %}
+                {% for f in essais_fs %}{% for field in f %}{% for error in field.errors %}<li>{% trans "Rapport" %} {{ f.rapport.value }} – {{ field.label }} : {{ error }}</li>{% endfor %}{% endfor %}{% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <div id="kilometrage-popup">
+        <div class="kilometrage-popup-box">
+            <h3 class="kilometrage-popup-title">{% trans "Confirmer le kilométrage" %}</h3>
+            <p class="kilometrage-popup-text">{% trans "La variation du kilométrage est de" %}
+                <span class="kilometrage-popup-variation"><span id="popup-variation">0</span> km</span>.</p>
+            <p class="kilometrage-popup-text">{% trans "Cette variation est supérieure à 2 000 km. Voulez-vous vraiment enregistrer ce kilométrage ?" %}</p>
+            <div class="kilometrage-popup-buttons">
+                <button type="button" id="popup-annuler" class="kilometrage-popup-button kilometrage-popup-annuler">{% trans "Annuler" %}</button>
+                <button type="button" id="popup-confirmer" class="kilometrage-popup-button kilometrage-popup-confirmer">{% trans "Confirmer" %}</button>
+            </div>
+        </div>
+    </div>
+
+    <form method="post" id="casse-form" class="space-y-4" novalidate
+          data-piste-craque="{% trans "Craquement : synchroniseur du ou des rapports concernés." %}"
+          data-piste-saute="{% trans "Vitesse qui saute : crabots du pignon / baladeur et fourchette du rapport concerné." %}"
+          data-piste-plusieurs="{% trans "Craquements sur plusieurs rapports : vérifier d'abord l'embrayage (débrayage incomplet) et l'huile." %}"
+          data-piste-manque-huile="{% trans "Manque d'huile : rechercher la fuite et contrôler roulements, pignons et synchros (risque de grippage)." %}"
+          data-piste-eau="{% trans "Eau dans l'huile : reniflard immergé / bouché ou joint défaillant ; vidanger et contrôler la corrosion des roulements." %}"
+          data-piste-eclats="{% trans "Éclats métalliques : dents de pignon ou bague de synchro cassées ; ouvrir la boîte." %}">
+        {% csrf_token %}
+        {{ pieces_fs.management_form }}
+        {{ essais_fs.management_form }}
+
+        <!-- KILOMÉTRAGE -->
+        <h2 class="section-titre"><img src="{% static 'icons/compteur.png' %}" class="w-16 h-16" alt="">{% trans "Kilométrage" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">{% for field in sections.kilometrage %}{% include "casse_boite/_champ.html" %}{% endfor %}</div>
+
+        <!-- CIRCONSTANCES -->
+        <h2 class="section-titre">{% trans "Circonstances de la casse" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">{% for field in sections.circonstances %}{% include "casse_boite/_champ.html" %}{% endfor %}</div>
+
+        <!-- SYMPTÔMES -->
+        <h2 class="section-titre">{% trans "Symptômes constatés" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-1">{% for field in sections.symptomes %}{% include "casse_boite/_champ.html" %}{% endfor %}</div>
+        <div id="pistes" class="hidden bg-amber-50 border border-amber-300 rounded p-4">
+            <h3 class="font-semibold mb-2">{% trans "Pistes de diagnostic" %}</h3>
+            <ul class="list-disc ml-6 text-sm" id="pistes-liste"></ul>
+        </div>
+
+        <!-- LUBRIFICATION -->
+        <h2 class="section-titre"><img src="{% static 'icons/huile-boite.png' %}" class="w-16 h-16" alt="" onerror="this.style.display='none'">{% trans "Lubrification" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">{% for field in sections.lubrification %}{% include "casse_boite/_champ.html" %}{% endfor %}</div>
+        <p id="manque-huile" class="hidden text-sm font-semibold text-red-700"></p>
+
+        <!-- CONTRÔLE PAR RAPPORT -->
+        <h2 class="section-titre"><img src="{% static 'icons/boite-de-vitesse.png' %}" class="w-16 h-16" alt="">{% trans "Contrôle rapport par rapport" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">{% for field in sections.essais %}{% include "casse_boite/_champ.html" %}{% endfor %}</div>
+        <p class="text-sm text-gray-600">{% trans "Cochez ce qui est constaté sur chaque rapport (essai sur route ou au banc, moteur tournant)." %}</p>
+        <div class="overflow-x-auto">
+            <table class="border-collapse border border-gray-200 text-sm" id="table-essais">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="border px-2 py-1">{% trans "Rapport" %}</th>
+                        <th class="border px-2 py-1">{% trans "Craque" %}</th>
+                        <th class="border px-2 py-1">{% trans "Saute" %}</th>
+                        <th class="border px-2 py-1">{% trans "Passage dur" %}</th>
+                        <th class="border px-2 py-1">{% trans "Impossible" %}</th>
+                        <th class="border px-2 py-1">{% trans "Bruit" %}</th>
+                        <th class="border px-2 py-1">{% trans "Remarque" %}</th>
+                        <th class="border px-2 py-1"></th>
+                    </tr>
+                </thead>
+                <tbody>{% for f in essais_fs %}{% include "casse_boite/_ligne_essai.html" %}{% endfor %}</tbody>
+            </table>
+        </div>
+        <button type="button" id="ajouter-essai" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">+ {% trans "Ajouter un rapport" %}</button>
+
+        <!-- CONSTATS -->
+        <h2 class="section-titre">{% trans "Constats" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">{% for field in sections.constats %}{% include "casse_boite/_champ.html" %}{% endfor %}</div>
+
+        <!-- PIÈCES CASSÉES -->
+        <h2 class="section-titre"><img src="{% static 'icons/casse_boite.png' %}" class="w-16 h-16" alt="">{% trans "Pièces cassées" %}</h2>
+        <p class="text-sm text-gray-600">{% trans "Une ligne par pièce endommagée. Le rapport est facultatif (vide = pièce commune à toute la boîte). Les pièces à remplacer ou à réparer avec une quantité et un prix sont reprises dans le chiffrage." %}</p>
+        <div class="overflow-x-auto">
+            <table class="border-collapse border border-gray-200 text-sm" id="table-pieces">
+                <thead><tr class="bg-gray-100">
+                    <th class="border px-2 py-1">{% trans "Pièce" %}</th>
+                    <th class="border px-2 py-1">{% trans "Précision" %}</th>
+                    <th class="border px-2 py-1">{% trans "Rapport" %}</th>
+                    <th class="border px-2 py-1">{% trans "Dommage" %}</th>
+                    <th class="border px-2 py-1">{% trans "Gravité" %}</th>
+                    <th class="border px-2 py-1">{% trans "Décision" %}</th>
+                    <th class="border px-2 py-1">{% trans "Fabricant" %}</th>
+                    <th class="border px-2 py-1">{% trans "Qté" %}</th>
+                    <th class="border px-2 py-1">{% trans "Prix HTVA" %}</th>
+                    <th class="border px-2 py-1">{% trans "Total HTVA" %}</th>
+                    <th class="border px-2 py-1"></th>
+                </tr></thead>
+                <tbody>{% for f in pieces_fs %}{% include "casse_boite/_ligne_piece.html" %}{% endfor %}</tbody>
+                <tfoot><tr class="bg-gray-50 font-semibold">
+                    <td class="border px-2 py-1 text-right" colspan="9">{% trans "Total pièces HTVA" %}</td>
+                    <td class="border px-2 py-1 text-right font-mono" id="total-pieces">0,00 €</td>
+                    <td class="border"></td>
+                </tr></tfoot>
+            </table>
+        </div>
+        <button type="button" id="ajouter-piece" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">+ {% trans "Ajouter une pièce cassée" %}</button>
+
+        <!-- CONCLUSION -->
+        <h2 class="section-titre">{% trans "Conclusion du diagnostic" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">{% for field in sections.conclusion %}{% include "casse_boite/_champ.html" %}{% endfor %}</div>
+
+        <!-- DIVERS -->
+        <h2 class="section-titre"><img src="{% static 'icons/notes.png' %}" class="w-16 h-16" alt="">{% trans "Étiquette, pays et remarques" %}</h2>
+        <div class="grid grid-cols-1 gap-4">{% for field in sections.divers %}{% include "casse_boite/_champ.html" %}{% endfor %}</div>
+
+        <h2 class="section-titre"><img src="{% static 'icons/mecanicien.png' %}" class="w-16 h-16" alt="">{% trans "Technicien" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">{% for field in sections.technicien %}{% include "casse_boite/_champ.html" %}{% endfor %}</div>
+
+        <h2 class="section-titre"><img src="{% static 'icons/main-doeuvre.png' %}" class="w-16 h-16" alt="">{% trans "Temps de main d'œuvre" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {% for field in sections.main_oeuvre %}{% include "casse_boite/_champ.html" %}{% endfor %}
+            {% with field=form.temps_heures %}{% include "casse_boite/_champ.html" %}{% endwith %}
+            {% with field=form.temps_minutes %}{% include "casse_boite/_champ.html" %}{% endwith %}
+        </div>
+
+        <div class="flex gap-3 mt-6">
+            <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">{% trans "Enregistrer" %}</button>
+            <a href="{% if casse %}{% url 'casse_boite:casse_detail' casse.id %}{% else %}{% url 'casse_boite:casse_list' exemplaire.id %}{% endif %}"
+               class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+        </div>
+        <p class="text-sm text-gray-500 mt-4">{% trans "Date actuelle" %} : {{ now|date:"Y-m-d H:i" }}</p>
+    </form>
+</div>
+
+<div class="max-w-7xl mx-auto mt-4">
+    <a href="{% url 'casse_boite:casse_list' exemplaire.id %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">{% trans "Retour à la liste des interventions" %}</a>
+</div>
+
+{% with f=pieces_fs.empty_form %}<template id="tpl-piece">{% include "casse_boite/_ligne_piece.html" %}</template>{% endwith %}
+{% with f=essais_fs.empty_form %}<template id="tpl-essai">{% include "casse_boite/_ligne_essai.html" %}</template>{% endwith %}
+{{ pistes|json_script:"pistes-data" }}
+
+<style>
+.input { width: 100% !important; border: 1px solid #ccc !important; border-radius: 6px !important; padding: 8px !important; box-sizing: border-box !important; }
+.section-titre { font-size: 1.25rem; font-weight: 600; margin-top: 2rem; padding-bottom: .25rem; border-bottom: 1px solid #e5e7eb; display: flex; align-items: center; gap: 1rem; }
+.resultat.ok { background: #dcfce7; color: #166534; font-weight: 700; }
+.resultat.hors { background: #fee2e2; color: #991b1b; font-weight: 700; }
+input.hors { border-color: #dc2626 !important; background: #fef2f2; }
+#kilometrage-popup { display: none; position: fixed; inset: 0; z-index: 9999; background-color: rgba(0,0,0,.45); align-items: center; justify-content: center; padding: 20px; }
+#kilometrage-popup.popup-visible { display: flex; }
+.kilometrage-popup-box { width: 100%; max-width: 520px; background-color: #fee2e2; border: 1px solid #fca5a5; border-radius: 10px; padding: 24px; box-shadow: 0 12px 30px rgba(0,0,0,.2); }
+.kilometrage-popup-title { font-size: 1.25rem; font-weight: 700; color: #374151; margin-bottom: 16px; }
+.kilometrage-popup-text { color: #4b5563; font-size: 1rem; line-height: 1.5; margin-bottom: 12px; }
+.kilometrage-popup-variation { font-weight: 700; color: #991b1b; }
+.kilometrage-popup-buttons { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+.kilometrage-popup-button { border: none; border-radius: 6px; padding: 9px 18px; font-weight: 600; cursor: pointer; }
+.kilometrage-popup-annuler { background-color: #d1d5db; color: #374151; }
+.kilometrage-popup-confirmer { background-color: #991b1b; color: white; }
+</style>
+
+<script src="{% static 'js/casse_boite.js' %}"></script>
+{% endblock %}

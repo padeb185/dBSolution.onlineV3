@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Casse boîte manuelle" %}{% endblock %}
+
+{% block content %}
+    {% url 'casse_boite:modifier_casse' casse.pk as url_modifier %}
+    {% url 'casse_boite:casse_detail_pdf' casse.pk as url_pdf %}
+    {% url 'casse_boite:delete_casse' casse.pk as url_delete %}
+    {% if exemplaire %}{% url 'casse_boite:casse_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Casse boîte manuelle" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=casse km_controle=casse.kilometrage_casse icone="casse_boite.png" extra_template="casse_boite/_detail_casse.html" infos_template="casse_boite/_infos_casse.html" %}
+{% endblock %}

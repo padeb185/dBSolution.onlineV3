@@ -1,0 +1,770 @@
+{% load i18n static format_numbers %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    </style>
+</head>
+<body>
+{% if ventilation.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ ventilation.tech_societe.nom }}
+            </div>
+
+            {% if ventilation.tech_societe.adresse %}
+                <div>
+                    {{ ventilation.tech_societe.adresse.rue }}
+                    {{ ventilation.tech_societe.adresse.numero }}
+                    {% if ventilation.tech_societe.adresse.boite %}
+                        / {{ ventilation.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ ventilation.tech_societe.adresse.code_postal }}
+                    {{ ventilation.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if ventilation.tech_societe.adresse.pays %}
+                <div>{{ ventilation.tech_societe.adresse.pays }}
+                    {{ ventilation.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if ventilation.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ ventilation.tech_societe.numero_tva|format_tva }}
+                </div>
+            {% endif %}
+             {% if ventilation.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ ventilation.tech_societe.iban|format_iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ ventilation.tech_societe.nom }}.png"
+                alt="{{ ventilation.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+<h1>{% trans "Ventilation" %}</h1>
+
+<!-- ================= INFOS ================= -->
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ ventilation.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ ventilation.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ ventilation.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ ventilation.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage véhicule" %} :</span>
+            {{ ventilation.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage de l'intervention" %} :</span>
+            {{ ventilation.kilometrage_ventilation }} km
+        </div>
+
+
+
+<!-- ================= TAG ================= -->
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if ventilation.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ ventilation.get_tag_display }}
+                </span>
+
+            {% elif ventilation.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ ventilation.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ ventilation.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= VENTILATION ================= -->
+<h2>{% trans "Ventilation" %}</h2>
+
+<div>
+
+    <table class="table-2-cols">
+
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>{% trans "Soufflerie (pulseur d'air habitacle)" %}</td>
+                <td>
+                    {% if ventilation.soufflerie == "OK" %}<span class="ok">{{ ventilation.get_soufflerie_display }}</span>
+                    {% elif ventilation.soufflerie == "NOT_OK" %}<span class="not-ok">{{ ventilation.get_soufflerie_display }}</span>
+                    {% elif ventilation.soufflerie == "REMPLACE" or ventilation.soufflerie == "AJOUTER" %}<span class="remplace">{{ ventilation.get_soufflerie_display }}</span>
+                    {% else %}<span>{{ ventilation.get_soufflerie_display }}</span>{% endif %}
+                    {% if ventilation.soufflerie_fabricant and ventilation.soufflerie_fabricant != "CHOISIR" %} — {{ ventilation.get_soufflerie_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Moteur de ventilation" %}</td>
+                <td>
+                    {% if ventilation.moteur_ventilation == "OK" %}<span class="ok">{{ ventilation.get_moteur_ventilation_display }}</span>
+                    {% elif ventilation.moteur_ventilation == "NOT_OK" %}<span class="not-ok">{{ ventilation.get_moteur_ventilation_display }}</span>
+                    {% elif ventilation.moteur_ventilation == "REMPLACE" or ventilation.moteur_ventilation == "AJOUTER" %}<span class="remplace">{{ ventilation.get_moteur_ventilation_display }}</span>
+                    {% else %}<span>{{ ventilation.get_moteur_ventilation_display }}</span>{% endif %}
+                    {% if ventilation.moteur_ventilation_fabricant and ventilation.moteur_ventilation_fabricant != "CHOISIR" %} — {{ ventilation.get_moteur_ventilation_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Résistance de vitesse du moteur de ventilation" %}</td>
+                <td>
+                    {% if ventilation.resistance_vitesse == "OK" %}<span class="ok">{{ ventilation.get_resistance_vitesse_display }}</span>
+                    {% elif ventilation.resistance_vitesse == "NOT_OK" %}<span class="not-ok">{{ ventilation.get_resistance_vitesse_display }}</span>
+                    {% elif ventilation.resistance_vitesse == "REMPLACE" or ventilation.resistance_vitesse == "AJOUTER" %}<span class="remplace">{{ ventilation.get_resistance_vitesse_display }}</span>
+                    {% else %}<span>{{ ventilation.get_resistance_vitesse_display }}</span>{% endif %}
+                    {% if ventilation.resistance_vitesse_fabricant and ventilation.resistance_vitesse_fabricant != "CHOISIR" %} — {{ ventilation.get_resistance_vitesse_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% if ventilation.module_commande_pulseur != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Module de commande électronique du pulseur" %}</td>
+                <td>
+                    {% if ventilation.module_commande_pulseur == "OK" %}<span class="ok">{{ ventilation.get_module_commande_pulseur_display }}</span>
+                    {% elif ventilation.module_commande_pulseur == "NOT_OK" %}<span class="not-ok">{{ ventilation.get_module_commande_pulseur_display }}</span>
+                    {% elif ventilation.module_commande_pulseur == "REMPLACE" or ventilation.module_commande_pulseur == "AJOUTER" %}<span class="remplace">{{ ventilation.get_module_commande_pulseur_display }}</span>
+                    {% else %}<span>{{ ventilation.get_module_commande_pulseur_display }}</span>{% endif %}
+                    {% if ventilation.module_commande_pulseur_fabricant and ventilation.module_commande_pulseur_fabricant != "CHOISIR" %} — {{ ventilation.get_module_commande_pulseur_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td>{% trans "Filtre d'habitacle (pollen / charbon actif)" %}</td>
+                <td>
+                    {% if ventilation.filtre_habitacle == "OK" %}<span class="ok">{{ ventilation.get_filtre_habitacle_display }}</span>
+                    {% elif ventilation.filtre_habitacle == "NOT_OK" %}<span class="not-ok">{{ ventilation.get_filtre_habitacle_display }}</span>
+                    {% elif ventilation.filtre_habitacle == "REMPLACE" or ventilation.filtre_habitacle == "AJOUTER" %}<span class="remplace">{{ ventilation.get_filtre_habitacle_display }}</span>
+                    {% else %}<span>{{ ventilation.get_filtre_habitacle_display }}</span>{% endif %}
+                    {% if ventilation.filtre_habitacle_fabricant and ventilation.filtre_habitacle_fabricant != "CHOISIR" %} — {{ ventilation.get_filtre_habitacle_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% if ventilation.resistance_chauffage != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Résistance de chauffage additionnel (PTC)" %}</td>
+                <td>
+                    {% if ventilation.resistance_chauffage == "OK" %}<span class="ok">{{ ventilation.get_resistance_chauffage_display }}</span>
+                    {% elif ventilation.resistance_chauffage == "NOT_OK" %}<span class="not-ok">{{ ventilation.get_resistance_chauffage_display }}</span>
+                    {% elif ventilation.resistance_chauffage == "REMPLACE" or ventilation.resistance_chauffage == "AJOUTER" %}<span class="remplace">{{ ventilation.get_resistance_chauffage_display }}</span>
+                    {% else %}<span>{{ ventilation.get_resistance_chauffage_display }}</span>{% endif %}
+                    {% if ventilation.resistance_chauffage_fabricant and ventilation.resistance_chauffage_fabricant != "CHOISIR" %} — {{ ventilation.get_resistance_chauffage_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td>{% trans "Commande / tableau de ventilation-chauffage" %}</td>
+                <td>
+                    {% if ventilation.commande_ventilation == "OK" %}<span class="ok">{{ ventilation.get_commande_ventilation_display }}</span>
+                    {% elif ventilation.commande_ventilation == "NOT_OK" %}<span class="not-ok">{{ ventilation.get_commande_ventilation_display }}</span>
+                    {% elif ventilation.commande_ventilation == "REMPLACE" or ventilation.commande_ventilation == "AJOUTER" %}<span class="remplace">{{ ventilation.get_commande_ventilation_display }}</span>
+                    {% else %}<span>{{ ventilation.get_commande_ventilation_display }}</span>{% endif %}
+                    {% if ventilation.commande_ventilation_fabricant and ventilation.commande_ventilation_fabricant != "CHOISIR" %} — {{ ventilation.get_commande_ventilation_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Volets de répartition et de mixage d'air" %}</td>
+                <td>
+                    {% if ventilation.volets_repartition == "OK" %}<span class="ok">{{ ventilation.get_volets_repartition_display }}</span>
+                    {% elif ventilation.volets_repartition == "NOT_OK" %}<span class="not-ok">{{ ventilation.get_volets_repartition_display }}</span>
+                    {% elif ventilation.volets_repartition == "REMPLACE" or ventilation.volets_repartition == "AJOUTER" %}<span class="remplace">{{ ventilation.get_volets_repartition_display }}</span>
+                    {% else %}<span>{{ ventilation.get_volets_repartition_display }}</span>{% endif %}
+                    {% if ventilation.volets_repartition_fabricant and ventilation.volets_repartition_fabricant != "CHOISIR" %} — {{ ventilation.get_volets_repartition_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Moteurs (actionneurs) de volets" %}</td>
+                <td>
+                    {% if ventilation.moteurs_volets == "OK" %}<span class="ok">{{ ventilation.get_moteurs_volets_display }}</span>
+                    {% elif ventilation.moteurs_volets == "NOT_OK" %}<span class="not-ok">{{ ventilation.get_moteurs_volets_display }}</span>
+                    {% elif ventilation.moteurs_volets == "REMPLACE" or ventilation.moteurs_volets == "AJOUTER" %}<span class="remplace">{{ ventilation.get_moteurs_volets_display }}</span>
+                    {% else %}<span>{{ ventilation.get_moteurs_volets_display }}</span>{% endif %}
+                    {% if ventilation.moteurs_volets_fabricant and ventilation.moteurs_volets_fabricant != "CHOISIR" %} — {{ ventilation.get_moteurs_volets_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Volet de recyclage d'air" %}</td>
+                <td>
+                    {% if ventilation.volet_recyclage == "OK" %}<span class="ok">{{ ventilation.get_volet_recyclage_display }}</span>
+                    {% elif ventilation.volet_recyclage == "NOT_OK" %}<span class="not-ok">{{ ventilation.get_volet_recyclage_display }}</span>
+                    {% elif ventilation.volet_recyclage == "REMPLACE" or ventilation.volet_recyclage == "AJOUTER" %}<span class="remplace">{{ ventilation.get_volet_recyclage_display }}</span>
+                    {% else %}<span>{{ ventilation.get_volet_recyclage_display }}</span>{% endif %}
+                    {% if ventilation.volet_recyclage_fabricant and ventilation.volet_recyclage_fabricant != "CHOISIR" %} — {{ ventilation.get_volet_recyclage_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% if ventilation.sonde_temperature_habitacle != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Sonde de température habitacle" %}</td>
+                <td>
+                    {% if ventilation.sonde_temperature_habitacle == "OK" %}<span class="ok">{{ ventilation.get_sonde_temperature_habitacle_display }}</span>
+                    {% elif ventilation.sonde_temperature_habitacle == "NOT_OK" %}<span class="not-ok">{{ ventilation.get_sonde_temperature_habitacle_display }}</span>
+                    {% elif ventilation.sonde_temperature_habitacle == "REMPLACE" or ventilation.sonde_temperature_habitacle == "AJOUTER" %}<span class="remplace">{{ ventilation.get_sonde_temperature_habitacle_display }}</span>
+                    {% else %}<span>{{ ventilation.get_sonde_temperature_habitacle_display }}</span>{% endif %}
+                    {% if ventilation.sonde_temperature_habitacle_fabricant and ventilation.sonde_temperature_habitacle_fabricant != "CHOISIR" %} — {{ ventilation.get_sonde_temperature_habitacle_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td>{% trans "Aérateurs et grilles de ventilation" %}</td>
+                <td>
+                    {% if ventilation.aerateurs == "OK" %}<span class="ok">{{ ventilation.get_aerateurs_display }}</span>
+                    {% elif ventilation.aerateurs == "NOT_OK" %}<span class="not-ok">{{ ventilation.get_aerateurs_display }}</span>
+                    {% elif ventilation.aerateurs == "REMPLACE" or ventilation.aerateurs == "AJOUTER" %}<span class="remplace">{{ ventilation.get_aerateurs_display }}</span>
+                    {% else %}<span>{{ ventilation.get_aerateurs_display }}</span>{% endif %}
+                    {% if ventilation.aerateurs_fabricant and ventilation.aerateurs_fabricant != "CHOISIR" %} — {{ ventilation.get_aerateurs_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Conduits et gaines d'air" %}</td>
+                <td>
+                    {% if ventilation.conduits_ventilation == "OK" %}<span class="ok">{{ ventilation.get_conduits_ventilation_display }}</span>
+                    {% elif ventilation.conduits_ventilation == "NOT_OK" %}<span class="not-ok">{{ ventilation.get_conduits_ventilation_display }}</span>
+                    {% elif ventilation.conduits_ventilation == "REMPLACE" or ventilation.conduits_ventilation == "AJOUTER" %}<span class="remplace">{{ ventilation.get_conduits_ventilation_display }}</span>
+                    {% else %}<span>{{ ventilation.get_conduits_ventilation_display }}</span>{% endif %}
+                    {% if ventilation.conduits_ventilation_fabricant and ventilation.conduits_ventilation_fabricant != "CHOISIR" %} — {{ ventilation.get_conduits_ventilation_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Faisceau et connecteurs" %}</td>
+                <td>
+                    {% if ventilation.faisceau_ventilation == "OK" %}<span class="ok">{{ ventilation.get_faisceau_ventilation_display }}</span>
+                    {% elif ventilation.faisceau_ventilation == "NOT_OK" %}<span class="not-ok">{{ ventilation.get_faisceau_ventilation_display }}</span>
+                    {% elif ventilation.faisceau_ventilation == "REMPLACE" or ventilation.faisceau_ventilation == "AJOUTER" %}<span class="remplace">{{ ventilation.get_faisceau_ventilation_display }}</span>
+                    {% else %}<span>{{ ventilation.get_faisceau_ventilation_display }}</span>{% endif %}
+                    {% if ventilation.faisceau_ventilation_fabricant and ventilation.faisceau_ventilation_fabricant != "CHOISIR" %} — {{ ventilation.get_faisceau_ventilation_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% if ventilation.desinfection_ventilation != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Désinfection / traitement antibactérien du circuit" %}</td>
+                <td>
+                    {% if ventilation.desinfection_ventilation == "OK" %}<span class="ok">{{ ventilation.get_desinfection_ventilation_display }}</span>
+                    {% elif ventilation.desinfection_ventilation == "NOT_OK" %}<span class="not-ok">{{ ventilation.get_desinfection_ventilation_display }}</span>
+                    {% elif ventilation.desinfection_ventilation == "REMPLACE" or ventilation.desinfection_ventilation == "AJOUTER" %}<span class="remplace">{{ ventilation.get_desinfection_ventilation_display }}</span>
+                    {% else %}<span>{{ ventilation.get_desinfection_ventilation_display }}</span>{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if ventilation.diagnostic_ventilation != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Diagnostic et codage" %}</td>
+                <td>
+                    {% if ventilation.diagnostic_ventilation == "OK" %}<span class="ok">{{ ventilation.get_diagnostic_ventilation_display }}</span>
+                    {% elif ventilation.diagnostic_ventilation == "NOT_OK" %}<span class="not-ok">{{ ventilation.get_diagnostic_ventilation_display }}</span>
+                    {% elif ventilation.diagnostic_ventilation == "REMPLACE" or ventilation.diagnostic_ventilation == "AJOUTER" %}<span class="remplace">{{ ventilation.get_diagnostic_ventilation_display }}</span>
+                    {% else %}<span>{{ ventilation.get_diagnostic_ventilation_display }}</span>{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+
+    </table>
+
+</div>
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ ventilation.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if ventilation.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire HTVA" %} :</span>
+                {{ ventilation.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
+                {{ ventilation.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ ventilation.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div>
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        <td class="text-right">
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ ventilation.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ ventilation.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
+
+        <table class="table-2-cols">
+            <tbody>
+
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ ventilation.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ ventilation.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    {% endif %}
+
+</div>
+
+<br>
+{% include "piece/stock/_pieces_utilisees_pdf.html" with maintenance=ventilation.maintenance %}
+<!-- ================= REMARQUES ================= -->
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ ventilation.remarques|default:_("Aucune remarque.") }}
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

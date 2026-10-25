@@ -63,6 +63,19 @@
     <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="Boite de vitesse" style="width:60px; height:60px;">
   </a>
 
+<!-- Carte casse boîte manuelle + diagnostic -->
+  <a href="{% url 'casse_boite:casse_list' exemplaire.id %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Casse boîte manuelle" %}</h2>
+      <p class="text-xs text-gray-500 mb-1">{% trans "Diagnostic : symptômes, lubrification, contrôle par rapport, pièces cassées" %}</p>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_casse_boite }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/casse_boite.png' %}" alt="{% trans 'Casse boîte manuelle' %}" style="width:60px; height:60px;">
+  </a>
+
 
 </div>
 <br>

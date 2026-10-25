@@ -33,6 +33,7 @@ from maintenance.autres_interventions.moteur.culasse.models import Culasse
 from maintenance.autres_interventions.moteur.bas_moteur.models import BasMoteur
 from maintenance.autres_interventions.moteur.metrologie_moteur.models import MetrologieMoteur
 from maintenance.autres_interventions.moteur.casse_moteur.models import CasseMoteur
+from maintenance.autres_interventions.boite_de_vitesse.casse_boite.models import CasseBoite
 from maintenance.autres_interventions.moteur.bougies.composants import total_bougies
 from maintenance.autres_interventions.moteur.electronique_moteur.models import ElectroniqueMoteur
 from maintenance.autres_interventions.moteur.lubrification.models import Lubrification
@@ -121,6 +122,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
     total_abs = 0
     total_esp = 0
     total_aide_stationnement = 0
+    total_ventilation = 0
+    total_securite = 0
     total_fusibles = 0
     total_demarreur = 0
     total_remplacement_boite = 0
@@ -221,6 +224,10 @@ def choisir_autre_maintenance(request, exemplaire_id):
             total_esp = Esp.objects.filter(voiture_exemplaire=exemplaire).count()
             from maintenance.autres_interventions.aide_stationnement.models import AideStationnement
             total_aide_stationnement = AideStationnement.objects.filter(voiture_exemplaire=exemplaire).count()
+            from maintenance.autres_interventions.ventilation.models import Ventilation
+            total_ventilation = Ventilation.objects.filter(voiture_exemplaire=exemplaire).count()
+            from maintenance.autres_interventions.securite.models import Securite
+            total_securite = Securite.objects.filter(voiture_exemplaire=exemplaire).count()
             from maintenance.autres_interventions.fusibles.models import Fusibles
             total_fusibles = Fusibles.objects.filter(voiture_exemplaire=exemplaire).count()
             from maintenance.autres_interventions.demarreur.models import Demarreur
@@ -308,6 +315,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
             total_int_boite = (
                     total_boite
                     + total_remplacement_boite
+                    + CasseBoite.objects.filter(voiture_exemplaire=exemplaire).count()
             )
 
             modeles = VoitureModele.objects.all()
@@ -333,6 +341,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
             total_int_boite = (
                 total_boite
                 + total_remplacement_boite
+                + CasseBoite.objects.filter(voiture_exemplaire=exemplaire).count()
             )
 
             modeles = VoitureModele.objects.all()
@@ -375,6 +384,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_abs": total_abs,
         "total_esp": total_esp,
         "total_aide_stationnement": total_aide_stationnement,
+        "total_ventilation": total_ventilation,
+        "total_securite": total_securite,
         "total_fusibles": total_fusibles,
         "total_demarreur": total_demarreur,
         "total_remplacement_boite": total_remplacement_boite,

@@ -61799,3 +61799,1116 @@ msgstr "Pneumatici eliminati con successo."
 #~ "Gli incassi delle fatture e gli stipendi pagati compaiono automaticamente "
 #~ "nel giornale del conto predefinito (cassa per i contanti, banca per gli "
 #~ "altri metodi)."
+
+#: maintenance/autres_interventions/ventilation
+msgid "Ventilation"
+msgstr "Ventilazione"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Soufflerie (pulseur d'air habitacle)"
+msgstr "Ventola abitacolo (soffiante)"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Moteur de ventilation"
+msgstr "Motore ventilazione"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Résistance de vitesse du moteur de ventilation"
+msgstr "Resistenza velocità motore ventilazione"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Module de commande électronique du pulseur"
+msgstr "Modulo di comando elettronico ventola"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Filtre d'habitacle (pollen / charbon actif)"
+msgstr "Filtro abitacolo (antipolline / carboni attivi)"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Résistance de chauffage additionnel (PTC)"
+msgstr "Resistenza riscaldamento supplementare (PTC)"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Commande / tableau de ventilation-chauffage"
+msgstr "Comando / pannello ventilazione-riscaldamento"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Volets de répartition et de mixage d'air"
+msgstr "Sportelli di distribuzione e miscelazione aria"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Moteurs (actionneurs) de volets"
+msgstr "Motorini (attuatori) sportelli"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Volet de recyclage d'air"
+msgstr "Sportello ricircolo aria"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Sonde de température habitacle"
+msgstr "Sonda temperatura abitacolo"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Aérateurs et grilles de ventilation"
+msgstr "Bocchette e griglie di ventilazione"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Conduits et gaines d'air"
+msgstr "Condotti e canalizzazioni aria"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Désinfection / traitement antibactérien du circuit"
+msgstr "Disinfezione / trattamento antibatterico del circuito"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Diagnostic et codage"
+msgstr "Diagnosi e codifica"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Soufflerie, filtre d'habitacle, résistance de chauffage, moteur de ventilation"
+msgstr "Ventola, filtro abitacolo, resistenza riscaldamento, motore ventilazione"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Intervention ventilation"
+msgstr "Intervento ventilazione"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Modification intervention ventilation"
+msgstr "Modifica intervento ventilazione"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Suppression de l'intervention ventilation"
+msgstr "Eliminazione intervento ventilazione"
+
+#: facture/tva.py
+msgid "Journal des mouvements – TVA à payer"
+msgstr "Giornale dei movimenti – IVA da versare"
+
+#: facture/tva.py
+msgid "Journal des mouvements – TVA à récupérer"
+msgstr "Giornale dei movimenti – IVA da recuperare"
+
+#: facture/tva.py
+msgid "Cumul TVA"
+msgstr "IVA cumulata"
+
+#: facture/tva.py
+msgid "Acompte location"
+msgstr "Acconto noleggio"
+
+#: facture/tva.py
+msgid "Aucun mouvement sur la période."
+msgstr "Nessun movimento nel periodo."
+
+#: facture/tva.py
+msgid "Total TVA à payer"
+msgstr "Totale IVA da versare"
+
+#: facture/tva.py
+msgid "Total TVA à récupérer"
+msgstr "Totale IVA da recuperare"
+
+#: facture/tva.py
+msgid "informatif – hors total"
+msgstr "informativo – escluso dal totale"
+
+#: facture/tva.py
+#, python-format
+msgid "Transport – %(libelle)s"
+msgstr "Trasporto – %(libelle)s"
+
+#: facture/tva.py
+msgid "Pièces (coût d'achat)"
+msgstr "Ricambi (costo d'acquisto)"
+
+#: utilisateurs/mon_compte
+#, python-format
+msgid "%(h)s h en %(a)s"
+msgstr "%(h)s h nel %(a)s"
+
+#: utilisateurs/mon_compte
+#, python-format
+msgid "%(m)s € en %(a)s"
+msgstr "%(m)s € nel %(a)s"
+
+#: utilisateurs/mon_compte
+#, python-format
+msgid "%(n)s en %(a)s"
+msgstr "%(n)s nel %(a)s"
+
+#: utilisateurs/mon_compte
+#, python-format
+msgid "%(t)s en %(a)s"
+msgstr "%(t)s nel %(a)s"
+
+#: utilisateurs/mon_compte
+msgid "Activer la double authentification"
+msgstr "Attiva l'autenticazione a due fattori"
+
+#: utilisateurs/mon_compte
+msgid "Activée"
+msgstr "Attivata"
+
+#: utilisateurs/mon_compte
+msgid "Aucune adresse enregistrée."
+msgstr "Nessun indirizzo registrato."
+
+#: utilisateurs/mon_compte
+msgid "Aucune fiche de paie enregistrée."
+msgstr "Nessuna busta paga registrata."
+
+#: utilisateurs/mon_compte
+msgid "Aucune maintenance."
+msgstr "Nessuna manutenzione."
+
+#: utilisateurs/mon_compte
+msgid "Janv."
+msgstr "Gen."
+
+#: utilisateurs/mon_compte
+msgid "Févr."
+msgstr "Feb."
+
+#: utilisateurs/mon_compte
+msgid "Avr."
+msgstr "Apr."
+
+#: utilisateurs/mon_compte
+msgid "Juil."
+msgstr "Lug."
+
+#: utilisateurs/mon_compte
+msgid "Sept."
+msgstr "Set."
+
+#: utilisateurs/mon_compte
+msgid "Oct."
+msgstr "Ott."
+
+#: utilisateurs/mon_compte
+msgid "Nov."
+msgstr "Nov."
+
+#: utilisateurs/mon_compte
+msgid "Déc."
+msgstr "Dic."
+
+#: utilisateurs/mon_compte
+msgid "Ce mois-ci"
+msgstr "Questo mese"
+
+#: utilisateurs/mon_compte
+msgid "Changer mon mot de passe"
+msgstr "Cambia la mia password"
+
+#: utilisateurs/mon_compte
+msgid "Compte bancaire (IBAN)"
+msgstr "Conto bancario (IBAN)"
+
+#: utilisateurs/mon_compte
+msgid "Dernière connexion"
+msgstr "Ultimo accesso"
+
+#: utilisateurs/mon_compte
+msgid "Dernières fiches de paie"
+msgstr "Ultime buste paga"
+
+#: utilisateurs/mon_compte
+msgid "Dernières maintenances"
+msgstr "Ultime manutenzioni"
+
+#: utilisateurs/mon_compte
+msgid "Double authentification (2FA)"
+msgstr "Autenticazione a due fattori (2FA)"
+
+#: utilisateurs/mon_compte
+msgid "E-mail entreprise"
+msgstr "E-mail aziendale"
+
+#: utilisateurs/mon_compte
+msgid "En cours (jaune / rouge)"
+msgstr "In corso (giallo / rosso)"
+
+#: utilisateurs/mon_compte
+msgid "Fiches de paie"
+msgstr "Buste paga"
+
+#: utilisateurs/mon_compte
+msgid "Main-d'œuvre encodée"
+msgstr "Manodopera registrata"
+
+#: utilisateurs/mon_compte
+msgid "Maintenances effectuées"
+msgstr "Manutenzioni effettuate"
+
+#: utilisateurs/mon_compte
+#, python-format
+msgid "Maintenances par mois en %(annee)s"
+msgstr "Manutenzioni per mese nel %(annee)s"
+
+#: utilisateurs/mon_compte
+msgid "Mon compte"
+msgstr "Il mio account"
+
+#: utilisateurs/mon_compte
+msgid "Mon compte, mot de passe, statistiques"
+msgstr "Il mio account, password, statistiche"
+
+#: utilisateurs/mon_compte
+msgid "Non précisé"
+msgstr "Non specificato"
+
+#: utilisateurs/mon_compte
+msgid "Ouvrir mon dashboard utilisateur"
+msgstr "Apri la mia dashboard utente"
+
+#: utilisateurs/mon_compte
+msgid "Par type de maintenance"
+msgstr "Per tipo di manutenzione"
+
+#: utilisateurs/mon_compte
+msgid "Retour à mon compte"
+msgstr "Torna al mio account"
+
+#: utilisateurs/mon_compte
+msgid "Rôle tenu"
+msgstr "Ruolo ricoperto"
+
+#: utilisateurs/mon_compte
+msgid "Salaires et heures prestées"
+msgstr "Stipendi e ore lavorate"
+
+#: utilisateurs/mon_compte
+msgid "Sécurité"
+msgstr "Sicurezza"
+
+#: utilisateurs/mon_compte
+msgid "Temps de main-d'œuvre encodé"
+msgstr "Tempo di manodopera registrato"
+
+#: utilisateurs/mon_compte
+msgid "Terminées (vert)"
+msgstr "Completate (verde)"
+
+#: utilisateurs/mon_compte
+msgid "Total des salaires nets"
+msgstr "Totale stipendi netti"
+
+#: utilisateurs/mon_compte
+msgid "bte"
+msgstr "cas."
+
+#: utilisateurs/mon_compte
+msgid "interventions"
+msgstr "interventi"
+
+#: utilisateurs/mon_compte
+msgid "valeur"
+msgstr "valore"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "1re"
+msgstr "1ª"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "2e"
+msgstr "2ª"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "3e"
+msgstr "3ª"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "4e"
+msgstr "4ª"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "5e"
+msgstr "5ª"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "6e"
+msgstr "6ª"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "7e"
+msgstr "7ª"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "8e"
+msgstr "8ª"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ casses boîte manuelle"
+msgstr "Visualizzazione da _START_ a _END_ di _TOTAL_ rotture cambio manuale"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Ajouter un rapport"
+msgstr "Aggiungi una marcia"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Analyse de l'huile / du bouchon"
+msgstr "Analisi dell'olio / del tappo"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Arbre intermédiaire"
+msgstr "Albero intermedio"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Aspect, odeur, couleur, paillettes, éclats, eau…"
+msgstr "Aspetto, odore, colore, scaglie, schegge, acqua…"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Aucune casse boîte manuelle enregistrée pour cet exemplaire."
+msgstr "Nessuna rottura del cambio manuale registrata per questo veicolo."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Aucune casse boîte manuelle trouvée"
+msgstr "Nessuna rottura del cambio manuale trovata"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Aucune piste (cochez les symptômes, la lubrification et le contrôle par rapport)."
+msgstr "Nessuna pista (spunta sintomi, lubrificazione e controllo per marcia)."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Axe de commande / sélecteur"
+msgstr "Albero di comando / selettore"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Axe de fourchette / coulisseau"
+msgstr "Asta forcella / guida"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bague de synchroniseur"
+msgstr "Anello sincronizzatore"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bleui / surchauffe"
+msgstr "Bruciato / surriscaldato"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bouchon de vidange / de remplissage"
+msgstr "Tappo di scarico / riempimento"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bouchon magnétique"
+msgstr "Tappo magnetico"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Bouchon magnétique : %(b)s"
+msgstr "Tappo magnetico: %(b)s"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Boîte bloquée"
+msgstr "Cambio bloccato"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Boîte bloquée : grippage par manque d'huile, deux rapports engagés (verrouillage), débris coincés entre pignons."
+msgstr "Cambio bloccato: grippaggio per mancanza d'olio, due marce innestate (interblocco), detriti tra gli ingranaggi."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Boîte d'occasion"
+msgstr "Cambio usato"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Boîte en échange standard"
+msgstr "Cambio in permuta standard"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Boîte neuve"
+msgstr "Cambio nuovo"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Boîtier de différentiel"
+msgstr "Scatola differenziale"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bruit"
+msgstr "Rumore"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bruit en virage (différentiel)"
+msgstr "Rumore in curva (differenziale)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bruit en virage : satellites / planétaires du différentiel, roulements de différentiel ou cardans."
+msgstr "Rumore in curva: satelliti / planetari, cuscinetti del differenziale o semiassi."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bruit sur ce rapport"
+msgstr "Rumore su questa marcia"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bruit sur un rapport précis"
+msgstr "Rumore su una marcia precisa"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bruit sur un seul rapport : pignon de ce rapport écaillé ou dents abîmées, cage à aiguilles du pignon."
+msgstr "Rumore su una sola marcia: ingranaggio con pitting o denti danneggiati, gabbia a rullini."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Brûlée (odeur, noire)"
+msgstr "Bruciato (odore, nero)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Cage à aiguilles de pignon"
+msgstr "Gabbia a rullini dell'ingranaggio"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Capacité constructeur (L)"
+msgstr "Capacità costruttore (L)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Capteur / contacteur"
+msgstr "Sensore / interruttore"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Capteur de vitesse / compteur"
+msgstr "Sensore di velocità / contachilometri"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Carter d'embrayage (cloche)"
+msgstr "Campana frizione"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Carter de boîte"
+msgstr "Scatola del cambio"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Carter percé / fissuré"
+msgstr "Scatola forata / incrinata"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Carter percé : choc extérieur ou pièce interne éjectée (dent, roulement) ; inspection complète obligatoire."
+msgstr "Scatola forata: urto esterno o pezzo interno espulso (dente, cuscinetto); ispezione completa obbligatoria."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Casse boîte manuelle"
+msgstr "Rottura cambio manuale"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Casse du différentiel"
+msgstr "Rottura del differenziale"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Casses boîte manuelle"
+msgstr "Rotture cambio manuale"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Cette variation est supérieure à 2 000 km. Voulez-vous vraiment enregistrer ce kilométrage ?"
+msgstr "Questa variazione supera i 2.000 km. Vuoi davvero salvare questo chilometraggio?"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Choc de couple (départ arraché, launch control, saut de roue)"
+msgstr "Colpo di coppia (partenza brusca, launch control, saltellamento ruota)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Choc extérieur (carter percé)"
+msgstr "Urto esterno (scatola forata)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Claquement en charge / décharge : jeu au différentiel, pignon d'attaque / couronne, supports moteur ou cardans."
+msgstr "Colpo in tiro / rilascio: gioco nel differenziale, pignone / corona, supporti motore o semiassi."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Claquement à l'accélération / décélération"
+msgstr "Colpo in accelerazione / decelerazione"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Clavettes / ressorts de synchro"
+msgstr "Chiavette / molle del sincro"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Cochez ce qui est constaté sur chaque rapport (essai sur route ou au banc, moteur tournant)."
+msgstr "Spunta quanto rilevato su ogni marcia (prova su strada o al banco, motore acceso)."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Commande de boîte déréglée / usée (câbles, tringlerie)"
+msgstr "Comando cambio sregolato / usurato (cavi, tiranteria)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Conditions au moment de la casse : rapport engagé, régime, départ, piste, bruit avant la casse…"
+msgstr "Condizioni al momento della rottura: marcia innestata, regime, partenza, pista, rumore precedente…"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Constat au démontage"
+msgstr "Constatazione allo smontaggio"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Contacteur de marche arrière"
+msgstr "Interruttore retromarcia"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Contrôle par rapport"
+msgstr "Controllo per marcia"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Contrôle rapport par rapport"
+msgstr "Controllo marcia per marcia"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Contrôles par rapport"
+msgstr "Controlli per marcia"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Corps étranger / débris dans la boîte"
+msgstr "Corpo estraneo / detriti nel cambio"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Corrosion"
+msgstr "Corrosione"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Couple moteur augmenté / préparation hors limites"
+msgstr "Coppia motore aumentata / elaborazione oltre i limiti"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Couronne de différentiel"
+msgstr "Corona del differenziale"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Couvercle arrière / de 5e"
+msgstr "Coperchio posteriore / della 5ª"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Crabots arrondis / usés"
+msgstr "Innesti arrotondati / usurati"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Craque"
+msgstr "Gratta"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Craquement : synchroniseur du ou des rapports concernés."
+msgstr "Grattata: sincronizzatore della/e marcia/e interessata/e."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Craquement au passage : bague de synchroniseur usée ou cassée sur ce rapport, ou embrayage qui ne débraye pas complètement."
+msgstr "Grattata in cambiata: anello sincronizzatore usurato o rotto, o frizione che non stacca completamente."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Craquement au passage des vitesses"
+msgstr "Grattata al cambio marcia"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Craquement en %(r)s : synchroniseur(s) de ce(s) rapport(s)."
+msgstr "Grattata in %(r)s: sincronizzatore/i di questa/e marcia/e."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Craquements sur plusieurs rapports : vérifier d'abord l'embrayage (débrayage incomplet) et l'huile."
+msgstr "Grattate su più marce: controllare prima la frizione (stacco incompleto) e l'olio."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Câbles / tringlerie de commande"
+msgstr "Cavi / tiranteria di comando"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Dents cassées / ébréchées"
+msgstr "Denti rotti / scheggiati"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Diagnostic : symptômes, lubrification, contrôle par rapport, pièces cassées"
+msgstr "Diagnosi: sintomi, lubrificazione, controllo per marcia, pezzi rotti"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Différentiel autobloquant (disques, rampes)"
+msgstr "Differenziale autobloccante (dischi, rampe)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Eau dans l'huile : reniflard immergé / bouché ou joint défaillant ; vidanger et contrôler la corrosion des roulements."
+msgstr "Acqua nell'olio: sfiato sommerso / ostruito o guarnizione difettosa; scaricare e controllare la corrosione dei cuscinetti."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Embrayage défectueux (débrayage incomplet)"
+msgstr "Frizione difettosa (stacco incompleto)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Ex. 75W-90 GL-4"
+msgstr "Es. 75W-90 GL-4"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Foncée / usée"
+msgstr "Scuro / esausto"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Fuite + bruit de roulement : manque d'huile probable, risque de grippage des roulements et pignons."
+msgstr "Perdita + rumore cuscinetto: probabile mancanza d'olio, rischio di grippaggio di cuscinetti e ingranaggi."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Fuite : %(f)s"
+msgstr "Perdita: %(f)s"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Fuite d'huile : contrôler spi primaire (traces dans la cloche), spis de sortie, plan de joint, reniflard bouché."
+msgstr "Perdita d'olio: controllare paraolio primario (tracce nella campana), paraoli di uscita, piano di giunzione, sfiato ostruito."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Fuite d'huile de boîte"
+msgstr "Perdita d'olio del cambio"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Huile : %(e)s"
+msgstr "Olio: %(e)s"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Huile inadaptée / usée / polluée"
+msgstr "Olio non idoneo / esausto / contaminato"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Huile préconisée"
+msgstr "Olio consigliato"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Huile récupérée / capacité"
+msgstr "Olio recuperato / capacità"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Huile récupérée : %(q)s L sur %(c)s L (manque d'huile)"
+msgstr "Olio recuperato: %(q)s L su %(c)s L (mancanza d'olio)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Impossible"
+msgstr "Impossibile"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Jeu anormal"
+msgstr "Gioco anomalo"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Joint / pâte de carter"
+msgstr "Guarnizione / pasta della scatola"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Joint spi d'arbre primaire"
+msgstr "Paraolio albero primario"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Joint spi d'arbre primaire (côté embrayage)"
+msgstr "Paraolio albero primario (lato frizione)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Joint spi de sortie (transmission)"
+msgstr "Paraolio di uscita (semiasse)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Joint spi de sortie de transmission"
+msgstr "Paraolio uscita semiasse"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Levier / rotule de levier"
+msgstr "Leva / snodo della leva"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Levier flottant / sans résistance"
+msgstr "Leva lasca / senza resistenza"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Levier flottant : câble ou tringlerie cassé / décroché, rotule de levier, doigt de sélection cassé."
+msgstr "Leva lasca: cavo o tiranteria rotto / sganciato, snodo leva, dito selettore rotto."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Limaille / éclats sur le bouchon : dents cassées ou roulement détruit ; déposer et ouvrir la boîte."
+msgstr "Limatura / schegge sul tappo: denti rotti o cuscinetto distrutto; smontare e aprire il cambio."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Limaille / éclats sur le bouchon magnétique"
+msgstr "Limatura / schegge sul tappo magnetico"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Limaille abondante"
+msgstr "Limatura abbondante"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Manque d'huile / fuite non détectée"
+msgstr "Mancanza d'olio / perdita non rilevata"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Manque d'huile : rechercher la fuite et contrôler roulements, pignons et synchros (risque de grippage)."
+msgstr "Mancanza d'olio: cercare la perdita e controllare cuscinetti, ingranaggi e sincro (rischio di grippaggio)."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Marche arrière"
+msgstr "Retromarcia"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Moyeu / baladeur (manchon)"
+msgstr "Mozzo / manicotto scorrevole"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Niveau d'huile : %(n)s"
+msgstr "Livello olio: %(n)s"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Nombre de rapports avant"
+msgstr "Numero di marce avanti"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Non contrôlé"
+msgstr "Non controllato"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Odeur de brûlé"
+msgstr "Odore di bruciato"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Odeur de brûlé : huile surchauffée (niveau bas) ou embrayage qui patine."
+msgstr "Odore di bruciato: olio surriscaldato (livello basso) o frizione che slitta."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Origine de la fuite"
+msgstr "Origine della perdita"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Paillettes métalliques en suspension"
+msgstr "Scaglie metalliche in sospensione"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pas de bouchon magnétique"
+msgstr "Nessun tappo magnetico"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Passage dur"
+msgstr "Innesto duro"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Passage dur / accrochage"
+msgstr "Innesto duro / impuntamenti"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Passage dur : commande déréglée ou grippée (câbles, rotules), huile inadaptée, synchro collé, débrayage incomplet."
+msgstr "Innesto duro: comando sregolato o grippato (cavi, snodi), olio non idoneo, sincro incollato, stacco incompleto."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Passage forcé / sans débrayer"
+msgstr "Cambiata forzata / senza frizione"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Percé / troué"
+msgstr "Forato / bucato"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pignon / axe de marche arrière"
+msgstr "Ingranaggio / albero retromarcia"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pignon d'attaque"
+msgstr "Pignone"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pignon de rapport"
+msgstr "Ingranaggio di marcia"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pignons, synchros, crabots, fourchettes, roulements, différentiel…"
+msgstr "Ingranaggi, sincro, innesti, forcelle, cuscinetti, differenziale…"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Piste"
+msgstr "Pista"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pièce cassée (boîte)"
+msgstr "Pezzo rotto (cambio)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pièces cassées (boîte)"
+msgstr "Pezzi rotti (cambio)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Plan de joint des carters"
+msgstr "Piano di giunzione delle scatole"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Plus d'entraînement (le moteur tourne, la voiture n'avance pas)"
+msgstr "Nessuna trazione (il motore gira, l'auto non avanza)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Plus d'entraînement : arbre primaire ou cannelures cassés, différentiel détruit, embrayage patinant, transmission sortie."
+msgstr "Nessuna trazione: albero primario o scanalature rotti, differenziale distrutto, frizione che slitta, semiasse sfilato."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pâte grise fine (usure normale)"
+msgstr "Pasta grigia fine (usura normale)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Quantité d'huile récupérée (L)"
+msgstr "Quantità d'olio recuperata (L)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Rapport"
+msgstr "Marcia"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Reniflard"
+msgstr "Sfiato"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Reniflard (surpression)"
+msgstr "Sfiato (sovrappressione)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Retour aux interventions boîte de vitesse"
+msgstr "Torna agli interventi sul cambio"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Roulement d'arbre primaire"
+msgstr "Cuscinetto albero primario"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Roulement d'arbre secondaire"
+msgstr "Cuscinetto albero secondario"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Rupture de roulement"
+msgstr "Rottura di cuscinetto"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Réparation de la boîte"
+msgstr "Riparazione del cambio"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Satellites / planétaires"
+msgstr "Satelliti / planetari"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Saute"
+msgstr "Salta"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Saute en %(r)s : crabots du pignon / baladeur et fourchette de ce(s) rapport(s)."
+msgstr "Salta in %(r)s: innesti dell'ingranaggio / manicotto e forcella di questa/e marcia/e."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Sifflement / ronflement (varie avec la vitesse)"
+msgstr "Fischio / ronzio (varia con la velocità)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Sifflement / ronflement qui varie avec la vitesse : roulements d'arbres ou de différentiel ; contrôler le niveau d'huile."
+msgstr "Fischio / ronzio che varia con la velocità: cuscinetti degli alberi o del differenziale; controllare il livello dell'olio."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Surrégime / rétrogradage brutal"
+msgstr "Fuorigiri / scalata brusca"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Sélecteur / doigt de commande"
+msgstr "Selettore / dito di comando"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Tordue / déformée"
+msgstr "Piegata / deformata"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Toute la boîte"
+msgstr "Tutto il cambio"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Trop plein"
+msgstr "Troppo pieno"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Trop plein d'huile : risque de fuite par le reniflard et les joints."
+msgstr "Troppo olio: rischio di perdite da sfiato e guarnizioni."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Une ligne par pièce endommagée. Le rapport est facultatif (vide = pièce commune à toute la boîte). Les pièces à remplacer ou à réparer avec une quantité et un prix sont reprises dans le chiffrage."
+msgstr "Una riga per pezzo danneggiato. La marcia è facoltativa (vuota = pezzo comune a tutto il cambio). I pezzi da sostituire o riparare con quantità e prezzo sono inclusi nel preventivo."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Une vitesse saute / se désengage"
+msgstr "Una marcia salta / si disinnesta"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Verrouillage (billes, ressorts, inter-verrouillage)"
+msgstr "Bloccaggio (sfere, molle, interblocco)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vibrations"
+msgstr "Vibrazioni"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vide / quasi vide"
+msgstr "Vuoto / quasi vuoto"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vide : pièce commune à toute la boîte."
+msgstr "Vuoto: pezzo comune a tutto il cambio."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vitesse impossible : fourchette / axe cassé, sélecteur, commande décrochée ou pignon détruit."
+msgstr "Marcia impossibile: forcella / asta rotta, selettore, comando sganciato o ingranaggio distrutto."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vitesse impossible à engager"
+msgstr "Marcia impossibile da innestare"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vitesse qui saute : crabots du pignon / baladeur arrondis, fourchette usée, verrouillage (bille, ressort) défaillant ou supports moteur / boîte HS."
+msgstr "Marcia che salta: innesti arrotondati, forcella usurata, bloccaggio (sfera, molla) difettoso o supporti motore / cambio rotti."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vitesse qui saute : crabots du pignon / baladeur et fourchette du rapport concerné."
+msgstr "Marcia che salta: innesti dell'ingranaggio / manicotto e forcella della marcia interessata."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "bruit → pignon / cage à aiguilles"
+msgstr "rumore → ingranaggio / gabbia a rullini"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "craque → synchroniseur"
+msgstr "gratta → sincronizzatore"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "impossible → fourchette / sélecteur / pignon"
+msgstr "impossibile → forcella / selettore / ingranaggio"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "passage dur → commande / synchro / embrayage"
+msgstr "innesto duro → comando / sincro / frizione"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "saute → crabots / fourchette / verrouillage"
+msgstr "salta → innesti / forcella / bloccaggio"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Écaillage / piqûres (pitting)"
+msgstr "Sfaldatura / vaiolatura (pitting)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Éclats / morceaux de dents"
+msgstr "Schegge / pezzi di denti"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Éclats / morceaux de métal"
+msgstr "Schegge / pezzi di metallo"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Éclats métalliques : dents de pignon ou bague de synchro cassées ; ouvrir la boîte."
+msgstr "Schegge metalliche: denti d'ingranaggio o anello sincro rotti; aprire il cambio."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Émulsionnée (eau)"
+msgstr "Emulsionato (acqua)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "État de l'huile"
+msgstr "Stato dell'olio"
+
+#: maintenance/autres_interventions/securite
+msgid "Airbag conducteur (volant)"
+msgstr "Airbag conducente (volante)"
+
+#: maintenance/autres_interventions/securite
+msgid "Airbag genoux"
+msgstr "Airbag per le ginocchia"
+
+#: maintenance/autres_interventions/securite
+msgid "Airbags latéraux (sièges)"
+msgstr "Airbag laterali (sedili)"
+
+#: maintenance/autres_interventions/securite
+msgid "Airbags rideaux"
+msgstr "Airbag a tendina"
+
+#: maintenance/autres_interventions/securite
+msgid "Ancrages et fixations des harnais"
+msgstr "Ancoraggi e fissaggi delle cinture"
+
+#: maintenance/autres_interventions/securite
+msgid "Arceau, extincteur, baquets, câblage, boîtier, moteur, échappement, démontage, air jack"
+msgstr "Roll-bar, estintore, sedili a guscio, cablaggio, centralina, motore, scarico, alleggerimento, air jack"
+
+#: maintenance/autres_interventions/securite
+msgid "Boucles et enrouleurs de ceinture"
+msgstr "Fibbie e arrotolatori delle cinture"
+
+#: maintenance/autres_interventions/securite
+msgid "Boîtier / calculateur airbag"
+msgstr "Centralina airbag"
+
+#: maintenance/autres_interventions/securite
+msgid "Calibrage radar / caméra (ADAS)"
+msgstr "Calibrazione radar / telecamera (ADAS)"
+
+#: maintenance/autres_interventions/securite
+msgid "Caméra frontale (maintien de voie)"
+msgstr "Telecamera frontale (mantenimento corsia)"
+
+#: maintenance/autres_interventions/securite
+msgid "Capteurs de collision (choc)"
+msgstr "Sensori d'urto"
+
+#: maintenance/autres_interventions/securite
+msgid "Ceintures d'origine arrière"
+msgstr "Cinture originali posteriori"
+
+#: maintenance/autres_interventions/securite
+msgid "Ceintures d'origine avant"
+msgstr "Cinture originali anteriori"
+
+#: maintenance/autres_interventions/securite
+msgid "Ceintures, harnais, airbags, boîtier, capteurs de collision, radar avant"
+msgstr "Cinture, cinture da gara, airbag, centralina, sensori d'urto, radar anteriore"
+
+#: maintenance/autres_interventions/securite
+msgid "Contacteur tournant du volant (ressort spiralé)"
+msgstr "Contatto spiralato del volante"
+
+#: maintenance/autres_interventions/securite
+msgid "Diagnostic et effacement des défauts (SRS)"
+msgstr "Diagnosi e cancellazione errori (SRS)"
+
+#: maintenance/autres_interventions/securite
+msgid "Fin de validité du harnais (étiquette FIA)"
+msgstr "Scadenza della cintura (etichetta FIA)"
+
+#: maintenance/autres_interventions/securite
+msgid "Harnais compétition (validité FIA)"
+msgstr "Cintura da competizione (validità FIA)"
+
+#: maintenance/autres_interventions/securite
+msgid "Intervention sécurité"
+msgstr "Intervento sicurezza"
+
+#: maintenance/autres_interventions/securite
+msgid "Le kilométrage ne peut pas être inférieur au kilométrage actuel du véhicule."
+msgstr "Il chilometraggio non può essere inferiore a quello attuale del veicolo."
+
+#: maintenance/autres_interventions/securite
+msgid "Modification intervention sécurité"
+msgstr "Modifica intervento sicurezza"
+
+#: maintenance/autres_interventions/securite
+msgid "Prétensionneurs / limiteurs d'effort"
+msgstr "Pretensionatori / limitatori di carico"
+
+#: maintenance/autres_interventions/securite
+msgid "Radar avant (régulateur adaptatif, freinage d'urgence)"
+msgstr "Radar anteriore (cruise adattivo, frenata d'emergenza)"
+
+#: maintenance/autres_interventions/securite
+msgid "Suppression de l'intervention sécurité"
+msgstr "Eliminazione intervento sicurezza"
+
+#: maintenance/autres_interventions/securite
+msgid "Validité FIA"
+msgstr "Validità FIA"
+
+#: maintenance/autres_interventions/securite
+msgid "Vous devez confirmer que le serrage des roues est FAIT avant de valider."
+msgstr "Devi confermare che il serraggio delle ruote è FATTO prima di convalidare."
+
+#: maintenance/autres_interventions/securite
+msgid "périmé"
+msgstr "scaduto"
+
+#: maintenance/autres_interventions/securite
+msgid "Sécurité (ceintures, airbags, radar)"
+msgstr "Sicurezza (cinture, airbag, radar)"

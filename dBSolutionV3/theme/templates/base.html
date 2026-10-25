@@ -76,12 +76,6 @@
             </button>
         </form>
 
-        {% if user.is_authenticated %}
-        <a href="{% url 'password_change' %}" title="{% trans 'Changer mon mot de passe' %}"
-           class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-2 text-center whitespace-nowrap shrink-0 rounded-md font-semibold inline-block transition duration-300">
-            🔑 {% trans "Mot de passe" %}
-        </a>
-        {% endif %}
         <a href="{% url 'utilisateurs:logout' %}"
           class="bg-red-700 hover:bg-red-500 text-white px-5 py-2 min-w-[130px] text-center whitespace-nowrap shrink-0 rounded-md font-semibold inline-block transition duration-300">
             {% trans "Déconnexion" %}

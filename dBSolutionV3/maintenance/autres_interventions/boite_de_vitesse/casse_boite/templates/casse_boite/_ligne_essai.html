@@ -1,0 +1,10 @@
+{% load i18n %}<tr class="ligne-essai" data-prefix="{{ f.prefix }}">
+    <td class="border px-1 py-1">{% for h in f.hidden_fields %}{{ h }}{% endfor %}{{ f.rapport }}</td>
+    <td class="border px-2 py-1 text-center">{{ f.craquement }}</td>
+    <td class="border px-2 py-1 text-center">{{ f.saute }}</td>
+    <td class="border px-2 py-1 text-center">{{ f.passage_dur }}</td>
+    <td class="border px-2 py-1 text-center">{{ f.impossible }}</td>
+    <td class="border px-2 py-1 text-center">{{ f.bruit }}</td>
+    <td class="border px-1 py-1">{{ f.remarque }}</td>
+    <td class="border px-2 py-1 text-center">{% if f.instance.pk %}<label class="text-xs text-red-700">{{ f.DELETE }} {% trans "Suppr." %}</label>{% else %}<button type="button" class="retirer-ligne text-red-700 font-bold" title="{% trans 'Retirer' %}">✕</button>{% endif %}</td>
+</tr>

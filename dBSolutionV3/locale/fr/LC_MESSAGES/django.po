@@ -61079,3 +61079,1116 @@ msgstr ""
 
 #~ msgid "Supprimer le controle des silent blocs"
 #~ msgstr "Supprimer le controle des silent blocs"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Ventilation"
+msgstr "Ventilation"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Soufflerie (pulseur d'air habitacle)"
+msgstr "Soufflerie (pulseur d'air habitacle)"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Moteur de ventilation"
+msgstr "Moteur de ventilation"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Résistance de vitesse du moteur de ventilation"
+msgstr "Résistance de vitesse du moteur de ventilation"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Module de commande électronique du pulseur"
+msgstr "Module de commande électronique du pulseur"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Filtre d'habitacle (pollen / charbon actif)"
+msgstr "Filtre d'habitacle (pollen / charbon actif)"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Résistance de chauffage additionnel (PTC)"
+msgstr "Résistance de chauffage additionnel (PTC)"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Commande / tableau de ventilation-chauffage"
+msgstr "Commande / tableau de ventilation-chauffage"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Volets de répartition et de mixage d'air"
+msgstr "Volets de répartition et de mixage d'air"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Moteurs (actionneurs) de volets"
+msgstr "Moteurs (actionneurs) de volets"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Volet de recyclage d'air"
+msgstr "Volet de recyclage d'air"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Sonde de température habitacle"
+msgstr "Sonde de température habitacle"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Aérateurs et grilles de ventilation"
+msgstr "Aérateurs et grilles de ventilation"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Conduits et gaines d'air"
+msgstr "Conduits et gaines d'air"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Désinfection / traitement antibactérien du circuit"
+msgstr "Désinfection / traitement antibactérien du circuit"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Diagnostic et codage"
+msgstr "Diagnostic et codage"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Soufflerie, filtre d'habitacle, résistance de chauffage, moteur de ventilation"
+msgstr "Soufflerie, filtre d'habitacle, résistance de chauffage, moteur de ventilation"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Intervention ventilation"
+msgstr "Intervention ventilation"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Modification intervention ventilation"
+msgstr "Modification intervention ventilation"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Suppression de l'intervention ventilation"
+msgstr "Suppression de l'intervention ventilation"
+
+#: facture/tva.py
+msgid "Journal des mouvements – TVA à payer"
+msgstr "Journal des mouvements – TVA à payer"
+
+#: facture/tva.py
+msgid "Journal des mouvements – TVA à récupérer"
+msgstr "Journal des mouvements – TVA à récupérer"
+
+#: facture/tva.py
+msgid "Cumul TVA"
+msgstr "Cumul TVA"
+
+#: facture/tva.py
+msgid "Acompte location"
+msgstr "Acompte location"
+
+#: facture/tva.py
+msgid "Aucun mouvement sur la période."
+msgstr "Aucun mouvement sur la période."
+
+#: facture/tva.py
+msgid "Total TVA à payer"
+msgstr "Total TVA à payer"
+
+#: facture/tva.py
+msgid "Total TVA à récupérer"
+msgstr "Total TVA à récupérer"
+
+#: facture/tva.py
+msgid "informatif – hors total"
+msgstr "informatif – hors total"
+
+#: facture/tva.py
+#, python-format
+msgid "Transport – %(libelle)s"
+msgstr "Transport – %(libelle)s"
+
+#: facture/tva.py
+msgid "Pièces (coût d'achat)"
+msgstr "Pièces (coût d'achat)"
+
+#: utilisateurs/mon_compte
+#, python-format
+msgid "%(h)s h en %(a)s"
+msgstr "%(h)s h en %(a)s"
+
+#: utilisateurs/mon_compte
+#, python-format
+msgid "%(m)s € en %(a)s"
+msgstr "%(m)s € en %(a)s"
+
+#: utilisateurs/mon_compte
+#, python-format
+msgid "%(n)s en %(a)s"
+msgstr "%(n)s en %(a)s"
+
+#: utilisateurs/mon_compte
+#, python-format
+msgid "%(t)s en %(a)s"
+msgstr "%(t)s en %(a)s"
+
+#: utilisateurs/mon_compte
+msgid "Activer la double authentification"
+msgstr "Activer la double authentification"
+
+#: utilisateurs/mon_compte
+msgid "Activée"
+msgstr "Activée"
+
+#: utilisateurs/mon_compte
+msgid "Aucune adresse enregistrée."
+msgstr "Aucune adresse enregistrée."
+
+#: utilisateurs/mon_compte
+msgid "Aucune fiche de paie enregistrée."
+msgstr "Aucune fiche de paie enregistrée."
+
+#: utilisateurs/mon_compte
+msgid "Aucune maintenance."
+msgstr "Aucune maintenance."
+
+#: utilisateurs/mon_compte
+msgid "Janv."
+msgstr "Janv."
+
+#: utilisateurs/mon_compte
+msgid "Févr."
+msgstr "Févr."
+
+#: utilisateurs/mon_compte
+msgid "Avr."
+msgstr "Avr."
+
+#: utilisateurs/mon_compte
+msgid "Juil."
+msgstr "Juil."
+
+#: utilisateurs/mon_compte
+msgid "Sept."
+msgstr "Sept."
+
+#: utilisateurs/mon_compte
+msgid "Oct."
+msgstr "Oct."
+
+#: utilisateurs/mon_compte
+msgid "Nov."
+msgstr "Nov."
+
+#: utilisateurs/mon_compte
+msgid "Déc."
+msgstr "Déc."
+
+#: utilisateurs/mon_compte
+msgid "Ce mois-ci"
+msgstr "Ce mois-ci"
+
+#: utilisateurs/mon_compte
+msgid "Changer mon mot de passe"
+msgstr "Changer mon mot de passe"
+
+#: utilisateurs/mon_compte
+msgid "Compte bancaire (IBAN)"
+msgstr "Compte bancaire (IBAN)"
+
+#: utilisateurs/mon_compte
+msgid "Dernière connexion"
+msgstr "Dernière connexion"
+
+#: utilisateurs/mon_compte
+msgid "Dernières fiches de paie"
+msgstr "Dernières fiches de paie"
+
+#: utilisateurs/mon_compte
+msgid "Dernières maintenances"
+msgstr "Dernières maintenances"
+
+#: utilisateurs/mon_compte
+msgid "Double authentification (2FA)"
+msgstr "Double authentification (2FA)"
+
+#: utilisateurs/mon_compte
+msgid "E-mail entreprise"
+msgstr "E-mail entreprise"
+
+#: utilisateurs/mon_compte
+msgid "En cours (jaune / rouge)"
+msgstr "En cours (jaune / rouge)"
+
+#: utilisateurs/mon_compte
+msgid "Fiches de paie"
+msgstr "Fiches de paie"
+
+#: utilisateurs/mon_compte
+msgid "Main-d'œuvre encodée"
+msgstr "Main-d'œuvre encodée"
+
+#: utilisateurs/mon_compte
+msgid "Maintenances effectuées"
+msgstr "Maintenances effectuées"
+
+#: utilisateurs/mon_compte
+#, python-format
+msgid "Maintenances par mois en %(annee)s"
+msgstr "Maintenances par mois en %(annee)s"
+
+#: utilisateurs/mon_compte
+msgid "Mon compte"
+msgstr "Mon compte"
+
+#: utilisateurs/mon_compte
+msgid "Mon compte, mot de passe, statistiques"
+msgstr "Mon compte, mot de passe, statistiques"
+
+#: utilisateurs/mon_compte
+msgid "Non précisé"
+msgstr "Non précisé"
+
+#: utilisateurs/mon_compte
+msgid "Ouvrir mon dashboard utilisateur"
+msgstr "Ouvrir mon dashboard utilisateur"
+
+#: utilisateurs/mon_compte
+msgid "Par type de maintenance"
+msgstr "Par type de maintenance"
+
+#: utilisateurs/mon_compte
+msgid "Retour à mon compte"
+msgstr "Retour à mon compte"
+
+#: utilisateurs/mon_compte
+msgid "Rôle tenu"
+msgstr "Rôle tenu"
+
+#: utilisateurs/mon_compte
+msgid "Salaires et heures prestées"
+msgstr "Salaires et heures prestées"
+
+#: utilisateurs/mon_compte
+msgid "Sécurité"
+msgstr "Sécurité"
+
+#: utilisateurs/mon_compte
+msgid "Temps de main-d'œuvre encodé"
+msgstr "Temps de main-d'œuvre encodé"
+
+#: utilisateurs/mon_compte
+msgid "Terminées (vert)"
+msgstr "Terminées (vert)"
+
+#: utilisateurs/mon_compte
+msgid "Total des salaires nets"
+msgstr "Total des salaires nets"
+
+#: utilisateurs/mon_compte
+msgid "bte"
+msgstr "bte"
+
+#: utilisateurs/mon_compte
+msgid "interventions"
+msgstr "interventions"
+
+#: utilisateurs/mon_compte
+msgid "valeur"
+msgstr "valeur"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "1re"
+msgstr "1re"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "2e"
+msgstr "2e"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "3e"
+msgstr "3e"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "4e"
+msgstr "4e"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "5e"
+msgstr "5e"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "6e"
+msgstr "6e"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "7e"
+msgstr "7e"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "8e"
+msgstr "8e"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ casses boîte manuelle"
+msgstr "Affichage de _START_ à _END_ sur _TOTAL_ casses boîte manuelle"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Ajouter un rapport"
+msgstr "Ajouter un rapport"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Analyse de l'huile / du bouchon"
+msgstr "Analyse de l'huile / du bouchon"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Arbre intermédiaire"
+msgstr "Arbre intermédiaire"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Aspect, odeur, couleur, paillettes, éclats, eau…"
+msgstr "Aspect, odeur, couleur, paillettes, éclats, eau…"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Aucune casse boîte manuelle enregistrée pour cet exemplaire."
+msgstr "Aucune casse boîte manuelle enregistrée pour cet exemplaire."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Aucune casse boîte manuelle trouvée"
+msgstr "Aucune casse boîte manuelle trouvée"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Aucune piste (cochez les symptômes, la lubrification et le contrôle par rapport)."
+msgstr "Aucune piste (cochez les symptômes, la lubrification et le contrôle par rapport)."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Axe de commande / sélecteur"
+msgstr "Axe de commande / sélecteur"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Axe de fourchette / coulisseau"
+msgstr "Axe de fourchette / coulisseau"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bague de synchroniseur"
+msgstr "Bague de synchroniseur"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bleui / surchauffe"
+msgstr "Bleui / surchauffe"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bouchon de vidange / de remplissage"
+msgstr "Bouchon de vidange / de remplissage"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bouchon magnétique"
+msgstr "Bouchon magnétique"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Bouchon magnétique : %(b)s"
+msgstr "Bouchon magnétique : %(b)s"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Boîte bloquée"
+msgstr "Boîte bloquée"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Boîte bloquée : grippage par manque d'huile, deux rapports engagés (verrouillage), débris coincés entre pignons."
+msgstr "Boîte bloquée : grippage par manque d'huile, deux rapports engagés (verrouillage), débris coincés entre pignons."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Boîte d'occasion"
+msgstr "Boîte d'occasion"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Boîte en échange standard"
+msgstr "Boîte en échange standard"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Boîte neuve"
+msgstr "Boîte neuve"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Boîtier de différentiel"
+msgstr "Boîtier de différentiel"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bruit"
+msgstr "Bruit"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bruit en virage (différentiel)"
+msgstr "Bruit en virage (différentiel)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bruit en virage : satellites / planétaires du différentiel, roulements de différentiel ou cardans."
+msgstr "Bruit en virage : satellites / planétaires du différentiel, roulements de différentiel ou cardans."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bruit sur ce rapport"
+msgstr "Bruit sur ce rapport"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bruit sur un rapport précis"
+msgstr "Bruit sur un rapport précis"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bruit sur un seul rapport : pignon de ce rapport écaillé ou dents abîmées, cage à aiguilles du pignon."
+msgstr "Bruit sur un seul rapport : pignon de ce rapport écaillé ou dents abîmées, cage à aiguilles du pignon."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Brûlée (odeur, noire)"
+msgstr "Brûlée (odeur, noire)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Cage à aiguilles de pignon"
+msgstr "Cage à aiguilles de pignon"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Capacité constructeur (L)"
+msgstr "Capacité constructeur (L)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Capteur / contacteur"
+msgstr "Capteur / contacteur"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Capteur de vitesse / compteur"
+msgstr "Capteur de vitesse / compteur"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Carter d'embrayage (cloche)"
+msgstr "Carter d'embrayage (cloche)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Carter de boîte"
+msgstr "Carter de boîte"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Carter percé / fissuré"
+msgstr "Carter percé / fissuré"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Carter percé : choc extérieur ou pièce interne éjectée (dent, roulement) ; inspection complète obligatoire."
+msgstr "Carter percé : choc extérieur ou pièce interne éjectée (dent, roulement) ; inspection complète obligatoire."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Casse boîte manuelle"
+msgstr "Casse boîte manuelle"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Casse du différentiel"
+msgstr "Casse du différentiel"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Casses boîte manuelle"
+msgstr "Casses boîte manuelle"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Cette variation est supérieure à 2 000 km. Voulez-vous vraiment enregistrer ce kilométrage ?"
+msgstr "Cette variation est supérieure à 2 000 km. Voulez-vous vraiment enregistrer ce kilométrage ?"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Choc de couple (départ arraché, launch control, saut de roue)"
+msgstr "Choc de couple (départ arraché, launch control, saut de roue)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Choc extérieur (carter percé)"
+msgstr "Choc extérieur (carter percé)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Claquement en charge / décharge : jeu au différentiel, pignon d'attaque / couronne, supports moteur ou cardans."
+msgstr "Claquement en charge / décharge : jeu au différentiel, pignon d'attaque / couronne, supports moteur ou cardans."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Claquement à l'accélération / décélération"
+msgstr "Claquement à l'accélération / décélération"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Clavettes / ressorts de synchro"
+msgstr "Clavettes / ressorts de synchro"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Cochez ce qui est constaté sur chaque rapport (essai sur route ou au banc, moteur tournant)."
+msgstr "Cochez ce qui est constaté sur chaque rapport (essai sur route ou au banc, moteur tournant)."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Commande de boîte déréglée / usée (câbles, tringlerie)"
+msgstr "Commande de boîte déréglée / usée (câbles, tringlerie)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Conditions au moment de la casse : rapport engagé, régime, départ, piste, bruit avant la casse…"
+msgstr "Conditions au moment de la casse : rapport engagé, régime, départ, piste, bruit avant la casse…"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Constat au démontage"
+msgstr "Constat au démontage"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Contacteur de marche arrière"
+msgstr "Contacteur de marche arrière"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Contrôle par rapport"
+msgstr "Contrôle par rapport"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Contrôle rapport par rapport"
+msgstr "Contrôle rapport par rapport"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Contrôles par rapport"
+msgstr "Contrôles par rapport"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Corps étranger / débris dans la boîte"
+msgstr "Corps étranger / débris dans la boîte"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Corrosion"
+msgstr "Corrosion"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Couple moteur augmenté / préparation hors limites"
+msgstr "Couple moteur augmenté / préparation hors limites"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Couronne de différentiel"
+msgstr "Couronne de différentiel"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Couvercle arrière / de 5e"
+msgstr "Couvercle arrière / de 5e"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Crabots arrondis / usés"
+msgstr "Crabots arrondis / usés"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Craque"
+msgstr "Craque"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Craquement : synchroniseur du ou des rapports concernés."
+msgstr "Craquement : synchroniseur du ou des rapports concernés."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Craquement au passage : bague de synchroniseur usée ou cassée sur ce rapport, ou embrayage qui ne débraye pas complètement."
+msgstr "Craquement au passage : bague de synchroniseur usée ou cassée sur ce rapport, ou embrayage qui ne débraye pas complètement."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Craquement au passage des vitesses"
+msgstr "Craquement au passage des vitesses"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Craquement en %(r)s : synchroniseur(s) de ce(s) rapport(s)."
+msgstr "Craquement en %(r)s : synchroniseur(s) de ce(s) rapport(s)."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Craquements sur plusieurs rapports : vérifier d'abord l'embrayage (débrayage incomplet) et l'huile."
+msgstr "Craquements sur plusieurs rapports : vérifier d'abord l'embrayage (débrayage incomplet) et l'huile."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Câbles / tringlerie de commande"
+msgstr "Câbles / tringlerie de commande"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Dents cassées / ébréchées"
+msgstr "Dents cassées / ébréchées"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Diagnostic : symptômes, lubrification, contrôle par rapport, pièces cassées"
+msgstr "Diagnostic : symptômes, lubrification, contrôle par rapport, pièces cassées"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Différentiel autobloquant (disques, rampes)"
+msgstr "Différentiel autobloquant (disques, rampes)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Eau dans l'huile : reniflard immergé / bouché ou joint défaillant ; vidanger et contrôler la corrosion des roulements."
+msgstr "Eau dans l'huile : reniflard immergé / bouché ou joint défaillant ; vidanger et contrôler la corrosion des roulements."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Embrayage défectueux (débrayage incomplet)"
+msgstr "Embrayage défectueux (débrayage incomplet)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Ex. 75W-90 GL-4"
+msgstr "Ex. 75W-90 GL-4"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Foncée / usée"
+msgstr "Foncée / usée"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Fuite + bruit de roulement : manque d'huile probable, risque de grippage des roulements et pignons."
+msgstr "Fuite + bruit de roulement : manque d'huile probable, risque de grippage des roulements et pignons."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Fuite : %(f)s"
+msgstr "Fuite : %(f)s"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Fuite d'huile : contrôler spi primaire (traces dans la cloche), spis de sortie, plan de joint, reniflard bouché."
+msgstr "Fuite d'huile : contrôler spi primaire (traces dans la cloche), spis de sortie, plan de joint, reniflard bouché."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Fuite d'huile de boîte"
+msgstr "Fuite d'huile de boîte"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Huile : %(e)s"
+msgstr "Huile : %(e)s"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Huile inadaptée / usée / polluée"
+msgstr "Huile inadaptée / usée / polluée"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Huile préconisée"
+msgstr "Huile préconisée"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Huile récupérée / capacité"
+msgstr "Huile récupérée / capacité"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Huile récupérée : %(q)s L sur %(c)s L (manque d'huile)"
+msgstr "Huile récupérée : %(q)s L sur %(c)s L (manque d'huile)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Impossible"
+msgstr "Impossible"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Jeu anormal"
+msgstr "Jeu anormal"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Joint / pâte de carter"
+msgstr "Joint / pâte de carter"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Joint spi d'arbre primaire"
+msgstr "Joint spi d'arbre primaire"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Joint spi d'arbre primaire (côté embrayage)"
+msgstr "Joint spi d'arbre primaire (côté embrayage)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Joint spi de sortie (transmission)"
+msgstr "Joint spi de sortie (transmission)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Joint spi de sortie de transmission"
+msgstr "Joint spi de sortie de transmission"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Levier / rotule de levier"
+msgstr "Levier / rotule de levier"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Levier flottant / sans résistance"
+msgstr "Levier flottant / sans résistance"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Levier flottant : câble ou tringlerie cassé / décroché, rotule de levier, doigt de sélection cassé."
+msgstr "Levier flottant : câble ou tringlerie cassé / décroché, rotule de levier, doigt de sélection cassé."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Limaille / éclats sur le bouchon : dents cassées ou roulement détruit ; déposer et ouvrir la boîte."
+msgstr "Limaille / éclats sur le bouchon : dents cassées ou roulement détruit ; déposer et ouvrir la boîte."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Limaille / éclats sur le bouchon magnétique"
+msgstr "Limaille / éclats sur le bouchon magnétique"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Limaille abondante"
+msgstr "Limaille abondante"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Manque d'huile / fuite non détectée"
+msgstr "Manque d'huile / fuite non détectée"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Manque d'huile : rechercher la fuite et contrôler roulements, pignons et synchros (risque de grippage)."
+msgstr "Manque d'huile : rechercher la fuite et contrôler roulements, pignons et synchros (risque de grippage)."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Marche arrière"
+msgstr "Marche arrière"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Moyeu / baladeur (manchon)"
+msgstr "Moyeu / baladeur (manchon)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Niveau d'huile : %(n)s"
+msgstr "Niveau d'huile : %(n)s"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Nombre de rapports avant"
+msgstr "Nombre de rapports avant"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Non contrôlé"
+msgstr "Non contrôlé"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Odeur de brûlé"
+msgstr "Odeur de brûlé"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Odeur de brûlé : huile surchauffée (niveau bas) ou embrayage qui patine."
+msgstr "Odeur de brûlé : huile surchauffée (niveau bas) ou embrayage qui patine."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Origine de la fuite"
+msgstr "Origine de la fuite"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Paillettes métalliques en suspension"
+msgstr "Paillettes métalliques en suspension"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pas de bouchon magnétique"
+msgstr "Pas de bouchon magnétique"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Passage dur"
+msgstr "Passage dur"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Passage dur / accrochage"
+msgstr "Passage dur / accrochage"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Passage dur : commande déréglée ou grippée (câbles, rotules), huile inadaptée, synchro collé, débrayage incomplet."
+msgstr "Passage dur : commande déréglée ou grippée (câbles, rotules), huile inadaptée, synchro collé, débrayage incomplet."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Passage forcé / sans débrayer"
+msgstr "Passage forcé / sans débrayer"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Percé / troué"
+msgstr "Percé / troué"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pignon / axe de marche arrière"
+msgstr "Pignon / axe de marche arrière"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pignon d'attaque"
+msgstr "Pignon d'attaque"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pignon de rapport"
+msgstr "Pignon de rapport"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pignons, synchros, crabots, fourchettes, roulements, différentiel…"
+msgstr "Pignons, synchros, crabots, fourchettes, roulements, différentiel…"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Piste"
+msgstr "Piste"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pièce cassée (boîte)"
+msgstr "Pièce cassée (boîte)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pièces cassées (boîte)"
+msgstr "Pièces cassées (boîte)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Plan de joint des carters"
+msgstr "Plan de joint des carters"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Plus d'entraînement (le moteur tourne, la voiture n'avance pas)"
+msgstr "Plus d'entraînement (le moteur tourne, la voiture n'avance pas)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Plus d'entraînement : arbre primaire ou cannelures cassés, différentiel détruit, embrayage patinant, transmission sortie."
+msgstr "Plus d'entraînement : arbre primaire ou cannelures cassés, différentiel détruit, embrayage patinant, transmission sortie."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pâte grise fine (usure normale)"
+msgstr "Pâte grise fine (usure normale)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Quantité d'huile récupérée (L)"
+msgstr "Quantité d'huile récupérée (L)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Rapport"
+msgstr "Rapport"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Reniflard"
+msgstr "Reniflard"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Reniflard (surpression)"
+msgstr "Reniflard (surpression)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Retour aux interventions boîte de vitesse"
+msgstr "Retour aux interventions boîte de vitesse"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Roulement d'arbre primaire"
+msgstr "Roulement d'arbre primaire"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Roulement d'arbre secondaire"
+msgstr "Roulement d'arbre secondaire"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Rupture de roulement"
+msgstr "Rupture de roulement"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Réparation de la boîte"
+msgstr "Réparation de la boîte"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Satellites / planétaires"
+msgstr "Satellites / planétaires"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Saute"
+msgstr "Saute"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Saute en %(r)s : crabots du pignon / baladeur et fourchette de ce(s) rapport(s)."
+msgstr "Saute en %(r)s : crabots du pignon / baladeur et fourchette de ce(s) rapport(s)."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Sifflement / ronflement (varie avec la vitesse)"
+msgstr "Sifflement / ronflement (varie avec la vitesse)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Sifflement / ronflement qui varie avec la vitesse : roulements d'arbres ou de différentiel ; contrôler le niveau d'huile."
+msgstr "Sifflement / ronflement qui varie avec la vitesse : roulements d'arbres ou de différentiel ; contrôler le niveau d'huile."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Surrégime / rétrogradage brutal"
+msgstr "Surrégime / rétrogradage brutal"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Sélecteur / doigt de commande"
+msgstr "Sélecteur / doigt de commande"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Tordue / déformée"
+msgstr "Tordue / déformée"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Toute la boîte"
+msgstr "Toute la boîte"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Trop plein"
+msgstr "Trop plein"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Trop plein d'huile : risque de fuite par le reniflard et les joints."
+msgstr "Trop plein d'huile : risque de fuite par le reniflard et les joints."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Une ligne par pièce endommagée. Le rapport est facultatif (vide = pièce commune à toute la boîte). Les pièces à remplacer ou à réparer avec une quantité et un prix sont reprises dans le chiffrage."
+msgstr "Une ligne par pièce endommagée. Le rapport est facultatif (vide = pièce commune à toute la boîte). Les pièces à remplacer ou à réparer avec une quantité et un prix sont reprises dans le chiffrage."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Une vitesse saute / se désengage"
+msgstr "Une vitesse saute / se désengage"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Verrouillage (billes, ressorts, inter-verrouillage)"
+msgstr "Verrouillage (billes, ressorts, inter-verrouillage)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vibrations"
+msgstr "Vibrations"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vide / quasi vide"
+msgstr "Vide / quasi vide"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vide : pièce commune à toute la boîte."
+msgstr "Vide : pièce commune à toute la boîte."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vitesse impossible : fourchette / axe cassé, sélecteur, commande décrochée ou pignon détruit."
+msgstr "Vitesse impossible : fourchette / axe cassé, sélecteur, commande décrochée ou pignon détruit."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vitesse impossible à engager"
+msgstr "Vitesse impossible à engager"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vitesse qui saute : crabots du pignon / baladeur arrondis, fourchette usée, verrouillage (bille, ressort) défaillant ou supports moteur / boîte HS."
+msgstr "Vitesse qui saute : crabots du pignon / baladeur arrondis, fourchette usée, verrouillage (bille, ressort) défaillant ou supports moteur / boîte HS."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vitesse qui saute : crabots du pignon / baladeur et fourchette du rapport concerné."
+msgstr "Vitesse qui saute : crabots du pignon / baladeur et fourchette du rapport concerné."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "bruit → pignon / cage à aiguilles"
+msgstr "bruit → pignon / cage à aiguilles"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "craque → synchroniseur"
+msgstr "craque → synchroniseur"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "impossible → fourchette / sélecteur / pignon"
+msgstr "impossible → fourchette / sélecteur / pignon"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "passage dur → commande / synchro / embrayage"
+msgstr "passage dur → commande / synchro / embrayage"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "saute → crabots / fourchette / verrouillage"
+msgstr "saute → crabots / fourchette / verrouillage"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Écaillage / piqûres (pitting)"
+msgstr "Écaillage / piqûres (pitting)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Éclats / morceaux de dents"
+msgstr "Éclats / morceaux de dents"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Éclats / morceaux de métal"
+msgstr "Éclats / morceaux de métal"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Éclats métalliques : dents de pignon ou bague de synchro cassées ; ouvrir la boîte."
+msgstr "Éclats métalliques : dents de pignon ou bague de synchro cassées ; ouvrir la boîte."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Émulsionnée (eau)"
+msgstr "Émulsionnée (eau)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "État de l'huile"
+msgstr "État de l'huile"
+
+#: maintenance/autres_interventions/securite
+msgid "Airbag conducteur (volant)"
+msgstr "Airbag conducteur (volant)"
+
+#: maintenance/autres_interventions/securite
+msgid "Airbag genoux"
+msgstr "Airbag genoux"
+
+#: maintenance/autres_interventions/securite
+msgid "Airbags latéraux (sièges)"
+msgstr "Airbags latéraux (sièges)"
+
+#: maintenance/autres_interventions/securite
+msgid "Airbags rideaux"
+msgstr "Airbags rideaux"
+
+#: maintenance/autres_interventions/securite
+msgid "Ancrages et fixations des harnais"
+msgstr "Ancrages et fixations des harnais"
+
+#: maintenance/autres_interventions/securite
+msgid "Arceau, extincteur, baquets, câblage, boîtier, moteur, échappement, démontage, air jack"
+msgstr "Arceau, extincteur, baquets, câblage, boîtier, moteur, échappement, démontage, air jack"
+
+#: maintenance/autres_interventions/securite
+msgid "Boucles et enrouleurs de ceinture"
+msgstr "Boucles et enrouleurs de ceinture"
+
+#: maintenance/autres_interventions/securite
+msgid "Boîtier / calculateur airbag"
+msgstr "Boîtier / calculateur airbag"
+
+#: maintenance/autres_interventions/securite
+msgid "Calibrage radar / caméra (ADAS)"
+msgstr "Calibrage radar / caméra (ADAS)"
+
+#: maintenance/autres_interventions/securite
+msgid "Caméra frontale (maintien de voie)"
+msgstr "Caméra frontale (maintien de voie)"
+
+#: maintenance/autres_interventions/securite
+msgid "Capteurs de collision (choc)"
+msgstr "Capteurs de collision (choc)"
+
+#: maintenance/autres_interventions/securite
+msgid "Ceintures d'origine arrière"
+msgstr "Ceintures d'origine arrière"
+
+#: maintenance/autres_interventions/securite
+msgid "Ceintures d'origine avant"
+msgstr "Ceintures d'origine avant"
+
+#: maintenance/autres_interventions/securite
+msgid "Ceintures, harnais, airbags, boîtier, capteurs de collision, radar avant"
+msgstr "Ceintures, harnais, airbags, boîtier, capteurs de collision, radar avant"
+
+#: maintenance/autres_interventions/securite
+msgid "Contacteur tournant du volant (ressort spiralé)"
+msgstr "Contacteur tournant du volant (ressort spiralé)"
+
+#: maintenance/autres_interventions/securite
+msgid "Diagnostic et effacement des défauts (SRS)"
+msgstr "Diagnostic et effacement des défauts (SRS)"
+
+#: maintenance/autres_interventions/securite
+msgid "Fin de validité du harnais (étiquette FIA)"
+msgstr "Fin de validité du harnais (étiquette FIA)"
+
+#: maintenance/autres_interventions/securite
+msgid "Harnais compétition (validité FIA)"
+msgstr "Harnais compétition (validité FIA)"
+
+#: maintenance/autres_interventions/securite
+msgid "Intervention sécurité"
+msgstr "Intervention sécurité"
+
+#: maintenance/autres_interventions/securite
+msgid "Le kilométrage ne peut pas être inférieur au kilométrage actuel du véhicule."
+msgstr "Le kilométrage ne peut pas être inférieur au kilométrage actuel du véhicule."
+
+#: maintenance/autres_interventions/securite
+msgid "Modification intervention sécurité"
+msgstr "Modification intervention sécurité"
+
+#: maintenance/autres_interventions/securite
+msgid "Prétensionneurs / limiteurs d'effort"
+msgstr "Prétensionneurs / limiteurs d'effort"
+
+#: maintenance/autres_interventions/securite
+msgid "Radar avant (régulateur adaptatif, freinage d'urgence)"
+msgstr "Radar avant (régulateur adaptatif, freinage d'urgence)"
+
+#: maintenance/autres_interventions/securite
+msgid "Suppression de l'intervention sécurité"
+msgstr "Suppression de l'intervention sécurité"
+
+#: maintenance/autres_interventions/securite
+msgid "Validité FIA"
+msgstr "Validité FIA"
+
+#: maintenance/autres_interventions/securite
+msgid "Vous devez confirmer que le serrage des roues est FAIT avant de valider."
+msgstr "Vous devez confirmer que le serrage des roues est FAIT avant de valider."
+
+#: maintenance/autres_interventions/securite
+msgid "périmé"
+msgstr "périmé"
+
+#: maintenance/autres_interventions/securite
+msgid "Sécurité (ceintures, airbags, radar)"
+msgstr "Sécurité (ceintures, airbags, radar)"

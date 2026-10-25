@@ -1,0 +1,426 @@
+{% load i18n static format_numbers %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    .hors { color: #991b1b; font-weight: bold; }
+        td.num, th.num { text-align: right; font-family: "DejaVu Sans Mono", monospace; }
+        table.mesures { font-size: 9.5px; }
+        table.mesures th, table.mesures td { padding: 3px 4px; }
+    </style>
+</head>
+<body>
+{% if casse.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ casse.tech_societe.nom }}
+            </div>
+
+            {% if casse.tech_societe.adresse %}
+                <div>
+                    {{ casse.tech_societe.adresse.rue }}
+                    {{ casse.tech_societe.adresse.numero }}
+                    {% if casse.tech_societe.adresse.boite %}
+                        / {{ casse.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ casse.tech_societe.adresse.code_postal }}
+                    {{ casse.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if casse.tech_societe.adresse.pays %}
+                <div>{{ casse.tech_societe.adresse.pays }}
+                    {{ casse.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if casse.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ casse.tech_societe.numero_tva|format_tva }}
+                </div>
+            {% endif %}
+             {% if casse.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ casse.tech_societe.iban|format_iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ casse.tech_societe.nom }}.png"
+                alt="{{ casse.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+<h1>{% trans "Casse boîte manuelle" %}</h1>
+
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Date" %} :</span> {{ casse.date|date:"d/m/Y H:i" }}</div>
+        <div><span class="label">{% trans "Technicien" %} :</span> {{ casse.tech_nom_technicien }}</div>
+        <div><span class="label">{% trans "Société" %} :</span> {{ casse.tech_societe }}</div>
+        <div><span class="label">{% trans "Véhicule" %} :</span> {{ casse.voiture_exemplaire }}</div>
+        {% if casse.voiture_exemplaire.voiture_boite %}<div><span class="label">{% trans "Boîte" %} :</span> {{ casse.voiture_exemplaire.voiture_boite }}</div>{% endif %}
+        <div><span class="label">{% trans "Kilométrage véhicule" %} :</span> {{ casse.kilometres_chassis }} km</div>
+        <div><span class="label">{% trans "Kilométrage de l'intervention" %} :</span> {{ casse.kilometrage_casse }} km</div>
+        <div><span class="label">{% trans "Date de la casse" %} :</span> {{ casse.date_casse|date:"d/m/Y"|default:"-" }}{% if casse.sur_piste %} – {% trans "sur piste" %}{% endif %}</div>
+        <div><span class="label">{% trans "Tag" %} :</span>
+            <span class="tag {% if casse.tag == 'VERT' %}tag-vert{% elif casse.tag == 'JAUNE' %}tag-jaune{% else %}tag-rouge{% endif %}">{{ casse.get_tag_display }}</span></div>
+    </div>
+</div>
+
+<h2>{% trans "Conclusion du diagnostic" %}</h2>
+<div class="box">
+    <div><span class="label">{% trans "Cause probable" %} :</span> {{ casse.cause_affichee }}</div>
+    <div><span class="label">{% trans "Décision" %} :</span> {{ casse.get_decision_display }}{% if casse.prise_en_garantie %} – {% trans "Garantie / assurance" %}{% endif %}</div>
+</div>
+
+{% if casse.circonstances %}<h2>{% trans "Circonstances" %}</h2><div class="box">{{ casse.circonstances|linebreaksbr }}</div>{% endif %}
+
+<h2>{% trans "Symptômes constatés" %}</h2>
+{% with s=casse.symptomes %}{% if s %}<ul>{% for x in s %}<li>{{ x }}</li>{% endfor %}</ul>{% else %}<p>{% trans "Aucun symptôme renseigné." %}</p>{% endif %}{% endwith %}
+
+{% with p=casse.pistes_diagnostic %}{% if p %}
+<h2>{% trans "Pistes de diagnostic" %}</h2>
+<ul>{% for x in p %}<li>{{ x }}</li>{% endfor %}</ul>
+{% endif %}{% endwith %}
+
+<h2>{% trans "Lubrification" %}</h2>
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Niveau d'huile" %} :</span> {{ casse.get_niveau_huile_display }}</div>
+        <div><span class="label">{% trans "État de l'huile" %} :</span> {{ casse.get_etat_huile_display }}</div>
+        <div><span class="label">{% trans "Bouchon magnétique" %} :</span> {{ casse.get_bouchon_magnetique_display }}</div>
+        <div><span class="label">{% trans "Origine de la fuite" %} :</span> {{ casse.get_origine_fuite_display }}</div>
+        {% if casse.huile_preconisee %}<div><span class="label">{% trans "Huile préconisée" %} :</span> {{ casse.huile_preconisee }}</div>{% endif %}
+        {% if casse.capacite_huile_l or casse.quantite_vidangee_l %}<div><span class="label">{% trans "Huile récupérée / capacité" %} :</span> {{ casse.quantite_vidangee_l|default:"-" }} L / {{ casse.capacite_huile_l|default:"-" }} L</div>{% endif %}
+    </div>
+    {% with a=casse.anomalies_lubrification %}{% if a %}<ul>{% for x in a %}<li><span class="hors">{{ x }}</span></li>{% endfor %}</ul>{% endif %}{% endwith %}
+</div>
+
+{% with essais=casse.essais.all %}{% if essais %}
+<h2>{% trans "Contrôle rapport par rapport" %}</h2>
+<table class="mesures">
+    <thead><tr><th>{% trans "Rapport" %}</th><th>{% trans "Craque" %}</th><th>{% trans "Saute" %}</th><th>{% trans "Passage dur" %}</th><th>{% trans "Impossible" %}</th><th>{% trans "Bruit" %}</th><th>{% trans "Piste" %}</th></tr></thead>
+    <tbody>{% for e in essais %}{% with a=e.anomalies %}
+        <tr><td>{{ e.get_rapport_display }}</td>
+            <td>{% if e.craquement %}X{% endif %}</td><td>{% if e.saute %}X{% endif %}</td><td>{% if e.passage_dur %}X{% endif %}</td>
+            <td>{% if e.impossible %}X{% endif %}</td><td>{% if e.bruit %}X{% endif %}</td>
+            <td>{% if a %}<span class="hors">{{ a|join:", " }}</span>{% else %}<span class="ok">OK</span>{% endif %}</td></tr>
+    {% endwith %}{% endfor %}</tbody>
+</table>
+{% endif %}{% endwith %}
+
+{% if casse.analyse_huile or casse.constat_demontage %}
+<h2>{% trans "Constats" %}</h2>
+<div class="box">
+    {% if casse.analyse_huile %}<div><span class="label">{% trans "Analyse de l'huile / du bouchon" %} :</span><br>{{ casse.analyse_huile|linebreaksbr }}</div>{% endif %}
+    {% if casse.constat_demontage %}<div style="margin-top:6px"><span class="label">{% trans "Constat au démontage" %} :</span><br>{{ casse.constat_demontage|linebreaksbr }}</div>{% endif %}
+</div>
+{% endif %}
+
+{% with pieces=casse.pieces_cassees.all %}
+<h2>{% trans "Pièces cassées" %}</h2>
+{% if pieces %}
+<table class="mesures">
+    <thead><tr><th>{% trans "Pièce" %}</th><th>{% trans "Dommage" %}</th><th>{% trans "Gravité" %}</th><th>{% trans "Décision" %}</th><th>{% trans "Fabricant" %}</th><th class="num">{% trans "Qté" %}</th><th class="num">{% trans "Prix HTVA" %}</th><th class="num">{% trans "Total HTVA" %}</th></tr></thead>
+    <tbody>{% for p in pieces %}
+        <tr><td>{{ p.libelle }}</td><td>{{ p.get_type_dommage_display }}</td>
+            <td>{% if p.gravite == 'GRAVE' or p.gravite == 'DETRUITE' %}<span class="not-ok">{{ p.get_gravite_display }}</span>{% else %}{{ p.get_gravite_display }}{% endif %}</td>
+            <td>{{ p.get_decision_display }}</td>
+            <td>{% if p.fabricant and p.fabricant != "CHOISIR" %}{{ p.get_fabricant_display }}{% else %}-{% endif %}</td>
+            <td class="num">{{ p.quantite }}</td><td class="num">{{ p.prix|floatformat:2 }} €</td><td class="num">{{ p.total|floatformat:2 }} €</td></tr>
+    {% endfor %}</tbody>
+</table>
+{% else %}<p>{% trans "Aucune pièce cassée renseignée." %}</p>{% endif %}
+{% endwith %}
+
+<h2>{% trans "Chiffrage" %}</h2>
+<table class="table-2-cols">
+    <tbody>
+        <tr><td class="text-right">{% trans "Total pièces HTVA" %}</td><td class="text-right">{{ rapport.total_general|default:0|floatformat:2 }} €</td></tr>
+        <tr><td class="text-right">{% trans "Temps" %}</td><td class="text-right">{{ casse.temps_main_oeuvre_display }}</td></tr>
+        <tr class="total"><td class="text-right"><strong>{% trans "Main-d'œuvre HTVA" %}</strong></td><td class="text-right"><strong>{{ casse.cout_main_oeuvre|default:0|floatformat:2 }} €</strong></td></tr>
+        <tr class="total-general"><td class="text-right"><strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong></td><td class="text-right"><strong>{{ casse.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €</strong></td></tr>
+    </tbody>
+</table>
+
+{% include "piece/stock/_pieces_utilisees_pdf.html" with maintenance=casse.maintenance %}
+
+<h2>{% trans "Remarques" %}</h2>
+<div class="box">{{ casse.remarques|default:_("Aucune remarque.") }}</div>
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}<br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+</body>
+</html>

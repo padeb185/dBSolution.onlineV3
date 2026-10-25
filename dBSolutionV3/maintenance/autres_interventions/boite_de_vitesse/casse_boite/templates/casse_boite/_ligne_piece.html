@@ -1,0 +1,13 @@
+{% load i18n %}<tr class="ligne-piece" data-prefix="{{ f.prefix }}">
+    <td class="border px-1 py-1">{% for h in f.hidden_fields %}{{ h }}{% endfor %}{{ f.piece }}{% if f.piece.errors %}<p class="text-red-600 text-xs">{{ f.piece.errors|striptags }}</p>{% endif %}</td>
+    <td class="border px-1 py-1">{{ f.precision }}{% if f.precision.errors %}<p class="text-red-600 text-xs">{{ f.precision.errors|striptags }}</p>{% endif %}</td>
+    <td class="border px-1 py-1">{{ f.rapport }}</td>
+    <td class="border px-1 py-1">{{ f.type_dommage }}</td>
+    <td class="border px-1 py-1">{{ f.gravite }}</td>
+    <td class="border px-1 py-1">{{ f.decision }}</td>
+    <td class="border px-1 py-1">{{ f.fabricant }}</td>
+    <td class="border px-1 py-1">{{ f.quantite }}</td>
+    <td class="border px-1 py-1">{{ f.prix }}</td>
+    <td class="border px-2 py-1 text-right font-mono whitespace-nowrap total-ligne">—</td>
+    <td class="border px-2 py-1 text-center">{% if f.instance.pk %}<label class="text-xs text-red-700">{{ f.DELETE }} {% trans "Suppr." %}</label>{% else %}<button type="button" class="retirer-ligne text-red-700 font-bold" title="{% trans 'Retirer' %}">✕</button>{% endif %}</td>
+</tr>

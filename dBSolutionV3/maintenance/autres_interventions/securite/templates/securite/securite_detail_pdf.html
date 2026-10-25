@@ -1,0 +1,799 @@
+{% load i18n static format_numbers %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    </style>
+</head>
+<body>
+{% if securite.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ securite.tech_societe.nom }}
+            </div>
+
+            {% if securite.tech_societe.adresse %}
+                <div>
+                    {{ securite.tech_societe.adresse.rue }}
+                    {{ securite.tech_societe.adresse.numero }}
+                    {% if securite.tech_societe.adresse.boite %}
+                        / {{ securite.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ securite.tech_societe.adresse.code_postal }}
+                    {{ securite.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if securite.tech_societe.adresse.pays %}
+                <div>{{ securite.tech_societe.adresse.pays }}
+                    {{ securite.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if securite.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ securite.tech_societe.numero_tva|format_tva }}
+                </div>
+            {% endif %}
+             {% if securite.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ securite.tech_societe.iban|format_iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ securite.tech_societe.nom }}.png"
+                alt="{{ securite.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+<h1>{% trans "Sécurité" %}</h1>
+
+<!-- ================= INFOS ================= -->
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ securite.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ securite.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ securite.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ securite.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage véhicule" %} :</span>
+            {{ securite.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage de l'intervention" %} :</span>
+            {{ securite.kilometrage_securite }} km
+        </div>
+
+
+
+<!-- ================= TAG ================= -->
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if securite.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ securite.get_tag_display }}
+                </span>
+
+            {% elif securite.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ securite.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ securite.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= SÉCURITÉ ================= -->
+<h2>{% trans "Sécurité" %}</h2>
+
+<div>
+
+    <table class="table-2-cols">
+
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>{% trans "Ceintures d'origine avant" %}</td>
+                <td>
+                    {% if securite.ceintures_av == "OK" %}<span class="ok">{{ securite.get_ceintures_av_display }}</span>
+                    {% elif securite.ceintures_av == "NOT_OK" %}<span class="not-ok">{{ securite.get_ceintures_av_display }}</span>
+                    {% elif securite.ceintures_av == "REMPLACE" or securite.ceintures_av == "AJOUTER" %}<span class="remplace">{{ securite.get_ceintures_av_display }}</span>
+                    {% else %}<span>{{ securite.get_ceintures_av_display }}</span>{% endif %}
+                    {% if securite.ceintures_av_fabricant and securite.ceintures_av_fabricant != "CHOISIR" %} — {{ securite.get_ceintures_av_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Ceintures d'origine arrière" %}</td>
+                <td>
+                    {% if securite.ceintures_ar == "OK" %}<span class="ok">{{ securite.get_ceintures_ar_display }}</span>
+                    {% elif securite.ceintures_ar == "NOT_OK" %}<span class="not-ok">{{ securite.get_ceintures_ar_display }}</span>
+                    {% elif securite.ceintures_ar == "REMPLACE" or securite.ceintures_ar == "AJOUTER" %}<span class="remplace">{{ securite.get_ceintures_ar_display }}</span>
+                    {% else %}<span>{{ securite.get_ceintures_ar_display }}</span>{% endif %}
+                    {% if securite.ceintures_ar_fabricant and securite.ceintures_ar_fabricant != "CHOISIR" %} — {{ securite.get_ceintures_ar_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Boucles et enrouleurs de ceinture" %}</td>
+                <td>
+                    {% if securite.boucles_ceinture == "OK" %}<span class="ok">{{ securite.get_boucles_ceinture_display }}</span>
+                    {% elif securite.boucles_ceinture == "NOT_OK" %}<span class="not-ok">{{ securite.get_boucles_ceinture_display }}</span>
+                    {% elif securite.boucles_ceinture == "REMPLACE" or securite.boucles_ceinture == "AJOUTER" %}<span class="remplace">{{ securite.get_boucles_ceinture_display }}</span>
+                    {% else %}<span>{{ securite.get_boucles_ceinture_display }}</span>{% endif %}
+                    {% if securite.boucles_ceinture_fabricant and securite.boucles_ceinture_fabricant != "CHOISIR" %} — {{ securite.get_boucles_ceinture_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Prétensionneurs / limiteurs d'effort" %}</td>
+                <td>
+                    {% if securite.pretensionneurs == "OK" %}<span class="ok">{{ securite.get_pretensionneurs_display }}</span>
+                    {% elif securite.pretensionneurs == "NOT_OK" %}<span class="not-ok">{{ securite.get_pretensionneurs_display }}</span>
+                    {% elif securite.pretensionneurs == "REMPLACE" or securite.pretensionneurs == "AJOUTER" %}<span class="remplace">{{ securite.get_pretensionneurs_display }}</span>
+                    {% else %}<span>{{ securite.get_pretensionneurs_display }}</span>{% endif %}
+                    {% if securite.pretensionneurs_fabricant and securite.pretensionneurs_fabricant != "CHOISIR" %} — {{ securite.get_pretensionneurs_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% if securite.harnais != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Harnais compétition (validité FIA)" %}</td>
+                <td>
+                    {% if securite.harnais == "OK" %}<span class="ok">{{ securite.get_harnais_display }}</span>
+                    {% elif securite.harnais == "NOT_OK" %}<span class="not-ok">{{ securite.get_harnais_display }}</span>
+                    {% elif securite.harnais == "REMPLACE" or securite.harnais == "AJOUTER" %}<span class="remplace">{{ securite.get_harnais_display }}</span>
+                    {% else %}<span>{{ securite.get_harnais_display }}</span>{% endif %}
+                    {% if securite.harnais_fabricant and securite.harnais_fabricant != "CHOISIR" %} — {{ securite.get_harnais_fabricant_display }}{% endif %}
+                    {% if securite.harnais_validite %}<br>{% trans "Validité FIA" %} : {% if securite.harnais_perime %}<span class="not-ok">{{ securite.harnais_validite|date:"d/m/Y" }} – {% trans "périmé" %}</span>{% else %}{{ securite.harnais_validite|date:"d/m/Y" }}{% endif %}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if securite.ancrages_harnais != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Ancrages et fixations des harnais" %}</td>
+                <td>
+                    {% if securite.ancrages_harnais == "OK" %}<span class="ok">{{ securite.get_ancrages_harnais_display }}</span>
+                    {% elif securite.ancrages_harnais == "NOT_OK" %}<span class="not-ok">{{ securite.get_ancrages_harnais_display }}</span>
+                    {% elif securite.ancrages_harnais == "REMPLACE" or securite.ancrages_harnais == "AJOUTER" %}<span class="remplace">{{ securite.get_ancrages_harnais_display }}</span>
+                    {% else %}<span>{{ securite.get_ancrages_harnais_display }}</span>{% endif %}
+                    {% if securite.ancrages_harnais_fabricant and securite.ancrages_harnais_fabricant != "CHOISIR" %} — {{ securite.get_ancrages_harnais_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td>{% trans "Airbag conducteur (volant)" %}</td>
+                <td>
+                    {% if securite.airbag_conducteur == "OK" %}<span class="ok">{{ securite.get_airbag_conducteur_display }}</span>
+                    {% elif securite.airbag_conducteur == "NOT_OK" %}<span class="not-ok">{{ securite.get_airbag_conducteur_display }}</span>
+                    {% elif securite.airbag_conducteur == "REMPLACE" or securite.airbag_conducteur == "AJOUTER" %}<span class="remplace">{{ securite.get_airbag_conducteur_display }}</span>
+                    {% else %}<span>{{ securite.get_airbag_conducteur_display }}</span>{% endif %}
+                    {% if securite.airbag_conducteur_fabricant and securite.airbag_conducteur_fabricant != "CHOISIR" %} — {{ securite.get_airbag_conducteur_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Airbag passager" %}</td>
+                <td>
+                    {% if securite.airbag_passager == "OK" %}<span class="ok">{{ securite.get_airbag_passager_display }}</span>
+                    {% elif securite.airbag_passager == "NOT_OK" %}<span class="not-ok">{{ securite.get_airbag_passager_display }}</span>
+                    {% elif securite.airbag_passager == "REMPLACE" or securite.airbag_passager == "AJOUTER" %}<span class="remplace">{{ securite.get_airbag_passager_display }}</span>
+                    {% else %}<span>{{ securite.get_airbag_passager_display }}</span>{% endif %}
+                    {% if securite.airbag_passager_fabricant and securite.airbag_passager_fabricant != "CHOISIR" %} — {{ securite.get_airbag_passager_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% if securite.airbags_lateraux != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Airbags latéraux (sièges)" %}</td>
+                <td>
+                    {% if securite.airbags_lateraux == "OK" %}<span class="ok">{{ securite.get_airbags_lateraux_display }}</span>
+                    {% elif securite.airbags_lateraux == "NOT_OK" %}<span class="not-ok">{{ securite.get_airbags_lateraux_display }}</span>
+                    {% elif securite.airbags_lateraux == "REMPLACE" or securite.airbags_lateraux == "AJOUTER" %}<span class="remplace">{{ securite.get_airbags_lateraux_display }}</span>
+                    {% else %}<span>{{ securite.get_airbags_lateraux_display }}</span>{% endif %}
+                    {% if securite.airbags_lateraux_fabricant and securite.airbags_lateraux_fabricant != "CHOISIR" %} — {{ securite.get_airbags_lateraux_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if securite.airbags_rideaux != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Airbags rideaux" %}</td>
+                <td>
+                    {% if securite.airbags_rideaux == "OK" %}<span class="ok">{{ securite.get_airbags_rideaux_display }}</span>
+                    {% elif securite.airbags_rideaux == "NOT_OK" %}<span class="not-ok">{{ securite.get_airbags_rideaux_display }}</span>
+                    {% elif securite.airbags_rideaux == "REMPLACE" or securite.airbags_rideaux == "AJOUTER" %}<span class="remplace">{{ securite.get_airbags_rideaux_display }}</span>
+                    {% else %}<span>{{ securite.get_airbags_rideaux_display }}</span>{% endif %}
+                    {% if securite.airbags_rideaux_fabricant and securite.airbags_rideaux_fabricant != "CHOISIR" %} — {{ securite.get_airbags_rideaux_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if securite.airbag_genoux != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Airbag genoux" %}</td>
+                <td>
+                    {% if securite.airbag_genoux == "OK" %}<span class="ok">{{ securite.get_airbag_genoux_display }}</span>
+                    {% elif securite.airbag_genoux == "NOT_OK" %}<span class="not-ok">{{ securite.get_airbag_genoux_display }}</span>
+                    {% elif securite.airbag_genoux == "REMPLACE" or securite.airbag_genoux == "AJOUTER" %}<span class="remplace">{{ securite.get_airbag_genoux_display }}</span>
+                    {% else %}<span>{{ securite.get_airbag_genoux_display }}</span>{% endif %}
+                    {% if securite.airbag_genoux_fabricant and securite.airbag_genoux_fabricant != "CHOISIR" %} — {{ securite.get_airbag_genoux_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td>{% trans "Contacteur tournant du volant (ressort spiralé)" %}</td>
+                <td>
+                    {% if securite.contacteur_tournant == "OK" %}<span class="ok">{{ securite.get_contacteur_tournant_display }}</span>
+                    {% elif securite.contacteur_tournant == "NOT_OK" %}<span class="not-ok">{{ securite.get_contacteur_tournant_display }}</span>
+                    {% elif securite.contacteur_tournant == "REMPLACE" or securite.contacteur_tournant == "AJOUTER" %}<span class="remplace">{{ securite.get_contacteur_tournant_display }}</span>
+                    {% else %}<span>{{ securite.get_contacteur_tournant_display }}</span>{% endif %}
+                    {% if securite.contacteur_tournant_fabricant and securite.contacteur_tournant_fabricant != "CHOISIR" %} — {{ securite.get_contacteur_tournant_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Boîtier / calculateur airbag" %}</td>
+                <td>
+                    {% if securite.calculateur_airbag == "OK" %}<span class="ok">{{ securite.get_calculateur_airbag_display }}</span>
+                    {% elif securite.calculateur_airbag == "NOT_OK" %}<span class="not-ok">{{ securite.get_calculateur_airbag_display }}</span>
+                    {% elif securite.calculateur_airbag == "REMPLACE" or securite.calculateur_airbag == "AJOUTER" %}<span class="remplace">{{ securite.get_calculateur_airbag_display }}</span>
+                    {% else %}<span>{{ securite.get_calculateur_airbag_display }}</span>{% endif %}
+                    {% if securite.calculateur_airbag_fabricant and securite.calculateur_airbag_fabricant != "CHOISIR" %} — {{ securite.get_calculateur_airbag_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Capteurs de collision (choc)" %}</td>
+                <td>
+                    {% if securite.capteurs_collision == "OK" %}<span class="ok">{{ securite.get_capteurs_collision_display }}</span>
+                    {% elif securite.capteurs_collision == "NOT_OK" %}<span class="not-ok">{{ securite.get_capteurs_collision_display }}</span>
+                    {% elif securite.capteurs_collision == "REMPLACE" or securite.capteurs_collision == "AJOUTER" %}<span class="remplace">{{ securite.get_capteurs_collision_display }}</span>
+                    {% else %}<span>{{ securite.get_capteurs_collision_display }}</span>{% endif %}
+                    {% if securite.capteurs_collision_fabricant and securite.capteurs_collision_fabricant != "CHOISIR" %} — {{ securite.get_capteurs_collision_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% if securite.radar_avant != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Radar avant (régulateur adaptatif, freinage d'urgence)" %}</td>
+                <td>
+                    {% if securite.radar_avant == "OK" %}<span class="ok">{{ securite.get_radar_avant_display }}</span>
+                    {% elif securite.radar_avant == "NOT_OK" %}<span class="not-ok">{{ securite.get_radar_avant_display }}</span>
+                    {% elif securite.radar_avant == "REMPLACE" or securite.radar_avant == "AJOUTER" %}<span class="remplace">{{ securite.get_radar_avant_display }}</span>
+                    {% else %}<span>{{ securite.get_radar_avant_display }}</span>{% endif %}
+                    {% if securite.radar_avant_fabricant and securite.radar_avant_fabricant != "CHOISIR" %} — {{ securite.get_radar_avant_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if securite.camera_frontale != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Caméra frontale (maintien de voie)" %}</td>
+                <td>
+                    {% if securite.camera_frontale == "OK" %}<span class="ok">{{ securite.get_camera_frontale_display }}</span>
+                    {% elif securite.camera_frontale == "NOT_OK" %}<span class="not-ok">{{ securite.get_camera_frontale_display }}</span>
+                    {% elif securite.camera_frontale == "REMPLACE" or securite.camera_frontale == "AJOUTER" %}<span class="remplace">{{ securite.get_camera_frontale_display }}</span>
+                    {% else %}<span>{{ securite.get_camera_frontale_display }}</span>{% endif %}
+                    {% if securite.camera_frontale_fabricant and securite.camera_frontale_fabricant != "CHOISIR" %} — {{ securite.get_camera_frontale_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if securite.calibrage_adas != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Calibrage radar / caméra (ADAS)" %}</td>
+                <td>
+                    {% if securite.calibrage_adas == "OK" %}<span class="ok">{{ securite.get_calibrage_adas_display }}</span>
+                    {% elif securite.calibrage_adas == "NOT_OK" %}<span class="not-ok">{{ securite.get_calibrage_adas_display }}</span>
+                    {% elif securite.calibrage_adas == "REMPLACE" or securite.calibrage_adas == "AJOUTER" %}<span class="remplace">{{ securite.get_calibrage_adas_display }}</span>
+                    {% else %}<span>{{ securite.get_calibrage_adas_display }}</span>{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if securite.diagnostic_securite != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Diagnostic et effacement des défauts (SRS)" %}</td>
+                <td>
+                    {% if securite.diagnostic_securite == "OK" %}<span class="ok">{{ securite.get_diagnostic_securite_display }}</span>
+                    {% elif securite.diagnostic_securite == "NOT_OK" %}<span class="not-ok">{{ securite.get_diagnostic_securite_display }}</span>
+                    {% elif securite.diagnostic_securite == "REMPLACE" or securite.diagnostic_securite == "AJOUTER" %}<span class="remplace">{{ securite.get_diagnostic_securite_display }}</span>
+                    {% else %}<span>{{ securite.get_diagnostic_securite_display }}</span>{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+
+    </table>
+
+</div>
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ securite.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if securite.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire HTVA" %} :</span>
+                {{ securite.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
+                {{ securite.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ securite.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div>
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        <td class="text-right">
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ securite.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ securite.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
+
+        <table class="table-2-cols">
+            <tbody>
+
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ securite.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ securite.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    {% endif %}
+
+</div>
+
+<br>
+{% include "piece/stock/_pieces_utilisees_pdf.html" with maintenance=securite.maintenance %}
+<!-- ================= REMARQUES ================= -->
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ securite.remarques|default:_("Aucune remarque.") }}
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

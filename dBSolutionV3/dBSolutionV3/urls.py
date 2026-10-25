@@ -227,6 +227,8 @@ urlpatterns += i18n_patterns(
     path("demarreur/", include(("maintenance.autres_interventions.demarreur.urls", "demarreur"), namespace="demarreur")),
     path("esp/", include(("maintenance.autres_interventions.esp.urls", "esp"), namespace="esp")),
     path("aide-stationnement/", include(("maintenance.autres_interventions.aide_stationnement.urls", "aide_stationnement"), namespace="aide_stationnement")),
+    path("ventilation/", include(("maintenance.autres_interventions.ventilation.urls", "ventilation"), namespace="ventilation")),
+    path("securite/", include(("maintenance.autres_interventions.securite.urls", "securite"), namespace="securite")),
     path("preparation-course/", include(("maintenance.autres_interventions.preparation_course.urls", "preparation_course"), namespace="preparation_course")),
     path("preparation-course/arceau/", include(("maintenance.autres_interventions.preparation_course.arceau.urls", "pc_arceau"), namespace="pc_arceau")),
     path("preparation-course/extincteur/", include(("maintenance.autres_interventions.preparation_course.extincteur.urls", "pc_extincteur"), namespace="pc_extincteur")),
@@ -257,6 +259,7 @@ urlpatterns += i18n_patterns(
     path("turbo/",include(("maintenance.autres_interventions.moteur.turbo.urls", "turbo"),namespace="turbo")),
 
     path("remplacement_boite/",include(("maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.urls", "remplacement_boite"),namespace="remplacement_boite")),
+    path("casse_boite/", include(("maintenance.autres_interventions.boite_de_vitesse.casse_boite.urls", "casse_boite"), namespace="casse_boite")),
     path("remplacement_bte_auto/",include(("maintenance.autres_interventions.bte_vitesse_auto.remplacement_bte_auto.urls", "remplacement_bte_auto"),namespace="remplacement_bte_auto")),
 
     path("rodage/",include(("maintenance.autres_interventions.moteur.rodage.urls", "rodage"),namespace="rodage")),

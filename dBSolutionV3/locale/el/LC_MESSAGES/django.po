@@ -61856,3 +61856,1116 @@ msgstr "Τα ελαστικά διαγράφηκαν με επιτυχία."
 #~ "Οι εισπράξεις τιμολογίων και οι πληρωμένοι μισθοί εμφανίζονται αυτόματα "
 #~ "στο ημερολόγιο του προεπιλεγμένου λογαριασμού (ταμείο για μετρητά, "
 #~ "τράπεζα για τους άλλους τρόπους)."
+
+#: maintenance/autres_interventions/ventilation
+msgid "Ventilation"
+msgstr "Αερισμός"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Soufflerie (pulseur d'air habitacle)"
+msgstr "Φυσητήρας (ανεμιστήρας καμπίνας)"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Moteur de ventilation"
+msgstr "Μοτέρ ανεμιστήρα καμπίνας"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Résistance de vitesse du moteur de ventilation"
+msgstr "Αντίσταση ταχυτήτων μοτέρ ανεμιστήρα"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Module de commande électronique du pulseur"
+msgstr "Ηλεκτρονική μονάδα ελέγχου φυσητήρα"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Filtre d'habitacle (pollen / charbon actif)"
+msgstr "Φίλτρο καμπίνας (γύρης / ενεργού άνθρακα)"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Résistance de chauffage additionnel (PTC)"
+msgstr "Αντίσταση πρόσθετης θέρμανσης (PTC)"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Commande / tableau de ventilation-chauffage"
+msgstr "Χειριστήριο θέρμανσης / αερισμού"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Volets de répartition et de mixage d'air"
+msgstr "Τάμπερ διανομής και ανάμιξης αέρα"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Moteurs (actionneurs) de volets"
+msgstr "Μοτέρ (ενεργοποιητές) τάμπερ"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Volet de recyclage d'air"
+msgstr "Τάμπερ ανακυκλοφορίας αέρα"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Sonde de température habitacle"
+msgstr "Αισθητήρας θερμοκρασίας καμπίνας"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Aérateurs et grilles de ventilation"
+msgstr "Αεραγωγοί και γρίλιες αερισμού"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Conduits et gaines d'air"
+msgstr "Αγωγοί και σωλήνες αέρα"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Désinfection / traitement antibactérien du circuit"
+msgstr "Απολύμανση / αντιβακτηριακή επεξεργασία κυκλώματος"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Diagnostic et codage"
+msgstr "Διάγνωση και κωδικοποίηση"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Soufflerie, filtre d'habitacle, résistance de chauffage, moteur de ventilation"
+msgstr "Φυσητήρας, φίλτρο καμπίνας, αντίσταση θέρμανσης, μοτέρ ανεμιστήρα"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Intervention ventilation"
+msgstr "Επέμβαση αερισμού"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Modification intervention ventilation"
+msgstr "Τροποποίηση επέμβασης αερισμού"
+
+#: maintenance/autres_interventions/ventilation
+msgid "Suppression de l'intervention ventilation"
+msgstr "Διαγραφή επέμβασης αερισμού"
+
+#: facture/tva.py
+msgid "Journal des mouvements – TVA à payer"
+msgstr "Ημερολόγιο κινήσεων – ΦΠΑ προς απόδοση"
+
+#: facture/tva.py
+msgid "Journal des mouvements – TVA à récupérer"
+msgstr "Ημερολόγιο κινήσεων – ΦΠΑ προς ανάκτηση"
+
+#: facture/tva.py
+msgid "Cumul TVA"
+msgstr "Σωρευτικός ΦΠΑ"
+
+#: facture/tva.py
+msgid "Acompte location"
+msgstr "Προκαταβολή μίσθωσης"
+
+#: facture/tva.py
+msgid "Aucun mouvement sur la période."
+msgstr "Καμία κίνηση στην περίοδο."
+
+#: facture/tva.py
+msgid "Total TVA à payer"
+msgstr "Σύνολο ΦΠΑ προς απόδοση"
+
+#: facture/tva.py
+msgid "Total TVA à récupérer"
+msgstr "Σύνολο ΦΠΑ προς ανάκτηση"
+
+#: facture/tva.py
+msgid "informatif – hors total"
+msgstr "ενημερωτικό – εκτός συνόλου"
+
+#: facture/tva.py
+#, python-format
+msgid "Transport – %(libelle)s"
+msgstr "Μεταφορά – %(libelle)s"
+
+#: facture/tva.py
+msgid "Pièces (coût d'achat)"
+msgstr "Ανταλλακτικά (κόστος αγοράς)"
+
+#: utilisateurs/mon_compte
+#, python-format
+msgid "%(h)s h en %(a)s"
+msgstr "%(h)s ώρ. το %(a)s"
+
+#: utilisateurs/mon_compte
+#, python-format
+msgid "%(m)s € en %(a)s"
+msgstr "%(m)s € το %(a)s"
+
+#: utilisateurs/mon_compte
+#, python-format
+msgid "%(n)s en %(a)s"
+msgstr "%(n)s το %(a)s"
+
+#: utilisateurs/mon_compte
+#, python-format
+msgid "%(t)s en %(a)s"
+msgstr "%(t)s το %(a)s"
+
+#: utilisateurs/mon_compte
+msgid "Activer la double authentification"
+msgstr "Ενεργοποίηση ταυτοποίησης δύο παραγόντων"
+
+#: utilisateurs/mon_compte
+msgid "Activée"
+msgstr "Ενεργή"
+
+#: utilisateurs/mon_compte
+msgid "Aucune adresse enregistrée."
+msgstr "Δεν έχει καταχωριστεί διεύθυνση."
+
+#: utilisateurs/mon_compte
+msgid "Aucune fiche de paie enregistrée."
+msgstr "Δεν έχει καταχωριστεί μισθοδοσία."
+
+#: utilisateurs/mon_compte
+msgid "Aucune maintenance."
+msgstr "Καμία συντήρηση."
+
+#: utilisateurs/mon_compte
+msgid "Janv."
+msgstr "Ιαν."
+
+#: utilisateurs/mon_compte
+msgid "Févr."
+msgstr "Φεβ."
+
+#: utilisateurs/mon_compte
+msgid "Avr."
+msgstr "Απρ."
+
+#: utilisateurs/mon_compte
+msgid "Juil."
+msgstr "Ιούλ."
+
+#: utilisateurs/mon_compte
+msgid "Sept."
+msgstr "Σεπ."
+
+#: utilisateurs/mon_compte
+msgid "Oct."
+msgstr "Οκτ."
+
+#: utilisateurs/mon_compte
+msgid "Nov."
+msgstr "Νοέ."
+
+#: utilisateurs/mon_compte
+msgid "Déc."
+msgstr "Δεκ."
+
+#: utilisateurs/mon_compte
+msgid "Ce mois-ci"
+msgstr "Αυτόν τον μήνα"
+
+#: utilisateurs/mon_compte
+msgid "Changer mon mot de passe"
+msgstr "Αλλαγή του κωδικού μου"
+
+#: utilisateurs/mon_compte
+msgid "Compte bancaire (IBAN)"
+msgstr "Τραπεζικός λογαριασμός (IBAN)"
+
+#: utilisateurs/mon_compte
+msgid "Dernière connexion"
+msgstr "Τελευταία σύνδεση"
+
+#: utilisateurs/mon_compte
+msgid "Dernières fiches de paie"
+msgstr "Τελευταίες μισθοδοσίες"
+
+#: utilisateurs/mon_compte
+msgid "Dernières maintenances"
+msgstr "Τελευταίες συντηρήσεις"
+
+#: utilisateurs/mon_compte
+msgid "Double authentification (2FA)"
+msgstr "Ταυτοποίηση δύο παραγόντων (2FA)"
+
+#: utilisateurs/mon_compte
+msgid "E-mail entreprise"
+msgstr "Εταιρικό e-mail"
+
+#: utilisateurs/mon_compte
+msgid "En cours (jaune / rouge)"
+msgstr "Σε εξέλιξη (κίτρινο / κόκκινο)"
+
+#: utilisateurs/mon_compte
+msgid "Fiches de paie"
+msgstr "Μισθοδοσίες"
+
+#: utilisateurs/mon_compte
+msgid "Main-d'œuvre encodée"
+msgstr "Καταχωρισμένη εργασία"
+
+#: utilisateurs/mon_compte
+msgid "Maintenances effectuées"
+msgstr "Πραγματοποιηθείσες συντηρήσεις"
+
+#: utilisateurs/mon_compte
+#, python-format
+msgid "Maintenances par mois en %(annee)s"
+msgstr "Συντηρήσεις ανά μήνα το %(annee)s"
+
+#: utilisateurs/mon_compte
+msgid "Mon compte"
+msgstr "Ο λογαριασμός μου"
+
+#: utilisateurs/mon_compte
+msgid "Mon compte, mot de passe, statistiques"
+msgstr "Λογαριασμός, κωδικός, στατιστικά"
+
+#: utilisateurs/mon_compte
+msgid "Non précisé"
+msgstr "Δεν διευκρινίζεται"
+
+#: utilisateurs/mon_compte
+msgid "Ouvrir mon dashboard utilisateur"
+msgstr "Άνοιγμα του πίνακα χρήστη"
+
+#: utilisateurs/mon_compte
+msgid "Par type de maintenance"
+msgstr "Ανά τύπο συντήρησης"
+
+#: utilisateurs/mon_compte
+msgid "Retour à mon compte"
+msgstr "Επιστροφή στον λογαριασμό μου"
+
+#: utilisateurs/mon_compte
+msgid "Rôle tenu"
+msgstr "Ρόλος"
+
+#: utilisateurs/mon_compte
+msgid "Salaires et heures prestées"
+msgstr "Μισθοί και ώρες εργασίας"
+
+#: utilisateurs/mon_compte
+msgid "Sécurité"
+msgstr "Ασφάλεια"
+
+#: utilisateurs/mon_compte
+msgid "Temps de main-d'œuvre encodé"
+msgstr "Καταχωρισμένος χρόνος εργασίας"
+
+#: utilisateurs/mon_compte
+msgid "Terminées (vert)"
+msgstr "Ολοκληρωμένες (πράσινο)"
+
+#: utilisateurs/mon_compte
+msgid "Total des salaires nets"
+msgstr "Σύνολο καθαρών μισθών"
+
+#: utilisateurs/mon_compte
+msgid "bte"
+msgstr "θυρ."
+
+#: utilisateurs/mon_compte
+msgid "interventions"
+msgstr "επεμβάσεις"
+
+#: utilisateurs/mon_compte
+msgid "valeur"
+msgstr "αξία"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "1re"
+msgstr "1η"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "2e"
+msgstr "2η"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "3e"
+msgstr "3η"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "4e"
+msgstr "4η"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "5e"
+msgstr "5η"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "6e"
+msgstr "6η"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "7e"
+msgstr "7η"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "8e"
+msgstr "8η"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ casses boîte manuelle"
+msgstr "Εμφάνιση _START_ έως _END_ από _TOTAL_ βλάβες χειροκίνητου κιβωτίου"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Ajouter un rapport"
+msgstr "Προσθήκη ταχύτητας"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Analyse de l'huile / du bouchon"
+msgstr "Ανάλυση λαδιού / τάπας"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Arbre intermédiaire"
+msgstr "Ενδιάμεσος άξονας"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Aspect, odeur, couleur, paillettes, éclats, eau…"
+msgstr "Όψη, οσμή, χρώμα, ρινίσματα, θραύσματα, νερό…"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Aucune casse boîte manuelle enregistrée pour cet exemplaire."
+msgstr "Δεν έχει καταγραφεί βλάβη χειροκίνητου κιβωτίου για αυτό το όχημα."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Aucune casse boîte manuelle trouvée"
+msgstr "Δεν βρέθηκε βλάβη χειροκίνητου κιβωτίου"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Aucune piste (cochez les symptômes, la lubrification et le contrôle par rapport)."
+msgstr "Καμία ένδειξη (σημειώστε συμπτώματα, λίπανση και έλεγχο ανά ταχύτητα)."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Axe de commande / sélecteur"
+msgstr "Άξονας επιλογής / επιλογέας"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Axe de fourchette / coulisseau"
+msgstr "Άξονας διχάλας / ολισθητήρας"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bague de synchroniseur"
+msgstr "Δακτύλιος συγχρονιζέ"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bleui / surchauffe"
+msgstr "Μπλε / υπερθέρμανση"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bouchon de vidange / de remplissage"
+msgstr "Τάπα αποστράγγισης / πλήρωσης"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bouchon magnétique"
+msgstr "Μαγνητική τάπα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Bouchon magnétique : %(b)s"
+msgstr "Μαγνητική τάπα: %(b)s"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Boîte bloquée"
+msgstr "Κιβώτιο μπλοκαρισμένο"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Boîte bloquée : grippage par manque d'huile, deux rapports engagés (verrouillage), débris coincés entre pignons."
+msgstr "Μπλοκαρισμένο κιβώτιο: κόλλημα από έλλειψη λαδιού, δύο ταχύτητες μέσα (ασφάλιση), υπολείμματα ανάμεσα στα γρανάζια."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Boîte d'occasion"
+msgstr "Μεταχειρισμένο κιβώτιο"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Boîte en échange standard"
+msgstr "Κιβώτιο ανταλλαγής"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Boîte neuve"
+msgstr "Καινούργιο κιβώτιο"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Boîtier de différentiel"
+msgstr "Κέλυφος διαφορικού"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bruit"
+msgstr "Θόρυβος"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bruit en virage (différentiel)"
+msgstr "Θόρυβος στις στροφές (διαφορικό)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bruit en virage : satellites / planétaires du différentiel, roulements de différentiel ou cardans."
+msgstr "Θόρυβος στις στροφές: δορυφόροι / πλανητικά, ρουλεμάν διαφορικού ή ημιαξόνια."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bruit sur ce rapport"
+msgstr "Θόρυβος σε αυτή την ταχύτητα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bruit sur un rapport précis"
+msgstr "Θόρυβος σε συγκεκριμένη ταχύτητα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Bruit sur un seul rapport : pignon de ce rapport écaillé ou dents abîmées, cage à aiguilles du pignon."
+msgstr "Θόρυβος σε μία ταχύτητα: γρανάζι με βελονισμό ή φθαρμένα δόντια, βελονωτό ρουλεμάν γραναζιού."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Brûlée (odeur, noire)"
+msgstr "Καμένο (οσμή, μαύρο)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Cage à aiguilles de pignon"
+msgstr "Βελονωτό ρουλεμάν γραναζιού"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Capacité constructeur (L)"
+msgstr "Χωρητικότητα κατασκευαστή (L)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Capteur / contacteur"
+msgstr "Αισθητήρας / διακόπτης"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Capteur de vitesse / compteur"
+msgstr "Αισθητήρας ταχύτητας / κοντέρ"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Carter d'embrayage (cloche)"
+msgstr "Κέλυφος συμπλέκτη (καμπάνα)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Carter de boîte"
+msgstr "Κέλυφος κιβωτίου"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Carter percé / fissuré"
+msgstr "Κέλυφος τρυπημένο / ραγισμένο"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Carter percé : choc extérieur ou pièce interne éjectée (dent, roulement) ; inspection complète obligatoire."
+msgstr "Τρυπημένο κέλυφος: εξωτερικό χτύπημα ή εσωτερικό κομμάτι που πετάχτηκε (δόντι, ρουλεμάν)· απαιτείται πλήρης έλεγχος."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Casse boîte manuelle"
+msgstr "Βλάβη χειροκίνητου κιβωτίου"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Casse du différentiel"
+msgstr "Βλάβη διαφορικού"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Casses boîte manuelle"
+msgstr "Βλάβες χειροκίνητου κιβωτίου"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Cette variation est supérieure à 2 000 km. Voulez-vous vraiment enregistrer ce kilométrage ?"
+msgstr "Η μεταβολή ξεπερνά τα 2.000 km. Θέλετε σίγουρα να αποθηκεύσετε αυτά τα χιλιόμετρα;"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Choc de couple (départ arraché, launch control, saut de roue)"
+msgstr "Κρούση ροπής (απότομη εκκίνηση, launch control, αναπήδηση τροχού)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Choc extérieur (carter percé)"
+msgstr "Εξωτερικό χτύπημα (τρυπημένο κέλυφος)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Claquement en charge / décharge : jeu au différentiel, pignon d'attaque / couronne, supports moteur ou cardans."
+msgstr "Χτύπημα σε φόρτιση / αποφόρτιση: τζόγος διαφορικού, πινιόν / κορώνα, βάσεις κινητήρα ή ημιαξόνια."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Claquement à l'accélération / décélération"
+msgstr "Χτύπημα σε επιτάχυνση / επιβράδυνση"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Clavettes / ressorts de synchro"
+msgstr "Σφήνες / ελατήρια συγχρονιζέ"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Cochez ce qui est constaté sur chaque rapport (essai sur route ou au banc, moteur tournant)."
+msgstr "Σημειώστε τι διαπιστώνεται σε κάθε ταχύτητα (δοκιμή δρόμου ή πάγκου, κινητήρας σε λειτουργία)."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Commande de boîte déréglée / usée (câbles, tringlerie)"
+msgstr "Ντιζάρισμα / φθορά μηχανισμού αλλαγής (ντίζες, ράβδοι)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Conditions au moment de la casse : rapport engagé, régime, départ, piste, bruit avant la casse…"
+msgstr "Συνθήκες τη στιγμή της βλάβης: ταχύτητα, στροφές, εκκίνηση, πίστα, θόρυβος πριν…"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Constat au démontage"
+msgstr "Διαπιστώσεις κατά την αποσυναρμολόγηση"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Contacteur de marche arrière"
+msgstr "Διακόπτης όπισθεν"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Contrôle par rapport"
+msgstr "Έλεγχος ανά ταχύτητα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Contrôle rapport par rapport"
+msgstr "Έλεγχος ταχύτητα προς ταχύτητα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Contrôles par rapport"
+msgstr "Έλεγχοι ανά ταχύτητα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Corps étranger / débris dans la boîte"
+msgstr "Ξένο σώμα / υπολείμματα στο κιβώτιο"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Corrosion"
+msgstr "Διάβρωση"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Couple moteur augmenté / préparation hors limites"
+msgstr "Αυξημένη ροπή / μετατροπή εκτός ορίων"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Couronne de différentiel"
+msgstr "Κορώνα διαφορικού"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Couvercle arrière / de 5e"
+msgstr "Πίσω καπάκι / καπάκι 5ης"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Crabots arrondis / usés"
+msgstr "Δόντια εμπλοκής στρογγυλεμένα / φθαρμένα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Craque"
+msgstr "Τρίζει"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Craquement : synchroniseur du ou des rapports concernés."
+msgstr "Τρίξιμο: συγχρονιζέ της/των σχετικής/ών ταχύτητας/ων."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Craquement au passage : bague de synchroniseur usée ou cassée sur ce rapport, ou embrayage qui ne débraye pas complètement."
+msgstr "Τρίξιμο στην αλλαγή: φθαρμένος ή σπασμένος δακτύλιος συγχρονιζέ, ή συμπλέκτης που δεν αποσυμπλέκει πλήρως."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Craquement au passage des vitesses"
+msgstr "Τρίξιμο στην αλλαγή ταχυτήτων"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Craquement en %(r)s : synchroniseur(s) de ce(s) rapport(s)."
+msgstr "Τρίξιμο σε %(r)s: συγχρονιζέ αυτής/ών της/των ταχύτητας/ων."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Craquements sur plusieurs rapports : vérifier d'abord l'embrayage (débrayage incomplet) et l'huile."
+msgstr "Τρίξιμο σε πολλές ταχύτητες: ελέγξτε πρώτα τον συμπλέκτη (ατελής αποσύμπλεξη) και το λάδι."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Câbles / tringlerie de commande"
+msgstr "Ντίζες / μηχανισμός αλλαγής"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Dents cassées / ébréchées"
+msgstr "Σπασμένα / ραγισμένα δόντια"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Diagnostic : symptômes, lubrification, contrôle par rapport, pièces cassées"
+msgstr "Διάγνωση: συμπτώματα, λίπανση, έλεγχος ανά ταχύτητα, σπασμένα εξαρτήματα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Différentiel autobloquant (disques, rampes)"
+msgstr "Διαφορικό περιορισμένης ολίσθησης (δίσκοι, ράμπες)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Eau dans l'huile : reniflard immergé / bouché ou joint défaillant ; vidanger et contrôler la corrosion des roulements."
+msgstr "Νερό στο λάδι: εξαεριστήρας βυθισμένος / φραγμένος ή χαλασμένη τσιμούχα· αδειάστε και ελέγξτε τα ρουλεμάν για διάβρωση."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Embrayage défectueux (débrayage incomplet)"
+msgstr "Ελαττωματικός συμπλέκτης (ατελής αποσύμπλεξη)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Ex. 75W-90 GL-4"
+msgstr "Π.χ. 75W-90 GL-4"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Foncée / usée"
+msgstr "Σκούρο / φθαρμένο"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Fuite + bruit de roulement : manque d'huile probable, risque de grippage des roulements et pignons."
+msgstr "Διαρροή + θόρυβος ρουλεμάν: πιθανή έλλειψη λαδιού, κίνδυνος κολλήματος ρουλεμάν και γραναζιών."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Fuite : %(f)s"
+msgstr "Διαρροή: %(f)s"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Fuite d'huile : contrôler spi primaire (traces dans la cloche), spis de sortie, plan de joint, reniflard bouché."
+msgstr "Διαρροή λαδιού: ελέγξτε τσιμούχα πρωτεύοντος (ίχνη στην καμπάνα), τσιμούχες εξόδου, αρμό κελύφους, φραγμένο εξαεριστήρα."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Fuite d'huile de boîte"
+msgstr "Διαρροή λαδιού κιβωτίου"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Huile : %(e)s"
+msgstr "Λάδι: %(e)s"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Huile inadaptée / usée / polluée"
+msgstr "Ακατάλληλο / φθαρμένο / μολυσμένο λάδι"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Huile préconisée"
+msgstr "Προτεινόμενο λάδι"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Huile récupérée / capacité"
+msgstr "Λάδι που ανακτήθηκε / χωρητικότητα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Huile récupérée : %(q)s L sur %(c)s L (manque d'huile)"
+msgstr "Λάδι που ανακτήθηκε: %(q)s L από %(c)s L (έλλειψη λαδιού)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Impossible"
+msgstr "Αδύνατη"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Jeu anormal"
+msgstr "Ανώμαλος τζόγος"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Joint / pâte de carter"
+msgstr "Φλάντζα / σιλικόνη κελύφους"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Joint spi d'arbre primaire"
+msgstr "Τσιμούχα πρωτεύοντος άξονα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Joint spi d'arbre primaire (côté embrayage)"
+msgstr "Τσιμούχα πρωτεύοντος (πλευρά συμπλέκτη)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Joint spi de sortie (transmission)"
+msgstr "Τσιμούχα εξόδου (ημιαξόνιο)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Joint spi de sortie de transmission"
+msgstr "Τσιμούχα εξόδου ημιαξονίου"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Levier / rotule de levier"
+msgstr "Λεβιές / άρθρωση λεβιέ"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Levier flottant / sans résistance"
+msgstr "Χαλαρός λεβιές / χωρίς αντίσταση"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Levier flottant : câble ou tringlerie cassé / décroché, rotule de levier, doigt de sélection cassé."
+msgstr "Χαλαρός λεβιές: σπασμένη / λυμένη ντίζα, άρθρωση λεβιέ, σπασμένο δάχτυλο επιλογής."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Limaille / éclats sur le bouchon : dents cassées ou roulement détruit ; déposer et ouvrir la boîte."
+msgstr "Ρινίσματα / θραύσματα στην τάπα: σπασμένα δόντια ή κατεστραμμένο ρουλεμάν· αφαιρέστε και ανοίξτε το κιβώτιο."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Limaille / éclats sur le bouchon magnétique"
+msgstr "Ρινίσματα / θραύσματα στη μαγνητική τάπα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Limaille abondante"
+msgstr "Πολλά ρινίσματα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Manque d'huile / fuite non détectée"
+msgstr "Έλλειψη λαδιού / μη εντοπισμένη διαρροή"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Manque d'huile : rechercher la fuite et contrôler roulements, pignons et synchros (risque de grippage)."
+msgstr "Έλλειψη λαδιού: βρείτε τη διαρροή και ελέγξτε ρουλεμάν, γρανάζια και συγχρονιζέ (κίνδυνος κολλήματος)."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Marche arrière"
+msgstr "Όπισθεν"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Moyeu / baladeur (manchon)"
+msgstr "Πλήμνη / συρόμενος δακτύλιος"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Niveau d'huile : %(n)s"
+msgstr "Στάθμη λαδιού: %(n)s"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Nombre de rapports avant"
+msgstr "Αριθμός ταχυτήτων εμπρός"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Non contrôlé"
+msgstr "Δεν ελέγχθηκε"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Odeur de brûlé"
+msgstr "Μυρωδιά καμένου"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Odeur de brûlé : huile surchauffée (niveau bas) ou embrayage qui patine."
+msgstr "Μυρωδιά καμένου: υπερθερμασμένο λάδι (χαμηλή στάθμη) ή συμπλέκτης που γλιστράει."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Origine de la fuite"
+msgstr "Προέλευση διαρροής"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Paillettes métalliques en suspension"
+msgstr "Μεταλλικά ρινίσματα σε αιώρηση"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pas de bouchon magnétique"
+msgstr "Χωρίς μαγνητική τάπα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Passage dur"
+msgstr "Σκληρή αλλαγή"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Passage dur / accrochage"
+msgstr "Σκληρή / κολλημένη αλλαγή"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Passage dur : commande déréglée ou grippée (câbles, rotules), huile inadaptée, synchro collé, débrayage incomplet."
+msgstr "Σκληρή αλλαγή: ντιζάρισμα ή κόλλημα μηχανισμού (ντίζες, αρθρώσεις), ακατάλληλο λάδι, κολλημένο συγχρονιζέ, ατελής αποσύμπλεξη."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Passage forcé / sans débrayer"
+msgstr "Βίαιη αλλαγή / χωρίς συμπλέκτη"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Percé / troué"
+msgstr "Τρυπημένο"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pignon / axe de marche arrière"
+msgstr "Γρανάζι / άξονας όπισθεν"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pignon d'attaque"
+msgstr "Πινιόν"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pignon de rapport"
+msgstr "Γρανάζι ταχύτητας"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pignons, synchros, crabots, fourchettes, roulements, différentiel…"
+msgstr "Γρανάζια, συγχρονιζέ, δόντια εμπλοκής, διχάλες, ρουλεμάν, διαφορικό…"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Piste"
+msgstr "Ένδειξη"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pièce cassée (boîte)"
+msgstr "Σπασμένο εξάρτημα (κιβώτιο)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pièces cassées (boîte)"
+msgstr "Σπασμένα εξαρτήματα (κιβώτιο)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Plan de joint des carters"
+msgstr "Αρμός κελυφών"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Plus d'entraînement (le moteur tourne, la voiture n'avance pas)"
+msgstr "Χωρίς μετάδοση (ο κινητήρας γυρίζει, το αυτοκίνητο δεν κινείται)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Plus d'entraînement : arbre primaire ou cannelures cassés, différentiel détruit, embrayage patinant, transmission sortie."
+msgstr "Χωρίς μετάδοση: σπασμένος πρωτεύων ή αυλακώσεις, κατεστραμμένο διαφορικό, συμπλέκτης που γλιστράει, ημιαξόνιο βγαλμένο."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Pâte grise fine (usure normale)"
+msgstr "Λεπτή γκρι πάστα (φυσιολογική φθορά)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Quantité d'huile récupérée (L)"
+msgstr "Ποσότητα λαδιού που ανακτήθηκε (L)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Rapport"
+msgstr "Ταχύτητα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Reniflard"
+msgstr "Εξαεριστήρας"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Reniflard (surpression)"
+msgstr "Εξαεριστήρας (υπερπίεση)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Retour aux interventions boîte de vitesse"
+msgstr "Επιστροφή στις επεμβάσεις κιβωτίου"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Roulement d'arbre primaire"
+msgstr "Ρουλεμάν πρωτεύοντος άξονα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Roulement d'arbre secondaire"
+msgstr "Ρουλεμάν δευτερεύοντος άξονα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Rupture de roulement"
+msgstr "Θραύση ρουλεμάν"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Réparation de la boîte"
+msgstr "Επισκευή κιβωτίου"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Satellites / planétaires"
+msgstr "Δορυφόροι / πλανητικά"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Saute"
+msgstr "Πετάγεται"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+#, python-format
+msgid "Saute en %(r)s : crabots du pignon / baladeur et fourchette de ce(s) rapport(s)."
+msgstr "Πετάγεται σε %(r)s: δόντια γραναζιού / συρόμενου και διχάλα αυτής/ών της/των ταχύτητας/ων."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Sifflement / ronflement (varie avec la vitesse)"
+msgstr "Σφύριγμα / βουητό (αλλάζει με την ταχύτητα)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Sifflement / ronflement qui varie avec la vitesse : roulements d'arbres ou de différentiel ; contrôler le niveau d'huile."
+msgstr "Σφύριγμα / βουητό ανάλογα με την ταχύτητα: ρουλεμάν αξόνων ή διαφορικού· ελέγξτε τη στάθμη λαδιού."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Surrégime / rétrogradage brutal"
+msgstr "Υπερστροφές / απότομο κατέβασμα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Sélecteur / doigt de commande"
+msgstr "Επιλογέας / δάχτυλο επιλογής"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Tordue / déformée"
+msgstr "Στραβωμένο / παραμορφωμένο"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Toute la boîte"
+msgstr "Όλο το κιβώτιο"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Trop plein"
+msgstr "Υπερπλήρωση"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Trop plein d'huile : risque de fuite par le reniflard et les joints."
+msgstr "Υπερβολικό λάδι: κίνδυνος διαρροής από τον εξαεριστήρα και τις τσιμούχες."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Une ligne par pièce endommagée. Le rapport est facultatif (vide = pièce commune à toute la boîte). Les pièces à remplacer ou à réparer avec une quantité et un prix sont reprises dans le chiffrage."
+msgstr "Μία γραμμή ανά κατεστραμμένο εξάρτημα. Η ταχύτητα είναι προαιρετική (κενό = κοινό εξάρτημα όλου του κιβωτίου). Τα προς αντικατάσταση ή επισκευή με ποσότητα και τιμή μπαίνουν στην κοστολόγηση."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Une vitesse saute / se désengage"
+msgstr "Μια ταχύτητα πετάγεται / βγαίνει"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Verrouillage (billes, ressorts, inter-verrouillage)"
+msgstr "Ασφάλιση (μπίλιες, ελατήρια, αλληλασφάλιση)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vibrations"
+msgstr "Κραδασμοί"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vide / quasi vide"
+msgstr "Άδειο / σχεδόν άδειο"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vide : pièce commune à toute la boîte."
+msgstr "Κενό: κοινό εξάρτημα όλου του κιβωτίου."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vitesse impossible : fourchette / axe cassé, sélecteur, commande décrochée ou pignon détruit."
+msgstr "Αδύνατη ταχύτητα: σπασμένη διχάλα / άξονας, επιλογέας, λυμένος μηχανισμός ή κατεστραμμένο γρανάζι."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vitesse impossible à engager"
+msgstr "Αδύνατο να μπει ταχύτητα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vitesse qui saute : crabots du pignon / baladeur arrondis, fourchette usée, verrouillage (bille, ressort) défaillant ou supports moteur / boîte HS."
+msgstr "Ταχύτητα που πετάγεται: στρογγυλεμένα δόντια, φθαρμένη διχάλα, ελαττωματική ασφάλιση (μπίλια, ελατήριο) ή χαλασμένες βάσεις κινητήρα / κιβωτίου."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Vitesse qui saute : crabots du pignon / baladeur et fourchette du rapport concerné."
+msgstr "Ταχύτητα που πετάγεται: δόντια γραναζιού / συρόμενου και διχάλα της σχετικής ταχύτητας."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "bruit → pignon / cage à aiguilles"
+msgstr "θόρυβος → γρανάζι / βελονωτό ρουλεμάν"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "craque → synchroniseur"
+msgstr "τρίζει → συγχρονιζέ"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "impossible → fourchette / sélecteur / pignon"
+msgstr "αδύνατη → διχάλα / επιλογέας / γρανάζι"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "passage dur → commande / synchro / embrayage"
+msgstr "σκληρή αλλαγή → μηχανισμός / συγχρονιζέ / συμπλέκτης"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "saute → crabots / fourchette / verrouillage"
+msgstr "πετάγεται → δόντια / διχάλα / ασφάλιση"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Écaillage / piqûres (pitting)"
+msgstr "Αποφλοίωση / βελονισμός (pitting)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Éclats / morceaux de dents"
+msgstr "Θραύσματα / κομμάτια δοντιών"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Éclats / morceaux de métal"
+msgstr "Θραύσματα / κομμάτια μετάλλου"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Éclats métalliques : dents de pignon ou bague de synchro cassées ; ouvrir la boîte."
+msgstr "Μεταλλικά θραύσματα: σπασμένα δόντια ή δακτύλιος συγχρονιζέ· ανοίξτε το κιβώτιο."
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "Émulsionnée (eau)"
+msgstr "Γαλακτωματοποιημένο (νερό)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/casse_boite
+msgid "État de l'huile"
+msgstr "Κατάσταση λαδιού"
+
+#: maintenance/autres_interventions/securite
+msgid "Airbag conducteur (volant)"
+msgstr "Αερόσακος οδηγού (τιμόνι)"
+
+#: maintenance/autres_interventions/securite
+msgid "Airbag genoux"
+msgstr "Αερόσακος γονάτων"
+
+#: maintenance/autres_interventions/securite
+msgid "Airbags latéraux (sièges)"
+msgstr "Πλευρικοί αερόσακοι (καθίσματα)"
+
+#: maintenance/autres_interventions/securite
+msgid "Airbags rideaux"
+msgstr "Αερόσακοι κουρτίνας"
+
+#: maintenance/autres_interventions/securite
+msgid "Ancrages et fixations des harnais"
+msgstr "Αγκυρώσεις και στηρίξεις ζωνών αγώνων"
+
+#: maintenance/autres_interventions/securite
+msgid "Arceau, extincteur, baquets, câblage, boîtier, moteur, échappement, démontage, air jack"
+msgstr "Κλωβός, πυροσβεστήρας, μπάκετ, καλωδίωση, εγκέφαλος, κινητήρας, εξάτμιση, αφαίρεση, air jack"
+
+#: maintenance/autres_interventions/securite
+msgid "Boucles et enrouleurs de ceinture"
+msgstr "Κουμπώματα και μηχανισμοί περιέλιξης ζωνών"
+
+#: maintenance/autres_interventions/securite
+msgid "Boîtier / calculateur airbag"
+msgstr "Εγκέφαλος αερόσακων"
+
+#: maintenance/autres_interventions/securite
+msgid "Calibrage radar / caméra (ADAS)"
+msgstr "Βαθμονόμηση ραντάρ / κάμερας (ADAS)"
+
+#: maintenance/autres_interventions/securite
+msgid "Caméra frontale (maintien de voie)"
+msgstr "Μπροστινή κάμερα (διατήρηση λωρίδας)"
+
+#: maintenance/autres_interventions/securite
+msgid "Capteurs de collision (choc)"
+msgstr "Αισθητήρες σύγκρουσης"
+
+#: maintenance/autres_interventions/securite
+msgid "Ceintures d'origine arrière"
+msgstr "Γνήσιες πίσω ζώνες"
+
+#: maintenance/autres_interventions/securite
+msgid "Ceintures d'origine avant"
+msgstr "Γνήσιες μπροστινές ζώνες"
+
+#: maintenance/autres_interventions/securite
+msgid "Ceintures, harnais, airbags, boîtier, capteurs de collision, radar avant"
+msgstr "Ζώνες, ζώνες αγώνων, αερόσακοι, εγκέφαλος, αισθητήρες σύγκρουσης, μπροστινό ραντάρ"
+
+#: maintenance/autres_interventions/securite
+msgid "Contacteur tournant du volant (ressort spiralé)"
+msgstr "Ταινία αερόσακου τιμονιού (σπιράλ)"
+
+#: maintenance/autres_interventions/securite
+msgid "Diagnostic et effacement des défauts (SRS)"
+msgstr "Διάγνωση και διαγραφή σφαλμάτων (SRS)"
+
+#: maintenance/autres_interventions/securite
+msgid "Fin de validité du harnais (étiquette FIA)"
+msgstr "Λήξη ισχύος ζώνης (ετικέτα FIA)"
+
+#: maintenance/autres_interventions/securite
+msgid "Harnais compétition (validité FIA)"
+msgstr "Ζώνη αγώνων (ισχύς FIA)"
+
+#: maintenance/autres_interventions/securite
+msgid "Intervention sécurité"
+msgstr "Επέμβαση ασφάλειας"
+
+#: maintenance/autres_interventions/securite
+msgid "Le kilométrage ne peut pas être inférieur au kilométrage actuel du véhicule."
+msgstr "Τα χιλιόμετρα δεν μπορούν να είναι λιγότερα από τα τρέχοντα του οχήματος."
+
+#: maintenance/autres_interventions/securite
+msgid "Modification intervention sécurité"
+msgstr "Τροποποίηση επέμβασης ασφάλειας"
+
+#: maintenance/autres_interventions/securite
+msgid "Prétensionneurs / limiteurs d'effort"
+msgstr "Προεντατήρες / περιοριστές φορτίου"
+
+#: maintenance/autres_interventions/securite
+msgid "Radar avant (régulateur adaptatif, freinage d'urgence)"
+msgstr "Μπροστινό ραντάρ (προσαρμοζόμενο cruise, φρενάρισμα έκτακτης ανάγκης)"
+
+#: maintenance/autres_interventions/securite
+msgid "Suppression de l'intervention sécurité"
+msgstr "Διαγραφή επέμβασης ασφάλειας"
+
+#: maintenance/autres_interventions/securite
+msgid "Validité FIA"
+msgstr "Ισχύς FIA"
+
+#: maintenance/autres_interventions/securite
+msgid "Vous devez confirmer que le serrage des roues est FAIT avant de valider."
+msgstr "Πρέπει να επιβεβαιώσετε ότι το σφίξιμο των τροχών ΕΓΙΝΕ πριν την επικύρωση."
+
+#: maintenance/autres_interventions/securite
+msgid "périmé"
+msgstr "έληξε"
+
+#: maintenance/autres_interventions/securite
+msgid "Sécurité (ceintures, airbags, radar)"
+msgstr "Ασφάλεια (ζώνες, αερόσακοι, ραντάρ)"

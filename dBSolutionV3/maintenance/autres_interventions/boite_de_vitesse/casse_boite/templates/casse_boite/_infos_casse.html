@@ -1,0 +1,8 @@
+{% load i18n %}
+{% if obj.date_casse %}<p><strong>{% trans "Date de la casse" %} :</strong> {{ obj.date_casse|date:"d/m/Y" }}{% if obj.sur_piste %} – {% trans "sur piste" %}{% endif %}</p>{% endif %}
+<p><strong>{% trans "Cause probable" %} :</strong> {{ obj.cause_affichee }}</p>
+<p><strong>{% trans "Décision" %} :</strong>
+    <span class="px-2 py-0.5 rounded font-semibold {% if obj.decision == 'IRREPARABLE' %}bg-red-100 text-red-800{% elif obj.decision == 'EN_ATTENTE' %}bg-yellow-100 text-yellow-800{% else %}bg-blue-100 text-blue-800{% endif %}">{{ obj.get_decision_display }}</span>
+    {% if obj.prise_en_garantie %}<span class="ml-2 px-2 py-0.5 rounded bg-green-100 text-green-800 text-sm">{% trans "Garantie / assurance" %}</span>{% endif %}
+</p>
+<p><strong>{% trans "Pièces cassées" %} :</strong> {{ obj.nombre_pieces_cassees }}</p>

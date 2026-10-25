@@ -39,6 +39,8 @@ from maintenance.autres_interventions.moteur.culasse.models import Culasse
 from maintenance.autres_interventions.moteur.bas_moteur.models import BasMoteur
 from maintenance.autres_interventions.esp.models import Esp
 from maintenance.autres_interventions.aide_stationnement.models import AideStationnement
+from maintenance.autres_interventions.ventilation.models import Ventilation
+from maintenance.autres_interventions.securite.models import Securite
 from maintenance.autres_interventions.preparation_course.arceau.models import ArceauSecurite
 from maintenance.autres_interventions.preparation_course.extincteur.models import Extincteur
 from maintenance.autres_interventions.preparation_course.sieges_baquets.models import SiegesBaquets
@@ -133,6 +135,8 @@ admin.site.register(Culasse)
 admin.site.register(BasMoteur)
 admin.site.register(Esp)
 admin.site.register(AideStationnement)
+admin.site.register(Ventilation)
+admin.site.register(Securite)
 admin.site.register(ArceauSecurite)
 admin.site.register(Extincteur)
 admin.site.register(SiegesBaquets)

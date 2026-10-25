@@ -44,6 +44,7 @@ from maintenance.autres_interventions.moteur.culasse.models import Culasse
 from maintenance.autres_interventions.moteur.bas_moteur.models import BasMoteur
 from maintenance.autres_interventions.moteur.metrologie_moteur.models import MetrologieMoteur
 from maintenance.autres_interventions.moteur.casse_moteur.models import CasseMoteur
+from maintenance.autres_interventions.boite_de_vitesse.casse_boite.models import CasseBoite
 from maintenance.autres_interventions.moteur.bougies.composants import total_bougies
 from maintenance.autres_interventions.moteur.electronique_moteur.models import ElectroniqueMoteur
 from maintenance.autres_interventions.moteur.lubrification.models import Lubrification
@@ -55,6 +56,8 @@ from maintenance.autres_interventions.echappement.models import Echappement
 from maintenance.autres_interventions.echappement.composants import total_composants_echappement
 from maintenance.autres_interventions.esp.models import Esp
 from maintenance.autres_interventions.aide_stationnement.models import AideStationnement
+from maintenance.autres_interventions.ventilation.models import Ventilation
+from maintenance.autres_interventions.securite.models import Securite
 from maintenance.autres_interventions.fusibles.models import Fusibles
 from maintenance.autres_interventions.demarreur.models import Demarreur
 from maintenance.autres_interventions.suspension.composants import total_suspension
@@ -267,6 +270,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             + bas_moteur.count()
             + MetrologieMoteur.objects.filter(voiture_exemplaire=exemplaire).count()
             + CasseMoteur.objects.filter(voiture_exemplaire=exemplaire).count()
+            + CasseBoite.objects.filter(voiture_exemplaire=exemplaire).count()
             + total_bougies(exemplaire)
             + electronique.count()
             + lubrification.count()
@@ -275,6 +279,8 @@ def choisir_type_maintenance(request, exemplaire_id):
             + abs_qs.count()
             + Esp.objects.filter(voiture_exemplaire=exemplaire).count()
             + AideStationnement.objects.filter(voiture_exemplaire=exemplaire).count()
+            + Ventilation.objects.filter(voiture_exemplaire=exemplaire).count()
+            + Securite.objects.filter(voiture_exemplaire=exemplaire).count()
             + total_preparation_course(exemplaire)
             + Fusibles.objects.filter(voiture_exemplaire=exemplaire).count()
             + Demarreur.objects.filter(voiture_exemplaire=exemplaire).count()

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Ventilation" %}{% endblock %}
+
+{% block content %}
+    {% url 'ventilation:modifier_ventilation' ventilation.pk as url_modifier %}
+    {% url 'ventilation:ventilation_detail_pdf' ventilation.pk as url_pdf %}
+    {% url 'ventilation:delete_ventilation' ventilation.pk as url_delete %}
+    {% if exemplaire %}{% url 'ventilation:ventilation_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Ventilation" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=ventilation km_controle=ventilation.kilometrage_ventilation icone="ventilation.png" %}
+{% endblock %}

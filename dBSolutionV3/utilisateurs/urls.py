@@ -4,6 +4,7 @@ from . import views
 from . import views_paie
 from . import views_tenants
 from . import views_mot_de_passe
+from . import views_mon_compte
 
 
 app_name = "utilisateurs"
@@ -29,6 +30,13 @@ urlpatterns = [
         "dashboard/",
         views.dashboard_view,
         name="dashboard",
+    ),
+
+    # Dashboard utilisateur (cartouche « Utilisateur » du tableau de bord)
+    path(
+        "mon-compte/",
+        views_mon_compte.mon_compte_view,
+        name="mon_compte",
     ),
 
     path(

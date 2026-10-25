@@ -264,6 +264,134 @@
         </div>
     </div>
 
+    <!-- ================================================== -->
+    <!-- JOURNAL DES MOUVEMENTS – TVA À PAYER -->
+    <!-- ================================================== -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+        <details {% if journal_a_payer|length <= 50 %}open{% endif %}>
+            <summary class="cursor-pointer text-lg font-semibold mb-2">
+                {% trans "Journal des mouvements – TVA à payer" %}
+                <span class="text-sm font-normal text-gray-500">({{ journal_a_payer|length }})</span>
+            </summary>
+            <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm mt-2">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="border px-2 py-2 text-left">{% trans "Date" %}</th>
+                        <th class="border px-2 py-2 text-left">{% trans "Pièce" %}</th>
+                        <th class="border px-2 py-2 text-left">{% trans "Client" %}</th>
+                        <th class="border px-2 py-2 text-left">{% trans "Nature" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Taux" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Base HTVA" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "TVA" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Cumul TVA" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in journal_a_payer %}
+                        <tr>
+                            <td class="border px-2 py-1 whitespace-nowrap">{{ m.date|date:"d/m/Y" }}</td>
+                            <td class="border px-2 py-1">{{ m.piece|default:"—" }}</td>
+                            <td class="border px-2 py-1">
+                                {{ m.tiers|default:"—" }}
+                                {% if m.libelle %}<span class="block text-xs text-gray-500">{{ m.libelle }}</span>{% endif %}
+                            </td>
+                            <td class="border px-2 py-1">
+                                {% if m.nature == "acompte" %}{% trans "Acompte location" %}
+                                {% elif m.nature == "location" %}{% trans "Location réalisée" %}
+                                {% else %}{% trans "Facture" %}{% endif %}
+                                {% if m.autoliquidation %}<span class="ml-1 px-1 rounded bg-yellow-100 text-yellow-800 text-xs">{% trans "Autoliquidation" %}</span>{% endif %}
+                            </td>
+                            <td class="border px-2 py-1 text-right">{{ m.taux|floatformat:"-2" }} %</td>
+                            <td class="border px-2 py-1 text-right">{{ m.base|floatformat:2 }} €</td>
+                            <td class="border px-2 py-1 text-right">{{ m.tva|floatformat:2 }} €</td>
+                            <td class="border px-2 py-1 text-right font-semibold">{{ m.cumul|floatformat:2 }} €</td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="8" class="border px-2 py-2 text-gray-500">{% trans "Aucun mouvement sur la période." %}</td></tr>
+                    {% endfor %}
+                </tbody>
+                {% if journal_a_payer %}
+                <tfoot>
+                    <tr class="bg-gray-100 font-semibold">
+                        <td class="border px-2 py-1" colspan="6">{% trans "Total TVA à payer" %}</td>
+                        <td class="border px-2 py-1 text-right">{{ a_payer.tva|floatformat:2 }} €</td>
+                        <td class="border px-2 py-1"></td>
+                    </tr>
+                </tfoot>
+                {% endif %}
+            </table>
+        </details>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- JOURNAL DES MOUVEMENTS – TVA À RÉCUPÉRER -->
+    <!-- ================================================== -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+        <details {% if journal_a_recuperer|length <= 50 %}open{% endif %}>
+            <summary class="cursor-pointer text-lg font-semibold mb-2">
+                {% trans "Journal des mouvements – TVA à récupérer" %}
+                <span class="text-sm font-normal text-gray-500">({{ journal_a_recuperer|length }})</span>
+            </summary>
+            <div class="flex items-center gap-2 my-2 text-sm">
+                <label for="filtre-source-recup">{% trans "Source" %} :</label>
+                <select id="filtre-source-recup" class="border rounded px-2 py-1" onchange="filtrerJournalRecup(this.value)">
+                    <option value="">{% trans "Toutes" %}</option>
+                    {% for l in a_recuperer.lignes %}{% if l.nb %}<option value="{{ l.cle }}">{{ l.label }} ({{ l.nb }})</option>{% endif %}{% endfor %}
+                </select>
+            </div>
+            <table id="journal-recup" class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="border px-2 py-2 text-left">{% trans "Date" %}</th>
+                        <th class="border px-2 py-2 text-left">{% trans "Source" %}</th>
+                        <th class="border px-2 py-2 text-left">{% trans "Pièce" %}</th>
+                        <th class="border px-2 py-2 text-left">{% trans "Fournisseur" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Base HTVA" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "TVA payée" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Déductible" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "TVA à récupérer" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Cumul TVA" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in journal_a_recuperer %}
+                        <tr data-source="{{ m.cle }}" {% if m.informatif %}class="text-gray-500"{% endif %}>
+                            <td class="border px-2 py-1 whitespace-nowrap">{{ m.date|date:"d/m/Y" }}</td>
+                            <td class="border px-2 py-1">{{ m.source }}</td>
+                            <td class="border px-2 py-1">{{ m.piece|default:"—" }}</td>
+                            <td class="border px-2 py-1">
+                                {{ m.tiers|default:"—" }}
+                                {% if m.libelle %}<span class="block text-xs text-gray-500">{{ m.libelle }}</span>{% endif %}
+                            </td>
+                            {% if m.informatif %}
+                                <td class="border px-2 py-1 text-right">({{ m.base|floatformat:2 }} €)</td>
+                                <td class="border px-2 py-1 text-right">({{ m.tva|floatformat:2 }} €)</td>
+                                <td class="border px-2 py-1 text-right" colspan="2">{% trans "informatif – hors total" %}</td>
+                            {% else %}
+                                <td class="border px-2 py-1 text-right">{{ m.base|floatformat:2 }} €</td>
+                                <td class="border px-2 py-1 text-right">{{ m.tva|floatformat:2 }} €</td>
+                                <td class="border px-2 py-1 text-right">{{ m.deductible|floatformat:"-2" }} %</td>
+                                <td class="border px-2 py-1 text-right">{{ m.tva_deductible|floatformat:2 }} €</td>
+                            {% endif %}
+                            <td class="border px-2 py-1 text-right font-semibold">{{ m.cumul|floatformat:2 }} €</td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="9" class="border px-2 py-2 text-gray-500">{% trans "Aucun mouvement sur la période." %}</td></tr>
+                    {% endfor %}
+                </tbody>
+                {% if journal_a_recuperer %}
+                <tfoot>
+                    <tr class="bg-gray-100 font-semibold">
+                        <td class="border px-2 py-1" colspan="7">{% trans "Total TVA à récupérer" %}</td>
+                        <td class="border px-2 py-1 text-right">{{ a_recuperer.tva_deductible|floatformat:2 }} €</td>
+                        <td class="border px-2 py-1"></td>
+                    </tr>
+                </tfoot>
+                {% endif %}
+            </table>
+        </details>
+    </div>
+
     <!-- Grilles -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
         <h2 class="text-lg font-semibold mb-1">
@@ -372,5 +500,11 @@ document.querySelector("form[method=get]").addEventListener("submit", function (
     document.getElementById("numero").value = source ? document.getElementById(source).value : 1;
 });
 majNumero();
+
+function filtrerJournalRecup(source) {
+    document.querySelectorAll("#journal-recup tbody tr[data-source]").forEach(function (tr) {
+        tr.style.display = (!source || tr.dataset.source === source) ? "" : "none";
+    });
+}
 </script>
 {% endblock %}

@@ -243,6 +243,46 @@
         </a>
 
         <!-- ================================================== -->
+        <!-- VENTILATION -->
+        <!-- ================================================== -->
+        <a
+            href="{% url 'ventilation:ventilation_list' exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="mb-1 text-lg font-semibold">{% trans "Ventilation" %}</h2>
+                    <p class="text-xs text-gray-500 mb-1">{% trans "Soufflerie, filtre d'habitacle, résistance de chauffage, moteur de ventilation" %}</p>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_ventilation|default:0 }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/ventilation.png' %}" alt="{% trans 'Ventilation' %}" class="h-[60px] w-[60px]">
+            </div>
+        </a>
+
+        <!-- ================================================== -->
+        <!-- SÉCURITÉ -->
+        <!-- ================================================== -->
+        <a
+            href="{% url 'securite:securite_list' exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="mb-1 text-lg font-semibold">{% trans "Sécurité" %}</h2>
+                    <p class="text-xs text-gray-500 mb-1">{% trans "Ceintures, harnais, airbags, boîtier, capteurs de collision, radar avant" %}</p>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_securite|default:0 }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/securite.png' %}" alt="{% trans 'Sécurité' %}" class="h-[60px] w-[60px]">
+            </div>
+        </a>
+
+        <!-- ================================================== -->
         <!-- BOÎTES À FUSIBLES -->
         <!-- ================================================== -->
         <a

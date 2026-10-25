@@ -756,7 +756,7 @@ def dashboard_boite_view(request, exemplaire_id):
     schema_name = tenant_schema.schema_name if tenant_schema else None
 
 
-    total_boite = total_remplacement_boite = total_int_boite = 0
+    total_boite = total_remplacement_boite = total_int_boite = total_casse_boite = 0
 
     boite = remplacement_boite  = []
 
@@ -774,10 +774,10 @@ def dashboard_boite_view(request, exemplaire_id):
             # ✅ COUNTS CORRECTS
             total_boite = boite.count()
             total_remplacement_boite = remplacement_boite.count()
-            total_int_boite = boite.count() + remplacement_boite.count()
+            from maintenance.autres_interventions.boite_de_vitesse.casse_boite.models import CasseBoite
+            total_casse_boite = CasseBoite.objects.filter(voiture_exemplaire=exemplaire).count()
 
-
-            total_int_boite = total_boite + total_remplacement_boite
+            total_int_boite = total_boite + total_remplacement_boite + total_casse_boite
 
             modeles = VoitureModele.objects.all()
     else:
@@ -811,6 +811,7 @@ def dashboard_boite_view(request, exemplaire_id):
         "total_boite": total_boite,
         "total_remplacement_boite": total_remplacement_boite,
         "total_int_boite": total_int_boite,
+        "total_casse_boite": total_casse_boite,
 
         "boite": boite,
         "remplacement_boite": remplacement_boite,

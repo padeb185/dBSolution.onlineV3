@@ -1,0 +1,297 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Mon compte" %}{% endblock %}
+
+{% block content %}
+<br>
+<div class="max-w-6xl mx-auto">
+
+    <!-- ================================================== -->
+    <!-- EN-TÊTE -->
+    <!-- ================================================== -->
+    <div class="flex items-center gap-4 mb-6">
+        <img src="{% static 'icons/equipe.png' %}" alt="" class="w-16 h-16">
+        <div>
+            <h1 class="text-2xl font-bold">{{ u.prenom }} {{ u.nom }}</h1>
+            <p class="text-gray-600">{{ role_display }} – {{ societe }}</p>
+        </div>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mb-3 px-4 py-2 rounded {% if message.tags == 'success' %}bg-green-100 text-green-800 border border-green-300{% else %}bg-red-100 text-red-800 border border-red-300{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- ================================================== -->
+    <!-- CHIFFRES CLÉS -->
+    <!-- ================================================== -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white shadow-md rounded-lg p-4">
+            <p class="text-sm text-gray-500">{% trans "Maintenances effectuées" %}</p>
+            <p class="text-2xl font-bold">{{ maint.total }}</p>
+            <p class="text-xs text-gray-500">{% blocktrans with n=maint.annee a=annee %}{{ n }} en {{ a }}{% endblocktrans %}</p>
+        </div>
+        <div class="bg-white shadow-md rounded-lg p-4">
+            <p class="text-sm text-gray-500">{% trans "Temps de main-d'œuvre encodé" %}</p>
+            <p class="text-2xl font-bold">{{ maint.mo_total_display }}</p>
+            <p class="text-xs text-gray-500">{% blocktrans with t=maint.mo_annee_display a=annee %}{{ t }} en {{ a }}{% endblocktrans %}</p>
+        </div>
+        <div class="bg-white shadow-md rounded-lg p-4">
+            <p class="text-sm text-gray-500">{% trans "Total des salaires nets" %}</p>
+            <p class="text-2xl font-bold">{{ paie.net_total|floatformat:2 }} €</p>
+            <p class="text-xs text-gray-500">{% blocktrans with m=paie.annee.net|floatformat:2 a=annee %}{{ m }} € en {{ a }}{% endblocktrans %}</p>
+        </div>
+        <div class="bg-white shadow-md rounded-lg p-4">
+            <p class="text-sm text-gray-500">{% trans "Heures prestées" %}</p>
+            <p class="text-2xl font-bold">{{ paie.heures_total|floatformat:"-2" }} h</p>
+            <p class="text-xs text-gray-500">{% blocktrans with h=paie.annee.heures|floatformat:"-2" a=annee %}{{ h }} h en {{ a }}{% endblocktrans %}</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+
+        <!-- ================================================== -->
+        <!-- INFORMATIONS -->
+        <!-- ================================================== -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-3 flex items-center gap-2">
+                <img src="{% static 'icons/equipe.png' %}" alt="" class="w-8 h-8">{% trans "Informations" %}
+            </h2>
+            <dl class="text-sm space-y-2">
+                <div><dt class="text-gray-500">{% trans "Nom" %}</dt><dd class="font-semibold">{{ u.prenom }} {{ u.nom }}</dd></div>
+                <div><dt class="text-gray-500">{% trans "Rôle" %}</dt><dd>{{ role_display }}</dd></div>
+                <div><dt class="text-gray-500">{% trans "Société" %}</dt><dd>{{ societe }}</dd></div>
+                <div><dt class="text-gray-500">{% trans "E-mail" %}</dt><dd>{{ u.email|default:"—" }}</dd></div>
+                <div><dt class="text-gray-500">{% trans "E-mail entreprise" %}</dt><dd>{{ u.email_entreprise|default:"—" }}</dd></div>
+                <div><dt class="text-gray-500">{% trans "Téléphone" %}</dt><dd>{{ u.telephone|default:"—" }}</dd></div>
+                <div><dt class="text-gray-500">{% trans "Date de naissance" %}</dt><dd>{{ u.date_naissance|date:"d/m/Y"|default:"—" }}</dd></div>
+                <div><dt class="text-gray-500">{% trans "Compte bancaire (IBAN)" %}</dt><dd>{% if u.numero_compte_bancaire %}•••• {{ u.numero_compte_bancaire|slice:"-4:" }}{% else %}—{% endif %}</dd></div>
+                <div><dt class="text-gray-500">{% trans "Dernière connexion" %}</dt><dd>{{ u.last_login|date:"d/m/Y H:i"|default:"—" }}</dd></div>
+            </dl>
+        </div>
+
+        <!-- ================================================== -->
+        <!-- ADRESSE -->
+        <!-- ================================================== -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-3 flex items-center gap-2">
+                <img src="{% static 'icons/adresse.png' %}" alt="" class="w-8 h-8">{% trans "Adresse" %}
+            </h2>
+            {% if adresse %}
+                <p class="text-sm">
+                    {{ adresse.rue }} {{ adresse.numero }}{% if adresse.boite %} {% trans "bte" %} {{ adresse.boite }}{% endif %}<br>
+                    {{ adresse.code_postal }} {{ adresse.ville }}<br>
+                    {{ adresse.pays }}
+                </p>
+            {% else %}
+                <p class="text-sm text-gray-500">{% trans "Aucune adresse enregistrée." %}</p>
+            {% endif %}
+        </div>
+
+        <!-- ================================================== -->
+        <!-- SÉCURITÉ : MOT DE PASSE / 2FA -->
+        <!-- ================================================== -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-3">🔑 {% trans "Sécurité" %}</h2>
+            <p class="text-sm mb-3">
+                {% trans "Double authentification (2FA)" %} :
+                {% if u.totp_enabled %}
+                    <span class="px-2 py-0.5 rounded bg-green-100 text-green-800 text-xs font-semibold">{% trans "Activée" %}</span>
+                {% else %}
+                    <span class="px-2 py-0.5 rounded bg-red-100 text-red-800 text-xs font-semibold">{% trans "Désactivée" %}</span>
+                {% endif %}
+            </p>
+            <a href="{% url 'password_change' %}"
+               class="block w-full text-center bg-blue-700 hover:bg-blue-500 text-white px-4 py-2 rounded font-semibold transition duration-300 mb-2">
+                {% trans "Changer mon mot de passe" %}
+            </a>
+            {% if not u.totp_enabled %}
+            <a href="{% url 'utilisateurs:totp_setup' %}"
+               class="block w-full text-center bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded font-semibold transition duration-300">
+                {% trans "Activer la double authentification" %}
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAINTENANCES : STATISTIQUES -->
+    <!-- ================================================== -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+            <img src="{% static 'icons/gestion-de-projet.png' %}" alt="" class="w-8 h-8">{% trans "Mes maintenances" %}
+        </h2>
+
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6 text-center">
+            <div class="rounded border p-3"><p class="text-xs text-gray-500">{% trans "Total" %}</p><p class="text-xl font-bold">{{ maint.total }}</p></div>
+            <div class="rounded border p-3"><p class="text-xs text-gray-500">{{ annee }}</p><p class="text-xl font-bold">{{ maint.annee }}</p></div>
+            <div class="rounded border p-3"><p class="text-xs text-gray-500">{% trans "Ce mois-ci" %}</p><p class="text-xl font-bold">{{ maint.mois }}</p></div>
+            <div class="rounded border p-3 bg-green-50"><p class="text-xs text-gray-500">{% trans "Terminées (vert)" %}</p><p class="text-xl font-bold text-green-700">{{ maint.par_tag.VERT }}</p></div>
+            <div class="rounded border p-3 bg-yellow-50"><p class="text-xs text-gray-500">{% trans "En cours (jaune / rouge)" %}</p><p class="text-xl font-bold text-yellow-700">{{ maint.en_cours }}</p></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Par mois -->
+            <div>
+                <h3 class="font-semibold mb-2">{% blocktrans %}Maintenances par mois en {{ annee }}{% endblocktrans %}</h3>
+                <div class="flex items-end gap-1 h-40 border-b border-gray-300">
+                    {% for m in maint.par_mois %}
+                        <div class="flex-1 flex flex-col items-center justify-end h-full" title="{{ m.label }} : {{ m.n }}">
+                            <span class="text-xs text-gray-600">{% if m.n %}{{ m.n }}{% endif %}</span>
+                            <div class="w-full bg-blue-600 rounded-t" style="height: {% widthratio m.n maint.max_mois 100 %}%"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="flex gap-1 mt-1">
+                    {% for m in maint.par_mois %}<span class="flex-1 text-center text-[10px] text-gray-500">{{ m.label }}</span>{% endfor %}
+                </div>
+            </div>
+
+            <!-- Par type -->
+            <div>
+                <h3 class="font-semibold mb-2">{% trans "Par type de maintenance" %}</h3>
+                {% for t in maint.par_type %}
+                    <div class="mb-2">
+                        <div class="flex justify-between text-sm"><span>{{ t.label }}</span><span class="font-semibold">{{ t.n }}</span></div>
+                        <div class="w-full bg-gray-100 rounded h-2"><div class="bg-blue-600 h-2 rounded" style="width: {{ t.pct }}%"></div></div>
+                    </div>
+                {% empty %}
+                    <p class="text-sm text-gray-500">{% trans "Aucune maintenance." %}</p>
+                {% endfor %}
+                {% if maint.par_role %}
+                    <p class="text-xs text-gray-500 mt-3">
+                        {% trans "Rôle tenu" %} :
+                        {% for r in maint.par_role %}{{ r.label }} ({{ r.n }}){% if not forloop.last %}, {% endif %}{% endfor %}
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Main-d'œuvre -->
+        <p class="text-sm text-gray-600 mt-4">
+            {% trans "Main-d'œuvre encodée" %} :
+            <span class="font-semibold">{{ maint.mo_total_display }}</span>
+            ({{ maint.mo_nb }} {% trans "interventions" %}) –
+            {% trans "valeur" %} <span class="font-semibold">{{ maint.mo_cout_total|floatformat:2 }} € {% trans "HTVA" %}</span>
+        </p>
+
+        <!-- Dernières -->
+        {% if maint.dernieres %}
+        <h3 class="font-semibold mt-6 mb-2">{% trans "Dernières maintenances" %}</h3>
+        <div class="overflow-x-auto">
+        <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-2 py-2 text-left">{% trans "Date" %}</th>
+                    <th class="border px-2 py-2 text-left">{% trans "Véhicule" %}</th>
+                    <th class="border px-2 py-2 text-left">{% trans "Type" %}</th>
+                    <th class="border px-2 py-2 text-left">{% trans "État" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for m in maint.dernieres %}
+                <tr>
+                    <td class="border px-2 py-1 whitespace-nowrap">{{ m.date_intervention|date:"d/m/Y" }}</td>
+                    <td class="border px-2 py-1">{{ m.voiture_exemplaire.immatriculation|default:"—" }}</td>
+                    <td class="border px-2 py-1">{{ m.get_type_maintenance_display|default:"—" }}</td>
+                    <td class="border px-2 py-1">
+                        <span class="px-2 py-0.5 rounded text-xs font-semibold
+                            {% if m.tag == 'VERT' %}bg-green-100 text-green-800{% elif m.tag == 'ROUGE' %}bg-red-100 text-red-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                            {{ m.get_tag_display }}
+                        </span>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- ================================================== -->
+    <!-- SALAIRES ET HEURES PRESTÉES -->
+    <!-- ================================================== -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+        <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+            <img src="{% static 'icons/paie.png' %}" alt="" class="w-8 h-8">{% trans "Salaires et heures prestées" %}
+        </h2>
+
+        {% if paie.nb %}
+            <h3 class="font-semibold mb-2">{% trans "Par année" %}</h3>
+            <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm mb-6">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="border px-2 py-2 text-left">{% trans "Année" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Fiches de paie" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Jours prestés" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Heures prestées" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Heures supplémentaires" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Salaire brut" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Salaire net" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for a in paie.par_annee %}
+                    <tr>
+                        <td class="border px-2 py-1">{{ a.annee }}</td>
+                        <td class="border px-2 py-1 text-right">{{ a.nb }}</td>
+                        <td class="border px-2 py-1 text-right">{{ a.jours }}</td>
+                        <td class="border px-2 py-1 text-right">{{ a.heures|floatformat:"-2" }} h</td>
+                        <td class="border px-2 py-1 text-right">{{ a.heures_sup|floatformat:"-2" }} h</td>
+                        <td class="border px-2 py-1 text-right">{{ a.brut|floatformat:2 }} €</td>
+                        <td class="border px-2 py-1 text-right font-semibold">{{ a.net|floatformat:2 }} €</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr class="bg-gray-100 font-semibold">
+                        <td class="border px-2 py-1">{% trans "Total" %}</td>
+                        <td class="border px-2 py-1 text-right">{{ paie.nb }}</td>
+                        <td class="border px-2 py-1 text-right">{{ paie.jours_total }}</td>
+                        <td class="border px-2 py-1 text-right">{{ paie.heures_total|floatformat:"-2" }} h</td>
+                        <td class="border px-2 py-1 text-right">{{ paie.heures_sup_total|floatformat:"-2" }} h</td>
+                        <td class="border px-2 py-1 text-right">{{ paie.brut_total|floatformat:2 }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ paie.net_total|floatformat:2 }} €</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <h3 class="font-semibold mb-2">{% trans "Dernières fiches de paie" %}</h3>
+            <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="border px-2 py-2 text-left">{% trans "Période" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Heures prestées" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Salaire net" %}</th>
+                        <th class="border px-2 py-2 text-left">{% trans "Paiement" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for p in paie.dernieres %}
+                    <tr>
+                        <td class="border px-2 py-1">{{ p.mois|stringformat:"02d" }}/{{ p.annee }}</td>
+                        <td class="border px-2 py-1 text-right">{{ p.nombre_heures_preste|floatformat:"-2" }} h</td>
+                        <td class="border px-2 py-1 text-right">{{ p.salaire_net_mois|floatformat:2 }} €</td>
+                        <td class="border px-2 py-1">
+                            {% if p.est_paye %}<span class="px-2 py-0.5 rounded bg-green-100 text-green-800 text-xs">{% trans "Payé le" %} {{ p.date_paiement|date:"d/m/Y" }}</span>
+                            {% else %}<span class="px-2 py-0.5 rounded bg-yellow-100 text-yellow-800 text-xs">{% trans "À payer" %}</span>{% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-sm text-gray-500">{% trans "Aucune fiche de paie enregistrée." %}</p>
+        {% endif %}
+    </div>
+
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-500 font-semibold text-center mb-6">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+{% endblock %}

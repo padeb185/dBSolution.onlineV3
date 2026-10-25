@@ -90,8 +90,15 @@
                 {% endwith %}
             </td>
             <td class="border px-4 py-2">
-                {{ loc.voiture_exemplaire.voiture_marque.nom_marque }}
-                {{ loc.voiture_exemplaire.voiture_modele.nom_modele }}
+                <div class="flex items-center gap-2">
+                    <img src="{% static 'images/marques/' %}{{ loc.voiture_exemplaire.voiture_marque.nom_marque|lower }}.png"
+                         alt="{{ loc.voiture_exemplaire.voiture_marque.nom_marque }}"
+                         title="{{ loc.voiture_exemplaire.voiture_marque.nom_marque }}"
+                         class="w-8 h-8 object-contain"
+                         onerror="this.src='{% static 'images/marques/default.png' %}'">
+                    <span class="sr-only">{{ loc.voiture_exemplaire.voiture_marque.nom_marque }}</span>
+                    <span>{{ loc.voiture_exemplaire.voiture_modele.nom_modele }}</span>
+                </div>
             </td>
             <td class="border px-4 py-2">
                 {% if loc.type_location == "circuit" %}

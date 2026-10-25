@@ -67,6 +67,9 @@ class CalculTVA:
                 self.deductibilite[cle] = max(ZERO, min(Decimal("100"), Decimal(str(valeur))))
         self._a_payer = None
         self._a_recuperer = None
+        # Journaux des mouvements (alimentés pendant les calculs)
+        self._mvts_payer = []
+        self._mvts_recuperer = []
 
     # ------------------------------------------------------------
     # Périodes
@@ -93,6 +96,63 @@ class CalculTVA:
         return Q(societe=self.societe) | Q(societe__isnull=True)
 
     # ------------------------------------------------------------
+    # Journal des mouvements
+    # ------------------------------------------------------------
+    @staticmethod
+    def _jour(valeur):
+        """Date (jour) d'un DateField ou d'un DateTimeField (heure locale)."""
+        if valeur is None:
+            return None
+        if hasattr(valeur, "hour"):
+            from django.utils import timezone
+            if timezone.is_aware(valeur):
+                valeur = timezone.localtime(valeur)
+            return valeur.date()
+        return valeur
+
+    def _mvt_recuperer(self, cle, jour, piece, tiers, libelle, base, tva):
+        self._mvts_recuperer.append({
+            "cle": cle, "date": self._jour(jour), "piece": str(piece or ""), "tiers": str(tiers or ""),
+            "libelle": str(libelle or ""), "base": arrondi(base or ZERO), "tva": arrondi(tva or ZERO),
+        })
+
+    @property
+    def journal_a_payer(self):
+        """
+        Mouvements de TVA à payer, par ordre chronologique, avec cumul :
+        [{"date", "piece", "tiers", "libelle", "nature", "taux", "base", "tva", "autoliquidation", "cumul"}]
+        """
+        self.tva_a_payer  # alimente le journal
+        cumul = ZERO
+        lignes = []
+        for m in sorted(self._mvts_payer, key=lambda m: (m["date"] or date.min, m["piece"])):
+            cumul += m["tva"]
+            lignes.append({**m, "cumul": arrondi(cumul)})
+        return lignes
+
+    @property
+    def journal_a_recuperer(self):
+        """
+        Mouvements de TVA à récupérer, par ordre chronologique, avec la part déductible et le cumul
+        (les sources « informatives » sont listées mais n'entrent pas dans le cumul).
+        """
+        self.tva_a_recuperer  # alimente le journal
+        cumul = ZERO
+        lignes = []
+        for m in sorted(self._mvts_recuperer, key=lambda m: (m["date"] or date.min, m["cle"], m["piece"])):
+            source = self.SOURCES[m["cle"]]
+            pourcentage = self.deductibilite[m["cle"]]
+            informatif = source.get("informatif", False)
+            tva_deductible = arrondi(m["tva"] * pourcentage / Decimal("100"))
+            if not informatif:
+                cumul += tva_deductible
+            lignes.append({
+                **m, "source": source["label"], "informatif": informatif, "deductible": pourcentage,
+                "tva_deductible": tva_deductible, "cumul": arrondi(cumul),
+            })
+        return lignes
+
+    # ------------------------------------------------------------
     # TVA à payer (ventes)
     # ------------------------------------------------------------
     def factures_periode(self):
@@ -117,7 +177,7 @@ class CalculTVA:
                 | Q(date_fin__range=periode)
                 | Q(date_fin__isnull=True, date_debut__range=periode)
             )
-            .select_related("societe__adresse", "voiture_exemplaire")
+            .select_related("societe__adresse", "voiture_exemplaire", "client", "societe_cliente", "client_pilotage")
             .prefetch_related("factures")
             .order_by("date_debut")
         )
@@ -130,6 +190,7 @@ class CalculTVA:
         from .models import FactureLine
         par_taux = {}
         base_autoliquidation = ZERO
+        self._mvts_payer = []
         internes = []
         nb_factures = 0
 
@@ -153,10 +214,17 @@ class CalculTVA:
                 groupes[taux] = groupes.get(taux, ZERO) + ligne.total_ht
             for taux, base in groupes.items():
                 base = arrondi(base)
+                tva_ligne = ZERO if facture.autoliquidation else arrondi(base * taux / Decimal("100"))
+                self._mvts_payer.append({
+                    "date": facture.issue_date, "piece": str(facture.numero or ""),
+                    "tiers": str(facture.nom_client_courant() or ""), "libelle": "",
+                    "nature": "facture", "taux": taux, "base": base, "tva": tva_ligne,
+                    "autoliquidation": bool(facture.autoliquidation),
+                })
                 if facture.autoliquidation:
                     base_autoliquidation += base
                     continue
-                ajouter(taux, base, arrondi(base * taux / Decimal("100")))
+                ajouter(taux, base, tva_ligne)
 
         # 2) Locations (circuit / route), facturées ou non — exigibilité de la TVA
         #    (art. 22 Code TVA belge, art. 65 directive 2006/112/CE) :
@@ -180,11 +248,24 @@ class CalculTVA:
                     base_autoliquidation += ev["tvac"]
                     groupe["base"] += ev["tvac"]
                     tva = ZERO
+                    base_mvt, taux_mvt = ev["tvac"], ZERO
                 else:
                     ajouter(arrondi(location.taux_tva), ev["base"], ev["tva"])
                     groupe["base"] += ev["base"]
                     groupe["tva"] += ev["tva"]
                     tva = ev["tva"]
+                    base_mvt, taux_mvt = ev["base"], arrondi(location.taux_tva)
+                exemplaire = getattr(location, "voiture_exemplaire", None)
+                self._mvts_payer.append({
+                    "date": ev["date"], "piece": str(facture.numero) if facture is not None and facture.numero else "",
+                    "tiers": str(facture.nom_client_courant() if facture is not None else (location.locataire or "")),
+                    "libelle": " – ".join(x for x in [
+                        str(getattr(exemplaire, "immatriculation", "") or ""), str(getattr(location, "lieu", "") or "")
+                    ] if x),
+                    "nature": "acompte" if ev["nature"] == "acompte" else "location",
+                    "taux": taux_mvt, "base": arrondi(base_mvt), "tva": arrondi(tva),
+                    "autoliquidation": facture is not None and bool(facture.autoliquidation),
+                })
                 locations["liste"].append({
                     "location": location, "facture": facture, "nature": ev["nature"],
                     "date": ev["date"], "tvac": ev["tvac"], "tva": tva,
@@ -220,75 +301,94 @@ class CalculTVA:
         from achat_mds.models import AchatMds
         base = tva = ZERO
         n = 0
-        for achat in AchatMds.objects.filter(self._filtre_societe(), date_facture__range=(self.debut, self.fin)):
+        for achat in AchatMds.objects.select_related("fournisseur").filter(self._filtre_societe(), date_facture__range=(self.debut, self.fin)):
             # Marchandises / pièces (le transport est une source à part, avec sa propre déductibilité)
             base += achat.achat_montant_htva or ZERO
             tva += achat.montant_tva_achat or ZERO
             n += 1
+            self._mvt_recuperer("achats", achat.date_facture, achat.reference_facture, achat.fournisseur,
+                                achat.libelle_facture, achat.achat_montant_htva, achat.montant_tva_achat)
         return base, tva, n
 
     def _transport_achats(self):
         from achat_mds.models import AchatMds
         base = tva = ZERO
         n = 0
-        for achat in AchatMds.objects.filter(self._filtre_societe(), date_facture__range=(self.debut, self.fin),
+        for achat in AchatMds.objects.select_related("fournisseur").filter(self._filtre_societe(), date_facture__range=(self.debut, self.fin),
                                              transport_montant_htva__gt=0):
             base += achat.transport_montant_htva or ZERO
             tva += achat.montant_tva_transport or ZERO
             n += 1
+            self._mvt_recuperer("transport_achats", achat.date_facture, achat.reference_facture, achat.fournisseur,
+                                _("Transport – %(libelle)s") % {"libelle": achat.libelle_facture or ""},
+                                achat.transport_montant_htva, achat.montant_tva_transport)
         from outillage.models import Outillage
-        for outil in Outillage.objects.filter(self._filtre_societe(), date_facture__range=(self.debut, self.fin),
+        for outil in Outillage.objects.select_related("fournisseur").filter(self._filtre_societe(), date_facture__range=(self.debut, self.fin),
                                               transport_montant_htva__gt=0):
             base += outil.transport_montant_htva or ZERO
             tva += outil.montant_tva_transport or ZERO
             n += 1
+            self._mvt_recuperer("transport_achats", outil.date_facture, outil.reference_facture, outil.fournisseur,
+                                _("Transport – %(libelle)s") % {"libelle": outil.libelle or ""},
+                                outil.transport_montant_htva, outil.montant_tva_transport)
         return base, tva, n
 
     def _outillage(self):
         from outillage.models import Outillage
         base = tva = ZERO
         n = 0
-        for outil in Outillage.objects.filter(self._filtre_societe(), date_facture__range=(self.debut, self.fin)):
+        for outil in Outillage.objects.select_related("fournisseur").filter(self._filtre_societe(), date_facture__range=(self.debut, self.fin)):
             # Outillage hors transport (le transport est dans « Frais de transport sur achats »)
             base += outil.achat_montant_htva
             tva += outil.montant_tva_achat
             n += 1
+            self._mvt_recuperer("outillage", outil.date_facture, outil.reference_facture, outil.fournisseur,
+                                outil.libelle, outil.achat_montant_htva, outil.montant_tva_achat)
         return base, tva, n
 
     def _carburant(self):
         from fuel.models import Fuel
         base = tva = ZERO
         n = 0
-        for plein in Fuel.objects.filter(
+        for plein in Fuel.objects.select_related("voiture_exemplaire").filter(
             self._filtre_societe(), validation=True, date__date__range=(self.debut, self.fin)
         ):
             base += plein.montant_ht or ZERO
             tva += plein.montant_tva or ZERO
             n += 1
+            self._mvt_recuperer("carburant", plein.date, f"#{plein.pk}", plein.nom_station,
+                                getattr(plein.voiture_exemplaire, "immatriculation", ""),
+                                plein.montant_ht, plein.montant_tva)
         return base, tva, n
 
     def _adblue(self):
         from adblue.models import AdBlue
         base = tva = ZERO
         n = 0
-        for plein in AdBlue.objects.filter(
+        for plein in AdBlue.objects.select_related("voiture_exemplaire").filter(
             self._filtre_societe(), validation=True, date__date__range=(self.debut, self.fin)
         ):
             base += plein.montant_ht or ZERO
             tva += plein.montant_tva or ZERO
             n += 1
+            self._mvt_recuperer("adblue", plein.date, f"#{plein.pk}", plein.nom_station,
+                                getattr(plein.voiture_exemplaire, "immatriculation", ""),
+                                plein.montant_ht, plein.montant_tva)
         return base, tva, n
 
     def _electricite(self):
         from recharge.models import Electricite
         base = tva = ZERO
         n = 0
-        for recharge in Electricite.objects.filter(
+        for recharge in Electricite.objects.select_related("voiture_exemplaire").filter(
             self._filtre_societe(), validation=True, date__range=(self.debut, self.fin)
         ):
             base += recharge.montant_ht or ZERO
             tva += recharge.montant_tva or ZERO
             n += 1
+            self._mvt_recuperer("electricite", recharge.date, f"#{recharge.pk}", recharge.nom_station,
+                                getattr(recharge.voiture_exemplaire, "immatriculation", ""),
+                                recharge.montant_ht, recharge.montant_tva)
         return base, tva, n
 
     def _maintenances_externes_qs(self):
@@ -297,23 +397,25 @@ class CalculTVA:
             self._filtre_societe(), date_facture__range=(self.debut, self.fin)
         )
 
-    def _somme_maintenances_externes(self, qs):
+    def _somme_maintenances_externes(self, qs, cle):
         base = tva = ZERO
         n = 0
-        for m in qs:
+        for m in qs.select_related("garage", "voiture_exemplaire"):
             base += m.total_htva or ZERO
             tva += m.total_tva or ZERO
             n += 1
+            self._mvt_recuperer(cle, m.date_facture, m.numero_facture, m.garage,
+                                getattr(m.voiture_exemplaire, "immatriculation", ""), m.total_htva, m.total_tva)
         return base, tva, n
 
     def _maintenances_externes(self):
         return self._somme_maintenances_externes(
-            self._maintenances_externes_qs().filter(pays=self.pays_par_defaut())
+            self._maintenances_externes_qs().filter(pays=self.pays_par_defaut()), "maintenances_externes"
         )
 
     def _maintenances_externes_etranger(self):
         return self._somme_maintenances_externes(
-            self._maintenances_externes_qs().exclude(pays=self.pays_par_defaut())
+            self._maintenances_externes_qs().exclude(pays=self.pays_par_defaut()), "maintenances_externes_etranger"
         )
 
     def _maintenances_internes(self):
@@ -322,12 +424,18 @@ class CalculTVA:
         n = 0
         for facture in self.factures_periode().filter(client_est_societe=True):
             n += 1
+            base_f = tva_f = ZERO
             for ligne in facture.lines.all():
                 if ligne.type_ligne != FactureLine.TypeLigne.PIECE or ligne.unit_cost is None:
                     continue
                 montant = arrondi(Decimal(ligne.unit_cost) * Decimal(ligne.quantity or 0))
+                tva_ligne = arrondi(montant * Decimal(ligne.vat_rate or 0) / Decimal("100"))
                 base += montant
-                tva += arrondi(montant * Decimal(ligne.vat_rate or 0) / Decimal("100"))
+                tva += tva_ligne
+                base_f += montant
+                tva_f += tva_ligne
+            self._mvt_recuperer("maintenances_internes", facture.issue_date, facture.numero,
+                                facture.nom_client_courant(), _("Pièces (coût d'achat)"), base_f, tva_f)
         return base, tva, n
 
     @property
@@ -347,6 +455,7 @@ class CalculTVA:
             "maintenances_internes": self._maintenances_internes,
         }
         lignes = []
+        self._mvts_recuperer = []
         for cle, fonction in calculs.items():
             base, tva, n = fonction()
             pourcentage = self.deductibilite[cle]

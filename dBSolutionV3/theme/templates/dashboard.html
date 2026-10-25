@@ -36,7 +36,9 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-    <div class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <a href="{% url 'utilisateurs:mon_compte' %}"
+       title="{% trans 'Ouvrir mon dashboard utilisateur' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
         <div>
             <h2 class="text-lg font-semibold mb-1">
                 {% trans "Utilisateur" %}
@@ -47,14 +49,18 @@
             </p>
 
             <p class="text-gray-500 text-sm">
-                {{ user_role }}
+                {{ role_display }}
+            </p>
+
+            <p class="text-blue-700 text-xs mt-1">
+                {% trans "Mon compte, mot de passe, statistiques" %} →
             </p>
         </div>
 
         <img src="{% static 'icons/equipe.png' %}"
              alt="{% trans 'Utilisateur' %}"
              class="w-[60px] h-[60px]">
-    </div>
+    </a>
 
     <div class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
         <div>

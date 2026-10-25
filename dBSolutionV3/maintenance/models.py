@@ -64,6 +64,8 @@ class Maintenance(models.Model):
         BAS_MOTEUR = "BAS_MOTEUR", _("Bas moteur")
         ESP = "ESP", _("ESP (contrôle de stabilité)")
         AIDE_STATIONNEMENT = "AIDE_STATIONNEMENT", _("Aide au stationnement")
+        VENTILATION = "VENTILATION", _("Ventilation")
+        SECURITE = "SECURITE", _("Sécurité (ceintures, airbags, radar)")
         PC_ARCEAU = "PC_ARCEAU", _("Arceau de sécurité")
         PC_EXTINCTEUR = "PC_EXTINCTEUR", _("Extincteur")
         PC_SIEGES = "PC_SIEGES", _("Sièges baquets et harnais")
@@ -96,6 +98,7 @@ class Maintenance(models.Model):
         ECH_SILENT_BLOCS_ECHAPPEMENT = "ECH_SILENT_BLOCS_ECHAPPEMENT", _("Silent blocs d'échappement")
         METROLOGIE_MOTEUR = "METROLOGIE_MOTEUR", _("Métrologie moteur")
         CASSE_MOTEUR = "CASSE_MOTEUR", _("Casse moteur")
+        CASSE_BOITE = "CASSE_BOITE", _("Casse boîte manuelle")
 
     class Tag(models.TextChoices):
         VERT = "VERT", _("Vert")
