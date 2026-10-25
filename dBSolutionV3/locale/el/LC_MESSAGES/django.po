@@ -63337,3 +63337,63 @@ msgstr "Τύπος turbo"
 #: maintenance/autres_interventions/moteur/montage_turbo
 msgid "Wastegate externe"
 msgstr "Εξωτερική wastegate"
+
+#: utilisateurs/profil
+msgid "Ce champ est obligatoire."
+msgstr "Αυτό το πεδίο είναι υποχρεωτικό."
+
+#: utilisateurs/profil
+msgid "Compte actif"
+msgstr "Ενεργός λογαριασμός"
+
+#: utilisateurs/profil
+msgid "Compte désactivé"
+msgstr "Απενεργοποιημένος λογαριασμός"
+
+#: utilisateurs/profil
+msgid "Confirmer le mot de passe"
+msgstr "Επιβεβαίωση κωδικού"
+
+#: utilisateurs/profil
+msgid "E-mail entreprise (récupération du mot de passe)"
+msgstr "Εταιρικό e-mail (ανάκτηση κωδικού)"
+
+#: utilisateurs/profil
+msgid "Envoyer un lien de réinitialisation"
+msgstr "Αποστολή συνδέσμου επαναφοράς"
+
+#: utilisateurs/profil
+msgid "Envoyer un lien de réinitialisation du mot de passe à cet utilisateur ?"
+msgstr "Αποστολή συνδέσμου επαναφοράς κωδικού σε αυτόν τον χρήστη;"
+
+#: utilisateurs/profil
+msgid "Inactif"
+msgstr "Ανενεργός"
+
+#: utilisateurs/profil
+msgid "Laissez vide pour ne pas enregistrer d'adresse."
+msgstr "Αφήστε κενό για να μην αποθηκευτεί διεύθυνση."
+
+#: utilisateurs/profil
+msgid "Le lien « Mot de passe oublié » est envoyé à cette adresse ; à défaut, à l'e-mail de connexion."
+msgstr "Ο σύνδεσμος «Ξέχασα τον κωδικό» αποστέλλεται σε αυτή τη διεύθυνση· αλλιώς στο e-mail σύνδεσης."
+
+#: utilisateurs/profil
+msgid "Modifier le profil"
+msgstr "Επεξεργασία προφίλ"
+
+#: utilisateurs/profil
+msgid "Profil enregistré."
+msgstr "Το προφίλ αποθηκεύτηκε."
+
+#: utilisateurs/profil
+msgid "Retour à la liste des utilisateurs"
+msgstr "Επιστροφή στη λίστα χρηστών"
+
+#: utilisateurs/profil
+msgid "Vous ne pouvez pas modifier votre propre rôle."
+msgstr "Δεν μπορείτε να αλλάξετε τον δικό σας ρόλο."
+
+#: utilisateurs/profil
+msgid "non modifiable sur votre propre compte"
+msgstr "δεν αλλάζει στον δικό σας λογαριασμό"

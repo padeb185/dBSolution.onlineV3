@@ -347,6 +347,18 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         return formater_iban(self.numero_compte_bancaire) if self.numero_compte_bancaire else ""
 
     @property
+    def iban_masque(self):
+        """IBAN masqué : seuls les 4 derniers chiffres sont visibles (ex. « BE•• •••• •••• 7034 »)."""
+        import re
+        brut = re.sub(r"[^0-9A-Za-z]", "", self.numero_compte_bancaire or "").upper()
+        if not brut:
+            return ""
+        if len(brut) <= 4:
+            return brut
+        masque = brut[:2] + "•" * (len(brut) - 6) + brut[-4:]
+        return " ".join(masque[i:i + 4] for i in range(0, len(masque), 4))
+
+    @property
     def iban_valide(self):
         from core.iban import erreur_iban
         return bool(self.numero_compte_bancaire) and erreur_iban(self.numero_compte_bancaire) is None

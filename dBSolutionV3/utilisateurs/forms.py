@@ -5,6 +5,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from .models import PaieUtilisateur, Utilisateur
+from adresse.models import Adresse
 
 
 from .mot_de_passe import ComplexiteValidator, verifier_confirmation, widget_confirmation, widget_nouveau  # noqa: E402
@@ -391,3 +392,71 @@ class UtilisateurIbanForm(forms.ModelForm):
     def clean_numero_compte_bancaire(self):
         from core.iban import nettoyer_iban_formulaire
         return nettoyer_iban_formulaire(self.cleaned_data.get("numero_compte_bancaire"))
+
+
+class UtilisateurProfilForm(forms.ModelForm):
+    """Édition du profil d'un utilisateur par la direction / le super-admin."""
+
+    class Meta:
+        model = Utilisateur
+        fields = [
+            "nom", "prenom", "role", "email", "email_entreprise", "telephone",
+            "date_naissance", "numero_registre_national", "salaire_brut_heure", "is_active",
+        ]
+        labels = {
+            "nom": _("Nom"),
+            "prenom": _("Prénom"),
+            "email": _("E-mail"),
+            "email_entreprise": _("E-mail entreprise"),
+            "telephone": _("Téléphone"),
+            "date_naissance": _("Date de naissance"),
+            "numero_registre_national": _("Numéro de registre national"),
+            "is_active": _("Compte actif"),
+        }
+        widgets = {
+            "date_naissance": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+        }
+
+    def __init__(self, *args, editeur=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.editeur = editeur
+        for nom in ("email", "email_entreprise"):
+            self.fields[nom].required = False
+        # Un utilisateur ne peut pas se retirer lui-même le rôle direction ni désactiver son compte
+        if editeur is not None and self.instance.pk == editeur.pk and not editeur.is_superuser:
+            self.fields["role"].disabled = True
+            self.fields["is_active"].disabled = True
+
+    def clean_email(self):
+        return self.cleaned_data.get("email") or None
+
+    def clean_email_entreprise(self):
+        return self.cleaned_data.get("email_entreprise") or None
+
+
+class AdresseUtilisateurForm(forms.ModelForm):
+    class Meta:
+        model = Adresse
+        fields = ["rue", "numero", "boite", "code_postal", "ville", "pays", "code_pays"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for f in self.fields.values():
+            f.required = False
+
+    def est_vide(self):
+        return not any(self.cleaned_data.get(n) for n in ("rue", "numero", "code_postal", "ville"))
+
+    def clean(self):
+        cleaned = super().clean()
+        if not self.est_vide():
+            for n in ("rue", "numero", "code_postal", "ville"):
+                if not cleaned.get(n):
+                    self.add_error(n, _("Ce champ est obligatoire."))
+        return cleaned
+
+    def _post_clean(self):
+        # Pas de validation du modèle (doublons) si l'adresse est laissée vide
+        if self.is_bound and hasattr(self, "cleaned_data") and self.est_vide():
+            return
+        super()._post_clean()

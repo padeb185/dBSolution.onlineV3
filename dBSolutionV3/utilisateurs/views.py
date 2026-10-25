@@ -683,9 +683,14 @@ def dashboard_admin(request):
 
 
 
+@never_cache
 @login_required
-@user_passes_test(is_admin)
 def liste_utilisateurs(request):
+    from .views_profil import peut_gerer_utilisateurs
+    if not peut_gerer_utilisateurs(request.user):
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
     tenant = request.user.societe
 
     utilisateurs = (

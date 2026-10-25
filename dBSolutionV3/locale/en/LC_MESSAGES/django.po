@@ -62981,3 +62981,63 @@ msgstr "Turbo type"
 #: maintenance/autres_interventions/moteur/montage_turbo
 msgid "Wastegate externe"
 msgstr "External wastegate"
+
+#: utilisateurs/profil
+msgid "Ce champ est obligatoire."
+msgstr "This field is required."
+
+#: utilisateurs/profil
+msgid "Compte actif"
+msgstr "Active account"
+
+#: utilisateurs/profil
+msgid "Compte désactivé"
+msgstr "Account disabled"
+
+#: utilisateurs/profil
+msgid "Confirmer le mot de passe"
+msgstr "Confirm password"
+
+#: utilisateurs/profil
+msgid "E-mail entreprise (récupération du mot de passe)"
+msgstr "Work e-mail (password recovery)"
+
+#: utilisateurs/profil
+msgid "Envoyer un lien de réinitialisation"
+msgstr "Send a reset link"
+
+#: utilisateurs/profil
+msgid "Envoyer un lien de réinitialisation du mot de passe à cet utilisateur ?"
+msgstr "Send a password reset link to this user?"
+
+#: utilisateurs/profil
+msgid "Inactif"
+msgstr "Inactive"
+
+#: utilisateurs/profil
+msgid "Laissez vide pour ne pas enregistrer d'adresse."
+msgstr "Leave empty to not save an address."
+
+#: utilisateurs/profil
+msgid "Le lien « Mot de passe oublié » est envoyé à cette adresse ; à défaut, à l'e-mail de connexion."
+msgstr "The “Forgot password” link is sent to this address; otherwise to the login e-mail."
+
+#: utilisateurs/profil
+msgid "Modifier le profil"
+msgstr "Edit profile"
+
+#: utilisateurs/profil
+msgid "Profil enregistré."
+msgstr "Profile saved."
+
+#: utilisateurs/profil
+msgid "Retour à la liste des utilisateurs"
+msgstr "Back to the user list"
+
+#: utilisateurs/profil
+msgid "Vous ne pouvez pas modifier votre propre rôle."
+msgstr "You cannot change your own role."
+
+#: utilisateurs/profil
+msgid "non modifiable sur votre propre compte"
+msgstr "cannot be changed on your own account"

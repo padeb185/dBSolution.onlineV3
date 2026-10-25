@@ -27,9 +27,14 @@ def _heures_minutes(minutes):
 @login_required
 def mon_compte_view(request):
     user = request.user
-    societe = getattr(user, "societe", None)
-    if not societe:
+    if not getattr(user, "societe", None):
         return redirect("utilisateurs:dashboard")
+    return render(request, "utilisateurs/mon_compte.html", contexte_compte(user))
+
+
+def contexte_compte(user):
+    """Infos, adresse, maintenances et paies d'un utilisateur (dashboard « Mon compte » / profil)."""
+    societe = getattr(user, "societe", None)
 
     aujourdhui = timezone.localdate()
     annee = aujourdhui.year
@@ -145,7 +150,7 @@ def mon_compte_view(request):
         "dernieres": list(paies[:12]),
     }
 
-    return render(request, "utilisateurs/mon_compte.html", {
+    return {
         "u": user,
         "societe": societe,
         "adresse": getattr(user, "adresse", None),
@@ -153,4 +158,4 @@ def mon_compte_view(request):
         "maint": maint,
         "paie": paie,
         "annee": annee,
-    })
+    }

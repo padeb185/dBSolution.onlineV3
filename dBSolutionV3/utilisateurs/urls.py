@@ -5,6 +5,7 @@ from . import views_paie
 from . import views_tenants
 from . import views_mot_de_passe
 from . import views_mon_compte
+from . import views_profil
 
 
 app_name = "utilisateurs"
@@ -61,6 +62,19 @@ urlpatterns = [
         "admin/utilisateurs/",
         views.liste_utilisateurs,
         name="liste_utilisateurs",
+    ),
+
+    # Profil d'un utilisateur (direction / super-admin)
+    path(
+        "admin/utilisateurs/<uuid:pk>/profil/",
+        views_profil.utilisateur_profil,
+        name="utilisateur_profil",
+    ),
+
+    path(
+        "admin/utilisateurs/<uuid:pk>/modifier/",
+        views_profil.utilisateur_modifier,
+        name="utilisateur_modifier",
     ),
 
     path(
