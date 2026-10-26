@@ -48,7 +48,7 @@
             <img src="{% static 'icons/mecanique.png' %}" alt="" class="w-20 h-20">
             {% trans "Véhicule et garage" %}
         </h2>
-        {% include "maintenance_externe/_champ.html" with field=form.voiture_exemplaire %}
+        {% include "maintenance_externe/_champ.html" with field=form.voiture_exemplaire apercu_vehicule=True %}
         {% include "maintenance_externe/_champ.html" with field=form.garage %}
         <p class="text-sm -mt-2">
             <a href="{% url 'garage_officiel:garage_ajouter' %}?next={{ request.path|urlencode }}" class="text-blue-700 hover:underline">+ {% trans "Ajouter un garage officiel" %}</a>

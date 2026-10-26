@@ -467,7 +467,8 @@ class VoitureExemplaire(models.Model):
         # MOTEUR
         # -------------------------
         if self.kilometres_remplacement_moteur:
-            self.kilometres_moteur = km_chassis - self.kilometres_remplacement_moteur
+            # Jamais négatif (remplacement saisi au-delà du compteur châssis actuel)
+            self.kilometres_moteur = max(0, km_chassis - self.kilometres_remplacement_moteur)
         else:
             self.kilometres_moteur = km_chassis
 
@@ -475,7 +476,7 @@ class VoitureExemplaire(models.Model):
         # BOÎTE
         # -------------------------
         if self.kilometres_remplacement_boite:
-           self.kilometres_boite = km_chassis - self.kilometres_remplacement_boite
+            self.kilometres_boite = max(0, km_chassis - self.kilometres_remplacement_boite)
         else:
             self.kilometres_boite = km_chassis
 
@@ -483,7 +484,7 @@ class VoitureExemplaire(models.Model):
         # EMBRAYAGE
         # -------------------------
         if self.kilometres_remplacement_embrayage:
-            self.kilometres_embrayage = km_chassis - self.kilometres_remplacement_embrayage
+            self.kilometres_embrayage = max(0, km_chassis - self.kilometres_remplacement_embrayage)
         else:
             self.kilometres_embrayage = km_chassis
 

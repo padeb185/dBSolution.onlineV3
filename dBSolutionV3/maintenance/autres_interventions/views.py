@@ -142,6 +142,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     total_turbo = 0
 
     total_cardan = 0
+    total_arbre_transmission = 0
     total_roulement = 0
     total_suspension = 0
     total_preparation_course = 0
@@ -245,6 +246,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
             total_embrayage = embrayage.count()
             total_allumage = allumage.count()
             total_cardan = cardan.count()
+            from maintenance.autres_interventions.arbre_transmission.models import ArbreTransmission
+            total_arbre_transmission = ArbreTransmission.objects.filter(voiture_exemplaire=exemplaire).count()
             total_roulement = roulement.count()
             from maintenance.autres_interventions.suspension.composants import total_suspension as _total_suspension
             total_suspension = _total_suspension(exemplaire)
@@ -406,6 +409,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_embrayage": total_embrayage,
         "total_allumage" : total_allumage,
         "total_cardan": total_cardan,
+        "total_arbre_transmission": total_arbre_transmission,
         "total_roulement": total_roulement,
         "total_suspension": total_suspension,
         "total_preparation_course": total_preparation_course,

@@ -63606,3 +63606,152 @@ msgstr "Από την έξοδο"
 #: agenda/templates/agenda/agenda_location_controle.html
 msgid "Dépassement"
 msgstr "Υπέρβαση"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Arbre de transmission (complet)"
+msgstr "Κεντρικός άξονας μετάδοσης (πλήρης)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Tube d'arbre (voilage / choc)"
+msgstr "Σωλήνας άξονα (στρέβλωση / χτύπημα)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Équilibrage de l'arbre"
+msgstr "Ζυγοστάθμιση άξονα"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Flector avant (disque flexible)"
+msgstr "Εμπρός ελαστικός σύνδεσμος (flector)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Flector arrière (disque flexible)"
+msgstr "Πίσω ελαστικός σύνδεσμος (flector)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Palier central (support)"
+msgstr "Κεντρικό έδρανο (βάση)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Roulement de palier central"
+msgstr "Ρουλεμάν κεντρικού εδράνου"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Croisillon avant"
+msgstr "Εμπρός σταυρός"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Croisillon central"
+msgstr "Κεντρικός σταυρός"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Croisillon arrière"
+msgstr "Πίσω σταυρός"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Joint coulissant / cannelures"
+msgstr "Συρόμενος σύνδεσμος / αυλακώσεις"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Soufflet de joint coulissant"
+msgstr "Φούσκα συρόμενου συνδέσμου"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Joint homocinétique d'arbre"
+msgstr "Ομοκινητικός σύνδεσμος άξονα"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Bague de centrage"
+msgstr "Δακτύλιος κεντραρίσματος"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Amortisseur de vibrations (damper)"
+msgstr "Αποσβεστήρας κραδασμών"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Bride / flasque de sortie de boîte"
+msgstr "Φλάντζα εξόδου κιβωτίου"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Bride / flasque de pont"
+msgstr "Φλάντζα διαφορικού"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Joint spi d'entrée de pont"
+msgstr "Τσιμούχα εισόδου διαφορικού"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Fixations (vis / écrous / rondelles)"
+msgstr "Στερεώσεις (βίδες / παξιμάδια / ροδέλες)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Central"
+msgstr "Κεντρικό"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Arbre avant (4x4)"
+msgstr "Εμπρός άξονας (4x4)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Arbre arrière (4x4)"
+msgstr "Πίσω άξονας (4x4)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôle arbre de transmission"
+msgstr "Έλεγχος κεντρικού άξονα"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôles arbres de transmission"
+msgstr "Έλεγχοι κεντρικού άξονα"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôle arbre de transmission enregistré avec succès."
+msgstr "Ο έλεγχος κεντρικού άξονα αποθηκεύτηκε."
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôle arbre de transmission modifié avec succès !"
+msgstr "Ο έλεγχος κεντρικού άξονα τροποποιήθηκε!"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôle arbre de transmission supprimé avec succès."
+msgstr "Ο έλεγχος κεντρικού άξονα διαγράφηκε."
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Détails du contrôle arbre de transmission"
+msgstr "Λεπτομέρειες ελέγχου κεντρικού άξονα"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Liste des contrôles arbre de transmission"
+msgstr "Λίστα ελέγχων κεντρικού άξονα"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Modification du contrôle de l'arbre de transmission"
+msgstr "Τροποποίηση ελέγχου κεντρικού άξονα"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Suppression du contrôle de l'arbre de transmission"
+msgstr "Διαγραφή ελέγχου κεντρικού άξονα"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Modifier le contrôle arbre de transmission"
+msgstr "Επεξεργασία ελέγχου κεντρικού άξονα"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Supprimer le contrôle arbre de transmission"
+msgstr "Διαγραφή ελέγχου κεντρικού άξονα"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Rapport de contrôle arbre de transmission"
+msgstr "Αναφορά ελέγχου κεντρικού άξονα"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Retour à la liste des contrôles arbre de transmission"
+msgstr "Επιστροφή στη λίστα ελέγχων κεντρικού άξονα"
+
+#: maintenance/autres_interventions/arbre_transmission
+#, python-format
+msgid "Voulez-vous vraiment supprimer le contrôle arbre de transmission du %(date)s (%(km)s km) pour :"
+msgstr "Θέλετε σίγουρα να διαγράψετε τον έλεγχο κεντρικού άξονα της %(date)s (%(km)s km) για:"
+
+#: facture/templates/facture/factures_a_payer.html
+msgid "Achats, outillage et maintenances externes"
+msgstr "Αγορές, εργαλεία και εξωτερικές συντηρήσεις"

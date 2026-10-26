@@ -11,6 +11,11 @@
         {{ field|add_class:"input" }}
     {% endif %}
 
+    {% if apercu_vehicule %}
+        {# Sélecteur mis en forme : logo de la marque, modèle et plaque d'immatriculation #}
+        {% include "maintenance/partials/apercu_vehicule_select.html" with field=field %}
+    {% endif %}
+
     {% if field.help_text %}
         <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
     {% endif %}

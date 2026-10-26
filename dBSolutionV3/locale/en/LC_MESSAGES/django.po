@@ -63250,3 +63250,152 @@ msgstr "Taken from check-out"
 #: agenda/templates/agenda/agenda_location_controle.html
 msgid "Dépassement"
 msgstr "Excess"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Arbre de transmission (complet)"
+msgstr "Propeller shaft (complete)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Tube d'arbre (voilage / choc)"
+msgstr "Shaft tube (runout / impact)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Équilibrage de l'arbre"
+msgstr "Shaft balancing"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Flector avant (disque flexible)"
+msgstr "Front flex disc (guibo)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Flector arrière (disque flexible)"
+msgstr "Rear flex disc (guibo)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Palier central (support)"
+msgstr "Centre bearing (support)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Roulement de palier central"
+msgstr "Centre support bearing"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Croisillon avant"
+msgstr "Front universal joint"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Croisillon central"
+msgstr "Centre universal joint"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Croisillon arrière"
+msgstr "Rear universal joint"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Joint coulissant / cannelures"
+msgstr "Slip joint / splines"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Soufflet de joint coulissant"
+msgstr "Slip joint boot"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Joint homocinétique d'arbre"
+msgstr "Propeller shaft CV joint"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Bague de centrage"
+msgstr "Centring bush"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Amortisseur de vibrations (damper)"
+msgstr "Vibration damper"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Bride / flasque de sortie de boîte"
+msgstr "Gearbox output flange"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Bride / flasque de pont"
+msgstr "Differential flange"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Joint spi d'entrée de pont"
+msgstr "Differential pinion seal"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Fixations (vis / écrous / rondelles)"
+msgstr "Fasteners (bolts / nuts / washers)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Central"
+msgstr "Centre"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Arbre avant (4x4)"
+msgstr "Front shaft (4x4)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Arbre arrière (4x4)"
+msgstr "Rear shaft (4x4)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôle arbre de transmission"
+msgstr "Propeller shaft inspection"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôles arbres de transmission"
+msgstr "Propeller shaft inspections"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôle arbre de transmission enregistré avec succès."
+msgstr "Propeller shaft inspection saved successfully."
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôle arbre de transmission modifié avec succès !"
+msgstr "Propeller shaft inspection updated successfully!"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôle arbre de transmission supprimé avec succès."
+msgstr "Propeller shaft inspection deleted successfully."
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Détails du contrôle arbre de transmission"
+msgstr "Propeller shaft inspection details"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Liste des contrôles arbre de transmission"
+msgstr "Propeller shaft inspections list"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Modification du contrôle de l'arbre de transmission"
+msgstr "Propeller shaft inspection edit"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Suppression du contrôle de l'arbre de transmission"
+msgstr "Propeller shaft inspection deletion"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Modifier le contrôle arbre de transmission"
+msgstr "Edit propeller shaft inspection"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Supprimer le contrôle arbre de transmission"
+msgstr "Delete propeller shaft inspection"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Rapport de contrôle arbre de transmission"
+msgstr "Propeller shaft inspection report"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Retour à la liste des contrôles arbre de transmission"
+msgstr "Back to propeller shaft inspections"
+
+#: maintenance/autres_interventions/arbre_transmission
+#, python-format
+msgid "Voulez-vous vraiment supprimer le contrôle arbre de transmission du %(date)s (%(km)s km) pour :"
+msgstr "Do you really want to delete the propeller shaft inspection of %(date)s (%(km)s km) for:"
+
+#: facture/templates/facture/factures_a_payer.html
+msgid "Achats, outillage et maintenances externes"
+msgstr "Purchases, tools and external maintenance"

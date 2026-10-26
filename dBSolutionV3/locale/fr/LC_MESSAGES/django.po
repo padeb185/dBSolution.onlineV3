@@ -62829,3 +62829,152 @@ msgstr "Repris de la sortie"
 #: agenda/templates/agenda/agenda_location_controle.html
 msgid "Dépassement"
 msgstr "Dépassement"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Arbre de transmission (complet)"
+msgstr "Arbre de transmission (complet)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Tube d'arbre (voilage / choc)"
+msgstr "Tube d'arbre (voilage / choc)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Équilibrage de l'arbre"
+msgstr "Équilibrage de l'arbre"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Flector avant (disque flexible)"
+msgstr "Flector avant (disque flexible)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Flector arrière (disque flexible)"
+msgstr "Flector arrière (disque flexible)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Palier central (support)"
+msgstr "Palier central (support)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Roulement de palier central"
+msgstr "Roulement de palier central"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Croisillon avant"
+msgstr "Croisillon avant"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Croisillon central"
+msgstr "Croisillon central"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Croisillon arrière"
+msgstr "Croisillon arrière"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Joint coulissant / cannelures"
+msgstr "Joint coulissant / cannelures"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Soufflet de joint coulissant"
+msgstr "Soufflet de joint coulissant"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Joint homocinétique d'arbre"
+msgstr "Joint homocinétique d'arbre"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Bague de centrage"
+msgstr "Bague de centrage"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Amortisseur de vibrations (damper)"
+msgstr "Amortisseur de vibrations (damper)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Bride / flasque de sortie de boîte"
+msgstr "Bride / flasque de sortie de boîte"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Bride / flasque de pont"
+msgstr "Bride / flasque de pont"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Joint spi d'entrée de pont"
+msgstr "Joint spi d'entrée de pont"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Fixations (vis / écrous / rondelles)"
+msgstr "Fixations (vis / écrous / rondelles)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Central"
+msgstr "Central"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Arbre avant (4x4)"
+msgstr "Arbre avant (4x4)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Arbre arrière (4x4)"
+msgstr "Arbre arrière (4x4)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôle arbre de transmission"
+msgstr "Contrôle arbre de transmission"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôles arbres de transmission"
+msgstr "Contrôles arbres de transmission"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôle arbre de transmission enregistré avec succès."
+msgstr "Contrôle arbre de transmission enregistré avec succès."
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôle arbre de transmission modifié avec succès !"
+msgstr "Contrôle arbre de transmission modifié avec succès !"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôle arbre de transmission supprimé avec succès."
+msgstr "Contrôle arbre de transmission supprimé avec succès."
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Détails du contrôle arbre de transmission"
+msgstr "Détails du contrôle arbre de transmission"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Liste des contrôles arbre de transmission"
+msgstr "Liste des contrôles arbre de transmission"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Modification du contrôle de l'arbre de transmission"
+msgstr "Modification du contrôle de l'arbre de transmission"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Suppression du contrôle de l'arbre de transmission"
+msgstr "Suppression du contrôle de l'arbre de transmission"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Modifier le contrôle arbre de transmission"
+msgstr "Modifier le contrôle arbre de transmission"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Supprimer le contrôle arbre de transmission"
+msgstr "Supprimer le contrôle arbre de transmission"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Rapport de contrôle arbre de transmission"
+msgstr "Rapport de contrôle arbre de transmission"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Retour à la liste des contrôles arbre de transmission"
+msgstr "Retour à la liste des contrôles arbre de transmission"
+
+#: maintenance/autres_interventions/arbre_transmission
+#, python-format
+msgid "Voulez-vous vraiment supprimer le contrôle arbre de transmission du %(date)s (%(km)s km) pour :"
+msgstr "Voulez-vous vraiment supprimer le contrôle arbre de transmission du %(date)s (%(km)s km) pour :"
+
+#: facture/templates/facture/factures_a_payer.html
+msgid "Achats, outillage et maintenances externes"
+msgstr "Achats, outillage et maintenances externes"

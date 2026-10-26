@@ -63600,3 +63600,152 @@ msgstr "Von der Ausgabe übernommen"
 #: agenda/templates/agenda/agenda_location_controle.html
 msgid "Dépassement"
 msgstr "Überschreitung"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Arbre de transmission (complet)"
+msgstr "Kardanwelle (komplett)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Tube d'arbre (voilage / choc)"
+msgstr "Wellenrohr (Schlag / Beschädigung)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Équilibrage de l'arbre"
+msgstr "Wellenauswuchtung"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Flector avant (disque flexible)"
+msgstr "Hardyscheibe vorne"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Flector arrière (disque flexible)"
+msgstr "Hardyscheibe hinten"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Palier central (support)"
+msgstr "Mittellager (Halter)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Roulement de palier central"
+msgstr "Mittellager-Kugellager"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Croisillon avant"
+msgstr "Kreuzgelenk vorne"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Croisillon central"
+msgstr "Kreuzgelenk Mitte"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Croisillon arrière"
+msgstr "Kreuzgelenk hinten"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Joint coulissant / cannelures"
+msgstr "Schiebestück / Verzahnung"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Soufflet de joint coulissant"
+msgstr "Manschette Schiebestück"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Joint homocinétique d'arbre"
+msgstr "Gleichlaufgelenk der Kardanwelle"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Bague de centrage"
+msgstr "Zentrierbuchse"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Amortisseur de vibrations (damper)"
+msgstr "Schwingungsdämpfer"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Bride / flasque de sortie de boîte"
+msgstr "Getriebeausgangsflansch"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Bride / flasque de pont"
+msgstr "Differenzialflansch"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Joint spi d'entrée de pont"
+msgstr "Wellendichtring Differenzialeingang"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Fixations (vis / écrous / rondelles)"
+msgstr "Befestigungen (Schrauben / Muttern / Scheiben)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Central"
+msgstr "Mitte"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Arbre avant (4x4)"
+msgstr "Vordere Welle (4x4)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Arbre arrière (4x4)"
+msgstr "Hintere Welle (4x4)"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôle arbre de transmission"
+msgstr "Kontrolle Kardanwelle"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôles arbres de transmission"
+msgstr "Kontrollen Kardanwelle"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôle arbre de transmission enregistré avec succès."
+msgstr "Kontrolle Kardanwelle erfolgreich gespeichert."
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôle arbre de transmission modifié avec succès !"
+msgstr "Kontrolle Kardanwelle erfolgreich geändert!"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Contrôle arbre de transmission supprimé avec succès."
+msgstr "Kontrolle Kardanwelle erfolgreich gelöscht."
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Détails du contrôle arbre de transmission"
+msgstr "Details Kontrolle Kardanwelle"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Liste des contrôles arbre de transmission"
+msgstr "Liste der Kontrollen Kardanwelle"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Modification du contrôle de l'arbre de transmission"
+msgstr "Änderung Kontrolle Kardanwelle"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Suppression du contrôle de l'arbre de transmission"
+msgstr "Löschung Kontrolle Kardanwelle"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Modifier le contrôle arbre de transmission"
+msgstr "Kontrolle Kardanwelle bearbeiten"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Supprimer le contrôle arbre de transmission"
+msgstr "Kontrolle Kardanwelle löschen"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Rapport de contrôle arbre de transmission"
+msgstr "Bericht Kontrolle Kardanwelle"
+
+#: maintenance/autres_interventions/arbre_transmission
+msgid "Retour à la liste des contrôles arbre de transmission"
+msgstr "Zurück zur Liste der Kontrollen Kardanwelle"
+
+#: maintenance/autres_interventions/arbre_transmission
+#, python-format
+msgid "Voulez-vous vraiment supprimer le contrôle arbre de transmission du %(date)s (%(km)s km) pour :"
+msgstr "Möchten Sie die Kontrolle Kardanwelle vom %(date)s (%(km)s km) wirklich löschen für:"
+
+#: facture/templates/facture/factures_a_payer.html
+msgid "Achats, outillage et maintenances externes"
+msgstr "Einkäufe, Werkzeug und externe Wartungen"

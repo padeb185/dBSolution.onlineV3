@@ -18,9 +18,10 @@
             {% endfor %}
         </select>
         <select name="type" class="border rounded px-3 py-2" onchange="this.form.submit()">
-            <option value="">{% trans "Achats et outillage" %}</option>
+            <option value="">{% trans "Achats, outillage et maintenances externes" %}</option>
             <option value="achat" {% if type_filtre == "achat" %}selected{% endif %}>{% trans "Achats" %}</option>
             <option value="outillage" {% if type_filtre == "outillage" %}selected{% endif %}>{% trans "Outillage" %}</option>
+            <option value="externe" {% if type_filtre == "externe" %}selected{% endif %}>{% trans "Maintenances externes" %}</option>
         </select>
         <a href="{% url 'achat_mds:achat_form' %}" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">{% trans "Encoder une facture d'achat" %}</a>
         <a href="{% url 'facture:maintenances' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Facturation" %}</a>

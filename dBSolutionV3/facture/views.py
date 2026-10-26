@@ -980,6 +980,7 @@ def caisse_banque_view(request):
 @login_required
 def factures_a_payer_view(request):
     from achat_mds.models import AchatMds
+    from maintenance.maintenance_externe.models import MaintenanceExterne
     from outillage.models import Outillage
 
     if not _peut(request.user, ROLES_FACTURATION):
@@ -990,14 +991,22 @@ def factures_a_payer_view(request):
     sources = {
         "achat": AchatMds.objects.filter(societe=societe).select_related("fournisseur"),
         "outillage": Outillage.objects.filter(societe=societe).select_related("fournisseur"),
+        # Factures des garages officiels (maintenances externes) : le garage tient lieu de fournisseur
+        "externe": MaintenanceExterne.objects.filter(societe=societe).select_related(
+            "garage", "voiture_exemplaire"),
     }
+    CHAMP_FOURNISSEUR = {"externe": "garage_id"}
 
     def detail_url(obj):
+        if isinstance(obj, MaintenanceExterne):
+            return reverse("maintenance_externe:maintenance_externe_modifier", args=[obj.pk])
         if isinstance(obj, Outillage):
             return reverse("outillage:outillage_detail", args=[obj.pk])
         return reverse("achat_mds:achat_detail", args=[obj.pk])
 
     def nature(obj):
+        if isinstance(obj, MaintenanceExterne):
+            return _("Maintenance externe")
         return _("Outillage") if isinstance(obj, Outillage) else _("Achat")
 
     def libelle(obj):
@@ -1008,6 +1017,7 @@ def factures_a_payer_view(request):
         qs = sources.get(request.POST.get("type"), sources["achat"])
         achat = get_object_or_404(qs, pk=request.POST.get("achat_id"))
         nom = achat.reference_facture or achat.fournisseur.nom
+        champs_maj = ["date_paiement"] if isinstance(achat, MaintenanceExterne) else None
         if request.POST.get("action") == "annuler":
             achat.date_paiement = None
             message = _("Paiement annulé : %(achat)s") % {"achat": nom}
@@ -1017,7 +1027,8 @@ def factures_a_payer_view(request):
             except ValueError:
                 achat.date_paiement = timezone.localdate()
             message = _("Facture d'achat payée : %(achat)s") % {"achat": nom}
-        achat.save()
+        # Maintenance externe : ne pas relancer le calcul ni les compteurs du véhicule
+        achat.save(update_fields=champs_maj) if champs_maj else achat.save()
         UserLog.objects.create(utilisateur=request.user, action=str(message))
         messages.success(request, message)
         return redirect(f"{reverse('facture:a_payer')}?{request.GET.urlencode()}")
@@ -1032,7 +1043,7 @@ def factures_a_payer_view(request):
             continue
         q = qs.filter(date_paiement__isnull=True)
         if fournisseur_id:
-            q = q.filter(fournisseur_id=fournisseur_id)
+            q = q.filter(**{CHAMP_FOURNISSEUR.get(type_, "fournisseur_id"): fournisseur_id})
         a_payer += [(type_, o) for o in q]
     a_payer.sort(key=lambda t: t[1].date_facture or aujourdhui)
 

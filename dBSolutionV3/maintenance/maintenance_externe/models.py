@@ -89,6 +89,9 @@ class MaintenanceExterne(models.Model):
 
     description = models.TextField(_("Description des travaux"), blank=True)
 
+    # Paiement de la facture du garage (page « Factures à payer »)
+    date_paiement = models.DateField(_("Date de paiement"), null=True, blank=True)
+
     # -------------------------------------------------------------
     # Compteurs du véhicule AVANT l'intervention (pour l'annulation)
     # -------------------------------------------------------------
@@ -114,6 +117,38 @@ class MaintenanceExterne(models.Model):
 
     def __str__(self):
         return f"{self.voiture_exemplaire} – {self.get_type_maintenance_display()} – {self.garage}"
+
+    # -------------------------------------------------------------
+    # Interface commune avec les factures d'achat (Factures à payer)
+    # -------------------------------------------------------------
+    @property
+    def fournisseur(self):
+        return self.garage
+
+    @property
+    def fournisseur_id(self):
+        return self.garage_id
+
+    @property
+    def reference_facture(self):
+        return self.numero_facture
+
+    @property
+    def montant_htva_total(self):
+        return self.total_htva
+
+    @property
+    def montant_tva(self):
+        return self.total_tva
+
+    @property
+    def est_paye(self):
+        return self.date_paiement is not None
+
+    @property
+    def libelle_facture(self):
+        immat = getattr(self.voiture_exemplaire, "immatriculation", "") or ""
+        return f"{self.get_type_maintenance_display()} – {immat}".strip(" –")
 
     def calculer(self):
         if self.taux_tva is None:

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails du contrôle arbre de transmission" %}{% endblock %}
+
+{% block content %}
+    {% url 'arbre_transmission:modifier_arbre' arbre.pk as url_modifier %}
+    {% url 'arbre_transmission:arbre_pdf' arbre.pk as url_pdf %}
+    {% url 'arbre_transmission:delete_arbre' arbre.pk as url_delete %}
+    {% if exemplaire %}{% url 'arbre_transmission:arbre_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails du contrôle arbre de transmission" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=arbre km_controle=arbre.kilometrage_arbre icone="arbre-transmission.png" avec_cote=True %}
+{% endblock %}
