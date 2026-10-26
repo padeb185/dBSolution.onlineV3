@@ -64438,3 +64438,64 @@ msgstr "Rodaje realizado a"
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html
 msgid "Prochain entretien à"
 msgstr "Próximo mantenimiento a"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîte déposée"
+msgstr "Caja desmontada"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîte montée"
+msgstr "Caja montada"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "boîte actuelle du véhicule"
+msgstr "caja actual del vehículo"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucune boîte liée à ce véhicule."
+msgstr "Ninguna caja vinculada a este vehículo."
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "rapports"
+msgstr "marchas"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Nouvelle boîte"
+msgstr "Caja nueva"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîte identique à l'ancienne (nouvelle fiche boîte)"
+msgstr "Caja idéntica a la anterior (nueva ficha)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Choisir une fiche boîte existante"
+msgstr "Elegir una ficha de caja existente"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Ne pas changer la fiche boîte du véhicule"
+msgstr "No cambiar la ficha de caja del vehículo"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Fiche boîte à monter"
+msgstr "Ficha de caja a montar"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîtes non montées sur un véhicule."
+msgstr "Cajas no montadas en un vehículo."
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+#, python-format
+msgid "Boîte actuellement montée : %(b)s"
+msgstr "Caja montada actualmente: %(b)s"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucune fiche boîte n'est liée à ce véhicule."
+msgstr "Ninguna ficha de caja está vinculada a este vehículo."
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucun véhicule (boîte déposée)"
+msgstr "Ningún vehículo (caja desmontada)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucune intervention enregistrée pour cette boîte."
+msgstr "Ninguna intervención registrada para esta caja."

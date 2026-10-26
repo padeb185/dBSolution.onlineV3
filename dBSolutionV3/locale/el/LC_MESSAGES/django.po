@@ -64496,3 +64496,64 @@ msgstr "Στρώσιμο ολοκληρώθηκε στα"
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html
 msgid "Prochain entretien à"
 msgstr "Επόμενη συντήρηση στα"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîte déposée"
+msgstr "Αφαιρεθέν κιβώτιο"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîte montée"
+msgstr "Τοποθετημένο κιβώτιο"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "boîte actuelle du véhicule"
+msgstr "τρέχον κιβώτιο του οχήματος"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucune boîte liée à ce véhicule."
+msgstr "Κανένα κιβώτιο δεν συνδέεται με αυτό το όχημα."
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "rapports"
+msgstr "σχέσεις"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Nouvelle boîte"
+msgstr "Νέο κιβώτιο"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîte identique à l'ancienne (nouvelle fiche boîte)"
+msgstr "Ίδιο κιβώτιο με το παλιό (νέα καρτέλα)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Choisir une fiche boîte existante"
+msgstr "Επιλογή υπάρχουσας καρτέλας κιβωτίου"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Ne pas changer la fiche boîte du véhicule"
+msgstr "Να μην αλλάξει η καρτέλα κιβωτίου του οχήματος"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Fiche boîte à monter"
+msgstr "Καρτέλα κιβωτίου προς τοποθέτηση"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîtes non montées sur un véhicule."
+msgstr "Κιβώτια που δεν είναι τοποθετημένα σε όχημα."
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+#, python-format
+msgid "Boîte actuellement montée : %(b)s"
+msgstr "Τρέχον τοποθετημένο κιβώτιο: %(b)s"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucune fiche boîte n'est liée à ce véhicule."
+msgstr "Καμία καρτέλα κιβωτίου δεν συνδέεται με αυτό το όχημα."
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucun véhicule (boîte déposée)"
+msgstr "Κανένα όχημα (κιβώτιο αφαιρέθηκε)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucune intervention enregistrée pour cette boîte."
+msgstr "Δεν έχουν καταχωρηθεί εργασίες για αυτό το κιβώτιο."

@@ -50,6 +50,16 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         blank=True
     )
 
+    # Boîte montée sur le véhicule au moment de l'intervention (l'historique suit la boîte)
+    boite_liee = models.ForeignKey(
+        "voiture_boite.VoitureBoite",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="interventions_%(app_label)s",
+        verbose_name=_("Boîte de vitesses"),
+    )
+
     kilometres_chassis = models.PositiveIntegerField(
         default=0,
         null=True,

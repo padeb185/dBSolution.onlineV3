@@ -83,6 +83,27 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         blank=True
     )
 
+    # Boîte montée sur le véhicule au moment de l'intervention (l'historique suit la boîte)
+    boite_liee = models.ForeignKey(
+        "voiture_boite.VoitureBoite",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="interventions_%(app_label)s",
+        verbose_name=_("Boîte de vitesses"),
+    )
+
+    # Nouvelle boîte montée par ce remplacement (devient la boîte du véhicule)
+    nouvelle_boite = models.ForeignKey(
+        "voiture_boite.VoitureBoite",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="remplacements_montes_%(app_label)s",
+        verbose_name=_("Nouvelle boîte"),
+    )
+    nouvelle_boite_creee = models.BooleanField(default=False, editable=False)
+
     proprietaires = models.ManyToManyField(
         "proprietaire.ProprietaireVoiture",
         related_name="remplacements_boite",

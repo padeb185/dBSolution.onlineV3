@@ -26,6 +26,7 @@ class ControleBteVitesseAutoForm(forms.ModelForm):
     class Meta:
         model = ControleBteVitesseAuto
         exclude = {
+            "boite_liee",
             "kilometres_boite_rollback",
             "kilometres_moteur_rollback",
             "kilometres_embrayage_rollback",

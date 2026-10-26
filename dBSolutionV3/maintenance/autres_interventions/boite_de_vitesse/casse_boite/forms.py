@@ -23,6 +23,7 @@ class CasseBoiteForm(forms.ModelForm):
     class Meta:
         model = CasseBoite
         exclude = {
+            "boite_liee",
             "maintenance",
             "voiture_exemplaire",
             "main_oeuvre",

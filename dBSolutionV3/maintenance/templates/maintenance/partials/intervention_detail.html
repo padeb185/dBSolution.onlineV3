@@ -81,6 +81,21 @@ Variables attendues (passées par le template de chaque app) :
                     <a href="{% url 'voiture_moteur:moteur_detail' obj.nouveau_moteur.id %}" class="text-blue-700 hover:underline">{{ obj.nouveau_moteur }}</a></p>
             {% endif %}
 
+            {% if obj.boite_liee %}
+                <p><strong>{% if obj.nouvelle_boite %}{% trans "Boîte déposée" %}{% else %}{% trans "Boîte" %}{% endif %} :</strong>
+                    <a href="{% url 'voiture_boite:boite_detail' obj.boite_liee.id %}" class="text-blue-700 hover:underline">{{ obj.boite_liee }}</a></p>
+            {% elif obj|a_boite_liee %}
+                {% boite_intervention obj exemplaire as boite_vehicule %}
+                <p><strong>{% trans "Boîte" %} :</strong>
+                    {% if boite_vehicule %}<a href="{% url 'voiture_boite:boite_detail' boite_vehicule.id %}" class="text-blue-700 hover:underline">{{ boite_vehicule }}</a>
+                    <span class="text-xs text-gray-500">({% trans "boîte actuelle du véhicule" %})</span>
+                    {% else %}<span class="text-yellow-700">{% trans "Aucune boîte liée à ce véhicule." %}</span>{% endif %}</p>
+            {% endif %}
+            {% if obj.nouvelle_boite %}
+                <p><strong>{% trans "Boîte montée" %} :</strong>
+                    <a href="{% url 'voiture_boite:boite_detail' obj.nouvelle_boite.id %}" class="text-blue-700 hover:underline">{{ obj.nouvelle_boite }}</a></p>
+            {% endif %}
+
             {% if obj.tag %}
             <p>
                 <strong>{% trans "Tag" %} :</strong>

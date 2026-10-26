@@ -64490,3 +64490,64 @@ msgstr "Einfahren erfolgt bei"
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html
 msgid "Prochain entretien à"
 msgstr "Nächste Wartung bei"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîte déposée"
+msgstr "Ausgebautes Getriebe"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîte montée"
+msgstr "Eingebautes Getriebe"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "boîte actuelle du véhicule"
+msgstr "aktuelles Getriebe des Fahrzeugs"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucune boîte liée à ce véhicule."
+msgstr "Kein Getriebe mit diesem Fahrzeug verknüpft."
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "rapports"
+msgstr "Gänge"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Nouvelle boîte"
+msgstr "Neues Getriebe"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîte identique à l'ancienne (nouvelle fiche boîte)"
+msgstr "Gleiches Getriebe wie das alte (neues Getriebeblatt)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Choisir une fiche boîte existante"
+msgstr "Vorhandenes Getriebe wählen"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Ne pas changer la fiche boîte du véhicule"
+msgstr "Getriebe des Fahrzeugs nicht ändern"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Fiche boîte à monter"
+msgstr "Einzubauendes Getriebe"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîtes non montées sur un véhicule."
+msgstr "Getriebe, die in keinem Fahrzeug eingebaut sind."
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+#, python-format
+msgid "Boîte actuellement montée : %(b)s"
+msgstr "Aktuell eingebautes Getriebe: %(b)s"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucune fiche boîte n'est liée à ce véhicule."
+msgstr "Diesem Fahrzeug ist kein Getriebe zugeordnet."
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucun véhicule (boîte déposée)"
+msgstr "Kein Fahrzeug (Getriebe ausgebaut)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucune intervention enregistrée pour cette boîte."
+msgstr "Keine Eingriffe für dieses Getriebe erfasst."

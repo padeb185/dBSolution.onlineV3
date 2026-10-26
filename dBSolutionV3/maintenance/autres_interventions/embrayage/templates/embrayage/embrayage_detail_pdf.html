@@ -366,6 +366,8 @@
             <span class="label">{% trans "Véhicule" %} :</span>
             {{ embrayage.voiture_exemplaire }}
         </div>
+        {% if embrayage.boite_liee %}<div><span class="label">{% if embrayage.nouvelle_boite %}{% trans "Boîte déposée" %}{% else %}{% trans "Boîte" %}{% endif %} :</span> {{ embrayage.boite_liee }}</div>{% endif %}
+        {% if embrayage.nouvelle_boite %}<div><span class="label">{% trans "Boîte montée" %} :</span> {{ embrayage.nouvelle_boite }}</div>{% endif %}
 
         <div>
             <span class="label">{% trans "Kilométrage chassis" %} :</span>

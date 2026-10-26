@@ -64140,3 +64140,64 @@ msgstr "Running-in done at"
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html
 msgid "Prochain entretien à"
 msgstr "Next service at"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîte déposée"
+msgstr "Gearbox removed"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîte montée"
+msgstr "Gearbox fitted"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "boîte actuelle du véhicule"
+msgstr "vehicle's current gearbox"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucune boîte liée à ce véhicule."
+msgstr "No gearbox linked to this vehicle."
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "rapports"
+msgstr "gears"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Nouvelle boîte"
+msgstr "New gearbox"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîte identique à l'ancienne (nouvelle fiche boîte)"
+msgstr "Same gearbox as the old one (new gearbox record)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Choisir une fiche boîte existante"
+msgstr "Choose an existing gearbox record"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Ne pas changer la fiche boîte du véhicule"
+msgstr "Do not change the vehicle's gearbox record"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Fiche boîte à monter"
+msgstr "Gearbox record to fit"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîtes non montées sur un véhicule."
+msgstr "Gearboxes not fitted to a vehicle."
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+#, python-format
+msgid "Boîte actuellement montée : %(b)s"
+msgstr "Gearbox currently fitted: %(b)s"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucune fiche boîte n'est liée à ce véhicule."
+msgstr "No gearbox record is linked to this vehicle."
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucun véhicule (boîte déposée)"
+msgstr "No vehicle (gearbox removed)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucune intervention enregistrée pour cette boîte."
+msgstr "No work recorded for this gearbox."

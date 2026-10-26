@@ -26,6 +26,7 @@ class ControleBoiteForm(forms.ModelForm):
     class Meta:
         model = ControleBoite
         exclude = {
+            "boite_liee",
             "kilometres_boite_rollback",
             "kilometres_moteur_rollback",
             "kilometres_embrayage_rollback",

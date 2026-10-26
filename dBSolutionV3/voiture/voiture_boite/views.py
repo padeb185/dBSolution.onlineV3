@@ -87,11 +87,14 @@ def boite_detail_view(request, boite_id):
         id=boite_id,
     )
 
+    from maintenance.autres_interventions.boite_de_vitesse.boite_liee import interventions_de_la_boite
     return render(
         request,
         "voiture_boite/boite_detail.html",
         {
             "boite": boite,
+            "interventions": interventions_de_la_boite(boite),
+            "vehicule_actuel": getattr(boite, "voitures", None) if hasattr(boite, "voitures") else None,
         },
     )
 

@@ -1,0 +1,18 @@
+{% load i18n intervention_tags %}{% boite_intervention obj exemplaire as boite %}
+{% comment %}
+Encadré « Boîte liée » des formulaires d'intervention boîte / embrayage.
+Variables : obj (formulaire ou intervention), exemplaire (véhicule, facultatif).
+{% endcomment %}
+<div class="mb-4 flex justify-center">
+    {% if boite %}
+        <a href="{% url 'voiture_boite:boite_detail' boite.id %}" target="_blank"
+           class="inline-flex items-center gap-3 rounded-lg border border-blue-200 bg-blue-50 px-4 py-2 hover:bg-blue-100">
+            <span class="font-semibold">{% trans "Boîte" %} :</span>
+            <span>{{ boite.fabricant|default:"" }} {{ boite.nom_du_type|default:"" }}{% if boite.type_de_boite %} – {{ boite.get_type_de_boite_display }}{% endif %}{% if boite.nombre_rapport %} – {{ boite.nombre_rapport }} {% trans "rapports" %}{% endif %}{% if boite.oem %} – {{ boite.oem }}{% endif %}</span>
+        </a>
+    {% else %}
+        <span class="rounded-lg border border-yellow-300 bg-yellow-50 px-4 py-2 text-yellow-800">
+            {% trans "Aucune boîte liée à ce véhicule." %}
+        </span>
+    {% endif %}
+</div>

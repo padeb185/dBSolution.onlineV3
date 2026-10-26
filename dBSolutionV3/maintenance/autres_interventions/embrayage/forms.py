@@ -25,6 +25,7 @@ class EmbrayageForm(forms.ModelForm):
     class Meta:
         model = Embrayage
         exclude = {
+            "boite_liee",
             "kilometres_boite_rollback",
             "kilometres_moteur_rollback",
             "kilometres_embrayage_rollback",

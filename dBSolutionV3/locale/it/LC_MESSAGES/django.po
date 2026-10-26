@@ -64439,3 +64439,64 @@ msgstr "Rodaggio eseguito a"
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html
 msgid "Prochain entretien à"
 msgstr "Prossimo tagliando a"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîte déposée"
+msgstr "Cambio smontato"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîte montée"
+msgstr "Cambio montato"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "boîte actuelle du véhicule"
+msgstr "cambio attuale del veicolo"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucune boîte liée à ce véhicule."
+msgstr "Nessun cambio collegato a questo veicolo."
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "rapports"
+msgstr "marce"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Nouvelle boîte"
+msgstr "Nuovo cambio"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîte identique à l'ancienne (nouvelle fiche boîte)"
+msgstr "Cambio identico al precedente (nuova scheda)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Choisir une fiche boîte existante"
+msgstr "Scegliere una scheda cambio esistente"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Ne pas changer la fiche boîte du véhicule"
+msgstr "Non cambiare la scheda cambio del veicolo"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Fiche boîte à monter"
+msgstr "Scheda cambio da montare"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Boîtes non montées sur un véhicule."
+msgstr "Cambi non montati su un veicolo."
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+#, python-format
+msgid "Boîte actuellement montée : %(b)s"
+msgstr "Cambio attualmente montato: %(b)s"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucune fiche boîte n'est liée à ce véhicule."
+msgstr "Nessuna scheda cambio è collegata a questo veicolo."
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucun véhicule (boîte déposée)"
+msgstr "Nessun veicolo (cambio smontato)"
+
+#: maintenance/autres_interventions/boite_de_vitesse/boite_liee
+msgid "Aucune intervention enregistrée pour cette boîte."
+msgstr "Nessun intervento registrato per questo cambio."

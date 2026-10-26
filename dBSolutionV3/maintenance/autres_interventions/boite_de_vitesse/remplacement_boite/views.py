@@ -16,6 +16,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.db.models import Q, F
+from maintenance.autres_interventions.boite_de_vitesse.boite_liee import monter_nouvelle_boite, restaurer_ancienne_boite
 from .forms import RemplacementBoiteForm
 from .models import RemplacementBoite
 from django.http import HttpResponse
@@ -268,6 +269,14 @@ def remplacement_boite_form_view(request, exemplaire_id):
                     remplacement_boite.save()
                     form.save_m2m()
 
+                    # Ancienne boîte mémorisée (boite_liee) → montage de la nouvelle boîte
+                    monter_nouvelle_boite(
+                        remplacement_boite,
+                        exemplaire,
+                        form.cleaned_data.get("mode_nouvelle_boite"),
+                        form.cleaned_data.get("choix_nouvelle_boite"),
+                    )
+
                     # ==================================================
                     # BOÎTE NEUVE = 0 KM
                     # (RemplacementBoite.save() réécrit kilometres_boite)
@@ -341,6 +350,11 @@ def remplacement_boite_form_view(request, exemplaire_id):
             "title": _("Remplacement de la boite"),
             "icon": "icons/boite-de-vitesse.png",
             "fields": [form[f.name] for f in form if "remplacement_boite" in f.name],
+        },
+        {
+            "title": _("Nouvelle boîte"),
+            "icon": "icons/boite-de-vitesse.png",
+            "fields": [form[n] for n in ("mode_nouvelle_boite", "choix_nouvelle_boite") if n in form.fields],
         },
         {
             "title": _("Pièces à démonter (dépose / repose)"),
@@ -745,6 +759,9 @@ def delete_remplacement_boite_view(request, remplacement_boite_id):
                 # ------------------------------------------
                 # Suppression
                 # ------------------------------------------
+                # Remet l'ancienne boîte si la nouvelle est toujours montée
+                restaurer_ancienne_boite(remplacement_boite, exemplaire)
+
                 remplacement_boite.delete()
 
                 if maintenance:

@@ -29,9 +29,33 @@ class RemplacementBoiteForm(forms.ModelForm):
         label=_("Minutes")
     )
 
+    # Nouvelle boîte montée (comme le remplacement moteur)
+    MODE_COPIE = "COPIE"
+    MODE_EXISTANT = "EXISTANT"
+    MODE_AUCUN = "AUCUN"
+
+    mode_nouvelle_boite = forms.ChoiceField(
+        required=False,
+        label=_("Nouvelle boîte"),
+        choices=[
+            ("COPIE", _("Boîte identique à l'ancienne (nouvelle fiche boîte)")),
+            ("EXISTANT", _("Choisir une fiche boîte existante")),
+            ("AUCUN", _("Ne pas changer la fiche boîte du véhicule")),
+        ],
+        initial="COPIE",
+    )
+    choix_nouvelle_boite = forms.ModelChoiceField(
+        required=False,
+        queryset=None,
+        label=_("Fiche boîte à monter"),
+        help_text=_("Boîtes non montées sur un véhicule."),
+    )
+
     class Meta:
         model = RemplacementBoite
         exclude = [
+            "boite_liee",
+            "nouvelle_boite",
             "variation_kilometres",
             "kilometres_dernier_entretien",
             "remplacement_boite_nombre",
@@ -64,6 +88,25 @@ class RemplacementBoiteForm(forms.ModelForm):
         self.exemplaire = kwargs.pop("exemplaire", None)
 
         super().__init__(*args, **kwargs)
+
+        # -----------------------
+        # NOUVELLE BOÎTE (uniquement à la création)
+        # -----------------------
+        from voiture.voiture_boite.models import VoitureBoite
+        from maintenance.autres_interventions.boite_de_vitesse.boite_liee import boite_actuelle
+        if self.instance and self.instance.pk and not self.instance._state.adding:
+            self.fields.pop("mode_nouvelle_boite", None)
+            self.fields.pop("choix_nouvelle_boite", None)
+        else:
+            self.fields["choix_nouvelle_boite"].queryset = (
+                VoitureBoite.objects.filter(voitures__isnull=True).order_by("fabricant", "nom_du_type")
+            )
+            ancienne = boite_actuelle(self.exemplaire)
+            if ancienne:
+                self.fields["mode_nouvelle_boite"].help_text = _("Boîte actuellement montée : %(b)s") % {"b": ancienne}
+            else:
+                self.fields["mode_nouvelle_boite"].initial = self.MODE_EXISTANT
+                self.fields["mode_nouvelle_boite"].help_text = _("Aucune fiche boîte n'est liée à ce véhicule.")
 
         # -----------------------
         # VOITURE / EXEMPLAIRE

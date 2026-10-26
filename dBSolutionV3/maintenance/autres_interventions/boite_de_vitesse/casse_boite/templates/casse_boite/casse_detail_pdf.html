@@ -328,6 +328,8 @@
         <div><span class="label">{% trans "Technicien" %} :</span> {{ casse.tech_nom_technicien }}</div>
         <div><span class="label">{% trans "Société" %} :</span> {{ casse.tech_societe }}</div>
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ casse.voiture_exemplaire }}</div>
+        {% if casse.boite_liee %}<div><span class="label">{% if casse.nouvelle_boite %}{% trans "Boîte déposée" %}{% else %}{% trans "Boîte" %}{% endif %} :</span> {{ casse.boite_liee }}</div>{% endif %}
+        {% if casse.nouvelle_boite %}<div><span class="label">{% trans "Boîte montée" %} :</span> {{ casse.nouvelle_boite }}</div>{% endif %}
         {% if casse.voiture_exemplaire.voiture_boite %}<div><span class="label">{% trans "Boîte" %} :</span> {{ casse.voiture_exemplaire.voiture_boite }}</div>{% endif %}
         <div><span class="label">{% trans "Kilométrage véhicule" %} :</span> {{ casse.kilometres_chassis }} km</div>
         <div><span class="label">{% trans "Kilométrage de l'intervention" %} :</span> {{ casse.kilometrage_casse }} km</div>

@@ -123,3 +123,30 @@ def a_moteur_lie(obj):
         return True
     except Exception:
         return False
+
+
+@register.simple_tag
+def boite_intervention(obj=None, exemplaire=None):
+    """
+    Boîte à afficher pour une intervention (ou son formulaire) :
+    la boîte liée à l'intervention, sinon la boîte actuellement montée sur le véhicule.
+    Usage : {% boite_intervention form.instance exemplaire as boite %}
+    """
+    from maintenance.autres_interventions.boite_de_vitesse.boite_liee import boite_actuelle
+
+    instance = getattr(obj, "instance", obj)
+    if instance is not None and getattr(instance, "boite_liee_id", None):
+        return instance.boite_liee
+    if exemplaire is None and instance is not None and getattr(instance, "voiture_exemplaire_id", None):
+        exemplaire = instance.voiture_exemplaire_id
+    return boite_actuelle(exemplaire) if exemplaire else None
+
+
+@register.filter
+def a_boite_liee(obj):
+    """Vrai si l'intervention possède le champ « boite_liee » (interventions boîte / embrayage)."""
+    try:
+        obj._meta.get_field("boite_liee")
+        return True
+    except Exception:
+        return False

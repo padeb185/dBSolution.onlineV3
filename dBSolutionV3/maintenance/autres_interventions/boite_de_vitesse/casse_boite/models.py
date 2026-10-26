@@ -216,6 +216,16 @@ class CasseBoite(TechnicienMixin, models.Model):
         "voiture_exemplaire.VoitureExemplaire", on_delete=models.CASCADE, related_name="casse_boite", null=True, blank=True
     )
 
+    # Boîte montée sur le véhicule au moment de l'intervention (l'historique suit la boîte)
+    boite_liee = models.ForeignKey(
+        "voiture_boite.VoitureBoite",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="interventions_%(app_label)s",
+        verbose_name=_("Boîte de vitesses"),
+    )
+
     # -------------------------
     # KILOMÉTRAGES
     # -------------------------

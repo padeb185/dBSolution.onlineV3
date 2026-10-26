@@ -338,6 +338,8 @@
         <div>
             <span class="label">{% trans "Véhicule" %} :</span>
             {{ remplacement.voiture_exemplaire|default:"-" }}
+            {% if remplacement.boite_liee %}<div><span class="label">{% if remplacement.nouvelle_boite %}{% trans "Boîte déposée" %}{% else %}{% trans "Boîte" %}{% endif %} :</span> {{ remplacement.boite_liee }}</div>{% endif %}
+            {% if remplacement.nouvelle_boite %}<div><span class="label">{% trans "Boîte montée" %} :</span> {{ remplacement.nouvelle_boite }}</div>{% endif %}
         </div>
 
         <div>

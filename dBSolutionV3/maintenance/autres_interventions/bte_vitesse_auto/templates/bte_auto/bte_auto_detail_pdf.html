@@ -320,6 +320,8 @@
             <span class="label">{% trans "Véhicule" %} :</span>
             {{ bte_auto.voiture_exemplaire }}
         </div>
+        {% if bte_auto.boite_liee %}<div><span class="label">{% if bte_auto.nouvelle_boite %}{% trans "Boîte déposée" %}{% else %}{% trans "Boîte" %}{% endif %} :</span> {{ bte_auto.boite_liee }}</div>{% endif %}
+        {% if bte_auto.nouvelle_boite %}<div><span class="label">{% trans "Boîte montée" %} :</span> {{ bte_auto.nouvelle_boite }}</div>{% endif %}
 
         <div>
             <span class="label">{% trans "Kilométrage chassis" %} :</span>
