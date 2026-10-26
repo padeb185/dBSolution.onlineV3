@@ -1,0 +1,23 @@
+{% load i18n widget_tweaks %}
+{% comment %}
+Grille « vue de dessus » d'une voiture : AVG | AVD en haut, ARG | ARD en bas.
+Paramètres : grille (form.grille_xxx), unite (optionnel)
+{% endcomment %}
+<p class="text-center text-xs font-semibold uppercase tracking-wide text-gray-400 mb-1">▲ {% trans "Avant du véhicule" %}</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-2">
+    {% for coin in grille.coins %}
+    <div class="rounded-lg border border-blue-200 bg-blue-50/50 p-3">
+        <p class="font-bold text-blue-800 mb-2">{{ coin.coin }}</p>
+        <div class="grid gap-2 {% if coin.champs|length == 3 %}grid-cols-3{% elif coin.champs|length == 2 %}grid-cols-2{% else %}grid-cols-1{% endif %}">
+            {% for entete, field in coin.champs %}
+            <div>
+                <label for="{{ field.id_for_label }}" class="block text-xs font-semibold text-gray-600 mb-1">{{ entete }}</label>
+                {{ field|add_class:"input text-right tabular-nums" }}
+                {% if field.errors %}<p class="text-red-600 text-xs mt-1">{{ field.errors|striptags }}</p>{% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% if unite %}<p class="text-xs text-gray-500 mb-2">{{ unite }}</p>{% endif %}

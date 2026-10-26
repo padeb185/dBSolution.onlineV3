@@ -68,9 +68,9 @@
                     <p class="text-gray-500 text-sm">
                         {% trans "Kilométrage" %}: {{ ex.kilometres_chassis }} km
                     </p>
-                     <p class="text-gray-500 text-sm">
-                        {% trans "Kilométrage du moteur" %}: {{ ex.kilometres_moteur }} km
-                    </p>
+                     <p class="text-sm {% if ex.alerte_entretien %}text-red-600 font-bold{% else %}text-gray-500{% endif %}">
+                         {% trans "Kilométrage du moteur" %}: {{ ex.kilometres_moteur }} km
+                     </p>
                      <p class="text-gray-500 text-sm">
                         {% trans "Kilométrage de la boîte de vitesse" %}: {{ ex.kilometres_boite }} km
                     </p>
@@ -80,6 +80,7 @@
                       <p class="text-gray-500 text-sm">
                         {% trans "Kilométrage du dernier entretien" %}: {{ ex.kilometres_dernier_entretien }} km
                     </p>
+                    {% include "voiture_exemplaire/partials/alertes_km.html" with ex=ex %}
 
                     {% if ex.couleur %}
                         <p class="text-gray-500 text-sm">

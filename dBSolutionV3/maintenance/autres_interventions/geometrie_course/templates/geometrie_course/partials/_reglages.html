@@ -1,0 +1,125 @@
+{% load i18n widget_tweaks static %}
+{# Fiche de réglage course : partagée par la création et la modification #}
+
+<!-- ================= PILOTE ================= -->
+{% trans "Pilote et conditions de pesée" as titre %}
+{% include "geometrie_course/partials/titre_section.html" with icone="pilote.png" titre=titre %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+    {% include "geometrie_course/partials/champ.html" with field=form.poids_pilote %}
+    {% include "geometrie_course/partials/champ.html" with field=form.carburant_litres %}
+    {% include "geometrie_course/partials/champ.html" with field=form.ingenieur %}
+    <div class="pt-7">{% include "geometrie_course/partials/champ.html" with field=form.pesee_avec_pilote %}</div>
+</div>
+
+<!-- ================= BALANCE ================= -->
+{% trans "Balance : pesée de chaque roue" as titre %}
+{% include "geometrie_course/partials/titre_section.html" with icone="balance-pesee.png" titre=titre %}
+{% include "geometrie_course/partials/_coins.html" with grille=form.grille_pesee unite=_("Poids en kg") %}
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-2">
+    {% for etat, titre_etat in form.etats_pesee %}
+    <div class="rounded-lg border border-gray-200 bg-white p-3" id="pesee-{{ etat }}">
+        <p class="font-semibold mb-2">{{ titre_etat }}</p>
+        <div class="grid grid-cols-3 gap-2 text-center text-sm">
+            <div class="rounded bg-gray-50 p-2"><span class="block text-xs text-gray-500">{% trans "Total" %}</span><span data-r="total" class="font-bold tabular-nums">—</span></div>
+            <div class="rounded bg-gray-50 p-2"><span class="block text-xs text-gray-500">{% trans "Avant / arrière" %}</span><span data-r="av" class="font-bold tabular-nums">—</span></div>
+            <div class="rounded bg-gray-50 p-2"><span class="block text-xs text-gray-500">{% trans "Gauche / droite" %}</span><span data-r="g" class="font-bold tabular-nums">—</span></div>
+            <div class="rounded bg-orange-50 border border-orange-200 p-2 col-span-2"><span class="block text-xs text-orange-700">{% trans "Cross (AVG + ARD)" %}</span><span data-r="cross" class="font-bold text-orange-700 tabular-nums">—</span></div>
+            <div class="rounded bg-gray-50 p-2"><span class="block text-xs text-gray-500">{% trans "Sans pilote" %}</span><span data-r="sp" class="font-bold tabular-nums">—</span></div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- ================= HAUTEUR DE CAISSE ================= -->
+{% trans "Hauteur de caisse" as titre %}
+{% include "geometrie_course/partials/titre_section.html" with icone="hauteur-caisse.png" titre=titre %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+    {% include "geometrie_course/partials/champ.html" with field=form.moyen_mesure_hauteur %}
+    {% include "geometrie_course/partials/champ.html" with field=form.point_mesure_hauteur %}
+</div>
+{% include "geometrie_course/partials/_coins.html" with grille=form.grille_hauteur unite=_("Hauteurs en mm") %}
+
+<!-- ================= CARROSSAGE ================= -->
+{% trans "Carrossage" as titre %}
+{% include "geometrie_course/partials/titre_section.html" with icone="carrossage.png" titre=titre %}
+{% include "geometrie_course/partials/_coins.html" with grille=form.grille_carrossage unite=_("Angles en degrés (négatif = roue inclinée vers l'intérieur en haut)") %}
+
+<!-- ================= CHASSE ================= -->
+{% trans "Chasse" as titre %}
+{% include "geometrie_course/partials/titre_section.html" with icone="chasse.png" titre=titre %}
+{% include "geometrie_course/partials/_coins.html" with grille=form.grille_chasse unite=_("Angles en degrés") %}
+
+<!-- ================= PINCEMENT ================= -->
+{% trans "Pincement / ouverture" as titre %}
+{% include "geometrie_course/partials/titre_section.html" with icone="pincement.png" titre=titre %}
+{% include "geometrie_course/partials/champ.html" with field=form.unite_pincement %}
+{% include "geometrie_course/partials/_coins.html" with grille=form.grille_pincement unite=_("Valeur positive = pincement, valeur négative = ouverture") %}
+
+<!-- ================= AMORTISSEURS ================= -->
+{% trans "Réglages ingénieur : amortisseurs" as titre %}
+{% include "geometrie_course/partials/titre_section.html" with icone="susp_amortisseur.png" titre=titre %}
+<div class="grid grid-cols-1 md:grid-cols-3 gap-x-4">
+    {% include "geometrie_course/partials/champ.html" with field=form.amortisseur_marque %}
+    {% include "geometrie_course/partials/champ.html" with field=form.amortisseur_modele %}
+    {% include "geometrie_course/partials/champ.html" with field=form.reference_clics %}
+</div>
+{% include "geometrie_course/partials/_coins.html" with grille=form.grille_amortisseurs unite=_("Nombre de clics") %}
+
+<!-- ================= RESSORTS ================= -->
+{% trans "Réglages ingénieur : ressorts" as titre %}
+{% include "geometrie_course/partials/titre_section.html" with icone="susp_ressort.png" titre=titre %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+    {% for essieu in form.essieux %}
+    <div class="rounded-lg border border-blue-200 bg-blue-50/50 p-3">
+        <p class="font-bold text-blue-800 mb-2">{{ essieu.titre }}</p>
+        {% for field in essieu.ressort %}{% include "geometrie_course/partials/champ.html" %}{% endfor %}
+        <p class="flex items-center gap-2 font-semibold text-gray-700 mt-3 mb-2 border-t pt-2">
+            <img src="{% static 'icons/susp_ressort_rappel.png' %}" alt="" class="w-8 h-8">{% trans "Ressort de rappel" %}
+        </p>
+        {% for field in essieu.rappel %}{% include "geometrie_course/partials/champ.html" %}{% endfor %}
+        {% include "geometrie_course/partials/champ.html" with field=essieu.barre %}
+    </div>
+    {% endfor %}
+</div>
+
+<!-- ================= PNEUS ================= -->
+{% trans "Pressions des pneus à froid" as titre %}
+{% include "geometrie_course/partials/titre_section.html" with icone="pneus.png" titre=titre %}
+{% include "geometrie_course/partials/_coins.html" with grille=form.grille_pression %}
+
+<!-- ================= REMARQUES ================= -->
+{% trans "Remarques de l'ingénieur" as titre %}
+{% include "geometrie_course/partials/titre_section.html" with icone="geometrie-course.png" titre=titre %}
+{% include "geometrie_course/partials/champ.html" with field=form.remarques %}
+
+<script>
+(function () {
+    // Pesée : total, répartitions et cross calculés en direct
+    var COINS = ["avg", "avd", "arg", "ard"];
+    function n(id) { var e = document.getElementById(id); if (!e) return NaN; var v = String(e.value).replace(",", "."); return v === "" ? NaN : Number(v); }
+    function f(x, d) { return x.toLocaleString(undefined, {minimumFractionDigits: d, maximumFractionDigits: d}); }
+    function maj() {
+        ["avant", "apres"].forEach(function (etat) {
+            var bloc = document.getElementById("pesee-" + etat);
+            if (!bloc) return;
+            var v = {}; COINS.forEach(function (c) { v[c] = n("id_poids_" + etat + "_" + c); });
+            var ok = COINS.every(function (c) { return !isNaN(v[c]); });
+            var total = ok ? v.avg + v.avd + v.arg + v.ard : 0;
+            function set(k, t) { bloc.querySelector('[data-r="' + k + '"]').textContent = t; }
+            if (!ok || total <= 0) { ["total", "av", "g", "cross", "sp"].forEach(function (k) { set(k, "—"); }); return; }
+            var p = function (x) { return f(x * 100 / total, 1) + " %"; };
+            set("total", f(total, 1) + " kg");
+            set("av", p(v.avg + v.avd) + " / " + p(v.arg + v.ard));
+            set("g", p(v.avg + v.arg) + " / " + p(v.avd + v.ard));
+            set("cross", p(v.avg + v.ard));
+            var pilote = n("id_poids_pilote"), avec = document.getElementById("id_pesee_avec_pilote");
+            set("sp", (avec && avec.checked && !isNaN(pilote)) ? f(total - pilote, 1) + " kg" : "—");
+        });
+    }
+    document.querySelectorAll('input[id^="id_poids_"], #id_pesee_avec_pilote').forEach(function (e) {
+        e.addEventListener("input", maj); e.addEventListener("change", maj);
+    });
+    maj();
+})();
+</script>

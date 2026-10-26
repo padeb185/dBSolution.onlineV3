@@ -297,6 +297,18 @@
             page-break-inside: avoid;
         }
 
+
+        /* ---------- Présentation compacte par coin ---------- */
+        .kpi { width: 100%; border-collapse: separate; border-spacing: 6px 0; margin: 8px 0 4px -6px; }
+        .kpi td { border: 1px solid #bfdbfe; background: #eff6ff; border-radius: 4px; text-align: center; padding: 5px; }
+        .kpi .v { display: block; font-size: 13px; font-weight: bold; color: #1e3a8a; }
+        .kpi .l { display: block; font-size: 9px; color: #475569; text-transform: uppercase; }
+        .deux-col { width: 100%; border-collapse: separate; border-spacing: 8px 0; margin: 0 0 0 -8px; }
+        .deux-col > tbody > tr > td { border: none; padding: 0; vertical-align: top; }
+        table.fiche { margin-top: 4px; margin-bottom: 8px; font-size: 11px; }
+        table.fiche th, table.fiche td { padding: 4px 6px; }
+        table.fiche td.n { text-align: right; }
+        table.fiche td.coin { font-weight: bold; color: #1e3a8a; }
     </style>
 </head>
 
@@ -355,7 +367,7 @@
     </div>
 {% endif %}
 
-<h1>{% trans "Détail Géométrie Véhicule" %}</h1>
+<h1>{% trans "Rapport de géométrie" %}</h1>
 
 <!-- ================= INFO ================= -->
 <div class="box">
@@ -388,182 +400,67 @@
 
 </div>
 
-<h2>{% trans "Etat et pression des pneus" %}</h2>
+<!-- ================= PNEUS ET ANGLES (vue par coin) ================= -->
+<table class="deux-col"><tbody><tr>
+<td style="width:38%">
+    <h2>{% trans "Pneus" %}</h2>
+    <table class="fiche">
+        <thead><tr><th></th><th>{% trans "État" %}</th><th style="text-align:right">{% trans "Pression" %}</th></tr></thead>
+        <tbody>
+        <tr><td class="coin">{% trans "AVG" %}</td><td>{% with e=geometrie.pneu_bande_avg %}<span class="{% if e == "OK" %}etat-vert{% elif e == "A_REMPLACER" %}etat-rouge{% elif e == "REMPLACE" %}etat-bleu{% else %}etat-gris{% endif %}">{{ geometrie.get_pneu_bande_avg_display|default:"-" }}</span>{% endwith %}</td><td class="n">{{ geometrie.pneu_pression_bar_avg|default_if_none:"-" }} bar</td></tr>
+        <tr><td class="coin">{% trans "AVD" %}</td><td>{% with e=geometrie.pneu_bande_avd %}<span class="{% if e == "OK" %}etat-vert{% elif e == "A_REMPLACER" %}etat-rouge{% elif e == "REMPLACE" %}etat-bleu{% else %}etat-gris{% endif %}">{{ geometrie.get_pneu_bande_avd_display|default:"-" }}</span>{% endwith %}</td><td class="n">{{ geometrie.pneu_pression_bar_avd|default_if_none:"-" }} bar</td></tr>
+        <tr><td class="coin">{% trans "ARG" %}</td><td>{% with e=geometrie.pneu_bande_arg %}<span class="{% if e == "OK" %}etat-vert{% elif e == "A_REMPLACER" %}etat-rouge{% elif e == "REMPLACE" %}etat-bleu{% else %}etat-gris{% endif %}">{{ geometrie.get_pneu_bande_arg_display|default:"-" }}</span>{% endwith %}</td><td class="n">{{ geometrie.pneu_pression_bar_arg|default_if_none:"-" }} bar</td></tr>
+        <tr><td class="coin">{% trans "ARD" %}</td><td>{% with e=geometrie.pneu_bande_ard %}<span class="{% if e == "OK" %}etat-vert{% elif e == "A_REMPLACER" %}etat-rouge{% elif e == "REMPLACE" %}etat-bleu{% else %}etat-gris{% endif %}">{{ geometrie.get_pneu_bande_ard_display|default:"-" }}</span>{% endwith %}</td><td class="n">{{ geometrie.pneu_pression_bar_ard|default_if_none:"-" }} bar</td></tr>
+        </tbody>
+    </table>
+</td>
+<td style="width:62%">
+    <h2>{% trans "Géométrie" %}</h2>
+    <table class="fiche">
+        <thead><tr><th></th>
+            <th style="text-align:right">{% trans "Carrossage" %}</th>
+            <th style="text-align:right">{% trans "Chasse" %}</th>
+            <th style="text-align:right">{% trans "Pincement" %}</th>
+            <th style="text-align:right">{% trans "Hauteur de caisse" %}</th>
+        </tr></thead>
+        <tbody>
+        <tr><td class="coin">{% trans "AVG" %}</td><td class="n">{{ geometrie.carrossage_avant_gauche|default_if_none:"-" }}°</td><td class="n">{{ geometrie.chasse_gauche|default_if_none:"-" }}°</td><td class="n">{{ geometrie.pincement_avant_gauche|default_if_none:"-" }}°</td><td class="n">{{ geometrie.hauteur_caisse_avg|default_if_none:"-" }} mm</td></tr>
+        <tr><td class="coin">{% trans "AVD" %}</td><td class="n">{{ geometrie.carrossage_avant_droit|default_if_none:"-" }}°</td><td class="n">{{ geometrie.chasse_droite|default_if_none:"-" }}°</td><td class="n">{{ geometrie.pincement_avant_droit|default_if_none:"-" }}°</td><td class="n">{{ geometrie.hauteur_caisse_avd|default_if_none:"-" }} mm</td></tr>
+        <tr><td class="coin">{% trans "ARG" %}</td><td class="n">{{ geometrie.carrossage_arriere_gauche|default_if_none:"-" }}°</td><td class="n">–</td><td class="n">{{ geometrie.pincement_arriere_gauche|default_if_none:"-" }}°</td><td class="n">{{ geometrie.hauteur_caisse_arg|default_if_none:"-" }} mm</td></tr>
+        <tr><td class="coin">{% trans "ARD" %}</td><td class="n">{{ geometrie.carrossage_arriere_droit|default_if_none:"-" }}°</td><td class="n">–</td><td class="n">{{ geometrie.pincement_arriere_droit|default_if_none:"-" }}°</td><td class="n">{{ geometrie.hauteur_caisse_ard|default_if_none:"-" }} mm</td></tr>
+        </tbody>
+    </table>
+</td>
+</tr></tbody></table>
 
-<table>
-    <thead>
-        <tr>
-            <th>{% trans "Position" %}</th>
-            <th>{% trans "État" %}</th>
-            <th>{% trans "Pression" %}</th>
-        </tr>
-    </thead>
+<table class="kpi"><tr>
+    <td><span class="v">{{ geometrie.angle_pivot|default_if_none:"-" }}°</span><span class="l">{% trans "Angle de pivot" %}</span></td>
+    <td><span class="v">{{ geometrie.poussee_arriere|default_if_none:"-" }}°</span><span class="l">{% trans "Poussée arrière" %}</span></td>
+    <td><span class="v">{% if geometrie.amortisseur_marque and geometrie.amortisseur_marque != "CHOISIR" %}{{ geometrie.get_amortisseur_marque_display }}{% else %}-{% endif %}</span><span class="l">{% trans "Marque des amortisseurs" %}</span></td>
+</tr></table>
 
-    <tbody>
-    <tr>
-        <td>{% trans "Avant droit" %}</td>
-        <td>
-            {% if geometrie.pneu_bande_avd == "OK" %}
-                <span class="etat-vert">{{ geometrie.get_pneu_bande_avd_display }}</span>
-            {% elif geometrie.pneu_bande_avd == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ geometrie.get_pneu_bande_avd_display }}</span>
-            {% elif geometrie.pneu_bande_avd == "REMPLACE" %}
-                <span class="etat-bleu">{{ geometrie.get_pneu_bande_avd_display }}</span>
-            {% else %}
-                <span class="etat-gris">{{ geometrie.get_pneu_bande_avd_display|default:"-" }}</span>
-            {% endif %}
-        </td>
-
-        <td>{{ geometrie.pneu_pression_bar_avd }} bar</td>
-    </tr>
-
-    <tr>
-        <td>{% trans "Avant gauche" %}</td>
-        <td>
-            {% if geometrie.pneu_bande_avg == "OK" %}
-                <span class="etat-vert">{{ geometrie.get_pneu_bande_avg_display }}</span>
-            {% elif geometrie.pneu_bande_avg == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ geometrie.get_pneu_bande_avg_display }}</span>
-            {% elif geometrie.pneu_bande_avg == "REMPLACE" %}
-                <span class="etat-bleu">{{ geometrie.get_pneu_bande_avg_display }}</span>
-            {% else %}
-                <span class="etat-gris">{{ geometrie.get_pneu_bande_avg_display|default:"-" }}</span>
-            {% endif %}
-        </td>
-        <td>{{ geometrie.pneu_pression_bar_avg }} bar</td>
-    </tr>
-
-    <tr>
-        <td>{% trans "Arrière droit" %}</td>
-        <td>
-            {% if geometrie.pneu_bande_ard == "OK" %}
-                <span class="etat-vert">{{ geometrie.get_pneu_bande_ard_display }}</span>
-            {% elif geometrie.pneu_bande_ard == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ geometrie.get_pneu_bande_ard_display }}</span>
-            {% elif geometrie.pneu_bande_ard == "REMPLACE" %}
-                <span class="etat-bleu">{{ geometrie.get_pneu_bande_ard_display }}</span>
-            {% else %}
-                <span class="etat-gris">{{ geometrie.get_pneu_bande_ard_display|default:"-" }}</span>
-            {% endif %}
-        </td>
-
-        <td>{{ geometrie.pneu_pression_bar_ard }} bar</td>
-    </tr>
-
-    <tr>
-        <td>{% trans "Arrière gauche" %}</td>
-        <td>
-            {% if geometrie.pneu_bande_arg == "OK" %}
-                <span class="etat-vert">{{ geometrie.get_pneu_bande_arg_display }}</span>
-            {% elif geometrie.pneu_bande_arg == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ geometrie.get_pneu_bande_arg_display }}</span>
-            {% elif geometrie.pneu_bande_arg == "REMPLACE" %}
-                <span class="etat-bleu">{{ geometrie.get_pneu_bande_arg_display }}</span>
-            {% else %}
-                <span class="etat-gris">{{ geometrie.get_pneu_bande_arg_display|default:"-" }}</span>
-            {% endif %}
-        </td>
-        <td>{{ geometrie.pneu_pression_bar_arg }} bar</td>
-    </tr>
-</tbody>
-</table>
-
-
-<!-- ================= ANGLES ================= -->
-<h2>{% trans "Carrossage" %}</h2>
-
-<div class="box">
-    <div class="carrossage-list">
-
-        <div>{% trans "Carrossage AVD" %} : {{ geometrie.carrossage_avant_droit }}°</div>
-        <div>{% trans "Carrossage AVG" %} : {{ geometrie.carrossage_avant_gauche }}°</div>
-        <div>{% trans "Carrossage ARD" %} : {{ geometrie.carrossage_arriere_droit }}°</div>
-        <div>{% trans "Carrossage ARG" %} : {{ geometrie.carrossage_arriere_gauche }}°</div>
-
-    </div>
-</div>
-
-<!-- ================= ANGLES ================= -->
-<h2>{% trans "Chasse" %}</h2>
-
-<div class="box">
-    <div class="carrossage-list">
-
-        <div>{% trans "Chasse droite" %} : {{ geometrie.chasse_droite }}°</div>
-        <div>{% trans "Chasse gauche" %} : {{ geometrie.chasse_gauche }}°</div>
-
-    </div>
-</div>
-
-<!-- ================= ANGLES ================= -->
-<h2>{% trans "Pincement" %}</h2>
-
-<div class="box">
-    <div class="carrossage-list">
-
-
-        <div>{% trans "Pincement AVD" %} : {{ geometrie.pincement_avant_droit }}°</div>
-        <div>{% trans "Pincement AVG" %} : {{ geometrie.pincement_avant_gauche }}°</div>
-
-        <div>{% trans "Pincement ARD" %} : {{ geometrie.pincement_arriere_droit }}°</div>
-        <div>{% trans "Pincement ARG" %} : {{ geometrie.pincement_arriere_gauche }}°</div>
-
-    </div>
-</div>
-
-<!-- ================= ANGLES ================= -->
-<h2>{% trans "Angle de pivot" %}</h2>
-
-<div class="box">
-    <div class="carrossage-list">
-        <div>{% trans "Angle de pivot" %} : {{ geometrie.angle_pivot }}°</div>
-    </div>
-</div>
-
-<!-- ================= ANGLES ================= -->
-<h2>{% trans "Poussée arrière" %}</h2>
-
-<div class="box">
-    <div class="grid-3">
-        <div>{% trans "Poussée arrière" %} : {{ geometrie.poussee_arriere }}°</div>
-    </div>
-</div>
-
-
-<!-- ================= SUSPENSION ================= -->
+<!-- ================= SUSPENSION (par essieu) ================= -->
 <h2>{% trans "Suspension" %}</h2>
-
-<div class="box">
-
-    <div class="grid">
-        <div>{% trans "Hauteur caisse AVD" %}: {{ geometrie.hauteur_caisse_avd }} mm</div>
-        <div>{% trans "Hauteur caisse AVG" %}: {{ geometrie.hauteur_caisse_avg }} mm</div>
-        <div>{% trans "Hauteur caisse ARD" %}: {{ geometrie.hauteur_caisse_ard }} mm</div>
-        <div>{% trans "Hauteur caisse ARG" %}: {{ geometrie.hauteur_caisse_arg }} mm</div>
-
-
-        <div>{% trans "Débattement avant" %}: {{ geometrie.debattement_suspension_avant }} mm</div>
-        <div>{% trans "Débattement arrière" %}: {{ geometrie.debattement_suspension_arriere }} mm</div>
-
-        <div>{% trans "Raideur AV" %}: {{ geometrie.raideur_ressort_avant }}</div>
-        <div>{% trans "Raideur AR" %}: {{ geometrie.raideur_ressort_arriere }}</div>
-
-        <div>{% trans "Marque des Amortisseurs" %}: {{ geometrie.amortisseur_marque }}</div>
-    </div>
-
-</div>
-
-<div class="box">
-    <div class="carrossage-list">
-
-        <div>{% trans "Amortisseurs avant compression" %} : {{ geometrie.amortissement_avant_compression }}</div>
-        <div>{% trans "Amortisseurs avant rebond" %} : {{ geometrie.amortissement_avant_rebond }}</div>
-
-        <div>{% trans "Amortisseurs arrière compression" %} : {{ geometrie.amortissement_arriere_compression }}</div>
-        <div>{% trans "Amortisseurs arrière rebond" %} : {{ geometrie.amortissement_arriere_rebond }}</div>
-    </div>
-</div>
-
+<table class="fiche">
+    <thead><tr><th></th>
+        <th style="text-align:right">{% trans "Débattement" %}</th>
+        <th style="text-align:right">{% trans "Raideur ressort" %}</th>
+        <th style="text-align:right">{% trans "Amortisseur compression" %}</th>
+        <th style="text-align:right">{% trans "Amortisseur rebond" %}</th>
+    </tr></thead>
+    <tbody>
+        <tr><td class="coin">{% trans "Avant" %}</td>
+            <td class="n">{{ geometrie.debattement_suspension_avant|default_if_none:"-" }} mm</td>
+            <td class="n">{{ geometrie.raideur_ressort_avant|default_if_none:"-" }}</td>
+            <td class="n">{{ geometrie.amortissement_avant_compression|default_if_none:"-" }}</td>
+            <td class="n">{{ geometrie.amortissement_avant_rebond|default_if_none:"-" }}</td></tr>
+        <tr><td class="coin">{% trans "Arrière" %}</td>
+            <td class="n">{{ geometrie.debattement_suspension_arriere|default_if_none:"-" }} mm</td>
+            <td class="n">{{ geometrie.raideur_ressort_arriere|default_if_none:"-" }}</td>
+            <td class="n">{{ geometrie.amortissement_arriere_compression|default_if_none:"-" }}</td>
+            <td class="n">{{ geometrie.amortissement_arriere_rebond|default_if_none:"-" }}</td></tr>
+    </tbody>
+</table>
 
 <!-- ================================================== -->
 <!-- MAIN-D'ŒUVRE -->

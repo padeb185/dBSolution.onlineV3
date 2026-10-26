@@ -171,6 +171,35 @@
             </div>
         </a>
 
+
+         <a
+            href="{% url 'geometrie_course:geocourse_list' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+
+                <div>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {% trans "Géométrie course" %}
+                    </h2>
+
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">
+                            {{ total_geometrie_course|default:0 }}
+                        </span>
+                    </p>
+                </div>
+
+                <img
+                    src="{% static 'icons/geometrie-course.png' %}"
+                    alt="{% trans 'Géométrie course' %}"
+                    class="h-[60px] w-[60px]"
+                >
+
+            </div>
+        </a>
+
         <!-- ================================================== -->
         <!-- ABS -->
         <!-- ================================================== -->

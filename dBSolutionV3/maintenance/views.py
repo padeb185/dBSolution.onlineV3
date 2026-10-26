@@ -71,8 +71,11 @@ def liste_maintenance_all(request):
 
     with tenant_context(tenant):
         exemplaires = VoitureExemplaire.objects.select_related(
-            'voiture_marque', 'voiture_modele'  # Ce sont les bons noms de champs
+            'voiture_marque', 'voiture_modele', 'voiture_moteur'
         ).all().order_by('id')
+        # Alertes rodage / entretien : rodages validés chargés en une requête
+        from voiture.voiture_exemplaire.models import precharger_alertes
+        exemplaires = precharger_alertes(exemplaires)
 
     return render(
         request,

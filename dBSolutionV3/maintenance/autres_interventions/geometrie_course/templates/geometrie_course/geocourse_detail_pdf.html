@@ -1,0 +1,339 @@
+{% load i18n static format_numbers %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html, body { width: 100%; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box { border: 1px solid #ddd; padding: 12px; margin-bottom: 14px; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+        .label { font-weight: bold; }
+
+        .tag { padding: 4px 8px; border-radius: 4px; color: white; font-weight: bold; }
+        .tag-vert { background: #16a34a; }
+        .tag-jaune { background: #ca8a04; }
+        .tag-rouge { background: #dc2626; }
+
+        .etat-vert, .etat-rouge, .etat-bleu, .etat-gris, .etat-jaune {
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .etat-vert  { color: #166534; background: #dcfce7; }
+        .etat-rouge { color: #991b1b; background: #fee2e2; }
+        .etat-bleu  { color: #1e40af; background: #dbeafe; }
+        .etat-jaune { color: #854d0e; background: #fef9c3; }
+        .etat-gris  { color: #6b7280; background: #f3f4f6; }
+
+        .table-2-cols { width: 96%; table-layout: fixed; border-collapse: collapse; }
+        .table-2-cols th:first-child, .table-2-cols td:first-child { width: 66.67%; }
+        .table-2-cols th:last-child,  .table-2-cols td:last-child  { width: 33.33%; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+
+        th, td { border: 1px solid #d1d5db; padding: 6px; vertical-align: middle; }
+
+        th { background: #eff6ff; color: #1e3a8a; text-align: left; }
+
+        .text-right { text-align: right; }
+
+        .total { font-weight: bold; background: #f8fafc; }
+
+        .total-general { font-weight: bold; color: #1e3a8a; background: #dbeafe; }
+
+        .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+        .societe-informations div { margin-bottom: 6px; }
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+        .societe-logo img { max-width: 200px; max-height: 200px; }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+
+        /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+        h1, h2 { page-break-after: avoid; }
+        table { page-break-inside: auto; }
+        tr { page-break-inside: avoid; break-inside: avoid; }
+        thead { display: table-header-group; }
+        tfoot { display: table-footer-group; }
+        .box, .societe-header { page-break-inside: avoid; }
+
+        /* ---------- Fiche de réglage ---------- */
+        .kpi { width: 100%; border-collapse: separate; border-spacing: 6px 0; margin: 6px 0 4px -6px; }
+        .kpi td { border: 1px solid #bfdbfe; background: #eff6ff; border-radius: 4px; text-align: center; padding: 5px; }
+        .kpi .v { display: block; font-size: 14px; font-weight: bold; color: #1e3a8a; }
+        .kpi .l { display: block; font-size: 9px; color: #475569; text-transform: uppercase; }
+        .kpi td.cross { background: #fff7ed; border-color: #fdba74; }
+        .kpi td.cross .v { color: #c2410c; }
+        .deux-col { width: 100%; border-collapse: separate; border-spacing: 8px 0; margin-left: -8px; }
+        .deux-col > tbody > tr > td { border: none; padding: 0; vertical-align: top; width: 50%; }
+        table.fiche { margin-top: 4px; margin-bottom: 10px; font-size: 11px; }
+        table.fiche th, table.fiche td { padding: 4px 6px; }
+        table.fiche td.n { text-align: right; font-variant-numeric: tabular-nums; }
+        table.fiche td.final { font-weight: bold; background: #f0fdf4; }
+        table.fiche td.coin { font-weight: bold; color: #1e3a8a; width: 18%; }
+        .titre-fiche { font-weight: bold; color: #1e40af; margin-top: 8px; font-size: 12px; }
+        .titre-fiche small { color: #64748b; font-weight: normal; }
+        .remarques { border: 1px solid #ddd; padding: 8px; white-space: pre-wrap; }
+    </style>
+</head>
+
+<body>
+
+{% with societe=geo.tech_societe %}
+{% if societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">{{ societe.nom }}</div>
+
+            {% if societe.adresse %}
+                <div>
+                    {{ societe.adresse.rue }} {{ societe.adresse.numero }}
+                    {% if societe.adresse.boite %} / {{ societe.adresse.boite }}{% endif %}
+                </div>
+                <div>{{ societe.adresse.code_postal }} {{ societe.adresse.ville }}</div>
+
+                {% if societe.adresse.pays %}
+                    <div>{{ societe.adresse.pays }} {{ societe.adresse.code_pays }}</div>
+                {% endif %}
+            {% endif %}
+
+            {% if societe.numero_tva %}
+                <div><strong>{% trans "Numéro de TVA" %} :</strong> {{ societe.numero_tva|format_tva }}</div>
+            {% endif %}
+
+            {% if societe.iban %}
+                <div><strong>{% trans "Numéro de compte" %} :</strong> {{ societe.iban|format_iban }}</div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img src="{% static 'societe/' %}{{ societe.nom }}.png" alt="{{ societe.nom }}">
+        </div>
+
+    </div>
+{% endif %}
+{% endwith %}
+
+<h1>{% trans "Rapport de géométrie course" %}</h1>
+
+<div class="box">
+    <div class="grid">
+
+        <div><span class="label">{% trans "Date" %} :</span> {{ geo.date|date:"d/m/Y H:i" }}</div>
+        <div><span class="label">{% trans "Technicien" %} :</span> {{ geo.tech_nom_technicien|default:"-" }}</div>
+        <div><span class="label">{% trans "Rôle" %} :</span> {{ geo.tech_role_technicien|default:"-" }}</div>
+        <div><span class="label">{% trans "Société" %} :</span> {{ geo.tech_societe|default:"-" }}</div>
+        <div><span class="label">{% trans "Véhicule" %} :</span> {{ geo.voiture_exemplaire }}</div>
+        <div><span class="label">{% trans "Immatriculation" %} :</span> {{ geo.voiture_exemplaire.immatriculation|default:"-" }}</div>
+        <div><span class="label">{% trans "Kilométrage avant contrôle" %} :</span> {{ geo.kilometres_chassis|default:0 }} km</div>
+        <div><span class="label">{% trans "Kilométrage contrôle" %} :</span> {{ geo.kilometrage_geometrie }} km</div>
+        <div><span class="label">{% trans "Serrage des roues" %} :</span> {{ geo.get_serrage_roues_display }}</div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+            {% if geo.tag == "VERT" %}
+                <span class="tag tag-vert">{{ geo.get_tag_display }}</span>
+            {% elif geo.tag == "JAUNE" %}
+                <span class="tag tag-jaune">{{ geo.get_tag_display }}</span>
+            {% elif geo.tag == "ROUGE" %}
+                <span class="tag tag-rouge">{{ geo.get_tag_display }}</span>
+            {% else %}
+                {{ geo.get_tag_display }}
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+
+<!-- ================= PILOTE / PESÉE ================= -->
+
+<h2>{% trans "Pilote et pesée" %}</h2>
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Poids du pilote équipé" %} :</span> {% if geo.poids_pilote %}{{ geo.poids_pilote }} kg{% else %}-{% endif %}</div>
+        <div><span class="label">{% trans "Pesée avec pilote" %} :</span> {{ geo.pesee_avec_pilote|yesno:_("Oui,Non") }}</div>
+        <div><span class="label">{% trans "Carburant à bord" %} :</span> {% if geo.carburant_litres %}{{ geo.carburant_litres }} L{% else %}-{% endif %}</div>
+        <div><span class="label">{% trans "Ingénieur / préparateur" %} :</span> {{ geo.ingenieur|default:"-" }}</div>
+    </div>
+</div>
+
+{% for titre, p in geo.pesees_affichage %}{% if p %}
+<div class="titre-fiche">{% trans "Répartition des masses" %} – {{ titre }}</div>
+<table class="kpi"><tr>
+    <td><span class="v">{{ p.total }} kg</span><span class="l">{% trans "Total" %}</span></td>
+    <td><span class="v">{{ p.pct_avant }} / {{ p.pct_arriere }} %</span><span class="l">{% trans "Avant / arrière" %}</span></td>
+    <td><span class="v">{{ p.pct_gauche }} / {{ p.pct_droite }} %</span><span class="l">{% trans "Gauche / droite" %}</span></td>
+    <td class="cross"><span class="v">{{ p.cross }} %</span><span class="l">{% trans "Cross (AVG + ARD)" %}</span></td>
+    <td><span class="v">{% if p.sans_pilote is not None %}{{ p.sans_pilote }} kg{% else %}-{% endif %}</span><span class="l">{% trans "Sans pilote" %}</span></td>
+</tr></table>
+{% endif %}{% endfor %}
+
+<!-- ================= MESURES PAR COIN ================= -->
+
+<h2>{% trans "Géométrie et réglages" %}</h2>
+<p style="margin:0 0 4px 0;"><span class="label">{% trans "Mesure de la hauteur de caisse" %} :</span>
+    {{ geo.get_moyen_mesure_hauteur_display }}{% if geo.point_mesure_hauteur %} – {{ geo.point_mesure_hauteur }}{% endif %}
+    · <span class="label">{% trans "Clics comptés depuis" %} :</span> {{ geo.get_reference_clics_display }}</p>
+
+{% with sections=geo.sections_fiche %}
+<table class="deux-col"><tbody>
+{% for s in sections %}
+    {% if forloop.counter0|divisibleby:2 %}<tr>{% endif %}
+    <td>
+        <div class="titre-fiche">{{ s.titre }}{% if s.unite %} <small>({{ s.unite }})</small>{% endif %}</div>
+        <table class="fiche">
+            <thead><tr><th></th>{% for e in s.entetes %}<th style="text-align:right">{{ e }}</th>{% endfor %}</tr></thead>
+            <tbody>
+            {% for l in s.lignes %}
+                <tr><td class="coin">{{ l.coin }}</td>
+                {% for v in l.valeurs %}<td class="n{% if forloop.last and s.entetes|length > 1 %} final{% endif %}">{{ v|default_if_none:"-" }}</td>{% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </td>
+    {% if forloop.counter|divisibleby:2 or forloop.last %}{% if forloop.last and not forloop.counter|divisibleby:2 %}<td></td>{% endif %}</tr>{% endif %}
+{% empty %}
+    <tr><td>{% trans "Aucune mesure saisie." %}</td></tr>
+{% endfor %}
+</tbody></table>
+{% endwith %}
+
+<!-- ================= SUSPENSIONS ================= -->
+
+<h2>{% trans "Réglages ingénieur : suspensions" %}</h2>
+<p style="margin:0 0 4px 0;"><span class="label">{% trans "Amortisseurs" %} :</span>
+    {% if geo.amortisseur_marque != "CHOISIR" %}{{ geo.get_amortisseur_marque_display }}{% else %}-{% endif %}{% if geo.amortisseur_modele %} {{ geo.amortisseur_modele }}{% endif %}</p>
+<table class="fiche">
+    <thead><tr>
+        <th></th>
+        <th>{% trans "Type de ressort" %}</th><th>{% trans "Marque / référence" %}</th>
+        <th style="text-align:right">{% trans "Raideur" %}</th><th style="text-align:right">{% trans "Longueur" %}</th>
+        <th>{% trans "Ressort de rappel" %}</th><th>{% trans "Barre anti-roulis" %}</th>
+    </tr></thead>
+    <tbody>
+    {% for e in geo.essieux_fiche %}
+        <tr>
+            <td class="coin">{{ e.titre }}</td>
+            <td>{{ e.type }}</td>
+            <td>{{ e.marque|default:"-" }}</td>
+            <td class="n">{% if e.raideur %}{{ e.raideur }} N/mm{% else %}-{% endif %}</td>
+            <td class="n">{% if e.longueur %}{{ e.longueur }} mm{% else %}-{% endif %}</td>
+            <td>{{ e.rappel_type }}{% if e.rappel_actif %}{% if e.rappel_raideur %} – {{ e.rappel_raideur }} N/mm{% endif %}{% if e.rappel_longueur %} – {{ e.rappel_longueur }} mm{% endif %}{% endif %}</td>
+            <td>{{ e.barre|default:"-" }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% if geo.remarques %}
+<h2>{% trans "Remarques de l'ingénieur" %}</h2>
+<div class="remarques">{{ geo.remarques }}</div>
+{% endif %}
+
+
+<!-- ================= MAIN D'ŒUVRE ================= -->
+
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Temps" %} :</span> {{ geo.temps_main_oeuvre_display }}</div>
+
+        {% if geo.main_oeuvre %}
+            <div><span class="label">{% trans "Taux horaire HTVA" %} :</span> {{ geo.taux_horaire_main_oeuvre|floatformat:2 }} €</div>
+            <div><span class="label">{% trans "Prix HTVA" %} :</span> {{ geo.cout_main_oeuvre|floatformat:2 }} €</div>
+            <div><span class="label">{% trans "Descriptif" %} :</span> {{ geo.main_oeuvre.descriptif|default:"-" }}</div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+
+<table class="table-2-cols">
+    <tbody>
+        <tr class="total-general">
+            <td class="text-right"><strong>{% trans "Total main-d'œuvre HTVA" %}</strong></td>
+            <td class="text-right"><strong>{{ geo.cout_main_oeuvre|floatformat:2 }} €</strong></td>
+        </tr>
+    </tbody>
+</table>
+
+
+{% include "piece/stock/_pieces_utilisees_pdf.html" with maintenance=geo.maintenance %}
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

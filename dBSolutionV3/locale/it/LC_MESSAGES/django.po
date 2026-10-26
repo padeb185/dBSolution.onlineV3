@@ -63719,3 +63719,715 @@ msgstr "Totale manutenzioni IVA esclusa"
 #, python-format
 msgid "%(debut)s à %(fin)s sur %(total)s maintenances"
 msgstr "Da %(debut)s a %(fin)s su %(total)s manutenzioni"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage AVG avant géométrie (°)"
+msgstr "Campanatura AS prima della geometria (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage AVD avant géométrie (°)"
+msgstr "Campanatura AD prima della geometria (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage ARG avant géométrie (°)"
+msgstr "Campanatura PS prima della geometria (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage ARD avant géométrie (°)"
+msgstr "Campanatura PD prima della geometria (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage AVG après géométrie (°)"
+msgstr "Campanatura AS dopo la geometria (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage AVD après géométrie (°)"
+msgstr "Campanatura AD dopo la geometria (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage ARG après géométrie (°)"
+msgstr "Campanatura PS dopo la geometria (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage ARD après géométrie (°)"
+msgstr "Campanatura PD dopo la geometria (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage AVG cible ingénieur (°)"
+msgstr "Campanatura AS obiettivo ingegnere (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage AVD cible ingénieur (°)"
+msgstr "Campanatura AD obiettivo ingegnere (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage ARG cible ingénieur (°)"
+msgstr "Campanatura PS obiettivo ingegnere (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage ARD cible ingénieur (°)"
+msgstr "Campanatura PD obiettivo ingegnere (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Chasse AVG avant géométrie (°)"
+msgstr "Incidenza AS prima della geometria (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Chasse AVD avant géométrie (°)"
+msgstr "Incidenza AD prima della geometria (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Chasse AVG après géométrie (°)"
+msgstr "Incidenza AS dopo la geometria (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Chasse AVD après géométrie (°)"
+msgstr "Incidenza AD dopo la geometria (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Chasse AVG cible ingénieur (°)"
+msgstr "Incidenza AS obiettivo ingegnere (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Chasse AVD cible ingénieur (°)"
+msgstr "Incidenza AD obiettivo ingegnere (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur AVG avant géométrie (mm)"
+msgstr "Altezza AS prima della geometria (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur AVD avant géométrie (mm)"
+msgstr "Altezza AD prima della geometria (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur ARG avant géométrie (mm)"
+msgstr "Altezza PS prima della geometria (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur ARD avant géométrie (mm)"
+msgstr "Altezza PD prima della geometria (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur AVG après géométrie (mm)"
+msgstr "Altezza AS dopo la geometria (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur AVD après géométrie (mm)"
+msgstr "Altezza AD dopo la geometria (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur ARG après géométrie (mm)"
+msgstr "Altezza PS dopo la geometria (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur ARD après géométrie (mm)"
+msgstr "Altezza PD dopo la geometria (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur AVG cible ingénieur (mm)"
+msgstr "Altezza AS obiettivo ingegnere (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur AVD cible ingénieur (mm)"
+msgstr "Altezza AD obiettivo ingegnere (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur ARG cible ingénieur (mm)"
+msgstr "Altezza PS obiettivo ingegnere (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur ARD cible ingénieur (mm)"
+msgstr "Altezza PD obiettivo ingegnere (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement AVG avant géométrie"
+msgstr "Convergenza AS prima della geometria"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement AVD avant géométrie"
+msgstr "Convergenza AD prima della geometria"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement ARG avant géométrie"
+msgstr "Convergenza PS prima della geometria"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement ARD avant géométrie"
+msgstr "Convergenza PD prima della geometria"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement AVG après géométrie"
+msgstr "Convergenza AS dopo la geometria"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement AVD après géométrie"
+msgstr "Convergenza AD dopo la geometria"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement ARG après géométrie"
+msgstr "Convergenza PS dopo la geometria"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement ARD après géométrie"
+msgstr "Convergenza PD dopo la geometria"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement AVG cible ingénieur"
+msgstr "Convergenza AS obiettivo ingegnere"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement AVD cible ingénieur"
+msgstr "Convergenza AD obiettivo ingegnere"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement ARG cible ingénieur"
+msgstr "Convergenza PS obiettivo ingegnere"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement ARD cible ingénieur"
+msgstr "Convergenza PD obiettivo ingegnere"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids AVG avant géométrie (kg)"
+msgstr "Peso AS prima della geometria (kg)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids AVD avant géométrie (kg)"
+msgstr "Peso AD prima della geometria (kg)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids ARG avant géométrie (kg)"
+msgstr "Peso PS prima della geometria (kg)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids ARD avant géométrie (kg)"
+msgstr "Peso PD prima della geometria (kg)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids AVG après géométrie (kg)"
+msgstr "Peso AS dopo la geometria (kg)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids AVD après géométrie (kg)"
+msgstr "Peso AD dopo la geometria (kg)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids ARG après géométrie (kg)"
+msgstr "Peso PS dopo la geometria (kg)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids ARD après géométrie (kg)"
+msgstr "Peso PD dopo la geometria (kg)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression AVG (clics)"
+msgstr "Compressione AS (click)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression haute vitesse AVG (clics)"
+msgstr "Compressione alta velocità AS (click)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Détente AVG (clics)"
+msgstr "Estensione AS (click)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pression à froid AVG (bar)"
+msgstr "Pressione a freddo AS (bar)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression AVD (clics)"
+msgstr "Compressione AD (click)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression haute vitesse AVD (clics)"
+msgstr "Compressione alta velocità AD (click)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Détente AVD (clics)"
+msgstr "Estensione AD (click)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pression à froid AVD (bar)"
+msgstr "Pressione a freddo AD (bar)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression ARG (clics)"
+msgstr "Compressione PS (click)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression haute vitesse ARG (clics)"
+msgstr "Compressione alta velocità PS (click)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Détente ARG (clics)"
+msgstr "Estensione PS (click)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pression à froid ARG (bar)"
+msgstr "Pressione a freddo PS (bar)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression ARD (clics)"
+msgstr "Compressione PD (click)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression haute vitesse ARD (clics)"
+msgstr "Compressione alta velocità PD (click)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Détente ARD (clics)"
+msgstr "Estensione PD (click)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pression à froid ARD (bar)"
+msgstr "Pressione a freddo PD (bar)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Type de ressort AV"
+msgstr "Tipo di molla anteriore"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Marque / référence ressort AV"
+msgstr "Marca / riferimento molla anteriore"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Raideur ressort AV (N/mm)"
+msgstr "Rigidità molla anteriore (N/mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Longueur ressort AV (mm)"
+msgstr "Lunghezza molla anteriore (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Type de ressort de rappel AV"
+msgstr "Tipo di molla ausiliaria anteriore"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Raideur ressort de rappel AV (N/mm)"
+msgstr "Rigidità molla ausiliaria anteriore (N/mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Longueur ressort de rappel AV (mm)"
+msgstr "Lunghezza molla ausiliaria anteriore (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Barre anti-roulis AV"
+msgstr "Barra antirollio anteriore"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Type de ressort AR"
+msgstr "Tipo di molla posteriore"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Marque / référence ressort AR"
+msgstr "Marca / riferimento molla posteriore"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Raideur ressort AR (N/mm)"
+msgstr "Rigidità molla posteriore (N/mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Longueur ressort AR (mm)"
+msgstr "Lunghezza molla posteriore (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Type de ressort de rappel AR"
+msgstr "Tipo di molla ausiliaria posteriore"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Raideur ressort de rappel AR (N/mm)"
+msgstr "Rigidità molla ausiliaria posteriore (N/mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Longueur ressort de rappel AR (mm)"
+msgstr "Lunghezza molla ausiliaria posteriore (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Barre anti-roulis AR"
+msgstr "Barra antirollio posteriore"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Amortisseur compression"
+msgstr "Ammortizzatore compressione"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Amortisseur rebond"
+msgstr "Ammortizzatore estensione"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Amortisseurs (clics)"
+msgstr "Ammortizzatori (click)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Angles en degrés"
+msgstr "Angoli in gradi"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Angles en degrés (négatif = roue inclinée vers l'intérieur en haut)"
+msgstr "Angoli in gradi (negativo = parte alta della ruota verso l'interno)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Après géo"
+msgstr "Dopo"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Après géométrie"
+msgstr "Dopo la geometria"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Aucune mesure saisie."
+msgstr "Nessuna misura inserita."
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Avant / arrière"
+msgstr "Anteriore / posteriore"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Avant du véhicule"
+msgstr "Parte anteriore del veicolo"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Avant géo"
+msgstr "Prima"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Avant géométrie"
+msgstr "Prima della geometria"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Balance : pesée de chaque roue"
+msgstr "Bilancia: peso di ogni ruota"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Barre anti-roulis"
+msgstr "Barra antirollio"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carburant à bord"
+msgstr "Carburante a bordo"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carburant à bord (L)"
+msgstr "Carburante a bordo (L)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Cible ingénieur"
+msgstr "Obiettivo ingegnere"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Clics comptés depuis"
+msgstr "Click contati da"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression"
+msgstr "Compressione"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression HV"
+msgstr "Compressione AV"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Cross (AVG + ARD)"
+msgstr "Cross (AS + PD)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Degrés (°)"
+msgstr "Gradi (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Diamètre / position de réglage"
+msgstr "Diametro / posizione di regolazione"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Double raideur"
+msgstr "Doppia rigidità"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Détail de la géométrie course"
+msgstr "Dettaglio geometria da corsa"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Détente"
+msgstr "Estensione"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Essieu arrière"
+msgstr "Asse posteriore"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Essieu avant"
+msgstr "Asse anteriore"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Ex. : bas de caisse, plancher, axe de roue…"
+msgstr "Es.: sottoporta, pianale, asse ruota…"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Fiche de réglage"
+msgstr "Scheda di assetto"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Gauche / droite"
+msgstr "Sinistra / destra"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Géométrie course"
+msgstr "Geometria da corsa"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Géométrie course enregistrée avec succès."
+msgstr "Geometria da corsa salvata con successo."
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Géométrie course modifiée avec succès !"
+msgstr "Geometria da corsa modificata con successo!"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Géométrie course supprimée avec succès."
+msgstr "Geometria da corsa eliminata con successo."
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Géométrie et réglages"
+msgstr "Geometria e assetto"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Géométries course"
+msgstr "Geometrie da corsa"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteurs en mm"
+msgstr "Altezze in mm"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Helper (rattrapage de jeu)"
+msgstr "Helper (recupero gioco)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Ingénieur / préparateur"
+msgstr "Ingegnere / preparatore"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Jauge de hauteur"
+msgstr "Calibro di altezza"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Laser"
+msgstr "Laser"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Liste des géométries course"
+msgstr "Elenco geometrie da corsa"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Longueur"
+msgstr "Lunghezza"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Marque / référence"
+msgstr "Marca / riferimento"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Mesure de la hauteur de caisse"
+msgstr "Misura dell'altezza"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Millimètres (mm)"
+msgstr "Millimetri (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Minutes d'angle (′)"
+msgstr "Primi d'arco (′)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Modification de la géométrie course"
+msgstr "Modifica geometria da corsa"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Modifier la géométrie course"
+msgstr "Modifica la geometria da corsa"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Modèle des amortisseurs"
+msgstr "Modello ammortizzatori"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Nombre de clics"
+msgstr "Numero di click"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pesée avec pilote"
+msgstr "Pesata con pilota"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pesée avec pilote (ou lest équivalent)"
+msgstr "Pesata con pilota (o zavorra equivalente)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pilote et conditions de pesée"
+msgstr "Pilota e condizioni di pesata"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pilote et pesée"
+msgstr "Pilota e pesata"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement / ouverture"
+msgstr "Convergenza / divergenza"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids du pilote"
+msgstr "Peso del pilota"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids du pilote équipé"
+msgstr "Peso del pilota equipaggiato"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids du pilote équipé (kg)"
+msgstr "Peso del pilota equipaggiato (kg)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids en kg"
+msgstr "Pesi in kg"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Point de mesure"
+msgstr "Punto di misura"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Position fermée (dur)"
+msgstr "Posizione chiusa (duro)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Position ouverte (souple)"
+msgstr "Posizione aperta (morbido)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pression à froid (bar)"
+msgstr "Pressione a freddo (bar)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pressions des pneus à froid"
+msgstr "Pressioni pneumatici a freddo"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Progressif"
+msgstr "Progressivo"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Raideur ressort"
+msgstr "Rigidità molla"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Rapport de géométrie"
+msgstr "Rapporto di geometria"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Rapport de géométrie course"
+msgstr "Rapporto geometria da corsa"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Remarques de l'ingénieur"
+msgstr "Note dell'ingegnere"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Ressort de rappel"
+msgstr "Molla ausiliaria"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Retour à la liste des géométries course"
+msgstr "Torna alle geometrie da corsa"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Règle / mètre"
+msgstr "Righello / metro"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Réglages ingénieur : amortisseurs"
+msgstr "Regolazioni ingegnere: ammortizzatori"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Réglages ingénieur : ressorts"
+msgstr "Regolazioni ingegnere: molle"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Réglages ingénieur : suspensions"
+msgstr "Regolazioni ingegnere: sospensioni"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Répartition des masses"
+msgstr "Ripartizione dei pesi"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Sans pilote"
+msgstr "Senza pilota"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Suppression de la géométrie course"
+msgstr "Eliminazione geometria da corsa"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Supprimer la géométrie course"
+msgstr "Elimina la geometria da corsa"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Tender (double raideur)"
+msgstr "Tender (doppia rigidità)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Total main-d'œuvre HTVA"
+msgstr "Totale manodopera IVA esclusa"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Type de ressort"
+msgstr "Tipo di molla"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Unité du pincement"
+msgstr "Unità di convergenza"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Valeur positive = pincement, valeur négative = ouverture"
+msgstr "Valore positivo = convergenza, valore negativo = divergenza"
+
+#: maintenance/autres_interventions/geometrie_course
+#, python-format
+msgid "Voulez-vous vraiment supprimer la géométrie course du %(date)s (%(km)s km) pour :"
+msgstr "Vuoi davvero eliminare la geometria da corsa del %(date)s (%(km)s km) per:"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/partials/alertes_km.html
+msgid "Rodage à contrôler"
+msgstr "Controllo rodaggio da fare"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/partials/alertes_km.html
+#, python-format
+msgid "distance de rodage de %(km)s km atteinte"
+msgstr "distanza di rodaggio di %(km)s km raggiunta"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/partials/alertes_km.html
+msgid "Moteur en rodage"
+msgstr "Motore in rodaggio"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/partials/alertes_km.html
+#, python-format
+msgid "encore %(km)s km"
+msgstr "ancora %(km)s km"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/partials/alertes_km.html
+msgid "Premier entretien dépassé"
+msgstr "Primo tagliando scaduto"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/partials/alertes_km.html
+msgid "Entretien dépassé"
+msgstr "Tagliando scaduto"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/partials/alertes_km.html
+#, python-format
+msgid "de %(km)s km"
+msgstr "di %(km)s km"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/partials/alertes_km.html
+msgid "Intervalle d'entretien"
+msgstr "Intervallo di manutenzione"

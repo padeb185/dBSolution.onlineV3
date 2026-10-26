@@ -1,0 +1,14 @@
+{% load i18n %}
+{# Alertes rodage / entretien d'un véhicule. Paramètre : ex (VoitureExemplaire) #}
+{% with r=ex.alerte_rodage e=ex.alerte_entretien %}
+{% if r %}
+    {% if r.niveau == "alerte" %}
+        <p class="text-red-600 font-bold text-sm">⚠ {% trans "Rodage à contrôler" %} ({% blocktrans with km=ex.kilometres_rodage %}distance de rodage de {{ km }} km atteinte{% endblocktrans %})</p>
+    {% else %}
+        <p class="text-blue-700 font-semibold text-sm">ⓘ {% trans "Moteur en rodage" %} : {% blocktrans with km=r.restant %}encore {{ km }} km{% endblocktrans %}</p>
+    {% endif %}
+{% endif %}
+{% if e %}
+    <p class="text-red-600 font-bold text-sm">⚠ {% if e.premier %}{% trans "Premier entretien dépassé" %}{% else %}{% trans "Entretien dépassé" %}{% endif %} {% blocktrans with km=e.depasse %}de {{ km }} km{% endblocktrans %}</p>
+{% endif %}
+{% endwith %}

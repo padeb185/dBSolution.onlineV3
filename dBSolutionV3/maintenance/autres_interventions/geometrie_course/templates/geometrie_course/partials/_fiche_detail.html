@@ -1,0 +1,88 @@
+{% load i18n static %}
+{# Fiche de réglage course (page détail) — obj = GeometrieCourse #}
+<div class="bg-white shadow-md rounded-lg p-6 mb-6">
+    <h2 class="text-xl font-semibold mb-3 flex items-center gap-3">
+        <img src="{% static 'icons/geometrie-course.png' %}" alt="" class="w-10 h-10">{% trans "Fiche de réglage" %}
+    </h2>
+
+    <!-- Pilote / pesée -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4 text-sm">
+        <div class="rounded bg-gray-50 p-2"><span class="block text-xs text-gray-500">{% trans "Poids du pilote" %}</span><strong>{{ obj.poids_pilote|default_if_none:"—" }}{% if obj.poids_pilote %} kg{% endif %}</strong></div>
+        <div class="rounded bg-gray-50 p-2"><span class="block text-xs text-gray-500">{% trans "Pesée avec pilote" %}</span><strong>{{ obj.pesee_avec_pilote|yesno:_("Oui,Non") }}</strong></div>
+        <div class="rounded bg-gray-50 p-2"><span class="block text-xs text-gray-500">{% trans "Carburant à bord" %}</span><strong>{{ obj.carburant_litres|default_if_none:"—" }}{% if obj.carburant_litres %} L{% endif %}</strong></div>
+        <div class="rounded bg-gray-50 p-2"><span class="block text-xs text-gray-500">{% trans "Ingénieur / préparateur" %}</span><strong>{{ obj.ingenieur|default:"—" }}</strong></div>
+    </div>
+
+    <!-- Répartition des masses -->
+    {% if obj.pesee_avant or obj.pesee_apres %}
+    <div class="overflow-x-auto mb-4">
+    <table class="min-w-full border-collapse border border-gray-200 text-sm">
+        <thead><tr class="bg-orange-50">
+            <th class="border px-2 py-1 text-left">{% trans "Répartition" %}</th>
+            <th class="border px-2 py-1 text-right">{% trans "Total" %}</th>
+            <th class="border px-2 py-1 text-right">{% trans "Avant / arrière" %}</th>
+            <th class="border px-2 py-1 text-right">{% trans "Gauche / droite" %}</th>
+            <th class="border px-2 py-1 text-right">{% trans "Cross (AVG + ARD)" %}</th>
+            <th class="border px-2 py-1 text-right">{% trans "Sans pilote" %}</th>
+        </tr></thead>
+        <tbody>
+        {% for titre, p in obj.pesees_affichage %}{% if p %}
+            <tr>
+                <td class="border px-2 py-1 font-semibold">{{ titre }}</td>
+                <td class="border px-2 py-1 text-right">{{ p.total }} kg</td>
+                <td class="border px-2 py-1 text-right">{{ p.pct_avant }} % / {{ p.pct_arriere }} %</td>
+                <td class="border px-2 py-1 text-right">{{ p.pct_gauche }} % / {{ p.pct_droite }} %</td>
+                <td class="border px-2 py-1 text-right font-bold text-orange-700">{{ p.cross }} %</td>
+                <td class="border px-2 py-1 text-right">{% if p.sans_pilote is not None %}{{ p.sans_pilote }} kg{% else %}—{% endif %}</td>
+            </tr>
+        {% endif %}{% endfor %}
+        </tbody>
+    </table>
+    </div>
+    {% endif %}
+
+    {% if obj.moyen_mesure_hauteur %}
+    <p class="text-sm mb-3"><strong>{% trans "Mesure de la hauteur de caisse" %} :</strong> {{ obj.get_moyen_mesure_hauteur_display }}{% if obj.point_mesure_hauteur %} – {{ obj.point_mesure_hauteur }}{% endif %}</p>
+    {% endif %}
+
+    <!-- Sections par coin -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {% for s in obj.sections_fiche %}
+        <div>
+            <p class="font-semibold mb-1 flex items-center gap-2"><img src="{% static 'icons/'|add:s.icone %}" alt="" class="w-7 h-7">{{ s.titre }}{% if s.unite %} <span class="text-gray-400 text-xs">({{ s.unite }})</span>{% endif %}</p>
+            <table class="min-w-full border-collapse border border-gray-200 text-sm">
+                <thead><tr class="bg-blue-50">
+                    <th class="border px-2 py-1 text-left"></th>
+                    {% for e in s.entetes %}<th class="border px-2 py-1 text-right">{{ e }}</th>{% endfor %}
+                </tr></thead>
+                <tbody>
+                {% for l in s.lignes %}
+                    <tr>
+                        <td class="border px-2 py-1 font-semibold">{{ l.coin }}</td>
+                        {% for v in l.valeurs %}<td class="border px-2 py-1 text-right tabular-nums {% if forloop.last and s.entetes|length > 1 %}font-bold{% endif %}">{{ v|default_if_none:"—" }}</td>{% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endfor %}
+    </div>
+
+    <!-- Amortisseurs / ressorts -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 text-sm">
+        <div class="md:col-span-2">
+            <strong>{% trans "Amortisseurs" %} :</strong>
+            {% if obj.amortisseur_marque != "CHOISIR" %}{{ obj.get_amortisseur_marque_display }}{% else %}—{% endif %}
+            {% if obj.amortisseur_modele %} {{ obj.amortisseur_modele }}{% endif %}
+            <span class="text-gray-500">· {% trans "Clics comptés depuis" %} : {{ obj.get_reference_clics_display }}</span>
+        </div>
+        {% for e in obj.essieux_fiche %}
+        <div class="rounded border border-gray-200 p-3">
+            <p class="font-semibold mb-1">{{ e.titre }}</p>
+            <p>{% trans "Ressort" %} : {{ e.type }}{% if e.marque %} – {{ e.marque }}{% endif %}{% if e.raideur %} – {{ e.raideur }} N/mm{% endif %}{% if e.longueur %} – {{ e.longueur }} mm{% endif %}</p>
+            <p>{% trans "Ressort de rappel" %} : {{ e.rappel_type }}{% if e.rappel_actif %}{% if e.rappel_raideur %} – {{ e.rappel_raideur }} N/mm{% endif %}{% if e.rappel_longueur %} – {{ e.rappel_longueur }} mm{% endif %}{% endif %}</p>
+            {% if e.barre %}<p>{% trans "Barre anti-roulis" %} : {{ e.barre }}</p>{% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>

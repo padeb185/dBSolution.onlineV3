@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détail de la géométrie course" %}{% endblock %}
+
+{% block content %}
+    {% url 'geometrie_course:modifier_geocourse' geo.pk as url_modifier %}
+    {% url 'geometrie_course:geocourse_pdf' geo.pk as url_pdf %}
+    {% url 'geometrie_course:delete_geocourse' geo.pk as url_delete %}
+    {% if exemplaire %}{% url 'geometrie_course:geocourse_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détail de la géométrie course" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=geo km_controle=geo.kilometrage_geometrie icone="geometrie-course.png" extra_template="geometrie_course/partials/_fiche_detail.html" %}
+{% endblock %}

@@ -57,6 +57,7 @@ URLS_MAINTENANCE = {
     "GEOMETRIE": ["geometrie:geometrie_check", "geometrie:geometrie_list"],
     "ECLAIRAGE": ["eclairage:eclairage_check_view", "eclairage:eclairage_list"],
     "CARDAN": ["cardan:cardan_check", "cardan:cardan_list"],
+    "GEOMETRIE_COURSE": ["geometrie_course:geocourse_check", "geometrie_course:geocourse_list"],
     "ARBRE_TRANSMISSION": ["arbre_transmission:arbre_check", "arbre_transmission:arbre_list"],
     "CULASSE": ["culasse:culasse_form"],
     "ROULEMENT": ["roulement:roulement_check", "roulement:roulement_list"],

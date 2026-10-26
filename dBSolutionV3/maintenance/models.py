@@ -57,6 +57,7 @@ class Maintenance(models.Model):
         ESSUYAGE = "ESSUYAGE", _("Essuyage")
         INJECTION = "INJECTION", _("Injection")
         GEOMETRIE = "GEOMETRIE", _("Géométrie")
+        GEOMETRIE_COURSE = "GEOMETRIE_COURSE", _("Géométrie course")
         ECLAIRAGE = "ECLAIRAGE", _("Éclairage")
         CARDAN = "CARDAN", _("Cardan")
         ARBRE_TRANSMISSION = "ARBRE_TRANSMISSION", _("Arbre de transmission")

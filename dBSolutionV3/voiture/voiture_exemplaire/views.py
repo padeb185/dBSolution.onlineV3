@@ -528,8 +528,11 @@ def modifier_exemplaire(request, exemplaire_id):
 def liste_exemplaires_all(request):
 
     exemplaires = VoitureExemplaire.objects.select_related(
-            'voiture_marque', 'voiture_modele'  # Ce sont les bons noms de champs
-        ).all().order_by('id')
+        'voiture_marque', 'voiture_modele', 'voiture_moteur'
+    ).all().order_by('id')
+    # Alertes rodage / entretien : rodages validés chargés en une requête
+    from voiture.voiture_exemplaire.models import precharger_alertes
+    exemplaires = precharger_alertes(exemplaires)
 
     return render(
         request,

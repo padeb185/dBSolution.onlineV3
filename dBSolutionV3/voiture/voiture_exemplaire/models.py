@@ -455,6 +455,89 @@ class VoitureExemplaire(models.Model):
 
 
 
+    # ---------------------------------------------------------
+    # Alertes rodage / entretien
+    # ---------------------------------------------------------
+    INTERVALLE_ENTRETIEN_DEFAUT = 15000
+
+    @property
+    def intervalle_entretien(self):
+        """Intervalle d'entretien du moteur (km), 15 000 km par défaut."""
+        moteur = getattr(self, "voiture_moteur", None)
+        return (getattr(moteur, "intervalle_km_entretien", None) or self.INTERVALLE_ENTRETIEN_DEFAUT)
+
+    @property
+    def km_debut_moteur(self):
+        """Kilométrage châssis au montage du moteur actuel (0 = moteur d'origine)."""
+        return self.kilometres_remplacement_moteur or 0
+
+    @property
+    def moteur_neuf(self):
+        """
+        Moteur à roder : moteur remplacé, ou véhicule créé avec un moteur
+        n'ayant pas encore parcouru la distance de rodage.
+        """
+        if self.kilometres_remplacement_moteur:
+            return True
+        km_creation = self.kilometrage_achat
+        return km_creation is not None and km_creation < (self.kilometres_rodage or 0)
+
+    @property
+    def rodage_valide(self):
+        """Un rodage au tag vert a été enregistré pour le moteur actuel."""
+        if not self.pk:
+            return False
+        if not hasattr(self, "_rodage_valide"):
+            from maintenance.autres_interventions.moteur.rodage.models import Rodage
+            self._rodage_valide = Rodage.objects.filter(
+                voiture_exemplaire_id=self.pk, tag="VERT",
+                kilometres_rodage__gte=self.km_debut_moteur,
+            ).exists()
+        return self._rodage_valide
+
+    @property
+    def premier_entretien_fait(self):
+        """Un entretien a été fait depuis le montage du moteur actuel."""
+        dernier = self.kilometres_dernier_entretien or 0
+        return dernier > 0 and dernier >= self.km_debut_moteur
+
+    @property
+    def alerte_rodage(self):
+        """
+        None, ou {"niveau": "info"|"alerte", "restant": km} :
+        - pendant le rodage (km moteur < distance de rodage) : info ;
+        - distance de rodage atteinte sans rodage au tag vert : alerte.
+        S'arrête dès qu'un rodage au tag vert est enregistré pour le moteur actuel ;
+        se réactive après un remplacement moteur.
+        """
+        if not self.moteur_neuf or self.rodage_valide:
+            return None
+        km_moteur = self.kilometres_moteur or 0
+        distance = self.kilometres_rodage or 0
+        if km_moteur < distance:
+            return {"niveau": "info", "restant": distance - km_moteur}
+        return {"niveau": "alerte", "restant": 0}
+
+    @property
+    def alerte_entretien(self):
+        """
+        None, ou {"depasse": km, "seuil": km, "premier": bool} :
+        - premier entretien d'un moteur neuf : km moteur > rodage + intervalle ;
+        - sinon : km parcourus depuis le dernier entretien > intervalle
+          (km moteur > intervalle si aucun entretien depuis le montage du moteur).
+        """
+        intervalle = self.intervalle_entretien
+        km_moteur = self.kilometres_moteur or 0
+        if not self.premier_entretien_fait:
+            seuil = intervalle + ((self.kilometres_rodage or 0) if self.moteur_neuf else 0)
+            if km_moteur > seuil:
+                return {"depasse": km_moteur - seuil, "seuil": seuil, "premier": True}
+            return None
+        depuis = (self.kilometres_chassis or 0) - (self.kilometres_dernier_entretien or 0)
+        if depuis > intervalle:
+            return {"depasse": depuis - intervalle, "seuil": intervalle, "premier": False}
+        return None
+
     def update_kilometres(self):
         km_chassis = self.kilometres_chassis or 0
 
@@ -487,6 +570,24 @@ class VoitureExemplaire(models.Model):
             self.kilometres_embrayage = max(0, km_chassis - self.kilometres_remplacement_embrayage)
         else:
             self.kilometres_embrayage = km_chassis
+
+
+def precharger_alertes(exemplaires):
+    """
+    Listes de véhicules : calcule en UNE requête quels véhicules ont un rodage
+    au tag vert pour leur moteur actuel (évite une requête par véhicule).
+    """
+    from maintenance.autres_interventions.moteur.rodage.models import Rodage
+    exemplaires = list(exemplaires)
+    par_id = {ex.pk: ex for ex in exemplaires}
+    for ex in exemplaires:
+        ex._rodage_valide = False
+    for vid, km in Rodage.objects.filter(voiture_exemplaire_id__in=par_id, tag="VERT").values_list(
+            "voiture_exemplaire_id", "kilometres_rodage"):
+        ex = par_id.get(vid)
+        if ex is not None and (km or 0) >= ex.km_debut_moteur:
+            ex._rodage_valide = True
+    return exemplaires
 
 
 class CoutAnnuelVehicule(models.Model):

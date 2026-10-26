@@ -63718,3 +63718,715 @@ msgstr "Total mantenimientos sin IVA"
 #, python-format
 msgid "%(debut)s à %(fin)s sur %(total)s maintenances"
 msgstr "%(debut)s a %(fin)s de %(total)s mantenimientos"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage AVG avant géométrie (°)"
+msgstr "Caída DI antes de la alineación (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage AVD avant géométrie (°)"
+msgstr "Caída DD antes de la alineación (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage ARG avant géométrie (°)"
+msgstr "Caída TI antes de la alineación (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage ARD avant géométrie (°)"
+msgstr "Caída TD antes de la alineación (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage AVG après géométrie (°)"
+msgstr "Caída DI después de la alineación (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage AVD après géométrie (°)"
+msgstr "Caída DD después de la alineación (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage ARG après géométrie (°)"
+msgstr "Caída TI después de la alineación (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage ARD après géométrie (°)"
+msgstr "Caída TD después de la alineación (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage AVG cible ingénieur (°)"
+msgstr "Caída DI objetivo del ingeniero (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage AVD cible ingénieur (°)"
+msgstr "Caída DD objetivo del ingeniero (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage ARG cible ingénieur (°)"
+msgstr "Caída TI objetivo del ingeniero (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carrossage ARD cible ingénieur (°)"
+msgstr "Caída TD objetivo del ingeniero (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Chasse AVG avant géométrie (°)"
+msgstr "Avance DI antes de la alineación (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Chasse AVD avant géométrie (°)"
+msgstr "Avance DD antes de la alineación (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Chasse AVG après géométrie (°)"
+msgstr "Avance DI después de la alineación (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Chasse AVD après géométrie (°)"
+msgstr "Avance DD después de la alineación (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Chasse AVG cible ingénieur (°)"
+msgstr "Avance DI objetivo del ingeniero (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Chasse AVD cible ingénieur (°)"
+msgstr "Avance DD objetivo del ingeniero (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur AVG avant géométrie (mm)"
+msgstr "Altura DI antes de la alineación (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur AVD avant géométrie (mm)"
+msgstr "Altura DD antes de la alineación (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur ARG avant géométrie (mm)"
+msgstr "Altura TI antes de la alineación (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur ARD avant géométrie (mm)"
+msgstr "Altura TD antes de la alineación (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur AVG après géométrie (mm)"
+msgstr "Altura DI después de la alineación (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur AVD après géométrie (mm)"
+msgstr "Altura DD después de la alineación (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur ARG après géométrie (mm)"
+msgstr "Altura TI después de la alineación (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur ARD après géométrie (mm)"
+msgstr "Altura TD después de la alineación (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur AVG cible ingénieur (mm)"
+msgstr "Altura DI objetivo del ingeniero (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur AVD cible ingénieur (mm)"
+msgstr "Altura DD objetivo del ingeniero (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur ARG cible ingénieur (mm)"
+msgstr "Altura TI objetivo del ingeniero (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteur ARD cible ingénieur (mm)"
+msgstr "Altura TD objetivo del ingeniero (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement AVG avant géométrie"
+msgstr "Convergencia DI antes de la alineación"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement AVD avant géométrie"
+msgstr "Convergencia DD antes de la alineación"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement ARG avant géométrie"
+msgstr "Convergencia TI antes de la alineación"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement ARD avant géométrie"
+msgstr "Convergencia TD antes de la alineación"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement AVG après géométrie"
+msgstr "Convergencia DI después de la alineación"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement AVD après géométrie"
+msgstr "Convergencia DD después de la alineación"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement ARG après géométrie"
+msgstr "Convergencia TI después de la alineación"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement ARD après géométrie"
+msgstr "Convergencia TD después de la alineación"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement AVG cible ingénieur"
+msgstr "Convergencia DI objetivo del ingeniero"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement AVD cible ingénieur"
+msgstr "Convergencia DD objetivo del ingeniero"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement ARG cible ingénieur"
+msgstr "Convergencia TI objetivo del ingeniero"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement ARD cible ingénieur"
+msgstr "Convergencia TD objetivo del ingeniero"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids AVG avant géométrie (kg)"
+msgstr "Peso DI antes de la alineación (kg)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids AVD avant géométrie (kg)"
+msgstr "Peso DD antes de la alineación (kg)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids ARG avant géométrie (kg)"
+msgstr "Peso TI antes de la alineación (kg)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids ARD avant géométrie (kg)"
+msgstr "Peso TD antes de la alineación (kg)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids AVG après géométrie (kg)"
+msgstr "Peso DI después de la alineación (kg)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids AVD après géométrie (kg)"
+msgstr "Peso DD después de la alineación (kg)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids ARG après géométrie (kg)"
+msgstr "Peso TI después de la alineación (kg)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids ARD après géométrie (kg)"
+msgstr "Peso TD después de la alineación (kg)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression AVG (clics)"
+msgstr "Compresión DI (clics)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression haute vitesse AVG (clics)"
+msgstr "Compresión alta velocidad DI (clics)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Détente AVG (clics)"
+msgstr "Extensión DI (clics)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pression à froid AVG (bar)"
+msgstr "Presión en frío DI (bar)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression AVD (clics)"
+msgstr "Compresión DD (clics)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression haute vitesse AVD (clics)"
+msgstr "Compresión alta velocidad DD (clics)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Détente AVD (clics)"
+msgstr "Extensión DD (clics)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pression à froid AVD (bar)"
+msgstr "Presión en frío DD (bar)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression ARG (clics)"
+msgstr "Compresión TI (clics)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression haute vitesse ARG (clics)"
+msgstr "Compresión alta velocidad TI (clics)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Détente ARG (clics)"
+msgstr "Extensión TI (clics)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pression à froid ARG (bar)"
+msgstr "Presión en frío TI (bar)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression ARD (clics)"
+msgstr "Compresión TD (clics)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression haute vitesse ARD (clics)"
+msgstr "Compresión alta velocidad TD (clics)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Détente ARD (clics)"
+msgstr "Extensión TD (clics)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pression à froid ARD (bar)"
+msgstr "Presión en frío TD (bar)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Type de ressort AV"
+msgstr "Tipo de muelle delantero"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Marque / référence ressort AV"
+msgstr "Marca / referencia muelle delantero"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Raideur ressort AV (N/mm)"
+msgstr "Rigidez del muelle delantero (N/mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Longueur ressort AV (mm)"
+msgstr "Longitud del muelle delantero (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Type de ressort de rappel AV"
+msgstr "Tipo de muelle auxiliar delantero"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Raideur ressort de rappel AV (N/mm)"
+msgstr "Rigidez muelle auxiliar delantero (N/mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Longueur ressort de rappel AV (mm)"
+msgstr "Longitud muelle auxiliar delantero (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Barre anti-roulis AV"
+msgstr "Barra estabilizadora delantero"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Type de ressort AR"
+msgstr "Tipo de muelle trasero"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Marque / référence ressort AR"
+msgstr "Marca / referencia muelle trasero"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Raideur ressort AR (N/mm)"
+msgstr "Rigidez del muelle trasero (N/mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Longueur ressort AR (mm)"
+msgstr "Longitud del muelle trasero (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Type de ressort de rappel AR"
+msgstr "Tipo de muelle auxiliar trasero"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Raideur ressort de rappel AR (N/mm)"
+msgstr "Rigidez muelle auxiliar trasero (N/mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Longueur ressort de rappel AR (mm)"
+msgstr "Longitud muelle auxiliar trasero (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Barre anti-roulis AR"
+msgstr "Barra estabilizadora trasero"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Amortisseur compression"
+msgstr "Amortiguador compresión"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Amortisseur rebond"
+msgstr "Amortiguador extensión"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Amortisseurs (clics)"
+msgstr "Amortiguadores (clics)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Angles en degrés"
+msgstr "Ángulos en grados"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Angles en degrés (négatif = roue inclinée vers l'intérieur en haut)"
+msgstr "Ángulos en grados (negativo = parte superior de la rueda hacia dentro)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Après géo"
+msgstr "Después"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Après géométrie"
+msgstr "Después de la alineación"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Aucune mesure saisie."
+msgstr "No se ha introducido ninguna medida."
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Avant / arrière"
+msgstr "Delante / detrás"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Avant du véhicule"
+msgstr "Parte delantera del vehículo"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Avant géo"
+msgstr "Antes"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Avant géométrie"
+msgstr "Antes de la alineación"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Balance : pesée de chaque roue"
+msgstr "Báscula: peso de cada rueda"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Barre anti-roulis"
+msgstr "Barra estabilizadora"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carburant à bord"
+msgstr "Combustible a bordo"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Carburant à bord (L)"
+msgstr "Combustible a bordo (L)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Cible ingénieur"
+msgstr "Objetivo ingeniero"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Clics comptés depuis"
+msgstr "Clics contados desde"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression"
+msgstr "Compresión"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Compression HV"
+msgstr "Compresión AV"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Cross (AVG + ARD)"
+msgstr "Cruz (DI + TD)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Degrés (°)"
+msgstr "Grados (°)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Diamètre / position de réglage"
+msgstr "Diámetro / posición de ajuste"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Double raideur"
+msgstr "Doble rigidez"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Détail de la géométrie course"
+msgstr "Detalle de la geometría de competición"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Détente"
+msgstr "Extensión"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Essieu arrière"
+msgstr "Eje trasero"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Essieu avant"
+msgstr "Eje delantero"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Ex. : bas de caisse, plancher, axe de roue…"
+msgstr "Ej.: estribo, suelo, eje de rueda…"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Fiche de réglage"
+msgstr "Hoja de reglajes"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Gauche / droite"
+msgstr "Izquierda / derecha"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Géométrie course"
+msgstr "Geometría de competición"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Géométrie course enregistrée avec succès."
+msgstr "Geometría de competición guardada correctamente."
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Géométrie course modifiée avec succès !"
+msgstr "¡Geometría de competición modificada correctamente!"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Géométrie course supprimée avec succès."
+msgstr "Geometría de competición eliminada correctamente."
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Géométrie et réglages"
+msgstr "Geometría y reglajes"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Géométries course"
+msgstr "Geometrías de competición"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Hauteurs en mm"
+msgstr "Alturas en mm"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Helper (rattrapage de jeu)"
+msgstr "Helper (recupera holgura)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Ingénieur / préparateur"
+msgstr "Ingeniero / preparador"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Jauge de hauteur"
+msgstr "Galga de altura"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Laser"
+msgstr "Láser"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Liste des géométries course"
+msgstr "Lista de geometrías de competición"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Longueur"
+msgstr "Longitud"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Marque / référence"
+msgstr "Marca / referencia"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Mesure de la hauteur de caisse"
+msgstr "Medición de la altura"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Millimètres (mm)"
+msgstr "Milímetros (mm)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Minutes d'angle (′)"
+msgstr "Minutos de arco (′)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Modification de la géométrie course"
+msgstr "Modificación de la geometría de competición"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Modifier la géométrie course"
+msgstr "Modificar la geometría de competición"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Modèle des amortisseurs"
+msgstr "Modelo de amortiguadores"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Nombre de clics"
+msgstr "Número de clics"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pesée avec pilote"
+msgstr "Pesado con piloto"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pesée avec pilote (ou lest équivalent)"
+msgstr "Pesado con piloto (o lastre equivalente)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pilote et conditions de pesée"
+msgstr "Piloto y condiciones de pesaje"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pilote et pesée"
+msgstr "Piloto y pesaje"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pincement / ouverture"
+msgstr "Convergencia / divergencia"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids du pilote"
+msgstr "Peso del piloto"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids du pilote équipé"
+msgstr "Peso del piloto equipado"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids du pilote équipé (kg)"
+msgstr "Peso del piloto equipado (kg)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Poids en kg"
+msgstr "Pesos en kg"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Point de mesure"
+msgstr "Punto de medición"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Position fermée (dur)"
+msgstr "Posición cerrada (duro)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Position ouverte (souple)"
+msgstr "Posición abierta (blando)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pression à froid (bar)"
+msgstr "Presión en frío (bar)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Pressions des pneus à froid"
+msgstr "Presiones de neumáticos en frío"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Progressif"
+msgstr "Progresivo"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Raideur ressort"
+msgstr "Rigidez del muelle"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Rapport de géométrie"
+msgstr "Informe de geometría"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Rapport de géométrie course"
+msgstr "Informe de geometría de competición"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Remarques de l'ingénieur"
+msgstr "Observaciones del ingeniero"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Ressort de rappel"
+msgstr "Muelle auxiliar"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Retour à la liste des géométries course"
+msgstr "Volver a las geometrías de competición"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Règle / mètre"
+msgstr "Regla / metro"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Réglages ingénieur : amortisseurs"
+msgstr "Reglajes del ingeniero: amortiguadores"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Réglages ingénieur : ressorts"
+msgstr "Reglajes del ingeniero: muelles"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Réglages ingénieur : suspensions"
+msgstr "Reglajes del ingeniero: suspensiones"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Répartition des masses"
+msgstr "Reparto de pesos"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Sans pilote"
+msgstr "Sin piloto"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Suppression de la géométrie course"
+msgstr "Eliminación de la geometría de competición"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Supprimer la géométrie course"
+msgstr "Eliminar la geometría de competición"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Tender (double raideur)"
+msgstr "Tender (doble rigidez)"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Total main-d'œuvre HTVA"
+msgstr "Total mano de obra sin IVA"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Type de ressort"
+msgstr "Tipo de muelle"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Unité du pincement"
+msgstr "Unidad de convergencia"
+
+#: maintenance/autres_interventions/geometrie_course
+msgid "Valeur positive = pincement, valeur négative = ouverture"
+msgstr "Valor positivo = convergencia, valor negativo = divergencia"
+
+#: maintenance/autres_interventions/geometrie_course
+#, python-format
+msgid "Voulez-vous vraiment supprimer la géométrie course du %(date)s (%(km)s km) pour :"
+msgstr "¿Desea realmente eliminar la geometría de competición del %(date)s (%(km)s km) para:"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/partials/alertes_km.html
+msgid "Rodage à contrôler"
+msgstr "Control de rodaje pendiente"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/partials/alertes_km.html
+#, python-format
+msgid "distance de rodage de %(km)s km atteinte"
+msgstr "distancia de rodaje de %(km)s km alcanzada"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/partials/alertes_km.html
+msgid "Moteur en rodage"
+msgstr "Motor en rodaje"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/partials/alertes_km.html
+#, python-format
+msgid "encore %(km)s km"
+msgstr "faltan %(km)s km"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/partials/alertes_km.html
+msgid "Premier entretien dépassé"
+msgstr "Primer mantenimiento vencido"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/partials/alertes_km.html
+msgid "Entretien dépassé"
+msgstr "Mantenimiento vencido"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/partials/alertes_km.html
+#, python-format
+msgid "de %(km)s km"
+msgstr "en %(km)s km"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/partials/alertes_km.html
+msgid "Intervalle d'entretien"
+msgstr "Intervalo de mantenimiento"
