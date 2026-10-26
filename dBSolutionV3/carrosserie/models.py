@@ -64,3 +64,8 @@ class Carrosserie(models.Model):
     def __str__(self):
         return self.nom_societe
 
+    @property
+    def nom(self):
+        """Même nom d'attribut que les fournisseurs (listes « Factures à payer »)."""
+        return self.nom_societe
+

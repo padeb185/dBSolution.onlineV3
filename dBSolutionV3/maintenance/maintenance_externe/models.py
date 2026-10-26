@@ -285,3 +285,187 @@ class MaintenanceExterne(models.Model):
         v.save(update_fields=self.CHAMPS_VEHICULE)
         self.compteurs_appliques = False
 
+
+
+# =====================================================================
+# CARROSSERIE EXTERNE : devis puis facture d'un carrossier (application Carrosserie)
+# =====================================================================
+def chemin_document_carrosserie(instance, filename):
+    """
+    Nom de fichier imprévisible, rangé par société : le PDF n'est jamais servi directement,
+    il passe par la vue protégée « maintenance_externe:carrosserie_document ».
+    """
+    from django.db import connection
+    schema = getattr(connection, "schema_name", "") or "public"
+    return f"prive/carrosserie/{schema}/{uuid.uuid4().hex}.pdf"
+
+
+class CarrosserieExterne(models.Model):
+    """Travaux de carrosserie confiés à un carrossier externe : devis, facture, prise en charge assurance."""
+
+    class Statut(models.TextChoices):
+        DEVIS_DEMANDE = "DEVIS_DEMANDE", _("Devis demandé")
+        DEVIS_RECU = "DEVIS_RECU", _("Devis reçu")
+        DEVIS_ACCEPTE = "DEVIS_ACCEPTE", _("Devis accepté")
+        DEVIS_REFUSE = "DEVIS_REFUSE", _("Devis refusé")
+        EN_COURS = "EN_COURS", _("Travaux en cours")
+        FACTURE = "FACTURE", _("Facturé")
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    societe = models.ForeignKey("societe.Societe", on_delete=models.CASCADE, related_name="carrosseries_externes")
+    voiture_exemplaire = models.ForeignKey(
+        "voiture_exemplaire.VoitureExemplaire", on_delete=models.PROTECT,
+        related_name="carrosseries_externes", verbose_name=_("Véhicule"),
+    )
+    carrossier = models.ForeignKey(
+        "carrosserie.Carrosserie", on_delete=models.PROTECT, null=True,
+        related_name="carrosseries_externes", verbose_name=_("Carrossier"),
+    )
+    statut = models.CharField(_("Statut"), max_length=15, choices=Statut.choices, default=Statut.DEVIS_DEMANDE)
+    description = models.TextField(_("Dommages / travaux"), blank=True)
+    kilometrage = models.PositiveIntegerField(_("Kilométrage"), null=True, blank=True)
+
+    pays = models.CharField(_("Pays de la TVA"), max_length=2, choices=TVAConfig.PAYS_CHOICES,
+                            default=TVAConfig.DEFAULT_PAYS)
+    taux_tva = models.DecimalField(_("Taux de TVA (%)"), max_digits=5, decimal_places=2, blank=True,
+                                   validators=[MinValueValidator(0), MaxValueValidator(100)],
+                                   help_text=_("Repris automatiquement du pays, modifiable."))
+
+    # --- Devis
+    devis_numero = models.CharField(_("Numéro du devis"), max_length=50, blank=True)
+    devis_date = models.DateField(_("Date du devis"), null=True, blank=True)
+    devis_htva = models.DecimalField(_("Montant du devis HTVA (€)"), max_digits=10, decimal_places=2, default=0,
+                                     validators=[MinValueValidator(0)])
+    devis_pdf = models.FileField(_("Devis (PDF)"), upload_to=chemin_document_carrosserie, null=True, blank=True)
+
+    # --- Facture
+    facture_numero = models.CharField(_("Numéro de facture"), max_length=50, blank=True)
+    facture_date = models.DateField(_("Date de la facture"), null=True, blank=True)
+    pieces_htva = models.DecimalField(_("Pièces HTVA (€)"), max_digits=10, decimal_places=2, default=0,
+                                      validators=[MinValueValidator(0)])
+    peinture_htva = models.DecimalField(_("Peinture / ingrédients HTVA (€)"), max_digits=10, decimal_places=2,
+                                        default=0, validators=[MinValueValidator(0)])
+    main_oeuvre_htva = models.DecimalField(_("Main-d'œuvre HTVA (€)"), max_digits=10, decimal_places=2, default=0,
+                                           validators=[MinValueValidator(0)])
+    facture_pdf = models.FileField(_("Facture (PDF)"), upload_to=chemin_document_carrosserie, null=True, blank=True)
+
+    # --- Montants calculés
+    total_htva = models.DecimalField(_("Total HTVA (€)"), max_digits=10, decimal_places=2, default=0, editable=False)
+    total_tva = models.DecimalField(_("Total TVA (€)"), max_digits=10, decimal_places=2, default=0, editable=False)
+    total_tvac = models.DecimalField(_("Total TVAC (€)"), max_digits=10, decimal_places=2, default=0, editable=False)
+
+    # --- Assurance
+    prise_en_charge_assurance = models.BooleanField(_("Prise en charge par l'assurance"), default=False)
+    sinistre = models.ForeignKey(
+        "assurance_police.Sinistre", on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="carrosseries_externes", verbose_name=_("Sinistre"),
+    )
+    numero_sinistre = models.CharField(_("Numéro de sinistre (assureur)"), max_length=60, blank=True)
+    franchise = models.DecimalField(_("Franchise (€)"), max_digits=10, decimal_places=2, default=0,
+                                    validators=[MinValueValidator(0)])
+    montant_assurance = models.DecimalField(_("Montant pris en charge TVAC (€)"), max_digits=10, decimal_places=2,
+                                            default=0, validators=[MinValueValidator(0)])
+    assurance_paie_carrossier = models.BooleanField(
+        _("L'assurance paie directement le carrossier"), default=True,
+        help_text=_("Coché : seul le reste à charge est à payer au carrossier."),
+    )
+
+    # --- Paiement (page « Factures à payer »)
+    date_paiement = models.DateField(_("Date de paiement"), null=True, blank=True)
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("Carrosserie externe")
+        verbose_name_plural = _("Carrosseries externes")
+        ordering = ["-facture_date", "-devis_date", "-created_at"]
+
+    def __str__(self):
+        return f"{self.voiture_exemplaire} – {_('Carrosserie')} – {self.carrossier}"
+
+    # ------------------------------------------------------------------ calculs
+    def calculer(self):
+        if self.taux_tva is None:
+            self.taux_tva = Decimal(str(TVAConfig.get_tva(self.pays)))
+        self.total_htva = arrondi(Decimal(self.pieces_htva or 0) + Decimal(self.peinture_htva or 0)
+                                  + Decimal(self.main_oeuvre_htva or 0))
+        self.total_tva = arrondi(self.total_htva * Decimal(self.taux_tva) / Decimal("100"))
+        self.total_tvac = arrondi(self.total_htva + self.total_tva)
+
+    def save(self, *args, **kwargs):
+        self.calculer()
+        if self.facture_numero or self.facture_date:
+            if self.statut not in (self.Statut.FACTURE,):
+                self.statut = self.Statut.FACTURE
+        super().save(*args, **kwargs)
+
+    @property
+    def est_facturee(self):
+        return bool(self.facture_numero or self.facture_date)
+
+    @property
+    def devis_tvac(self):
+        taux = Decimal(self.taux_tva if self.taux_tva is not None else TVAConfig.get_tva(self.pays))
+        return arrondi(Decimal(self.devis_htva or 0) * (1 + taux / Decimal("100")))
+
+    @property
+    def ecart_devis_htva(self):
+        """Facture − devis (HTVA) ; None tant qu'il manque l'un des deux."""
+        if not self.est_facturee or not self.devis_htva:
+            return None
+        return arrondi(self.total_htva - Decimal(self.devis_htva))
+
+    @property
+    def reste_a_charge_tvac(self):
+        """Coût TVAC pour la société après intervention de l'assurance (jamais négatif)."""
+        if not self.prise_en_charge_assurance:
+            return self.total_tvac
+        return max(Decimal("0.00"), arrondi(self.total_tvac - Decimal(self.montant_assurance or 0)))
+
+    @property
+    def reste_a_charge_htva(self):
+        taux = Decimal(self.taux_tva or 0)
+        return arrondi(self.reste_a_charge_tvac / (1 + taux / Decimal("100"))) if taux else self.reste_a_charge_tvac
+
+    # ------------------------------------------------------------------ interface « Factures à payer »
+    @property
+    def fournisseur(self):
+        """Le carrossier tient lieu de fournisseur (même interface que les factures d'achat)."""
+        return self.carrossier
+
+    @property
+    def fournisseur_id(self):
+        return self.carrossier_id
+
+    @property
+    def reference_facture(self):
+        return self.facture_numero
+
+    @property
+    def date_facture(self):
+        return self.facture_date
+
+    @property
+    def montant_htva_total(self):
+        return self.total_htva
+
+    @property
+    def montant_tva(self):
+        return self.total_tva
+
+    @property
+    def montant_a_payer(self):
+        """Montant dû au carrossier : reste à charge si l'assurance le paie directement, sinon la facture."""
+        if self.prise_en_charge_assurance and self.assurance_paie_carrossier:
+            return self.reste_a_charge_tvac
+        return self.total_tvac
+
+    @property
+    def est_paye(self):
+        return self.date_paiement is not None
+
+    @property
+    def libelle_facture(self):
+        immat = getattr(self.voiture_exemplaire, "immatriculation", "") or ""
+        return f"{_('Carrosserie')} – {immat}".strip(" –")

@@ -69,6 +69,10 @@
                     {% render_field field class+="input" %}
                 {% endif %}
 
+                {% if field.name == "immatriculation" %}
+                    <p id="aide-immatriculation" class="text-xs text-gray-500 mt-1"></p>
+                {% endif %}
+
                 {% if field.errors %}
                     <div class="text-red-600 text-sm mt-1">
                         {% for error in field.errors %}
@@ -202,6 +206,33 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
     etat.addEventListener("change", maj);
+    maj();
+});
+</script>
+
+<script>
+/* Formats de plaque acceptés selon le pays choisi */
+document.addEventListener("DOMContentLoaded", function () {
+    const immat = document.getElementById("id_immatriculation");
+    const pays = document.getElementById("id_pays");
+    const aide = document.getElementById("aide-immatriculation");
+    if (!immat || !pays || !aide) return;
+    let formats = {};
+    try { formats = JSON.parse(immat.dataset.formats || "{}"); } catch (e) {}
+    const libelle = "{{ _('Formats acceptés')|escapejs }}";
+    const libre = "{{ _('Lettres, chiffres, espaces et tirets (12 caractères max.)')|escapejs }}";
+    function maj() {
+        const liste = formats[pays.value];
+        aide.textContent = liste && liste.length ? libelle + " : " + liste.join(" · ") : libre;
+        const m = liste && liste.length ? liste[0].match(/\(([^)]*)\)/) : null;
+        immat.placeholder = m ? m[1] : "";
+    }
+    pays.addEventListener("change", maj);
+    immat.addEventListener("input", function () {
+        const pos = immat.selectionStart;
+        immat.value = immat.value.toUpperCase();
+        immat.setSelectionRange(pos, pos);
+    });
     maj();
 });
 </script>

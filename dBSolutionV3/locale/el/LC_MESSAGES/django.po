@@ -65148,3 +65148,452 @@ msgstr "Τροποποίηση σκασιμάτος"
 #: maintenance/pneus/crevaison
 msgid "Suppression de la crevaison"
 msgstr "Διαγραφή σκασίματος"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Ajouter un carrossier (fournisseur)"
+msgstr "Προσθήκη φανοποιείου (προμηθευτής)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Ajouter une carrosserie externe"
+msgstr "Προσθήκη εξωτερικού φανοποιείου"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Aucune carrosserie externe enregistrée."
+msgstr "Δεν έχει καταχωρηθεί εξωτερικό φανοποιείο."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Carrosserie externe"
+msgstr "Εξωτερικό φανοποιείο"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Carrosserie externe (devis / factures)"
+msgstr "Εξωτερικό φανοποιείο (προσφορές / τιμολόγια)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Carrosserie externe : devis et factures"
+msgstr "Εξωτερικό φανοποιείο: προσφορές και τιμολόγια"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Carrosserie externe enregistrée."
+msgstr "Αποθηκεύτηκε."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Carrosserie externe mise à jour."
+msgstr "Ενημερώθηκε."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Carrosserie externe supprimée."
+msgstr "Διαγράφηκε."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Carrosseries externes"
+msgstr "Εξωτερικά φανοποιεία"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Ce sinistre concerne un autre véhicule."
+msgstr "Η ζημιά αφορά άλλο όχημα."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Coché : seul le reste à charge est à payer au carrossier."
+msgstr "Επιλεγμένο: πληρώνεται στο φανοποιείο μόνο το υπόλοιπο."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Date du devis"
+msgstr "Ημερομηνία προσφοράς"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Devis"
+msgstr "Προσφορά"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Devis (PDF)"
+msgstr "Προσφορά (PDF)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Devis HTVA"
+msgstr "Προσφορά χωρίς ΦΠΑ"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Devis accepté"
+msgstr "Προσφορά εγκρίθηκε"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Devis demandé"
+msgstr "Ζητήθηκε προσφορά"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Devis en cours HTVA"
+msgstr "Ανοιχτές προσφορές χωρίς ΦΠΑ"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Devis refusé"
+msgstr "Προσφορά απορρίφθηκε"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Devis reçu"
+msgstr "Λήφθηκε προσφορά"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Dommages / travaux"
+msgstr "Ζημιές / εργασίες"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Facture (PDF)"
+msgstr "Τιμολόγιο (PDF)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Facture TVAC"
+msgstr "Τιμολόγιο με ΦΠΑ"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Facturé"
+msgstr "Τιμολογήθηκε"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Facturé HTVA"
+msgstr "Τιμολογήθηκε χωρίς ΦΠΑ"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Facturé TVAC"
+msgstr "Τιμολογήθηκε με ΦΠΑ"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Fournisseurs / carrossiers"
+msgstr "Προμηθευτές / φανοποιεία"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Franchise (€)"
+msgstr "Απαλλαγή (€)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Indiquez la date de la facture."
+msgstr "Συμπληρώστε την ημερομηνία τιμολογίου."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "L'assurance paie directement le carrossier"
+msgstr "Η ασφάλεια πληρώνει απευθείας το φανοποιείο"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Les PDF du devis et de la facture seront aussi supprimés."
+msgstr "Θα διαγραφούν και τα PDF προσφοράς και τιμολογίου."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Modifier la carrosserie externe"
+msgstr "Επεξεργασία εξωτερικού φανοποιείου"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Montant du devis HTVA (€)"
+msgstr "Ποσό προσφοράς χωρίς ΦΠΑ (€)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Montant pris en charge TVAC (€)"
+msgstr "Καλυπτόμενο ποσό με ΦΠΑ (€)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Nouvelle carrosserie externe"
+msgstr "Νέο εξωτερικό φανοποιείο"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Numéro de sinistre (assureur)"
+msgstr "Αριθμός ζημιάς (ασφαλιστής)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Numéro du devis"
+msgstr "Αριθμός προσφοράς"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Ouvrir la facture"
+msgstr "Άνοιγμα τιμολογίου"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Ouvrir le devis"
+msgstr "Άνοιγμα προσφοράς"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Pas de prise en charge"
+msgstr "Χωρίς κάλυψη"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Pas encore facturé."
+msgstr "Δεν έχει τιμολογηθεί ακόμα."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Peinture"
+msgstr "Βαφή"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Peinture / ingrédients HTVA (€)"
+msgstr "Βαφή / υλικά χωρίς ΦΠΑ (€)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Pris en charge par l'assurance"
+msgstr "Καλύπτεται από ασφάλεια"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Prise en charge par l'assurance"
+msgstr "Κάλυψη από ασφάλεια"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Reste à charge"
+msgstr "Υπόλοιπο κόστος"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Reste à charge TVAC"
+msgstr "Υπόλοιπο με ΦΠΑ"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Sinistre déclaré dans les assurances du véhicule (facultatif)."
+msgstr "Ζημιά καταχωρημένη στις ασφάλειες του οχήματος (προαιρετικό)."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Supprimer la carrosserie externe"
+msgstr "Διαγραφή εξωτερικού φανοποιείου"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Travaux en cours"
+msgstr "Εργασίες σε εξέλιξη"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Voir la facture actuelle"
+msgstr "Προβολή τρέχοντος τιμολογίου"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Voir le devis actuel"
+msgstr "Προβολή τρέχουσας προσφοράς"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Voulez-vous vraiment supprimer cette carrosserie externe ?"
+msgstr "Θέλετε σίγουρα να τη διαγράψετε;"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Véhicule et carrossier"
+msgstr "Όχημα και φανοποιείο"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "assurance"
+msgstr "ασφάλεια"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "non payé"
+msgstr "απλήρωτο"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "n°"
+msgstr "αρ."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "reste à charge après assurance"
+msgstr "υπόλοιπο μετά την ασφάλεια"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "À payer au carrossier"
+msgstr "Πληρωτέο στο φανοποιείο"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Écart facture − devis (HTVA)"
+msgstr "Διαφορά τιμολογίου − προσφοράς (χωρίς ΦΠΑ)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Retour à la liste des carrosseries externes"
+msgstr "Επιστροφή στη λίστα εξωτερικών φανοποιείων"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Ajouter un carrossier"
+msgstr "Προσθήκη φανοποιείου"
+
+#: assurance_police (sinistres)
+msgid "Déclarer un sinistre"
+msgstr "Δήλωση ζημιάς"
+
+#: assurance_police (sinistres)
+msgid "Sinistres ouverts"
+msgstr "Ανοιχτές ζημιές"
+
+#: assurance_police (sinistres)
+msgid "Voir les sinistres"
+msgstr "Προβολή ζημιών"
+
+#: assurance_police (sinistres)
+msgid "Tableau de bord des assurances"
+msgstr "Πίνακας ασφαλειών"
+
+#: assurance_police (sinistres)
+msgid "Ouverts"
+msgstr "Ανοιχτές"
+
+#: assurance_police (sinistres)
+msgid "Clôturés"
+msgstr "Κλειστές"
+
+#: assurance_police (sinistres)
+msgid "Police"
+msgstr "Συμβόλαιο"
+
+#: assurance_police (sinistres)
+msgid "Montant estimé"
+msgstr "Εκτιμώμενο ποσό"
+
+#: assurance_police (sinistres)
+msgid "Montant estimé (€)"
+msgstr "Εκτιμώμενο ποσό (€)"
+
+#: assurance_police (sinistres)
+msgid "Ouvert"
+msgstr "Ανοιχτή"
+
+#: assurance_police (sinistres)
+msgid "Aucun sinistre."
+msgstr "Καμία ζημιά."
+
+#: assurance_police (sinistres)
+msgid "Modifier le sinistre"
+msgstr "Επεξεργασία ζημιάς"
+
+#: assurance_police (sinistres)
+msgid "Supprimer le sinistre"
+msgstr "Διαγραφή ζημιάς"
+
+#: assurance_police (sinistres)
+msgid "Aucune police d'assurance n'est enregistrée pour ce véhicule : créez d'abord la police."
+msgstr "Δεν υπάρχει συμβόλαιο για αυτό το όχημα: δημιουργήστε πρώτα το συμβόλαιο."
+
+#: assurance_police (sinistres)
+msgid "Ajouter une police"
+msgstr "Προσθήκη συμβολαίου"
+
+#: assurance_police (sinistres)
+msgid "Des carrosseries externes sont liées à ce sinistre : elles seront conservées, sans lien vers le sinistre."
+msgstr "Υπάρχουν συνδεδεμένα εξωτερικά φανοποιεία: θα διατηρηθούν χωρίς σύνδεση."
+
+#: assurance_police (sinistres)
+msgid "Aucun sinistre déclaré pour ce véhicule."
+msgstr "Δεν έχει δηλωθεί ζημιά για αυτό το όχημα."
+
+#: assurance_police (sinistres)
+msgid "Date du sinistre"
+msgstr "Ημερομηνία ζημιάς"
+
+#: assurance_police (sinistres)
+msgid "Sinistre clôturé"
+msgstr "Η ζημιά έκλεισε"
+
+#: assurance_police (sinistres)
+msgid "Sinistre enregistré."
+msgstr "Η ζημιά αποθηκεύτηκε."
+
+#: assurance_police (sinistres)
+msgid "Sinistre mis à jour."
+msgstr "Η ζημιά ενημερώθηκε."
+
+#: assurance_police (sinistres)
+msgid "Sinistre supprimé."
+msgstr "Η ζημιά διαγράφηκε."
+
+#: assurance_police (sinistres)
+msgid "Déclaration de sinistre"
+msgstr "Δήλωση ζημιάς"
+
+#: assurance_police
+msgid "Polices actives"
+msgstr "Ενεργά συμβόλαια"
+
+#: assurance_police
+msgid "Polices expirées"
+msgstr "Ληγμένα συμβόλαια"
+
+#: assurance_police
+msgid "Voir les polices"
+msgstr "Προβολή συμβολαίων"
+
+#: assurance_police
+msgid "Afficher toutes les polices"
+msgstr "Εμφάνιση όλων των συμβολαίων"
+
+#: maintenance/autres_interventions/suspension
+msgid "Barres de torsion avant"
+msgstr "Εμπρός ράβδοι στρέψης"
+
+#: maintenance/autres_interventions/suspension
+msgid "Barres de torsion arrière"
+msgstr "Πίσω ράβδοι στρέψης"
+
+#: maintenance/autres_interventions/suspension
+msgid "Paliers / silent blocs de barre de torsion"
+msgstr "Έδρανα / σινεμπλόκ ράβδου στρέψης"
+
+msgid "Standard (1-ABC-123)"
+msgstr "Τυπική (1-ABC-123)"
+
+msgid "Oldtimer / Youngtimer (O-ABC-123)"
+msgstr "Ιστορικό / Youngtimer (O-ABC-123)"
+
+msgid "Taxi (T-ABC-123)"
+msgstr "Ταξί (T-ABC-123)"
+
+msgid "Remorque (Q-ABC-123)"
+msgstr "Ρυμουλκούμενο (Q-ABC-123)"
+
+msgid "Ancien format (ABC-123)"
+msgstr "Παλαιά μορφή (ABC-123)"
+
+msgid "Ancien format (123-ABC)"
+msgstr "Παλαιά μορφή (123-ABC)"
+
+msgid "Personnalisée ({n} caractères)"
+msgstr "Εξατομικευμένη ({n} χαρακτήρες)"
+
+msgid "Standard (AB 1234)"
+msgstr "Τυπική (AB 1234)"
+
+msgid "Numérique (12345)"
+msgstr "Αριθμητική (12345)"
+
+msgid "SIV (AB-123-CD)"
+msgstr "SIV (AB-123-CD)"
+
+msgid "FNI (123 ABC 45)"
+msgstr "FNI (123 ABC 45)"
+
+msgid "Standard (B-AB 1234, suffixe E/H)"
+msgstr "Τυπική (B-AB 1234, επίθημα E/H)"
+
+msgid "Standard (AB 123 CD)"
+msgstr "Τυπική (AB 123 CD)"
+
+msgid "Standard (1234 BCD)"
+msgstr "Τυπική (1234 BCD)"
+
+msgid "Provincial (M 1234 AB)"
+msgstr "Επαρχιακή (M 1234 AB)"
+
+msgid "Actuel (AB12 CDE)"
+msgstr "Τρέχουσα (AB12 CDE)"
+
+msgid "Préfixe (A123 BCD)"
+msgstr "Πρόθεμα (A123 BCD)"
+
+msgid "Suffixe (ABC 123D)"
+msgstr "Επίθημα (ABC 123D)"
+
+msgid "Standard (ZH 123456)"
+msgstr "Τυπική (ZH 123456)"
+
+msgid "Indiquez l'immatriculation."
+msgstr "Εισαγάγετε τον αριθμό κυκλοφορίας."
+
+#, python-format
+msgid "Immatriculation invalide pour %(pays)s. Formats acceptés : %(formats)s."
+msgstr "Μη έγκυρος αριθμός κυκλοφορίας για %(pays)s. Αποδεκτές μορφές: %(formats)s."
+
+msgid "L'immatriculation ne peut contenir que des lettres, des chiffres, des espaces et des tirets."
+msgstr "Ο αριθμός κυκλοφορίας μπορεί να περιέχει μόνο γράμματα, ψηφία, κενά και παύλες."
+
+#, python-format
+msgid "L'immatriculation ne peut pas dépasser %(max)s caractères."
+msgstr "Ο αριθμός κυκλοφορίας δεν μπορεί να υπερβαίνει τους %(max)s χαρακτήρες."
+
+msgid "Formats acceptés"
+msgstr "Αποδεκτές μορφές"
+
+msgid "Lettres, chiffres, espaces et tirets (12 caractères max.)"
+msgstr "Γράμματα, ψηφία, κενά και παύλες (έως 12 χαρακτήρες)"

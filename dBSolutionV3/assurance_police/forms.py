@@ -1,8 +1,9 @@
 # views.py
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from .models import AssurancePolice
+from .models import AssurancePolice, Sinistre
 
 class AssurancePoliceCreateView(CreateView):
     model = AssurancePolice
@@ -114,6 +115,17 @@ class AssurancePoliceForm(forms.ModelForm):
 
     TAILLE_MAX_PDF = 10 * 1024 * 1024  # 10 Mo
 
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Véhicules : marque et modèle chargés en une fois (liste mise en forme logo + plaque)
+        if "voiture_exemplaire" in self.fields:
+            from voiture.voiture_exemplaire.models import VoitureExemplaire
+            self.fields["voiture_exemplaire"].queryset = (
+                VoitureExemplaire.objects.select_related("voiture_marque", "voiture_modele")
+                .order_by("voiture_marque__nom_marque", "voiture_modele__nom_modele", "immatriculation")
+            )
+
     def clean_document_pdf(self):
         """Uniquement de vrais fichiers PDF (extension + signature %PDF), 10 Mo maximum."""
         from django.utils.translation import gettext as _t
@@ -155,3 +167,40 @@ class AssurancePoliceForm(forms.ModelForm):
         return cleaned_data
 
 
+
+
+# =====================================================================
+# SINISTRE
+# =====================================================================
+class SinistreForm(forms.ModelForm):
+    class Meta:
+        model = Sinistre
+        fields = ("police", "date_sinistre", "description", "montant_estime", "responsable", "cloture")
+        widgets = {
+            "date_sinistre": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+            "description": forms.Textarea(attrs={"rows": 4}),
+            "montant_estime": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
+        }
+        labels = {
+            "police": _("Police d'assurance"),
+            "date_sinistre": _("Date du sinistre"),
+            "description": _("Description"),
+            "montant_estime": _("Montant estimé (€)"),
+            "cloture": _("Sinistre clôturé"),
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user", None)
+        vehicule_id = kwargs.pop("vehicule_id", None)
+        super().__init__(*args, **kwargs)
+        from .models import AssurancePolice
+        polices = AssurancePolice.objects.select_related("voiture_exemplaire").order_by("-actif", "-date_debut")
+        societe = getattr(self.user, "societe", None)
+        if societe is not None:
+            polices = polices.filter(societe=societe)
+        if vehicule_id:
+            polices = polices.filter(voiture_exemplaire_id=vehicule_id)
+            if not self.initial.get("police") and polices.exists():
+                self.initial["police"] = polices.first().pk
+        self.fields["police"].queryset = polices
+        self.aucune_police = not polices.exists()

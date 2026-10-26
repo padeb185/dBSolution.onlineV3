@@ -49,6 +49,9 @@
             <div class="mb-4">
                 <label class="block font-semibold mb-1">{{ field.label }}</label>
                 {{ field|add_class:"input w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                {% if field.name == "voiture_exemplaire" %}
+                    {% include "maintenance/partials/apercu_vehicule_select.html" with field=field %}
+                {% endif %}
                 {% if field.errors %}
                     <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
                 {% endif %}

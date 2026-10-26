@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Sinistres" %}{% endblock %}
+
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center gap-3">
+    <img src="{% static 'icons/assurance-voiture.png' %}" alt="" class="w-20 h-20" style="width:80px; height:80px;">
+    {% trans "Sinistres" %}
+</h1>
+
+{% include "partials/messages.html" %}
+
+<div class="flex flex-wrap gap-3 mb-6">
+    <a href="{% url 'assurance_police:sinistre_ajouter' %}" class="btn-declarer px-5 py-3 rounded font-semibold">+ {% trans "Déclarer un sinistre" %}</a>
+    <a href="{% url 'assurance_police:dashboard' %}" class="bg-gray-200 px-5 py-3 rounded hover:bg-gray-300 font-semibold">{% trans "Tableau de bord des assurances" %}</a>
+</div>
+
+<div class="flex gap-2 mb-4">
+    <a href="?etat=ouverts" class="px-4 py-2 rounded font-semibold {% if etat == 'ouverts' %}bg-blue-700 text-white{% else %}bg-gray-200 hover:bg-gray-300{% endif %}">{% trans "Ouverts" %}</a>
+    <a href="?etat=clotures" class="px-4 py-2 rounded font-semibold {% if etat == 'clotures' %}bg-blue-700 text-white{% else %}bg-gray-200 hover:bg-gray-300{% endif %}">{% trans "Clôturés" %}</a>
+    <a href="?etat=tous" class="px-4 py-2 rounded font-semibold {% if etat == 'tous' %}bg-blue-700 text-white{% else %}bg-gray-200 hover:bg-gray-300{% endif %}">{% trans "Tous" %}</a>
+</div>
+
+<div class="bg-white shadow-md rounded-lg overflow-x-auto">
+<table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+    <thead><tr class="bg-gray-100">
+        <th class="border px-3 py-2 text-left">{% trans "Date" %}</th>
+        <th class="border px-3 py-2 text-left">{% trans "Véhicule" %}</th>
+        <th class="border px-3 py-2 text-left">{% trans "Police" %}</th>
+        <th class="border px-3 py-2 text-left">{% trans "Description" %}</th>
+        <th class="border px-3 py-2 text-right">{% trans "Montant estimé" %}</th>
+        <th class="border px-3 py-2 text-center">{% trans "Responsable" %}</th>
+        <th class="border px-3 py-2 text-center">{% trans "État" %}</th>
+        <th class="border px-3 py-2 text-center">{% trans "Actions" %}</th>
+    </tr></thead>
+    <tbody>
+    {% for s in sinistres %}
+        <tr class="hover:bg-blue-50">
+            <td class="border px-3 py-2 whitespace-nowrap">{{ s.date_sinistre|date:"d/m/Y" }}</td>
+            <td class="border px-3 py-2">
+                {% if s.police.voiture_exemplaire %}{% include "maintenance/partials/plaque.html" with exemplaire=s.police.voiture_exemplaire taille="petite" %}{% else %}—{% endif %}
+            </td>
+            <td class="border px-3 py-2"><a href="{% url 'assurance_police:assurance_police_detail' s.police.pk %}" class="text-blue-700 hover:underline">{{ s.police.numero_contrat }}</a></td>
+            <td class="border px-3 py-2">{{ s.description|truncatechars:80 }}</td>
+            <td class="border px-3 py-2 text-right whitespace-nowrap">{% if s.montant_estime %}{{ s.montant_estime|floatformat:2 }} €{% else %}—{% endif %}</td>
+            <td class="border px-3 py-2 text-center">{{ s.responsable|yesno:_("Oui,Non") }}</td>
+            <td class="border px-3 py-2 text-center">{% if s.cloture %}<span class="px-2 py-0.5 rounded bg-gray-200 text-gray-700 text-xs font-semibold">{% trans "Clôturé" %}</span>{% else %}<span class="px-2 py-0.5 rounded bg-orange-100 text-orange-800 text-xs font-semibold">{% trans "Ouvert" %}</span>{% endif %}</td>
+            <td class="border px-3 py-2 text-center whitespace-nowrap">
+                <a href="{% url 'assurance_police:sinistre_modifier' s.pk %}" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">{% trans "Modifier" %}</a>
+                <a href="{% url 'assurance_police:sinistre_supprimer' s.pk %}" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500">{% trans "Supprimer" %}</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="8" class="border px-3 py-4 text-center text-gray-500">{% trans "Aucun sinistre." %}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+<br>
+<style>
+    /* Boutons sinistres : couleurs indépendantes de la compilation Tailwind */
+    .btn-sinistres { background-color: #374151; color: #fff; display: inline-block; transition: background-color .2s; }
+    .btn-sinistres:hover, .btn-sinistres:focus { background-color: #6b7280; color: #fff; }
+    .btn-declarer { background-color: #b91c1c; color: #fff; display: inline-block; transition: background-color .2s; }
+    .btn-declarer:hover, .btn-declarer:focus { background-color: #ef4444; color: #fff; }
+</style>
+{% endblock %}

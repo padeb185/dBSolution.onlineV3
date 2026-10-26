@@ -18,10 +18,11 @@
             {% endfor %}
         </select>
         <select name="type" class="border rounded px-3 py-2" onchange="this.form.submit()">
-            <option value="">{% trans "Achats, outillage et maintenances externes" %}</option>
+            <option value="">{% trans "Tous les types" %}</option>
             <option value="achat" {% if type_filtre == "achat" %}selected{% endif %}>{% trans "Achats" %}</option>
             <option value="outillage" {% if type_filtre == "outillage" %}selected{% endif %}>{% trans "Outillage" %}</option>
             <option value="externe" {% if type_filtre == "externe" %}selected{% endif %}>{% trans "Maintenances externes" %}</option>
+            <option value="carrosserie" {% if type_filtre == "carrosserie" %}selected{% endif %}>{% trans "Carrosserie externe" %}</option>
         </select>
         <a href="{% url 'achat_mds:achat_form' %}" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">{% trans "Encoder une facture d'achat" %}</a>
         <a href="{% url 'facture:maintenances' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Facturation" %}</a>
@@ -77,7 +78,7 @@
                 <td class="border px-2 py-1">{{ l.libelle|default:"—" }}</td>
                 <td class="border px-2 py-1 text-right">{{ l.achat.montant_htva_total|floatformat:2 }} €</td>
                 <td class="border px-2 py-1 text-right">{{ l.achat.montant_tva|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right font-semibold">{{ l.achat.total_tvac|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right font-semibold">{{ l.a_payer|floatformat:2 }} €{% if l.a_payer != l.achat.total_tvac %}<span class="block text-xs font-normal text-gray-500">{% trans "facture" %} {{ l.achat.total_tvac|floatformat:2 }} € − {% trans "assurance" %}</span>{% endif %}</td>
                 <td class="border px-2 py-1 text-right">
                     <span class="px-2 py-1 rounded text-xs font-semibold {{ l.badge }}">{{ l.age }} {% trans "j" %}</span>
                 </td>

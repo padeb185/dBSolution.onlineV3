@@ -91,6 +91,12 @@ def ajouter_carrosserie_all(request):
                 _("Carrosserie '%(nom_societe)s' créée avec succès !") % {"nom_societe": carrosserie.nom_societe}
             )
 
+            # Retour au formulaire d'origine (ex. carrosserie externe) si demandé
+            from core.securite import url_sure
+            suivant = url_sure(request.POST.get("next") or request.GET.get("next"), request)
+            if suivant:
+                return redirect(suivant)
+
             return redirect(
                 f"{reverse('carrosserie:carrosserie_list')}?saved=1"
             )

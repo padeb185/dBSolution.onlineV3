@@ -45,6 +45,9 @@ PIECES_SUSPENSION = [
     ("biellettes_reglables", _("Biellettes de barre stabilisatrice réglables")),
     ("huile_amortisseur", _("Huile d'amortisseur")),
     ("prereglage", _("Préréglage du combiné fileté")),
+    ("barres_torsion_av", _("Barres de torsion avant")),
+    ("barres_torsion_ar", _("Barres de torsion arrière")),
+    ("paliers_barre_torsion", _("Paliers / silent blocs de barre de torsion")),
 ]
 
 
@@ -238,6 +241,23 @@ class SuspensionSport(TechnicienMixin, models.Model):
     prereglage_compression_av = models.DecimalField(max_digits=6, decimal_places=1, null=True, blank=True, verbose_name=_("Compression avant (clics)"))
     prereglage_compression_ar = models.DecimalField(max_digits=6, decimal_places=1, null=True, blank=True, verbose_name=_("Compression arrière (clics)"))
 
+
+
+    # --- Barres de torsion ---
+    barres_torsion_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Barres de torsion avant"))
+    barres_torsion_av_fabricant = models.CharField(max_length=30, choices=FabricantSuspension.choices, default=FabricantSuspension.CHOISIR, verbose_name=_("Fabricant"), blank=True)
+    barres_torsion_av_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    barres_torsion_av_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+
+    barres_torsion_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Barres de torsion arrière"))
+    barres_torsion_ar_fabricant = models.CharField(max_length=30, choices=FabricantSuspension.choices, default=FabricantSuspension.CHOISIR, verbose_name=_("Fabricant"), blank=True)
+    barres_torsion_ar_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    barres_torsion_ar_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+
+    paliers_barre_torsion = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Paliers / silent blocs de barre de torsion"))
+    paliers_barre_torsion_fabricant = models.CharField(max_length=30, choices=FabricantSilentBloc.choices, default=FabricantSilentBloc.CHOISIR, verbose_name=_("Fabricant"), blank=True)
+    paliers_barre_torsion_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    paliers_barre_torsion_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
 
     serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
                                      verbose_name=_("Serrage des roues"))

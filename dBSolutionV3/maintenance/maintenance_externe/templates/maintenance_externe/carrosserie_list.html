@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Carrosserie externe" %}{% endblock %}
+
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/carrosserie.png' %}" alt="" style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Carrosserie externe : devis et factures" %}
+</h1>
+
+{% include "maintenance_externe/_messages.html" %}
+
+<div class="flex flex-wrap gap-4">
+    <a href="{% url 'maintenance_externe:carrosserie_ajouter' %}"
+       class="bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Ajouter une carrosserie externe" %}
+    </a>
+    <a href="{% url 'maintenance_externe:maintenance_externe_liste' %}"
+       class="bg-gray-200 px-5 py-4 rounded hover:bg-gray-300 font-semibold text-center">
+        {% trans "Maintenances externes" %}
+    </a>
+    <a href="{% url 'carrosserie:carrosserie_list' %}"
+       class="bg-green-600 text-white px-5 py-4 rounded hover:bg-green-400 font-semibold text-center">
+        {% trans "Liste des carrosseries" %}
+    </a>
+</div>
+
+<br>
+
+<!-- Totaux -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Devis en cours HTVA" %}</p><p class="text-xl font-bold">{{ totaux.devis|floatformat:2 }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Facturé HTVA" %}</p><p class="text-xl font-bold">{{ totaux.htva|floatformat:2 }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Facturé TVAC" %}</p><p class="text-xl font-bold">{{ totaux.tvac|floatformat:2 }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Pris en charge par l'assurance" %}</p><p class="text-xl font-bold text-green-700">{{ totaux.assurance|floatformat:2 }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Reste à charge TVAC" %}</p><p class="text-xl font-bold text-blue-700">{{ totaux.reste|floatformat:2 }} €</p></div>
+</div>
+
+<form method="get" class="bg-white shadow-md rounded-lg p-4 mb-4 flex flex-wrap items-end gap-3">
+    <div>
+        <label class="block text-sm text-gray-600 mb-1">{% trans "Statut" %}</label>
+        <select name="statut" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            <option value="">{% trans "Tous" %}</option>
+            {% for val, lib in statuts %}<option value="{{ val }}" {% if val == statut %}selected{% endif %}>{{ lib }}</option>{% endfor %}
+        </select>
+    </div>
+</form>
+
+<div class="bg-white shadow-md rounded-lg overflow-x-auto">
+<table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-3 py-2 text-left">{% trans "Véhicule" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Carrossier" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Statut" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Devis HTVA" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Facture TVAC" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Assurance" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Reste à charge" %}</th>
+            <th class="border px-3 py-2 text-center">{% trans "Payée" %}</th>
+            <th class="border px-3 py-2 text-center">{% trans "Actions" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for c in carrosseries %}
+        <tr class="hover:bg-blue-50">
+            <td class="border px-3 py-2">
+                <div class="flex flex-col gap-1">
+                    {% include "maintenance/partials/plaque.html" with exemplaire=c.voiture_exemplaire taille="petite" %}
+                    <span class="text-xs text-gray-600">{{ c.voiture_exemplaire.voiture_marque.nom_marque }} {{ c.voiture_exemplaire.voiture_modele.nom_modele }}</span>
+                </div>
+            </td>
+            <td class="border px-3 py-2">{{ c.carrossier|default:"—" }}</td>
+            <td class="border px-3 py-2">{% include "maintenance_externe/_statut_carrosserie.html" %}</td>
+            <td class="border px-3 py-2 text-right whitespace-nowrap">{% if c.devis_htva %}{{ c.devis_htva|floatformat:2 }} €{% else %}—{% endif %}</td>
+            <td class="border px-3 py-2 text-right whitespace-nowrap">{% if c.est_facturee %}{{ c.total_tvac|floatformat:2 }} €{% else %}—{% endif %}</td>
+            <td class="border px-3 py-2 text-right whitespace-nowrap">{% if c.prise_en_charge_assurance %}{{ c.montant_assurance|floatformat:2 }} €{% else %}—{% endif %}</td>
+            <td class="border px-3 py-2 text-right whitespace-nowrap font-semibold">{% if c.est_facturee %}{{ c.reste_a_charge_tvac|floatformat:2 }} €{% else %}—{% endif %}</td>
+            <td class="border px-3 py-2 text-center">{% if c.date_paiement %}<span class="text-green-700">✔ {{ c.date_paiement|date:"d/m/Y" }}</span>{% elif c.est_facturee %}<span class="text-red-600">{% trans "Non" %}</span>{% else %}—{% endif %}</td>
+            <td class="border px-3 py-2 text-center whitespace-nowrap">
+                <a href="{% url 'maintenance_externe:carrosserie_detail' c.pk %}" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">{% trans "Infos" %}</a>
+                <a href="{% url 'maintenance_externe:carrosserie_modifier' c.pk %}" class="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300">{% trans "Modifier" %}</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="9" class="border px-3 py-4 text-center text-gray-500">{% trans "Aucune carrosserie externe enregistrée." %}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+<br>
+{% endblock %}

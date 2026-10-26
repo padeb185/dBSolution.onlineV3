@@ -7,6 +7,8 @@ from .views import (
     dashboard_assurances, delete_assurance_police_view, document_pdf_view,
 )
 
+from . import views_sinistre
+
 app_name = 'assurance_police'
 
 urlpatterns = [
@@ -27,6 +29,12 @@ urlpatterns = [
 
     path("<uuid:pk>/supprimer/", delete_assurance_police_view, name="delete_assurance_police"),
     path("<uuid:pk>/document.pdf", document_pdf_view, name="document_pdf"),
+
+    # Sinistres
+    path("sinistres/", views_sinistre.sinistre_liste, name="sinistre_liste"),
+    path("sinistres/declarer/", views_sinistre.sinistre_ajouter, name="sinistre_ajouter"),
+    path("sinistres/<uuid:sinistre_id>/modifier/", views_sinistre.sinistre_modifier, name="sinistre_modifier"),
+    path("sinistres/<uuid:sinistre_id>/supprimer/", views_sinistre.sinistre_supprimer, name="sinistre_supprimer"),
 
 
 

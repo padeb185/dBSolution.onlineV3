@@ -123,6 +123,17 @@ def maintenances(ex):
     except Exception:
         pass
 
+    # Carrosserie externe facturée : coût = reste à charge HTVA (après prise en charge de l'assurance)
+    carrosseries, total_carrosseries = [], ZERO
+    try:
+        from maintenance.maintenance_externe.models import CarrosserieExterne
+        for c in (CarrosserieExterne.objects.filter(voiture_exemplaire=ex, facture_date__isnull=False)
+                  .select_related("carrossier").order_by("-facture_date")):
+            carrosseries.append(c)
+            total_carrosseries += c.reste_a_charge_htva
+    except Exception:
+        pass
+
     # Liste unique (factures internes + atelier + garages), la plus récente d'abord
     lignes = []
     for e in internes:
@@ -137,6 +148,13 @@ def maintenances(ex):
         lignes.append({"date": m.date_facture, "piece": m.numero_facture or "—", "garage": m.garage,
                        "type": m.get_type_maintenance_display(), "origine": "externe",
                        "pieces": r2(m.pieces_htva), "main_oeuvre": r2(m.main_oeuvre_htva), "total": r2(m.total_htva)})
+    for c in carrosseries:
+        reste = r2(c.reste_a_charge_htva)
+        lignes.append({"date": c.facture_date, "piece": c.facture_numero or "—", "garage": c.carrossier,
+                       "type": _("Carrosserie"), "origine": "carrosserie",
+                       "pieces": r2(Decimal(c.pieces_htva or 0) + Decimal(c.peinture_htva or 0)),
+                       "main_oeuvre": r2(c.main_oeuvre_htva), "total": reste,
+                       "assurance": c.prise_en_charge_assurance})
     lignes.sort(key=lambda l: _jour(l["date"]) or date.min, reverse=True)
 
     return {
@@ -147,8 +165,9 @@ def maintenances(ex):
         "internes": internes, "total_internes": r2(total_internes + total_atelier),
         "total_factures_internes": r2(total_internes),
         "atelier": atelier, "total_atelier": r2(total_atelier),
-        "externes": externes, "total_externes": r2(total_externes),
-        "total": r2(total_internes + total_atelier + total_externes),
+        "externes": externes, "total_externes": r2(total_externes + total_carrosseries),
+        "carrosseries": carrosseries, "total_carrosseries": r2(total_carrosseries),
+        "total": r2(total_internes + total_atelier + total_externes + total_carrosseries),
     }
 
 

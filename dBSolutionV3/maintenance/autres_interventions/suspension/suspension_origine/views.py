@@ -514,6 +514,21 @@ def suspension_origine_form_view(request, exemplaire_id):
             "fields": [form[f.name] for f in form if f.name == "silent_blocs_barre_stab" or f.name.startswith("silent_blocs_barre_stab_")],
         },
         {
+            "title": _("Barres de torsion avant"),
+            "icon": "icons/susp_barre_torsion.png",
+            "fields": [form[f.name] for f in form if f.name == "barres_torsion_av" or f.name.startswith("barres_torsion_av_")],
+        },
+        {
+            "title": _("Barres de torsion arrière"),
+            "icon": "icons/susp_barre_torsion.png",
+            "fields": [form[f.name] for f in form if f.name == "barres_torsion_ar" or f.name.startswith("barres_torsion_ar_")],
+        },
+        {
+            "title": _("Paliers / silent blocs de barre de torsion"),
+            "icon": "icons/susp_silent_bloc.png",
+            "fields": [form[f.name] for f in form if f.name == "paliers_barre_torsion" or f.name.startswith("paliers_barre_torsion_")],
+        },
+        {
             "title": _("Etiquette"),
             "icon": "icons/tag.png",
             "fields": [form[f.name] for f in form if "tag" in f.name],
@@ -846,6 +861,21 @@ def modifier_suspension_origine_view(request, suspension_origine_id):
             "title": _("Silent blocs de barre stabilisatrice"),
             "icon": "icons/susp_silent_bloc.png",
             "fields": [form[f.name] for f in form if f.name == "silent_blocs_barre_stab" or f.name.startswith("silent_blocs_barre_stab_")],
+        },
+        {
+            "title": _("Barres de torsion avant"),
+            "icon": "icons/susp_barre_torsion.png",
+            "fields": [form[f.name] for f in form if f.name == "barres_torsion_av" or f.name.startswith("barres_torsion_av_")],
+        },
+        {
+            "title": _("Barres de torsion arrière"),
+            "icon": "icons/susp_barre_torsion.png",
+            "fields": [form[f.name] for f in form if f.name == "barres_torsion_ar" or f.name.startswith("barres_torsion_ar_")],
+        },
+        {
+            "title": _("Paliers / silent blocs de barre de torsion"),
+            "icon": "icons/susp_silent_bloc.png",
+            "fields": [form[f.name] for f in form if f.name == "paliers_barre_torsion" or f.name.startswith("paliers_barre_torsion_")],
         },
         {
             "title": _("Etiquette"),

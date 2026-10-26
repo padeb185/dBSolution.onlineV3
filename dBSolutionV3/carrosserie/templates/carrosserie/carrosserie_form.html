@@ -61,6 +61,7 @@
 
         <!-- Carrosserie -->
     <form method="post" class="space-y-4">
+        {% if request.GET.next %}<input type="hidden" name="next" value="{{ request.GET.next }}">{% endif %}
         {% csrf_token %}
 
         {% for field in form %}

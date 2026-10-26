@@ -542,6 +542,36 @@
                     {% else %}<span>{{ suspension_sport.get_prereglage_display }}</span>{% endif %}
                 </td>
             </tr>
+            <tr>
+                <td>{% trans "Barres de torsion avant" %}</td>
+                <td>
+                    {% if suspension_sport.barres_torsion_av == "OK" %}<span class="ok">{{ suspension_sport.get_barres_torsion_av_display }}</span>
+                    {% elif suspension_sport.barres_torsion_av == "NOT_OK" %}<span class="not-ok">{{ suspension_sport.get_barres_torsion_av_display }}</span>
+                    {% elif suspension_sport.barres_torsion_av == "REMPLACE" %}<span class="remplace">{{ suspension_sport.get_barres_torsion_av_display }}</span>
+                    {% else %}<span>{{ suspension_sport.get_barres_torsion_av_display }}</span>{% endif %}
+                    {% if suspension_sport.barres_torsion_av_fabricant and suspension_sport.barres_torsion_av_fabricant != "CHOISIR" %} — {{ suspension_sport.get_barres_torsion_av_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Barres de torsion arrière" %}</td>
+                <td>
+                    {% if suspension_sport.barres_torsion_ar == "OK" %}<span class="ok">{{ suspension_sport.get_barres_torsion_ar_display }}</span>
+                    {% elif suspension_sport.barres_torsion_ar == "NOT_OK" %}<span class="not-ok">{{ suspension_sport.get_barres_torsion_ar_display }}</span>
+                    {% elif suspension_sport.barres_torsion_ar == "REMPLACE" %}<span class="remplace">{{ suspension_sport.get_barres_torsion_ar_display }}</span>
+                    {% else %}<span>{{ suspension_sport.get_barres_torsion_ar_display }}</span>{% endif %}
+                    {% if suspension_sport.barres_torsion_ar_fabricant and suspension_sport.barres_torsion_ar_fabricant != "CHOISIR" %} — {{ suspension_sport.get_barres_torsion_ar_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Paliers / silent blocs de barre de torsion" %}</td>
+                <td>
+                    {% if suspension_sport.paliers_barre_torsion == "OK" %}<span class="ok">{{ suspension_sport.get_paliers_barre_torsion_display }}</span>
+                    {% elif suspension_sport.paliers_barre_torsion == "NOT_OK" %}<span class="not-ok">{{ suspension_sport.get_paliers_barre_torsion_display }}</span>
+                    {% elif suspension_sport.paliers_barre_torsion == "REMPLACE" %}<span class="remplace">{{ suspension_sport.get_paliers_barre_torsion_display }}</span>
+                    {% else %}<span>{{ suspension_sport.get_paliers_barre_torsion_display }}</span>{% endif %}
+                    {% if suspension_sport.paliers_barre_torsion_fabricant and suspension_sport.paliers_barre_torsion_fabricant != "CHOISIR" %} — {{ suspension_sport.get_paliers_barre_torsion_fabricant_display }}{% endif %}
+                </td>
+            </tr>
         </tbody>
 
     </table>

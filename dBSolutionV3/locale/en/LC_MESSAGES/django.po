@@ -64792,3 +64792,452 @@ msgstr "Puncture edit"
 #: maintenance/pneus/crevaison
 msgid "Suppression de la crevaison"
 msgstr "Puncture deletion"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Ajouter un carrossier (fournisseur)"
+msgstr "Add a body shop (supplier)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Ajouter une carrosserie externe"
+msgstr "Add external bodywork"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Aucune carrosserie externe enregistrée."
+msgstr "No external bodywork recorded."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Carrosserie externe"
+msgstr "External bodywork"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Carrosserie externe (devis / factures)"
+msgstr "External bodywork (quotes / invoices)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Carrosserie externe : devis et factures"
+msgstr "External bodywork: quotes and invoices"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Carrosserie externe enregistrée."
+msgstr "External bodywork saved."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Carrosserie externe mise à jour."
+msgstr "External bodywork updated."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Carrosserie externe supprimée."
+msgstr "External bodywork deleted."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Carrosseries externes"
+msgstr "External bodywork"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Ce sinistre concerne un autre véhicule."
+msgstr "This claim concerns another vehicle."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Coché : seul le reste à charge est à payer au carrossier."
+msgstr "Ticked: only the remaining amount is paid to the body shop."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Date du devis"
+msgstr "Quote date"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Devis"
+msgstr "Quote"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Devis (PDF)"
+msgstr "Quote (PDF)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Devis HTVA"
+msgstr "Quote excl. VAT"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Devis accepté"
+msgstr "Quote accepted"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Devis demandé"
+msgstr "Quote requested"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Devis en cours HTVA"
+msgstr "Open quotes excl. VAT"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Devis refusé"
+msgstr "Quote refused"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Devis reçu"
+msgstr "Quote received"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Dommages / travaux"
+msgstr "Damage / work"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Facture (PDF)"
+msgstr "Invoice (PDF)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Facture TVAC"
+msgstr "Invoice incl. VAT"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Facturé"
+msgstr "Invoiced"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Facturé HTVA"
+msgstr "Invoiced excl. VAT"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Facturé TVAC"
+msgstr "Invoiced incl. VAT"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Fournisseurs / carrossiers"
+msgstr "Suppliers / body shops"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Franchise (€)"
+msgstr "Excess (€)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Indiquez la date de la facture."
+msgstr "Enter the invoice date."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "L'assurance paie directement le carrossier"
+msgstr "The insurer pays the body shop directly"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Les PDF du devis et de la facture seront aussi supprimés."
+msgstr "The quote and invoice PDFs will also be deleted."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Modifier la carrosserie externe"
+msgstr "Edit external bodywork"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Montant du devis HTVA (€)"
+msgstr "Quote amount excl. VAT (€)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Montant pris en charge TVAC (€)"
+msgstr "Amount covered incl. VAT (€)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Nouvelle carrosserie externe"
+msgstr "New external bodywork"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Numéro de sinistre (assureur)"
+msgstr "Claim number (insurer)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Numéro du devis"
+msgstr "Quote number"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Ouvrir la facture"
+msgstr "Open the invoice"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Ouvrir le devis"
+msgstr "Open the quote"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Pas de prise en charge"
+msgstr "Not covered"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Pas encore facturé."
+msgstr "Not invoiced yet."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Peinture"
+msgstr "Paint"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Peinture / ingrédients HTVA (€)"
+msgstr "Paint / materials excl. VAT (€)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Pris en charge par l'assurance"
+msgstr "Covered by insurance"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Prise en charge par l'assurance"
+msgstr "Covered by insurance"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Reste à charge"
+msgstr "Remaining cost"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Reste à charge TVAC"
+msgstr "Remaining cost incl. VAT"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Sinistre déclaré dans les assurances du véhicule (facultatif)."
+msgstr "Claim recorded in the vehicle's insurance (optional)."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Supprimer la carrosserie externe"
+msgstr "Delete external bodywork"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Travaux en cours"
+msgstr "Work in progress"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Voir la facture actuelle"
+msgstr "View current invoice"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Voir le devis actuel"
+msgstr "View current quote"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Voulez-vous vraiment supprimer cette carrosserie externe ?"
+msgstr "Do you really want to delete this external bodywork?"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Véhicule et carrossier"
+msgstr "Vehicle and body shop"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "assurance"
+msgstr "insurance"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "non payé"
+msgstr "not paid"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "n°"
+msgstr "no."
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "reste à charge après assurance"
+msgstr "remaining cost after insurance"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "À payer au carrossier"
+msgstr "To pay to the body shop"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Écart facture − devis (HTVA)"
+msgstr "Invoice − quote difference (excl. VAT)"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Retour à la liste des carrosseries externes"
+msgstr "Back to external bodywork list"
+
+#: maintenance/maintenance_externe (carrosserie)
+msgid "Ajouter un carrossier"
+msgstr "Add a body shop"
+
+#: assurance_police (sinistres)
+msgid "Déclarer un sinistre"
+msgstr "Report a claim"
+
+#: assurance_police (sinistres)
+msgid "Sinistres ouverts"
+msgstr "Open claims"
+
+#: assurance_police (sinistres)
+msgid "Voir les sinistres"
+msgstr "View claims"
+
+#: assurance_police (sinistres)
+msgid "Tableau de bord des assurances"
+msgstr "Insurance dashboard"
+
+#: assurance_police (sinistres)
+msgid "Ouverts"
+msgstr "Open"
+
+#: assurance_police (sinistres)
+msgid "Clôturés"
+msgstr "Closed"
+
+#: assurance_police (sinistres)
+msgid "Police"
+msgstr "Policy"
+
+#: assurance_police (sinistres)
+msgid "Montant estimé"
+msgstr "Estimated amount"
+
+#: assurance_police (sinistres)
+msgid "Montant estimé (€)"
+msgstr "Estimated amount (€)"
+
+#: assurance_police (sinistres)
+msgid "Ouvert"
+msgstr "Open"
+
+#: assurance_police (sinistres)
+msgid "Aucun sinistre."
+msgstr "No claims."
+
+#: assurance_police (sinistres)
+msgid "Modifier le sinistre"
+msgstr "Edit claim"
+
+#: assurance_police (sinistres)
+msgid "Supprimer le sinistre"
+msgstr "Delete claim"
+
+#: assurance_police (sinistres)
+msgid "Aucune police d'assurance n'est enregistrée pour ce véhicule : créez d'abord la police."
+msgstr "No insurance policy is recorded for this vehicle: create the policy first."
+
+#: assurance_police (sinistres)
+msgid "Ajouter une police"
+msgstr "Add a policy"
+
+#: assurance_police (sinistres)
+msgid "Des carrosseries externes sont liées à ce sinistre : elles seront conservées, sans lien vers le sinistre."
+msgstr "External bodywork is linked to this claim: it will be kept, without the link to the claim."
+
+#: assurance_police (sinistres)
+msgid "Aucun sinistre déclaré pour ce véhicule."
+msgstr "No claim reported for this vehicle."
+
+#: assurance_police (sinistres)
+msgid "Date du sinistre"
+msgstr "Claim date"
+
+#: assurance_police (sinistres)
+msgid "Sinistre clôturé"
+msgstr "Claim closed"
+
+#: assurance_police (sinistres)
+msgid "Sinistre enregistré."
+msgstr "Claim saved."
+
+#: assurance_police (sinistres)
+msgid "Sinistre mis à jour."
+msgstr "Claim updated."
+
+#: assurance_police (sinistres)
+msgid "Sinistre supprimé."
+msgstr "Claim deleted."
+
+#: assurance_police (sinistres)
+msgid "Déclaration de sinistre"
+msgstr "Claim report"
+
+#: assurance_police
+msgid "Polices actives"
+msgstr "Active policies"
+
+#: assurance_police
+msgid "Polices expirées"
+msgstr "Expired policies"
+
+#: assurance_police
+msgid "Voir les polices"
+msgstr "View policies"
+
+#: assurance_police
+msgid "Afficher toutes les polices"
+msgstr "Show all policies"
+
+#: maintenance/autres_interventions/suspension
+msgid "Barres de torsion avant"
+msgstr "Front torsion bars"
+
+#: maintenance/autres_interventions/suspension
+msgid "Barres de torsion arrière"
+msgstr "Rear torsion bars"
+
+#: maintenance/autres_interventions/suspension
+msgid "Paliers / silent blocs de barre de torsion"
+msgstr "Torsion bar bearings / bushes"
+
+msgid "Standard (1-ABC-123)"
+msgstr "Standard (1-ABC-123)"
+
+msgid "Oldtimer / Youngtimer (O-ABC-123)"
+msgstr "Oldtimer / Youngtimer (O-ABC-123)"
+
+msgid "Taxi (T-ABC-123)"
+msgstr "Taxi (T-ABC-123)"
+
+msgid "Remorque (Q-ABC-123)"
+msgstr "Trailer (Q-ABC-123)"
+
+msgid "Ancien format (ABC-123)"
+msgstr "Old format (ABC-123)"
+
+msgid "Ancien format (123-ABC)"
+msgstr "Old format (123-ABC)"
+
+msgid "Personnalisée ({n} caractères)"
+msgstr "Personalised ({n} characters)"
+
+msgid "Standard (AB 1234)"
+msgstr "Standard (AB 1234)"
+
+msgid "Numérique (12345)"
+msgstr "Numeric (12345)"
+
+msgid "SIV (AB-123-CD)"
+msgstr "SIV (AB-123-CD)"
+
+msgid "FNI (123 ABC 45)"
+msgstr "FNI (123 ABC 45)"
+
+msgid "Standard (B-AB 1234, suffixe E/H)"
+msgstr "Standard (B-AB 1234, E/H suffix)"
+
+msgid "Standard (AB 123 CD)"
+msgstr "Standard (AB 123 CD)"
+
+msgid "Standard (1234 BCD)"
+msgstr "Standard (1234 BCD)"
+
+msgid "Provincial (M 1234 AB)"
+msgstr "Provincial (M 1234 AB)"
+
+msgid "Actuel (AB12 CDE)"
+msgstr "Current (AB12 CDE)"
+
+msgid "Préfixe (A123 BCD)"
+msgstr "Prefix (A123 BCD)"
+
+msgid "Suffixe (ABC 123D)"
+msgstr "Suffix (ABC 123D)"
+
+msgid "Standard (ZH 123456)"
+msgstr "Standard (ZH 123456)"
+
+msgid "Indiquez l'immatriculation."
+msgstr "Enter the registration number."
+
+#, python-format
+msgid "Immatriculation invalide pour %(pays)s. Formats acceptés : %(formats)s."
+msgstr "Invalid registration number for %(pays)s. Accepted formats: %(formats)s."
+
+msgid "L'immatriculation ne peut contenir que des lettres, des chiffres, des espaces et des tirets."
+msgstr "The registration number may only contain letters, digits, spaces and hyphens."
+
+#, python-format
+msgid "L'immatriculation ne peut pas dépasser %(max)s caractères."
+msgstr "The registration number cannot exceed %(max)s characters."
+
+msgid "Formats acceptés"
+msgstr "Accepted formats"
+
+msgid "Lettres, chiffres, espaces et tirets (12 caractères max.)"
+msgstr "Letters, digits, spaces and hyphens (12 characters max.)"

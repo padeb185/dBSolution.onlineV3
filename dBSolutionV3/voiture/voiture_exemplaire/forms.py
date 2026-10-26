@@ -2,6 +2,8 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from .models import VoitureExemplaire
 from .utils_vin import VinDecoderService
+from .immatriculation import exemples_par_pays, valider_immatriculation
+import json
 
 INVALID_VIN_CHARS = set("IOQ")
 
@@ -96,6 +98,33 @@ class VoitureExemplaireForm(forms.ModelForm):
         self.fields["date_mise_en_circulation"].widget.format = "%Y-%m-%d"
         self.fields["date_achat"].required = False
 
+        # Aide à la saisie : formats de plaque acceptés par pays (lu par le JS du template)
+        if "immatriculation" in self.fields:
+            self.fields["immatriculation"].widget.attrs.update({
+                "data-formats": json.dumps(exemples_par_pays(), ensure_ascii=False),
+                "style": "text-transform:uppercase",
+                "autocomplete": "off",
+            })
+
+    def _valider_immatriculation(self, cleaned_data):
+        """Contrôle du format selon le pays — seulement si la plaque ou le pays change,
+        pour ne pas bloquer les fiches existantes enregistrées avant la validation."""
+        immat = cleaned_data.get("immatriculation")
+        if not immat:
+            return
+        pays = cleaned_data.get("pays")
+        inchange = (
+            self.instance.pk
+            and immat == self.instance.immatriculation
+            and pays == self.instance.pays
+        )
+        if inchange:
+            return
+        try:
+            cleaned_data["immatriculation"] = valider_immatriculation(immat, pays)
+        except forms.ValidationError as e:
+            self.add_error("immatriculation", e)
+
     def clean_numero_vin(self):
         vin = self.cleaned_data.get("numero_vin")
 
@@ -114,6 +143,7 @@ class VoitureExemplaireForm(forms.ModelForm):
         cleaned_data = super().clean()
 
         valider_kilometrage_achat(self, cleaned_data)
+        self._valider_immatriculation(cleaned_data)
 
         vin = cleaned_data.get("numero_vin")
         voiture_marque = cleaned_data.get("voiture_marque")

@@ -5,35 +5,44 @@
 <br>
 <!-- Bouton vers la liste des polices -->
 <br>
-<div class="mb-6">
-    <a href="{% url 'assurance_police:assurance_police_list' %}"
-       class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500">
-        Liste des polices
+<div class="mb-6 barre-boutons">
+    <a href="{% url 'assurance_police:assurance_police_list' %}" class="btn-barre btn-polices">
+        {% trans "Liste des polices" %}
+    </a>
+    <a href="{% url 'assurance_police:sinistre_liste' %}" class="btn-barre btn-sinistres">
+        {% trans "Sinistres" %}
+    </a>
+    <a href="{% url 'assurance_police:sinistre_ajouter' %}" class="btn-barre btn-declarer">
+        + {% trans "Déclarer un sinistre" %}
     </a>
 </div>
 <br>
 <!-- Dashboard statistiques -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-  <div class="bg-green-100 p-4 rounded shadow">
-    <h2 class="text-lg font-bold">Polices actives</h2>
+  <a href="{% url 'assurance_police:assurance_police_list' %}?etat=actives" class="carte-cliquable block bg-green-100 p-4 rounded shadow">
+    <h2 class="text-lg font-bold">{% trans "Polices actives" %}</h2>
     <p class="text-3xl">{{ polices_actives }}</p>
-  </div>
+    <p class="text-sm mt-1" style="opacity:.75">{% trans "Voir les polices" %} →</p>
+  </a>
 
-  <div class="bg-red-100 p-4 rounded shadow">
-    <h2 class="text-lg font-bold">Polices expirées</h2>
+  <a href="{% url 'assurance_police:assurance_police_list' %}?etat=expirees" class="carte-cliquable block bg-red-100 p-4 rounded shadow">
+    <h2 class="text-lg font-bold">{% trans "Polices expirées" %}</h2>
     <p class="text-3xl">{{ polices_expirees }}</p>
-  </div>
+    <p class="text-sm mt-1" style="opacity:.75">{% trans "Voir les polices" %} →</p>
+  </a>
 
-  <div class="bg-orange-100 p-4 rounded shadow">
-    <h2 class="text-lg font-bold">Expire bientôt</h2>
+  <a href="{% url 'assurance_police:assurance_police_list' %}?etat=bientot" class="carte-cliquable block bg-orange-100 p-4 rounded shadow">
+    <h2 class="text-lg font-bold">{% trans "Expire bientôt" %}</h2>
     <p class="text-3xl">{{ polices_bientot }}</p>
-  </div>
+    <p class="text-sm mt-1" style="opacity:.75">{% trans "Voir les polices" %} →</p>
+  </a>
 
-  <div class="bg-blue-100 p-4 rounded shadow">
-    <h2 class="text-lg font-bold">Sinistres ouverts</h2>
+  <a href="{% url 'assurance_police:sinistre_liste' %}" class="carte-cliquable block bg-blue-100 p-4 rounded shadow">
+    <h2 class="text-lg font-bold">{% trans "Sinistres ouverts" %}</h2>
     <p class="text-3xl">{{ sinistres_ouverts }}</p>
-  </div>
+    <p class="text-sm text-blue-800 mt-1">{% trans "Voir les sinistres" %} →</p>
+  </a>
 
   <div class="bg-purple-100 p-4 rounded shadow">
     <h2 class="text-lg font-bold">Coût annuel total</h2>
@@ -46,4 +55,20 @@
   </div>
 
 </div>
+<style>
+    /* Boutons sinistres : couleurs indépendantes de la compilation Tailwind */
+    /* Cartes cliquables du tableau de bord */
+    .carte-cliquable { transition: filter .15s, box-shadow .15s; }
+    .carte-cliquable:hover { filter: brightness(0.95); box-shadow: 0 6px 16px rgba(0,0,0,.12); }
+    /* Barre de boutons : même hauteur pour tous */
+    .barre-boutons { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
+    .barre-boutons .btn-barre { display: inline-flex; align-items: center; justify-content: center; text-align: center;
+                 min-height: 48px; padding: 0 24px; border-radius: 4px; line-height: 1.25; font-weight: 600; }
+    .btn-polices { background-color: #2563eb; color: #fff; transition: background-color .2s; }
+    .btn-polices:hover, .btn-polices:focus { background-color: #1d4ed8; color: #fff; }
+    .btn-sinistres { background-color: #374151; color: #fff; display: inline-block; transition: background-color .2s; }
+    .btn-sinistres:hover, .btn-sinistres:focus { background-color: #6b7280; color: #fff; }
+    .btn-declarer { background-color: #b91c1c; color: #fff; display: inline-block; transition: background-color .2s; }
+    .btn-declarer:hover, .btn-declarer:focus { background-color: #ef4444; color: #fff; }
+</style>
 {% endblock %}

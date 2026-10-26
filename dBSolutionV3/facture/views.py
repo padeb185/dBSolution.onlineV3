@@ -980,7 +980,7 @@ def caisse_banque_view(request):
 @login_required
 def factures_a_payer_view(request):
     from achat_mds.models import AchatMds
-    from maintenance.maintenance_externe.models import MaintenanceExterne
+    from maintenance.maintenance_externe.models import CarrosserieExterne, MaintenanceExterne
     from outillage.models import Outillage
 
     if not _peut(request.user, ROLES_FACTURATION):
@@ -994,10 +994,19 @@ def factures_a_payer_view(request):
         # Factures des garages officiels (maintenances externes) : le garage tient lieu de fournisseur
         "externe": MaintenanceExterne.objects.filter(societe=societe).select_related(
             "garage", "voiture_exemplaire"),
+        # Carrosserie externe : uniquement les factures reçues (pas les devis)
+        "carrosserie": CarrosserieExterne.objects.filter(societe=societe, facture_date__isnull=False).select_related(
+            "carrossier", "voiture_exemplaire"),
     }
-    CHAMP_FOURNISSEUR = {"externe": "garage_id"}
+
+    def montant(obj):
+        """Montant à payer : la carrosserie déduit la part payée directement par l'assurance."""
+        return getattr(obj, "montant_a_payer", None) if hasattr(obj, "montant_a_payer") else obj.total_tvac
+    CHAMP_FOURNISSEUR = {"externe": "garage_id", "carrosserie": "carrossier_id"}
 
     def detail_url(obj):
+        if isinstance(obj, CarrosserieExterne):
+            return reverse("maintenance_externe:carrosserie_detail", args=[obj.pk])
         if isinstance(obj, MaintenanceExterne):
             return reverse("maintenance_externe:maintenance_externe_modifier", args=[obj.pk])
         if isinstance(obj, Outillage):
@@ -1005,6 +1014,8 @@ def factures_a_payer_view(request):
         return reverse("achat_mds:achat_detail", args=[obj.pk])
 
     def nature(obj):
+        if isinstance(obj, CarrosserieExterne):
+            return _("Carrosserie externe")
         if isinstance(obj, MaintenanceExterne):
             return _("Maintenance externe")
         return _("Outillage") if isinstance(obj, Outillage) else _("Achat")
@@ -1017,7 +1028,7 @@ def factures_a_payer_view(request):
         qs = sources.get(request.POST.get("type"), sources["achat"])
         achat = get_object_or_404(qs, pk=request.POST.get("achat_id"))
         nom = achat.reference_facture or achat.fournisseur.nom
-        champs_maj = ["date_paiement"] if isinstance(achat, MaintenanceExterne) else None
+        champs_maj = ["date_paiement"] if isinstance(achat, (MaintenanceExterne, CarrosserieExterne)) else None
         if request.POST.get("action") == "annuler":
             achat.date_paiement = None
             message = _("Paiement annulé : %(achat)s") % {"achat": nom}
@@ -1059,13 +1070,13 @@ def factures_a_payer_view(request):
     for type_, achat in a_payer:
         age = (aujourdhui - achat.date_facture).days if achat.date_facture else 0
         idx = 0 if age <= 30 else 1 if age <= 60 else 2 if age <= 90 else 3
-        tranches[idx]["total"] += achat.total_tvac
+        tranches[idx]["total"] += montant(achat)
         tranches[idx]["nb"] += 1
-        lignes.append({"achat": achat, "type": type_, "nature": nature(achat), "libelle": libelle(achat),
+        lignes.append({"achat": achat, "type": type_, "nature": nature(achat), "libelle": libelle(achat), "a_payer": montant(achat),
                        "url": detail_url(achat), "age": age, "badge": tranches[idx]["badge"]})
         f = par_fournisseur.setdefault(achat.fournisseur_id, {"fournisseur": achat.fournisseur, "nb": 0, "total": z})
         f["nb"] += 1
-        f["total"] += achat.total_tvac
+        f["total"] += montant(achat)
 
     payees_recentes = []
     for type_, qs in sources.items():
@@ -1081,7 +1092,7 @@ def factures_a_payer_view(request):
     return render(request, "facture/factures_a_payer.html", {
         "lignes": lignes,
         "tranches": tranches,
-        "total_a_payer": sum((l["achat"].total_tvac for l in lignes), z),
+        "total_a_payer": sum((l["a_payer"] for l in lignes), z),
         "total_tva": sum((l["achat"].montant_tva for l in lignes), z),
         "par_fournisseur": sorted(par_fournisseur.values(), key=lambda f: -f["total"]),
         "fournisseurs": sorted(fournisseurs.values(), key=lambda f: f.nom or ""),

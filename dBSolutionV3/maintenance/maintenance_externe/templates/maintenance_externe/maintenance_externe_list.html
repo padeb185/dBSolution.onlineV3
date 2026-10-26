@@ -18,6 +18,14 @@
        class="bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
         {% trans "Ajouter une maintenance externe" %}
     </a>
+    <a href="{% url 'maintenance_externe:carrosserie_liste' %}"
+       class="btn-carrosserie px-5 py-4 rounded font-semibold text-center">
+        {% trans "Carrosserie externe (devis / factures)" %}
+    </a>
+    <style>
+        .btn-carrosserie { background-color: #ea580c; color: #fff; transition: background-color .2s; }
+        .btn-carrosserie:hover, .btn-carrosserie:focus { background-color: #fb923c; color: #fff; }
+    </style>
     <a href="{% url 'garage_officiel:garage_liste' %}"
        class="bg-green-600 text-white px-5 py-4 rounded hover:bg-green-400 font-semibold text-center">
         {% trans "Garages officiels" %}

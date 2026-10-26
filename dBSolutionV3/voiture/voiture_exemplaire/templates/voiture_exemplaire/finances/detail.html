@@ -224,6 +224,7 @@
                     <td class="border px-2 py-1">
                         {% if l.origine == "facture" %}{% trans "Entretien interne" %}
                         {% elif l.origine == "atelier" %}{% trans "Maintenance interne" %} <span class="text-gray-400 text-xs">({% trans "non facturée" %})</span>
+                        {% elif l.origine == "carrosserie" %}{% trans "Carrosserie externe" %} – {{ l.garage }}{% if l.assurance %} <span class="text-gray-400 text-xs">({% trans "reste à charge après assurance" %})</span>{% endif %}
                         {% else %}{{ l.garage|default:_("Garage externe") }}{% endif %}
                     </td>
                     <td class="border px-2 py-1 text-right whitespace-nowrap">{{ l.pieces|floatformat:2 }} €</td>

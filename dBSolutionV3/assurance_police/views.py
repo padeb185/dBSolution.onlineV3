@@ -69,7 +69,24 @@ class AssurancePoliceListView(ListView):
                 .select_related("assurance", "voiture_exemplaire")
                 .order_by("-date_debut")
             )
+            # Filtre depuis les cartes du tableau de bord (mêmes règles que les compteurs)
+            today = timezone.now().date()
+            etat = self.request.GET.get("etat") or ""
+            if etat == "actives":
+                queryset = queryset.filter(actif=True)
+            elif etat == "expirees":
+                queryset = queryset.filter(date_fin__lt=today).order_by("date_fin")
+            elif etat == "bientot":
+                queryset = queryset.filter(date_fin__range=(today, today + timedelta(days=30))).order_by("date_fin")
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        libelles = {"actives": _("Polices actives"), "expirees": _("Polices expirées"), "bientot": _("Expire bientôt")}
+        etat = self.request.GET.get("etat") or ""
+        context["filtre_etat"] = etat if etat in libelles else ""
+        context["filtre_libelle"] = libelles.get(etat, "")
+        return context
 
 
 
