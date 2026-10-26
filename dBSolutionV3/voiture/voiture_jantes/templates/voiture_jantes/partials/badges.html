@@ -1,0 +1,6 @@
+{% load i18n %}
+<span class="inline-flex flex-wrap gap-1">
+    {% if jante.origine %}<span class="badge-jante badge-origine">{% trans "Origine" %}</span>{% else %}<span class="badge-jante badge-adaptable">{% trans "Adaptable" %}</span>{% endif %}
+    {% if jante.competition %}<span class="badge-jante badge-competition">{% trans "Compétition" %}</span>{% endif %}
+    {% if jante.est_decalee %}<span class="badge-jante badge-decalee">{% trans "Monte décalée" %}</span>{% endif %}
+</span>

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{{ jante.libelle }}{% endblock %}
+
+{% block content %}
+{% include "voiture_jantes/partials/styles.html" %}
+<div class="p-6">
+    <h1 class="text-2xl font-bold mb-2 flex items-center gap-3">
+        <img src="{% static 'icons/jante.png' %}" alt="{% trans 'Jantes' %}" class="w-16 h-16">
+        {{ jante.libelle }}
+    </h1>
+    <div class="mb-6">{% include "voiture_jantes/partials/badges.html" %}</div>
+
+    {% include "partials/messages.html" %}
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <div class="carte-jante">
+            <h2 class="titre-section-jante">{% trans "Identification" %}</h2>
+            <div class="ligne-info"><span>{% trans "Fabricant" %}</span><span>{{ jante.get_fabricant_display }}</span></div>
+            <div class="ligne-info"><span>{% trans "Modèle de jante" %}</span><span>{{ jante.nom_modele|default:"-" }}</span></div>
+            <div class="ligne-info"><span>{% trans "Référence / n° OEM" %}</span><span>{{ jante.reference|default:"-" }}</span></div>
+            <div class="ligne-info"><span>{% trans "Jantes d'origine" %}</span><span>{{ jante.origine|yesno:_("Oui,Non") }}</span></div>
+            <div class="ligne-info"><span>{% trans "Jantes compétition" %}</span><span>{{ jante.competition|yesno:_("Oui,Non") }}</span></div>
+        </div>
+
+        <div class="carte-jante">
+            <h2 class="titre-section-jante">{% trans "Construction et fixation" %}</h2>
+            <div class="ligne-info"><span>{% trans "Matière" %}</span><span>{{ jante.get_matiere_display }}</span></div>
+            <div class="ligne-info"><span>{% trans "Jante en pièces" %}</span><span>{{ jante.get_construction_display }}</span></div>
+            <div class="ligne-info"><span>{% trans "Couleur / finition" %}</span><span>{{ jante.finition|default:"-" }}</span></div>
+            <div class="ligne-info"><span>{% trans "Entraxe" %}</span><span>{{ jante.entraxe|default:"-" }}</span></div>
+            <div class="ligne-info"><span>{% trans "Alésage central (mm)" %}</span><span>{{ jante.alesage_mm|default:"-" }}</span></div>
+        </div>
+
+        <div class="carte-jante">
+            <h2 class="titre-section-jante">{% trans "Dimensions" %}</h2>
+            <div class="ligne-info"><span>{% trans "Avant" %}</span><span>{{ jante.dimension_av }}</span></div>
+            <div class="ligne-info"><span>{% trans "Arrière" %}</span><span>{{ jante.dimension_ar }}</span></div>
+            <div class="ligne-info"><span>{% trans "Poids par jante (kg)" %}</span><span>{{ jante.poids_kg|default:"-" }}</span></div>
+            <div class="ligne-info"><span>{% trans "Charge maximale (kg)" %}</span><span>{{ jante.charge_max_kg|default:"-" }}</span></div>
+            <div class="ligne-info"><span>{% trans "Nombre de jantes" %}</span><span>{{ jante.quantite }}</span></div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div class="carte-jante">
+            <h2 class="titre-section-jante">{% trans "Achat" %}</h2>
+            <div class="ligne-info"><span>{% trans "Prix d'achat HTVA (jeu)" %}</span><span>{{ jante.prix_achat|floatformat:2 }} €</span></div>
+            <div class="ligne-info"><span>{% trans "Date d'achat" %}</span><span>{{ jante.date_achat|date:"d/m/Y"|default:"-" }}</span></div>
+            {% if jante.remarques %}<p class="mt-3 text-gray-700 whitespace-pre-line">{{ jante.remarques }}</p>{% endif %}
+        </div>
+
+        <div class="carte-jante">
+            <h2 class="titre-section-jante">{% trans "Véhicules équipés" %}</h2>
+            {% for v in vehicules %}
+                <a href="{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=v.id %}" class="flex items-center justify-between gap-3 py-2 border-b hover:bg-gray-50">
+                    <span class="font-semibold">{{ v.voiture_marque }} {{ v.voiture_modele.nom_modele }}</span>
+                    {% include "maintenance/partials/plaque.html" with exemplaire=v %}
+                </a>
+            {% empty %}
+                <p class="text-gray-500">{% trans "Aucun véhicule lié." %}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-3">
+        <a href="{% url 'voiture_jantes:modifier_jante' jante.id %}" class="btn-jante flex-1">{% trans "Modifier" %}</a>
+        {% if peut_supprimer %}
+            <a href="{% url 'voiture_jantes:supprimer_jante' jante.id %}" class="btn-jante btn-jante-rouge flex-1">{% trans "Supprimer" %}</a>
+        {% endif %}
+        <a href="{% url 'voiture_jantes:list' %}" class="btn-jante btn-jante-gris flex-1">{% trans "Retour à la liste des jantes" %}</a>
+    </div>
+</div>
+{% endblock %}

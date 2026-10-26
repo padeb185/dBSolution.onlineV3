@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Jantes du véhicule" %}{% endblock %}
+
+{% block content %}
+{% include "voiture_jantes/partials/styles.html" %}
+<div class="p-6 max-w-5xl mx-auto">
+    <h1 class="text-2xl font-bold mb-6 flex flex-col md:flex-row md:items-center gap-3">
+        <span class="flex items-center gap-3">
+            <img src="{% static 'icons/jante.png' %}" alt="{% trans 'Jantes' %}" class="w-16 h-16">
+            {% trans "Jantes du véhicule" %}
+            {% static 'images/marques/' as marques_path %}
+            <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                 alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}" class="w-14 h-14 object-contain">
+            <span class="font-semibold">{{ exemplaire.voiture_modele.nom_modele }}</span>
+        </span>
+        {% include "maintenance/partials/plaque.html" %}
+    </h1>
+
+    {% include "partials/messages.html" %}
+
+    <div class="carte-jante mb-6">
+        <h2 class="titre-section-jante">{% trans "Jantes liées" %}</h2>
+        {% for jante in liees %}
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 py-3 border-b">
+                <div>
+                    <a href="{% url 'voiture_jantes:jante_detail' jante.id %}" class="font-semibold text-blue-800 hover:underline">{{ jante.libelle }}</a>
+                    <div class="text-sm text-gray-700">
+                        {% trans "AV" %} {{ jante.dimension_av }} · {% trans "AR" %} {{ jante.dimension_ar }}{% if jante.entraxe %} · {{ jante.entraxe }}{% endif %} · {{ jante.get_matiere_display }} · {{ jante.get_construction_display }}
+                    </div>
+                    <div class="mt-1">{% include "voiture_jantes/partials/badges.html" %}</div>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="retirer">
+                    <input type="hidden" name="jante_id" value="{{ jante.id }}">
+                    <button type="submit" class="btn-jante btn-jante-rouge">{% trans "Retirer" %}</button>
+                </form>
+            </div>
+        {% empty %}
+            <p class="text-gray-500">{% trans "Aucune jante liée à ce véhicule." %}</p>
+        {% endfor %}
+    </div>
+
+    <div class="carte-jante mb-6">
+        <h2 class="titre-section-jante">{% trans "Catalogue de jantes" %}</h2>
+        <input id="recherche-jantes" type="text" class="border rounded px-3 py-2 w-full mb-3"
+               placeholder="{% trans 'Rechercher (fabricant, modèle, 5x105, 18, ET45…)' %}">
+        {% for jante in disponibles %}
+            <div class="ligne-jante flex flex-col md:flex-row md:items-center justify-between gap-3 py-3 border-b">
+                <div>
+                    <span class="font-semibold">{{ jante.libelle }}</span>
+                    <div class="text-sm text-gray-700">
+                        {% trans "AV" %} {{ jante.dimension_av }} · {% trans "AR" %} {{ jante.dimension_ar }}{% if jante.entraxe %} · {{ jante.entraxe }}{% endif %} · {{ jante.get_matiere_display }}
+                    </div>
+                    <div class="mt-1">{% include "voiture_jantes/partials/badges.html" %}</div>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="lier">
+                    <input type="hidden" name="jante_id" value="{{ jante.id }}">
+                    <button type="submit" class="btn-jante">{% trans "Lier" %}</button>
+                </form>
+            </div>
+        {% empty %}
+            <p class="text-gray-500">{% trans "Aucune autre jante dans le catalogue." %}</p>
+        {% endfor %}
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-3">
+        <a href="{% url 'voiture_jantes:ajouter_jante' %}?exemplaire={{ exemplaire.id }}" class="btn-jante flex-1">+ {% trans "Nouvelles jantes" %}</a>
+        <a href="{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=exemplaire.id %}" class="btn-jante btn-jante-gris flex-1">{% trans "Retour au véhicule" %}</a>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const champ = document.getElementById("recherche-jantes");
+    if (!champ) return;
+    champ.addEventListener("input", function () {
+        const q = champ.value.trim().toLowerCase().replace(",", ".");
+        document.querySelectorAll(".ligne-jante").forEach(function (el) {
+            const t = el.textContent.toLowerCase().replace(/,/g, ".");
+            el.style.display = !q || t.includes(q) ? "" : "none";
+        });
+    });
+});
+</script>
+{% endblock %}

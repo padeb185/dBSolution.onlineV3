@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{{ titre }}{% endblock %}
+
+{% block content %}
+{% include "voiture_jantes/partials/styles.html" %}
+<br>
+<div class="max-w-2xl mx-auto mt-10 mb-6 carte-jante">
+
+    <h1 class="text-2xl font-bold mb-4 flex items-center justify-center gap-3">
+        <img src="{% static 'icons/jante.png' %}" alt="{% trans 'Jantes' %}" class="w-16 h-16">
+        {{ titre }}
+    </h1>
+
+    {% if exemplaire %}
+        <div class="flex items-center justify-center gap-3 mb-4 text-gray-700">
+            {% trans "Seront liées au véhicule :" %}
+            {% include "maintenance/partials/plaque.html" %}
+        </div>
+    {% endif %}
+
+    {% include "partials/messages.html" %}
+
+    {% if form.non_field_errors %}
+        <div class="mb-4 px-4 py-2 rounded bg-red-100 text-red-800 border border-red-300">
+            {% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="post" id="jante-form" class="space-y-6">
+        {% csrf_token %}
+        {% if exemplaire %}<input type="hidden" name="exemplaire" value="{{ exemplaire.id }}">{% endif %}
+        {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+
+        {% for section in form.sections %}
+            <section id="{{ section.id }}">
+                <h2 class="titre-section-jante">
+                    <img src="{% static 'icons/jante.png' %}" alt="" class="w-8 h-8">
+                    {{ section.titre }}
+                </h2>
+
+                {% if section.id == "jante-arriere" %}
+                    <label class="flex items-center gap-2 mb-3 font-semibold">
+                        {{ form.meme_dimension }} {{ form.meme_dimension.label }}
+                    </label>
+                {% endif %}
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 {% if section.id == 'jante-arriere' %}champs-arriere{% endif %}">
+                    {% for field in section.champs %}
+                        <div class="champ-{{ field.name }} {% if field.name == 'remarques' %}md:col-span-2{% endif %}">
+                            {% if field.field.widget.input_type == "checkbox" %}
+                                <label class="flex items-center gap-2 font-semibold mt-6">
+                                    {{ field }} {{ field.label }}
+                                </label>
+                            {% else %}
+                                <label for="{{ field.id_for_label }}" class="block font-semibold mb-1">
+                                    {{ field.label }}{% if field.field.required %} <span class="text-red-600">*</span>{% endif %}
+                                </label>
+                                {{ field }}
+                            {% endif %}
+                            {% if field.help_text %}<p class="text-gray-500 text-xs mt-1">{{ field.help_text }}</p>{% endif %}
+                            {% for e in field.errors %}<p class="text-red-600 text-sm mt-1">{{ e }}</p>{% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endfor %}
+
+        <div class="flex gap-3 pt-2">
+            <button type="submit" class="btn-jante flex-1">{% trans "Enregistrer" %}</button>
+            <a href="{{ url_annuler }}" class="btn-jante btn-jante-gris flex-1">{% trans "Annuler" %}</a>
+        </div>
+    </form>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const meme = document.getElementById("id_meme_dimension");
+    const arriere = document.querySelector(".champs-arriere");
+    const fixations = document.getElementById("id_nombre_fixations");
+    const entraxe = document.querySelector(".champ-entraxe_mm");
+    const paires = [["diametre_av", "diametre_ar"], ["largeur_av", "largeur_ar"], ["deport_av", "deport_ar"]];
+
+    function copier() {
+        if (!meme || !meme.checked) return;
+        paires.forEach(function (p) {
+            const a = document.getElementById("id_" + p[0]);
+            const b = document.getElementById("id_" + p[1]);
+            if (a && b) b.value = a.value;
+        });
+    }
+    function majArriere() {
+        if (!meme || !arriere) return;
+        arriere.style.display = meme.checked ? "none" : "";
+        copier();
+    }
+    function majEntraxe() {
+        if (!fixations || !entraxe) return;
+        entraxe.style.display = fixations.value === "1" ? "none" : "";
+    }
+    if (meme) meme.addEventListener("change", majArriere);
+    paires.forEach(function (p) {
+        const a = document.getElementById("id_" + p[0]);
+        if (a) { a.addEventListener("input", copier); a.addEventListener("change", copier); }
+    });
+    if (fixations) fixations.addEventListener("change", majEntraxe);
+    majArriere();
+    majEntraxe();
+});
+</script>
+{% endblock %}
