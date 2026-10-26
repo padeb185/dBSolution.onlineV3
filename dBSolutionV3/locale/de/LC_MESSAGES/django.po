@@ -64900,3 +64900,245 @@ msgstr "Änderung Kontrolle Verglasung"
 #: maintenance/autres_interventions/vitres
 msgid "Suppression du contrôle vitrage"
 msgstr "Löschung Kontrolle Verglasung"
+
+#: maintenance/pneus/crevaison
+msgid "Arrière droit (ARD)"
+msgstr "Hinten rechts (HR)"
+
+#: maintenance/pneus/crevaison
+msgid "Arrière gauche (ARG)"
+msgstr "Hinten links (HL)"
+
+#: maintenance/pneus/crevaison
+msgid "Avant droit (AVD)"
+msgstr "Vorne rechts (VR)"
+
+#: maintenance/pneus/crevaison
+msgid "Avant gauche (AVG)"
+msgstr "Vorne links (VL)"
+
+#: maintenance/pneus/crevaison
+msgid "Bande de roulement (zone réparable)"
+msgstr "Lauffläche (reparierbarer Bereich)"
+
+#: maintenance/pneus/crevaison
+msgid "Cause"
+msgstr "Ursache"
+
+#: maintenance/pneus/crevaison
+msgid "Champignon"
+msgstr "Pilz (Kombireparatur)"
+
+#: maintenance/pneus/crevaison
+msgid "Choisissez la réparation : mèche, champignon ou rustine."
+msgstr "Reparatur wählen: Docht, Pilz oder Flicken."
+
+#: maintenance/pneus/crevaison
+msgid "Clou / vis"
+msgstr "Nagel / Schraube"
+
+#: maintenance/pneus/crevaison
+msgid "Coupure / entaille"
+msgstr "Schnitt"
+
+#: maintenance/pneus/crevaison
+msgid "Crevaison"
+msgstr "Reifenpanne"
+
+#: maintenance/pneus/crevaison
+msgid "Crevaison enregistrée avec succès."
+msgstr "Reifenpanne erfolgreich gespeichert."
+
+#: maintenance/pneus/crevaison
+msgid "Crevaison modifiée avec succès !"
+msgstr "Reifenpanne erfolgreich geändert!"
+
+#: maintenance/pneus/crevaison
+msgid "Crevaison supprimée avec succès."
+msgstr "Reifenpanne erfolgreich gelöscht."
+
+#: maintenance/pneus/crevaison
+msgid "Crevaisons"
+msgstr "Reifenpannen"
+
+#: maintenance/pneus/crevaison
+msgid "Détail de la crevaison"
+msgstr "Details Reifenpanne"
+
+#: maintenance/pneus/crevaison
+msgid "Ex. : 225/45 R17 94Y"
+msgstr "z. B. 225/45 R17 94Y"
+
+#: maintenance/pneus/crevaison
+msgid "Flanc (non réparable)"
+msgstr "Flanke (nicht reparierbar)"
+
+#: maintenance/pneus/crevaison
+msgid "Fuite au talon / jante"
+msgstr "Undicht an Wulst / Felge"
+
+#: maintenance/pneus/crevaison
+msgid "La roue de secours n'a pas de roue opposée sur l'essieu."
+msgstr "Das Reserverad hat kein gegenüberliegendes Rad auf einer Achse."
+
+#: maintenance/pneus/crevaison
+msgid "Laisser vide pour reprendre la même référence."
+msgstr "Leer lassen, um dieselbe Referenz zu behalten."
+
+#: maintenance/pneus/crevaison
+msgid "Liste des crevaisons"
+msgstr "Liste der Reifenpannen"
+
+#: maintenance/pneus/crevaison
+msgid "Localisation du dommage"
+msgstr "Schadensort"
+
+#: maintenance/pneus/crevaison
+msgid "Masses d'équilibrage"
+msgstr "Auswuchtgewichte"
+
+#: maintenance/pneus/crevaison
+msgid "Masses d'équilibrage HTVA"
+msgstr "Auswuchtgewichte netto"
+
+#: maintenance/pneus/crevaison
+msgid "Modifier la crevaison"
+msgstr "Reifenpanne bearbeiten"
+
+#: maintenance/pneus/crevaison
+msgid "Mèche"
+msgstr "Docht (Reparaturstreifen)"
+
+#: maintenance/pneus/crevaison
+msgid "Objet tranchant (verre, métal…)"
+msgstr "Spitzer Gegenstand (Glas, Metall…)"
+
+#: maintenance/pneus/crevaison
+msgid "Pincement (choc trottoir / nid-de-poule)"
+msgstr "Durchschlag (Bordstein / Schlagloch)"
+
+#: maintenance/pneus/crevaison
+msgid "Pneu monté"
+msgstr "Montierter Reifen"
+
+#: maintenance/pneus/crevaison
+msgid "Pour 2 pneus, la roue opposée du même essieu est remplacée aussi."
+msgstr "Bei 2 Reifen wird auch das gegenüberliegende Rad derselben Achse ersetzt."
+
+#: maintenance/pneus/crevaison
+msgid "Pression après intervention (bar)"
+msgstr "Druck nach Eingriff (bar)"
+
+#: maintenance/pneus/crevaison
+msgid "Prix d'achat HTVA par pneu"
+msgstr "Einkaufspreis netto pro Reifen"
+
+#: maintenance/pneus/crevaison
+msgid "Prix d'achat HTVA par valve"
+msgstr "Einkaufspreis netto pro Ventil"
+
+#: maintenance/pneus/crevaison
+msgid "Prix de la réparation (consommable) HTVA"
+msgstr "Reparaturpreis (Verbrauchsmaterial) netto"
+
+#: maintenance/pneus/crevaison
+msgid "Rapport de crevaison"
+msgstr "Bericht Reifenpanne"
+
+#: maintenance/pneus/crevaison
+msgid "Remplacement d'un pneu"
+msgstr "Austausch eines Reifens"
+
+#: maintenance/pneus/crevaison
+msgid "Remplacement de 2 pneus (même essieu)"
+msgstr "Austausch von 2 Reifen (gleiche Achse)"
+
+#: maintenance/pneus/crevaison
+msgid "Retour à la liste des crevaisons"
+msgstr "Zurück zu den Reifenpannen"
+
+#: maintenance/pneus/crevaison
+msgid "Roue crevée"
+msgstr "Beschädigtes Rad"
+
+#: maintenance/pneus/crevaison
+msgid "Roue de secours"
+msgstr "Reserverad"
+
+#: maintenance/pneus/crevaison
+msgid "Roues remplacées"
+msgstr "Ersetzte Räder"
+
+#: maintenance/pneus/crevaison
+msgid "Rustine (patch intérieur)"
+msgstr "Flicken (innen)"
+
+#: maintenance/pneus/crevaison
+msgid "Réparation"
+msgstr "Reparatur"
+
+#: maintenance/pneus/crevaison
+#, python-format
+msgid "Réparation de crevaison – %(type)s"
+msgstr "Reifenreparatur – %(type)s"
+
+#: maintenance/pneus/crevaison
+msgid "Solution"
+msgstr "Lösung"
+
+#: maintenance/pneus/crevaison
+msgid "Supprimer la crevaison"
+msgstr "Reifenpanne löschen"
+
+#: maintenance/pneus/crevaison
+msgid "Talon / jante"
+msgstr "Wulst / Felge"
+
+#: maintenance/pneus/crevaison
+msgid "Type de réparation"
+msgstr "Reparaturart"
+
+#: maintenance/pneus/crevaison
+msgid "Type de valve"
+msgstr "Ventiltyp"
+
+#: maintenance/pneus/crevaison
+msgid "Un dommage sur l'épaule ou le flanc n'est pas réparable : remplacez le pneu."
+msgstr "Schäden an Schulter oder Flanke sind nicht reparierbar: Reifen ersetzen."
+
+#: maintenance/pneus/crevaison
+msgid "Valve défectueuse"
+msgstr "Defektes Ventil"
+
+#: maintenance/pneus/crevaison
+msgid "Valve remplacée"
+msgstr "Ventil ersetzt"
+
+#: maintenance/pneus/crevaison
+msgid "Valve, équilibrage et pression"
+msgstr "Ventil, Auswuchten und Druck"
+
+#: maintenance/pneus/crevaison
+#, python-format
+msgid "Voulez-vous vraiment supprimer la crevaison du %(date)s (%(km)s km) pour :"
+msgstr "Möchten Sie die Reifenpanne vom %(date)s (%(km)s km) wirklich löschen für:"
+
+#: maintenance/pneus/crevaison
+msgid "Épaule (non réparable)"
+msgstr "Schulter (nicht reparierbar)"
+
+#: maintenance/pneus/crevaison
+msgid "Épaule ou flanc : le pneu n'est pas réparable, il doit être remplacé."
+msgstr "Schulter oder Flanke: Reifen nicht reparierbar, er muss ersetzt werden."
+
+#: maintenance/pneus/crevaison
+msgid "Équilibrage"
+msgstr "Auswuchten"
+
+#: maintenance/pneus/crevaison
+msgid "Modification de la crevaison"
+msgstr "Änderung Reifenpanne"
+
+#: maintenance/pneus/crevaison
+msgid "Suppression de la crevaison"
+msgstr "Löschung Reifenpanne"

@@ -58,6 +58,7 @@ URLS_MAINTENANCE = {
     "ECLAIRAGE": ["eclairage:eclairage_check_view", "eclairage:eclairage_list"],
     "CARDAN": ["cardan:cardan_check", "cardan:cardan_list"],
     "GEOMETRIE_COURSE": ["geometrie_course:geocourse_check", "geometrie_course:geocourse_list"],
+    "CREVAISON": ["crevaison:crevaison_check", "crevaison:crevaison_list"],
     "VITRAGE": ["vitrage:vitrage_check", "vitrage:vitrage_list"],
     "ARBRE_TRANSMISSION": ["arbre_transmission:arbre_check", "arbre_transmission:arbre_list"],
     "CULASSE": ["culasse:culasse_form"],

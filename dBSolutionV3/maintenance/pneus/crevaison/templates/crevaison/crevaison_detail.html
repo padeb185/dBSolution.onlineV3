@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détail de la crevaison" %}{% endblock %}
+
+{% block content %}
+    {% url 'crevaison:modifier_crevaison' crevaison.pk as url_modifier %}
+    {% url 'crevaison:crevaison_pdf' crevaison.pk as url_pdf %}
+    {% url 'crevaison:delete_crevaison' crevaison.pk as url_delete %}
+    {% if exemplaire %}{% url 'crevaison:crevaison_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détail de la crevaison" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=crevaison km_controle=crevaison.kilometrage_crevaison icone="crevaison.png" avec_cote=True extra_template="crevaison/partials/_fiche_detail.html" %}
+{% endblock %}

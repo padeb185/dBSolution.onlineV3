@@ -49,6 +49,14 @@
       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
         {% trans "Ajouter un controle des pneus" %}
     </a>
+    <a href="{% url 'crevaison:crevaison_list' exemplaire.id %}"
+       class="btn-crevaison ml-2 px-5 py-4 rounded font-semibold text-center">
+        🛞 {% trans "Crevaison" %}
+    </a>
+    <style>
+        .btn-crevaison { background-color: #ea580c; color: #fff; display: inline-block; transition: background-color .2s; }
+        .btn-crevaison:hover, .btn-crevaison:focus { background-color: #fb923c; color: #fff; }
+    </style>
 </div>
 {% endif %}
 <br>

@@ -1,0 +1,89 @@
+{% load i18n widget_tweaks static %}
+{# Fiche crevaison : partagée par la création et la modification #}
+
+<!-- ================= DIAGNOSTIC ================= -->
+{% trans "Crevaison" as titre %}
+{% include "crevaison/partials/titre_section.html" with icone="crevaison.png" titre=titre %}
+{% include "crevaison/partials/champ.html" with field=form.roue %}
+{% include "crevaison/partials/champ.html" with field=form.cause %}
+{% include "crevaison/partials/champ.html" with field=form.localisation %}
+<p id="alerte-non-reparable" class="hidden -mt-2 mb-4 text-sm font-semibold text-red-700">
+    ⚠ {% trans "Épaule ou flanc : le pneu n'est pas réparable, il doit être remplacé." %}
+</p>
+
+<!-- ================= SOLUTION ================= -->
+{% trans "Solution" as titre %}
+{% include "crevaison/partials/titre_section.html" with icone="pneus.png" titre=titre %}
+<div class="mb-4 grid grid-cols-1 gap-2" id="choix-solution">
+    {% for radio in form.solution %}
+    <label class="flex items-center gap-3 rounded-lg border-2 border-gray-200 px-4 py-3 cursor-pointer hover:bg-blue-50">
+        {{ radio.tag }} <span class="font-semibold">{{ radio.choice_label }}</span>
+    </label>
+    {% endfor %}
+    {% if form.solution.errors %}<p class="text-red-600 text-sm">{{ form.solution.errors|striptags }}</p>{% endif %}
+</div>
+
+<!-- Réparation : mèche / champignon / rustine -->
+<div id="bloc-reparation" class="mb-4 rounded-lg border border-blue-200 bg-blue-50 p-4">
+    <p class="font-semibold mb-2">{% trans "Réparation" %}</p>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-3">
+        {% for radio in form.type_reparation %}{% if radio.data.value %}
+        <label class="flex items-center gap-2 rounded border border-gray-300 bg-white px-3 py-2 cursor-pointer">
+            {{ radio.tag }} <span>{{ radio.choice_label }}</span>
+        </label>
+        {% endif %}{% endfor %}
+    </div>
+    {% if form.type_reparation.errors %}<p class="text-red-600 text-sm mb-2">{{ form.type_reparation.errors|striptags }}</p>{% endif %}
+    {% include "crevaison/partials/champ.html" with field=form.reparation_prix %}
+</div>
+
+<!-- Remplacement : 1 ou 2 pneus -->
+<div id="bloc-remplacement" class="mb-4 rounded-lg border border-orange-200 bg-orange-50 p-4">
+    <p class="font-semibold mb-1">{% trans "Remplacement" %} : <span id="roues-remplacees" class="font-mono"></span></p>
+    <p class="text-xs text-gray-500 mb-3">{% trans "Pour 2 pneus, la roue opposée du même essieu est remplacée aussi." %}</p>
+    {% include "crevaison/partials/champ.html" with field=form.pneu_fabricant %}
+    {% include "crevaison/partials/champ.html" with field=form.pneu_nouveau %}
+    {% include "crevaison/partials/champ.html" with field=form.pneu_dimension %}
+    {% include "crevaison/partials/champ.html" with field=form.pneu_prix %}
+</div>
+
+<!-- ================= VALVE / ÉQUILIBRAGE / PRESSION ================= -->
+{% trans "Valve, équilibrage et pression" as titre %}
+{% include "crevaison/partials/titre_section.html" with icone="pneus-train.png" titre=titre %}
+{% include "crevaison/partials/champ.html" with field=form.valve_remplacee %}
+<div id="bloc-valve">
+    {% include "crevaison/partials/champ.html" with field=form.valve_type %}
+    {% include "crevaison/partials/champ.html" with field=form.valve_prix %}
+</div>
+{% include "crevaison/partials/champ.html" with field=form.equilibrage %}
+<div id="bloc-equilibrage">{% include "crevaison/partials/champ.html" with field=form.masses_prix %}</div>
+{% include "crevaison/partials/champ.html" with field=form.pression_bar %}
+{% include "crevaison/partials/champ.html" with field=form.remarques %}
+
+<script>
+(function () {
+    var OPPOSEE = {AVG: "AVD", AVD: "AVG", ARG: "ARD", ARD: "ARG"};
+    function val(nom) { var r = document.querySelector('input[name="' + nom + '"]:checked'); return r ? r.value : ""; }
+    var roue = document.getElementById("id_roue"), loc = document.getElementById("id_localisation"),
+        valve = document.getElementById("id_valve_remplacee"), equi = document.getElementById("id_equilibrage");
+    function maj() {
+        var sol = val("solution");
+        document.getElementById("bloc-reparation").style.display = sol === "REPARATION" ? "" : "none";
+        document.getElementById("bloc-remplacement").style.display = (sol === "REMPLACEMENT_1" || sol === "REMPLACEMENT_2") ? "" : "none";
+        var r = roue ? roue.value : "";
+        document.getElementById("roues-remplacees").textContent =
+            sol === "REMPLACEMENT_2" && OPPOSEE[r] ? r + " + " + OPPOSEE[r] : r;
+        var nonRep = loc && (loc.value === "EPAULE" || loc.value === "FLANC");
+        document.getElementById("alerte-non-reparable").classList.toggle("hidden", !nonRep);
+        if (valve) document.getElementById("bloc-valve").style.display = valve.checked ? "" : "none";
+        if (equi) document.getElementById("bloc-equilibrage").style.display = equi.checked ? "" : "none";
+        // Bordure de la solution choisie
+        document.querySelectorAll('#choix-solution label').forEach(function (l) {
+            var i = l.querySelector("input"); l.style.borderColor = i && i.checked ? "#1d4ed8" : "";
+        });
+    }
+    document.querySelectorAll('input[name="solution"], #id_roue, #id_localisation, #id_valve_remplacee, #id_equilibrage')
+        .forEach(function (e) { e.addEventListener("change", maj); });
+    maj();
+})();
+</script>

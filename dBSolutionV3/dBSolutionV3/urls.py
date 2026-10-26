@@ -187,6 +187,7 @@ urlpatterns += i18n_patterns(
 
     path('maintenance/silent/', include(('maintenance.silent_blocs.urls', 'silent_blocs'), namespace='silent_blocs')),
 
+    path('maintenance/pneus/crevaison/', include(('maintenance.pneus.crevaison.urls', 'crevaison'), namespace='crevaison')),
     path('maintenance/pneus/', include(('maintenance.pneus.urls', 'pneus'), namespace='pneus')),
 
     path('maintenance/autre/', include(('maintenance.autres_interventions.urls', 'autres_interventions'), namespace='autres_interventions')),

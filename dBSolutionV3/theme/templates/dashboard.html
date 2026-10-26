@@ -158,10 +158,14 @@
 
                         <td class="border border-gray-200 px-4 py-2">
                             {% if log.immat_plaque %}
-                                <div class="flex flex-wrap items-center gap-2">
-                                    {% if log.avant %}<span>{{ log.avant }}</span>{% endif %}
-                                    {% include "maintenance/partials/plaque.html" with immat_plaque=log.immat_plaque pays_plaque=log.pays_plaque taille="petite" %}
-                                    {% if log.apres %}<span class="text-gray-600">{{ log.apres }}</span>{% endif %}
+                                <div class="flex items-center justify-between gap-3">
+                                    <span class="min-w-0">
+                                        {% if log.avant %}{{ log.avant }}{% endif %}
+                                        {% if log.apres %}<span class="text-gray-600">{{ log.apres }}</span>{% endif %}
+                                    </span>
+                                    <span class="ml-auto shrink-0" style="margin-left:auto">
+                                        {% include "maintenance/partials/plaque.html" with immat_plaque=log.immat_plaque pays_plaque=log.pays_plaque taille="petite" %}
+                                    </span>
                                 </div>
                             {% elif log.avant %}
                                 {{ log.avant }}

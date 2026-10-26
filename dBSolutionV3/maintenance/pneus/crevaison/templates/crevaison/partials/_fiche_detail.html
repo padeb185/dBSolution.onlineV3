@@ -1,0 +1,24 @@
+{% load i18n static %}
+{# Détail d'une crevaison — obj = Crevaison #}
+<div class="bg-white shadow-md rounded-lg p-6 mb-6">
+    <h2 class="text-xl font-semibold mb-3 flex items-center gap-3">
+        <img src="{% static 'icons/crevaison.png' %}" alt="" class="w-10 h-10">{% trans "Crevaison" %}
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+        <p><strong>{% trans "Roue crevée" %} :</strong> {{ obj.get_roue_display }}</p>
+        <p><strong>{% trans "Cause" %} :</strong> {{ obj.get_cause_display }}</p>
+        <p><strong>{% trans "Localisation du dommage" %} :</strong> {{ obj.get_localisation_display }}</p>
+        <p><strong>{% trans "Solution" %} :</strong>
+            <span class="px-2 py-0.5 rounded font-semibold {% if obj.est_reparation %}bg-blue-100 text-blue-800{% else %}bg-orange-100 text-orange-800{% endif %}">{{ obj.get_solution_display }}</span></p>
+        {% if obj.est_reparation %}
+            <p><strong>{% trans "Type de réparation" %} :</strong> {{ obj.get_type_reparation_display|default:"—" }}</p>
+        {% else %}
+            <p><strong>{% trans "Roues remplacées" %} :</strong> {{ obj.roues_concernees_display }}</p>
+            <p><strong>{% trans "Pneu monté" %} :</strong>
+                {% if obj.pneu_nouveau %}{{ obj.pneu_nouveau }}{% else %}{% if obj.pneu_fabricant != "CHOISIR" %}{{ obj.get_pneu_fabricant_display }} {% endif %}{{ obj.pneu_dimension|default:"" }}{% endif %}</p>
+        {% endif %}
+        <p><strong>{% trans "Valve remplacée" %} :</strong> {% if obj.valve_remplacee %}{% trans "Oui" %} – {{ obj.get_valve_type_display }}{% else %}{% trans "Non" %}{% endif %}</p>
+        <p><strong>{% trans "Équilibrage" %} :</strong> {{ obj.equilibrage|yesno:_("Oui,Non") }}</p>
+        <p><strong>{% trans "Pression après intervention (bar)" %} :</strong> {{ obj.pression_bar|default_if_none:"—" }}</p>
+    </div>
+</div>

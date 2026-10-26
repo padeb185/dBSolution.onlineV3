@@ -64906,3 +64906,245 @@ msgstr "Τροποποίηση ελέγχου υαλοπινάκων"
 #: maintenance/autres_interventions/vitres
 msgid "Suppression du contrôle vitrage"
 msgstr "Διαγραφή ελέγχου υαλοπινάκων"
+
+#: maintenance/pneus/crevaison
+msgid "Arrière droit (ARD)"
+msgstr "Πίσω δεξιά (ΠΔ)"
+
+#: maintenance/pneus/crevaison
+msgid "Arrière gauche (ARG)"
+msgstr "Πίσω αριστερά (ΠΑ)"
+
+#: maintenance/pneus/crevaison
+msgid "Avant droit (AVD)"
+msgstr "Εμπρός δεξιά (ΕΔ)"
+
+#: maintenance/pneus/crevaison
+msgid "Avant gauche (AVG)"
+msgstr "Εμπρός αριστερά (ΕΑ)"
+
+#: maintenance/pneus/crevaison
+msgid "Bande de roulement (zone réparable)"
+msgstr "Πέλμα (επισκευάσιμη ζώνη)"
+
+#: maintenance/pneus/crevaison
+msgid "Cause"
+msgstr "Αιτία"
+
+#: maintenance/pneus/crevaison
+msgid "Champignon"
+msgstr "Μανιτάρι"
+
+#: maintenance/pneus/crevaison
+msgid "Choisissez la réparation : mèche, champignon ou rustine."
+msgstr "Επιλέξτε επισκευή: φυτίλι, μανιτάρι ή μπάλωμα."
+
+#: maintenance/pneus/crevaison
+msgid "Clou / vis"
+msgstr "Καρφί / βίδα"
+
+#: maintenance/pneus/crevaison
+msgid "Coupure / entaille"
+msgstr "Κόψιμο"
+
+#: maintenance/pneus/crevaison
+msgid "Crevaison"
+msgstr "Σκάσιμο ελαστικού"
+
+#: maintenance/pneus/crevaison
+msgid "Crevaison enregistrée avec succès."
+msgstr "Το σκάσιμο αποθηκεύτηκε."
+
+#: maintenance/pneus/crevaison
+msgid "Crevaison modifiée avec succès !"
+msgstr "Το σκάσιμο τροποποιήθηκε!"
+
+#: maintenance/pneus/crevaison
+msgid "Crevaison supprimée avec succès."
+msgstr "Το σκάσιμο διαγράφηκε."
+
+#: maintenance/pneus/crevaison
+msgid "Crevaisons"
+msgstr "Σκασίματα"
+
+#: maintenance/pneus/crevaison
+msgid "Détail de la crevaison"
+msgstr "Λεπτομέρειες σκασίματος"
+
+#: maintenance/pneus/crevaison
+msgid "Ex. : 225/45 R17 94Y"
+msgstr "Π.χ. 225/45 R17 94Y"
+
+#: maintenance/pneus/crevaison
+msgid "Flanc (non réparable)"
+msgstr "Πλευρό (μη επισκευάσιμο)"
+
+#: maintenance/pneus/crevaison
+msgid "Fuite au talon / jante"
+msgstr "Διαρροή στο τακούνι / ζάντα"
+
+#: maintenance/pneus/crevaison
+msgid "La roue de secours n'a pas de roue opposée sur l'essieu."
+msgstr "Η ρεζέρβα δεν έχει αντίθετο τροχό σε άξονα."
+
+#: maintenance/pneus/crevaison
+msgid "Laisser vide pour reprendre la même référence."
+msgstr "Αφήστε κενό για την ίδια αναφορά."
+
+#: maintenance/pneus/crevaison
+msgid "Liste des crevaisons"
+msgstr "Λίστα σκασιμάτων"
+
+#: maintenance/pneus/crevaison
+msgid "Localisation du dommage"
+msgstr "Θέση ζημιάς"
+
+#: maintenance/pneus/crevaison
+msgid "Masses d'équilibrage"
+msgstr "Βαρίδια ζυγοστάθμισης"
+
+#: maintenance/pneus/crevaison
+msgid "Masses d'équilibrage HTVA"
+msgstr "Βαρίδια χωρίς ΦΠΑ"
+
+#: maintenance/pneus/crevaison
+msgid "Modifier la crevaison"
+msgstr "Επεξεργασία σκασίματος"
+
+#: maintenance/pneus/crevaison
+msgid "Mèche"
+msgstr "Φυτίλι"
+
+#: maintenance/pneus/crevaison
+msgid "Objet tranchant (verre, métal…)"
+msgstr "Αιχμηρό αντικείμενο (γυαλί, μέταλλο…)"
+
+#: maintenance/pneus/crevaison
+msgid "Pincement (choc trottoir / nid-de-poule)"
+msgstr "Τσίμπημα (πεζοδρόμιο / λακκούβα)"
+
+#: maintenance/pneus/crevaison
+msgid "Pneu monté"
+msgstr "Τοποθετημένο ελαστικό"
+
+#: maintenance/pneus/crevaison
+msgid "Pour 2 pneus, la roue opposée du même essieu est remplacée aussi."
+msgstr "Για 2 ελαστικά αλλάζει και ο αντίθετος τροχός του ίδιου άξονα."
+
+#: maintenance/pneus/crevaison
+msgid "Pression après intervention (bar)"
+msgstr "Πίεση μετά την εργασία (bar)"
+
+#: maintenance/pneus/crevaison
+msgid "Prix d'achat HTVA par pneu"
+msgstr "Τιμή αγοράς χωρίς ΦΠΑ ανά ελαστικό"
+
+#: maintenance/pneus/crevaison
+msgid "Prix d'achat HTVA par valve"
+msgstr "Τιμή αγοράς χωρίς ΦΠΑ ανά βαλβίδα"
+
+#: maintenance/pneus/crevaison
+msgid "Prix de la réparation (consommable) HTVA"
+msgstr "Τιμή επισκευής (αναλώσιμο) χωρίς ΦΠΑ"
+
+#: maintenance/pneus/crevaison
+msgid "Rapport de crevaison"
+msgstr "Αναφορά σκασίματος"
+
+#: maintenance/pneus/crevaison
+msgid "Remplacement d'un pneu"
+msgstr "Αλλαγή ενός ελαστικού"
+
+#: maintenance/pneus/crevaison
+msgid "Remplacement de 2 pneus (même essieu)"
+msgstr "Αλλαγή 2 ελαστικών (ίδιος άξονας)"
+
+#: maintenance/pneus/crevaison
+msgid "Retour à la liste des crevaisons"
+msgstr "Επιστροφή στα σκασίματα"
+
+#: maintenance/pneus/crevaison
+msgid "Roue crevée"
+msgstr "Σκασμένος τροχός"
+
+#: maintenance/pneus/crevaison
+msgid "Roue de secours"
+msgstr "Ρεζέρβα"
+
+#: maintenance/pneus/crevaison
+msgid "Roues remplacées"
+msgstr "Τροχοί που άλλαξαν"
+
+#: maintenance/pneus/crevaison
+msgid "Rustine (patch intérieur)"
+msgstr "Μπάλωμα (εσωτερικά)"
+
+#: maintenance/pneus/crevaison
+msgid "Réparation"
+msgstr "Επισκευή"
+
+#: maintenance/pneus/crevaison
+#, python-format
+msgid "Réparation de crevaison – %(type)s"
+msgstr "Επισκευή σκασίματος – %(type)s"
+
+#: maintenance/pneus/crevaison
+msgid "Solution"
+msgstr "Λύση"
+
+#: maintenance/pneus/crevaison
+msgid "Supprimer la crevaison"
+msgstr "Διαγραφή σκασίματος"
+
+#: maintenance/pneus/crevaison
+msgid "Talon / jante"
+msgstr "Τακούνι / ζάντα"
+
+#: maintenance/pneus/crevaison
+msgid "Type de réparation"
+msgstr "Τύπος επισκευής"
+
+#: maintenance/pneus/crevaison
+msgid "Type de valve"
+msgstr "Τύπος βαλβίδας"
+
+#: maintenance/pneus/crevaison
+msgid "Un dommage sur l'épaule ou le flanc n'est pas réparable : remplacez le pneu."
+msgstr "Ζημιά σε ώμο ή πλευρό δεν επισκευάζεται: αλλάξτε το ελαστικό."
+
+#: maintenance/pneus/crevaison
+msgid "Valve défectueuse"
+msgstr "Ελαττωματική βαλβίδα"
+
+#: maintenance/pneus/crevaison
+msgid "Valve remplacée"
+msgstr "Βαλβίδα άλλαξε"
+
+#: maintenance/pneus/crevaison
+msgid "Valve, équilibrage et pression"
+msgstr "Βαλβίδα, ζυγοστάθμιση και πίεση"
+
+#: maintenance/pneus/crevaison
+#, python-format
+msgid "Voulez-vous vraiment supprimer la crevaison du %(date)s (%(km)s km) pour :"
+msgstr "Θέλετε σίγουρα να διαγράψετε το σκάσιμο της %(date)s (%(km)s km) για:"
+
+#: maintenance/pneus/crevaison
+msgid "Épaule (non réparable)"
+msgstr "Ώμος (μη επισκευάσιμο)"
+
+#: maintenance/pneus/crevaison
+msgid "Épaule ou flanc : le pneu n'est pas réparable, il doit être remplacé."
+msgstr "Ώμος ή πλευρό: το ελαστικό δεν επισκευάζεται, πρέπει να αλλαχτεί."
+
+#: maintenance/pneus/crevaison
+msgid "Équilibrage"
+msgstr "Ζυγοστάθμιση"
+
+#: maintenance/pneus/crevaison
+msgid "Modification de la crevaison"
+msgstr "Τροποποίηση σκασιμάτος"
+
+#: maintenance/pneus/crevaison
+msgid "Suppression de la crevaison"
+msgstr "Διαγραφή σκασίματος"

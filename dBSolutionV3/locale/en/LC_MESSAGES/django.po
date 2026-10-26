@@ -64550,3 +64550,245 @@ msgstr "Glazing inspection edit"
 #: maintenance/autres_interventions/vitres
 msgid "Suppression du contrôle vitrage"
 msgstr "Glazing inspection deletion"
+
+#: maintenance/pneus/crevaison
+msgid "Arrière droit (ARD)"
+msgstr "Rear right (RR)"
+
+#: maintenance/pneus/crevaison
+msgid "Arrière gauche (ARG)"
+msgstr "Rear left (RL)"
+
+#: maintenance/pneus/crevaison
+msgid "Avant droit (AVD)"
+msgstr "Front right (FR)"
+
+#: maintenance/pneus/crevaison
+msgid "Avant gauche (AVG)"
+msgstr "Front left (FL)"
+
+#: maintenance/pneus/crevaison
+msgid "Bande de roulement (zone réparable)"
+msgstr "Tread (repairable area)"
+
+#: maintenance/pneus/crevaison
+msgid "Cause"
+msgstr "Cause"
+
+#: maintenance/pneus/crevaison
+msgid "Champignon"
+msgstr "Plug-patch (mushroom)"
+
+#: maintenance/pneus/crevaison
+msgid "Choisissez la réparation : mèche, champignon ou rustine."
+msgstr "Choose the repair: plug, plug-patch or patch."
+
+#: maintenance/pneus/crevaison
+msgid "Clou / vis"
+msgstr "Nail / screw"
+
+#: maintenance/pneus/crevaison
+msgid "Coupure / entaille"
+msgstr "Cut / gash"
+
+#: maintenance/pneus/crevaison
+msgid "Crevaison"
+msgstr "Puncture"
+
+#: maintenance/pneus/crevaison
+msgid "Crevaison enregistrée avec succès."
+msgstr "Puncture saved successfully."
+
+#: maintenance/pneus/crevaison
+msgid "Crevaison modifiée avec succès !"
+msgstr "Puncture updated successfully!"
+
+#: maintenance/pneus/crevaison
+msgid "Crevaison supprimée avec succès."
+msgstr "Puncture deleted successfully."
+
+#: maintenance/pneus/crevaison
+msgid "Crevaisons"
+msgstr "Punctures"
+
+#: maintenance/pneus/crevaison
+msgid "Détail de la crevaison"
+msgstr "Puncture details"
+
+#: maintenance/pneus/crevaison
+msgid "Ex. : 225/45 R17 94Y"
+msgstr "E.g. 225/45 R17 94Y"
+
+#: maintenance/pneus/crevaison
+msgid "Flanc (non réparable)"
+msgstr "Sidewall (not repairable)"
+
+#: maintenance/pneus/crevaison
+msgid "Fuite au talon / jante"
+msgstr "Bead / rim leak"
+
+#: maintenance/pneus/crevaison
+msgid "La roue de secours n'a pas de roue opposée sur l'essieu."
+msgstr "The spare wheel has no opposite wheel on an axle."
+
+#: maintenance/pneus/crevaison
+msgid "Laisser vide pour reprendre la même référence."
+msgstr "Leave empty to keep the same reference."
+
+#: maintenance/pneus/crevaison
+msgid "Liste des crevaisons"
+msgstr "Punctures list"
+
+#: maintenance/pneus/crevaison
+msgid "Localisation du dommage"
+msgstr "Damage location"
+
+#: maintenance/pneus/crevaison
+msgid "Masses d'équilibrage"
+msgstr "Balancing weights"
+
+#: maintenance/pneus/crevaison
+msgid "Masses d'équilibrage HTVA"
+msgstr "Balancing weights excl. VAT"
+
+#: maintenance/pneus/crevaison
+msgid "Modifier la crevaison"
+msgstr "Edit puncture"
+
+#: maintenance/pneus/crevaison
+msgid "Mèche"
+msgstr "Plug (string)"
+
+#: maintenance/pneus/crevaison
+msgid "Objet tranchant (verre, métal…)"
+msgstr "Sharp object (glass, metal…)"
+
+#: maintenance/pneus/crevaison
+msgid "Pincement (choc trottoir / nid-de-poule)"
+msgstr "Pinch (kerb / pothole impact)"
+
+#: maintenance/pneus/crevaison
+msgid "Pneu monté"
+msgstr "Tyre fitted"
+
+#: maintenance/pneus/crevaison
+msgid "Pour 2 pneus, la roue opposée du même essieu est remplacée aussi."
+msgstr "For 2 tyres, the opposite wheel on the same axle is replaced too."
+
+#: maintenance/pneus/crevaison
+msgid "Pression après intervention (bar)"
+msgstr "Pressure after work (bar)"
+
+#: maintenance/pneus/crevaison
+msgid "Prix d'achat HTVA par pneu"
+msgstr "Purchase price excl. VAT per tyre"
+
+#: maintenance/pneus/crevaison
+msgid "Prix d'achat HTVA par valve"
+msgstr "Purchase price excl. VAT per valve"
+
+#: maintenance/pneus/crevaison
+msgid "Prix de la réparation (consommable) HTVA"
+msgstr "Repair price (consumable) excl. VAT"
+
+#: maintenance/pneus/crevaison
+msgid "Rapport de crevaison"
+msgstr "Puncture report"
+
+#: maintenance/pneus/crevaison
+msgid "Remplacement d'un pneu"
+msgstr "Replace one tyre"
+
+#: maintenance/pneus/crevaison
+msgid "Remplacement de 2 pneus (même essieu)"
+msgstr "Replace 2 tyres (same axle)"
+
+#: maintenance/pneus/crevaison
+msgid "Retour à la liste des crevaisons"
+msgstr "Back to punctures"
+
+#: maintenance/pneus/crevaison
+msgid "Roue crevée"
+msgstr "Punctured wheel"
+
+#: maintenance/pneus/crevaison
+msgid "Roue de secours"
+msgstr "Spare wheel"
+
+#: maintenance/pneus/crevaison
+msgid "Roues remplacées"
+msgstr "Wheels replaced"
+
+#: maintenance/pneus/crevaison
+msgid "Rustine (patch intérieur)"
+msgstr "Patch (inside)"
+
+#: maintenance/pneus/crevaison
+msgid "Réparation"
+msgstr "Repair"
+
+#: maintenance/pneus/crevaison
+#, python-format
+msgid "Réparation de crevaison – %(type)s"
+msgstr "Puncture repair – %(type)s"
+
+#: maintenance/pneus/crevaison
+msgid "Solution"
+msgstr "Solution"
+
+#: maintenance/pneus/crevaison
+msgid "Supprimer la crevaison"
+msgstr "Delete puncture"
+
+#: maintenance/pneus/crevaison
+msgid "Talon / jante"
+msgstr "Bead / rim"
+
+#: maintenance/pneus/crevaison
+msgid "Type de réparation"
+msgstr "Repair type"
+
+#: maintenance/pneus/crevaison
+msgid "Type de valve"
+msgstr "Valve type"
+
+#: maintenance/pneus/crevaison
+msgid "Un dommage sur l'épaule ou le flanc n'est pas réparable : remplacez le pneu."
+msgstr "Shoulder or sidewall damage cannot be repaired: replace the tyre."
+
+#: maintenance/pneus/crevaison
+msgid "Valve défectueuse"
+msgstr "Faulty valve"
+
+#: maintenance/pneus/crevaison
+msgid "Valve remplacée"
+msgstr "Valve replaced"
+
+#: maintenance/pneus/crevaison
+msgid "Valve, équilibrage et pression"
+msgstr "Valve, balancing and pressure"
+
+#: maintenance/pneus/crevaison
+#, python-format
+msgid "Voulez-vous vraiment supprimer la crevaison du %(date)s (%(km)s km) pour :"
+msgstr "Do you really want to delete the puncture of %(date)s (%(km)s km) for:"
+
+#: maintenance/pneus/crevaison
+msgid "Épaule (non réparable)"
+msgstr "Shoulder (not repairable)"
+
+#: maintenance/pneus/crevaison
+msgid "Épaule ou flanc : le pneu n'est pas réparable, il doit être remplacé."
+msgstr "Shoulder or sidewall: the tyre cannot be repaired, it must be replaced."
+
+#: maintenance/pneus/crevaison
+msgid "Équilibrage"
+msgstr "Balancing"
+
+#: maintenance/pneus/crevaison
+msgid "Modification de la crevaison"
+msgstr "Puncture edit"
+
+#: maintenance/pneus/crevaison
+msgid "Suppression de la crevaison"
+msgstr "Puncture deletion"
