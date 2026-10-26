@@ -2355,6 +2355,38 @@ class FabricantCardan(models.TextChoices):
     AUTRE = "AUTRE", _("Autre")
 
 
+class FabricantVitrage(models.TextChoices):
+    """Vitrage (pare-brise, lunette, vitres) et rétroviseurs."""
+    CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR_OEM = "CONSTRUCTEUR_OEM", _("Constructeur OEM")
+
+    AGC = "AGC", _("AGC")
+    CARLEX = "CARLEX", _("Carlex")
+    FUYAO = "FUYAO", _("Fuyao")
+    GUARDIAN = "GUARDIAN", _("Guardian")
+    PILKINGTON = "PILKINGTON", _("Pilkington")
+    SEKURIT = "SEKURIT", _("Saint-Gobain Sekurit")
+    VITRO = "VITRO", _("Vitro")
+    XYG = "XYG", _("XYG")
+    CARGLASS = "CARGLASS", _("Carglass")
+    # Rétroviseurs / lève-vitres
+    BLIC = "BLIC", _("Blic")
+    BOSCH = "BOSCH", _("Bosch")
+    BROSE = "BROSE", _("Brose")
+    FICOSA = "FICOSA", _("Ficosa")
+    GENTEX = "GENTEX", _("Gentex")
+    MAGNA = "MAGNA", _("Magna")
+    TYC = "TYC", _("TYC")
+    VALEO = "VALEO", _("Valeo")
+    VAN_WEZEL = "VAN_WEZEL", _("Van Wezel")
+    # Films / produits
+    LLUMAR = "LLUMAR", _("LLumar")
+    SIKA = "SIKA", _("Sika")
+    THREE_M = "3M", "3M"
+
+    AUTRE = "AUTRE", _("Autre")
+
+
 class FabricantEsthetique(models.TextChoices):
     """Marques de produits d'esthétique automobile (polish, cire, céramique, décontamination)."""
     CHOISIR = "CHOISIR", _("Choisir")

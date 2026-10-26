@@ -144,6 +144,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     total_cardan = 0
     total_arbre_transmission = 0
     total_geometrie_course = 0
+    total_vitrage = 0
     total_roulement = 0
     total_suspension = 0
     total_preparation_course = 0
@@ -251,6 +252,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
             total_arbre_transmission = ArbreTransmission.objects.filter(voiture_exemplaire=exemplaire).count()
             from maintenance.autres_interventions.geometrie_course.models import GeometrieCourse
             total_geometrie_course = GeometrieCourse.objects.filter(voiture_exemplaire=exemplaire).count()
+            from maintenance.autres_interventions.vitres.models import Vitrage
+            total_vitrage = Vitrage.objects.filter(voiture_exemplaire=exemplaire).count()
             total_roulement = roulement.count()
             from maintenance.autres_interventions.suspension.composants import total_suspension as _total_suspension
             total_suspension = _total_suspension(exemplaire)
@@ -414,6 +417,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_cardan": total_cardan,
         "total_arbre_transmission": total_arbre_transmission,
         "total_geometrie_course": total_geometrie_course,
+        "total_vitrage": total_vitrage,
         "total_roulement": total_roulement,
         "total_suspension": total_suspension,
         "total_preparation_course": total_preparation_course,

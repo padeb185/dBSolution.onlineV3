@@ -20,7 +20,10 @@ class PieceStockForm(forms.ModelForm):
         model = Piece
         fields = ["designation", "categorie", "oem", "reference_fabricant", "unite", "emplacement_etagere",
                   "prix_achat", "majoration_pourcent", "tva", "prix_vente", "quantite_min", "voiture_marque",
-                  "modele", "actif"]
+                  "modele", "actif",
+                  # Visserie (catégorie VISSERIE)
+                  "visserie_type", "visserie_diametre", "visserie_pas", "visserie_longueur", "visserie_tete",
+                  "visserie_ecrou", "visserie_qualite", "visserie_finition"]
         labels = {
             "designation": _("Désignation"), "oem": _("Code OEM (un seul par pièce)"),
             "prix_achat": _("Prix d'achat HTVA"), "prix_vente": _("Prix de vente HTVA"),
@@ -41,6 +44,14 @@ class PieceStockForm(forms.ModelForm):
             "quantite_min": forms.NumberInput(attrs={"class": C, "step": "0.01", "min": "0"}),
             "voiture_marque": forms.Select(attrs={"class": C}),
             "modele": forms.Select(attrs={"class": C}),
+            "visserie_type": forms.Select(attrs={"class": C}),
+            "visserie_diametre": forms.Select(attrs={"class": C}),
+            "visserie_pas": forms.Select(attrs={"class": C}),
+            "visserie_longueur": forms.Select(attrs={"class": C}),
+            "visserie_tete": forms.Select(attrs={"class": C}),
+            "visserie_ecrou": forms.Select(attrs={"class": C}),
+            "visserie_qualite": forms.Select(attrs={"class": C}),
+            "visserie_finition": forms.Select(attrs={"class": C}),
         }
 
     def __init__(self, *args, societe=None, **kwargs):
@@ -50,6 +61,9 @@ class PieceStockForm(forms.ModelForm):
             self.fields["fabricant_nom"].initial = self.instance.nom_fabricant
             self.fields["eans"].initial = "\n".join(self.instance.eans)
             del self.fields["stock_initial"]
+        # Visserie : désignation générée (mise à jour si elle n'a pas été personnalisée)
+        self._designation_auto = self.instance.designation_visserie() if self.instance and self.instance.pk else ""
+        self.fields["designation"].help_text = _("Visserie : laissez vide, la désignation est générée (ex. Vis H M8×1,25×30 – 8.8).")
 
     def clean_oem(self):
         from .stock import normaliser_code
@@ -77,6 +91,17 @@ class PieceStockForm(forms.ModelForm):
 
     def clean(self):
         cleaned = super().clean()
+        if cleaned.get("categorie") == CategoriePiece.VISSERIE:
+            if not cleaned.get("visserie_type"):
+                self.add_error("visserie_type", _("Indiquez le type de visserie."))
+            if not cleaned.get("visserie_diametre"):
+                self.add_error("visserie_diametre", _("Indiquez le diamètre."))
+            if cleaned.get("visserie_type") in ("VIS", "GOUJON") and not cleaned.get("visserie_longueur"):
+                self.add_error("visserie_longueur", _("Indiquez la longueur."))
+            # Désignation automatique (régénérée si elle n'a pas été modifiée à la main)
+            if not cleaned.get("designation") or cleaned.get("designation") == self._designation_auto:
+                cleaned["designation"] = ""
+            return cleaned
         if not cleaned.get("designation") and not cleaned.get("oem"):
             raise forms.ValidationError(_("Indiquez au moins une désignation ou un code OEM."))
         return cleaned

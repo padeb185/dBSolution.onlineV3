@@ -66,6 +66,39 @@ def logout_view(request):
 
 
 
+
+def _activites_avec_plaques(logs):
+    """
+    Dernières activités : repère l'immatriculation d'un véhicule de la société dans le texte
+    de l'action pour l'afficher sous forme de plaque.
+    Chaque log reçoit : avant (texte traduit avant la plaque), apres (texte après),
+    immat_plaque et pays_plaque (None si aucune immatriculation reconnue).
+    """
+    from utilisateurs.templatetags.db_translate import db_trans
+    from voiture.voiture_exemplaire.models import VoitureExemplaire
+
+    logs = list(logs)
+    immats = {}
+    for immat, pays in VoitureExemplaire.objects.exclude(immatriculation__isnull=True).exclude(
+            immatriculation="").values_list("immatriculation", "pays"):
+        immats[immat.strip()] = pays
+    # Les plus longues d'abord (« 1-ABC-321 » avant « ABC-321 »)
+    candidates = sorted(immats, key=len, reverse=True)
+    for log in logs:
+        texte = log.action or ""
+        log.immat_plaque = log.pays_plaque = None
+        log.avant, log.apres = db_trans(texte), ""
+        for immat in candidates:
+            pos = texte.find(immat)
+            if pos < 0:
+                continue
+            avant, apres = texte[:pos], texte[pos + len(immat):]
+            log.avant = (db_trans(avant) if avant.strip() else "").rstrip(" -–:")
+            log.apres = apres.strip().lstrip("–-").strip()
+            log.immat_plaque, log.pays_plaque = immat, immats[immat]
+            break
+    return logs
+
 @never_cache
 @login_required
 def dashboard_view(request):
@@ -327,10 +360,10 @@ def dashboard_view(request):
     context["schema_name"] = schema_name
 
     try:
-        context["dernieres_activites"] = UserLog.objects.filter(
+        context["dernieres_activites"] = _activites_avec_plaques(UserLog.objects.filter(
             utilisateur=request.user,
             utilisateur__societe=request.user.societe
-        ).order_by("-date_action")[:100]
+        ).order_by("-date_action")[:100])
     except Exception:
         context["dernieres_activites"] = []
 

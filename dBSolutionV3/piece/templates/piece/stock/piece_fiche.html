@@ -32,6 +32,19 @@
             <div><dt class="text-sm text-gray-500">{% trans "Compatibilité" %}</dt><dd>{{ piece.voiture_marque|default:"" }} {{ piece.modele|default:"" }}</dd></div>
             <div><dt class="text-sm text-gray-500">{% trans "Prix d'achat HTVA" %}</dt><dd>{{ piece.prix_achat|floatformat:2 }} €</dd></div>
             <div><dt class="text-sm text-gray-500">{% trans "Prix de vente HTVA" %}</dt><dd>{{ piece.prix_vente|floatformat:2 }} € <span class="text-xs text-gray-500">({% trans "TVA" %} {{ piece.tva|floatformat:"-2" }} %)</span></dd></div>
+            {% if piece.est_visserie %}
+            <div class="md:col-span-2 rounded border border-blue-200 bg-blue-50 p-3">
+                <dt class="text-sm text-gray-500 mb-1">{% trans "Visserie" %}</dt>
+                <dd class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+                    <span><strong>{% trans "Type" %} :</strong> {{ piece.get_visserie_type_display|default:"—" }}</span>
+                    <span><strong>{% trans "Cote" %} :</strong> <span class="font-mono">{{ piece.cote_visserie|default:"—" }}</span>{% if piece.pas_est_fin %} <span class="text-xs text-blue-700">({% trans "pas fin" %})</span>{% endif %}</span>
+                    {% if piece.visserie_tete %}<span><strong>{% trans "Tête" %} :</strong> {{ piece.get_visserie_tete_display }}</span>{% endif %}
+                    {% if piece.visserie_ecrou %}<span><strong>{% trans "Écrou" %} :</strong> {{ piece.get_visserie_ecrou_display }}</span>{% endif %}
+                    <span><strong>{% trans "Qualité" %} :</strong> {{ piece.get_visserie_qualite_display|default:"—" }}</span>
+                    <span><strong>{% trans "Finition" %} :</strong> {{ piece.get_visserie_finition_display|default:"—" }}</span>
+                </dd>
+            </div>
+            {% endif %}
         </dl>
     </div>
 

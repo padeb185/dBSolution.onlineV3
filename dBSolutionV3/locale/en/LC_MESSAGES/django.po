@@ -64201,3 +64201,352 @@ msgstr "No vehicle (gearbox removed)"
 #: maintenance/autres_interventions/boite_de_vitesse/boite_liee
 msgid "Aucune intervention enregistrée pour cette boîte."
 msgstr "No work recorded for this gearbox."
+
+#: piece/models.py
+msgid "Visserie (vis, écrous, rondelles)"
+msgstr "Fasteners (bolts, nuts, washers)"
+
+#: piece/models.py
+msgid "Vis"
+msgstr "Bolt / screw"
+
+#: piece/models.py
+msgid "Écrou"
+msgstr "Nut"
+
+#: piece/models.py
+msgid "Rondelle"
+msgstr "Washer"
+
+#: piece/models.py
+msgid "Goujon"
+msgstr "Stud"
+
+#: piece/models.py
+msgid "Type de visserie"
+msgstr "Fastener type"
+
+#: piece/models.py
+msgid "Diamètre (M)"
+msgstr "Diameter (M)"
+
+#: piece/models.py
+msgid "Pas de vis"
+msgstr "Thread pitch"
+
+#: piece/models.py
+msgid "Tête de vis"
+msgstr "Head type"
+
+#: piece/models.py
+msgid "Type d'écrou"
+msgstr "Nut type"
+
+#: piece/models.py
+msgid "Qualité / classe"
+msgstr "Grade / class"
+
+#: piece/models.py
+msgid "Hexagonale (H)"
+msgstr "Hex (H)"
+
+#: piece/models.py
+msgid "Hexagonale à embase"
+msgstr "Hex flange"
+
+#: piece/models.py
+msgid "Cylindrique 6 pans creux (CHC / Allen)"
+msgstr "Socket head cap (Allen)"
+
+#: piece/models.py
+msgid "Torx"
+msgstr "Torx"
+
+#: piece/models.py
+msgid "Fraisée 6 pans creux"
+msgstr "Countersunk socket"
+
+#: piece/models.py
+msgid "Bombée 6 pans creux"
+msgstr "Button head socket"
+
+#: piece/models.py
+msgid "Cruciforme"
+msgstr "Phillips"
+
+#: piece/models.py
+msgid "Hexagonal"
+msgstr "Hex"
+
+#: piece/models.py
+msgid "Nylstop (frein nylon)"
+msgstr "Nyloc (nylon insert)"
+
+#: piece/models.py
+msgid "À embase"
+msgstr "Flange"
+
+#: piece/models.py
+msgid "À embase crantée"
+msgstr "Serrated flange"
+
+#: piece/models.py
+msgid "Borgne"
+msgstr "Dome / acorn"
+
+#: piece/models.py
+msgid "Autofreiné tout métal"
+msgstr "All-metal lock nut"
+
+#: piece/models.py
+msgid "Papillon"
+msgstr "Wing"
+
+#: piece/models.py
+msgid "Cage"
+msgstr "Cage"
+
+#: piece/models.py
+msgid "À souder"
+msgstr "Weld"
+
+#: piece/models.py
+msgid "Classe 6 (écrou)"
+msgstr "Class 6 (nut)"
+
+#: piece/models.py
+msgid "Classe 8 (écrou)"
+msgstr "Class 8 (nut)"
+
+#: piece/models.py
+msgid "Classe 10 (écrou)"
+msgstr "Class 10 (nut)"
+
+#: piece/models.py
+msgid "Classe 12 (écrou)"
+msgstr "Class 12 (nut)"
+
+#: piece/models.py
+msgid "Inox A2-70"
+msgstr "Stainless A2-70"
+
+#: piece/models.py
+msgid "Inox A4-70"
+msgstr "Stainless A4-70"
+
+#: piece/models.py
+msgid "Inox A4-80"
+msgstr "Stainless A4-80"
+
+#: piece/models.py
+msgid "Titane grade 5"
+msgstr "Titanium grade 5"
+
+#: piece/models.py
+msgid "Zingué"
+msgstr "Zinc plated"
+
+#: piece/models.py
+msgid "Noir / brut"
+msgstr "Black / plain"
+
+#: piece/models.py
+msgid "Galvanisé"
+msgstr "Hot-dip galvanised"
+
+#: piece/models.py
+msgid "Zinc lamellaire (Géomet)"
+msgstr "Zinc flake (Geomet)"
+
+#: piece/models.py
+msgid "dimensions en millimètres"
+msgstr "dimensions in millimetres"
+
+#: piece/models.py
+msgid "pas fin"
+msgstr "fine pitch"
+
+#: piece/models.py
+msgid "pas standard"
+msgstr "standard pitch"
+
+#: piece/models.py
+msgid "Cote"
+msgstr "Size"
+
+#: piece/models.py
+msgid "Tête"
+msgstr "Head"
+
+#: piece/models.py
+msgid "Indiquez le type de visserie."
+msgstr "Enter the fastener type."
+
+#: piece/models.py
+msgid "Indiquez le diamètre."
+msgstr "Enter the diameter."
+
+#: piece/models.py
+msgid "Indiquez la longueur."
+msgstr "Enter the length."
+
+#: piece/models.py
+msgid "Visserie : laissez vide, la désignation est générée (ex. Vis H M8×1,25×30 – 8.8)."
+msgstr "Fasteners: leave empty, the description is generated (e.g. Bolt H M8×1.25×30 – 8.8)."
+
+#: maintenance/autres_interventions/vitres
+msgid "Calibré"
+msgstr "Calibrated"
+
+#: maintenance/autres_interventions/vitres
+msgid "Caméra pare-brise (calibrage ADAS)"
+msgstr "Windscreen camera (ADAS calibration)"
+
+#: maintenance/autres_interventions/vitres
+msgid "Clignotant de rétroviseur"
+msgstr "Mirror indicator"
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage"
+msgstr "Glazing inspection"
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage enregistré avec succès."
+msgstr "Glazing inspection saved successfully."
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage modifié avec succès !"
+msgstr "Glazing inspection updated successfully!"
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage supprimé avec succès."
+msgstr "Glazing inspection deleted successfully."
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôles vitrage"
+msgstr "Glazing inspections"
+
+#: maintenance/autres_interventions/vitres
+msgid "Coque de rétroviseur"
+msgstr "Mirror cover"
+
+#: maintenance/autres_interventions/vitres
+msgid "Droite"
+msgstr "Right"
+
+#: maintenance/autres_interventions/vitres
+msgid "Dégivrage de la lunette arrière"
+msgstr "Rear window demister"
+
+#: maintenance/autres_interventions/vitres
+msgid "Dégivrage de rétroviseur"
+msgstr "Mirror heating"
+
+#: maintenance/autres_interventions/vitres
+msgid "Détails du contrôle vitrage"
+msgstr "Glazing inspection details"
+
+#: maintenance/autres_interventions/vitres
+msgid "Film teinté"
+msgstr "Tinted film"
+
+#: maintenance/autres_interventions/vitres
+msgid "Glace de rétroviseur"
+msgstr "Mirror glass"
+
+#: maintenance/autres_interventions/vitres
+msgid "Impact / fissure (réparation pare-brise)"
+msgstr "Chip / crack (windscreen repair)"
+
+#: maintenance/autres_interventions/vitres
+msgid "Intérieur"
+msgstr "Interior"
+
+#: maintenance/autres_interventions/vitres
+msgid "Joint / collage du pare-brise"
+msgstr "Windscreen seal / bonding"
+
+#: maintenance/autres_interventions/vitres
+msgid "Joint / lèche-vitre"
+msgstr "Window seal / scraper"
+
+#: maintenance/autres_interventions/vitres
+msgid "Liste des contrôles vitrage"
+msgstr "Glazing inspections list"
+
+#: maintenance/autres_interventions/vitres
+msgid "Lunette arrière"
+msgstr "Rear window"
+
+#: maintenance/autres_interventions/vitres
+msgid "Modifier le contrôle vitrage"
+msgstr "Edit glazing inspection"
+
+#: maintenance/autres_interventions/vitres
+msgid "Moteur de lève-vitre"
+msgstr "Window regulator motor"
+
+#: maintenance/autres_interventions/vitres
+msgid "Moteur de réglage / rabattement du rétroviseur"
+msgstr "Mirror adjustment / folding motor"
+
+#: maintenance/autres_interventions/vitres
+msgid "Mécanisme de lève-vitre"
+msgstr "Window regulator"
+
+#: maintenance/autres_interventions/vitres
+msgid "Rapport de contrôle vitrage"
+msgstr "Glazing inspection report"
+
+#: maintenance/autres_interventions/vitres
+msgid "Retour à la liste des contrôles vitrage"
+msgstr "Back to glazing inspections"
+
+#: maintenance/autres_interventions/vitres
+msgid "Rétroviseur extérieur complet"
+msgstr "Complete door mirror"
+
+#: maintenance/autres_interventions/vitres
+msgid "Rétroviseur intérieur"
+msgstr "Interior mirror"
+
+#: maintenance/autres_interventions/vitres
+msgid "Supprimer le contrôle vitrage"
+msgstr "Delete glazing inspection"
+
+#: maintenance/autres_interventions/vitres
+msgid "Toit"
+msgstr "Roof"
+
+#: maintenance/autres_interventions/vitres
+msgid "Toit ouvrant / toit vitré"
+msgstr "Sunroof / glass roof"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitrage"
+msgstr "Glazing"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitrage et rétroviseurs"
+msgstr "Glazing and mirrors"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitre de custode"
+msgstr "Quarter glass"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitre de porte"
+msgstr "Door window"
+
+#: maintenance/autres_interventions/vitres
+#, python-format
+msgid "Voulez-vous vraiment supprimer le contrôle vitrage du %(date)s (%(km)s km) pour :"
+msgstr "Do you really want to delete the glazing inspection of %(date)s (%(km)s km) for:"
+
+#: maintenance/autres_interventions/vitres
+msgid "Modification du contrôle vitrage"
+msgstr "Glazing inspection edit"
+
+#: maintenance/autres_interventions/vitres
+msgid "Suppression du contrôle vitrage"
+msgstr "Glazing inspection deletion"

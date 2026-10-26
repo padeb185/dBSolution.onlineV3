@@ -32,6 +32,25 @@
         </div>
     </div>
 
+    <!-- ================= VISSERIE (catégorie Visserie) ================= -->
+    <div id="bloc-visserie" class="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-4" style="display:none">
+        <h2 class="text-lg font-semibold mb-1 flex items-center gap-2">
+            <img src="{% static 'icons/arbre-fixations.png' %}" alt="" class="w-8 h-8">{% trans "Visserie" %}
+            <span class="text-sm font-normal text-gray-500">({% trans "dimensions en millimètres" %})</span>
+        </h2>
+        <p class="text-sm mb-3">{% trans "Désignation" %} : <strong id="apercu-visserie" class="font-mono">—</strong></p>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {% for f in form %}{% if f.name|slice:":9" == "visserie_" %}
+            <div data-visserie="{{ f.name }}">
+                <label class="block text-sm font-semibold mb-1" for="{{ f.id_for_label }}">{{ f.label }}</label>
+                {{ f }}
+                {% for e in f.errors %}<p class="text-sm text-red-600 mt-1">{{ e }}</p>{% endfor %}
+            </div>
+            {% endif %}{% endfor %}
+        </div>
+        <p id="info-pas" class="text-xs text-gray-500 mt-2"></p>
+    </div>
+
     <h2 class="text-lg font-semibold mb-4">{% trans "Prix et stock" %}</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         {% for f in form %}{% if f.name in "prix_achat majoration_pourcent tva prix_vente quantite_min stock_initial emplacement_etagere" %}
@@ -63,7 +82,48 @@
     </div>
 </form>
 
+{% trans "pas fin" as t_fin %}{% trans "pas standard" as t_std %}{% trans "Écrou" as t_ecrou %}
 <script>
+// ---------- Visserie : affichage selon la catégorie / le type, pas standard, aperçu de la désignation
+(function () {
+    var PAS_STD = {"3": "0.5", "4": "0.7", "5": "0.8", "6": "1.0", "8": "1.25", "10": "1.5", "12": "1.75",
+                   "14": "2.0", "16": "2.0", "18": "2.5", "20": "2.5", "22": "2.5", "24": "3.0"};
+    var $ = function (n) { return document.querySelector('[name="' + n + '"]'); };
+    var cat = $("categorie"), bloc = document.getElementById("bloc-visserie");
+    var type = $("visserie_type"), dia = $("visserie_diametre"), pas = $("visserie_pas"),
+        lg = $("visserie_longueur"), tete = $("visserie_tete"), ecrou = $("visserie_ecrou"),
+        qual = $("visserie_qualite"), fin = $("visserie_finition"), info = document.getElementById("info-pas"),
+        apercu = document.getElementById("apercu-visserie");
+    if (!cat || !bloc) return;
+    function txt(sel) { return sel && sel.value ? sel.options[sel.selectedIndex].text.split(" (")[0] : ""; }
+    function montrer(nom, oui) { var d = document.querySelector('[data-visserie="' + nom + '"]'); if (d) d.style.display = oui ? "" : "none"; }
+    function maj() {
+        bloc.style.display = cat.value === "VISSERIE" ? "" : "none";
+        var t = type.value;
+        montrer("visserie_longueur", t === "VIS" || t === "GOUJON" || t === "");
+        montrer("visserie_tete", t === "VIS" || t === "");
+        montrer("visserie_ecrou", t === "ECROU");
+        var std = PAS_STD[dia.value];
+        info.textContent = std ? ("M" + dia.value + " : {{ t_std|escapejs }} " + std.replace(".", ",") + " mm" +
+            (pas.value && pas.value !== std ? " — {{ t_fin|escapejs }}" : "")) : "";
+        // Aperçu
+        var m = [];
+        if (t === "ECROU") { m.push("{{ t_ecrou|escapejs }}"); if (ecrou.value && ecrou.value !== "HEX") m.push(txt(ecrou)); }
+        else if (t) { m.push(txt(type)); if (t === "VIS" && tete.value) m.push(["H", "CHC", "TORX"].indexOf(tete.value) >= 0 ? tete.value : txt(tete).toLowerCase()); }
+        if (dia.value) {
+            var c = "M" + dia.value + (pas.value ? "×" + pas.value.replace(".", ",") : "");
+            if (lg.value && (t === "VIS" || t === "GOUJON" || t === "")) c += "×" + lg.value;
+            m.push(c);
+        }
+        var s = m.join(" "), suite = [txt(qual), txt(fin)].filter(Boolean);
+        if (suite.length) s += " – " + suite.join(" – ");
+        apercu.textContent = s || "—";
+    }
+    dia.addEventListener("change", function () { if (PAS_STD[dia.value]) pas.value = PAS_STD[dia.value]; maj(); });
+    [cat, type, pas, lg, tete, ecrou, qual, fin].forEach(function (e) { if (e) e.addEventListener("change", maj); });
+    maj();
+})();
+
 // Scanner : la touche Entrée envoyée par la douchette ne soumet pas le formulaire (le champ EAN accepte plusieurs lignes)
 document.querySelectorAll('input[name="oem"], input[name="reference_fabricant"]').forEach(function (el) {
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); } });

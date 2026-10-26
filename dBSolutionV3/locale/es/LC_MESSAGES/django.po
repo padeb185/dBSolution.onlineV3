@@ -64499,3 +64499,352 @@ msgstr "Ningún vehículo (caja desmontada)"
 #: maintenance/autres_interventions/boite_de_vitesse/boite_liee
 msgid "Aucune intervention enregistrée pour cette boîte."
 msgstr "Ninguna intervención registrada para esta caja."
+
+#: piece/models.py
+msgid "Visserie (vis, écrous, rondelles)"
+msgstr "Tornillería (tornillos, tuercas, arandelas)"
+
+#: piece/models.py
+msgid "Vis"
+msgstr "Tornillo"
+
+#: piece/models.py
+msgid "Écrou"
+msgstr "Tuerca"
+
+#: piece/models.py
+msgid "Rondelle"
+msgstr "Arandela"
+
+#: piece/models.py
+msgid "Goujon"
+msgstr "Espárrago"
+
+#: piece/models.py
+msgid "Type de visserie"
+msgstr "Tipo de tornillería"
+
+#: piece/models.py
+msgid "Diamètre (M)"
+msgstr "Diámetro (M)"
+
+#: piece/models.py
+msgid "Pas de vis"
+msgstr "Paso de rosca"
+
+#: piece/models.py
+msgid "Tête de vis"
+msgstr "Cabeza"
+
+#: piece/models.py
+msgid "Type d'écrou"
+msgstr "Tipo de tuerca"
+
+#: piece/models.py
+msgid "Qualité / classe"
+msgstr "Calidad / clase"
+
+#: piece/models.py
+msgid "Hexagonale (H)"
+msgstr "Hexagonal (H)"
+
+#: piece/models.py
+msgid "Hexagonale à embase"
+msgstr "Hexagonal con valona"
+
+#: piece/models.py
+msgid "Cylindrique 6 pans creux (CHC / Allen)"
+msgstr "Cilíndrica hexagonal interior (Allen)"
+
+#: piece/models.py
+msgid "Torx"
+msgstr "Torx"
+
+#: piece/models.py
+msgid "Fraisée 6 pans creux"
+msgstr "Avellanada hexagonal interior"
+
+#: piece/models.py
+msgid "Bombée 6 pans creux"
+msgstr "Abombada hexagonal interior"
+
+#: piece/models.py
+msgid "Cruciforme"
+msgstr "Phillips"
+
+#: piece/models.py
+msgid "Hexagonal"
+msgstr "Hexagonal"
+
+#: piece/models.py
+msgid "Nylstop (frein nylon)"
+msgstr "Autoblocante (nylon)"
+
+#: piece/models.py
+msgid "À embase"
+msgstr "Con valona"
+
+#: piece/models.py
+msgid "À embase crantée"
+msgstr "Valona dentada"
+
+#: piece/models.py
+msgid "Borgne"
+msgstr "Ciega"
+
+#: piece/models.py
+msgid "Autofreiné tout métal"
+msgstr "Autoblocante metálica"
+
+#: piece/models.py
+msgid "Papillon"
+msgstr "Mariposa"
+
+#: piece/models.py
+msgid "Cage"
+msgstr "Enjaulada"
+
+#: piece/models.py
+msgid "À souder"
+msgstr "Para soldar"
+
+#: piece/models.py
+msgid "Classe 6 (écrou)"
+msgstr "Clase 6 (tuerca)"
+
+#: piece/models.py
+msgid "Classe 8 (écrou)"
+msgstr "Clase 8 (tuerca)"
+
+#: piece/models.py
+msgid "Classe 10 (écrou)"
+msgstr "Clase 10 (tuerca)"
+
+#: piece/models.py
+msgid "Classe 12 (écrou)"
+msgstr "Clase 12 (tuerca)"
+
+#: piece/models.py
+msgid "Inox A2-70"
+msgstr "Inox A2-70"
+
+#: piece/models.py
+msgid "Inox A4-70"
+msgstr "Inox A4-70"
+
+#: piece/models.py
+msgid "Inox A4-80"
+msgstr "Inox A4-80"
+
+#: piece/models.py
+msgid "Titane grade 5"
+msgstr "Titanio grado 5"
+
+#: piece/models.py
+msgid "Zingué"
+msgstr "Zincado"
+
+#: piece/models.py
+msgid "Noir / brut"
+msgstr "Negro / bruto"
+
+#: piece/models.py
+msgid "Galvanisé"
+msgstr "Galvanizado"
+
+#: piece/models.py
+msgid "Zinc lamellaire (Géomet)"
+msgstr "Zinc laminar (Geomet)"
+
+#: piece/models.py
+msgid "dimensions en millimètres"
+msgstr "dimensiones en milímetros"
+
+#: piece/models.py
+msgid "pas fin"
+msgstr "paso fino"
+
+#: piece/models.py
+msgid "pas standard"
+msgstr "paso estándar"
+
+#: piece/models.py
+msgid "Cote"
+msgstr "Medida"
+
+#: piece/models.py
+msgid "Tête"
+msgstr "Cabeza"
+
+#: piece/models.py
+msgid "Indiquez le type de visserie."
+msgstr "Indique el tipo de tornillería."
+
+#: piece/models.py
+msgid "Indiquez le diamètre."
+msgstr "Indique el diámetro."
+
+#: piece/models.py
+msgid "Indiquez la longueur."
+msgstr "Indique la longitud."
+
+#: piece/models.py
+msgid "Visserie : laissez vide, la désignation est générée (ex. Vis H M8×1,25×30 – 8.8)."
+msgstr "Tornillería: déjelo vacío, la designación se genera (p. ej. Tornillo H M8×1,25×30 – 8.8)."
+
+#: maintenance/autres_interventions/vitres
+msgid "Calibré"
+msgstr "Calibrado"
+
+#: maintenance/autres_interventions/vitres
+msgid "Caméra pare-brise (calibrage ADAS)"
+msgstr "Cámara del parabrisas (calibración ADAS)"
+
+#: maintenance/autres_interventions/vitres
+msgid "Clignotant de rétroviseur"
+msgstr "Intermitente del retrovisor"
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage"
+msgstr "Control de lunas"
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage enregistré avec succès."
+msgstr "Control de lunas guardado correctamente."
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage modifié avec succès !"
+msgstr "¡Control de lunas modificado correctamente!"
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage supprimé avec succès."
+msgstr "Control de lunas eliminado correctamente."
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôles vitrage"
+msgstr "Controles de lunas"
+
+#: maintenance/autres_interventions/vitres
+msgid "Coque de rétroviseur"
+msgstr "Carcasa del retrovisor"
+
+#: maintenance/autres_interventions/vitres
+msgid "Droite"
+msgstr "Derecha"
+
+#: maintenance/autres_interventions/vitres
+msgid "Dégivrage de la lunette arrière"
+msgstr "Desempañador de la luna trasera"
+
+#: maintenance/autres_interventions/vitres
+msgid "Dégivrage de rétroviseur"
+msgstr "Desempañador del retrovisor"
+
+#: maintenance/autres_interventions/vitres
+msgid "Détails du contrôle vitrage"
+msgstr "Detalles del control de lunas"
+
+#: maintenance/autres_interventions/vitres
+msgid "Film teinté"
+msgstr "Lámina tintada"
+
+#: maintenance/autres_interventions/vitres
+msgid "Glace de rétroviseur"
+msgstr "Cristal del retrovisor"
+
+#: maintenance/autres_interventions/vitres
+msgid "Impact / fissure (réparation pare-brise)"
+msgstr "Impacto / grieta (reparación del parabrisas)"
+
+#: maintenance/autres_interventions/vitres
+msgid "Intérieur"
+msgstr "Interior"
+
+#: maintenance/autres_interventions/vitres
+msgid "Joint / collage du pare-brise"
+msgstr "Junta / pegado del parabrisas"
+
+#: maintenance/autres_interventions/vitres
+msgid "Joint / lèche-vitre"
+msgstr "Junta / burlete de ventanilla"
+
+#: maintenance/autres_interventions/vitres
+msgid "Liste des contrôles vitrage"
+msgstr "Lista de controles de lunas"
+
+#: maintenance/autres_interventions/vitres
+msgid "Lunette arrière"
+msgstr "Luna trasera"
+
+#: maintenance/autres_interventions/vitres
+msgid "Modifier le contrôle vitrage"
+msgstr "Modificar el control de lunas"
+
+#: maintenance/autres_interventions/vitres
+msgid "Moteur de lève-vitre"
+msgstr "Motor del elevalunas"
+
+#: maintenance/autres_interventions/vitres
+msgid "Moteur de réglage / rabattement du rétroviseur"
+msgstr "Motor de ajuste / plegado del retrovisor"
+
+#: maintenance/autres_interventions/vitres
+msgid "Mécanisme de lève-vitre"
+msgstr "Mecanismo del elevalunas"
+
+#: maintenance/autres_interventions/vitres
+msgid "Rapport de contrôle vitrage"
+msgstr "Informe de control de lunas"
+
+#: maintenance/autres_interventions/vitres
+msgid "Retour à la liste des contrôles vitrage"
+msgstr "Volver a los controles de lunas"
+
+#: maintenance/autres_interventions/vitres
+msgid "Rétroviseur extérieur complet"
+msgstr "Retrovisor exterior completo"
+
+#: maintenance/autres_interventions/vitres
+msgid "Rétroviseur intérieur"
+msgstr "Retrovisor interior"
+
+#: maintenance/autres_interventions/vitres
+msgid "Supprimer le contrôle vitrage"
+msgstr "Eliminar el control de lunas"
+
+#: maintenance/autres_interventions/vitres
+msgid "Toit"
+msgstr "Techo"
+
+#: maintenance/autres_interventions/vitres
+msgid "Toit ouvrant / toit vitré"
+msgstr "Techo solar / techo de cristal"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitrage"
+msgstr "Lunas"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitrage et rétroviseurs"
+msgstr "Lunas y retrovisores"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitre de custode"
+msgstr "Luna de custodia"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitre de porte"
+msgstr "Luna de puerta"
+
+#: maintenance/autres_interventions/vitres
+#, python-format
+msgid "Voulez-vous vraiment supprimer le contrôle vitrage du %(date)s (%(km)s km) pour :"
+msgstr "¿Desea realmente eliminar el control de lunas del %(date)s (%(km)s km) para:"
+
+#: maintenance/autres_interventions/vitres
+msgid "Modification du contrôle vitrage"
+msgstr "Modificación del control de lunas"
+
+#: maintenance/autres_interventions/vitres
+msgid "Suppression du contrôle vitrage"
+msgstr "Eliminación del control de lunas"

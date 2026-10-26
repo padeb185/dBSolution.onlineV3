@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails du contrôle vitrage" %}{% endblock %}
+
+{% block content %}
+    {% url 'vitrage:modifier_vitrage' vitrage.pk as url_modifier %}
+    {% url 'vitrage:vitrage_pdf' vitrage.pk as url_pdf %}
+    {% url 'vitrage:delete_vitrage' vitrage.pk as url_delete %}
+    {% if exemplaire %}{% url 'vitrage:vitrage_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails du contrôle vitrage" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=vitrage km_controle=vitrage.kilometrage_vitrage icone="vitres.png" avec_cote=True %}
+{% endblock %}

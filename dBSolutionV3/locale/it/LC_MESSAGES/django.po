@@ -64500,3 +64500,352 @@ msgstr "Nessun veicolo (cambio smontato)"
 #: maintenance/autres_interventions/boite_de_vitesse/boite_liee
 msgid "Aucune intervention enregistrée pour cette boîte."
 msgstr "Nessun intervento registrato per questo cambio."
+
+#: piece/models.py
+msgid "Visserie (vis, écrous, rondelles)"
+msgstr "Viteria (viti, dadi, rondelle)"
+
+#: piece/models.py
+msgid "Vis"
+msgstr "Vite"
+
+#: piece/models.py
+msgid "Écrou"
+msgstr "Dado"
+
+#: piece/models.py
+msgid "Rondelle"
+msgstr "Rondella"
+
+#: piece/models.py
+msgid "Goujon"
+msgstr "Prigioniero"
+
+#: piece/models.py
+msgid "Type de visserie"
+msgstr "Tipo di viteria"
+
+#: piece/models.py
+msgid "Diamètre (M)"
+msgstr "Diametro (M)"
+
+#: piece/models.py
+msgid "Pas de vis"
+msgstr "Passo della filettatura"
+
+#: piece/models.py
+msgid "Tête de vis"
+msgstr "Testa"
+
+#: piece/models.py
+msgid "Type d'écrou"
+msgstr "Tipo di dado"
+
+#: piece/models.py
+msgid "Qualité / classe"
+msgstr "Classe di resistenza"
+
+#: piece/models.py
+msgid "Hexagonale (H)"
+msgstr "Esagonale (H)"
+
+#: piece/models.py
+msgid "Hexagonale à embase"
+msgstr "Esagonale flangiata"
+
+#: piece/models.py
+msgid "Cylindrique 6 pans creux (CHC / Allen)"
+msgstr "Cilindrica esagono incassato (Allen)"
+
+#: piece/models.py
+msgid "Torx"
+msgstr "Torx"
+
+#: piece/models.py
+msgid "Fraisée 6 pans creux"
+msgstr "Svasata esagono incassato"
+
+#: piece/models.py
+msgid "Bombée 6 pans creux"
+msgstr "Bombata esagono incassato"
+
+#: piece/models.py
+msgid "Cruciforme"
+msgstr "Croce"
+
+#: piece/models.py
+msgid "Hexagonal"
+msgstr "Esagonale"
+
+#: piece/models.py
+msgid "Nylstop (frein nylon)"
+msgstr "Autobloccante (nylon)"
+
+#: piece/models.py
+msgid "À embase"
+msgstr "Flangiato"
+
+#: piece/models.py
+msgid "À embase crantée"
+msgstr "Flangia zigrinata"
+
+#: piece/models.py
+msgid "Borgne"
+msgstr "Cieco"
+
+#: piece/models.py
+msgid "Autofreiné tout métal"
+msgstr "Autobloccante tutto metallo"
+
+#: piece/models.py
+msgid "Papillon"
+msgstr "Ad alette"
+
+#: piece/models.py
+msgid "Cage"
+msgstr "In gabbia"
+
+#: piece/models.py
+msgid "À souder"
+msgstr "Da saldare"
+
+#: piece/models.py
+msgid "Classe 6 (écrou)"
+msgstr "Classe 6 (dado)"
+
+#: piece/models.py
+msgid "Classe 8 (écrou)"
+msgstr "Classe 8 (dado)"
+
+#: piece/models.py
+msgid "Classe 10 (écrou)"
+msgstr "Classe 10 (dado)"
+
+#: piece/models.py
+msgid "Classe 12 (écrou)"
+msgstr "Classe 12 (dado)"
+
+#: piece/models.py
+msgid "Inox A2-70"
+msgstr "Inox A2-70"
+
+#: piece/models.py
+msgid "Inox A4-70"
+msgstr "Inox A4-70"
+
+#: piece/models.py
+msgid "Inox A4-80"
+msgstr "Inox A4-80"
+
+#: piece/models.py
+msgid "Titane grade 5"
+msgstr "Titanio grado 5"
+
+#: piece/models.py
+msgid "Zingué"
+msgstr "Zincato"
+
+#: piece/models.py
+msgid "Noir / brut"
+msgstr "Nero / grezzo"
+
+#: piece/models.py
+msgid "Galvanisé"
+msgstr "Zincato a caldo"
+
+#: piece/models.py
+msgid "Zinc lamellaire (Géomet)"
+msgstr "Zinco lamellare (Geomet)"
+
+#: piece/models.py
+msgid "dimensions en millimètres"
+msgstr "dimensioni in millimetri"
+
+#: piece/models.py
+msgid "pas fin"
+msgstr "passo fine"
+
+#: piece/models.py
+msgid "pas standard"
+msgstr "passo standard"
+
+#: piece/models.py
+msgid "Cote"
+msgstr "Misura"
+
+#: piece/models.py
+msgid "Tête"
+msgstr "Testa"
+
+#: piece/models.py
+msgid "Indiquez le type de visserie."
+msgstr "Indicare il tipo di viteria."
+
+#: piece/models.py
+msgid "Indiquez le diamètre."
+msgstr "Indicare il diametro."
+
+#: piece/models.py
+msgid "Indiquez la longueur."
+msgstr "Indicare la lunghezza."
+
+#: piece/models.py
+msgid "Visserie : laissez vide, la désignation est générée (ex. Vis H M8×1,25×30 – 8.8)."
+msgstr "Viteria: lasciare vuoto, la descrizione è generata (es. Vite H M8×1,25×30 – 8.8)."
+
+#: maintenance/autres_interventions/vitres
+msgid "Calibré"
+msgstr "Calibrato"
+
+#: maintenance/autres_interventions/vitres
+msgid "Caméra pare-brise (calibrage ADAS)"
+msgstr "Telecamera parabrezza (calibrazione ADAS)"
+
+#: maintenance/autres_interventions/vitres
+msgid "Clignotant de rétroviseur"
+msgstr "Freccia dello specchietto"
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage"
+msgstr "Controllo cristalli"
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage enregistré avec succès."
+msgstr "Controllo cristalli salvato con successo."
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage modifié avec succès !"
+msgstr "Controllo cristalli modificato con successo!"
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage supprimé avec succès."
+msgstr "Controllo cristalli eliminato con successo."
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôles vitrage"
+msgstr "Controlli cristalli"
+
+#: maintenance/autres_interventions/vitres
+msgid "Coque de rétroviseur"
+msgstr "Calotta dello specchietto"
+
+#: maintenance/autres_interventions/vitres
+msgid "Droite"
+msgstr "Destra"
+
+#: maintenance/autres_interventions/vitres
+msgid "Dégivrage de la lunette arrière"
+msgstr "Sbrinatore lunotto"
+
+#: maintenance/autres_interventions/vitres
+msgid "Dégivrage de rétroviseur"
+msgstr "Sbrinamento specchietto"
+
+#: maintenance/autres_interventions/vitres
+msgid "Détails du contrôle vitrage"
+msgstr "Dettagli controllo cristalli"
+
+#: maintenance/autres_interventions/vitres
+msgid "Film teinté"
+msgstr "Pellicola oscurante"
+
+#: maintenance/autres_interventions/vitres
+msgid "Glace de rétroviseur"
+msgstr "Vetro dello specchietto"
+
+#: maintenance/autres_interventions/vitres
+msgid "Impact / fissure (réparation pare-brise)"
+msgstr "Scheggiatura / crepa (riparazione parabrezza)"
+
+#: maintenance/autres_interventions/vitres
+msgid "Intérieur"
+msgstr "Interno"
+
+#: maintenance/autres_interventions/vitres
+msgid "Joint / collage du pare-brise"
+msgstr "Guarnizione / incollaggio parabrezza"
+
+#: maintenance/autres_interventions/vitres
+msgid "Joint / lèche-vitre"
+msgstr "Guarnizione / spazzola vetro"
+
+#: maintenance/autres_interventions/vitres
+msgid "Liste des contrôles vitrage"
+msgstr "Elenco controlli cristalli"
+
+#: maintenance/autres_interventions/vitres
+msgid "Lunette arrière"
+msgstr "Lunotto"
+
+#: maintenance/autres_interventions/vitres
+msgid "Modifier le contrôle vitrage"
+msgstr "Modifica il controllo cristalli"
+
+#: maintenance/autres_interventions/vitres
+msgid "Moteur de lève-vitre"
+msgstr "Motorino alzacristalli"
+
+#: maintenance/autres_interventions/vitres
+msgid "Moteur de réglage / rabattement du rétroviseur"
+msgstr "Motorino regolazione / ripiegamento specchietto"
+
+#: maintenance/autres_interventions/vitres
+msgid "Mécanisme de lève-vitre"
+msgstr "Meccanismo alzacristalli"
+
+#: maintenance/autres_interventions/vitres
+msgid "Rapport de contrôle vitrage"
+msgstr "Rapporto controllo cristalli"
+
+#: maintenance/autres_interventions/vitres
+msgid "Retour à la liste des contrôles vitrage"
+msgstr "Torna ai controlli cristalli"
+
+#: maintenance/autres_interventions/vitres
+msgid "Rétroviseur extérieur complet"
+msgstr "Specchietto esterno completo"
+
+#: maintenance/autres_interventions/vitres
+msgid "Rétroviseur intérieur"
+msgstr "Specchietto interno"
+
+#: maintenance/autres_interventions/vitres
+msgid "Supprimer le contrôle vitrage"
+msgstr "Elimina il controllo cristalli"
+
+#: maintenance/autres_interventions/vitres
+msgid "Toit"
+msgstr "Tetto"
+
+#: maintenance/autres_interventions/vitres
+msgid "Toit ouvrant / toit vitré"
+msgstr "Tetto apribile / tetto in vetro"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitrage"
+msgstr "Cristalli"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitrage et rétroviseurs"
+msgstr "Cristalli e specchietti"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitre de custode"
+msgstr "Vetro del montante"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitre de porte"
+msgstr "Vetro della portiera"
+
+#: maintenance/autres_interventions/vitres
+#, python-format
+msgid "Voulez-vous vraiment supprimer le contrôle vitrage du %(date)s (%(km)s km) pour :"
+msgstr "Vuoi davvero eliminare il controllo cristalli del %(date)s (%(km)s km) per:"
+
+#: maintenance/autres_interventions/vitres
+msgid "Modification du contrôle vitrage"
+msgstr "Modifica controllo cristalli"
+
+#: maintenance/autres_interventions/vitres
+msgid "Suppression du contrôle vitrage"
+msgstr "Eliminazione controllo cristalli"

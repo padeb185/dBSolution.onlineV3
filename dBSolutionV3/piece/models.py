@@ -37,6 +37,7 @@ class CategoriePiece(models.TextChoices):
     CARROSSERIE = "CARROSSERIE", _("Carrosserie")
     HABITACLE = "HABITACLE", _("Habitacle")
     ESTHETIQUE = "ESTHETIQUE", _("Esthétique / produits d'entretien")
+    VISSERIE = "VISSERIE", _("Visserie (vis, écrous, rondelles)")
     AUTRE = "AUTRE", _("Autre")
 
 
@@ -46,6 +47,78 @@ class UnitePiece(models.TextChoices):
     KG = "KG", _("Kilo(s)")
     METRE = "METRE", _("Mètre(s)")
     KIT = "KIT", _("Kit(s)")
+
+
+# ------------------------------------------------------------------
+# Visserie métrique (catégorie VISSERIE)
+# ------------------------------------------------------------------
+class TypeVisserie(models.TextChoices):
+    VIS = "VIS", _("Vis")
+    ECROU = "ECROU", _("Écrou")
+    RONDELLE = "RONDELLE", _("Rondelle")
+    GOUJON = "GOUJON", _("Goujon")
+    AUTRE = "AUTRE", _("Autre")
+
+
+# Diamètres métriques (mm) → pas standard (gros pas ISO, mm)
+PAS_STANDARD = {3: "0.5", 4: "0.7", 5: "0.8", 6: "1.0", 8: "1.25", 10: "1.5", 12: "1.75",
+                14: "2.0", 16: "2.0", 18: "2.5", 20: "2.5", 22: "2.5", 24: "3.0"}
+DIAMETRES_VISSERIE = [(d, f"M{d}") for d in PAS_STANDARD]
+PAS_VISSERIE = [(p, f"{p.replace('.', ',')} mm") for p in
+                ("0.5", "0.7", "0.75", "0.8", "1.0", "1.25", "1.5", "1.75", "2.0", "2.5", "3.0")]
+# Longueurs de vis : par pas de 5 mm
+LONGUEURS_VISSERIE = [(l, f"{l} mm") for l in range(5, 205, 5)]
+
+
+class TeteVis(models.TextChoices):
+    HEXAGONALE = "H", _("Hexagonale (H)")
+    HEXAGONALE_EMBASE = "H_EMBASE", _("Hexagonale à embase")
+    CHC = "CHC", _("Cylindrique 6 pans creux (CHC / Allen)")
+    TORX = "TORX", _("Torx")
+    FRAISEE = "FRAISEE", _("Fraisée 6 pans creux")
+    BOMBEE = "BOMBEE", _("Bombée 6 pans creux")
+    CRUCIFORME = "CRUCIFORME", _("Cruciforme")
+    AUTRE = "AUTRE", _("Autre")
+
+
+class TypeEcrou(models.TextChoices):
+    HEXAGONAL = "HEX", _("Hexagonal")
+    NYLSTOP = "NYLSTOP", _("Nylstop (frein nylon)")
+    EMBASE = "EMBASE", _("À embase")
+    EMBASE_CRANTEE = "EMBASE_CRANTEE", _("À embase crantée")
+    BORGNE = "BORGNE", _("Borgne")
+    AUTOFREINE_METAL = "AUTOFREINE", _("Autofreiné tout métal")
+    PAPILLON = "PAPILLON", _("Papillon")
+    CAGE = "CAGE", _("Cage")
+    A_SOUDER = "A_SOUDER", _("À souder")
+    AUTRE = "AUTRE", _("Autre")
+
+
+class QualiteVisserie(models.TextChoices):
+    Q_4_6 = "4.6", "4.6"
+    Q_5_6 = "5.6", "5.6"
+    Q_6_8 = "6.8", "6.8"
+    Q_8_8 = "8.8", "8.8"
+    Q_10_9 = "10.9", "10.9"
+    Q_12_9 = "12.9", "12.9"
+    E_6 = "6", _("Classe 6 (écrou)")
+    E_8 = "8", _("Classe 8 (écrou)")
+    E_10 = "10", _("Classe 10 (écrou)")
+    E_12 = "12", _("Classe 12 (écrou)")
+    A2_70 = "A2-70", _("Inox A2-70")
+    A4_70 = "A4-70", _("Inox A4-70")
+    A4_80 = "A4-80", _("Inox A4-80")
+    TITANE = "TI_GR5", _("Titane grade 5")
+
+
+class FinitionVisserie(models.TextChoices):
+    ZINGUE = "ZINGUE", _("Zingué")
+    NOIR = "NOIR", _("Noir / brut")
+    GALVANISE = "GALVA", _("Galvanisé")
+    GEOMET = "GEOMET", _("Zinc lamellaire (Géomet)")
+    INOX = "INOX", _("Inox")
+    TITANE = "TITANE", _("Titane")
+    AUTRE = "AUTRE", _("Autre")
 
 
 class Fabricant(models.Model):
@@ -159,6 +232,24 @@ class Piece(models.Model):
     # Dates
     date_creation = models.DateTimeField(default=timezone.now, verbose_name=_("Date de création"))
 
+    # --- Visserie (catégorie VISSERIE) : dimensions en millimètres ---
+    visserie_type = models.CharField(max_length=10, choices=TypeVisserie.choices, blank=True,
+                                     verbose_name=_("Type de visserie"))
+    visserie_diametre = models.PositiveSmallIntegerField(choices=DIAMETRES_VISSERIE, null=True, blank=True,
+                                                         verbose_name=_("Diamètre (M)"))
+    visserie_pas = models.CharField(max_length=5, choices=PAS_VISSERIE, blank=True,
+                                    verbose_name=_("Pas de vis"))
+    visserie_longueur = models.PositiveSmallIntegerField(choices=LONGUEURS_VISSERIE, null=True, blank=True,
+                                                         verbose_name=_("Longueur"))
+    visserie_tete = models.CharField(max_length=12, choices=TeteVis.choices, blank=True,
+                                     verbose_name=_("Tête de vis"))
+    visserie_ecrou = models.CharField(max_length=16, choices=TypeEcrou.choices, blank=True,
+                                      verbose_name=_("Type d'écrou"))
+    visserie_qualite = models.CharField(max_length=8, choices=QualiteVisserie.choices, blank=True,
+                                        verbose_name=_("Qualité / classe"))
+    visserie_finition = models.CharField(max_length=10, choices=FinitionVisserie.choices, blank=True,
+                                         verbose_name=_("Finition"))
+
     # Exemple de champ organe ou marque utilisé dans __str__
     organe = models.CharField(max_length=100, blank=True, verbose_name=_("Organe"))
     marque = models.CharField(max_length=100, blank=True, verbose_name=_("Marque"))
@@ -179,6 +270,63 @@ class Piece(models.Model):
     def __str__(self):
         nom = self.designation or self.organe or _("Pièce")
         return f"{nom} – {self.oem}" if self.oem else str(nom)
+
+    # ------------------------------------------------------------------
+    # Visserie
+    # ------------------------------------------------------------------
+    @property
+    def est_visserie(self):
+        return self.categorie == CategoriePiece.VISSERIE
+
+    @property
+    def pas_est_fin(self):
+        """Pas fin (différent du gros pas ISO du diamètre)."""
+        std = PAS_STANDARD.get(self.visserie_diametre)
+        return bool(self.visserie_pas and std and self.visserie_pas != std)
+
+    @property
+    def cote_visserie(self):
+        """Ex. « M8×1,25×30 » (vis) ou « M8×1,25 » (écrou)."""
+        if not self.visserie_diametre:
+            return ""
+        txt = f"M{self.visserie_diametre}"
+        if self.visserie_pas:
+            txt += "×" + self.visserie_pas.replace(".", ",")
+        if self.visserie_longueur and self.visserie_type in (TypeVisserie.VIS, TypeVisserie.GOUJON, ""):
+            txt += f"×{self.visserie_longueur}"
+        return txt
+
+    def designation_visserie(self):
+        """Désignation générée : « Vis H M8×1,25×30 – 8.8 – Zingué », « Écrou Nylstop M8×1,25 – 8 »…"""
+        if not self.est_visserie:
+            return ""
+        morceaux = []
+        if self.visserie_type == TypeVisserie.ECROU:
+            morceaux.append(str(_("Écrou")))
+            if self.visserie_ecrou and self.visserie_ecrou != TypeEcrou.HEXAGONAL:
+                morceaux.append(str(self.get_visserie_ecrou_display()).split(" (")[0])
+        elif self.visserie_type:
+            morceaux.append(str(self.get_visserie_type_display()))
+            if self.visserie_type == TypeVisserie.VIS and self.visserie_tete:
+                morceaux.append(self.visserie_tete if self.visserie_tete in ("H", "CHC", "TORX")
+                                else str(self.get_visserie_tete_display()).split(" (")[0].lower())
+        if self.cote_visserie:
+            morceaux.append(self.cote_visserie)
+        txt = " ".join(morceaux)
+        suite = [x for x in (self.visserie_qualite and self.get_visserie_qualite_display(),
+                             self.visserie_finition and self.get_visserie_finition_display()) if x]
+        if suite:
+            txt += " – " + " – ".join(str(x) for x in suite)
+        return txt.strip()
+
+    def save(self, *args, **kwargs):
+        if self.est_visserie:
+            # Pas standard par défaut ; désignation générée si elle n'est pas saisie
+            if self.visserie_diametre and not self.visserie_pas:
+                self.visserie_pas = PAS_STANDARD.get(self.visserie_diametre, "")
+            if not self.designation:
+                self.designation = self.designation_visserie()[:150]
+        super().save(*args, **kwargs)
 
     @property
     def nom_fabricant(self):

@@ -64557,3 +64557,352 @@ msgstr "Κανένα όχημα (κιβώτιο αφαιρέθηκε)"
 #: maintenance/autres_interventions/boite_de_vitesse/boite_liee
 msgid "Aucune intervention enregistrée pour cette boîte."
 msgstr "Δεν έχουν καταχωρηθεί εργασίες για αυτό το κιβώτιο."
+
+#: piece/models.py
+msgid "Visserie (vis, écrous, rondelles)"
+msgstr "Βίδες και παξιμάδια (βίδες, παξιμάδια, ροδέλες)"
+
+#: piece/models.py
+msgid "Vis"
+msgstr "Βίδα"
+
+#: piece/models.py
+msgid "Écrou"
+msgstr "Παξιμάδι"
+
+#: piece/models.py
+msgid "Rondelle"
+msgstr "Ροδέλα"
+
+#: piece/models.py
+msgid "Goujon"
+msgstr "Μπουζόνι"
+
+#: piece/models.py
+msgid "Type de visserie"
+msgstr "Τύπος βίδας"
+
+#: piece/models.py
+msgid "Diamètre (M)"
+msgstr "Διάμετρος (M)"
+
+#: piece/models.py
+msgid "Pas de vis"
+msgstr "Βήμα σπειρώματος"
+
+#: piece/models.py
+msgid "Tête de vis"
+msgstr "Κεφαλή βίδας"
+
+#: piece/models.py
+msgid "Type d'écrou"
+msgstr "Τύπος παξιμαδιού"
+
+#: piece/models.py
+msgid "Qualité / classe"
+msgstr "Ποιότητα / κλάση"
+
+#: piece/models.py
+msgid "Hexagonale (H)"
+msgstr "Εξάγωνη (H)"
+
+#: piece/models.py
+msgid "Hexagonale à embase"
+msgstr "Εξάγωνη με φλάντζα"
+
+#: piece/models.py
+msgid "Cylindrique 6 pans creux (CHC / Allen)"
+msgstr "Κυλινδρική άλεν"
+
+#: piece/models.py
+msgid "Torx"
+msgstr "Torx"
+
+#: piece/models.py
+msgid "Fraisée 6 pans creux"
+msgstr "Φρεζάτη άλεν"
+
+#: piece/models.py
+msgid "Bombée 6 pans creux"
+msgstr "Στρογγυλή άλεν"
+
+#: piece/models.py
+msgid "Cruciforme"
+msgstr "Σταυρός"
+
+#: piece/models.py
+msgid "Hexagonal"
+msgstr "Εξάγωνο"
+
+#: piece/models.py
+msgid "Nylstop (frein nylon)"
+msgstr "Ασφαλείας (νάιλον)"
+
+#: piece/models.py
+msgid "À embase"
+msgstr "Με φλάντζα"
+
+#: piece/models.py
+msgid "À embase crantée"
+msgstr "Οδοντωτή φλάντζα"
+
+#: piece/models.py
+msgid "Borgne"
+msgstr "Τυφλό"
+
+#: piece/models.py
+msgid "Autofreiné tout métal"
+msgstr "Μεταλλικό ασφαλείας"
+
+#: piece/models.py
+msgid "Papillon"
+msgstr "Πεταλούδα"
+
+#: piece/models.py
+msgid "Cage"
+msgstr "Κλουβί"
+
+#: piece/models.py
+msgid "À souder"
+msgstr "Συγκολλητό"
+
+#: piece/models.py
+msgid "Classe 6 (écrou)"
+msgstr "Κλάση 6 (παξιμάδι)"
+
+#: piece/models.py
+msgid "Classe 8 (écrou)"
+msgstr "Κλάση 8 (παξιμάδι)"
+
+#: piece/models.py
+msgid "Classe 10 (écrou)"
+msgstr "Κλάση 10 (παξιμάδι)"
+
+#: piece/models.py
+msgid "Classe 12 (écrou)"
+msgstr "Κλάση 12 (παξιμάδι)"
+
+#: piece/models.py
+msgid "Inox A2-70"
+msgstr "Ανοξείδωτο A2-70"
+
+#: piece/models.py
+msgid "Inox A4-70"
+msgstr "Ανοξείδωτο A4-70"
+
+#: piece/models.py
+msgid "Inox A4-80"
+msgstr "Ανοξείδωτο A4-80"
+
+#: piece/models.py
+msgid "Titane grade 5"
+msgstr "Τιτάνιο grade 5"
+
+#: piece/models.py
+msgid "Zingué"
+msgstr "Γαλβανισμένο"
+
+#: piece/models.py
+msgid "Noir / brut"
+msgstr "Μαύρο / ακατέργαστο"
+
+#: piece/models.py
+msgid "Galvanisé"
+msgstr "Θερμό γαλβάνισμα"
+
+#: piece/models.py
+msgid "Zinc lamellaire (Géomet)"
+msgstr "Πλακίδια ψευδαργύρου (Geomet)"
+
+#: piece/models.py
+msgid "dimensions en millimètres"
+msgstr "διαστάσεις σε χιλιοστά"
+
+#: piece/models.py
+msgid "pas fin"
+msgstr "λεπτό βήμα"
+
+#: piece/models.py
+msgid "pas standard"
+msgstr "κανονικό βήμα"
+
+#: piece/models.py
+msgid "Cote"
+msgstr "Διάσταση"
+
+#: piece/models.py
+msgid "Tête"
+msgstr "Κεφαλή"
+
+#: piece/models.py
+msgid "Indiquez le type de visserie."
+msgstr "Συμπληρώστε τον τύπο."
+
+#: piece/models.py
+msgid "Indiquez le diamètre."
+msgstr "Συμπληρώστε τη διάμετρο."
+
+#: piece/models.py
+msgid "Indiquez la longueur."
+msgstr "Συμπληρώστε το μήκος."
+
+#: piece/models.py
+msgid "Visserie : laissez vide, la désignation est générée (ex. Vis H M8×1,25×30 – 8.8)."
+msgstr "Βίδες: αφήστε κενό, η περιγραφή δημιουργείται αυτόματα (π.χ. Βίδα H M8×1,25×30 – 8.8)."
+
+#: maintenance/autres_interventions/vitres
+msgid "Calibré"
+msgstr "Βαθμονομήθηκε"
+
+#: maintenance/autres_interventions/vitres
+msgid "Caméra pare-brise (calibrage ADAS)"
+msgstr "Κάμερα παρμπρίζ (βαθμονόμηση ADAS)"
+
+#: maintenance/autres_interventions/vitres
+msgid "Clignotant de rétroviseur"
+msgstr "Φλας καθρέφτη"
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage"
+msgstr "Έλεγχος υαλοπινάκων"
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage enregistré avec succès."
+msgstr "Ο έλεγχος υαλοπινάκων αποθηκεύτηκε."
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage modifié avec succès !"
+msgstr "Ο έλεγχος υαλοπινάκων τροποποιήθηκε!"
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage supprimé avec succès."
+msgstr "Ο έλεγχος υαλοπινάκων διαγράφηκε."
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôles vitrage"
+msgstr "Έλεγχοι υαλοπινάκων"
+
+#: maintenance/autres_interventions/vitres
+msgid "Coque de rétroviseur"
+msgstr "Καπάκι καθρέφτη"
+
+#: maintenance/autres_interventions/vitres
+msgid "Droite"
+msgstr "Δεξιά"
+
+#: maintenance/autres_interventions/vitres
+msgid "Dégivrage de la lunette arrière"
+msgstr "Ξεπάγωμα πίσω τζαμιού"
+
+#: maintenance/autres_interventions/vitres
+msgid "Dégivrage de rétroviseur"
+msgstr "Θέρμανση καθρέφτη"
+
+#: maintenance/autres_interventions/vitres
+msgid "Détails du contrôle vitrage"
+msgstr "Λεπτομέρειες ελέγχου υαλοπινάκων"
+
+#: maintenance/autres_interventions/vitres
+msgid "Film teinté"
+msgstr "Φιμέ μεμβράνη"
+
+#: maintenance/autres_interventions/vitres
+msgid "Glace de rétroviseur"
+msgstr "Κρύσταλλο καθρέφτη"
+
+#: maintenance/autres_interventions/vitres
+msgid "Impact / fissure (réparation pare-brise)"
+msgstr "Χτύπημα / ρωγμή (επισκευή παρμπρίζ)"
+
+#: maintenance/autres_interventions/vitres
+msgid "Intérieur"
+msgstr "Εσωτερικό"
+
+#: maintenance/autres_interventions/vitres
+msgid "Joint / collage du pare-brise"
+msgstr "Λάστιχο / κόλληση παρμπρίζ"
+
+#: maintenance/autres_interventions/vitres
+msgid "Joint / lèche-vitre"
+msgstr "Λάστιχο παραθύρου"
+
+#: maintenance/autres_interventions/vitres
+msgid "Liste des contrôles vitrage"
+msgstr "Λίστα ελέγχων υαλοπινάκων"
+
+#: maintenance/autres_interventions/vitres
+msgid "Lunette arrière"
+msgstr "Πίσω τζάμι"
+
+#: maintenance/autres_interventions/vitres
+msgid "Modifier le contrôle vitrage"
+msgstr "Επεξεργασία ελέγχου υαλοπινάκων"
+
+#: maintenance/autres_interventions/vitres
+msgid "Moteur de lève-vitre"
+msgstr "Μοτέρ παραθύρου"
+
+#: maintenance/autres_interventions/vitres
+msgid "Moteur de réglage / rabattement du rétroviseur"
+msgstr "Μοτέρ ρύθμισης / αναδίπλωσης καθρέφτη"
+
+#: maintenance/autres_interventions/vitres
+msgid "Mécanisme de lève-vitre"
+msgstr "Μηχανισμός παραθύρου"
+
+#: maintenance/autres_interventions/vitres
+msgid "Rapport de contrôle vitrage"
+msgstr "Αναφορά ελέγχου υαλοπινάκων"
+
+#: maintenance/autres_interventions/vitres
+msgid "Retour à la liste des contrôles vitrage"
+msgstr "Επιστροφή στους ελέγχους υαλοπινάκων"
+
+#: maintenance/autres_interventions/vitres
+msgid "Rétroviseur extérieur complet"
+msgstr "Πλήρης εξωτερικός καθρέφτης"
+
+#: maintenance/autres_interventions/vitres
+msgid "Rétroviseur intérieur"
+msgstr "Εσωτερικός καθρέφτης"
+
+#: maintenance/autres_interventions/vitres
+msgid "Supprimer le contrôle vitrage"
+msgstr "Διαγραφή ελέγχου υαλοπινάκων"
+
+#: maintenance/autres_interventions/vitres
+msgid "Toit"
+msgstr "Οροφή"
+
+#: maintenance/autres_interventions/vitres
+msgid "Toit ouvrant / toit vitré"
+msgstr "Ηλιοροφή / γυάλινη οροφή"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitrage"
+msgstr "Υαλοπίνακες"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitrage et rétroviseurs"
+msgstr "Υαλοπίνακες και καθρέφτες"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitre de custode"
+msgstr "Τριγωνικό τζάμι"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitre de porte"
+msgstr "Τζάμι πόρτας"
+
+#: maintenance/autres_interventions/vitres
+#, python-format
+msgid "Voulez-vous vraiment supprimer le contrôle vitrage du %(date)s (%(km)s km) pour :"
+msgstr "Θέλετε σίγουρα να διαγράψετε τον έλεγχο υαλοπινάκων της %(date)s (%(km)s km) για:"
+
+#: maintenance/autres_interventions/vitres
+msgid "Modification du contrôle vitrage"
+msgstr "Τροποποίηση ελέγχου υαλοπινάκων"
+
+#: maintenance/autres_interventions/vitres
+msgid "Suppression du contrôle vitrage"
+msgstr "Διαγραφή ελέγχου υαλοπινάκων"

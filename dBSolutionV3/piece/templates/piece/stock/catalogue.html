@@ -44,6 +44,20 @@
             {% endfor %}
         </select>
     </div>
+    {% if choix_visserie %}
+    <!-- Visserie : filtres dimensions / qualité -->
+    {% for champ, libelle, options, valeur in choix_visserie %}
+    <div>
+        <label class="block text-sm text-gray-600 mb-1">{{ libelle }}</label>
+        <select name="{{ champ }}" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            <option value="">{% trans "Tous" %}</option>
+            {% for val, lib in options %}
+            <option value="{{ val }}" {% if val|stringformat:"s" == valeur %}selected{% endif %}>{{ lib }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    {% endfor %}
+    {% endif %}
     <label class="flex items-center gap-2 py-2"><input type="checkbox" name="alerte" value="1" {% if alerte %}checked{% endif %} onchange="this.form.submit()"> {% trans "En alerte" %}</label>
     <label class="flex items-center gap-2 py-2"><input type="checkbox" name="inactives" value="1" {% if inactives %}checked{% endif %} onchange="this.form.submit()"> {% trans "Inclure les inactives" %}</label>
     <button class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">{% trans "Filtrer" %}</button>
@@ -88,9 +102,9 @@
 
     {% if page.has_other_pages %}
     <div class="flex justify-center gap-2 mt-4">
-        {% if page.has_previous %}<a class="px-3 py-1 rounded bg-gray-200" href="?q={{ q|urlencode }}&categorie={{ categorie }}{% if alerte %}&alerte=1{% endif %}{% if inactives %}&inactives=1{% endif %}&page={{ page.previous_page_number }}">&laquo;</a>{% endif %}
+        {% if page.has_previous %}<a class="px-3 py-1 rounded bg-gray-200" href="?q={{ q|urlencode }}&categorie={{ categorie }}{% if alerte %}&alerte=1{% endif %}{% if inactives %}&inactives=1{% endif %}{{ qs_visserie }}&page={{ page.previous_page_number }}">&laquo;</a>{% endif %}
         <span class="px-3 py-1">{{ page.number }} / {{ page.paginator.num_pages }}</span>
-        {% if page.has_next %}<a class="px-3 py-1 rounded bg-gray-200" href="?q={{ q|urlencode }}&categorie={{ categorie }}{% if alerte %}&alerte=1{% endif %}{% if inactives %}&inactives=1{% endif %}&page={{ page.next_page_number }}">&raquo;</a>{% endif %}
+        {% if page.has_next %}<a class="px-3 py-1 rounded bg-gray-200" href="?q={{ q|urlencode }}&categorie={{ categorie }}{% if alerte %}&alerte=1{% endif %}{% if inactives %}&inactives=1{% endif %}{{ qs_visserie }}&page={{ page.next_page_number }}">&raquo;</a>{% endif %}
     </div>
     {% endif %}
     {% else %}

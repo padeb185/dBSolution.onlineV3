@@ -64529,3 +64529,352 @@ msgstr "Geen voertuig (versnellingsbak gedemonteerd)"
 #: maintenance/autres_interventions/boite_de_vitesse/boite_liee
 msgid "Aucune intervention enregistrée pour cette boîte."
 msgstr "Geen interventies geregistreerd voor deze versnellingsbak."
+
+#: piece/models.py
+msgid "Visserie (vis, écrous, rondelles)"
+msgstr "Bevestigingsmateriaal (bouten, moeren, ringen)"
+
+#: piece/models.py
+msgid "Vis"
+msgstr "Bout / schroef"
+
+#: piece/models.py
+msgid "Écrou"
+msgstr "Moer"
+
+#: piece/models.py
+msgid "Rondelle"
+msgstr "Ring"
+
+#: piece/models.py
+msgid "Goujon"
+msgstr "Tapeind"
+
+#: piece/models.py
+msgid "Type de visserie"
+msgstr "Type bevestiging"
+
+#: piece/models.py
+msgid "Diamètre (M)"
+msgstr "Diameter (M)"
+
+#: piece/models.py
+msgid "Pas de vis"
+msgstr "Spoed"
+
+#: piece/models.py
+msgid "Tête de vis"
+msgstr "Kop"
+
+#: piece/models.py
+msgid "Type d'écrou"
+msgstr "Type moer"
+
+#: piece/models.py
+msgid "Qualité / classe"
+msgstr "Kwaliteit / klasse"
+
+#: piece/models.py
+msgid "Hexagonale (H)"
+msgstr "Zeskant (H)"
+
+#: piece/models.py
+msgid "Hexagonale à embase"
+msgstr "Zeskant met flens"
+
+#: piece/models.py
+msgid "Cylindrique 6 pans creux (CHC / Allen)"
+msgstr "Cilinderkop inbus (Allen)"
+
+#: piece/models.py
+msgid "Torx"
+msgstr "Torx"
+
+#: piece/models.py
+msgid "Fraisée 6 pans creux"
+msgstr "Verzonken inbus"
+
+#: piece/models.py
+msgid "Bombée 6 pans creux"
+msgstr "Bolkop inbus"
+
+#: piece/models.py
+msgid "Cruciforme"
+msgstr "Kruiskop"
+
+#: piece/models.py
+msgid "Hexagonal"
+msgstr "Zeskant"
+
+#: piece/models.py
+msgid "Nylstop (frein nylon)"
+msgstr "Borgmoer (nylon)"
+
+#: piece/models.py
+msgid "À embase"
+msgstr "Met flens"
+
+#: piece/models.py
+msgid "À embase crantée"
+msgstr "Getande flens"
+
+#: piece/models.py
+msgid "Borgne"
+msgstr "Dopmoer"
+
+#: piece/models.py
+msgid "Autofreiné tout métal"
+msgstr "Volmetalen borgmoer"
+
+#: piece/models.py
+msgid "Papillon"
+msgstr "Vleugelmoer"
+
+#: piece/models.py
+msgid "Cage"
+msgstr "Kooimoer"
+
+#: piece/models.py
+msgid "À souder"
+msgstr "Lasmoer"
+
+#: piece/models.py
+msgid "Classe 6 (écrou)"
+msgstr "Klasse 6 (moer)"
+
+#: piece/models.py
+msgid "Classe 8 (écrou)"
+msgstr "Klasse 8 (moer)"
+
+#: piece/models.py
+msgid "Classe 10 (écrou)"
+msgstr "Klasse 10 (moer)"
+
+#: piece/models.py
+msgid "Classe 12 (écrou)"
+msgstr "Klasse 12 (moer)"
+
+#: piece/models.py
+msgid "Inox A2-70"
+msgstr "RVS A2-70"
+
+#: piece/models.py
+msgid "Inox A4-70"
+msgstr "RVS A4-70"
+
+#: piece/models.py
+msgid "Inox A4-80"
+msgstr "RVS A4-80"
+
+#: piece/models.py
+msgid "Titane grade 5"
+msgstr "Titanium grade 5"
+
+#: piece/models.py
+msgid "Zingué"
+msgstr "Verzinkt"
+
+#: piece/models.py
+msgid "Noir / brut"
+msgstr "Zwart / onbehandeld"
+
+#: piece/models.py
+msgid "Galvanisé"
+msgstr "Thermisch verzinkt"
+
+#: piece/models.py
+msgid "Zinc lamellaire (Géomet)"
+msgstr "Zinklamellen (Geomet)"
+
+#: piece/models.py
+msgid "dimensions en millimètres"
+msgstr "afmetingen in millimeter"
+
+#: piece/models.py
+msgid "pas fin"
+msgstr "fijne spoed"
+
+#: piece/models.py
+msgid "pas standard"
+msgstr "standaardspoed"
+
+#: piece/models.py
+msgid "Cote"
+msgstr "Maat"
+
+#: piece/models.py
+msgid "Tête"
+msgstr "Kop"
+
+#: piece/models.py
+msgid "Indiquez le type de visserie."
+msgstr "Geef het type bevestiging op."
+
+#: piece/models.py
+msgid "Indiquez le diamètre."
+msgstr "Geef de diameter op."
+
+#: piece/models.py
+msgid "Indiquez la longueur."
+msgstr "Geef de lengte op."
+
+#: piece/models.py
+msgid "Visserie : laissez vide, la désignation est générée (ex. Vis H M8×1,25×30 – 8.8)."
+msgstr "Bevestiging: leeg laten, de omschrijving wordt gegenereerd (bv. Bout H M8×1,25×30 – 8.8)."
+
+#: maintenance/autres_interventions/vitres
+msgid "Calibré"
+msgstr "Gekalibreerd"
+
+#: maintenance/autres_interventions/vitres
+msgid "Caméra pare-brise (calibrage ADAS)"
+msgstr "Voorruitcamera (ADAS-kalibratie)"
+
+#: maintenance/autres_interventions/vitres
+msgid "Clignotant de rétroviseur"
+msgstr "Spiegelknipperlicht"
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage"
+msgstr "Controle beglazing"
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage enregistré avec succès."
+msgstr "Controle beglazing succesvol opgeslagen."
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage modifié avec succès !"
+msgstr "Controle beglazing succesvol gewijzigd!"
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôle vitrage supprimé avec succès."
+msgstr "Controle beglazing succesvol verwijderd."
+
+#: maintenance/autres_interventions/vitres
+msgid "Contrôles vitrage"
+msgstr "Controles beglazing"
+
+#: maintenance/autres_interventions/vitres
+msgid "Coque de rétroviseur"
+msgstr "Spiegelkap"
+
+#: maintenance/autres_interventions/vitres
+msgid "Droite"
+msgstr "Rechts"
+
+#: maintenance/autres_interventions/vitres
+msgid "Dégivrage de la lunette arrière"
+msgstr "Achterruitverwarming"
+
+#: maintenance/autres_interventions/vitres
+msgid "Dégivrage de rétroviseur"
+msgstr "Spiegelverwarming"
+
+#: maintenance/autres_interventions/vitres
+msgid "Détails du contrôle vitrage"
+msgstr "Details controle beglazing"
+
+#: maintenance/autres_interventions/vitres
+msgid "Film teinté"
+msgstr "Getinte folie"
+
+#: maintenance/autres_interventions/vitres
+msgid "Glace de rétroviseur"
+msgstr "Spiegelglas"
+
+#: maintenance/autres_interventions/vitres
+msgid "Impact / fissure (réparation pare-brise)"
+msgstr "Sterretje / barst (voorruitreparatie)"
+
+#: maintenance/autres_interventions/vitres
+msgid "Intérieur"
+msgstr "Binnen"
+
+#: maintenance/autres_interventions/vitres
+msgid "Joint / collage du pare-brise"
+msgstr "Voorruitrubber / verlijming"
+
+#: maintenance/autres_interventions/vitres
+msgid "Joint / lèche-vitre"
+msgstr "Raamrubber / raamstrip"
+
+#: maintenance/autres_interventions/vitres
+msgid "Liste des contrôles vitrage"
+msgstr "Lijst controles beglazing"
+
+#: maintenance/autres_interventions/vitres
+msgid "Lunette arrière"
+msgstr "Achterruit"
+
+#: maintenance/autres_interventions/vitres
+msgid "Modifier le contrôle vitrage"
+msgstr "Controle beglazing wijzigen"
+
+#: maintenance/autres_interventions/vitres
+msgid "Moteur de lève-vitre"
+msgstr "Raammotor"
+
+#: maintenance/autres_interventions/vitres
+msgid "Moteur de réglage / rabattement du rétroviseur"
+msgstr "Motor spiegelverstelling / inklappen"
+
+#: maintenance/autres_interventions/vitres
+msgid "Mécanisme de lève-vitre"
+msgstr "Raammechanisme"
+
+#: maintenance/autres_interventions/vitres
+msgid "Rapport de contrôle vitrage"
+msgstr "Rapport controle beglazing"
+
+#: maintenance/autres_interventions/vitres
+msgid "Retour à la liste des contrôles vitrage"
+msgstr "Terug naar de controles beglazing"
+
+#: maintenance/autres_interventions/vitres
+msgid "Rétroviseur extérieur complet"
+msgstr "Complete buitenspiegel"
+
+#: maintenance/autres_interventions/vitres
+msgid "Rétroviseur intérieur"
+msgstr "Binnenspiegel"
+
+#: maintenance/autres_interventions/vitres
+msgid "Supprimer le contrôle vitrage"
+msgstr "Controle beglazing verwijderen"
+
+#: maintenance/autres_interventions/vitres
+msgid "Toit"
+msgstr "Dak"
+
+#: maintenance/autres_interventions/vitres
+msgid "Toit ouvrant / toit vitré"
+msgstr "Schuifdak / glazen dak"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitrage"
+msgstr "Beglazing"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitrage et rétroviseurs"
+msgstr "Beglazing en spiegels"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitre de custode"
+msgstr "Zijruit achter"
+
+#: maintenance/autres_interventions/vitres
+msgid "Vitre de porte"
+msgstr "Portierruit"
+
+#: maintenance/autres_interventions/vitres
+#, python-format
+msgid "Voulez-vous vraiment supprimer le contrôle vitrage du %(date)s (%(km)s km) pour :"
+msgstr "Wilt u de controle beglazing van %(date)s (%(km)s km) echt verwijderen voor:"
+
+#: maintenance/autres_interventions/vitres
+msgid "Modification du contrôle vitrage"
+msgstr "Wijziging controle beglazing"
+
+#: maintenance/autres_interventions/vitres
+msgid "Suppression du contrôle vitrage"
+msgstr "Verwijdering controle beglazing"

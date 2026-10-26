@@ -71,6 +71,15 @@ def catalogue_view(request):
         ).distinct()
     if categorie:
         qs = qs.filter(categorie=categorie)
+    # Visserie : filtres type / diamètre / longueur / qualité
+    filtres_visserie = {}
+    if categorie == CategoriePiece.VISSERIE:
+        for champ in ("visserie_type", "visserie_diametre", "visserie_longueur", "visserie_qualite", "visserie_ecrou"):
+            val = request.GET.get(champ) or ""
+            filtres_visserie[champ] = val
+            if val:
+                qs = qs.filter(**{champ: val})
+        qs = qs.order_by("visserie_type", "visserie_diametre", "visserie_longueur", "designation")
     if alerte:
         qs = qs.filter(ALERTE)
 
@@ -86,7 +95,22 @@ def catalogue_view(request):
         "page": page, "pieces": page.object_list, "q": q, "categorie": categorie, "alerte": alerte,
         "inactives": inactives, "categories": CategoriePiece.choices, "totaux": totaux,
         "peut_gerer": _peut(request.user, ROLES_STOCK),
+        "filtres_visserie": filtres_visserie,
+        "choix_visserie": [(c, l, o, filtres_visserie.get(c, "")) for c, l, o in _choix_visserie()]
+                          if categorie == CategoriePiece.VISSERIE else None,
+        "qs_visserie": "".join(f"&{c}={v}" for c, v in filtres_visserie.items() if v),
     })
+
+
+def _choix_visserie():
+    from .models import (DIAMETRES_VISSERIE, LONGUEURS_VISSERIE, QualiteVisserie, TypeEcrou, TypeVisserie)
+    return [
+        ("visserie_type", _("Type"), TypeVisserie.choices),
+        ("visserie_diametre", _("Diamètre"), DIAMETRES_VISSERIE),
+        ("visserie_longueur", _("Longueur"), LONGUEURS_VISSERIE),
+        ("visserie_ecrou", _("Type d'écrou"), TypeEcrou.choices),
+        ("visserie_qualite", _("Qualité"), QualiteVisserie.choices),
+    ]
 
 
 # ---------------------------------------------------------------- fiche pièce (création / modification)
