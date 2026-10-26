@@ -61,6 +61,7 @@ URLS_MAINTENANCE = {
     "CREVAISON": ["crevaison:crevaison_check", "crevaison:crevaison_list"],
     "VITRAGE": ["vitrage:vitrage_check", "vitrage:vitrage_list"],
     "ARBRE_TRANSMISSION": ["arbre_transmission:arbre_check", "arbre_transmission:arbre_list"],
+    "BOITE_TRANSFERT": ["boite_transfert:transfert_check", "boite_transfert:transfert_list"],
     "CULASSE": ["culasse:culasse_form"],
     "ROULEMENT": ["roulement:roulement_check", "roulement:roulement_list"],
     "remplacement_bte_auto": ["remplacement_bte_auto:remplacement_bte_auto_form"],

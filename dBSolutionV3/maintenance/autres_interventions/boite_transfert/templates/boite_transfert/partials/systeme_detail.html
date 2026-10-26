@@ -1,0 +1,12 @@
+{% load i18n %}
+<div class="bg-white shadow rounded-lg p-4 mb-6">
+    <h2 class="text-lg font-semibold mb-3">{% trans "Système de transmission intégrale" %}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+        <div><span class="text-gray-500">{% trans "Système" %} :</span>
+            <span class="font-semibold">{% if obj.systeme_transmission != "CHOISIR" %}{{ obj.get_systeme_transmission_display }}{% else %}-{% endif %}</span></div>
+        <div><span class="text-gray-500">{% trans "Type" %} :</span>
+            <span class="font-semibold">{% if obj.type_transmission != "CHOISIR" %}{{ obj.get_type_transmission_display }}{% else %}-{% endif %}</span></div>
+        <div><span class="text-gray-500">{% trans "Référence" %} :</span>
+            <span class="font-semibold">{{ obj.reference_boite_transfert|default:"-" }}</span></div>
+    </div>
+</div>

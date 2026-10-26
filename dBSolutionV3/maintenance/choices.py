@@ -2489,3 +2489,77 @@ class FabricantCourse(models.TextChoices):
     WISECO = "WISECO", "Wiseco"
     WOSSNER = "WOSSNER", "Wössner"
     AUTRE = "AUTRE", _("Autre")
+
+
+
+# ======================================================
+# TRANSMISSION INTÉGRALE / BOÎTE DE TRANSFERT
+# ======================================================
+class SystemeTransmissionIntegrale(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+    QUATTRO_TORSEN = "QUATTRO_TORSEN", _("Audi quattro (Torsen)")
+    QUATTRO_CROWN = "QUATTRO_CROWN", _("Audi quattro (différentiel à couronne)")
+    QUATTRO_ULTRA = "QUATTRO_ULTRA", _("Audi quattro ultra")
+    QUATTRO_HALDEX = "QUATTRO_HALDEX", _("Audi quattro (Haldex, moteur transversal)")
+    VW_4MOTION = "VW_4MOTION", _("Volkswagen 4MOTION")
+    VAG_4DRIVE = "VAG_4DRIVE", _("SEAT / Cupra 4Drive – Škoda 4x4")
+    BMW_XDRIVE = "BMW_XDRIVE", _("BMW xDrive")
+    MERCEDES_4MATIC = "MERCEDES_4MATIC", _("Mercedes-Benz 4MATIC / 4MATIC+")
+    PORSCHE_PTM = "PORSCHE_PTM", _("Porsche PTM (Porsche Traction Management)")
+    SUBARU_SAWD = "SUBARU_SAWD", _("Subaru Symmetrical AWD")
+    MITSUBISHI_SAWC = "MITSUBISHI_SAWC", _("Mitsubishi S-AWC / AWC")
+    NISSAN_ATTESA = "NISSAN_ATTESA", _("Nissan ATTESA E-TS")
+    HONDA_SHAWD = "HONDA_SHAWD", _("Honda / Acura SH-AWD")
+    TOYOTA_AWD = "TOYOTA_AWD", _("Toyota AWD / GR-FOUR")
+    VOLVO_AWD = "VOLVO_AWD", _("Volvo AWD")
+    FORD_AWD = "FORD_AWD", _("Ford AWD")
+    LAND_ROVER = "LAND_ROVER", _("Land Rover / Range Rover")
+    JEEP = "JEEP", _("Jeep (Quadra-Trac / Command-Trac)")
+    ALFA_Q4 = "ALFA_Q4", _("Alfa Romeo / Maserati Q4")
+    LAMBORGHINI = "LAMBORGHINI", _("Lamborghini AWD")
+    FERRARI_4RM = "FERRARI_4RM", _("Ferrari 4RM")
+    HYUNDAI_HTRAC = "HYUNDAI_HTRAC", _("Hyundai / Kia HTRAC")
+    MAZDA_AWD = "MAZDA_AWD", _("Mazda i-ACTIV AWD")
+    BI_MOTEUR_ELECTRIQUE = "BI_MOTEUR_ELECTRIQUE", _("Bi-moteur électrique (Dual Motor)")
+    AUTRE = "AUTRE", _("Autre")
+
+
+class TypeTransmissionIntegrale(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+    PERMANENTE = "PERMANENTE", _("Permanente")
+    A_LA_DEMANDE = "A_LA_DEMANDE", _("À la demande (automatique)")
+    ENCLENCHABLE = "ENCLENCHABLE", _("Enclenchable (part-time)")
+    ELECTRIQUE = "ELECTRIQUE", _("Électrique (essieu motorisé)")
+
+
+class FabricantTransmissionIntegrale(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR_OEM = "CONSTRUCTEUR_OEM", _("Constructeur OEM")
+    AAM = "AAM", "American Axle (AAM)"
+    AISIN = "AISIN", "Aisin"
+    BORGWARNER = "BORGWARNER", "BorgWarner / Haldex"
+    CASTROL = "CASTROL", "Castrol"
+    CORTECO = "CORTECO", "Corteco"
+    DANA = "DANA", "Dana / Spicer"
+    DREXLER = "DREXLER", "Drexler"
+    ELRING = "ELRING", "Elring"
+    FAG = "FAG", "FAG / Schaeffler"
+    FEBI = "FEBI", "Febi Bilstein"
+    FUCHS = "FUCHS", "Fuchs"
+    GETRAG = "GETRAG", "Getrag / Magna"
+    GKN = "GKN", "GKN Driveline"
+    JTEKT = "JTEKT", "JTEKT (Torsen)"
+    LIQUI_MOLY = "LIQUI_MOLY", "Liqui Moly"
+    MAGNA = "MAGNA", "Magna Powertrain"
+    MEYLE = "MEYLE", "Meyle"
+    MOTUL = "MOTUL", "Motul"
+    NTN_SNR = "NTN_SNR", "NTN-SNR"
+    QUAIFE = "QUAIFE", "Quaife"
+    RAVENOL = "RAVENOL", "Ravenol"
+    SKF = "SKF", "SKF"
+    SWAG = "SWAG", "SWAG"
+    TIMKEN = "TIMKEN", "Timken"
+    VICTOR_REINZ = "VICTOR_REINZ", "Victor Reinz"
+    WAVETRAC = "WAVETRAC", "Wavetrac"
+    ZF = "ZF", "ZF"
+    AUTRE = "AUTRE", _("Autre")

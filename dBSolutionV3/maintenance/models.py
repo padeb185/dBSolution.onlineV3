@@ -61,6 +61,7 @@ class Maintenance(models.Model):
         ECLAIRAGE = "ECLAIRAGE", _("Éclairage")
         CARDAN = "CARDAN", _("Cardan")
         ARBRE_TRANSMISSION = "ARBRE_TRANSMISSION", _("Arbre de transmission")
+        BOITE_TRANSFERT = "BOITE_TRANSFERT", _("Boîte de transfert / transmission intégrale")
         VITRAGE = "VITRAGE", _("Vitrage et rétroviseurs")
         CREVAISON = "CREVAISON", _("Crevaison")
         CULASSE = "CULASSE", _("Culasse")

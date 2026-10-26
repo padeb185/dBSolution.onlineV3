@@ -143,6 +143,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
 
     total_cardan = 0
     total_arbre_transmission = 0
+    total_boite_transfert = 0
     total_geometrie_course = 0
     total_vitrage = 0
     total_roulement = 0
@@ -250,6 +251,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
             total_cardan = cardan.count()
             from maintenance.autres_interventions.arbre_transmission.models import ArbreTransmission
             total_arbre_transmission = ArbreTransmission.objects.filter(voiture_exemplaire=exemplaire).count()
+            from maintenance.autres_interventions.boite_transfert.models import BoiteTransfert
+            total_boite_transfert = BoiteTransfert.objects.filter(voiture_exemplaire=exemplaire).count()
             from maintenance.autres_interventions.geometrie_course.models import GeometrieCourse
             total_geometrie_course = GeometrieCourse.objects.filter(voiture_exemplaire=exemplaire).count()
             from maintenance.autres_interventions.vitres.models import Vitrage
@@ -416,6 +419,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_allumage" : total_allumage,
         "total_cardan": total_cardan,
         "total_arbre_transmission": total_arbre_transmission,
+        "total_boites": total_int_boite + total_int_bte_auto + total_boite_transfert,
         "total_geometrie_course": total_geometrie_course,
         "total_vitrage": total_vitrage,
         "total_roulement": total_roulement,
@@ -563,3 +567,27 @@ def maintenance_liste_view(request):
     )
 
 
+
+
+
+# ======================================================
+# DASHBOARD BOÎTES (manuelle + automatique + transfert)
+# ======================================================
+@never_cache
+@login_required
+def dashboard_boites_view(request, exemplaire_id):
+    from .boites_composants import boites_vehicule
+
+    tenant = request.user.societe
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id,
+    )
+    boites = boites_vehicule(exemplaire)
+    return render(request, "autres_interventions/dashboard_boites.html", {
+        "exemplaire": exemplaire,
+        "boites": boites,
+        "total_boites": sum(b["total"] for b in boites),
+    })

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails du contrôle boîte de transfert" %}{% endblock %}
+
+{% block content %}
+    {% url 'boite_transfert:modifier_transfert' transfert.pk as url_modifier %}
+    {% url 'boite_transfert:transfert_pdf' transfert.pk as url_pdf %}
+    {% url 'boite_transfert:delete_transfert' transfert.pk as url_delete %}
+    {% if exemplaire %}{% url 'boite_transfert:transfert_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails du contrôle boîte de transfert" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=transfert km_controle=transfert.kilometrage_transfert icone="boite-transfert.png" avec_cote=True extra_template="boite_transfert/partials/systeme_detail.html" %}
+{% endblock %}

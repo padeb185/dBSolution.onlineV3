@@ -44,24 +44,28 @@
 
 
         <!-- ================================================== -->
-        <!-- BOÎTE DE VITESSES -->
+        <!-- BOÎTE DE VITESSE (manuelle, automatique, transfert) -->
         <!-- ================================================== -->
 
         <a
-            href="{% url 'boite_de_vitesse:dashboard_boite' exemplaire_id=exemplaire.id %}"
+            href="{% url 'autres_interventions:dashboard_boites' exemplaire_id=exemplaire.id %}"
             class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
         >
             <div class="flex items-center justify-between">
 
                 <div>
                     <h2 class="mb-2 text-lg font-semibold">
-                        {% trans "Dashboard boîte de vitesses" %}
+                        {% trans "Boîte de vitesse" %}
                     </h2>
+
+                    <p class="text-sm text-gray-500 mb-1">
+                        {% trans "Manuelle · Automatique · Transfert" %}
+                    </p>
 
                     <p class="text-gray-600">
                         {% trans "Nombre total :" %}
                         <span class="font-bold">
-                            {{ total_int_boite|default:0 }}
+                            {{ total_boites|default:0 }}
                         </span>
                     </p>
                 </div>
@@ -69,38 +73,6 @@
                 <img
                     src="{% static 'icons/boite-de-vitesse.png' %}"
                     alt="{% trans 'Boîte de vitesse' %}"
-                    class="h-[60px] w-[60px]"
-                >
-
-            </div>
-        </a>
-
-        <!-- ================================================== -->
-        <!-- BOÎTE AUTOMATIQUE -->
-        <!-- ================================================== -->
-
-        <a
-            href="{% url 'bte_auto:dashboard_bte_auto' exemplaire_id=exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-
-                <div>
-                    <h2 class="mb-2 text-lg font-semibold">
-                        {% trans "Dashboard boîte automatique" %}
-                    </h2>
-
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">
-                            {{ total_int_bte_auto|default:0 }}
-                        </span>
-                    </p>
-                </div>
-
-                <img
-                    src="{% static 'icons/boite-auto.png' %}"
-                    alt="{% trans 'Boîte automatique' %}"
                     class="h-[60px] w-[60px]"
                 >
 

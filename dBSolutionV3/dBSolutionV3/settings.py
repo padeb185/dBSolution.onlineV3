@@ -183,6 +183,7 @@ TENANT_APPS = (
     "maintenance.autres_interventions.embrayage.apps.EmbrayageConfig",
     "maintenance.autres_interventions.cardan",
     "maintenance.autres_interventions.arbre_transmission",
+    "maintenance.autres_interventions.boite_transfert",
     "maintenance.autres_interventions.geometrie_course",
     "maintenance.pneus.crevaison.apps.CrevaisonConfig",
     "maintenance.autres_interventions.roulement",

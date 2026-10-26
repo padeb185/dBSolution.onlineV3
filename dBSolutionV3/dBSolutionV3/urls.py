@@ -198,6 +198,7 @@ urlpatterns += i18n_patterns(
     path('maintenance/autre/cardan/', include(('maintenance.autres_interventions.cardan.urls', 'cardan'), namespace='cardan')),
     path('maintenance/autre/geometrie-course/', include(('maintenance.autres_interventions.geometrie_course.urls', 'geometrie_course'), namespace='geometrie_course')),
     path('maintenance/autre/vitrage/', include(('maintenance.autres_interventions.vitres.urls', 'vitrage'), namespace='vitrage')),
+    path('maintenance/autre/boite-transfert/', include(('maintenance.autres_interventions.boite_transfert.urls', 'boite_transfert'), namespace='boite_transfert')),
     path('maintenance/autre/arbre-transmission/', include(('maintenance.autres_interventions.arbre_transmission.urls', 'arbre_transmission'), namespace='arbre_transmission')),
     path('maintenance/autre/roulement/', include(('maintenance.autres_interventions.roulement.urls', 'roulement'), namespace='roulement')),
     path('agenda/', include(('agenda.urls', 'agenda'), namespace='agenda')),
