@@ -63755,3 +63755,24 @@ msgstr "Θέλετε σίγουρα να διαγράψετε τον έλεγχ�
 #: facture/templates/facture/factures_a_payer.html
 msgid "Achats, outillage et maintenances externes"
 msgstr "Αγορές, εργαλεία και εξωτερικές συντηρήσεις"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "Maintenance interne"
+msgstr "Εσωτερική συντήρηση"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "non facturée"
+msgstr "μη τιμολογημένη"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "Garages externes"
+msgstr "Εξωτερικά συνεργεία"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "Total maintenances HTVA"
+msgstr "Σύνολο συντηρήσεων χωρίς ΦΠΑ"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+#, python-format
+msgid "%(debut)s à %(fin)s sur %(total)s maintenances"
+msgstr "%(debut)s έως %(fin)s από %(total)s συντηρήσεις"

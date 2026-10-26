@@ -197,10 +197,11 @@
     </div>
 
     <!-- ================= MAINTENANCES ================= -->
-    <div class="bg-yellow-50 rounded p-4 mb-6">
+    <div id="maintenances" class="bg-yellow-50 rounded p-4 mb-6">
         <h2 class="text-lg font-semibold mb-1">{% trans "Maintenances" %} – {{ r.maintenances.total|floatformat:2 }} €</h2>
         <p class="text-xs text-gray-600 mb-2">{% trans "Entretien interne au coût de revient HTVA (pièces au prix d'achat + main-d'œuvre) et factures des garages externes HTVA." %}</p>
-        {% if r.maintenances.internes or r.maintenances.externes %}
+        {% if page_mt.object_list %}
+        <div class="overflow-x-auto">
         <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm bg-white">
             <thead>
                 <tr class="bg-gray-100">
@@ -213,28 +214,76 @@
                 </tr>
             </thead>
             <tbody>
-            {% for e in r.maintenances.internes %}
+            {% for l in page_mt.object_list %}
                 <tr>
-                    <td class="border px-2 py-1">{{ e.facture.issue_date|date:"d/m/Y" }}</td>
-                    <td class="border px-2 py-1"><a href="{% url 'facture:detail' e.facture.pk %}" class="text-blue-700 hover:underline">{{ e.facture.numero }}</a></td>
-                    <td class="border px-2 py-1">{% trans "Entretien interne" %}</td>
-                    <td class="border px-2 py-1 text-right">{{ e.pieces|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right">{{ e.main_oeuvre|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right font-semibold">{{ e.total|floatformat:2 }} €</td>
-                </tr>
-            {% endfor %}
-            {% for m in r.maintenances.externes %}
-                <tr>
-                    <td class="border px-2 py-1">{{ m.date_facture|date:"d/m/Y" }}</td>
-                    <td class="border px-2 py-1">{{ m.numero_facture|default:"—" }}</td>
-                    <td class="border px-2 py-1">{{ m.garage|default:_("Garage externe") }}</td>
-                    <td class="border px-2 py-1 text-right">{{ m.pieces_htva|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right">{{ m.main_oeuvre_htva|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right font-semibold">{{ m.total_htva|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 whitespace-nowrap">{{ l.date|date:"d/m/Y" }}</td>
+                    <td class="border px-2 py-1">
+                        {% if l.facture %}<a href="{% url 'facture:detail' l.facture.pk %}" class="text-blue-700 hover:underline">{{ l.piece }}</a>
+                        {% else %}{{ l.piece }}{% if l.type %} <span class="text-gray-400 text-xs">({{ l.type }})</span>{% endif %}{% endif %}
+                    </td>
+                    <td class="border px-2 py-1">
+                        {% if l.origine == "facture" %}{% trans "Entretien interne" %}
+                        {% elif l.origine == "atelier" %}{% trans "Maintenance interne" %} <span class="text-gray-400 text-xs">({% trans "non facturée" %})</span>
+                        {% else %}{{ l.garage|default:_("Garage externe") }}{% endif %}
+                    </td>
+                    <td class="border px-2 py-1 text-right whitespace-nowrap">{{ l.pieces|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right whitespace-nowrap">{{ l.main_oeuvre|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right font-semibold whitespace-nowrap">{{ l.total|floatformat:2 }} €</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+        </div>
+
+        <!-- Navigation -->
+        {% if page_mt.paginator.num_pages > 1 %}
+        <div class="flex flex-wrap items-center justify-between gap-2 mt-3 text-sm">
+            <span class="text-gray-600">
+                {% blocktrans with debut=page_mt.start_index fin=page_mt.end_index total=page_mt.paginator.count %}{{ debut }} à {{ fin }} sur {{ total }} maintenances{% endblocktrans %}
+            </span>
+            <nav class="flex flex-wrap items-center gap-1">
+                {% if page_mt.has_previous %}
+                    <a href="?page_mt=1#maintenances" class="px-2 py-1 rounded border bg-white hover:bg-blue-50">«</a>
+                    <a href="?page_mt={{ page_mt.previous_page_number }}#maintenances" class="px-2 py-1 rounded border bg-white hover:bg-blue-50">‹ {% trans "Précédent" %}</a>
+                {% endif %}
+                {% for n in page_mt.paginator.page_range %}
+                    {% if n == page_mt.number %}
+                        <span class="px-3 py-1 rounded border border-blue-600 bg-blue-600 text-white font-semibold">{{ n }}</span>
+                    {% elif n >= page_mt.number|add:"-2" and n <= page_mt.number|add:"2" %}
+                        <a href="?page_mt={{ n }}#maintenances" class="px-3 py-1 rounded border bg-white hover:bg-blue-50">{{ n }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if page_mt.has_next %}
+                    <a href="?page_mt={{ page_mt.next_page_number }}#maintenances" class="px-2 py-1 rounded border bg-white hover:bg-blue-50">{% trans "Suivant" %} ›</a>
+                    <a href="?page_mt={{ page_mt.paginator.num_pages }}#maintenances" class="px-2 py-1 rounded border bg-white hover:bg-blue-50">»</a>
+                {% endif %}
+            </nav>
+        </div>
+        {% endif %}
+
+        <!-- Totaux des maintenances (toutes les pages) -->
+        <div class="mt-4 grid grid-cols-2 md:grid-cols-5 gap-2 text-center text-sm">
+            <div class="bg-white rounded border p-2">
+                <span class="block text-xs text-gray-500">{% trans "Entretien interne" %}</span>
+                <span class="block font-bold">{{ r.maintenances.total_factures_internes|floatformat:2 }} €</span>
+            </div>
+            <div class="bg-white rounded border p-2">
+                <span class="block text-xs text-gray-500">{% trans "Maintenance interne" %} ({% trans "non facturée" %})</span>
+                <span class="block font-bold">{{ r.maintenances.total_atelier|floatformat:2 }} €</span>
+            </div>
+            <div class="bg-white rounded border p-2">
+                <span class="block text-xs text-gray-500">{% trans "Garages externes" %}</span>
+                <span class="block font-bold">{{ r.maintenances.total_externes|floatformat:2 }} €</span>
+            </div>
+            <div class="bg-white rounded border p-2">
+                <span class="block text-xs text-gray-500">{% trans "Pièces HTVA" %} / {% trans "Main-d'œuvre HTVA" %}</span>
+                <span class="block font-bold">{{ r.maintenances.total_pieces|floatformat:2 }} € / {{ r.maintenances.total_main_oeuvre|floatformat:2 }} €</span>
+            </div>
+            <div class="bg-yellow-200 rounded border border-yellow-400 p-2 col-span-2 md:col-span-1">
+                <span class="block text-xs text-gray-700">{% trans "Total maintenances HTVA" %} ({{ r.maintenances.nb }})</span>
+                <span class="block text-lg font-bold">{{ r.maintenances.total|floatformat:2 }} €</span>
+            </div>
+        </div>
         {% else %}
         <p class="text-sm text-gray-500">{% trans "Aucune maintenance chiffrée pour ce véhicule." %}</p>
         {% endif %}

@@ -63698,3 +63698,24 @@ msgstr "Vuoi davvero eliminare il controllo albero di trasmissione del %(date)s 
 #: facture/templates/facture/factures_a_payer.html
 msgid "Achats, outillage et maintenances externes"
 msgstr "Acquisti, attrezzatura e manutenzioni esterne"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "Maintenance interne"
+msgstr "Manutenzione interna"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "non facturée"
+msgstr "non fatturata"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "Garages externes"
+msgstr "Officine esterne"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "Total maintenances HTVA"
+msgstr "Totale manutenzioni IVA esclusa"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+#, python-format
+msgid "%(debut)s à %(fin)s sur %(total)s maintenances"
+msgstr "Da %(debut)s a %(fin)s su %(total)s manutenzioni"

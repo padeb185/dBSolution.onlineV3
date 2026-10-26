@@ -3,7 +3,8 @@ Rentabilité d'un véhicule (Données financières).
 
     coût d'acquisition  = prix d'achat + taxe de mise en circulation + autres frais d'achat
   + coûts d'utilisation = carburant + recharges + AdBlue (HTVA)
-                        + maintenances (entretien interne au coût de revient + garages externes HTVA)
+                        + maintenances (internes au coût de revient – factures internes émises
+                          et maintenances d'atelier non facturées – + garages externes HTVA)
                         + coûts annuels (assurance, taxe de circulation, vignettes, contrôle technique…)
   = coût total
   − valeur de revente (0 par défaut)
@@ -87,12 +88,31 @@ def energie(ex):
 def maintenances(ex):
     from facture.models import Facture
 
+    from facture.services import couts_revient_maintenances
+    from maintenance.models import Maintenance
+
+    # 1) Factures internes émises (maintenances de nos véhicules facturées à notre société)
     internes, total_internes = [], ZERO
     for f in (Facture.objects.filter(voiture_exemplaire=ex, client_est_societe=True, statut=Facture.Statut.EMISE)
               .prefetch_related("lines").order_by("-issue_date")):
         c = f.couts_internes()
         internes.append({"facture": f, **c})
         total_internes += c["total"]
+
+    # 2) Maintenances internes (atelier) sans facture émise : coût de revient
+    #    (une maintenance déjà sur une facture émise est soit comptée au point 1,
+    #    soit refacturée à un client : elle n'est pas reprise ici)
+    atelier, total_atelier = [], ZERO
+    a_chiffrer = list(Maintenance.objects.filter(voiture_exemplaire=ex)
+                      .exclude(factures__statut=Facture.Statut.EMISE)
+                      .order_by("-date_intervention"))
+    couts = couts_revient_maintenances(a_chiffrer)   # calcul groupé (rapide)
+    for m in a_chiffrer:
+        c = couts.get(m.pk) or {"total": ZERO}
+        if c["total"] <= 0:
+            continue
+        atelier.append({"maintenance": m, **c})
+        total_atelier += c["total"]
 
     externes, total_externes = [], ZERO
     try:
@@ -103,10 +123,32 @@ def maintenances(ex):
     except Exception:
         pass
 
+    # Liste unique (factures internes + atelier + garages), la plus récente d'abord
+    lignes = []
+    for e in internes:
+        f = e["facture"]
+        lignes.append({"date": f.issue_date, "piece": f.numero or "—", "facture": f,
+                       "origine": "facture", "pieces": e["pieces"], "main_oeuvre": e["main_oeuvre"], "total": e["total"]})
+    for e in atelier:
+        m = e["maintenance"]
+        lignes.append({"date": m.date_intervention, "piece": m.get_type_maintenance_display() or "—",
+                       "origine": "atelier", "pieces": e["pieces"], "main_oeuvre": e["main_oeuvre"], "total": e["total"]})
+    for m in externes:
+        lignes.append({"date": m.date_facture, "piece": m.numero_facture or "—", "garage": m.garage,
+                       "type": m.get_type_maintenance_display(), "origine": "externe",
+                       "pieces": r2(m.pieces_htva), "main_oeuvre": r2(m.main_oeuvre_htva), "total": r2(m.total_htva)})
+    lignes.sort(key=lambda l: _jour(l["date"]) or date.min, reverse=True)
+
     return {
-        "internes": internes, "total_internes": r2(total_internes),
+        "lignes": lignes,
+        "total_pieces": r2(sum((l["pieces"] for l in lignes), ZERO)),
+        "total_main_oeuvre": r2(sum((l["main_oeuvre"] for l in lignes), ZERO)),
+        "nb": len(lignes),
+        "internes": internes, "total_internes": r2(total_internes + total_atelier),
+        "total_factures_internes": r2(total_internes),
+        "atelier": atelier, "total_atelier": r2(total_atelier),
         "externes": externes, "total_externes": r2(total_externes),
-        "total": r2(total_internes + total_externes),
+        "total": r2(total_internes + total_atelier + total_externes),
     }
 
 
@@ -153,7 +195,9 @@ def couts_annuels(ex, aujourdhui=None):
 def locations(ex):
     from voiture.voiture_location.models import Location
 
-    liste = list(Location.objects.filter(voiture_exemplaire=ex).order_by("-date_debut"))
+    liste = list(Location.objects.filter(voiture_exemplaire=ex)
+                 .select_related("societe__adresse", "instructeur").prefetch_related("boxes")
+                 .order_by("-date_debut"))
     return {
         "liste": liste,
         "nb": len(liste),

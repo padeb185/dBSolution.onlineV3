@@ -807,28 +807,22 @@ def finances_detail(request, exemplaire_id):
         champs.append({"nom": "frais_achat", "label": labels["frais_achat"].label, "valeur": exemplaire.frais_achat})
     champs.append({"nom": "valeur_revente", "label": labels["valeur_revente"].label, "valeur": exemplaire.valeur_revente or 0})
 
-    # Entretien interne : factures à notre propre société pour ce véhicule (coût de revient HTVA)
-    from decimal import Decimal
-    from facture.models import Facture
-    entretiens = []
-    total_entretien = Decimal("0.00")
-    for f in (
-        Facture.objects.filter(voiture_exemplaire=exemplaire, client_est_societe=True, statut=Facture.Statut.EMISE)
-        .prefetch_related("lines").order_by("-issue_date")
-    ):
-        c = f.couts_internes()
-        entretiens.append({"facture": f, **c})
-        total_entretien += c["total"]
-
+    # Entretien interne : repris du calcul de rentabilité (évite un second calcul des factures)
     from .forms import CoutAnnuelVehiculeForm
     from .rentabilite import rentabilite
     from django.utils import timezone as _tz
 
+    rent = rentabilite(exemplaire)
+    # Maintenances : 10 par page, les plus récentes d'abord
+    from django.core.paginator import Paginator
+    page_mt = Paginator(rent["maintenances"]["lignes"], 10).get_page(request.GET.get("page_mt"))
+
     return render(request, "voiture_exemplaire/finances/detail.html", {
-        "rent": rentabilite(exemplaire),
+        "rent": rent,
+        "page_mt": page_mt,
         "form_cout": CoutAnnuelVehiculeForm(initial={"annee": _tz.localdate().year}),
-        "entretiens": entretiens,
-        "total_entretien": total_entretien,
+        "entretiens": rent["maintenances"]["internes"],
+        "total_entretien": rent["maintenances"]["total_factures_internes"],
         "exemplaire": exemplaire,
         "champs": champs,
         "manquants": manquants,

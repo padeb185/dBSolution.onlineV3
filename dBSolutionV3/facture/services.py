@@ -207,6 +207,129 @@ def lignes_depuis_maintenance(maintenance, marge_pieces, marge_main_oeuvre):
     return lignes
 
 
+def cout_revient_maintenance(maintenance):
+    """
+    Coût de revient HTVA d'une maintenance interne, sans facture ni marge (lecture seule) :
+    pièces au prix d'achat + main-d'œuvre (temps × taux horaire) + pièces utilisées du stock.
+    Utilisé par les données financières du véhicule.
+    """
+    z = Decimal("0.00")
+    pieces = main_oeuvre = z
+    main_oeuvres_vues = set()
+    try:
+        # savepoint annulé : rien n'est jamais écrit en base depuis ce calcul
+        with transaction.atomic():
+            for obj in objets_detail_maintenance(maintenance, _rattacher=False):
+                try:
+                    with transaction.atomic():
+                        rapport = obj.generer_rapport_remplacement()
+                except Exception:
+                    logger.exception("Rapport impossible pour %s", obj)
+                    rapport = {}
+                for ligne in _lignes_rapport(rapport):
+                    if not isinstance(ligne, dict):
+                        continue
+                    quantite = _decimal(ligne.get("quantite"))
+                    prix = _decimal(_premiere_valeur(ligne, CLES_PRIX, 0))
+                    if prix <= 0:
+                        continue
+                    pieces += arrondi(prix * (quantite if quantite > 0 else Decimal("1")))
+
+                mo = getattr(obj, "main_oeuvre", None)
+                if mo is None or mo.pk in main_oeuvres_vues:
+                    continue
+                main_oeuvres_vues.add(mo.pk)
+                minutes = mo.temps_minutes or 0
+                if minutes > 0:
+                    main_oeuvre += arrondi(Decimal(minutes) / Decimal("60") * _decimal(mo.taux_horaire))
+
+            for pu in _pieces_a_facturer(maintenance):
+                achat = _decimal(pu.piece.prix_achat)
+                prix = achat if achat > 0 else _decimal(pu.prix_unitaire)
+                pieces += arrondi(prix * _decimal(pu.quantite))
+            transaction.set_rollback(True)
+    except Exception:
+        logger.exception("Coût de revient impossible pour la maintenance %s", maintenance.pk)
+    return {
+        "pieces": arrondi(pieces),
+        "main_oeuvre": arrondi(main_oeuvre),
+        "total": arrondi(pieces + main_oeuvre),
+    }
+
+
+def _relations_intervention():
+    """Relations Maintenance -> modèles d'intervention (ceux qui exposent generer_rapport_remplacement)."""
+    rel = []
+    for relation in Maintenance._meta.related_objects:
+        modele = relation.related_model
+        if hasattr(modele, "generer_rapport_remplacement") and getattr(relation, "field", None) is not None:
+            rel.append((modele, relation.field.name))
+    return rel
+
+
+def couts_revient_maintenances(maintenances):
+    """
+    Coût de revient HTVA de plusieurs maintenances en une fois (données financières) :
+    une requête par type d'intervention pour toutes les maintenances, au lieu d'une par
+    maintenance et par type. Retourne {maintenance_pk: {"pieces", "main_oeuvre", "total"}}.
+    Lecture seule : tout est fait dans un savepoint annulé.
+    """
+    z = Decimal("0.00")
+    ids = [m.pk for m in maintenances]
+    res = {pk: {"pieces": z, "main_oeuvre": z} for pk in ids}
+    if not ids:
+        return {}
+    mo_vues = set()
+    try:
+        with transaction.atomic():
+            for modele, champ in _relations_intervention():
+                try:
+                    with transaction.atomic():
+                        qs = modele.objects.filter(**{f"{champ}__in": ids})
+                        if any(f.name == "main_oeuvre" for f in modele._meta.get_fields()):
+                            qs = qs.select_related("main_oeuvre")
+                        objets = list(qs)
+                except Exception:
+                    logger.warning("Table d'intervention illisible : %s", modele.__name__, exc_info=True)
+                    continue
+                for obj in objets:
+                    pk = getattr(obj, f"{champ}_id", None)
+                    if pk not in res:
+                        continue
+                    try:
+                        with transaction.atomic():
+                            rapport = obj.generer_rapport_remplacement()
+                    except Exception:
+                        logger.exception("Rapport impossible pour %s", obj)
+                        rapport = {}
+                    for ligne in _lignes_rapport(rapport):
+                        if not isinstance(ligne, dict):
+                            continue
+                        quantite = _decimal(ligne.get("quantite"))
+                        prix = _decimal(_premiere_valeur(ligne, CLES_PRIX, 0))
+                        if prix > 0:
+                            res[pk]["pieces"] += arrondi(prix * (quantite if quantite > 0 else Decimal("1")))
+                    mo = getattr(obj, "main_oeuvre", None)
+                    if mo is not None and mo.pk not in mo_vues and (mo.temps_minutes or 0) > 0:
+                        mo_vues.add(mo.pk)
+                        res[pk]["main_oeuvre"] += arrondi(Decimal(mo.temps_minutes) / Decimal("60") * _decimal(mo.taux_horaire))
+
+            # Pièces utilisées (stock) : une seule requête
+            from piece.models import PieceUtilisee
+            for pu in (PieceUtilisee.objects.filter(maintenance_id__in=ids, prefixe="")
+                       .select_related("piece")):
+                achat = _decimal(pu.piece.prix_achat)
+                prix = achat if achat > 0 else _decimal(pu.prix_unitaire)
+                res[pu.maintenance_id]["pieces"] += arrondi(prix * _decimal(pu.quantite))
+            transaction.set_rollback(True)
+    except Exception:
+        logger.exception("Coûts de revient des maintenances impossibles")
+    for c in res.values():
+        c["pieces"], c["main_oeuvre"] = arrondi(c["pieces"]), arrondi(c["main_oeuvre"])
+        c["total"] = arrondi(c["pieces"] + c["main_oeuvre"])
+    return res
+
+
 def _cle_libelle(texte):
     return " ".join(str(texte or "").lower().replace("’", "'").split())
 

@@ -63697,3 +63697,24 @@ msgstr "¿Desea realmente eliminar el control del árbol de transmisión del %(d
 #: facture/templates/facture/factures_a_payer.html
 msgid "Achats, outillage et maintenances externes"
 msgstr "Compras, herramientas y mantenimientos externos"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "Maintenance interne"
+msgstr "Mantenimiento interno"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "non facturée"
+msgstr "no facturado"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "Garages externes"
+msgstr "Talleres externos"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "Total maintenances HTVA"
+msgstr "Total mantenimientos sin IVA"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+#, python-format
+msgid "%(debut)s à %(fin)s sur %(total)s maintenances"
+msgstr "%(debut)s a %(fin)s de %(total)s mantenimientos"

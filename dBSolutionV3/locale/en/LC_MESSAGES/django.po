@@ -63399,3 +63399,24 @@ msgstr "Do you really want to delete the propeller shaft inspection of %(date)s 
 #: facture/templates/facture/factures_a_payer.html
 msgid "Achats, outillage et maintenances externes"
 msgstr "Purchases, tools and external maintenance"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "Maintenance interne"
+msgstr "In-house maintenance"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "non facturée"
+msgstr "not invoiced"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "Garages externes"
+msgstr "External garages"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "Total maintenances HTVA"
+msgstr "Total maintenance excl. VAT"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+#, python-format
+msgid "%(debut)s à %(fin)s sur %(total)s maintenances"
+msgstr "%(debut)s to %(fin)s of %(total)s maintenance records"

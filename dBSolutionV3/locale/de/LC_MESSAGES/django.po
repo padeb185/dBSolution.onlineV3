@@ -63749,3 +63749,24 @@ msgstr "Möchten Sie die Kontrolle Kardanwelle vom %(date)s (%(km)s km) wirklich
 #: facture/templates/facture/factures_a_payer.html
 msgid "Achats, outillage et maintenances externes"
 msgstr "Einkäufe, Werkzeug und externe Wartungen"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "Maintenance interne"
+msgstr "Interne Wartung"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "non facturée"
+msgstr "nicht fakturiert"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "Garages externes"
+msgstr "Externe Werkstätten"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+msgid "Total maintenances HTVA"
+msgstr "Wartungen gesamt netto"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html
+#, python-format
+msgid "%(debut)s à %(fin)s sur %(total)s maintenances"
+msgstr "%(debut)s bis %(fin)s von %(total)s Wartungen"
