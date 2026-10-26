@@ -59,6 +59,7 @@ class VoitureExemplaireForm(forms.ModelForm):
             "kilometres_embrayage",
             "kilometres_dernier_entretien",
             "kilometres_rodage",
+            "kilometres_entretien",
             "mois_production",
             "date_mise_en_circulation",
             

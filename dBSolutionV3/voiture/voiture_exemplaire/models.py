@@ -64,6 +64,16 @@ class KilometresRodage(models.IntegerChoices):
     KM_4000 = 4000, _("4000 km")
     KM_5000 = 5000, _("5000 km")
 
+class KilometresEntretien(models.IntegerChoices):
+    KM_5000 = 5000, _("5000 km")
+    KM_7500 = 7500, _("7500 km")
+    KM_10000 = 10000, _("10000 km")
+    KM_12500 = 12500, _("12500 km")
+    KM_15000 = 15000, _("15000 km")
+    KM_20000 = 20000, _("20000 km")
+    KM_25000 = 25000, _("25000 km")
+
+
 class VoitureExemplaire(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
@@ -188,6 +198,12 @@ class VoitureExemplaire(models.Model):
         choices=KilometresRodage.choices,
         default=KilometresRodage.KM_1000,
         verbose_name=_("Kilométrage de rodage"),
+    )
+
+    kilometres_entretien = models.PositiveIntegerField(
+        choices=KilometresEntretien.choices,
+        default=KilometresEntretien.KM_15000,
+        verbose_name=_("Intervalle d'entretien"),
     )
 
     kilometres_dernier_entretien = models.PositiveIntegerField(default=0, null=True, blank=True)
@@ -462,9 +478,8 @@ class VoitureExemplaire(models.Model):
 
     @property
     def intervalle_entretien(self):
-        """Intervalle d'entretien du moteur (km), 15 000 km par défaut."""
-        moteur = getattr(self, "voiture_moteur", None)
-        return (getattr(moteur, "intervalle_km_entretien", None) or self.INTERVALLE_ENTRETIEN_DEFAUT)
+        """Intervalle d'entretien choisi sur le véhicule (kilometres_entretien), 15 000 km par défaut."""
+        return self.kilometres_entretien or self.INTERVALLE_ENTRETIEN_DEFAUT
 
     @property
     def km_debut_moteur(self):
@@ -483,17 +498,26 @@ class VoitureExemplaire(models.Model):
         return km_creation is not None and km_creation < (self.kilometres_rodage or 0)
 
     @property
-    def rodage_valide(self):
-        """Un rodage au tag vert a été enregistré pour le moteur actuel."""
+    def km_rodage_effectue(self):
+        """
+        Kilométrage châssis du dernier rodage au tag vert pour le moteur actuel
+        (None si le rodage n'a pas encore été validé).
+        """
         if not self.pk:
-            return False
-        if not hasattr(self, "_rodage_valide"):
+            return None
+        if not hasattr(self, "_km_rodage_effectue"):
+            from django.db.models import Max
             from maintenance.autres_interventions.moteur.rodage.models import Rodage
-            self._rodage_valide = Rodage.objects.filter(
+            self._km_rodage_effectue = Rodage.objects.filter(
                 voiture_exemplaire_id=self.pk, tag="VERT",
                 kilometres_rodage__gte=self.km_debut_moteur,
-            ).exists()
-        return self._rodage_valide
+            ).aggregate(m=Max("kilometres_rodage"))["m"]
+        return self._km_rodage_effectue
+
+    @property
+    def rodage_valide(self):
+        """Un rodage au tag vert a été enregistré pour le moteur actuel."""
+        return self.km_rodage_effectue is not None
 
     @property
     def premier_entretien_fait(self):
@@ -519,23 +543,46 @@ class VoitureExemplaire(models.Model):
         return {"niveau": "alerte", "restant": 0}
 
     @property
+    def km_reference_entretien(self):
+        """
+        Kilométrage châssis à partir duquel court l'intervalle d'entretien :
+        le plus récent entre le dernier entretien (du moteur actuel) et le rodage effectué.
+        None si ni entretien ni rodage depuis le montage du moteur.
+        """
+        refs = []
+        if self.premier_entretien_fait:
+            refs.append(self.kilometres_dernier_entretien or 0)
+        if self.km_rodage_effectue is not None:
+            refs.append(self.km_rodage_effectue)
+        return max(refs) if refs else None
+
+    @property
+    def prochain_entretien_km(self):
+        """Kilométrage châssis du prochain entretien (None si rien ne sert de référence)."""
+        ref = self.km_reference_entretien
+        return None if ref is None else ref + self.intervalle_entretien
+
+    @property
     def alerte_entretien(self):
         """
         None, ou {"depasse": km, "seuil": km, "premier": bool} :
-        - premier entretien d'un moteur neuf : km moteur > rodage + intervalle ;
-        - sinon : km parcourus depuis le dernier entretien > intervalle
-          (km moteur > intervalle si aucun entretien depuis le montage du moteur).
+        - rodage effectué : alerte quand km châssis > km du rodage effectué + intervalle ;
+        - ensuite : km châssis > km du dernier entretien + intervalle ;
+        - sans rodage ni entretien depuis le montage du moteur :
+          km moteur > distance de rodage + intervalle (moteur neuf) ou > intervalle.
         """
         intervalle = self.intervalle_entretien
-        km_moteur = self.kilometres_moteur or 0
-        if not self.premier_entretien_fait:
-            seuil = intervalle + ((self.kilometres_rodage or 0) if self.moteur_neuf else 0)
-            if km_moteur > seuil:
-                return {"depasse": km_moteur - seuil, "seuil": seuil, "premier": True}
+        ref = self.km_reference_entretien
+        if ref is not None:
+            depuis = (self.kilometres_chassis or 0) - ref
+            if depuis > intervalle:
+                premier = not self.premier_entretien_fait or ref == self.km_rodage_effectue
+                return {"depasse": depuis - intervalle, "seuil": ref + intervalle, "premier": premier}
             return None
-        depuis = (self.kilometres_chassis or 0) - (self.kilometres_dernier_entretien or 0)
-        if depuis > intervalle:
-            return {"depasse": depuis - intervalle, "seuil": intervalle, "premier": False}
+        km_moteur = self.kilometres_moteur or 0
+        seuil = intervalle + ((self.kilometres_rodage or 0) if self.moteur_neuf else 0)
+        if km_moteur > seuil:
+            return {"depasse": km_moteur - seuil, "seuil": seuil, "premier": True}
         return None
 
     def update_kilometres(self):
@@ -574,19 +621,21 @@ class VoitureExemplaire(models.Model):
 
 def precharger_alertes(exemplaires):
     """
-    Listes de véhicules : calcule en UNE requête quels véhicules ont un rodage
-    au tag vert pour leur moteur actuel (évite une requête par véhicule).
+    Listes de véhicules : lit en UNE requête les rodages au tag vert
+    (kilométrage du rodage effectué pour le moteur actuel), au lieu d'une requête par véhicule.
     """
     from maintenance.autres_interventions.moteur.rodage.models import Rodage
     exemplaires = list(exemplaires)
     par_id = {ex.pk: ex for ex in exemplaires}
     for ex in exemplaires:
-        ex._rodage_valide = False
+        ex._km_rodage_effectue = None
     for vid, km in Rodage.objects.filter(voiture_exemplaire_id__in=par_id, tag="VERT").values_list(
             "voiture_exemplaire_id", "kilometres_rodage"):
         ex = par_id.get(vid)
-        if ex is not None and (km or 0) >= ex.km_debut_moteur:
-            ex._rodage_valide = True
+        if ex is None or km is None or km < ex.km_debut_moteur:
+            continue
+        if ex._km_rodage_effectue is None or km > ex._km_rodage_effectue:
+            ex._km_rodage_effectue = km
     return exemplaires
 
 

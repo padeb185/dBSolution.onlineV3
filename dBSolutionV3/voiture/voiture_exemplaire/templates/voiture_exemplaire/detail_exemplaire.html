@@ -53,6 +53,8 @@
             <p><strong>{% trans "Kilométrage de l'embrayage" %}      :</strong> {{ exemplaire.kilometres_embrayage }} km</p>
             <p><strong>{% trans "Kilométrage du dernier entretien" %}:</strong> {{ exemplaire.kilometres_dernier_entretien }} km</p>
             <p><strong>{% trans "Intervalle d'entretien" %}:</strong> {{ exemplaire.intervalle_entretien }} km · <strong>{% trans "Kilométrage de rodage" %}:</strong> {{ exemplaire.kilometres_rodage }} km</p>
+            <p><strong>{% trans "Rodage effectué à" %}:</strong> {% if exemplaire.km_rodage_effectue is not None %}{{ exemplaire.km_rodage_effectue }} km{% else %}—{% endif %}
+               · <strong>{% trans "Prochain entretien à" %}:</strong> {% if exemplaire.prochain_entretien_km %}{{ exemplaire.prochain_entretien_km }} km{% else %}—{% endif %}</p>
             {% include "voiture_exemplaire/partials/alertes_km.html" with ex=exemplaire %}
             <br>
             <p><strong>{% trans "Coté conducteur" %}:</strong> {{ exemplaire.get_cote_conduite_display }}</p>

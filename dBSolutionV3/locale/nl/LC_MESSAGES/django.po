@@ -64460,3 +64460,11 @@ msgstr "met %(km)s km"
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/partials/alertes_km.html
 msgid "Intervalle d'entretien"
 msgstr "Onderhoudsinterval"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html
+msgid "Rodage effectué à"
+msgstr "Inlopen uitgevoerd bij"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html
+msgid "Prochain entretien à"
+msgstr "Volgend onderhoud bij"
