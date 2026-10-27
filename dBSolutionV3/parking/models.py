@@ -122,11 +122,11 @@ class Parking(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(MAX_EMPLACEMENTS)],
     )
 
-    # Dimensions réelles d'un box (m) : vertical = largeur × longueur (2,50 × 5,00), horizontal = l'inverse
+    # Dimensions réelles d'un box (m) dessiné (largeur × hauteur) : vertical = 5,00 × 2,50, horizontal = 2,50 × 5,00
     box_largeur_m = models.DecimalField(
         _("Largeur d'un box (m)"), max_digits=5, decimal_places=2, default=Decimal("2.50"),
         validators=[MinValueValidator(Decimal("1"))],
-        help_text=_("Box vertical : largeur × longueur. Box horizontal : longueur × largeur."),
+        help_text=_("Box vertical : longueur × largeur (5 × 2,50 m). Box horizontal : largeur × longueur (2,50 × 5 m)."),
     )
     box_longueur_m = models.DecimalField(
         _("Longueur d'un box (m)"), max_digits=5, decimal_places=2, default=Decimal("5.00"),
@@ -180,11 +180,11 @@ class Parking(models.Model):
 
     @property
     def ratio_case_css(self):
-        """Longueur / largeur d'un box vertical (éditeur du plan), avec un point décimal pour le CSS."""
-        largeur = Decimal(self.box_largeur_m or 0)
+        """Hauteur / largeur des cases de l'éditeur du plan (grille simple), avec un point décimal pour le CSS."""
+        largeur = Decimal(self.box_longueur_m or 0)
         if not largeur:
             return "1"
-        ratio = Decimal(self.box_longueur_m or 0) / largeur
+        ratio = Decimal(self.box_largeur_m or 0) / largeur * 3   # cases de l'éditeur 3 fois plus larges que hautes
         ratio = min(max(ratio, Decimal("0.25")), Decimal("4"))
         return f"{ratio:.3f}"
 
@@ -261,15 +261,15 @@ class Parking(models.Model):
         ]
 
     def dimensions_case(self, type_case, hauteur_ligne=None):
-        """(largeur, hauteur) en mètres d'une case : box vertical 2,5 × 5, box horizontal 5 × 2,5, autre = largeur d'un box."""
+        """(largeur, hauteur) en mètres d'une case : box vertical 5 × 2,5, box horizontal 2,5 × 5, autre = 5 m de large."""
         l, L = Decimal(self.box_largeur_m), Decimal(self.box_longueur_m)
         if type_case == TypeCase.BOX_H:
-            return L, l
-        if type_case == TypeCase.BOX:
             return l, L
+        if type_case == TypeCase.BOX:
+            return L, l
         if type_case == TypeCase.VIDE:
             return Decimal("0"), Decimal("0")
-        return l, hauteur_ligne
+        return L, hauteur_ligne   # accès / zone inaccessible : largeur d'un box vertical (colonnes alignées)
 
     def dessin(self):
         """

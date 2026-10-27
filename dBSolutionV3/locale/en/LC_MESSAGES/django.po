@@ -67398,3 +67398,9 @@ msgstr "Total depth of the rows: %(total)s m, for a car park of %(longueur)s m."
 
 msgid "Longueur de la ligne : %(l)s m"
 msgstr "Row length: %(l)s m"
+
+msgid "Box vertical : longueur × largeur (5 × 2,50 m). Box horizontal : largeur × longueur (2,50 × 5 m)."
+msgstr "Vertical space: length × width (5 × 2.50 m). Horizontal space: width × length (2.50 × 5 m)."
+
+msgid "Dimensions réelles : box vertical %(l)s × %(L)s m, box horizontal %(L)s × %(l)s m. « Sans case » raccourcit une ligne (par ex. une ligne de box verticaux, deux fois plus longs)."
+msgstr "Real dimensions: vertical space %(l)s × %(L)s m, horizontal space %(L)s × %(l)s m. “No cell” shortens a row (e.g. a row of vertical spaces, twice as long)."

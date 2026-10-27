@@ -29,7 +29,7 @@
         </div>
         <p class="text-sm text-gray-600">
             {% trans "Cliquez ou glissez sur les cases pour les peindre. Cliquez sur une lettre pour appliquer l'outil à toute la ligne horizontale, sur un numéro pour toute la ligne verticale de box." %}
-            {% blocktrans with l=parking.box_largeur_m|floatformat:"-2" L=parking.box_longueur_m|floatformat:"-2" %}Dimensions réelles : box vertical {{ l }} × {{ L }} m, box horizontal {{ L }} × {{ l }} m. « Sans case » raccourcit une ligne (par ex. une ligne de box horizontaux, deux fois plus longs).{% endblocktrans %}
+            {% blocktrans with l=parking.box_longueur_m|floatformat:"-2" L=parking.box_largeur_m|floatformat:"-2" %}Dimensions réelles : box vertical {{ l }} × {{ L }} m, box horizontal {{ L }} × {{ l }} m. « Sans case » raccourcit une ligne (par ex. une ligne de box verticaux, deux fois plus longs).{% endblocktrans %}
         </p>
         <div class="flex flex-wrap items-center gap-3">
             <label class="text-sm">{% trans "Coins inaccessibles" %} :

@@ -67748,3 +67748,9 @@ msgstr "Gesamttiefe der Reihen: %(total)s m, bei einem Parkplatz von %(longueur)
 
 msgid "Longueur de la ligne : %(l)s m"
 msgstr "Länge der Reihe: %(l)s m"
+
+msgid "Box vertical : longueur × largeur (5 × 2,50 m). Box horizontal : largeur × longueur (2,50 × 5 m)."
+msgstr "Senkrechter Stellplatz: Länge × Breite (5 × 2,50 m). Waagerechter Stellplatz: Breite × Länge (2,50 × 5 m)."
+
+msgid "Dimensions réelles : box vertical %(l)s × %(L)s m, box horizontal %(L)s × %(l)s m. « Sans case » raccourcit une ligne (par ex. une ligne de box verticaux, deux fois plus longs)."
+msgstr "Tatsächliche Maße: senkrechter Stellplatz %(l)s × %(L)s m, waagerechter Stellplatz %(L)s × %(l)s m. „Kein Feld“ verkürzt eine Reihe (z. B. eine Reihe senkrechter, doppelt so langer Stellplätze)."

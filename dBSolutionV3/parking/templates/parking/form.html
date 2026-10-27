@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function maj() {
         const L = v("id_largeur_m"), bl = v("id_box_largeur_m"), bL = v("id_box_longueur_m");
         if (!(L && bl && bL)) { sortie.textContent = ""; return; }
-        sortie.textContent = txt.replace("%(v)s", Math.floor(L / bl)).replace("%(h)s", Math.floor(L / bL));
+        sortie.textContent = txt.replace("%(v)s", Math.floor(L / bL)).replace("%(h)s", Math.floor(L / bl));
     }
     ["id_largeur_m", "id_box_largeur_m", "id_box_longueur_m"].forEach(id => {
         const el = document.getElementById(id); if (el) el.addEventListener("input", maj);
