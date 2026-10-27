@@ -163,25 +163,19 @@
 
     <div class="colonne">
         <div class="client">
-            {% if facture.est_emise %}
-                <div class="label">{{ facture.client_nom }}</div>
-                {% if facture.client_adresse %}<div>{{ facture.client_adresse|linebreaksbr }}</div>{% endif %}
-                {% if facture.client_tva %}<div><strong>{% trans "TVA" %} :</strong> {{ facture.client_tva|format_tva }}</div>{% endif %}
-            {% else %}
-                {% with c=facture.client %}
-                    {% if c %}
-                        <div class="label">{{ facture.nom_client_courant }}</div>
-                        {% if c.adresse %}
-                            <div>{{ c.adresse.rue }} {{ c.adresse.numero }}{% if c.adresse.boite %} / {{ c.adresse.boite }}{% endif %}</div>
-                            <div>{{ c.adresse.code_postal }} {{ c.adresse.ville }}</div>
-                            <div>{{ c.adresse.pays }}</div>
-                        {% endif %}
-                        {% if facture.est_pro or facture.client_est_societe %}{% if c.numero_tva %}<div><strong>{% trans "TVA" %} :</strong> {{ c.numero_tva|format_tva }}</div>{% endif %}{% endif %}
-                    {% else %}
-                        <div>{% trans "Client non sélectionné" %}</div>
-                    {% endif %}
-                {% endwith %}
-            {% endif %}
+            {% with c=facture.coordonnees_affichage %}
+                {% if c.nom %}
+                    <div class="label">{{ c.nom }}</div>
+                    {% if c.adresse %}<div>{{ c.adresse|linebreaksbr }}</div>{% endif %}
+                    {% if c.tva %}<div><strong>{% trans "TVA" %} :</strong> {{ c.tva|format_tva }}</div>{% endif %}
+                    {% if c.telephone %}<div><strong>{% trans "Tél." %} :</strong> {{ c.telephone }}</div>{% endif %}
+                    {% if c.email %}<div><strong>{% trans "Email" %} :</strong> {{ c.email }}</div>{% endif %}
+                {% elif facture.client_est_societe %}
+                    <div class="label">{{ facture.societe.nom }}</div>
+                {% else %}
+                    <div>{% trans "Client non sélectionné" %}</div>
+                {% endif %}
+            {% endwith %}
         </div>
     </div>
 </div>

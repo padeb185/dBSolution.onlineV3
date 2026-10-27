@@ -487,6 +487,15 @@ def creer_facture_depuis_maintenances(maintenances, type_facture, user, diagnost
         "due_date": timezone.localdate() + timedelta(days=30),
         "cree_par": user,
     }
+    # Véhicule sans client particulier mais associé à un client atelier : le client atelier est facturé
+    # (et non notre société)
+    if vehicule is not None and not vehicule.client_id:
+        atelier = Facture.client_atelier_du_vehicule(vehicule)
+        if atelier is not None:
+            if type_facture == Facture.TypeFacture.CLIENT:
+                valeurs.update(client_atelier=atelier, client_est_societe=False)
+            elif atelier.societe_cliente_id:
+                valeurs["societe_cliente"] = atelier.societe_cliente
     valeurs.update(champs)
     facture = Facture.objects.create(**valeurs)
     facture.maintenances.set(maintenances)
@@ -505,6 +514,30 @@ def creer_facture_depuis_maintenances(maintenances, type_facture, user, diagnost
 
     facture.recalculer_totaux()
     return facture
+
+
+# ------------------------------------------------------------
+# Une maintenance / un diagnostic n'est facturé qu'une fois
+# ------------------------------------------------------------
+def factures_existantes(maintenances=(), diagnostics=()):
+    """
+    Factures (brouillons et émises) qui contiennent déjà une des maintenances ou un des diagnostics.
+    À appeler dans une transaction : les maintenances / diagnostics sont verrouillés (select_for_update)
+    pour qu'un double clic ne crée pas deux factures.
+    """
+    ids_m = [m.pk for m in maintenances]
+    ids_d = [d.pk for d in diagnostics]
+    if ids_m:
+        list(Maintenance.objects.select_for_update().filter(pk__in=ids_m).values_list("pk", flat=True))
+    if ids_d:
+        from voiture.voiture_diagnostic.models import Diagnostic
+        list(Diagnostic.objects.select_for_update().filter(pk__in=ids_d).values_list("pk", flat=True))
+    filtre = models.Q(pk__in=[])
+    if ids_m:
+        filtre |= models.Q(maintenances__in=ids_m)
+    if ids_d:
+        filtre |= models.Q(diagnostics__in=ids_d)
+    return list(Facture.objects.filter(filtre).distinct().order_by("created_at"))
 
 
 # ------------------------------------------------------------
@@ -964,7 +997,9 @@ def emettre_facture(facture):
     """Numérote, fige les données client, calcule les totaux et génère le XML (pro)."""
     from .peppol.generator import generate_peppol_invoice
 
+    # Verrou sur la facture : deux émissions simultanées (double clic, deux onglets) ne numérotent qu'une fois
     facture = Facture.objects.select_for_update().get(pk=facture.pk)
+    facture.vient_d_etre_emise = False
     if not facture.est_brouillon:
         return facture
 
@@ -979,6 +1014,8 @@ def emettre_facture(facture):
     facture.copier_coordonnees_client()
     facture.recalculer_totaux(save=False)
     facture.save()
+
+    facture.vient_d_etre_emise = True
 
     if facture.est_pro:
         facture.xml_ubl = generate_peppol_invoice(facture).decode("utf-8")
@@ -1020,5 +1057,7 @@ def emettre_repartition(facture):
         if erreurs:
             refusees.append((f, erreurs))
             continue
-        emises.append(emettre_facture(f))
+        emise = emettre_facture(f)
+        if getattr(emise, "vient_d_etre_emise", False):
+            emises.append(emise)
     return emises, refusees

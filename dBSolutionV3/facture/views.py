@@ -30,6 +30,7 @@ from .services import (
     emettre_facture,
     emettre_repartition,
     erreurs_emission,
+    factures_existantes,
     parts_vehicule,
 )
 
@@ -184,14 +185,39 @@ def creer_facture_view(request):
         return redirect("facture:maintenances")
 
     vehicule = (maintenances[0] if maintenances else diagnostics[0]).voiture_exemplaire
-    reponse = _facturer_par_parts(request, vehicule, maintenances, diagnostics)
-    if reponse is not None:
-        return reponse
+    with transaction.atomic():
+        reponse = _deja_facture(request, maintenances, diagnostics)
+        if reponse is not None:
+            return reponse
+        reponse = _facturer_par_parts(request, vehicule, maintenances, diagnostics)
+        if reponse is not None:
+            return reponse
 
-    facture = creer_facture_depuis_maintenances(maintenances, type_facture, request.user, diagnostics=diagnostics)
-    _log(request.user, ACTION_CREATION_FACTURE, facture)
+        facture = creer_facture_depuis_maintenances(maintenances, type_facture, request.user, diagnostics=diagnostics)
+        _log(request.user, ACTION_CREATION_FACTURE, facture)
     messages.success(request, _("Brouillon de facture créé. Vérifiez les marges et les lignes avant d'émettre."))
     return redirect("facture:modifier", pk=facture.pk)
+
+
+def _deja_facture(request, maintenances, diagnostics):
+    """
+    Refuse de facturer une seconde fois une maintenance ou un diagnostic déjà repris sur une facture
+    (brouillon ou émise). Retourne une redirection, ou None si tout est à facturer.
+    """
+    existantes = factures_existantes(maintenances, diagnostics)
+    if not existantes:
+        return None
+    libelles = ", ".join(
+        (f.numero or _("brouillon")) + (f" – {f.nom_client_courant()}" if f.nom_client_courant() else "")
+        for f in existantes
+    )
+    messages.error(
+        request,
+        _("Déjà facturé : %(factures)s. Une maintenance ou un diagnostic ne peut être facturé qu'une seule fois "
+          "(supprimez le brouillon pour le refaire).") % {"factures": libelles},
+    )
+    f = existantes[0]
+    return redirect("facture:modifier" if f.est_brouillon else "facture:detail", pk=f.pk)
 
 
 def _facturer_par_parts(request, vehicule, maintenances, diagnostics):
@@ -241,12 +267,16 @@ def creer_facture_diagnostic_view(request, diagnostic_id):
         messages.error(request, _("Ce diagnostic n'est lié à aucun véhicule."))
         return redirect("voiture_diagnostic:diagnostic_detail", diagnostic_id=diagnostic.id)
 
-    reponse = _facturer_par_parts(request, diagnostic.voiture_exemplaire, [], [diagnostic])
-    if reponse is not None:
-        return reponse
+    with transaction.atomic():
+        reponse = _deja_facture(request, [], [diagnostic])
+        if reponse is not None:
+            return reponse
+        reponse = _facturer_par_parts(request, diagnostic.voiture_exemplaire, [], [diagnostic])
+        if reponse is not None:
+            return reponse
 
-    facture = creer_facture_depuis_diagnostic(diagnostic, type_facture, request.user)
-    _log(request.user, ACTION_CREATION_FACTURE, facture)
+        facture = creer_facture_depuis_diagnostic(diagnostic, type_facture, request.user)
+        _log(request.user, ACTION_CREATION_FACTURE, facture)
     if not diagnostic.taux_horaire:
         messages.warning(request, _("Aucun taux horaire sur le diagnostic : complétez le prix de la ligne avant d'émettre."))
     messages.success(request, _("Brouillon de facture créé. Vérifiez les marges et les lignes avant d'émettre."))
@@ -298,6 +328,14 @@ def facture_modifier_view(request, pk):
     if request.method == "GET":
         # Pièces utilisées ajoutées aux maintenances depuis la création du brouillon
         from .services import synchroniser_brouillon
+        # Brouillon sans client : client atelier associé au véhicule
+        if (not facture.est_pro and not facture.client_est_societe and not facture.client_particulier_id
+                and not facture.client_atelier_id and not facture.proprietaire_id):
+            atelier = Facture.client_atelier_du_vehicule(facture.voiture_exemplaire)
+            if atelier is not None:
+                facture.client_atelier = atelier
+                facture.save(update_fields=["client_atelier", "updated_at"])
+                messages.info(request, _("Client atelier du véhicule repris sur la facture."))
         try:
             with transaction.atomic():
                 synchroniser_brouillon(facture)
@@ -311,6 +349,11 @@ def facture_modifier_view(request, pk):
 
         if form.is_valid() and formset.is_valid():
             with transaction.atomic():
+                # Verrou : la facture a pu être émise entre-temps (double clic, autre onglet)
+                if not Facture.objects.select_for_update().filter(
+                        pk=facture.pk, statut=Facture.Statut.BROUILLON).exists():
+                    messages.info(request, _("Cette facture est déjà émise : elle ne peut plus être modifiée ni émise à nouveau."))
+                    return redirect("facture:detail", pk=facture.pk)
                 facture = form.save()
                 ordre_max = facture.lines.aggregate(m=Max("ordre"))["m"] or 0
                 lignes = formset.save(commit=False)
@@ -339,7 +382,12 @@ def facture_modifier_view(request, pk):
                     for erreur in erreurs:
                         messages.error(request, erreur)
                     return redirect("facture:modifier", pk=facture.pk)
-                facture = emettre_facture(facture)
+                with transaction.atomic():
+                    facture = emettre_facture(facture)
+                if not getattr(facture, "vient_d_etre_emise", False):
+                    messages.info(request, _("Cette facture est déjà émise (%(numero)s) : elle n'est pas émise une seconde fois.")
+                                  % {"numero": facture.numero})
+                    return redirect("facture:detail", pk=facture.pk)
                 _log(request.user, ACTION_EMISSION_FACTURE, facture)
                 messages.success(request, _("Facture %(numero)s émise.") % {"numero": facture.numero})
 

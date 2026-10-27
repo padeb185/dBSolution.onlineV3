@@ -67099,3 +67099,24 @@ msgstr "Not paid this month."
 
 msgid "dont 13e mois"
 msgstr "of which 13th month"
+
+msgid "Déjà facturé : %(factures)s. Une maintenance ou un diagnostic ne peut être facturé qu'une seule fois (supprimez le brouillon pour le refaire)."
+msgstr "Already invoiced: %(factures)s. A maintenance or a diagnostic can only be invoiced once (delete the draft to redo it)."
+
+msgid "Cette facture est déjà émise : elle ne peut plus être modifiée ni émise à nouveau."
+msgstr "This invoice has already been issued: it can no longer be modified or issued again."
+
+msgid "Cette facture est déjà émise (%(numero)s) : elle n'est pas émise une seconde fois."
+msgstr "This invoice has already been issued (%(numero)s): it is not issued a second time."
+
+msgid "Déjà facturé"
+msgstr "Already invoiced"
+
+msgid "Téléphone du client"
+msgstr "Customer phone"
+
+msgid "Client atelier du véhicule repris sur la facture."
+msgstr "The vehicle's workshop customer has been added to the invoice."
+
+msgid "Tél."
+msgstr "Tel."

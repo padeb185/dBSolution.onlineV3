@@ -82,8 +82,12 @@
                 {% with exemplaire=m.voiture_exemplaire %}
                 <tr>
                     <td class="border px-4 py-2 text-center">
+                        {% if m.factures.all %}
+                            <input type="checkbox" disabled title="{% trans 'Déjà facturé' %}" aria-label="{% trans 'Déjà facturé' %}">
+                        {% else %}
                         <input type="checkbox" name="maintenances" value="{{ m.pk }}" class="case-maintenance"
                                data-vehicule="{{ exemplaire.pk|default:'' }}">
+                        {% endif %}
                     </td>
                     <td class="border px-4 py-2" data-order="{{ m.date_intervention|date:'Y-m-d' }}">
                         {{ m.date_intervention|date:"d/m/Y" }}
@@ -119,6 +123,7 @@
                         {% endfor %}
                     </td>
                     <td class="border px-4 py-2 text-center whitespace-nowrap">
+                        {% if m.factures.all %}<span class="text-gray-500">{% trans "Déjà facturé" %}</span>{% else %}
                         <button type="button" data-type="{{ type_client }}" data-id="{{ m.pk }}"
                                 class="btn-une bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">
                             {% trans "Client" %}
@@ -127,6 +132,7 @@
                                 class="btn-une bg-green-600 text-white px-3 py-1 rounded hover:bg-green-500">
                             {% trans "Pro" %}
                         </button>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endwith %}
@@ -135,8 +141,12 @@
                 {% with exemplaire=d.voiture_exemplaire %}
                 <tr>
                     <td class="border px-4 py-2 text-center">
+                        {% if d.factures.all %}
+                            <input type="checkbox" disabled title="{% trans 'Déjà facturé' %}" aria-label="{% trans 'Déjà facturé' %}">
+                        {% else %}
                         <input type="checkbox" name="diagnostics" value="{{ d.pk }}" class="case-maintenance"
                                data-vehicule="{{ exemplaire.pk|default:'' }}">
+                        {% endif %}
                     </td>
                     <td class="border px-4 py-2" data-order="{{ d.date_diagnostic|date:'Y-m-d' }}">
                         {{ d.date_diagnostic|date:"d/m/Y" }}
@@ -168,6 +178,7 @@
                         {% endfor %}
                     </td>
                     <td class="border px-4 py-2 text-center whitespace-nowrap">
+                        {% if d.factures.all %}<span class="text-gray-500">{% trans "Déjà facturé" %}</span>{% else %}
                         <button type="button" data-type="{{ type_client }}" data-id="{{ d.pk }}" data-sorte="diagnostic"
                                 class="btn-une bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">
                             {% trans "Client" %}
@@ -176,6 +187,7 @@
                                 class="btn-une bg-green-600 text-white px-3 py-1 rounded hover:bg-green-500">
                             {% trans "Pro" %}
                         </button>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endwith %}
@@ -223,7 +235,7 @@ $(document).ready(function () {
     });
 
     $('#tout-cocher').on('change', function () {
-        $('.case-maintenance').prop('checked', this.checked);
+        $('.case-maintenance:not(:disabled)').prop('checked', this.checked);
     });
 
     // Boutons « Client » / « Pro » d'une ligne
@@ -236,7 +248,16 @@ $(document).ready(function () {
             $('#une-id').val($(this).data('id'));
             $('#une-diagnostic').val('');
         }
+        $('.btn-une').prop('disabled', true);   // pas de double clic : une seule facture
         $('#form-une').submit();
+    });
+
+    // Création groupée : un seul envoi du formulaire
+    $('#form-facture').on('submit', function () {
+        const form = this;
+        if (form.dataset.envoye === "1") return false;
+        form.dataset.envoye = "1";
+        setTimeout(function () { $(form).find('button[type=submit]').prop('disabled', true); }, 0);
     });
 });
 </script>

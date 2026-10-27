@@ -313,20 +313,24 @@ def location_facturer(request, location_id):
 
     from facture.models import Facture
     from facture.services import creer_facture_depuis_location
+    from django.db import transaction
     location = get_object_or_404(_queryset(request), id=location_id)
-
-    existante = location.facture
-    if existante is not None:
-        messages.info(request, _("Cette location est déjà facturée."))
-        return redirect("facture:detail", pk=existante.pk)
 
     type_facture = request.POST.get("type_facture")
     if type_facture not in Facture.TypeFacture.values:
         messages.error(request, _("Type de facture inconnu."))
         return redirect("voiture_location:location_liste")
 
-    facture = creer_facture_depuis_location(location, type_facture, request.user)
-    _log(request.user, ACTION_FACTURE_LOCATION, location)
+    with transaction.atomic():
+        # Verrou sur la location : un double clic ne crée pas deux factures
+        location = _queryset(request).select_for_update(of=("self",)).get(pk=location.pk)
+        existante = location.facture
+        if existante is not None:
+            messages.info(request, _("Cette location est déjà facturée."))
+            return redirect("facture:modifier" if existante.statut == Facture.Statut.BROUILLON else "facture:detail",
+                            pk=existante.pk)
+        facture = creer_facture_depuis_location(location, type_facture, request.user)
+        _log(request.user, ACTION_FACTURE_LOCATION, location)
     if type_facture == Facture.TypeFacture.PRO and not facture.societe_cliente_id:
         messages.warning(request, _("Sélectionnez le client professionnel avant d'émettre la facture."))
     messages.success(request, _("Brouillon de facture créé. Le prix de location est TVAC : vérifiez la ligne avant d'émettre."))

@@ -232,6 +232,7 @@ class Facture(models.Model):
     client_adresse = models.TextField(_("Adresse du client"), blank=True)
     client_tva = models.CharField(_("TVA du client"), max_length=30, blank=True)
     client_email = models.EmailField(_("Email du client"), blank=True)
+    client_telephone = models.CharField(_("Téléphone du client"), max_length=30, blank=True)
 
     issue_date = models.DateField(_("Date d’émission"), default=timezone.localdate)
     due_date = models.DateField(_("Date d'échéance"), null=True, blank=True)
@@ -461,34 +462,81 @@ class Facture(models.Model):
             return f"{self.proprietaire.prenom} {self.proprietaire.nom}".strip()
         return ""
 
-    def copier_coordonnees_client(self):
-        """Fige les coordonnées du client sur la facture (à l'émission)."""
+    @staticmethod
+    def client_atelier_du_vehicule(vehicule):
+        """Client atelier associé au véhicule (le plus récent s'il y en a plusieurs), ou None."""
+        if vehicule is None or not getattr(vehicule, "pk", None):
+            return None
+        from client_atelier.models import ClientAtelier
+        return (
+            ClientAtelier.objects.filter(voitures=vehicule)
+            .select_related("client_particulier", "client_particulier__adresse",
+                            "societe_cliente", "societe_cliente__adresse", "adresse")
+            .order_by("-created_at", "-pk")
+            .first()
+        )
+
+    def coordonnees_client(self):
+        """
+        Coordonnées actuelles du client (nom, adresse, TVA, email, téléphone).
+        Client atelier : complétées par la fiche liée (client particulier ou société cliente).
+        """
         client = self.client
         adresse = getattr(client, "adresse", None) if client else None
         email = (getattr(client, "email", "") or "") if client else ""
-        # Client atelier : adresse / email repris de la fiche client liée si absents
-        if self.client_atelier and client is self.client_atelier:
+        telephone = ((getattr(client, "numero_telephone", "") or getattr(client, "numero_tel", "") or "")
+                     if client else "")
+        tva = ((getattr(client, "numero_tva", "") or "")
+               if client and (self.est_pro or self.client_est_societe) else "")
+        if self.client_atelier_id and client is self.client_atelier:
             lie = self.client_atelier.client_particulier or self.client_atelier.societe_cliente
             if lie is not None:
                 adresse = adresse or getattr(lie, "adresse", None)
                 email = email or (getattr(lie, "email", "") or "")
-        self.client_nom = self.nom_client_courant()
-        self.client_email = email
-        self.client_tva = (
-            (getattr(client, "numero_tva", "") or "")
-            if client and (self.est_pro or self.client_est_societe) else ""
-        )
+                telephone = telephone or (getattr(lie, "numero_telephone", "") or "")
+            sc = self.client_atelier.societe_cliente
+            if sc is not None and not self.client_atelier.client_particulier_id:
+                tva = tva or (sc.numero_tva or "")
+        lignes_adresse = ""
         if adresse:
             ligne1 = f"{adresse.rue} {adresse.numero}".strip()
             if adresse.boite:
                 ligne1 += f" / {adresse.boite}"
-            self.client_adresse = "\n".join(filter(None, [
+            lignes_adresse = "\n".join(filter(None, [
                 ligne1,
                 f"{adresse.code_postal} {adresse.ville}".strip(),
                 adresse.pays or "",
             ]))
-        else:
-            self.client_adresse = ""
+        return {
+            "nom": self.nom_client_courant() if not self.est_emise else (self.client_nom or self.nom_client_courant()),
+            "adresse": lignes_adresse,
+            "tva": tva,
+            "email": email,
+            "telephone": str(telephone or "")[:30],
+            "client_atelier": bool(self.client_atelier_id),
+        }
+
+    def coordonnees_affichage(self):
+        """Coordonnées imprimées : figées à l'émission, sinon celles de la fiche client (brouillon)."""
+        if self.est_emise:
+            return {
+                "nom": self.client_nom,
+                "adresse": self.client_adresse,
+                "tva": self.client_tva,
+                "email": self.client_email,
+                "telephone": self.client_telephone,
+                "client_atelier": bool(self.client_atelier_id),
+            }
+        return self.coordonnees_client()
+
+    def copier_coordonnees_client(self):
+        """Fige les coordonnées du client sur la facture (à l'émission)."""
+        c = self.coordonnees_client()
+        self.client_nom = self.nom_client_courant()
+        self.client_email = c["email"]
+        self.client_tva = c["tva"]
+        self.client_telephone = c["telephone"]
+        self.client_adresse = c["adresse"]
 
     # -------------------------
     # TOTAUX
