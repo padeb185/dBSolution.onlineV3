@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
 
-{% block title %}{% trans "Liste des Copropriétaires" %}{% endblock %}
+{% block title %}{% trans "Liste des Copropriétaires" %}<style>
+.badge-type { display:inline-block; padding:2px 8px; border-radius:6px; font-size:0.85rem; font-weight:600; }
+.badge-tenant { background:#dbeafe; color:#1e40af; }
+.badge-proprietaire { background:#f3f4f6; color:#374151; }
+.badge-societe_cliente { background:#dcfce7; color:#166534; }
+</style>
+{% endblock %}
 
 {% block content %}
 <br>
@@ -23,7 +29,7 @@
 <div>
     <a href="{% url 'proprietaire:proprietaire_voiture_form' %}"
        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-        {% trans "Ajouter un copropriétaire" %}
+        {% trans "Ajouter des propriétaires à un véhicule" %}
     </a>
 </div>
 
@@ -35,11 +41,11 @@
 
         <input id="search-nom" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px]"
-               placeholder="{% trans 'Nom' %}">
+               placeholder="{% trans 'Propriétaire' %}">
 
         <input id="search-prenom" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px]"
-               placeholder="{% trans 'Prénom' %}">
+               placeholder="{% trans 'Type' %}">
 
         <input id="search-adresse" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px]"
@@ -60,8 +66,8 @@
 <table id="proprietaire_voitures-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
-            <th class="border px-4 py-2">{% trans "Nom" %}</th>
-            <th class="border px-4 py-2">{% trans "Prénom" %}</th>
+            <th class="border px-4 py-2">{% trans "Propriétaire" %}</th>
+            <th class="border px-4 py-2">{% trans "Type" %}</th>
             <th class="border px-4 py-2">{% trans "Adresse" %}</th>
             <th class="border px-4 py-2">{% trans "Voiture" %}</th>
             <th class="border px-4 py-2">{% trans "Part en pourcent" %}</th>
@@ -72,11 +78,13 @@
     <tbody>
         {% for proprietaire_voiture in proprietaire_voitures %}
         <tr>
-            <td class="border px-4 py-2">{{ proprietaire_voiture.proprietaire.nom }}</td>
+            <td class="border px-4 py-2 font-semibold">{{ proprietaire_voiture.nom_proprietaire }}</td>
 
-            <td class="border px-4 py-2">{{ proprietaire_voiture.proprietaire.prenom }}</td>
+            <td class="border px-4 py-2">
+                <span class="badge-type badge-{{ proprietaire_voiture.type_proprietaire|lower }}">{{ proprietaire_voiture.get_type_proprietaire_display }}</span>
+            </td>
 
-            <td class="border px-4 py-2">{{ proprietaire_voiture.proprietaire.adresse|default:"-" }}</td>
+            <td class="border px-4 py-2">{{ proprietaire_voiture.adresse|default:"-" }}</td>
 
              <td class="p-3">
             {% with exemplaire=proprietaire_voiture.voiture_exemplaire %}
@@ -85,13 +93,17 @@
             </td>
 
             <td class="border px-4 py-2">
-                {{ proprietaire_voiture.part_proprietaire_pourcent }}
+                {{ proprietaire_voiture.part_proprietaire_pourcent }} %
             </td>
 
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'proprietaire:proprietaire_voiture_detail' proprietaire_voiture.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Info" %}
+                </a>
+                <a href="{% url 'proprietaire:parts_vehicule' exemplaire_id=proprietaire_voiture.voiture_exemplaire_id %}"
+                   class="bg-gray-200 px-4 py-1 rounded hover:bg-gray-300 transition ml-1">
+                    {% trans "Parts du véhicule" %}
                 </a>
             </td>
         </tr>
@@ -171,4 +183,10 @@ $(document).ready(function() {
 {% endif %}
 
 
+<style>
+.badge-type { display:inline-block; padding:2px 8px; border-radius:6px; font-size:0.85rem; font-weight:600; }
+.badge-tenant { background:#dbeafe; color:#1e40af; }
+.badge-proprietaire { background:#f3f4f6; color:#374151; }
+.badge-societe_cliente { background:#dcfce7; color:#166534; }
+</style>
 {% endblock %}

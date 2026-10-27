@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Statistiques Trackday" %} {{ annee }}{% endblock %}
+{% block content %}
+{% include "voiture_location/trackday/_styles.html" %}
+<div class="p-6">
+    <h1 class="text-2xl font-bold mb-6 flex items-center gap-3">
+        <img src="{% static 'icons/trackday.png' %}" alt="" class="w-16 h-16">
+        {% trans "Statistiques Trackday" %}
+    </h1>
+
+    <div class="flex flex-wrap items-end justify-between gap-3 mb-6">
+        <form method="get">
+            <label class="block text-sm font-semibold mb-1">{% trans "Année" %}</label>
+            <select name="annee" class="border rounded px-3 py-2" onchange="this.form.submit()">
+                {% for a in annees %}<option value="{{ a }}" {% if a == annee %}selected{% endif %}>{{ a }}</option>{% endfor %}
+            </select>
+        </form>
+        <a href="{% url 'voiture_location:trackday_liste' %}" class="td-btn td-btn-gris">{% trans "Retour aux Trackdays" %}</a>
+    </div>
+
+    <div class="td-carte mb-6">
+        <h2 class="td-titre">{% blocktrans %}Synthèse {{ annee }}{% endblocktrans %}</h2>
+        <div class="td-kpi">
+            <div><span>{% trans "Trackdays" %}</span><strong>{{ totaux.nb }}</strong></div>
+            <div><span>{% trans "Véhicules engagés" %}</span><strong>{{ totaux.nb_vehicules }}</strong></div>
+            <div><span>{% trans "Véhicules par Trackday" %}</span><strong>{{ totaux.vehicules_moyen }}</strong></div>
+            <div><span>{% trans "Box utilisés" %}</span><strong>{{ totaux.nb_box }}</strong></div>
+            <div><span>{% trans "Tours réservés" %}</span><strong>{{ totaux.tours }}</strong></div>
+            <div><span>{% trans "Ventes HTVA" %}</span><strong>{{ totaux.ventes_htva|floatformat:2 }} €</strong></div>
+            <div><span>{% trans "Prix d'achat total HTVA" %}</span><strong>{{ totaux.couts_htva|floatformat:2 }} €</strong></div>
+            <div><span>{% trans "Marge" %}</span><strong class="{% if totaux.marge >= 0 %}td-positif{% else %}td-negatif{% endif %}">{{ totaux.marge|floatformat:2 }} €{% if totaux.marge_pct is not None %} <small>({{ totaux.marge_pct }} %)</small>{% endif %}</strong></div>
+        </div>
+    </div>
+
+    <div class="td-carte mb-6 overflow-x-auto">
+        <h2 class="td-titre">{% trans "Rentabilité par Trackday" %}</h2>
+        <table class="td-table">
+            <thead><tr>
+                <th>{% trans "Date" %}</th><th>{% trans "Circuit" %}</th><th class="text-right">{% trans "Véhicules" %}</th><th class="text-right">{% trans "Box" %}</th>
+                <th class="text-right">{% trans "Ventes HTVA" %}</th><th class="text-right">{% trans "Coûts HTVA" %}</th><th class="text-right">{% trans "Marge" %}</th><th class="text-right">%</th>
+            </tr></thead>
+            <tbody>
+            {% for l in lignes %}
+                <tr>
+                    <td class="whitespace-nowrap"><a href="{% url 'voiture_location:trackday_detail' l.t.pk %}" class="text-blue-700 underline">{{ l.t.periode_affichage }}</a></td>
+                    <td>{{ l.t.get_circuit_display }}{% if l.t.nom %} <small class="text-gray-500">({{ l.t.nom }})</small>{% endif %}</td>
+                    <td class="text-right">{{ l.nb_vehicules }}</td>
+                    <td class="text-right">{{ l.nb_box }} / {{ l.nombre_box }}</td>
+                    <td class="text-right whitespace-nowrap">{{ l.ventes_htva|floatformat:2 }} €</td>
+                    <td class="text-right whitespace-nowrap">{{ l.couts_htva|floatformat:2 }} €</td>
+                    <td class="text-right whitespace-nowrap font-semibold {% if l.marge >= 0 %}td-positif{% else %}td-negatif{% endif %}">{{ l.marge|floatformat:2 }} €</td>
+                    <td class="text-right">{{ l.marge_pct|default:"-" }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="8" class="text-center text-gray-500 py-6">{% trans "Aucun Trackday sur l'année." %}</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <div class="td-carte overflow-x-auto">
+            <h2 class="td-titre">{% trans "Par circuit" %}</h2>
+            <table class="td-table">
+                <thead><tr><th>{% trans "Circuit" %}</th><th class="text-right">{% trans "Trackdays" %}</th><th class="text-right">{% trans "Véhicules" %}</th><th class="text-right">{% trans "Ventes HTVA" %}</th><th class="text-right">{% trans "Marge" %}</th></tr></thead>
+                <tbody>
+                {% for c in par_circuit %}
+                    <tr><td>{{ c.circuit }}</td><td class="text-right">{{ c.nb }}</td><td class="text-right">{{ c.nb_vehicules }}</td>
+                        <td class="text-right whitespace-nowrap">{{ c.ventes_htva|floatformat:2 }} €</td>
+                        <td class="text-right whitespace-nowrap font-semibold {% if c.marge >= 0 %}td-positif{% else %}td-negatif{% endif %}">{{ c.marge|floatformat:2 }} €{% if c.marge_pct is not None %} <small>({{ c.marge_pct }} %)</small>{% endif %}</td></tr>
+                {% empty %}
+                    <tr><td colspan="5" class="text-gray-500">-</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="td-carte">
+            <h2 class="td-titre">{% trans "Ventes HTVA par mois" %}</h2>
+            {% for m in par_mois %}
+                <div class="flex items-center gap-3 mb-2 text-sm">
+                    <span class="w-24">{{ m.date|date:"F" }}</span>
+                    <div class="flex-1 bg-gray-100 rounded"><div class="td-barre" style="width: {{ m.largeur }}%"></div></div>
+                    <span class="w-28 text-right">{{ m.ventes_htva|floatformat:0 }} €</span>
+                    <span class="w-20 text-right text-gray-500">{{ m.nb_vehicules }} {% trans "véh." %}</span>
+                </div>
+            {% empty %}
+                <p class="text-gray-500">-</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

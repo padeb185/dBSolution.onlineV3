@@ -23,11 +23,18 @@
     .tbl tr.gras td { font-weight: bold; }
     .note { margin-top: 5mm; font-size: 7pt; color: #6b7280; }
     .alerte { color: #b91c1c; font-weight: bold; }
+    .avert { border: 1.5px solid #f59e0b; background: #fffbeb; color: #92400e; padding: 2.5mm 3mm; margin-bottom: 4mm; font-size: 8pt; }
+    .schema { font-size: 10pt; color: #374151; font-weight: normal; }
+    @page { @top-center { content: "{% trans 'Document indicatif – à faire vérifier par un comptable' %}"; font-size: 7.5pt; color: #b45309; } }
 </style>
 </head>
 <body>
 <div class="entete">
-    <h1>{% trans "Comptes annuels" %} – {% trans "exercice" %} {{ annee }}</h1>
+    <div class="avert">
+        <strong>{% trans "Document à titre indicatif" %}</strong> –
+        {% trans "Ce bilan est généré automatiquement à partir des données de l'application. Il ne remplace pas les comptes annuels officiels et doit être vérifié par un comptable ou un expert-comptable (ITAA) avant toute utilisation ou tout dépôt à la BNB." %}
+    </div>
+    <h1>{% trans "Comptes annuels" %} – {% trans "exercice" %} {{ annee }} <span class="schema">({{ schema_libelle }})</span></h1>
     <strong>{{ societe.nom }}</strong>{% if societe.numero_tva %} – {% trans "N° d'entreprise / TVA" %} : {{ societe.numero_tva|format_tva }}{% endif %}<br>
     {% if societe.adresse %}{{ societe.adresse.rue }} {{ societe.adresse.numero }}, {{ societe.adresse.code_postal }} {{ societe.adresse.ville }}<br>{% endif %}
     {% trans "Bilan au" %} 31/12/{{ annee }} – {% trans "montants en euros" %}
@@ -47,6 +54,7 @@
 <p class="note">
     {% trans "Présentation selon le schéma des comptes annuels de la Banque nationale de Belgique (codes des rubriques), à partir du plan comptable minimum normalisé (PCMN). Montants en euros." %}
     {% trans "Document de travail établi à partir des écritures de l'application (ventes, achats, salaires, immobilisations, stock, trésorerie, opérations diverses). Le dépôt à la BNB doit être effectué par votre comptable ou expert-comptable." %}
+    {% if source == "reference" %}{% blocktrans with a=annee %}Exercice {{ a }} : montants du bilan établi par le comptable.{% endblocktrans %}{% elif source == "reference_et_ecritures" %}{% blocktrans with r=reference.annee %}Base : bilan du comptable au 31/12/{{ r }}, complété par les écritures de l'application.{% endblocktrans %}{% endif %}
     {% trans "Document généré le" %} {{ date_export|date:"d/m/Y H:i" }}.
 </p>
 </body>

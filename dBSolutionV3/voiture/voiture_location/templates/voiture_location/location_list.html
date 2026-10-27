@@ -28,6 +28,10 @@
         {% trans "Statistiques" %}
     </a>
     {% endif %}
+    <a href="{% url 'voiture_location:trackday_liste' %}"
+       class="bg-gray-900 text-white px-5 py-4 rounded hover:bg-gray-600 font-semibold text-center">
+        {% trans "Trackdays" %}
+    </a>
     <a href="{% url 'voiture_location:interdictions_liste' %}"
        class="bg-red-700 text-white px-5 py-4 rounded hover:bg-red-500 font-semibold text-center">
         {% trans "Règles et interdictions" %}

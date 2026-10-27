@@ -464,25 +464,31 @@ def synchroniser_pieces_utilisees(facture, recalculer=True):
 # Création / émission
 # ------------------------------------------------------------
 @transaction.atomic
-def creer_facture_depuis_maintenances(maintenances, type_facture, user, diagnostics=()):
+def creer_facture_depuis_maintenances(maintenances, type_facture, user, diagnostics=(), **champs):
+    """
+    Brouillon de facture pour des maintenances / diagnostics d'un même véhicule.
+    champs : valeurs imposées de la facture (client, quote-part, marges…) — facturation par parts.
+    """
     maintenances = list(maintenances)
     diagnostics = list(diagnostics)
     premiere = maintenances[0] if maintenances else diagnostics[0]
     vehicule = premiere.voiture_exemplaire
 
-    facture = Facture.objects.create(
-        type_facture=type_facture,
-        societe=getattr(user, "societe", None),
-        voiture_exemplaire=vehicule,
-        client_particulier=(
+    valeurs = {
+        "type_facture": type_facture,
+        "societe": getattr(user, "societe", None),
+        "voiture_exemplaire": vehicule,
+        "client_particulier": (
             vehicule.client if vehicule and type_facture == Facture.TypeFacture.CLIENT else None
         ),
         # Véhicule de la société (sans client) : la société est aussi le client
-        client_est_societe=bool(vehicule and not vehicule.client_id and type_facture == Facture.TypeFacture.CLIENT),
-        issue_date=timezone.localdate(),
-        due_date=timezone.localdate() + timedelta(days=30),
-        cree_par=user,
-    )
+        "client_est_societe": bool(vehicule and not vehicule.client_id and type_facture == Facture.TypeFacture.CLIENT),
+        "issue_date": timezone.localdate(),
+        "due_date": timezone.localdate() + timedelta(days=30),
+        "cree_par": user,
+    }
+    valeurs.update(champs)
+    facture = Facture.objects.create(**valeurs)
     facture.maintenances.set(maintenances)
     facture.diagnostics.set(diagnostics)
 
@@ -499,6 +505,122 @@ def creer_facture_depuis_maintenances(maintenances, type_facture, user, diagnost
 
     facture.recalculer_totaux()
     return facture
+
+
+# ------------------------------------------------------------
+# Facturation en fonction des parts de propriété
+# ------------------------------------------------------------
+CENT = Decimal("100")
+
+
+def parts_vehicule(vehicule):
+    """Parts de propriété d'un véhicule (plus grande part d'abord) et leur total."""
+    if vehicule is None:
+        return [], Decimal("0")
+    from proprietaire.models import ProprietaireVoiture
+    parts = list(
+        ProprietaireVoiture.objects.filter(voiture_exemplaire=vehicule)
+        .select_related("proprietaire", "proprietaire__adresse", "societe_cliente", "societe")
+        .order_by("-part_proprietaire_pourcent", "id")
+    )
+    total = sum((Decimal(p.part_proprietaire_pourcent or 0) for p in parts), Decimal("0"))
+    return parts, arrondi(total)
+
+
+def erreurs_repartition(vehicule):
+    """Problèmes qui empêchent de facturer par parts (liste vide = facturation possible)."""
+    parts, total = parts_vehicule(vehicule)
+    erreurs = []
+    if not parts:
+        return erreurs
+    if total != CENT:
+        erreurs.append(
+            _("Le total des parts de ce véhicule est de %(total)s %% : il doit être de 100 %% pour facturer en fonction des parts.")
+            % {"total": total}
+        )
+    for p in parts:
+        if p.est_societe_cliente and not p.societe_cliente_id:
+            erreurs.append(_("Une part n'a pas de société partenaire."))
+        elif not p.est_tenant and not p.est_societe_cliente and not p.proprietaire_id:
+            erreurs.append(_("Une part n'a pas de propriétaire."))
+    return erreurs
+
+
+def champs_facture_part(part):
+    """
+    Valeurs de la facture d'une part :
+      - notre société : facture interne (client = notre société), sans marge — TVA des pièces récupérée ;
+      - société partenaire : facture professionnelle (Peppol), TVA et marges de la part ;
+      - propriétaire (personne) : facture client, TVA et marges de la part.
+    """
+    commun = {
+        "part_pourcent": arrondi(part.part_proprietaire_pourcent),
+        "part_proprietaire": part,
+        "client_particulier": None,
+        "client_atelier": None,
+        "societe_cliente": None,
+        "proprietaire": None,
+        "client_est_societe": False,
+    }
+    if part.est_tenant:
+        commun.update({
+            "type_facture": Facture.TypeFacture.CLIENT,
+            "client_est_societe": True,
+            "marge_pieces": Decimal("0.00"),
+            "marge_main_oeuvre": Decimal("0.00"),
+        })
+    elif part.est_societe_cliente:
+        commun.update({
+            "type_facture": Facture.TypeFacture.PRO,
+            "societe_cliente": part.societe_cliente,
+            "marge_pieces": arrondi(part.marge_pieces),
+            "marge_main_oeuvre": arrondi(part.marge_main_oeuvre),
+        })
+    else:
+        commun.update({
+            "type_facture": Facture.TypeFacture.CLIENT,
+            "proprietaire": part.proprietaire,
+            "marge_pieces": arrondi(part.marge_pieces),
+            "marge_main_oeuvre": arrondi(part.marge_main_oeuvre),
+        })
+    return commun
+
+
+@transaction.atomic
+def creer_factures_par_parts(maintenances, user, diagnostics=()):
+    """
+    Une facture brouillon par propriétaire du véhicule, chacune au pourcentage de sa part.
+    Notre société seule propriétaire (100 %) : une seule facture interne, sans marge.
+    Lève ValueError si le total des parts n'est pas de 100 %.
+    Retourne la liste des factures (la plus grande part d'abord).
+    """
+    maintenances = list(maintenances)
+    diagnostics = list(diagnostics)
+    premiere = maintenances[0] if maintenances else diagnostics[0]
+    vehicule = premiere.voiture_exemplaire
+    erreurs = erreurs_repartition(vehicule)
+    if erreurs:
+        raise ValueError(" ".join(str(e) for e in erreurs))
+    parts, _total = parts_vehicule(vehicule)
+    if not parts:
+        raise ValueError(_("Ce véhicule n'a aucun propriétaire enregistré."))
+
+    import uuid
+    repartition = uuid.uuid4() if len(parts) > 1 else None
+    factures = []
+    for part in parts:
+        champs = champs_facture_part(part)
+        type_facture = champs.pop("type_facture")
+        champs["repartition"] = repartition
+        if repartition and not part.est_tenant:
+            champs["remarques"] = (
+                _("Quote-part de %(part)s %% du véhicule %(vehicule)s (copropriété).")
+                % {"part": champs["part_pourcent"], "vehicule": getattr(vehicule, "immatriculation", "") or ""}
+            )
+        factures.append(
+            creer_facture_depuis_maintenances(maintenances, type_facture, user, diagnostics=diagnostics, **champs)
+        )
+    return factures
 
 
 def _taux_tva_societe(societe):
@@ -830,8 +952,10 @@ def erreurs_emission(facture):
         if societe and not societe.adresse:
             erreurs.append(_("Votre société n'a pas d'adresse."))
     else:
-        if not facture.client_particulier and not facture.client_atelier:
+        if not facture.client_particulier and not facture.client_atelier and not facture.proprietaire:
             erreurs.append(_("Sélectionnez le client ou le client atelier."))
+    if facture.part_pourcent is not None and not (Decimal("0") < Decimal(facture.part_pourcent) <= CENT):
+        erreurs.append(_("La quote-part de la facture doit être comprise entre 0 et 100 %."))
     return erreurs
 
 
@@ -881,3 +1005,20 @@ def emettre_facture(facture):
             pass
 
     return facture
+
+
+def emettre_repartition(facture):
+    """
+    Émet toutes les factures brouillon de la répartition par parts.
+    Retourne (emises, refusees) : refusees = [(facture, [erreurs])].
+    """
+    emises, refusees = [], []
+    for f in facture.factures_repartition():
+        if not f.est_brouillon:
+            continue
+        erreurs = erreurs_emission(f)
+        if erreurs:
+            refusees.append((f, erreurs))
+            continue
+        emises.append(emettre_facture(f))
+    return emises, refusees

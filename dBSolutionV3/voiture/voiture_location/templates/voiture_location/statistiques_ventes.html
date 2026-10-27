@@ -281,6 +281,33 @@
     </div>
 </div>
 
+{% if par_trackday %}
+<div class="bg-white shadow-md rounded-lg p-4 mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-3">{% trans "Ventes des Trackdays" %}</h2>
+    <table class="min-w-full border-collapse text-sm">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border px-2 py-1 text-left">{% trans "Trackday" %}</th>
+                <th class="border px-2 py-1 text-right">{% trans "Véhicules" %}</th>
+                <th class="border px-2 py-1 text-right">{% trans "HTVA" %}</th>
+                <th class="border px-2 py-1 text-right">{% trans "TVAC" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for t in par_trackday %}
+            <tr>
+                <td class="border px-2 py-1"><a href="{% url 'voiture_location:trackday_detail' t.trackday.pk %}" class="text-blue-700 underline">{{ t.trackday }}</a></td>
+                <td class="border px-2 py-1 text-right">{{ t.nb }}</td>
+                <td class="border px-2 py-1 text-right">{{ t.htva|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ t.tvac|floatformat:2 }} €</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p class="text-xs text-gray-500 mt-2">{% trans "Chaque véhicule d'un Trackday est une location : il est compté dans les ventes du vendeur indiqué sur la location." %}</p>
+</div>
+{% endif %}
+
 {% if voit_tout %}
 <p class="text-sm text-gray-500 mb-6">
     {% trans "« Non attribué » : locations enregistrées avant l'ajout du vendeur. La direction peut indiquer le vendeur en modifiant la location." %}

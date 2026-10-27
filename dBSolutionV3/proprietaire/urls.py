@@ -2,7 +2,8 @@ from django.urls import path
 from .views import proprietaire_dashboard_view, ProprietaireListView, ProprietaireVoitureListView, \
     proprietaire_form_view, proprietaire_detail_view, proprietaire_voiture_form_view, \
     proprietaire_voiture_detail_view, total_part_voiture, modifier_proprietaire_view, \
-    modifier_proprietaire_voiture_view, delete_proprietaire_view, delete_proprietaire_voiture_view
+    modifier_proprietaire_voiture_view, delete_proprietaire_view, delete_proprietaire_voiture_view, \
+    parts_vehicule_view
 
 app_name = "proprietaire"
 
@@ -20,6 +21,8 @@ urlpatterns = [
     path('proprietaire/', ProprietaireVoitureListView.as_view(), name='proprietaire_voiture_list'),
 
     path('proprietaire/creer/', proprietaire_voiture_form_view, name='proprietaire_voiture_form'),
+
+    path("vehicule/<uuid:exemplaire_id>/parts/", parts_vehicule_view, name="parts_vehicule"),
 
     path("proprietaire/<int:proprietaire_voiture_id>/",proprietaire_voiture_detail_view,name="proprietaire_voiture_detail"),
 

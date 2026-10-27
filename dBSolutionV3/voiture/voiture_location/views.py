@@ -10,7 +10,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
 
 from .forms import LocationBoxFormSet, LocationForm, LocationVehiculeSupForm
-from .models import Location, ObjectifVente
+from .models import Location, ObjectifVente, Trackday
 
 ROLES_AUTORISES = ["vendeur", "direction", "chef_mecanicien"]
 # Suppression : direction, chef mécanicien (+ super admin)
@@ -49,6 +49,7 @@ def _queryset(request):
             "client_pilotage__client_particulier",
             "societe__adresse",
             "vendeur",
+            "trackday",
         )
         .prefetch_related("factures", "boxes")
     )
@@ -83,17 +84,30 @@ def location_ajouter(request):
     exemplaire_id = request.GET.get("exemplaire")
     initial = {"voiture_exemplaire": exemplaire_id} if exemplaire_id else {}
 
+    # Ajout depuis un Trackday : circuit, dates et Trackday pré-remplis
+    trackday_initial = _trackday_demande(request, request.GET.get("trackday"))
+    if trackday_initial is not None:
+        initial.update({
+            "trackday": trackday_initial.pk, "type_location": "circuit", "circuit": trackday_initial.circuit,
+            "date_debut": trackday_initial.date_debut, "date_fin": trackday_initial.date_fin,
+        })
+
     form = LocationForm(request.POST or None, user=request.user, initial=initial)
     vehicules = form.fields["voiture_exemplaire"].queryset
+    # Trackday choisi dans le formulaire (s'applique aussi aux véhicules supplémentaires)
+    trackday_post = _trackday_demande(request, request.POST.get("trackday")) if request.method == "POST" else None
     # Box en pit lane : rattachés à la location du véhicule 1
     boxes_fs = LocationBoxFormSet(request.POST or None, instance=Location(), prefix="box")
+    if trackday_post is not None:
+        boxes_fs.limite_box = trackday_post.nombre_box
 
     # Véhicules supplémentaires (même client) : une location complète par véhicule
     forms_sup = []
     if request.method == "POST":
         for idx in request.POST.getlist("sup_index"):
             if idx.isdigit():
-                forms_sup.append(LocationVehiculeSupForm(request.POST, prefix=f"sup-{idx}", vehicules=vehicules, societe=request.user.societe))
+                forms_sup.append(LocationVehiculeSupForm(request.POST, prefix=f"sup-{idx}", vehicules=vehicules,
+                                                         societe=request.user.societe, trackday=trackday_post))
 
     # Remise en % sur l'ensemble des véhicules
     remise_brute = (request.POST.get("remise_pourcent") or "0").replace(",", ".") if request.method == "POST" else "0"
@@ -112,6 +126,10 @@ def location_ajouter(request):
         doublons = _vehicules_en_double(form, forms_sup)
         if doublons:
             form.add_error(None, _("Le véhicule %(v)s est sélectionné plusieurs fois.") % {"v": ", ".join(doublons)})
+        numeros_doubles = _numeros_en_double(form, forms_sup)
+        if numeros_doubles:
+            form.add_error(None, _("Le numéro de course %(n)s est utilisé plusieurs fois.") % {"n": ", ".join(numeros_doubles)})
+            doublons = doublons or numeros_doubles
 
         if principal_ok and sup_ok and not doublons:
             from django.db import transaction
@@ -131,11 +149,15 @@ def location_ajouter(request):
                     copie.societe_cliente = location.societe_cliente
                     copie.client_pilotage = location.client_pilotage
                     copie.remarques = location.remarques
+                    copie.trackday = location.trackday
                     _appliquer_remise(copie, remise)
                     copie.save()  # crée aussi le checkup piste dans l'agenda
                     _log(request.user, ACTION_CREATION_LOCATION, copie)
                     creees.append(copie)
 
+            if location.trackday_id:
+                messages.success(request, _("%(n)s véhicule(s) ajouté(s) au Trackday.") % {"n": len(creees)})
+                return redirect("voiture_location:trackday_detail", pk=location.trackday_id)
             if len(creees) == 1:
                 messages.success(request, _("Location '%(loc)s' créée avec succès.") % {"loc": location})
             else:
@@ -153,6 +175,7 @@ def location_ajouter(request):
         "vehicules": vehicules,
         "forms_sup": [(f.prefix.split("-", 1)[1], f) for f in forms_sup],
         "form_sup_vide": LocationVehiculeSupForm(prefix="sup-__ID__", vehicules=vehicules),
+        "trackdays_data": _trackdays_data(form),
         "champs_vehicule": CHAMPS_VEHICULE,
         "remise": remise_brute if request.method == "POST" else "0",
         "boxes_fs": boxes_fs,
@@ -161,7 +184,7 @@ def location_ajouter(request):
 
 
 # Champs propres à chaque véhicule loué (affichés dans la fiche de chaque véhicule)
-CHAMPS_VEHICULE = ["type_location", "circuit", "route", "date_debut", "date_fin", "heure_debut", "heure_fin", "nombre_tours", "kilometrage", "prix"]
+CHAMPS_VEHICULE = ["numero_course", "type_location", "circuit", "route", "date_debut", "date_fin", "heure_debut", "heure_fin", "nombre_tours", "kilometrage", "prix"]
 
 
 def _appliquer_remise(location, remise):
@@ -176,6 +199,42 @@ def _appliquer_remise(location, remise):
     else:
         location.prix_avant_remise = None
         location.remise_pourcent = Decimal("0")
+
+
+def _trackday_demande(request, pk):
+    """Trackday de la société désigné par son identifiant (GET / POST), sinon None."""
+    if not pk:
+        return None
+    try:
+        return Trackday.objects.filter(societe=request.user.societe, pk=pk).first()
+    except Exception:
+        return None
+
+
+def _trackdays_data(form):
+    """Données des Trackdays pour le formulaire (circuit, dates, box) : rempli automatiquement en JS."""
+    if "trackday" not in form.fields:
+        return {}
+    return {
+        str(t.pk): {
+            "circuit": t.circuit, "date_debut": t.date_debut.isoformat(),
+            "date_fin": t.date_fin.isoformat() if t.date_fin else "", "nombre_box": t.nombre_box,
+            "numeros_pris": [n for n in t.locations.exclude(numero_course=None).values_list("numero_course", flat=True)],
+        }
+        for t in form.fields["trackday"].queryset[:50]
+    }
+
+
+def _numeros_en_double(form, forms_sup):
+    vus, doublons = set(), []
+    for f in [form] + list(forms_sup):
+        n = f.cleaned_data.get("numero_course") if hasattr(f, "cleaned_data") else None
+        if n is None:
+            continue
+        if n in vus:
+            doublons.append(str(n))
+        vus.add(n)
+    return doublons
 
 
 def _vehicules_en_double(form, forms_sup):
@@ -200,6 +259,10 @@ def location_modifier(request, location_id):
     location = get_object_or_404(_queryset(request), id=location_id)
     form = LocationForm(request.POST or None, instance=location, user=request.user)
     boxes_fs = LocationBoxFormSet(request.POST or None, instance=location, prefix="box")
+    trackday = (_trackday_demande(request, request.POST.get("trackday")) if request.method == "POST"
+                else location.trackday)
+    if trackday is not None:
+        boxes_fs.limite_box = trackday.nombre_box
     if request.method == "POST" and all([form.is_valid(), boxes_fs.is_valid()]):
         location = form.save()
         boxes_fs.save()
@@ -212,6 +275,7 @@ def location_modifier(request, location_id):
     return render(request, "voiture_location/location_form.html", {
         "form": form, "location": location, "taux_tva": location.taux_tva,
         "boxes_fs": boxes_fs,
+        "trackdays_data": _trackdays_data(form),
         "prix_instructeurs": form.prix_instructeurs,
     })
 
@@ -565,8 +629,19 @@ def _statistiques(request, voit_tout):
         key=lambda s: s["tvac"], reverse=True,
     )[:10]
 
+    # --- Trackdays (locations rattachées à un Trackday) ---
+    trackdays = {}
+    for l in locations:
+        if l.trackday_id:
+            trackdays.setdefault(l.trackday_id, []).append(l)
+    par_trackday = sorted(
+        ({"trackday": v[0].trackday, **_cumul_ventes(v)} for v in trackdays.values()),
+        key=lambda s: s["trackday"].date_debut, reverse=True,
+    )
+
     return render(request, "voiture_location/statistiques_ventes.html", {
         **periode,
+        "par_trackday": par_trackday,
         "voit_tout": voit_tout,
         "vendeur_connecte": request.user,
         "totaux": totaux,

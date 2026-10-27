@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Trackdays" %}{% endblock %}
+{% block content %}
+{% include "voiture_location/trackday/_styles.html" %}
+<div class="p-6">
+    <h1 class="text-2xl font-bold mb-6 flex items-center gap-3">
+        <img src="{% static 'icons/trackday.png' %}" alt="" class="w-16 h-16">
+        {% trans "Trackdays" %}
+    </h1>
+    {% include "voiture_location/_messages.html" %}
+
+    <div class="flex flex-wrap items-end justify-between gap-3 mb-6">
+        <form method="get" class="flex items-end gap-2">
+            <div>
+                <label class="block text-sm font-semibold mb-1">{% trans "Année" %}</label>
+                <select name="annee" class="border rounded px-3 py-2" onchange="this.form.submit()">
+                    <option value="">{% trans "Toutes" %}</option>
+                    {% for a in annees %}<option value="{{ a }}" {% if a|stringformat:"s" == annee %}selected{% endif %}>{{ a }}</option>{% endfor %}
+                </select>
+            </div>
+        </form>
+        <div class="flex flex-wrap gap-2">
+            <a href="{% url 'voiture_location:trackday_ajouter' %}" class="td-btn">+ {% trans "Nouveau Trackday" %}</a>
+            {% if voit_rentabilite %}<a href="{% url 'voiture_location:trackday_statistiques' %}" class="td-btn td-btn-violet">{% trans "Statistiques Trackday" %}</a>{% endif %}
+            <a href="{% url 'voiture_location:location_liste' %}" class="td-btn td-btn-gris">{% trans "Locations" %}</a>
+        </div>
+    </div>
+
+    <div class="td-carte overflow-x-auto">
+    <table class="td-table">
+        <thead><tr>
+            <th>{% trans "Date" %}</th><th>{% trans "Circuit" %}</th><th>{% trans "Événement" %}</th>
+            <th class="text-right">{% trans "Véhicules" %}</th><th class="text-right">{% trans "Box" %}</th>
+            <th class="text-right">{% trans "Ventes HTVA" %}</th>
+            {% if voit_rentabilite %}<th class="text-right">{% trans "Coûts HTVA" %}</th><th class="text-right">{% trans "Marge" %}</th>{% endif %}
+            <th></th>
+        </tr></thead>
+        <tbody>
+        {% for l in lignes %}
+            <tr>
+                <td class="whitespace-nowrap">{{ l.t.periode_affichage }}{% if l.t.date_debut >= aujourdhui %} <span class="td-badge td-badge-att">{% trans "à venir" %}</span>{% endif %}</td>
+                <td>{{ l.t.get_circuit_display }}</td>
+                <td>{{ l.t.nom|default:"-" }}{% if l.t.organisateur %}<div class="text-xs text-gray-500">{{ l.t.organisateur }}</div>{% endif %}</td>
+                <td class="text-right">{{ l.nb_vehicules }}{% if l.t.places_vehicules %} / {{ l.t.places_vehicules }}{% endif %}</td>
+                <td class="text-right">{{ l.nb_box }} / {{ l.nombre_box }}</td>
+                <td class="text-right whitespace-nowrap">{{ l.ventes_htva|floatformat:2 }} €</td>
+                {% if voit_rentabilite %}
+                <td class="text-right whitespace-nowrap">{{ l.couts_htva|floatformat:2 }} €</td>
+                <td class="text-right whitespace-nowrap font-semibold {% if l.marge >= 0 %}td-positif{% else %}td-negatif{% endif %}">{{ l.marge|floatformat:2 }} €{% if l.marge_pct is not None %} <span class="text-xs">({{ l.marge_pct }} %)</span>{% endif %}</td>
+                {% endif %}
+                <td class="text-right"><a href="{% url 'voiture_location:trackday_detail' l.t.pk %}" class="td-btn" style="padding:4px 14px">{% trans "Infos" %}</a></td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="9" class="text-center text-gray-500 py-6">{% trans "Aucun Trackday." %}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+{% endblock %}

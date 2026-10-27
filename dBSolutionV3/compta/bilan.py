@@ -4,7 +4,7 @@ bilan après répartition non effectuée (le résultat de l'exercice est présen
 et compte de résultats, établis à partir du journal général (classes 1 à 7 du PCMN).
 """
 from collections import OrderedDict
-from datetime import date
+from datetime import date, timedelta
 from decimal import Decimal
 
 from django.utils.translation import gettext_lazy as _
@@ -73,6 +73,42 @@ RESULTATS = OrderedDict([
     ("impots", ("67/77", _("IX. Impôts sur le résultat"))),
     ("autres_resultat", ("68/79", _("Prélèvements / transferts (impôts différés, réserves immunisées)"))),
 ])
+
+# Rubriques regroupées du schéma abrégé (saisie du dernier bilan) :
+# clé -> (code, libellé, rubrique détaillée qui reçoit le montant dans le schéma complet)
+GROUPES = OrderedDict([
+    ("immo_corporelles", ("22/27", _("III. Immobilisations corporelles"), "autres_corporelles")),
+    ("creances_un_an", ("40/41", _("VII. Créances à un an au plus"), "autres_creances")),
+    ("dettes_un_an", ("42/48", _("IX. Dettes à un an au plus"), "autres_dettes")),
+    ("marge_brute", ("9900", _("Marge brute d'exploitation"), "chiffre_affaires")),
+])
+
+# Rubriques à saisir pour le dernier bilan, selon le schéma
+SAISIE = {
+    "ABREGE": {
+        "actif": ["frais_etablissement", "immo_incorporelles", "immo_corporelles", "immo_financieres",
+                  "creances_plus_un_an", "stocks", "creances_un_an", "placements", "disponible", "regul_actif"],
+        "passif": ["capital", "plus_values_reevaluation", "reserves", "resultat_reporte", "resultat_exercice",
+                   "subsides", "provisions", "dettes_plus_un_an", "dettes_un_an", "regul_passif"],
+        "resultats": ["marge_brute", "remunerations", "amortissements", "reductions_valeur", "provisions_rc",
+                      "autres_charges_exploitation", "produits_non_recurrents_exploitation",
+                      "charges_non_recurrentes_exploitation", "produits_financiers", "charges_financieres", "impots"],
+    },
+    "COMPLET": {
+        "actif": list(ACTIF.keys()),
+        "passif": list(PASSIF.keys()),
+        "resultats": [k for k in RESULTATS.keys() if k != "autres_resultat"],
+    },
+}
+
+
+def libelle_rubrique(cle):
+    """(code, libellé) d'une rubrique, regroupée ou non."""
+    for table in (GROUPES, ACTIF, PASSIF, RESULTATS):
+        if cle in table:
+            return table[cle][0], table[cle][1]
+    return "", cle
+
 
 PRODUITS = {"chiffre_affaires", "variation_en_cours", "production_immobilisee", "autres_produits_exploitation",
             "produits_non_recurrents_exploitation", "produits_financiers"}
@@ -161,43 +197,57 @@ def _resultat(soldes):
             r[k] += -solde           # produit : solde créditeur
         else:
             r[k] += solde            # charge : solde débiteur
+    return r, _totaux_resultat(r)
+
+
+def _totaux_resultat(r):
+    """Totaux du compte de résultats à partir des montants par rubrique."""
     ventes = sum((r[k] for k in ("chiffre_affaires", "variation_en_cours", "production_immobilisee",
                                  "autres_produits_exploitation", "produits_non_recurrents_exploitation")), ZERO)
     cout = sum((r[k] for k in ("approvisionnements", "services", "remunerations", "amortissements",
                                "reductions_valeur", "provisions_rc", "autres_charges_exploitation",
                                "charges_non_recurrentes_exploitation")), ZERO)
+    marge_brute = (r["chiffre_affaires"] + r["variation_en_cours"] + r["production_immobilisee"]
+                   + r["autres_produits_exploitation"] - r["approvisionnements"] - r["services"])
     exploitation = ventes - cout
     avant_impots = exploitation + r["produits_financiers"] - r["charges_financieres"]
     exercice = avant_impots - r["impots"] - r["autres_resultat"]
-    return r, {"ventes": ventes, "cout": cout, "exploitation": exploitation,
-               "avant_impots": avant_impots, "exercice": exercice}
+    return {"ventes": ventes, "cout": cout, "marge_brute": marge_brute, "exploitation": exploitation,
+            "avant_impots": avant_impots, "exercice": exercice}
 
 
-def comptes_annuels(societe, annee):
-    """Bilan au 31/12/annee et compte de résultats de l'exercice (année civile)."""
-    debut, fin = date(annee, 1, 1), date(annee, 12, 31)
-    toutes = ecritures_societe(societe, None, fin)
-    cumul = _soldes(toutes)
-    exercice = _soldes([e for e in toutes if e["date"] >= debut])
-    anterieur = _soldes([e for e in toutes if e["date"] < debut])
+def reference_pour(societe, annee):
+    """Dernier bilan de référence (comptable) dont l'exercice est ≤ annee."""
+    from .models import BilanReference
+    return (BilanReference.objects.filter(societe=societe, annee__lte=annee).order_by("-annee").first()
+            if societe is not None else None)
 
+
+def montants_reference(ref):
+    """Rubriques actif / passif / résultats d'un bilan de référence (regroupements ventilés)."""
     actif = {k: ZERO for k in ACTIF}
     passif = {k: ZERO for k in PASSIF}
-    detail = {}
-    for compte, solde in sorted(cumul.items()):
-        if compte[:1] in ("6", "7", "8", "9") or not solde:
+    resultat = {k: ZERO for k in RESULTATS}
+    for cle in list(ACTIF) + list(PASSIF) + list(RESULTATS) + list(GROUPES):
+        m = ref.montant(cle)
+        if not m:
             continue
-        cote, k = rubrique_bilan(compte, solde)
-        montant = solde if cote == "A" else -solde
-        (actif if cote == "A" else passif)[k] += montant
-        detail.setdefault(k, []).append({"compte": compte, "montant": montant})
+        cible = GROUPES[cle][2] if cle in GROUPES else cle
+        for d in (actif, passif, resultat):
+            if cible in d:
+                d[cible] += m
+                break
+    return actif, passif, resultat
 
-    # Résultats des exercices antérieurs non affectés → reporté ; exercice → à affecter
-    _r, tot_ant = _resultat(anterieur)
-    passif["resultat_reporte"] += tot_ant["exercice"]
-    rubriques_resultat, totaux_resultat = _resultat(exercice)
-    passif["resultat_exercice"] = totaux_resultat["exercice"]
 
+def _cote_naturel(compte):
+    """Rubrique d'un compte de bilan pour un mouvement (selon le sens habituel du compte)."""
+    credit = (compte[:1] == "1" or compte[:2] in ("42", "43", "44", "45", "46", "47", "48")
+              or compte[:3] in ("492", "493"))
+    return rubrique_bilan(compte, Decimal("-1") if credit else Decimal("1"))
+
+
+def _totaux(actif, passif):
     t = lambda d, cles: sum((d[k] for k in cles), ZERO)
     immo_corp = t(actif, ["terrains_constructions", "installations", "mobilier_roulant", "location_financement",
                           "autres_corporelles", "en_cours"])
@@ -214,17 +264,91 @@ def comptes_annuels(societe, annee):
                               "autres_dettes"]) + dettes_fiscales
     dettes = passif["dettes_plus_un_an"] + dettes_un_an + passif["regul_passif"]
     total_passif = capitaux_propres + passif["provisions"] + dettes
+    return {
+        "immo_corporelles": immo_corp, "actifs_immobilises": actifs_immobilises,
+        "creances_un_an": creances_un_an, "actifs_circulants": actifs_circulants, "total_actif": total_actif,
+        "capitaux_propres": capitaux_propres, "dettes_fiscales": dettes_fiscales, "dettes_un_an": dettes_un_an,
+        "dettes": dettes, "total_passif": total_passif, "ecart": total_actif - total_passif,
+    }
+
+
+def _resultat_saisi(resultat):
+    return any(v for v in resultat.values())
+
+
+def comptes_annuels(societe, annee):
+    """
+    Bilan au 31/12/annee et compte de résultats de l'exercice (année civile).
+    - Exercice d'un bilan de référence : montants du comptable.
+    - Exercices suivants : bilan de référence + écritures de l'application postérieures.
+    - Sans bilan de référence : uniquement les écritures de l'application.
+    """
+    debut, fin = date(annee, 1, 1), date(annee, 12, 31)
+    ref = reference_pour(societe, annee)
+
+    # ---- Exercice du bilan de référence
+    if ref and ref.annee == annee:
+        actif, passif, resultat = montants_reference(ref)
+        if _resultat_saisi(resultat):
+            totaux_resultat = _totaux_resultat(resultat)
+        else:
+            resultat, totaux_resultat = _resultat(_soldes(
+                [e for e in ecritures_societe(societe, debut, fin)]))
+        return {
+            "annee": annee, "actif": actif, "passif": passif, "detail": {},
+            "resultat": resultat, "totaux_resultat": totaux_resultat, "totaux": _totaux(actif, passif),
+            "nb_ecritures": 0, "source": "reference", "reference": ref,
+        }
+
+    detail = {}
+    if ref:
+        # ---- Après un bilan de référence : soldes du comptable + mouvements postérieurs
+        fin_ref = date(ref.annee, 12, 31)
+        ouverture_max = fin_ref + timedelta(days=1)
+        toutes = [
+            e for e in ecritures_societe(societe, fin_ref + timedelta(days=1), fin)
+            # écritures d'ouverture déjà comprises dans le bilan de référence
+            if not (e.get("journal") == "OUV" and e["date"] <= ouverture_max)
+        ]
+        actif, passif, _r = montants_reference(ref)
+        passif["resultat_reporte"] += passif["resultat_exercice"]   # résultat de référence non affecté
+        passif["resultat_exercice"] = ZERO
+        for compte, solde in sorted(_soldes(toutes).items()):
+            if compte[:1] in ("6", "7", "8", "9") or not solde:
+                continue
+            cote, k = _cote_naturel(compte)
+            montant = solde if cote == "A" else -solde
+            (actif if cote == "A" else passif)[k] += montant
+            detail.setdefault(k, []).append({"compte": compte, "montant": montant})
+        source = "reference_et_ecritures"
+    else:
+        # ---- Sans référence : tout vient du journal de l'application
+        toutes = ecritures_societe(societe, None, fin)
+        actif = {k: ZERO for k in ACTIF}
+        passif = {k: ZERO for k in PASSIF}
+        for compte, solde in sorted(_soldes(toutes).items()):
+            if compte[:1] in ("6", "7", "8", "9") or not solde:
+                continue
+            cote, k = rubrique_bilan(compte, solde)
+            montant = solde if cote == "A" else -solde
+            (actif if cote == "A" else passif)[k] += montant
+            detail.setdefault(k, []).append({"compte": compte, "montant": montant})
+        source = "ecritures"
+
+    exercice = _soldes([e for e in toutes if e["date"] >= debut])
+    anterieur = _soldes([e for e in toutes if e["date"] < debut])
+
+    # Résultats des exercices antérieurs non affectés → reporté ; exercice → à affecter
+    _r, tot_ant = _resultat(anterieur)
+    passif["resultat_reporte"] += tot_ant["exercice"]
+    rubriques_resultat, totaux_resultat = _resultat(exercice)
+    passif["resultat_exercice"] = totaux_resultat["exercice"]
 
     return {
         "annee": annee, "actif": actif, "passif": passif, "detail": detail,
         "resultat": rubriques_resultat, "totaux_resultat": totaux_resultat,
-        "totaux": {
-            "immo_corporelles": immo_corp, "actifs_immobilises": actifs_immobilises,
-            "creances_un_an": creances_un_an, "actifs_circulants": actifs_circulants, "total_actif": total_actif,
-            "capitaux_propres": capitaux_propres, "dettes_fiscales": dettes_fiscales, "dettes_un_an": dettes_un_an,
-            "dettes": dettes, "total_passif": total_passif, "ecart": total_actif - total_passif,
-        },
-        "nb_ecritures": len(toutes),
+        "totaux": _totaux(actif, passif),
+        "nb_ecritures": len(toutes), "source": source, "reference": ref,
     }
 
 
@@ -232,8 +356,10 @@ def _ligne(code, libelle, n, n1, niveau=2, gras=False):
     return {"code": code, "libelle": libelle, "n": n, "n1": n1, "niveau": niveau, "gras": gras}
 
 
-def presentation(ca, cb):
+def presentation(ca, cb, schema="COMPLET"):
     """Lignes à afficher (exercice N et N-1) du bilan et du compte de résultats."""
+    if schema == "ABREGE":
+        return presentation_abregee(ca, cb)
     A, P, T, R, TR = ca["actif"], ca["passif"], ca["totaux"], ca["resultat"], ca["totaux_resultat"]
     A1, P1, T1, R1, TR1 = cb["actif"], cb["passif"], cb["totaux"], cb["resultat"], cb["totaux_resultat"]
     act = lambda k, niveau=2: _ligne(ACTIF[k][0], ACTIF[k][1], A[k], A1[k], niveau)
@@ -282,6 +408,53 @@ def presentation(ca, cb):
         tr("9901", _("III. Bénéfice (Perte) d'exploitation"), "exploitation"),
         res("produits_financiers", 0), res("charges_financieres", 0),
         tr("9903", _("VI. Bénéfice (Perte) de l'exercice avant impôts"), "avant_impots"),
+        res("impots", 0), res("autres_resultat", 0),
+        tr("9904", _("Bénéfice (Perte) de l'exercice"), "exercice"),
+    ]
+    return actif, passif, resultats
+
+
+def presentation_abregee(ca, cb):
+    """Schéma abrégé BNB : rubriques regroupées (petites sociétés)."""
+    A, P, T, R, TR = ca["actif"], ca["passif"], ca["totaux"], ca["resultat"], ca["totaux_resultat"]
+    A1, P1, T1, R1, TR1 = cb["actif"], cb["passif"], cb["totaux"], cb["resultat"], cb["totaux_resultat"]
+    act = lambda k, niveau=1: _ligne(ACTIF[k][0], ACTIF[k][1], A[k], A1[k], niveau)
+    pas = lambda k, niveau=1: _ligne(PASSIF[k][0], PASSIF[k][1], P[k], P1[k], niveau)
+    res = lambda k, niveau=1: _ligne(RESULTATS[k][0], RESULTATS[k][1], R[k], R1[k], niveau)
+    tot = lambda code, lib, k, niveau=1, gras=True: _ligne(code, lib, T[k], T1[k], niveau, gras)
+    tr = lambda code, lib, k, niveau=0: _ligne(code, lib, TR[k], TR1[k], niveau, True)
+
+    actif = [
+        act("frais_etablissement", 1),
+        tot("21/28", _("ACTIFS IMMOBILISÉS"), "actifs_immobilises", 0),
+        act("immo_incorporelles"),
+        tot("22/27", _("III. Immobilisations corporelles"), "immo_corporelles", 1, False),
+        act("immo_financieres"),
+        tot("29/58", _("ACTIFS CIRCULANTS"), "actifs_circulants", 0),
+        act("creances_plus_un_an"), act("stocks"),
+        tot("40/41", _("VII. Créances à un an au plus"), "creances_un_an", 1, False),
+        act("placements"), act("disponible"), act("regul_actif"),
+        tot("20/58", _("TOTAL DE L'ACTIF"), "total_actif", 0),
+    ]
+    passif = [
+        tot("10/15", _("CAPITAUX PROPRES"), "capitaux_propres", 0),
+        pas("capital"), pas("plus_values_reevaluation"), pas("reserves"),
+        pas("resultat_reporte"), pas("resultat_exercice"), pas("subsides"),
+        pas("provisions", 0),
+        tot("17/49", _("DETTES"), "dettes", 0),
+        pas("dettes_plus_un_an"),
+        tot("42/48", _("IX. Dettes à un an au plus"), "dettes_un_an", 1, False),
+        pas("regul_passif"),
+        tot("10/49", _("TOTAL DU PASSIF"), "total_passif", 0),
+    ]
+    resultats = [
+        tr("9900", _("Marge brute d'exploitation"), "marge_brute"),
+        res("remunerations"), res("amortissements"), res("reductions_valeur"), res("provisions_rc"),
+        res("autres_charges_exploitation"),
+        res("produits_non_recurrents_exploitation"), res("charges_non_recurrentes_exploitation"),
+        tr("9901", _("Bénéfice (Perte) d'exploitation"), "exploitation"),
+        res("produits_financiers", 0), res("charges_financieres", 0),
+        tr("9903", _("Bénéfice (Perte) de l'exercice avant impôts"), "avant_impots"),
         res("impots", 0), res("autres_resultat", 0),
         tr("9904", _("Bénéfice (Perte) de l'exercice"), "exercice"),
     ]

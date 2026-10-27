@@ -190,6 +190,35 @@ class Facture(models.Model):
         blank=True
     )
 
+    # Propriétaire (personne) d'une part du véhicule : facturé à hauteur de sa part
+    proprietaire = models.ForeignKey(
+        "proprietaire.Proprietaire",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="factures",
+        verbose_name=_("Propriétaire"),
+    )
+
+    # Facturation en fonction des parts de propriété du véhicule
+    part_pourcent = models.DecimalField(
+        _("Quote-part (%)"),
+        max_digits=5,
+        decimal_places=2,
+        default=Decimal("100.00"),
+        help_text=_("Part du propriétaire facturé : les montants des lignes (coût et marge) sont multipliés par ce pourcentage."),
+    )
+    part_proprietaire = models.ForeignKey(
+        "proprietaire.ProprietaireVoiture",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="factures",
+        verbose_name=_("Part de propriété"),
+    )
+    # Factures d'une même répartition (une par propriétaire) : même identifiant
+    repartition = models.UUIDField(_("Répartition"), null=True, blank=True, db_index=True, editable=False)
+
     # La société émettrice est aussi le client (véhicule de la société, refacturation interne)
     client_est_societe = models.BooleanField(
         _("Facturer à notre société"),
@@ -274,6 +303,23 @@ class Facture(models.Model):
         return self.type_facture == self.TypeFacture.PRO
 
     @property
+    def est_quote_part(self):
+        return Decimal(self.part_pourcent or 100) < Decimal("100")
+
+    @property
+    def facteur_part(self):
+        """Multiplicateur des montants : 1 pour une facture complète, 0,40 pour une part de 40 %."""
+        return Decimal(self.part_pourcent if self.part_pourcent is not None else 100) / Decimal("100")
+
+    def factures_repartition(self):
+        """Toutes les factures de la même répartition par parts (celle-ci comprise)."""
+        if not self.repartition:
+            return Facture.objects.none()
+        return (Facture.objects.filter(repartition=self.repartition)
+                .select_related("proprietaire", "societe_cliente", "societe")
+                .order_by("-part_pourcent", "created_at"))
+
+    @property
     def est_brouillon(self):
         return self.statut == self.Statut.BROUILLON
 
@@ -343,15 +389,15 @@ class Facture(models.Model):
         z = Decimal("0.00")
         pieces = tva_pieces = main_oeuvre = autres = z
         for ligne in self.lines.all():
-            qte = Decimal(ligne.quantity or 0)
+            # Coût de revient de la ligne (quote-part comprise pour une facture par parts)
+            cout = ligne.cout_total if ligne.unit_cost is not None else arrondi(ligne.total_ht)
             if ligne.type_ligne == FactureLine.TypeLigne.PIECE:
-                cout = arrondi(Decimal(ligne.unit_cost) * qte) if ligne.unit_cost is not None else arrondi(ligne.total_ht)
                 pieces += cout
                 tva_pieces += arrondi(cout * Decimal(ligne.vat_rate or 0) / Decimal("100"))
             elif ligne.type_ligne == FactureLine.TypeLigne.MAIN_OEUVRE:
-                main_oeuvre += arrondi(Decimal(ligne.unit_cost) * qte) if ligne.unit_cost is not None else arrondi(ligne.total_ht)
+                main_oeuvre += cout
             else:
-                autres += arrondi(Decimal(ligne.unit_cost) * qte) if ligne.unit_cost is not None else arrondi(ligne.total_ht)
+                autres += cout
         return {
             "pieces": arrondi(pieces),
             "tva_pieces": arrondi(tva_pieces),
@@ -390,7 +436,7 @@ class Facture(models.Model):
             return self.societe
         if self.est_pro:
             return self.societe_cliente
-        return self.client_atelier or self.client_particulier
+        return self.client_atelier or self.client_particulier or self.proprietaire
 
     @staticmethod
     def nom_client_atelier(client_atelier):
@@ -411,6 +457,8 @@ class Facture(models.Model):
             return self.nom_client_atelier(self.client_atelier)
         if self.client_particulier:
             return f"{self.client_particulier.prenom} {self.client_particulier.nom}".strip()
+        if self.proprietaire:
+            return f"{self.proprietaire.prenom} {self.proprietaire.nom}".strip()
         return ""
 
     def copier_coordonnees_client(self):
@@ -627,15 +675,31 @@ class FactureLine(models.Model):
         return arrondi(Decimal(self.quantity or 0) * Decimal(self.unit_price or 0))
 
     @property
+    def facteur_part(self):
+        """Quote-part de la facture (1 = 100 %) : appliquée au coût et à la marge des lignes calculées."""
+        facture = self.facture if self.facture_id else None
+        return facture.facteur_part if facture is not None else Decimal("1")
+
+    @property
+    def cout_total(self):
+        """Coût de revient HTVA de la ligne, à hauteur de la quote-part facturée."""
+        if self.unit_cost is None:
+            return Decimal("0.00")
+        return arrondi(Decimal(self.unit_cost) * Decimal(self.quantity or 0) * self.facteur_part)
+
+    @property
     def marge_montant(self):
         if self.unit_cost is None:
             return Decimal("0.00")
-        return arrondi((Decimal(self.unit_price or 0) - Decimal(self.unit_cost)) * Decimal(self.quantity or 0))
+        return arrondi(self.total_ht - self.cout_total)
 
     def calculer_prix(self):
+        # Prix de vente = coût × (1 + marge) × quote-part (100 % hors facturation par parts).
+        # Une ligne sans coût (prix saisi) n'est pas recalculée.
         if self.unit_cost is not None:
             self.unit_price = arrondi(
                 Decimal(self.unit_cost) * (Decimal("1") + Decimal(self.marge or 0) / Decimal("100"))
+                * self.facteur_part
             )
 
     def save(self, *args, **kwargs):

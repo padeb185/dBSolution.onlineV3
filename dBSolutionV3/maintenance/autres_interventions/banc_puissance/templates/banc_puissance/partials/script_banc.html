@@ -1,0 +1,71 @@
+<style>
+.gains-banc{border:2px solid #bfdbfe;background:#eff6ff;border-radius:10px;padding:12px 16px;margin:4px 0 8px}
+.gains-banc-titre{font-weight:700;color:#1e3a8a;margin-bottom:6px}
+.gains-banc-grille{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.gains-banc-grille span{display:block;color:#6b7280;font-size:13px}
+.gains-banc-grille strong{font-size:20px}
+.gain-positif{color:#15803d}.gain-negatif{color:#b91c1c}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const carto = document.getElementById("id_cartographie_effectuee");
+    const sectionsCarto = [document.getElementById("section-3"), document.getElementById("section-4"),
+                           document.getElementById("gains-banc")];
+    const champsCarto = ["niveau_cartographie", "preparateur", "calculateur", "outil_cartographie"];
+    const prixCarto = document.querySelector(".champ-prix_cartographie");
+
+    function majCarto() {
+        const actif = !carto || carto.checked;
+        // La case reste visible ; on masque le reste de la section cartographie
+        champsCarto.forEach(function (n) {
+            const el = document.querySelector(".champ-" + n);
+            if (el) el.style.display = actif ? "" : "none";
+        });
+        [sectionsCarto[1], sectionsCarto[2]].forEach(function (el) { if (el) el.style.display = actif ? "" : "none"; });
+        if (prixCarto) prixCarto.style.display = actif ? "" : "none";
+    }
+
+    function nombre(id) {
+        const el = document.getElementById(id);
+        if (!el || el.value === "") return null;
+        const v = parseFloat(el.value.replace(",", "."));
+        return isNaN(v) ? null : v;
+    }
+    function afficher(id, avant, apres, unite) {
+        const cible = document.getElementById(id);
+        if (!cible) return;
+        cible.classList.remove("gain-positif", "gain-negatif");
+        if (avant === null || apres === null) { cible.textContent = "–"; return; }
+        const ecart = apres - avant;
+        const pct = avant ? (ecart / avant * 100) : 0;
+        const signe = ecart > 0 ? "+" : "";
+        cible.textContent = signe + ecart.toFixed(1).replace(".", ",") + " " + unite +
+            (avant ? " (" + signe + pct.toFixed(1).replace(".", ",") + " %)" : "");
+        cible.classList.add(ecart >= 0 ? "gain-positif" : "gain-negatif");
+    }
+    function majGains() {
+        afficher("gain-ch", nombre("id_avant_puissance_ch"), nombre("id_apres_puissance_ch"), "ch");
+        afficher("gain-nm", nombre("id_avant_couple_nm"), nombre("id_apres_couple_nm"), "Nm");
+    }
+
+    ["avant_puissance_ch", "apres_puissance_ch", "avant_couple_nm", "apres_couple_nm"].forEach(function (n) {
+        const el = document.getElementById("id_" + n);
+        if (el) el.addEventListener("input", majGains);
+    });
+
+    // Fichiers PDF : contrôle de la taille avant envoi
+    document.querySelectorAll('input[type="file"]').forEach(function (input) {
+        input.addEventListener("change", function () {
+            const f = input.files && input.files[0];
+            if (f && f.size > 10 * 1024 * 1024) {
+                alert("{{ _('Le fichier dépasse la taille maximale de 10 Mo.')|escapejs }}");
+                input.value = "";
+            }
+        });
+    });
+
+    if (carto) carto.addEventListener("change", majCarto);
+    majCarto();
+    majGains();
+});
+</script>

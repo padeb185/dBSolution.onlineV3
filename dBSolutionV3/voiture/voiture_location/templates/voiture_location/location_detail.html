@@ -63,6 +63,12 @@
                     <span class="px-2 py-1 rounded bg-blue-100 text-blue-800 text-xs font-semibold">{{ location.get_type_location_display }}</span>
                 {% endif %}
             </p>
+            {% if location.trackday %}
+                <p><strong>{% trans "Trackday" %} :</strong>
+                    <a href="{% url 'voiture_location:trackday_detail' location.trackday.pk %}" class="text-blue-700 underline">{{ location.trackday }}</a>
+                    {% if location.numero_course %} · {% trans "N°" %} <strong>{{ location.numero_course }}</strong>{% endif %}
+                </p>
+            {% endif %}
             {% if location.type_location == "circuit" %}
                 <p><strong>{% trans "Circuit" %} :</strong> {{ location.get_circuit_display|default:"—" }}</p>
                 {% if location.longueur_circuit_km %}

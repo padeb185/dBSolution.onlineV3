@@ -18,7 +18,6 @@
             <h2 class="titre-section-jante">{% trans "Identification" %}</h2>
             <div class="ligne-info"><span>{% trans "Fabricant" %}</span><span>{{ jante.get_fabricant_display }}</span></div>
             <div class="ligne-info"><span>{% trans "Modèle de jante" %}</span><span>{{ jante.nom_modele|default:"-" }}</span></div>
-            <div class="ligne-info"><span>{% trans "Référence / n° OEM" %}</span><span>{{ jante.reference|default:"-" }}</span></div>
             <div class="ligne-info"><span>{% trans "Jantes d'origine" %}</span><span>{{ jante.origine|yesno:_("Oui,Non") }}</span></div>
             <div class="ligne-info"><span>{% trans "Jantes compétition" %}</span><span>{{ jante.competition|yesno:_("Oui,Non") }}</span></div>
         </div>
@@ -35,8 +34,12 @@
         <div class="carte-jante">
             <h2 class="titre-section-jante">{% trans "Dimensions" %}</h2>
             <div class="ligne-info"><span>{% trans "Avant" %}</span><span>{{ jante.dimension_av }}</span></div>
+            <div class="ligne-info"><span>{% trans "Référence jante avant / n° OEM" %}</span><span>{{ jante.reference|default:"-" }}</span></div>
+            <div class="ligne-info"><span>{% trans "Poids jante avant (kg)" %}</span><span>{{ jante.poids_kg|default:"-" }}</span></div>
             <div class="ligne-info"><span>{% trans "Arrière" %}</span><span>{{ jante.dimension_ar }}</span></div>
-            <div class="ligne-info"><span>{% trans "Poids par jante (kg)" %}</span><span>{{ jante.poids_kg|default:"-" }}</span></div>
+            <div class="ligne-info"><span>{% trans "Référence jante arrière / n° OEM" %}</span><span>{{ jante.reference_ar|default:"-" }}</span></div>
+            <div class="ligne-info"><span>{% trans "Poids jante arrière (kg)" %}</span><span>{{ jante.poids_ar_kg|default:"-" }}</span></div>
+            <div class="ligne-info"><span>{% trans "Poids du jeu (kg)" %}</span><span>{{ jante.poids_jeu_kg|default:"-" }}</span></div>
             <div class="ligne-info"><span>{% trans "Charge maximale (kg)" %}</span><span>{{ jante.charge_max_kg|default:"-" }}</span></div>
             <div class="ligne-info"><span>{% trans "Nombre de jantes" %}</span><span>{{ jante.quantite }}</span></div>
         </div>

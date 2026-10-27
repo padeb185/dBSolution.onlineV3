@@ -58,3 +58,12 @@ class LigneODInline(admin.TabularInline):
 class OperationDiverseAdmin(admin.ModelAdmin):
     list_display = ("date", "journal", "piece", "libelle")
     inlines = [LigneODInline]
+
+
+from .models import BilanReference  # noqa: E402
+
+
+@admin.register(BilanReference)
+class BilanReferenceAdmin(admin.ModelAdmin):
+    list_display = ("annee", "schema", "societe", "etabli_par", "date_depot", "updated_at")
+    list_filter = ("schema", "annee")

@@ -56,7 +56,7 @@
             <ul class="list-disc list-inside">
                 {% for p in autres_parts %}
                     <li>
-                        {{ p.proprietaire.nom }} {{ p.proprietaire.prenom }}
+                        {{ p.nom_proprietaire }}
                         <span class="text-gray-500">— {{ p.part_proprietaire_pourcent|floatformat:2 }} %</span>
                     </li>
                 {% endfor %}
@@ -92,7 +92,7 @@
         <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Part de propriété" %}</h2>
         <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
             <dt class="text-gray-600">{% trans "Propriétaire" %}</dt>
-            <dd class="font-medium">{{ part.proprietaire.nom }} {{ part.proprietaire.prenom }}</dd>
+            <dd class="font-medium">{{ part.nom_proprietaire }}</dd>
 
             <dt class="text-gray-600">{% trans "Véhicule" %}</dt>
             <dd class="font-medium">{{ part.voiture_exemplaire|default:"—" }}</dd>

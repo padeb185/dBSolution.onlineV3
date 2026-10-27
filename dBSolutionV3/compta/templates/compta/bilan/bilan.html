@@ -15,13 +15,24 @@
                 {% for a in annees %}<option value="{{ a }}" {% if a == annee %}selected{% endif %}>{{ a }}</option>{% endfor %}
             </select>
         </div>
+        <div>
+            <label class="block text-sm font-semibold mb-1">{% trans "Schéma" %}</label>
+            <select name="schema" class="border rounded px-3 py-2" onchange="this.form.submit()">
+                {% for v, l in schemas %}<option value="{{ v }}" {% if v == schema %}selected{% endif %}>{{ l }}</option>{% endfor %}
+            </select>
+        </div>
     </form>
     <div class="flex gap-2">
         <a href="{% url 'compta:od_ajouter' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">+ {% trans "Opération diverse" %}</a>
         <a href="{% url 'compta:journal_general' %}?annee={{ annee }}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Journal général" %}</a>
-        <a href="{% url 'compta:bilan_pdf' %}?annee={{ annee }}" target="_blank" class="bg-purple-700 hover:bg-purple-500 text-white px-4 py-2 rounded font-semibold">PDF</a>
+        <a href="{% url 'compta:references_liste' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Dernier bilan (comptable)" %}</a>
+        <a href="{% url 'compta:bilan_pdf' %}?annee={{ annee }}&schema={{ schema }}" target="_blank" class="bg-purple-700 hover:bg-purple-500 text-white px-4 py-2 rounded font-semibold">PDF</a>
     </div>
 </div>
+
+{% include "compta/bilan/_avertissement.html" %}
+
+{% include "compta/bilan/_source.html" %}
 
 <div class="mb-4 p-3 rounded border {% if equilibre %}bg-green-50 border-green-300 text-green-800{% else %}bg-red-50 border-red-300 text-red-800{% endif %}">
     {% if equilibre %}
@@ -29,7 +40,7 @@
     {% else %}
         ✗ {% blocktrans with e=ecart|floatformat:2 %}Bilan déséquilibré : écart de {{ e }} €. Vérifiez le journal général (contrôle débit / crédit) et les soldes d'ouverture.{% endblocktrans %}
     {% endif %}
-    <span class="text-sm">({{ n.nb_ecritures }} {% trans "écritures jusqu'au 31/12" %})</span>
+    {% if source != "reference" %}<span class="text-sm">({{ n.nb_ecritures }} {% trans "écritures prises en compte" %})</span>{% endif %}
 </div>
 
 <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8">

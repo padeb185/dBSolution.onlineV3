@@ -346,6 +346,17 @@ class Location(models.Model):
 
     remarques = models.TextField(null=True, blank=True, verbose_name=_("Remarques"))
 
+    # Trackday : la location fait partie d'un événement circuit (véhicule n° 1 à 200)
+    trackday = models.ForeignKey(
+        "voiture_location.Trackday", on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="locations", verbose_name=_("Trackday"),
+    )
+    numero_course = models.PositiveSmallIntegerField(
+        null=True, blank=True, validators=[MinValueValidator(1), MaxValueValidator(200)],
+        verbose_name=_("Numéro de course"),
+        help_text=_("Numéro affiché sur le véhicule pendant le Trackday (1 à 200)."),
+    )
+
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)
 
@@ -738,6 +749,18 @@ class Location(models.Model):
         if sum(bool(x) for x in (self.client_id, self.societe_cliente_id, self.client_pilotage_id)) > 1:
             errors["client"] = _("Choisissez un seul client.")
 
+        # Trackday : numéro de course unique dans l'événement
+        if not self.trackday_id:
+            self.numero_course = None
+        elif self.numero_course:
+            pris = Location.objects.filter(trackday_id=self.trackday_id, numero_course=self.numero_course)
+            if self.pk:
+                pris = pris.exclude(pk=self.pk)
+            autre = pris.select_related("voiture_exemplaire").first()
+            if autre:
+                errors["numero_course"] = _("Le numéro %(n)s est déjà attribué à %(v)s.") % {
+                    "n": self.numero_course, "v": autre.voiture_exemplaire}
+
         # Deuxième pilote : un seul choix, différent du premier pilote
         if self.deuxieme_client_id and self.deuxieme_client_pilotage_id:
             errors["deuxieme_client"] = _("Choisissez un seul deuxième pilote.")
@@ -957,3 +980,165 @@ class InterdictionLocation(models.Model):
             errors["heure_fin"] = _("L'heure de fin doit être postérieure à l'heure de début.")
         if errors:
             raise ValidationError(errors)
+
+
+
+# =====================================================================
+# TRACKDAY : événement circuit regroupant plusieurs locations
+# =====================================================================
+class Trackday(models.Model):
+    """Journée(s) circuit : chaque véhicule engagé est une location (vente, facture, vendeur)."""
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    societe = models.ForeignKey("societe.Societe", on_delete=models.CASCADE, related_name="trackdays")
+    nom = models.CharField(_("Nom de l'événement"), max_length=120, blank=True,
+                           help_text=_("Facultatif, ex. : « Trackday d'automne »."))
+    circuit = models.CharField(_("Circuit"), max_length=40, choices=CircuitEuropeen.choices)
+    date_debut = models.DateField(_("Date"))
+    date_fin = models.DateField(_("Date de fin"), null=True, blank=True, help_text=_("Vide : une seule journée."))
+    organisateur = models.CharField(_("Organisateur"), max_length=120, blank=True)
+    nombre_box = models.PositiveSmallIntegerField(
+        _("Nombre de box disponibles"), default=10, validators=[MaxValueValidator(100)],
+        help_text=_("Les box des locations du Trackday sont numérotés de 1 à ce nombre."),
+    )
+    places_vehicules = models.PositiveSmallIntegerField(
+        _("Places véhicules"), null=True, blank=True, validators=[MaxValueValidator(200)],
+        help_text=_("Facultatif : nombre maximum de véhicules engagés."),
+    )
+    remarques = models.TextField(_("Remarques"), blank=True)
+    cree_par = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,
+                                 related_name="trackdays_crees", editable=False)
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("Trackday")
+        verbose_name_plural = _("Trackdays")
+        ordering = ["-date_debut", "-created_at"]
+
+    def __str__(self):
+        return self.libelle
+
+    @property
+    def libelle(self):
+        base = self.nom or self.get_circuit_display()
+        return f"{base} – {self.date_debut:%d/%m/%Y}"
+
+    @property
+    def periode_affichage(self):
+        if self.date_fin and self.date_fin != self.date_debut:
+            return f"{self.date_debut:%d/%m/%Y} → {self.date_fin:%d/%m/%Y}"
+        return f"{self.date_debut:%d/%m/%Y}"
+
+    @property
+    def longueur_circuit_km(self):
+        return LONGUEUR_CIRCUIT_KM.get(self.circuit)
+
+    def clean(self):
+        super().clean()
+        if self.date_fin and self.date_debut and self.date_fin < self.date_debut:
+            raise ValidationError({"date_fin": _("La date de fin doit être postérieure à la date de début.")})
+
+    # ---------------- Véhicules, box et rentabilité ----------------
+    def locations_liste(self):
+        if not hasattr(self, "_locations_cache"):
+            self._locations_cache = list(
+                self.locations.select_related(
+                    "voiture_exemplaire__voiture_marque", "voiture_exemplaire__voiture_modele",
+                    "client", "societe_cliente", "client_pilotage__client_particulier",
+                    "deuxieme_client", "deuxieme_client_pilotage__client_particulier", "vendeur", "societe",
+                    "agenda_location",
+                ).prefetch_related("boxes", "factures").order_by("numero_course", "created_at")
+            )
+        return self._locations_cache
+
+    @property
+    def nb_vehicules(self):
+        return len(self.locations_liste())
+
+    def boxes_occupes(self):
+        """{(pit_lane, numéro): [locations]}"""
+        occ = {}
+        for loc in self.locations_liste():
+            for b in loc.boxes.all():
+                occ.setdefault((b.pit_lane, b.numero), []).append(loc)
+        return occ
+
+    @property
+    def nb_box_utilises(self):
+        return len(self.boxes_occupes())
+
+    def plan_box(self):
+        """Grille des box 1 → nombre_box par pit lane : [{'pit_lane', 'box': [(numéro, [locations])]}]."""
+        occ = self.boxes_occupes()
+        lanes = sorted({pl for pl, _n in occ} | {PitLane.PIT_LANE_1})
+        return [
+            {"pit_lane": PitLane(pl).label,
+             "box": [(n, occ.get((pl, n), [])) for n in range(1, (self.nombre_box or 0) + 1)]}
+            for pl in lanes
+        ]
+
+    @property
+    def numeros_pris(self):
+        return sorted(l.numero_course for l in self.locations_liste() if l.numero_course)
+
+    def rentabilite(self):
+        zero = Decimal("0.00")
+        locs = self.locations_liste()
+        ventes_htva = sum((l.prix_htva for l in locs), zero)
+        ventes_tvac = sum((l.prix_tvac for l in locs), zero)
+        couts = sum((c.montant_htva for c in self.couts.all()), zero)
+        marge = ventes_htva - couts
+        nb = len(locs)
+        return {
+            "nb_vehicules": nb,
+            "nb_box": self.nb_box_utilises,
+            "nombre_box": self.nombre_box,
+            "ventes_htva": ventes_htva,
+            "ventes_tvac": ventes_tvac,
+            "couts_htva": couts,
+            "marge": marge,
+            "marge_pct": (marge * 100 / ventes_htva).quantize(Decimal("0.1")) if ventes_htva else None,
+            "panier_moyen_htva": (ventes_htva / nb).quantize(DEUX_DECIMALES) if nb else zero,
+            "cout_par_vehicule": (couts / nb).quantize(DEUX_DECIMALES) if nb else zero,
+            "seuil_vehicules": (
+                int((couts / (ventes_htva / nb)).to_integral_value(rounding="ROUND_CEILING"))
+                if nb and ventes_htva else None
+            ),
+            "tours": sum((l.nombre_tours or 0 for l in locs), 0),
+            "km": sum((l.kilometrage or 0 for l in locs), 0),
+        }
+
+
+class CategorieCoutTrackday(models.TextChoices):
+    CIRCUIT = "CIRCUIT", _("Location du circuit")
+    BOX = "BOX", _("Box / paddock")
+    ASSURANCE = "ASSURANCE", _("Assurance")
+    PERSONNEL = "PERSONNEL", _("Personnel / instructeurs")
+    CARBURANT = "CARBURANT", _("Carburant")
+    PNEUS = "PNEUS", _("Pneus")
+    TRANSPORT = "TRANSPORT", _("Transport / camion")
+    RESTAURATION = "RESTAURATION", _("Restauration / hospitalité")
+    SECURITE = "SECURITE", _("Sécurité / commissaires / médical")
+    PHOTO = "PHOTO", _("Photo / vidéo")
+    AUTRE = "AUTRE", _("Autre")
+
+
+class TrackdayCout(models.Model):
+    """Coût d'achat du Trackday (HTVA) : sert au calcul de rentabilité."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    trackday = models.ForeignKey(Trackday, on_delete=models.CASCADE, related_name="couts")
+    categorie = models.CharField(_("Catégorie"), max_length=15, choices=CategorieCoutTrackday.choices,
+                                 default=CategorieCoutTrackday.CIRCUIT)
+    libelle = models.CharField(_("Libellé"), max_length=150, blank=True)
+    fournisseur = models.CharField(_("Fournisseur"), max_length=120, blank=True)
+    montant_htva = models.DecimalField(_("Montant HTVA (€)"), max_digits=10, decimal_places=2, default=Decimal("0"),
+                                       validators=[MinValueValidator(Decimal("0"))])
+
+    class Meta:
+        verbose_name = _("Coût du Trackday")
+        verbose_name_plural = _("Coûts du Trackday")
+        ordering = ["categorie", "libelle"]
+
+    def __str__(self):
+        return self.libelle or self.get_categorie_display()

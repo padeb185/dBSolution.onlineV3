@@ -5,14 +5,24 @@ from .models import NombreFixations, VoitureJante
 
 CLASSE = "border rounded px-3 py-2 w-full"
 
+# Champs arrière recopiés de l'avant quand « Mêmes dimensions » est coché
+PAIRES_AV_AR = [
+    ("diametre_av", "diametre_ar"),
+    ("largeur_av", "largeur_ar"),
+    ("profil", "profil_ar"),
+    ("deport_av", "deport_ar"),
+    ("reference", "reference_ar"),
+    ("poids_kg", "poids_ar_kg"),
+]
+
 # Sections du formulaire (ordre d'affichage)
 SECTIONS = [
-    (_("Identification"), "jante-identification", ["fabricant", "nom_modele", "reference", "origine", "competition"]),
+    (_("Identification"), "jante-identification", ["fabricant", "nom_modele", "origine", "competition"]),
     (_("Construction"), "jante-construction", ["matiere", "construction", "finition"]),
     (_("Fixation"), "jante-fixation", ["nombre_fixations", "entraxe_mm", "alesage_mm"]),
-    (_("Dimensions avant"), "jante-avant", ["diametre_av", "largeur_av", "profil", "deport_av"]),
-    (_("Dimensions arrière"), "jante-arriere", ["diametre_ar", "largeur_ar", "deport_ar"]),
-    (_("Caractéristiques"), "jante-caracteristiques", ["poids_kg", "charge_max_kg", "quantite"]),
+    (_("Jante avant"), "jante-avant", ["diametre_av", "largeur_av", "profil", "deport_av", "reference", "poids_kg"]),
+    (_("Jante arrière"), "jante-arriere", ["diametre_ar", "largeur_ar", "profil_ar", "deport_ar", "reference_ar", "poids_ar_kg"]),
+    (_("Caractéristiques"), "jante-caracteristiques", ["charge_max_kg", "quantite"]),
     (_("Achat"), "jante-achat", ["prix_achat", "date_achat", "remarques"]),
 ]
 
@@ -36,6 +46,7 @@ class VoitureJanteForm(forms.ModelForm):
             "largeur_av": forms.NumberInput(attrs={"step": "0.5"}),
             "largeur_ar": forms.NumberInput(attrs={"step": "0.5"}),
             "poids_kg": forms.NumberInput(attrs={"step": "0.01"}),
+            "poids_ar_kg": forms.NumberInput(attrs={"step": "0.01"}),
             "prix_achat": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
         }
 
@@ -47,7 +58,10 @@ class VoitureJanteForm(forms.ModelForm):
             else:
                 field.widget.attrs["class"] = CLASSE
         if self.instance.pk:
-            self.fields["meme_dimension"].initial = not self.instance.est_decalee
+            inst = self.instance
+            self.fields["meme_dimension"].initial = all(
+                getattr(inst, av) == getattr(inst, ar) for av, ar in PAIRES_AV_AR
+            )
 
     @property
     def sections(self):
@@ -59,11 +73,9 @@ class VoitureJanteForm(forms.ModelForm):
     def clean(self):
         data = super().clean()
         if data.get("meme_dimension"):
-            data["diametre_ar"] = data.get("diametre_av")
-            data["largeur_ar"] = data.get("largeur_av")
-            data["deport_ar"] = data.get("deport_av")
-            for champ in ("diametre_ar", "largeur_ar", "deport_ar"):
-                self.errors.pop(champ, None)
+            for av, ar in PAIRES_AV_AR:
+                data[ar] = data.get(av)
+                self.errors.pop(ar, None)
 
         fixations = data.get("nombre_fixations")
         if fixations and fixations != NombreFixations.ECROU_CENTRAL and not data.get("entraxe_mm"):

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails du passage au banc" %}{% endblock %}
+
+{% block content %}
+    {% url 'banc_puissance:modifier_banc' banc.pk as url_modifier %}
+    {% url 'banc_puissance:banc_pdf' banc.pk as url_pdf %}
+    {% url 'banc_puissance:delete_banc' banc.pk as url_delete %}
+    {% if exemplaire %}{% url 'banc_puissance:banc_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails du passage au banc" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=banc km_controle=banc.kilometrage_banc icone="banc-puissance.png" extra_template="banc_puissance/partials/resultats.html" %}
+{% endblock %}

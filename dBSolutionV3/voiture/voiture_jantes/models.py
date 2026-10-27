@@ -119,7 +119,8 @@ class VoitureJante(models.Model):
         default=FabricantJante.CONSTRUCTEUR_OEM, verbose_name=_("Fabricant"),
     )
     nom_modele = models.CharField(max_length=80, blank=True, default="", verbose_name=_("Modèle de jante"))
-    reference = models.CharField(max_length=50, blank=True, default="", verbose_name=_("Référence / n° OEM"))
+    reference = models.CharField(max_length=50, blank=True, default="", verbose_name=_("Référence jante avant / n° OEM"))
+    reference_ar = models.CharField(max_length=50, blank=True, default="", verbose_name=_("Référence jante arrière / n° OEM"))
     origine = models.BooleanField(default=True, verbose_name=_("Jantes d'origine"))
     competition = models.BooleanField(default=False, verbose_name=_("Jantes compétition"))
 
@@ -163,7 +164,7 @@ class VoitureJante(models.Model):
     )
     profil = models.CharField(
         max_length=10, choices=ProfilRebord.choices, default=ProfilRebord.J,
-        verbose_name=_("Profil du rebord"),
+        verbose_name=_("Profil du rebord avant"),
     )
     deport_av = models.SmallIntegerField(
         default=35,
@@ -181,6 +182,10 @@ class VoitureJante(models.Model):
         validators=[MinValueValidator(Decimal("3")), MaxValueValidator(Decimal("16"))],
         verbose_name=_("Largeur arrière (J, pouces)"),
     )
+    profil_ar = models.CharField(
+        max_length=10, choices=ProfilRebord.choices, default=ProfilRebord.J,
+        verbose_name=_("Profil du rebord arrière"),
+    )
     deport_ar = models.SmallIntegerField(
         default=35,
         validators=[MinValueValidator(-80), MaxValueValidator(120)],
@@ -189,7 +194,10 @@ class VoitureJante(models.Model):
 
     # ---------------- Caractéristiques ----------------
     poids_kg = models.DecimalField(
-        max_digits=5, decimal_places=2, null=True, blank=True, verbose_name=_("Poids par jante (kg)"),
+        max_digits=5, decimal_places=2, null=True, blank=True, verbose_name=_("Poids jante avant (kg)"),
+    )
+    poids_ar_kg = models.DecimalField(
+        max_digits=5, decimal_places=2, null=True, blank=True, verbose_name=_("Poids jante arrière (kg)"),
     )
     charge_max_kg = models.PositiveIntegerField(null=True, blank=True, verbose_name=_("Charge maximale (kg)"))
     quantite = models.PositiveSmallIntegerField(default=4, verbose_name=_("Nombre de jantes"))
@@ -227,20 +235,33 @@ class VoitureJante(models.Model):
             return ""
         return f"{self.nombre_fixations}x{self._nombre(self.entraxe_mm)}"
 
-    def _dimension(self, largeur, diametre, deport):
-        return f"{self._nombre(largeur)}{self.profil} x {self._nombre(diametre)} ET{deport}"
+    def _dimension(self, largeur, profil, diametre, deport):
+        return f"{self._nombre(largeur)}{profil} x {self._nombre(diametre)} ET{deport}"
 
     @property
     def dimension_av(self):
-        return self._dimension(self.largeur_av, self.diametre_av, self.deport_av)
+        return self._dimension(self.largeur_av, self.profil, self.diametre_av, self.deport_av)
 
     @property
     def dimension_ar(self):
-        return self._dimension(self.largeur_ar, self.diametre_ar, self.deport_ar)
+        return self._dimension(self.largeur_ar, self.profil_ar or self.profil, self.diametre_ar, self.deport_ar)
 
     @property
     def est_decalee(self):
-        return (self.diametre_av, self.largeur_av, self.deport_av) != (self.diametre_ar, self.largeur_ar, self.deport_ar)
+        return (
+            (self.diametre_av, self.largeur_av, self.profil, self.deport_av)
+            != (self.diametre_ar, self.largeur_ar, self.profil_ar or self.profil, self.deport_ar)
+        )
+
+    @property
+    def poids_jeu_kg(self):
+        """Poids estimé du jeu complet (moitié avant, moitié arrière)."""
+        if not self.poids_kg and not self.poids_ar_kg:
+            return None
+        av = self.poids_kg or self.poids_ar_kg
+        ar = self.poids_ar_kg or self.poids_kg
+        moitie = Decimal(self.quantite or 0) / 2
+        return (av * moitie + ar * moitie).quantize(Decimal("0.01"))
 
     @property
     def libelle(self):

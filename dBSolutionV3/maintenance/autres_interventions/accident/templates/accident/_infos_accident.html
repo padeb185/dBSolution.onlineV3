@@ -1,0 +1,7 @@
+{% load i18n %}
+<p><strong>{% trans "Date de l'accident" %} :</strong> {{ obj.date_accident|date:"d/m/Y" }}{% if obj.heure_accident %} {{ obj.heure_accident|time:"H:i" }}{% endif %}{% if obj.sur_piste %} – {% trans "sur piste" %}{% endif %}</p>
+<p><strong>{% trans "Type de choc" %} :</strong> {{ obj.get_type_choc_display }}</p>
+<p><strong>{% trans "Décision" %} :</strong>
+    <span class="px-2 py-0.5 rounded font-semibold {% if obj.decision == 'PERTE_TOTALE' or obj.decision == 'PIECES' %}bg-red-100 text-red-800{% elif obj.decision == 'EN_ATTENTE' or obj.decision == 'EXPERTISE' %}bg-yellow-100 text-yellow-800{% else %}bg-blue-100 text-blue-800{% endif %}">{{ obj.get_decision_display }}</span>
+</p>
+<p><strong>{% trans "Pièces endommagées" %} :</strong> {{ obj.nombre_pieces }}{% if obj.nombre_pieces_graves %} <span class="text-red-700">({{ obj.nombre_pieces_graves }} {% trans "graves" %})</span>{% endif %}</p>

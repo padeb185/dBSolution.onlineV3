@@ -428,7 +428,7 @@ class CalculTVA:
             for ligne in facture.lines.all():
                 if ligne.type_ligne != FactureLine.TypeLigne.PIECE or ligne.unit_cost is None:
                     continue
-                montant = arrondi(Decimal(ligne.unit_cost) * Decimal(ligne.quantity or 0))
+                montant = ligne.cout_total  # coût d'achat × quantité (× quote-part de notre société)
                 tva_ligne = arrondi(montant * Decimal(ligne.vat_rate or 0) / Decimal("100"))
                 base += montant
                 tva += tva_ligne

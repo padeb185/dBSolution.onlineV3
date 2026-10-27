@@ -1,0 +1,91 @@
+{% load i18n %}
+<div class="bg-white shadow-md rounded-lg p-6 mb-6">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Résultats du banc de puissance" %}</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 text-sm">
+        <div><span class="text-gray-500">{% trans "Date du passage au banc" %} :</span> <strong>{{ obj.date_passage|date:"d/m/Y" }}</strong></div>
+        <div><span class="text-gray-500">{% trans "Lieu / préparateur du banc" %} :</span> <strong>{{ obj.lieu_banc|default:"-" }}</strong></div>
+        <div><span class="text-gray-500">{% trans "Type de banc" %} :</span> <strong>{{ obj.get_type_banc_display }}{% if obj.marque_banc != "CHOISIR" %} – {{ obj.get_marque_banc_display }}{% endif %}</strong></div>
+        <div><span class="text-gray-500">{% trans "Norme de correction" %} :</span> <strong>{{ obj.get_norme_correction_display }}</strong></div>
+        <div><span class="text-gray-500">{% trans "Carburant" %} :</span> <strong>{{ obj.get_carburant_display }}</strong>{% if obj.rapport_mesure %} · {% trans "Rapport" %} {{ obj.rapport_mesure }}{% endif %}</div>
+        <div><span class="text-gray-500">{% trans "Conditions" %} :</span> <strong>{{ obj.temperature_c|default:"-" }} °C · {{ obj.pression_hpa|default:"-" }} hPa · {{ obj.humidite_pct|default:"-" }} %</strong></div>
+    </div>
+
+    {% if obj.cartographie_effectuee %}
+    <p class="mb-4 text-sm">
+        <span class="text-gray-500">{% trans "Cartographie" %} :</span>
+        <strong>{{ obj.get_niveau_cartographie_display }}</strong>
+        {% if obj.preparateur %} – {{ obj.preparateur }}{% endif %}
+        {% if obj.calculateur %} – {{ obj.calculateur }}{% endif %}
+        {% if obj.outil_cartographie %} ({{ obj.outil_cartographie }}){% endif %}
+    </p>
+    {% endif %}
+
+    <div class="overflow-x-auto">
+    <table class="min-w-full table-auto border-collapse border border-gray-200">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border px-3 py-2 text-left">{% trans "Mesure" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Sans cartographie" %}</th>
+                {% if obj.cartographie_effectuee %}
+                <th class="border px-3 py-2 text-right">{% trans "Après cartographie" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Gain" %}</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="border px-3 py-2 font-semibold">{% trans "Puissance maximale" %}</td>
+                <td class="border px-3 py-2 text-right">{% if obj.avant_puissance_ch is not None %}{{ obj.avant_puissance_ch }} ch <span class="text-gray-500">({{ obj.avant_puissance_kw }} kW)</span>{% else %}-{% endif %}</td>
+                {% if obj.cartographie_effectuee %}
+                <td class="border px-3 py-2 text-right">{% if obj.apres_puissance_ch is not None %}{{ obj.apres_puissance_ch }} ch <span class="text-gray-500">({{ obj.apres_puissance_kw }} kW)</span>{% else %}-{% endif %}</td>
+                <td class="border px-3 py-2 text-right font-bold {% if obj.gain_ch > 0 %}text-green-700{% elif obj.gain_ch < 0 %}text-red-700{% endif %}">{% if obj.gain_ch is not None %}{% if obj.gain_ch > 0 %}+{% endif %}{{ obj.gain_ch }} ch ({% if obj.gain_ch_pct > 0 %}+{% endif %}{{ obj.gain_ch_pct }} %){% else %}-{% endif %}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td class="border px-3 py-2">{% trans "Régime de puissance maxi (tr/min)" %}</td>
+                <td class="border px-3 py-2 text-right">{{ obj.avant_regime_puissance|default:"-" }}</td>
+                {% if obj.cartographie_effectuee %}<td class="border px-3 py-2 text-right">{{ obj.apres_regime_puissance|default:"-" }}</td><td class="border"></td>{% endif %}
+            </tr>
+            <tr>
+                <td class="border px-3 py-2 font-semibold">{% trans "Couple maximal" %}</td>
+                <td class="border px-3 py-2 text-right">{% if obj.avant_couple_nm is not None %}{{ obj.avant_couple_nm }} Nm{% else %}-{% endif %}</td>
+                {% if obj.cartographie_effectuee %}
+                <td class="border px-3 py-2 text-right">{% if obj.apres_couple_nm is not None %}{{ obj.apres_couple_nm }} Nm{% else %}-{% endif %}</td>
+                <td class="border px-3 py-2 text-right font-bold {% if obj.gain_nm > 0 %}text-green-700{% elif obj.gain_nm < 0 %}text-red-700{% endif %}">{% if obj.gain_nm is not None %}{% if obj.gain_nm > 0 %}+{% endif %}{{ obj.gain_nm }} Nm ({% if obj.gain_nm_pct > 0 %}+{% endif %}{{ obj.gain_nm_pct }} %){% else %}-{% endif %}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td class="border px-3 py-2">{% trans "Régime de couple maxi (tr/min)" %}</td>
+                <td class="border px-3 py-2 text-right">{{ obj.avant_regime_couple|default:"-" }}</td>
+                {% if obj.cartographie_effectuee %}<td class="border px-3 py-2 text-right">{{ obj.apres_regime_couple|default:"-" }}</td><td class="border"></td>{% endif %}
+            </tr>
+            <tr>
+                <td class="border px-3 py-2">{% trans "Puissance aux roues" %}</td>
+                <td class="border px-3 py-2 text-right">{% if obj.avant_puissance_roues_ch is not None %}{{ obj.avant_puissance_roues_ch }} ch{% else %}-{% endif %}</td>
+                {% if obj.cartographie_effectuee %}<td class="border px-3 py-2 text-right">{% if obj.apres_puissance_roues_ch is not None %}{{ obj.apres_puissance_roues_ch }} ch{% else %}-{% endif %}</td><td class="border"></td>{% endif %}
+            </tr>
+        </tbody>
+    </table>
+    </div>
+
+    {% if obj.pertes_transmission_pct is not None %}
+        <p class="mt-3 text-sm"><span class="text-gray-500">{% trans "Pertes de transmission estimées" %} :</span> <strong>{{ obj.pertes_transmission_pct }} %</strong></p>
+    {% endif %}
+
+    <div class="flex flex-wrap gap-3 mt-4">
+        {% if obj.avant_pdf %}
+            <a href="{% url 'banc_puissance:banc_document' obj.pk 'avant' %}" target="_blank" rel="noopener" class="btn-courbe">{% trans "Courbes sans cartographie" %}</a>
+        {% endif %}
+        {% if obj.apres_pdf %}
+            <a href="{% url 'banc_puissance:banc_document' obj.pk 'apres' %}" target="_blank" rel="noopener" class="btn-courbe">{% trans "Courbes après cartographie" %}</a>
+        {% endif %}
+        {% if not obj.avant_pdf and not obj.apres_pdf %}
+            <span class="text-gray-500 text-sm">{% trans "Aucune courbe jointe." %}</span>
+        {% endif %}
+    </div>
+</div>
+<style>
+.btn-courbe{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:6px;background:#1d4ed8;color:#fff;font-weight:600}
+.btn-courbe:hover{background:#60a5fa}
+</style>

@@ -1,0 +1,25 @@
+{% load i18n %}
+<tr class="ligne-part">
+    <td>
+        {% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+        {{ form.titulaire }}
+        {% for e in form.titulaire.errors %}<div class="erreur">{{ e }}</div>{% endfor %}
+        {% for e in form.non_field_errors %}<div class="erreur">{{ e }}</div>{% endfor %}
+    </td>
+    <td class="col-num">
+        {{ form.part_proprietaire_pourcent }}
+        {% for e in form.part_proprietaire_pourcent.errors %}<div class="erreur">{{ e }}</div>{% endfor %}
+    </td>
+    <td class="col-num">
+        <span class="champ-marge">{{ form.marge_pieces }}</span>
+        <span class="marge-interne">{% trans "Interne : au coût" %}</span>
+        {% for e in form.marge_pieces.errors %}<div class="erreur">{{ e }}</div>{% endfor %}
+    </td>
+    <td class="col-num">
+        <span class="champ-marge">{{ form.marge_main_oeuvre }}</span>
+        <span class="marge-interne">{% trans "Interne : au coût" %}</span>
+        {% for e in form.marge_main_oeuvre.errors %}<div class="erreur">{{ e }}</div>{% endfor %}
+    </td>
+    <td>{{ form.remarques }}</td>
+    <td class="col-sup">{% if form.DELETE %}{{ form.DELETE }}{% endif %}</td>
+</tr>

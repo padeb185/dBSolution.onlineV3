@@ -970,3 +970,48 @@ class LigneOperationDiverse(models.Model):
         verbose_name = _("Ligne d'opération diverse")
         verbose_name_plural = _("Lignes d'opérations diverses")
         ordering = ["-debit", "compte"]
+
+
+# =====================================================================
+# DERNIER BILAN (établi par le comptable) : base des bilans générés ensuite
+# =====================================================================
+class BilanReference(models.Model):
+    """
+    Bilan (et compte de résultats) d'un exercice clôturé, encodé par rubriques BNB
+    à partir des comptes annuels établis par le comptable.
+    Il sert de colonne N-1 et de soldes d'ouverture pour les bilans générés par l'application.
+    """
+
+    class Schema(models.TextChoices):
+        ABREGE = "ABREGE", _("Schéma abrégé")
+        COMPLET = "COMPLET", _("Schéma complet")
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    societe = models.ForeignKey("societe.Societe", on_delete=models.CASCADE, related_name="bilans_reference")
+    annee = models.PositiveSmallIntegerField(_("Exercice clôturé au 31/12 de"))
+    schema = models.CharField(_("Schéma"), max_length=10, choices=Schema.choices, default=Schema.ABREGE)
+    etabli_par = models.CharField(_("Établi par (comptable / fiduciaire)"), max_length=150, blank=True)
+    date_depot = models.DateField(_("Date de dépôt à la BNB"), null=True, blank=True)
+    montants = models.JSONField(_("Montants par rubrique"), default=dict, blank=True)
+    remarques = models.TextField(_("Remarques"), blank=True)
+    cree_par = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,
+                                 related_name="bilans_reference", editable=False)
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("Bilan de référence")
+        verbose_name_plural = _("Bilans de référence")
+        ordering = ["-annee"]
+        constraints = [
+            models.UniqueConstraint(fields=["societe", "annee"], name="bilan_reference_unique_annee"),
+        ]
+
+    def __str__(self):
+        return f"{_('Bilan')} {self.annee} ({self.get_schema_display()})"
+
+    def montant(self, cle):
+        try:
+            return Decimal(str(self.montants.get(cle) or "0")).quantize(Decimal("0.01"))
+        except Exception:
+            return Decimal("0.00")

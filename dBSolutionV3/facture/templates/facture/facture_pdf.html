@@ -155,6 +155,9 @@
                     <div><span class="label">{% trans "Kilométrage" %} :</span> {{ v.kilometres_chassis|default:0 }} km</div>
                 {% endif %}
             {% endwith %}
+            {% if facture.est_quote_part %}
+                <div><span class="label">{% trans "Quote-part facturée" %} :</span> {{ facture.part_pourcent|floatformat:2 }} % {% trans "du véhicule (copropriété)" %}</div>
+            {% endif %}
         </div>
     </div>
 

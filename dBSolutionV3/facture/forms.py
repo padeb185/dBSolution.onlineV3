@@ -72,6 +72,10 @@ class FactureForm(forms.ModelForm):
                     return f"{cp.nom} {cp.prenom}"
                 return getattr(ca.societe_cliente, "nom_societe_cliente", "") or str(ca.pk)
 
+            # Propriétaires (copropriété du véhicule : facture d'une part)
+            from proprietaire.models import Proprietaire
+            proprietaires = Proprietaire.objects.filter(societe=societe).order_by("nom", "prenom")
+
             self.fields["client_choix"].choices = [
                 ("", "---------"),
                 (_("Clients"), [(f"particulier:{c.pk}", f"{c.nom} {c.prenom}") for c in clients]),
@@ -80,8 +84,11 @@ class FactureForm(forms.ModelForm):
                     for p in pilotes
                 ]),
                 (_("Clients atelier"), [(f"atelier:{ca.pk}", libelle_atelier(ca)) for ca in ateliers]),
+                (_("Propriétaires"), [(f"proprietaire:{p.pk}", f"{p.nom} {p.prenom}") for p in proprietaires]),
             ]
-            if self.instance.client_atelier_id:
+            if self.instance.proprietaire_id:
+                self.initial["client_choix"] = f"proprietaire:{self.instance.proprietaire_id}"
+            elif self.instance.client_atelier_id:
                 self.initial["client_choix"] = f"atelier:{self.instance.client_atelier_id}"
             elif self.instance.client_particulier_id:
                 pilote = next((p for p in pilotes if p.client_particulier_id == self.instance.client_particulier_id), None)
@@ -100,7 +107,9 @@ class FactureForm(forms.ModelForm):
         if not valeur:
             return None
         type_client, _sep, pk = valeur.partition(":")
-        modele = {"particulier": ClientParticulier, "atelier": ClientAtelier, "pilotage": ClientPilotage}.get(type_client)
+        from proprietaire.models import Proprietaire
+        modele = {"particulier": ClientParticulier, "atelier": ClientAtelier, "pilotage": ClientPilotage,
+                  "proprietaire": Proprietaire}.get(type_client)
         if modele is None:
             raise forms.ValidationError(_("Client invalide."))
         try:
@@ -120,10 +129,13 @@ class FactureForm(forms.ModelForm):
             choix = self.cleaned_data.get("client_choix")
             self.instance.client_particulier = None
             self.instance.client_atelier = None
+            self.instance.proprietaire = None
             if choix and not self.cleaned_data.get("client_est_societe"):
                 type_client, obj = choix
                 if type_client == "atelier":
                     self.instance.client_atelier = obj
+                elif type_client == "proprietaire":
+                    self.instance.proprietaire = obj
                 else:
                     self.instance.client_particulier = obj
         super()._post_clean()

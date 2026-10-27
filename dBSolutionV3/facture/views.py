@@ -26,8 +26,11 @@ from .services import (
     appliquer_marges,
     creer_facture_depuis_diagnostic,
     creer_facture_depuis_maintenances,
+    creer_factures_par_parts,
     emettre_facture,
+    emettre_repartition,
     erreurs_emission,
+    parts_vehicule,
 )
 
 # Qui peut facturer (+ super admin)
@@ -82,6 +85,7 @@ def _get_facture(request, pk):
             "societe", "societe__adresse", "client_particulier", "client_particulier__adresse",
             "client_atelier__client_particulier", "client_atelier__societe_cliente",
             "societe_cliente", "societe_cliente__adresse", "voiture_exemplaire",
+            "proprietaire", "proprietaire__adresse", "part_proprietaire",
             "voiture_exemplaire__voiture_marque", "voiture_exemplaire__voiture_modele",
         ),
         pk=pk,
@@ -179,10 +183,41 @@ def creer_facture_view(request):
         messages.error(request, _("Ce diagnostic n'est lié à aucun véhicule."))
         return redirect("facture:maintenances")
 
+    vehicule = (maintenances[0] if maintenances else diagnostics[0]).voiture_exemplaire
+    reponse = _facturer_par_parts(request, vehicule, maintenances, diagnostics)
+    if reponse is not None:
+        return reponse
+
     facture = creer_facture_depuis_maintenances(maintenances, type_facture, request.user, diagnostics=diagnostics)
     _log(request.user, ACTION_CREATION_FACTURE, facture)
     messages.success(request, _("Brouillon de facture créé. Vérifiez les marges et les lignes avant d'émettre."))
     return redirect("facture:modifier", pk=facture.pk)
+
+
+def _facturer_par_parts(request, vehicule, maintenances, diagnostics):
+    """
+    Véhicule avec des propriétaires enregistrés : une facture par propriétaire, au pourcentage de sa part
+    (notre société seule propriétaire : une facture interne sans marge). None si le véhicule n'a pas de parts.
+    """
+    parts, _total = parts_vehicule(vehicule)
+    if not parts:
+        return None
+    try:
+        factures = creer_factures_par_parts(maintenances, request.user, diagnostics=diagnostics)
+    except ValueError as erreur:
+        messages.error(request, str(erreur))
+        messages.info(request, _("Complétez les parts du véhicule (menu Direction › Propriétaires) puis recommencez."))
+        return redirect("proprietaire:parts_vehicule", exemplaire_id=vehicule.pk)
+    for f in factures:
+        _log(request.user, ACTION_CREATION_FACTURE, f)
+    if len(factures) == 1 and factures[0].client_est_societe:
+        messages.success(request, _("Notre société est seule propriétaire : facture interne créée, sans marge (TVA des pièces récupérée)."))
+    else:
+        messages.success(
+            request,
+            _("%(n)s brouillons de facture créés, un par propriétaire, chacun au pourcentage de sa part.") % {"n": len(factures)},
+        )
+    return redirect("facture:modifier", pk=factures[0].pk)
 
 
 @login_required
@@ -205,6 +240,10 @@ def creer_facture_diagnostic_view(request, diagnostic_id):
     if not diagnostic.voiture_exemplaire_id:
         messages.error(request, _("Ce diagnostic n'est lié à aucun véhicule."))
         return redirect("voiture_diagnostic:diagnostic_detail", diagnostic_id=diagnostic.id)
+
+    reponse = _facturer_par_parts(request, diagnostic.voiture_exemplaire, [], [diagnostic])
+    if reponse is not None:
+        return reponse
 
     facture = creer_facture_depuis_diagnostic(diagnostic, type_facture, request.user)
     _log(request.user, ACTION_CREATION_FACTURE, facture)
@@ -327,6 +366,41 @@ def facture_modifier_view(request, pk):
         "peut_supprimer": _peut(request.user, ROLES_SUPPRESSION),
         "vendeur_locations": _vendeur_locations(request.user),
     })
+
+
+# -----------------------------
+# Répartition par parts : émission de toutes les factures
+# -----------------------------
+@login_required
+@require_POST
+def emettre_repartition_view(request, pk):
+    if not _peut(request.user, ROLES_FACTURATION):
+        return _refuser(request)
+    facture = _get_facture(request, pk)
+    if not facture.repartition:
+        return redirect("facture:modifier" if facture.est_brouillon else "facture:detail", pk=facture.pk)
+
+    with transaction.atomic():
+        emises, refusees = emettre_repartition(facture)
+    for f in emises:
+        _log(request.user, ACTION_EMISSION_FACTURE, f)
+    if emises:
+        messages.success(
+            request,
+            _("%(n)s facture(s) émise(s) : %(numeros)s.") % {"n": len(emises), "numeros": ", ".join(f.numero for f in emises)},
+        )
+        parametres = ParametresPeppol.pour_societe(request.user.societe)
+        if parametres and parametres.est_configure and parametres.envoi_automatique:
+            for f in emises:
+                if f.est_pro:
+                    _envoyer_peppol(request, f, parametres)
+    for f, erreurs in refusees:
+        messages.error(request, _("%(client)s : %(erreurs)s") % {
+            "client": f.nom_client_courant() or _("brouillon"), "erreurs": " ".join(str(e) for e in erreurs)})
+    if not emises and not refusees:
+        messages.info(request, _("Toutes les factures de la répartition sont déjà émises."))
+    cible = refusees[0][0] if refusees else facture
+    return redirect("facture:modifier" if cible.est_brouillon else "facture:detail", pk=cible.pk)
 
 
 # -----------------------------

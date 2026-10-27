@@ -144,6 +144,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
     total_cardan = 0
     total_arbre_transmission = 0
     total_boite_transfert = 0
+    total_banc_puissance = 0
+    total_accident = 0
     total_geometrie_course = 0
     total_vitrage = 0
     total_roulement = 0
@@ -252,6 +254,10 @@ def choisir_autre_maintenance(request, exemplaire_id):
             from maintenance.autres_interventions.arbre_transmission.models import ArbreTransmission
             total_arbre_transmission = ArbreTransmission.objects.filter(voiture_exemplaire=exemplaire).count()
             from maintenance.autres_interventions.boite_transfert.models import BoiteTransfert
+            from maintenance.autres_interventions.banc_puissance.models import BancPuissance
+            total_banc_puissance = BancPuissance.objects.filter(voiture_exemplaire=exemplaire).count()
+            from maintenance.autres_interventions.accident.models import RapportAccident
+            total_accident = RapportAccident.objects.filter(voiture_exemplaire=exemplaire).count()
             total_boite_transfert = BoiteTransfert.objects.filter(voiture_exemplaire=exemplaire).count()
             from maintenance.autres_interventions.geometrie_course.models import GeometrieCourse
             total_geometrie_course = GeometrieCourse.objects.filter(voiture_exemplaire=exemplaire).count()
@@ -420,6 +426,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_cardan": total_cardan,
         "total_arbre_transmission": total_arbre_transmission,
         "total_boites": total_int_boite + total_int_bte_auto + total_boite_transfert,
+        "total_banc_puissance": total_banc_puissance,
+        "total_accident": total_accident,
         "total_geometrie_course": total_geometrie_course,
         "total_vitrage": total_vitrage,
         "total_roulement": total_roulement,

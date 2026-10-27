@@ -66065,3 +66065,1267 @@ msgid "Elles sont liées à %(n)s véhicule : le lien sera retiré."
 msgid_plural "Elles sont liées à %(n)s véhicules : les liens seront retirés."
 msgstr[0] "Sie sind mit %(n)s Fahrzeug verknüpft: die Verknüpfung wird entfernt."
 msgstr[1] "Sie sind mit %(n)s Fahrzeugen verknüpft: die Verknüpfungen werden entfernt."
+
+msgid "Référence jante avant / n° OEM"
+msgstr "Referenz Vorderradfelge / OEM-Nr."
+
+msgid "Référence jante arrière / n° OEM"
+msgstr "Referenz Hinterradfelge / OEM-Nr."
+
+msgid "Profil du rebord avant"
+msgstr "Hornprofil vorne"
+
+msgid "Profil du rebord arrière"
+msgstr "Hornprofil hinten"
+
+msgid "Poids jante avant (kg)"
+msgstr "Gewicht Vorderradfelge (kg)"
+
+msgid "Poids jante arrière (kg)"
+msgstr "Gewicht Hinterradfelge (kg)"
+
+msgid "Poids du jeu (kg)"
+msgstr "Gewicht des Satzes (kg)"
+
+msgid "Jante avant"
+msgstr "Vorderradfelge"
+
+msgid "Jante arrière"
+msgstr "Hinterradfelge"
+
+msgid "Jantes avant et arrière identiques"
+msgstr "Identische Felgen vorne und hinten"
+
+msgid "Après cartographie"
+msgstr "Nach Kennfeldoptimierung"
+
+msgid "Aucune (non corrigée)"
+msgstr "Keine (unkorrigiert)"
+
+msgid "Aucune courbe jointe."
+msgstr "Keine Kurve angehängt."
+
+msgid "Banc de puissance"
+msgstr "Leistungsprüfstand"
+
+msgid "Banc moteur"
+msgstr "Motorprüfstand"
+
+msgid "Banc à moyeux"
+msgstr "Nabenprüfstand"
+
+msgid "Banc à rouleaux (inertiel)"
+msgstr "Rollenprüfstand (Trägheit)"
+
+msgid "Banc à rouleaux à frein (charge)"
+msgstr "Rollenprüfstand mit Bremse (Last)"
+
+msgid "Calculateur (ECU / TCU)"
+msgstr "Steuergerät (ECU / TCU)"
+
+msgid "Carburant course"
+msgstr "Rennkraftstoff"
+
+msgid "Cartographie"
+msgstr "Kennfeldoptimierung"
+
+msgid "Cartographie réalisée"
+msgstr "Kennfeldoptimierung durchgeführt"
+
+msgid "Conditions"
+msgstr "Bedingungen"
+
+msgid "Conditions de mesure"
+msgstr "Messbedingungen"
+
+msgid "Couple maximal"
+msgstr "Maximales Drehmoment"
+
+msgid "Couple maximal (Nm)"
+msgstr "Maximales Drehmoment (Nm)"
+
+msgid "Courbes (PDF, 10 Mo max.)"
+msgstr "Kurven (PDF, max. 10 MB)"
+
+msgid "Courbes après cartographie"
+msgstr "Kurven nach Optimierung"
+
+msgid "Courbes et valeurs après cartographie"
+msgstr "Kurven und Werte nach Optimierung"
+
+msgid "Courbes et valeurs sans cartographie"
+msgstr "Kurven und Werte ohne Optimierung"
+
+msgid "Courbes sans cartographie"
+msgstr "Kurven ohne Optimierung"
+
+msgid "Coûts"
+msgstr "Kosten"
+
+msgid "Date du passage au banc"
+msgstr "Datum der Leistungsmessung"
+
+msgid "Détails du passage au banc"
+msgstr "Details der Leistungsmessung"
+
+msgid "Fichier actuel"
+msgstr "Aktuelle Datei"
+
+msgid "Gain"
+msgstr "Zuwachs"
+
+msgid "Gain de la cartographie"
+msgstr "Zuwachs durch Optimierung"
+
+msgid "Humidité (%)"
+msgstr "Luftfeuchtigkeit (%)"
+
+msgid "Indiquez au moins une puissance ou joignez une courbe."
+msgstr "Geben Sie mindestens eine Leistung an oder fügen Sie eine Kurve bei."
+
+msgid "Kilométrage au passage au banc"
+msgstr "Kilometerstand bei der Messung"
+
+msgid "La puissance aux roues ne peut pas dépasser la puissance moteur."
+msgstr "Die Radleistung darf die Motorleistung nicht übersteigen."
+
+msgid "Les courbes du banc sont jointes séparément (PDF) dans la fiche du passage au banc."
+msgstr "Die Prüfstandskurven sind separat (PDF) in der Messkarte beigefügt."
+
+msgid "Lieu / préparateur du banc"
+msgstr "Ort / Tuner des Prüfstands"
+
+msgid "Liste des passages au banc"
+msgstr "Liste der Leistungsmessungen"
+
+msgid "Marque du banc"
+msgstr "Prüfstandmarke"
+
+msgid "Modification du passage au banc"
+msgstr "Änderung der Leistungsmessung"
+
+msgid "Modifier le passage au banc"
+msgstr "Leistungsmessung bearbeiten"
+
+msgid "Niveau de cartographie"
+msgstr "Optimierungsstufe"
+
+msgid "Norme de correction"
+msgstr "Korrekturnorm"
+
+msgid "Outil / logiciel"
+msgstr "Tool / Software"
+
+msgid "Ouvrir le PDF"
+msgstr "PDF öffnen"
+
+msgid "PDF uniquement, 10 Mo maximum."
+msgstr "Nur PDF, max. 10 MB."
+
+msgid "Passage au banc"
+msgstr "Leistungsmessung"
+
+msgid "Passage au banc enregistré avec succès."
+msgstr "Leistungsmessung erfolgreich gespeichert."
+
+msgid "Passage au banc modifié avec succès !"
+msgstr "Leistungsmessung erfolgreich geändert!"
+
+msgid "Passage au banc supprimé avec succès."
+msgstr "Leistungsmessung erfolgreich gelöscht."
+
+msgid "PassageBanc"
+msgstr "Leistungsmessung"
+
+msgid "Passages au banc de puissance"
+msgstr "Leistungsmessungen"
+
+msgid "Pertes de transmission estimées"
+msgstr "Geschätzte Antriebsverluste"
+
+msgid "Pression atmosphérique (hPa)"
+msgstr "Luftdruck (hPa)"
+
+msgid "Prix de la cartographie HTVA"
+msgstr "Preis Optimierung netto"
+
+msgid "Prix du passage au banc HTVA"
+msgstr "Preis Leistungsmessung netto"
+
+msgid "Préparateur / programmeur"
+msgstr "Tuner / Programmierer"
+
+msgid "Puissance aux roues"
+msgstr "Radleistung"
+
+msgid "Puissance aux roues (ch)"
+msgstr "Radleistung (PS)"
+
+msgid "Puissance maximale"
+msgstr "Maximale Leistung"
+
+msgid "Puissance maximale (ch)"
+msgstr "Maximale Leistung (PS)"
+
+msgid "Puissance, couple, cartographie"
+msgstr "Leistung, Drehmoment, Optimierung"
+
+msgid "Rapport de boîte utilisé"
+msgstr "Verwendeter Gang"
+
+msgid "Rapport de passage au banc de puissance"
+msgstr "Bericht der Leistungsmessung"
+
+msgid "Retour à l'origine"
+msgstr "Rückrüstung auf Serie"
+
+msgid "Retour à la liste des passages au banc"
+msgstr "Zurück zur Liste der Leistungsmessungen"
+
+msgid "Réalisé"
+msgstr "Durchgeführt"
+
+msgid "Régime de couple maxi (tr/min)"
+msgstr "Drehzahl max. Drehmoment (U/min)"
+
+msgid "Régime de puissance maxi (tr/min)"
+msgstr "Drehzahl max. Leistung (U/min)"
+
+msgid "Résultats du banc de puissance"
+msgstr "Ergebnisse der Leistungsmessung"
+
+msgid "Sans cartographie"
+msgstr "Ohne Optimierung"
+
+msgid "Sans plomb 95"
+msgstr "Super 95"
+
+msgid "Sans plomb 95 E10"
+msgstr "Super 95 E10"
+
+msgid "Sans plomb 98"
+msgstr "Super Plus 98"
+
+msgid "Stage 1"
+msgstr "Stage 1"
+
+msgid "Stage 2"
+msgstr "Stage 2"
+
+msgid "Stage 3"
+msgstr "Stage 3"
+
+msgid "Super 100 / 102"
+msgstr "Super 100 / 102"
+
+msgid "Suppression du passage au banc"
+msgstr "Löschung der Leistungsmessung"
+
+msgid "Supprimer le fichier"
+msgstr "Datei löschen"
+
+msgid "Supprimer le passage au banc"
+msgstr "Leistungsmessung löschen"
+
+msgid "Sur mesure"
+msgstr "Maßgeschneidert"
+
+msgid "Température ambiante (°C)"
+msgstr "Umgebungstemperatur (°C)"
+
+msgid "Type de banc"
+msgstr "Prüfstandstyp"
+
+#, python-format
+msgid "Voulez-vous vraiment supprimer le passage au banc du %(date)s (%(km)s km) pour :"
+msgstr "Möchten Sie die Leistungsmessung vom %(date)s (%(km)s km) wirklich löschen für:"
+
+msgid "Éco / optimisation consommation"
+msgstr "Eco / Verbrauchsoptimierung"
+
+msgid "Aucun bilan du comptable n'a été introduit : le bilan est établi uniquement à partir des écritures de l'application."
+msgstr "Es wurde keine Bilanz des Buchhalters erfasst: Die Bilanz beruht nur auf den Buchungen der Anwendung."
+
+msgid "Aucun bilan introduit."
+msgstr "Keine Bilanz erfasst."
+
+#, python-format
+msgid "Base : bilan du comptable au 31/12/%(r)s, complété par les écritures de l'application."
+msgstr "Grundlage: Bilanz des Buchhalters zum 31.12.%(r)s, ergänzt um die Buchungen der Anwendung."
+
+#, python-format
+msgid "Base : dernier bilan du comptable au 31/12/%(r)s, complété par les écritures de l'application jusqu'au 31/12/%(a)s."
+msgstr "Grundlage: letzte Bilanz des Buchhalters zum 31.12.%(r)s, ergänzt um die Buchungen der Anwendung bis zum 31.12.%(a)s."
+
+msgid "Bilan"
+msgstr "Bilanz"
+
+msgid "Bilan de référence"
+msgstr "Referenzbilanz"
+
+#, python-format
+msgid "Bilan du comptable au 31/12/%(a)s"
+msgstr "Bilanz des Buchhalters zum 31.12.%(a)s"
+
+msgid "Bilans de référence"
+msgstr "Referenzbilanzen"
+
+msgid "Bénéfice (Perte) d'exploitation"
+msgstr "Betriebsgewinn (-verlust)"
+
+msgid "Bénéfice (Perte) de l'exercice avant impôts"
+msgstr "Gewinn (Verlust) des Geschäftsjahres vor Steuern"
+
+msgid "COMPTE DE RÉSULTATS (facultatif)"
+msgstr "ERFOLGSRECHNUNG (optional)"
+
+msgid "Ce bilan est généré automatiquement à partir des données de l'application. Il ne remplace pas les comptes annuels officiels et doit être vérifié par un comptable ou un expert-comptable (ITAA) avant toute utilisation ou tout dépôt à la BNB."
+msgstr "Diese Bilanz wird automatisch aus den Daten der Anwendung erstellt. Sie ersetzt nicht den offiziellen Jahresabschluss und muss vor jeder Verwendung oder Hinterlegung bei der NBB von einem Buchhalter oder Wirtschaftsprüfer (ITAA) geprüft werden."
+
+msgid "Date de dépôt à la BNB"
+msgstr "Hinterlegungsdatum bei der NBB"
+
+msgid "Dernier bilan (comptable)"
+msgstr "Letzte Bilanz (Buchhalter)"
+
+msgid "Dernier bilan du comptable"
+msgstr "Letzte Bilanz des Buchhalters"
+
+msgid "Derniers bilans du comptable"
+msgstr "Bilanzen des Buchhalters"
+
+msgid "Document indicatif – à faire vérifier par un comptable"
+msgstr "Unverbindliches Dokument – von einem Buchhalter prüfen lassen"
+
+msgid "Document à titre indicatif"
+msgstr "Unverbindliches Dokument"
+
+msgid "Dépôt BNB"
+msgstr "Hinterlegung NBB"
+
+#, python-format
+msgid "Exercice %(a)s : montants du bilan établi par le comptable (%(s)s), introduits dans l'application."
+msgstr "Geschäftsjahr %(a)s: Beträge der vom Buchhalter erstellten Bilanz (%(s)s), in der Anwendung erfasst."
+
+#, python-format
+msgid "Exercice %(a)s : montants du bilan établi par le comptable."
+msgstr "Geschäftsjahr %(a)s: Beträge der vom Buchhalter erstellten Bilanz."
+
+msgid "Exercice clôturé au 31/12 de"
+msgstr "Geschäftsjahr abgeschlossen zum 31.12."
+
+msgid "Exercice invalide."
+msgstr "Ungültiges Geschäftsjahr."
+
+msgid "Indiquez au moins un montant."
+msgstr "Geben Sie mindestens einen Betrag an."
+
+msgid "Introduire le dernier bilan"
+msgstr "Letzte Bilanz erfassen"
+
+msgid "Introduire le dernier bilan du comptable"
+msgstr "Letzte Bilanz des Buchhalters erfassen"
+
+msgid "Introduire un bilan"
+msgstr "Bilanz erfassen"
+
+msgid "Introduisez ici le dernier bilan établi par votre comptable (rubriques des comptes annuels). Il sert de base : les bilans des exercices suivants partent de ces montants et y ajoutent les écritures de l'application."
+msgstr "Erfassen Sie hier die letzte von Ihrem Buchhalter erstellte Bilanz (Posten des Jahresabschlusses). Sie dient als Grundlage: Die Bilanzen der Folgejahre gehen von diesen Beträgen aus und ergänzen die Buchungen der Anwendung."
+
+#, python-format
+msgid "Le bilan %(annee)s a été enregistré. Il sert de base aux bilans suivants."
+msgstr "Die Bilanz %(annee)s wurde gespeichert. Sie dient als Grundlage für die folgenden Bilanzen."
+
+msgid "Le bilan de référence a été supprimé."
+msgstr "Die Referenzbilanz wurde gelöscht."
+
+#, python-format
+msgid "Le bilan n'est pas équilibré : total actif – total passif = %(e)s €."
+msgstr "Die Bilanz ist nicht ausgeglichen: Summe Aktiva – Summe Passiva = %(e)s €."
+
+msgid "Marge brute d'exploitation"
+msgstr "Bruttobetriebsergebnis"
+
+msgid "Montants par rubrique"
+msgstr "Beträge je Posten"
+
+msgid "Recopiez les montants des comptes annuels établis par votre comptable (en euros, après répartition du résultat comme dans le dépôt BNB). Laissez vide les rubriques sans montant. Le total de l'actif doit être égal au total du passif."
+msgstr "Übernehmen Sie die Beträge aus dem Jahresabschluss Ihres Buchhalters (in Euro, nach Ergebnisverwendung wie in der NBB-Hinterlegung). Posten ohne Betrag leer lassen. Die Summe der Aktiva muss der Summe der Passiva entsprechen."
+
+msgid "Rubrique"
+msgstr "Posten"
+
+msgid "Schéma abrégé"
+msgstr "Verkürztes Schema"
+
+msgid "Schéma complet"
+msgstr "Vollständiges Schema"
+
+msgid "Supprimer le bilan de référence"
+msgstr "Referenzbilanz löschen"
+
+msgid "Un bilan de référence existe déjà pour cet exercice."
+msgstr "Für dieses Geschäftsjahr existiert bereits eine Referenzbilanz."
+
+msgid "Voir le bilan de référence"
+msgstr "Referenzbilanz anzeigen"
+
+msgid "indicatif"
+msgstr "unverbindlich"
+
+msgid "Écart actif – passif :"
+msgstr "Differenz Aktiva – Passiva:"
+
+msgid "Établi par"
+msgstr "Erstellt von"
+
+msgid "Établi par (comptable / fiduciaire)"
+msgstr "Erstellt von (Buchhalter / Treuhand)"
+
+msgid "écritures prises en compte"
+msgstr "berücksichtigte Buchungen"
+
+#, python-format
+msgid "%(n)s véhicule(s) ajouté(s) au Trackday."
+msgstr "%(n)s Fahrzeug(e) zum Trackday hinzugefügt."
+
+msgid "Ajouter un coût"
+msgstr "Kosten hinzufügen"
+
+msgid "Aucun Trackday sur l'année."
+msgstr "Kein Trackday in diesem Jahr."
+
+msgid "Aucun Trackday."
+msgstr "Kein Trackday."
+
+msgid "Aucun box disponible pour ce Trackday."
+msgstr "Keine Box für diesen Trackday verfügbar."
+
+msgid "Aucun coût saisi."
+msgstr "Keine Kosten erfasst."
+
+msgid "Aucun véhicule engagé pour l'instant."
+msgstr "Noch kein Fahrzeug gemeldet."
+
+msgid "Aucune vente."
+msgstr "Keine Verkäufe."
+
+#, python-format
+msgid "Box (1 à %(n)s)"
+msgstr "Boxen (1 bis %(n)s)"
+
+msgid "Box / paddock"
+msgstr "Box / Fahrerlager"
+
+msgid "Box disponibles : 1 à"
+msgstr "Verfügbare Boxen: 1 bis"
+
+msgid "Box utilisés"
+msgstr "Belegte Boxen"
+
+msgid "Chaque véhicule d'un Trackday est une location : il est compté dans les ventes du vendeur indiqué sur la location."
+msgstr "Jedes Trackday-Fahrzeug ist eine Vermietung: Es zählt zu den Verkäufen des auf der Vermietung angegebenen Verkäufers."
+
+msgid "Chiffres clés"
+msgstr "Kennzahlen"
+
+msgid "Coût du Trackday"
+msgstr "Trackday-Kosten"
+
+msgid "Coût par véhicule"
+msgstr "Kosten pro Fahrzeug"
+
+msgid "Coûts HTVA"
+msgstr "Kosten netto"
+
+msgid "Coûts du Trackday"
+msgstr "Trackday-Kosten"
+
+msgid "En piste"
+msgstr "Auf der Strecke"
+
+msgid "Facultatif : nombre maximum de véhicules engagés."
+msgstr "Optional: maximale Anzahl Fahrzeuge."
+
+msgid "Facultatif : rattache la location à un Trackday (ventes et rentabilité)."
+msgstr "Optional: verknüpft die Vermietung mit einem Trackday (Verkäufe und Rentabilität)."
+
+msgid "Facultatif, ex. : « Trackday d'automne »."
+msgstr "Optional, z. B. „Herbst-Trackday“."
+
+msgid "Imprimer"
+msgstr "Drucken"
+
+msgid "Kilomètres réservés"
+msgstr "Gebuchte Kilometer"
+
+msgid "Kilométrage actuel du véhicule (sortie non encore validée)"
+msgstr "Aktueller Kilometerstand (Abfahrt noch nicht bestätigt)"
+
+msgid "Km départ"
+msgstr "Km Abfahrt"
+
+msgid "Km départ : kilométrage relevé à la sortie du véhicule (agenda). * : kilométrage actuel tant que la sortie n'est pas validée."
+msgstr "Km Abfahrt: bei der Abfahrt erfasster Kilometerstand (Agenda). *: aktueller Kilometerstand, solange die Abfahrt nicht bestätigt ist."
+
+#, python-format
+msgid "Le Trackday ne compte que %(n)s box (1 à %(n)s)."
+msgstr "Der Trackday hat nur %(n)s Boxen (1 bis %(n)s)."
+
+#, python-format
+msgid "Le box n° %(b)s est déjà attribué : indiquez au moins %(b)s box."
+msgstr "Box Nr. %(b)s ist bereits vergeben: mindestens %(b)s Boxen angeben."
+
+#, python-format
+msgid "Le numéro %(n)s est déjà attribué à %(v)s."
+msgstr "Nummer %(n)s ist bereits %(v)s zugewiesen."
+
+#, python-format
+msgid "Le numéro de course %(n)s est utilisé plusieurs fois."
+msgstr "Startnummer %(n)s wird mehrfach verwendet."
+
+msgid "Les box des locations du Trackday sont numérotés de 1 à ce nombre."
+msgstr "Die Boxen der Trackday-Vermietungen sind von 1 bis zu dieser Zahl nummeriert."
+
+msgid "Les locations (ventes et factures) sont conservées : elles ne sont simplement plus rattachées au Trackday. Les numéros de course sont retirés."
+msgstr "Die Vermietungen (Verkäufe und Rechnungen) bleiben erhalten: Sie sind nur nicht mehr mit dem Trackday verknüpft. Die Startnummern werden entfernt."
+
+msgid "Liste d'affichage (numéros)"
+msgstr "Anzeigeliste (Nummern)"
+
+msgid "Location du circuit"
+msgstr "Streckenmiete"
+
+msgid "Location du circuit, box, assurance, personnel, carburant… Ces coûts servent au calcul de rentabilité."
+msgstr "Streckenmiete, Boxen, Versicherung, Personal, Kraftstoff… Diese Kosten dienen zur Berechnung der Rentabilität."
+
+msgid "Marge"
+msgstr "Marge"
+
+msgid "Modification du Trackday"
+msgstr "Änderung des Trackdays"
+
+msgid "Modifier le Trackday"
+msgstr "Trackday bearbeiten"
+
+msgid "Montant HTVA (€)"
+msgstr "Betrag netto (€)"
+
+msgid "Nom de l'événement"
+msgstr "Name der Veranstaltung"
+
+msgid "Nombre de box disponibles"
+msgstr "Anzahl verfügbarer Boxen"
+
+msgid "Nouveau Trackday"
+msgstr "Neuer Trackday"
+
+msgid "Numéro affiché sur le véhicule (1 à 200)."
+msgstr "Nummer auf dem Fahrzeug (1 bis 200)."
+
+msgid "Numéro affiché sur le véhicule pendant le Trackday (1 à 200)."
+msgstr "Nummer auf dem Fahrzeug während des Trackdays (1 bis 200)."
+
+msgid "Numéro de course"
+msgstr "Startnummer"
+
+msgid "Numéros déjà attribués"
+msgstr "Bereits vergebene Nummern"
+
+msgid "Organisateur"
+msgstr "Veranstalter"
+
+msgid "Panier moyen HTVA"
+msgstr "Durchschnittlicher Umsatz netto"
+
+msgid "Personnel / instructeurs"
+msgstr "Personal / Instruktoren"
+
+msgid "Photo / vidéo"
+msgstr "Foto / Video"
+
+msgid "Pilote 1"
+msgstr "Fahrer 1"
+
+msgid "Pilote 2"
+msgstr "Fahrer 2"
+
+msgid "Places véhicules"
+msgstr "Fahrzeugplätze"
+
+msgid "Prix d'achat (coûts HTVA)"
+msgstr "Einkaufspreis (Kosten netto)"
+
+msgid "Prix d'achat (coûts du Trackday, HTVA)"
+msgstr "Einkaufspreis (Trackday-Kosten, netto)"
+
+msgid "Prix d'achat total HTVA"
+msgstr "Gesamteinkaufspreis netto"
+
+msgid "Rentabilité par Trackday"
+msgstr "Rentabilität je Trackday"
+
+msgid "Rentré"
+msgstr "Zurück"
+
+msgid "Restauration / hospitalité"
+msgstr "Verpflegung / Hospitality"
+
+msgid "Retour aux Trackdays"
+msgstr "Zurück zu den Trackdays"
+
+msgid "Réservé"
+msgstr "Gebucht"
+
+msgid "Seuil de rentabilité"
+msgstr "Gewinnschwelle"
+
+msgid "Statistiques Trackday"
+msgstr "Trackday-Statistiken"
+
+msgid "Supprimer le Trackday"
+msgstr "Trackday löschen"
+
+#, python-format
+msgid "Synthèse %(annee)s"
+msgstr "Übersicht %(annee)s"
+
+msgid "Sécurité / commissaires / médical"
+msgstr "Sicherheit / Streckenposten / Medizin"
+
+msgid "Tours réservés"
+msgstr "Gebuchte Runden"
+
+msgid "Trackday"
+msgstr "Trackday"
+
+msgid "Trackday supprimé. Les locations sont conservées."
+msgstr "Trackday gelöscht. Die Vermietungen bleiben erhalten."
+
+#, python-format
+msgid "Trackday « %(t)s » enregistré."
+msgstr "Trackday „%(t)s“ gespeichert."
+
+msgid "Trackdays"
+msgstr "Trackdays"
+
+msgid "Transport / camion"
+msgstr "Transport / LKW"
+
+msgid "Ventes HTVA"
+msgstr "Verkäufe netto"
+
+msgid "Ventes HTVA par mois"
+msgstr "Verkäufe netto pro Monat"
+
+msgid "Ventes TVAC"
+msgstr "Verkäufe brutto"
+
+msgid "Ventes des Trackdays"
+msgstr "Trackday-Verkäufe"
+
+msgid "Vide : une seule journée."
+msgstr "Leer: ein einziger Tag."
+
+msgid "Véhicules engagés"
+msgstr "Gemeldete Fahrzeuge"
+
+msgid "Véhicules par Trackday"
+msgstr "Fahrzeuge pro Trackday"
+
+msgid "libre"
+msgstr "frei"
+
+msgid "véh."
+msgstr "Fzg."
+
+msgid "véhicules"
+msgstr "Fahrzeuge"
+
+msgid "Événement"
+msgstr "Veranstaltung"
+
+msgid "à venir"
+msgstr "bevorstehend"
+
+#, python-format
+msgid "%(n)s véhicule sans numéro de course."
+msgid_plural "%(n)s véhicules sans numéro de course."
+msgstr[0] "%(n)s Fahrzeug ohne Startnummer."
+msgstr[1] "%(n)s Fahrzeuge ohne Startnummer."
+
+msgid "Accident sur piste / en compétition"
+msgstr "Unfall auf der Strecke / im Wettbewerb"
+
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ rapports"
+msgstr "Anzeige _START_ bis _END_ von _TOTAL_ Berichten"
+
+msgid "Aides à la conduite (capteurs, radar, caméra)"
+msgstr "Fahrerassistenz (Sensoren, Radar, Kamera)"
+
+msgid "Airbag / prétensionneur"
+msgstr "Airbag / Gurtstraffer"
+
+msgid "Airbags déployés"
+msgstr "Airbags ausgelöst"
+
+msgid "Ajouter un demi-train complet à contrôler"
+msgstr "Komplette Radaufhängung zur Prüfung hinzufügen"
+
+msgid "Amortisseur, triangles, fusée, roulement, capteur ABS, biellette et rotule de direction, biellette de barre stabilisatrice, cardan (décision « À contrôler »)."
+msgstr "Stoßdämpfer, Querlenker, Achsschenkel, Radlager, ABS-Sensor, Spurstange und Spurstangenkopf, Koppelstange, Antriebswelle (Entscheidung „Zu prüfen“)."
+
+msgid "Angle arrière droit"
+msgstr "Ecke hinten rechts"
+
+msgid "Angle arrière gauche"
+msgstr "Ecke hinten links"
+
+msgid "Angle avant droit"
+msgstr "Ecke vorne rechts"
+
+msgid "Angle avant gauche"
+msgstr "Ecke vorne links"
+
+msgid "Arraché"
+msgstr "Abgerissen"
+
+msgid "Aucun rapport d’accident enregistré pour cet exemplaire."
+msgstr "Kein Unfallbericht für dieses Fahrzeug."
+
+msgid "Aucun rapport trouvé"
+msgstr "Kein Bericht gefunden"
+
+msgid "Aucune pièce endommagée renseignée."
+msgstr "Kein beschädigtes Teil erfasst."
+
+msgid "Autre pièce (à préciser)"
+msgstr "Anderes Teil (angeben)"
+
+msgid "Berceau / traverse de train"
+msgstr "Hilfsrahmen / Achsträger"
+
+msgid "Biellette de direction"
+msgstr "Spurstange"
+
+msgid "Bras de suspension / bras tiré"
+msgstr "Lenker / Längslenker"
+
+msgid "Calculateur"
+msgstr "Steuergerät"
+
+msgid "Caméra"
+msgstr "Kamera"
+
+msgid "Capteur de stationnement"
+msgstr "Parksensor"
+
+msgid "Cardan / arbre de roue"
+msgstr "Antriebswelle"
+
+msgid "Cardans / transmission"
+msgstr "Antriebswellen / Antrieb"
+
+msgid "Cassé / rompu"
+msgstr "Gebrochen"
+
+msgid "Choc arrière"
+msgstr "Heckaufprall"
+
+msgid "Choc frontal"
+msgstr "Frontalaufprall"
+
+msgid "Choc latéral droit"
+msgstr "Seitenaufprall rechts"
+
+msgid "Choc latéral gauche"
+msgstr "Seitenaufprall links"
+
+msgid "Choc sous caisse"
+msgstr "Aufprall am Unterboden"
+
+msgid "Châssis / structure"
+msgstr "Fahrgestell / Struktur"
+
+msgid "Circonstances de l'accident"
+msgstr "Unfallhergang"
+
+msgid "Conclusion"
+msgstr "Fazit"
+
+msgid "Condenseur de climatisation"
+msgstr "Klimakondensator"
+
+msgid "Conducteur / pilote"
+msgstr "Fahrer"
+
+msgid "Connecteur"
+msgstr "Stecker"
+
+msgid "Constat amiable rédigé"
+msgstr "Unfallbericht ausgefüllt"
+
+msgid "Contrôle au marbre (cotes châssis)"
+msgstr "Richtbankprüfung (Rahmenmaße)"
+
+msgid "Contrôles et décision"
+msgstr "Prüfungen und Entscheidung"
+
+msgid "Contrôles à prévoir"
+msgstr "Geplante Prüfungen"
+
+msgid "Cotes du châssis (marbre)"
+msgstr "Rahmenmaße (Richtbank)"
+
+msgid "Coupelle / butée d'amortisseur"
+msgstr "Domlager / Anschlagpuffer"
+
+msgid "Crémaillère / boîtier de direction"
+msgstr "Lenkgetriebe"
+
+msgid "Câblage / faisceau"
+msgstr "Verkabelung / Kabelbaum"
+
+msgid "Date de l'accident"
+msgstr "Unfalldatum"
+
+msgid "Demi-train"
+msgstr "Radaufhängung"
+
+msgid "Demi-train arrière droit"
+msgstr "Radaufhängung hinten rechts"
+
+msgid "Demi-train arrière gauche"
+msgstr "Radaufhängung hinten links"
+
+msgid "Demi-train avant droit"
+msgstr "Radaufhängung vorne rechts"
+
+msgid "Demi-train avant gauche"
+msgstr "Radaufhängung vorne links"
+
+msgid "Différentiel / pont"
+msgstr "Differenzial / Achse"
+
+msgid "Disque de frein"
+msgstr "Bremsscheibe"
+
+msgid "Défaut électrique / code défaut"
+msgstr "Elektrischer Fehler / Fehlercode"
+
+msgid "Déroulement, conditions (pluie, nuit…), trajectoire…"
+msgstr "Ablauf, Bedingungen (Regen, Nacht…), Fahrlinie…"
+
+msgid "Déréglé / décalibré"
+msgstr "Verstellt / dekalibriert"
+
+msgid "En attente (devis / expertise)"
+msgstr "Ausstehend (Angebot / Gutachten)"
+
+msgid "Enfoncé / écrasé"
+msgstr "Eingedrückt / gequetscht"
+
+msgid "Expert"
+msgstr "Gutachter"
+
+msgid "Expertise demandée"
+msgstr "Gutachten angefordert"
+
+msgid "Feu arrière"
+msgstr "Rückleuchte"
+
+msgid "Fissuré"
+msgstr "Gerissen"
+
+msgid "Flexible / conduite de frein"
+msgstr "Bremsschlauch / -leitung"
+
+msgid "Fond plat / protection sous caisse"
+msgstr "Unterbodenverkleidung"
+
+msgid "Fusée / porte-moyeu"
+msgstr "Achsschenkel / Radträger"
+
+msgid "Géométrie à contrôler"
+msgstr "Achsvermessung prüfen"
+
+msgid "Heure"
+msgstr "Uhrzeit"
+
+msgid "Joint homocinétique"
+msgstr "Gleichlaufgelenk"
+
+msgid "Longeron"
+msgstr "Längsträger"
+
+msgid "Marbre (cotes châssis)"
+msgstr "Richtbank (Rahmenmaße)"
+
+msgid "Modification du rapport d’accident"
+msgstr "Änderung des Unfallberichts"
+
+msgid "Moteur / boîte"
+msgstr "Motor / Getriebe"
+
+msgid "Nid-de-poule / obstacle sur la chaussée"
+msgstr "Schlagloch / Hindernis"
+
+msgid "Non roulant"
+msgstr "Nicht fahrbereit"
+
+msgid "Personne(s) blessée(s)"
+msgstr "Verletzte Person(en)"
+
+msgid "Perte totale (VEI / épave)"
+msgstr "Totalschaden"
+
+msgid "Phare / feu avant"
+msgstr "Scheinwerfer"
+
+msgid "Pièce endommagée"
+msgstr "Beschädigtes Teil"
+
+msgid "Pièces endommagées"
+msgstr "Beschädigte Teile"
+
+msgid "Pièces endommagées par zone"
+msgstr "Beschädigte Teile nach Bereich"
+
+msgid "Plancher"
+msgstr "Bodenblech"
+
+msgid "Procès-verbal de police"
+msgstr "Polizeiprotokoll"
+
+msgid "Radar de collision / ACC"
+msgstr "Kollisionsradar / ACC"
+
+msgid "Rapport d'accident"
+msgstr "Unfallbericht"
+
+msgid "Rapport d'accident enregistré avec succès."
+msgstr "Unfallbericht erfolgreich gespeichert."
+
+msgid "Rapport d'accident modifié avec succès !"
+msgstr "Unfallbericht erfolgreich geändert!"
+
+msgid "Rapport d'accident supprimé avec succès."
+msgstr "Unfallbericht erfolgreich gelöscht."
+
+msgid "Rapport d’accident"
+msgstr "Unfallbericht"
+
+msgid "Rapports d'accident"
+msgstr "Unfallberichte"
+
+msgid "Rayé / frotté"
+msgstr "Zerkratzt / angeschliffen"
+
+msgid "Recalibrage des aides à la conduite"
+msgstr "Neukalibrierung der Fahrerassistenz"
+
+msgid "Réparation partielle / provisoire"
+msgstr "Teil- / Notreparatur"
+
+msgid "Réparé / redressé"
+msgstr "Repariert / gerichtet"
+
+msgid "Sectionné / coupé"
+msgstr "Durchtrennt"
+
+msgid "Sinistre (assurance)"
+msgstr "Schadenfall (Versicherung)"
+
+msgid "Sortie de piste (bac, rail, mur)"
+msgstr "Abflug (Kiesbett, Leitplanke, Mauer)"
+
+msgid "Soufflet de cardan"
+msgstr "Achsmanschette"
+
+msgid "Suppression du rapport d’accident"
+msgstr "Löschung des Unfallberichts"
+
+msgid "Tiers (nom, immatriculation, assureur)"
+msgstr "Unfallgegner (Name, Kennzeichen, Versicherer)"
+
+msgid "Tiers et assurance"
+msgstr "Unfallgegner und Versicherung"
+
+msgid "Tiers impliqué"
+msgstr "Unfallgegner beteiligt"
+
+msgid "Tonneau / retournement"
+msgstr "Überschlag"
+
+msgid "Tordu / déformé / voilé"
+msgstr "Verbogen / verformt"
+
+msgid "Tour d'amortisseur / passage de roue"
+msgstr "Federbeindom / Radhaus"
+
+msgid "Train / suspension / direction"
+msgstr "Achse / Fahrwerk / Lenkung"
+
+msgid "Trains, châssis, moteur, cardans, électronique"
+msgstr "Achsen, Rahmen, Motor, Antriebswellen, Elektronik"
+
+msgid "Traverse"
+msgstr "Querträger"
+
+msgid "Triangle inférieur"
+msgstr "Unterer Querlenker"
+
+msgid "Triangle supérieur"
+msgstr "Oberer Querlenker"
+
+msgid "Trottoir / bordure / vibreur"
+msgstr "Bordstein / Randstein"
+
+msgid "Type de choc"
+msgstr "Aufprallart"
+
+msgid "Une ligne par pièce touchée, avec sa zone (demi-train avant / arrière, gauche / droit, châssis, moteur, cardans, électricité…). Les pièces à remplacer, réparer ou recalibrer avec une quantité et un prix sont reprises dans le chiffrage."
+msgstr "Eine Zeile pro betroffenem Teil mit Bereich (Radaufhängung vorne / hinten, links / rechts, Rahmen, Motor, Antriebswellen, Elektrik…). Zu ersetzende, reparierende oder kalibrierende Teile mit Menge und Preis fließen in die Kalkulation ein."
+
+msgid "Vitesse estimée (km/h)"
+msgstr "Geschätzte Geschwindigkeit (km/h)"
+
+msgid "Véhicule destiné aux pièces"
+msgstr "Fahrzeug zum Ausschlachten"
+
+msgid "Véhicule roulant après l'accident"
+msgstr "Fahrzeug nach dem Unfall fahrbereit"
+
+msgid "Zone"
+msgstr "Bereich"
+
+msgid "graves"
+msgstr "schwer"
+
+msgid "piste"
+msgstr "Strecke"
+
+msgid "À recalibrer"
+msgstr "Neu zu kalibrieren"
+
+msgid "À réparer / redresser"
+msgstr "Zu reparieren / richten"
+
+msgid "Électricité / aides à la conduite"
+msgstr "Elektrik / Fahrerassistenz"
+
+msgid "Électricité / électronique"
+msgstr "Elektrik / Elektronik"
+
+msgid "Étrier de frein"
+msgstr "Bremssattel"
+
+msgid "Notre société"
+msgstr "Unser Unternehmen"
+
+msgid "notre société"
+msgstr "unser Unternehmen"
+
+msgid "Propriétaire (personne)"
+msgstr "Eigentümer (Person)"
+
+msgid "Société partenaire"
+msgstr "Partnerunternehmen"
+
+msgid "Sociétés partenaires"
+msgstr "Partnerunternehmen"
+
+msgid "Type de propriétaire"
+msgstr "Eigentümertyp"
+
+msgid "Part (%)"
+msgstr "Anteil (%)"
+
+msgid "Part (%%)"
+msgstr "Anteil (%%)"
+
+msgid "Marge pièces (%%)"
+msgstr "Teileaufschlag (%%)"
+
+msgid "Marge main-d'œuvre (%%)"
+msgstr "Arbeitsaufschlag (%%)"
+
+msgid "Choisissez la société partenaire."
+msgstr "Wählen Sie das Partnerunternehmen."
+
+msgid "Choisissez le propriétaire."
+msgstr "Wählen Sie den Eigentümer."
+
+msgid "Total des parts > 100 %% interdit (déjà attribué : %(total)s %%, disponible : %(reste)s %%)."
+msgstr "Anteile insgesamt > 100 %% nicht erlaubt (bereits vergeben: %(total)s %%, verfügbar: %(reste)s %%)."
+
+msgid "Ce propriétaire a déjà une part sur ce véhicule : modifiez sa part."
+msgstr "Dieser Eigentümer hat bereits einen Anteil an diesem Fahrzeug: ändern Sie seinen Anteil."
+
+msgid "Clients particuliers (repris comme propriétaires)"
+msgstr "Privatkunden (als Eigentümer übernommen)"
+
+msgid "Propriétaire invalide."
+msgstr "Ungültiger Eigentümer."
+
+msgid "Propriétaire introuvable."
+msgstr "Eigentümer nicht gefunden."
+
+msgid "Un même propriétaire ne peut avoir qu'une seule part."
+msgstr "Ein Eigentümer kann nur einen Anteil haben."
+
+msgid "Le total des parts (%(total)s %%) dépasse 100 %%."
+msgstr "Die Summe der Anteile (%(total)s %%) übersteigt 100 %%."
+
+msgid "Véhicule introuvable."
+msgstr "Fahrzeug nicht gefunden."
+
+msgid "Parts enregistrées : %(total)s %% attribués. Le total doit atteindre 100 %% pour facturer par parts."
+msgstr "Anteile gespeichert: %(total)s %% vergeben. Die Summe muss 100 %% erreichen, um nach Anteilen abzurechnen."
+
+msgid "Propriétaires du véhicule enregistrés (100 %)."
+msgstr "Fahrzeugeigentümer gespeichert (100 %)."
+
+msgid "Propriétaires du véhicule"
+msgstr "Fahrzeugeigentümer"
+
+msgid "Quote-part (%)"
+msgstr "Anteil (%)"
+
+msgid "Part du propriétaire facturé : les montants des lignes (coût et marge) sont multipliés par ce pourcentage."
+msgstr "Anteil des fakturierten Eigentümers: Die Zeilenbeträge (Kosten und Aufschlag) werden mit diesem Prozentsatz multipliziert."
+
+msgid "Le total des parts de ce véhicule est de %(total)s %% : il doit être de 100 %% pour facturer en fonction des parts."
+msgstr "Die Summe der Anteile dieses Fahrzeugs beträgt %(total)s %%: Sie muss 100 %% betragen, um nach Anteilen abzurechnen."
+
+msgid "Une part n'a pas de société partenaire."
+msgstr "Einem Anteil ist kein Partnerunternehmen zugeordnet."
+
+msgid "Une part n'a pas de propriétaire."
+msgstr "Einem Anteil ist kein Eigentümer zugeordnet."
+
+msgid "Ce véhicule n'a aucun propriétaire enregistré."
+msgstr "Für dieses Fahrzeug ist kein Eigentümer erfasst."
+
+msgid "Quote-part de %(part)s %% du véhicule %(vehicule)s (copropriété)."
+msgstr "Anteil von %(part)s %% am Fahrzeug %(vehicule)s (Miteigentum)."
+
+msgid "La quote-part de la facture doit être comprise entre 0 et 100 %."
+msgstr "Der Rechnungsanteil muss zwischen 0 und 100 % liegen."
+
+msgid "Complétez les parts du véhicule (menu Direction › Propriétaires) puis recommencez."
+msgstr "Vervollständigen Sie die Fahrzeuganteile (Menü Geschäftsleitung › Eigentümer) und versuchen Sie es erneut."
+
+msgid "Notre société est seule propriétaire : facture interne créée, sans marge (TVA des pièces récupérée)."
+msgstr "Unser Unternehmen ist alleiniger Eigentümer: interne Rechnung erstellt, ohne Aufschlag (Vorsteuer auf Teile zurückgewonnen)."
+
+msgid "%(n)s brouillons de facture créés, un par propriétaire, chacun au pourcentage de sa part."
+msgstr "%(n)s Rechnungsentwürfe erstellt, einer pro Eigentümer, jeweils zum Prozentsatz seines Anteils."
+
+msgid "%(n)s facture(s) émise(s) : %(numeros)s."
+msgstr "%(n)s Rechnung(en) ausgestellt: %(numeros)s."
+
+msgid "%(client)s : %(erreurs)s"
+msgstr "%(client)s: %(erreurs)s"
+
+msgid "Toutes les factures de la répartition sont déjà émises."
+msgstr "Alle Rechnungen der Aufteilung sind bereits ausgestellt."
+
+msgid "Facturation en fonction des parts"
+msgstr "Abrechnung nach Anteilen"
+
+msgid "Notre société seule propriétaire (100 %%) : une facture interne, sans marge, TVA récupérée."
+msgstr "Unser Unternehmen alleiniger Eigentümer (100 %%): eine interne Rechnung, ohne Aufschlag, Vorsteuer zurückgewonnen."
+
+msgid "Plusieurs propriétaires : une facture par propriétaire, chacune au pourcentage de sa part. Les autres propriétaires reçoivent une facture avec TVA et marges ; la part de notre société est facturée en interne, au coût."
+msgstr "Mehrere Eigentümer: eine Rechnung pro Eigentümer, jeweils zum Prozentsatz seines Anteils. Die anderen Eigentümer erhalten eine Rechnung mit MwSt. und Aufschlägen; der Anteil unseres Unternehmens wird intern zum Selbstkostenpreis abgerechnet."
+
+msgid "Le total des parts ne peut pas dépasser 100 %% et doit atteindre 100 %% pour facturer."
+msgstr "Die Summe der Anteile darf 100 %% nicht übersteigen und muss 100 %% erreichen, um abzurechnen."
+
+msgid "Nouveau propriétaire (personne)"
+msgstr "Neuer Eigentümer (Person)"
+
+msgid "Nouvelle société partenaire"
+msgstr "Neues Partnerunternehmen"
+
+msgid "Les propriétaires, clients particuliers et sociétés déjà enregistrés sont proposés dans la liste. Un client particulier choisi est repris comme propriétaire (fiche existante réutilisée si elle existe déjà)."
+msgstr "Bereits erfasste Eigentümer, Privatkunden und Unternehmen werden in der Liste angeboten. Ein gewählter Privatkunde wird als Eigentümer übernommen (ein vorhandener Datensatz wird wiederverwendet)."
+
+msgid "Enregistrer les propriétaires"
+msgstr "Eigentümer speichern"
+
+msgid "Total complet : facturation par parts possible."
+msgstr "Summe vollständig: Abrechnung nach Anteilen möglich."
+
+msgid "Reste à attribuer :"
+msgstr "Noch zu vergeben:"
+
+msgid "Dépassement :"
+msgstr "Überschreitung:"
+
+msgid "Interne : au coût"
+msgstr "Intern: zum Selbstkostenpreis"
+
+msgid "Propriétaires d'un véhicule"
+msgstr "Eigentümer eines Fahrzeugs"
+
+msgid "Ajouter des propriétaires à un véhicule"
+msgstr "Eigentümer zu einem Fahrzeug hinzufügen"
+
+msgid "Choisissez le véhicule : vous pourrez ensuite saisir tous ses propriétaires (notre société, personnes, sociétés partenaires) et leurs parts, jusqu'à 100 %%."
+msgstr "Wählen Sie das Fahrzeug: Anschließend können Sie alle Eigentümer (unser Unternehmen, Personen, Partnerunternehmen) und ihre Anteile bis 100 %% erfassen."
+
+msgid "Parts du véhicule"
+msgstr "Fahrzeuganteile"
+
+msgid "facture interne au coût (sans marge, TVA récupérée)"
+msgstr "interne Rechnung zum Selbstkostenpreis (ohne Aufschlag, Vorsteuer zurückgewonnen)"
+
+msgid "facture avec TVA"
+msgstr "Rechnung mit MwSt."
+
+msgid "marge pièces"
+msgstr "Teileaufschlag"
+
+msgid "marge main-d'œuvre"
+msgstr "Arbeitsaufschlag"
+
+msgid "Voir tous les propriétaires du véhicule"
+msgstr "Alle Fahrzeugeigentümer anzeigen"
+
+msgid "Facturation par parts"
+msgstr "Abrechnung nach Anteilen"
+
+msgid "part de notre société"
+msgstr "Anteil unseres Unternehmens"
+
+msgid "quote-part facturée"
+msgstr "abgerechneter Anteil"
+
+msgid "Quote-part facturée"
+msgstr "Abgerechneter Anteil"
+
+msgid "Facture interne : coût de revient de notre part, sans marge, TVA des pièces récupérée."
+msgstr "Interne Rechnung: Selbstkosten unseres Anteils, ohne Aufschlag, Vorsteuer auf Teile zurückgewonnen."
+
+msgid "Coût et marge de chaque ligne calculée sont multipliés par la quote-part : le coût unitaire affiché est le coût complet, le prix unitaire est celui de la part."
+msgstr "Kosten und Aufschlag jeder berechneten Zeile werden mit dem Anteil multipliziert: Die angezeigten Stückkosten sind die vollen Kosten, der Stückpreis ist der des Anteils."
+
+msgid "Émettre toutes les factures brouillon de la répartition ?"
+msgstr "Alle Rechnungsentwürfe der Aufteilung ausstellen?"
+
+msgid "Émettre toutes les factures de la répartition"
+msgstr "Alle Rechnungen der Aufteilung ausstellen"
+
+msgid "du véhicule (copropriété)"
+msgstr "des Fahrzeugs (Miteigentum)"
+
+msgid "Clients particuliers, clients atelier et propriétaires."
+msgstr "Privatkunden, Werkstattkunden und Eigentümer."
+
+msgid "Véhicule avec des propriétaires enregistrés (Direction › Propriétaires) : une facture est créée par propriétaire, au pourcentage de sa part, quel que soit le bouton choisi. Notre société seule propriétaire : facture interne sans marge."
+msgstr "Fahrzeug mit erfassten Eigentümern (Geschäftsleitung › Eigentümer): Pro Eigentümer wird eine Rechnung zum Prozentsatz seines Anteils erstellt, unabhängig von der gewählten Schaltfläche. Unser Unternehmen alleiniger Eigentümer: interne Rechnung ohne Aufschlag."
+
+msgid "Aucun propriétaire enregistré"
+msgstr "Kein Eigentümer erfasst"

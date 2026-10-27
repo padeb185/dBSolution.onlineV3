@@ -44,6 +44,9 @@
     <p class="text-gray-600 mb-4">
         {% trans "Cochez une ou plusieurs maintenances d'un même véhicule, puis choisissez le type de facture. Vous pourrez ensuite ajuster les marges et les lignes avant d'émettre la facture." %}
     </p>
+    <p class="text-gray-600 mb-4">
+        {% trans "Véhicule avec des propriétaires enregistrés (Direction › Propriétaires) : une facture est créée par propriétaire, au pourcentage de sa part, quel que soit le bouton choisi. Notre société seule propriétaire : facture interne sans marge." %}
+    </p>
 
     <form method="post" action="{% url 'facture:creer' %}" id="form-facture">
         {% csrf_token %}

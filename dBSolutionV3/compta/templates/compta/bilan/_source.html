@@ -1,0 +1,14 @@
+{% load i18n %}
+<div class="mb-4 p-3 rounded border border-blue-200 bg-blue-50 text-blue-900 text-sm">
+    {% if source == "reference" %}
+        {% blocktrans with a=annee s=reference.get_schema_display %}Exercice {{ a }} : montants du bilan établi par le comptable ({{ s }}), introduits dans l'application.{% endblocktrans %}
+        {% if reference.etabli_par %}({{ reference.etabli_par }}){% endif %}
+        <a href="{% url 'compta:reference_modifier' reference.pk %}" class="underline ml-1">{% trans "Modifier" %}</a>
+    {% elif source == "reference_et_ecritures" %}
+        {% blocktrans with r=reference.annee a=annee %}Base : dernier bilan du comptable au 31/12/{{ r }}, complété par les écritures de l'application jusqu'au 31/12/{{ a }}.{% endblocktrans %}
+        <a href="{% url 'compta:reference_modifier' reference.pk %}" class="underline ml-1">{% trans "Voir le bilan de référence" %}</a>
+    {% else %}
+        {% trans "Aucun bilan du comptable n'a été introduit : le bilan est établi uniquement à partir des écritures de l'application." %}
+        <a href="{% url 'compta:reference_ajouter' %}" class="underline ml-1 font-semibold">{% trans "Introduire le dernier bilan" %}</a>
+    {% endif %}
+</div>

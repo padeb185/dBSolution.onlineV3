@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+{% include "voiture_location/trackday/_styles.html" %}
+<div class="max-w-xl mx-auto mt-16 td-carte">
+    <h1 class="text-2xl font-bold mb-4 text-red-700">{% trans "Supprimer le Trackday" %}</h1>
+    <p class="mb-2 font-semibold">{{ trackday }}</p>
+    <p class="mb-6">{% trans "Les locations (ventes et factures) sont conservées : elles ne sont simplement plus rattachées au Trackday. Les numéros de course sont retirés." %}</p>
+    <form method="post" class="flex gap-3">
+        {% csrf_token %}
+        <button type="submit" class="td-btn td-btn-rouge flex-1">{% trans "Supprimer" %}</button>
+        <a href="{% url 'voiture_location:trackday_detail' trackday.pk %}" class="td-btn td-btn-gris flex-1">{% trans "Annuler" %}</a>
+    </form>
+</div>
+{% endblock %}

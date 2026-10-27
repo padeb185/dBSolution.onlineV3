@@ -80,6 +80,63 @@
         </a>
 
         <!-- ================================================== -->
+        <!-- RAPPORT D'ACCIDENT -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'accident:accident_list' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="mb-2 text-lg font-semibold">{% trans "Rapport d'accident" %}</h2>
+                    <p class="text-sm text-gray-500 mb-1">{% trans "Trains, châssis, moteur, cardans, électronique" %}</p>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_accident|default:0 }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/accident.png' %}" alt="{% trans "Rapport d'accident" %}" class="h-[60px] w-[60px]">
+            </div>
+        </a>
+
+        <!-- ================================================== -->
+        <!-- PASSAGE AU BANC DE PUISSANCE -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'banc_puissance:banc_list' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+
+                <div>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {% trans "Passage au banc" %}
+                    </h2>
+
+                    <p class="text-sm text-gray-500 mb-1">
+                        {% trans "Puissance, couple, cartographie" %}
+                    </p>
+
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">
+                            {{ total_banc_puissance|default:0 }}
+                        </span>
+                    </p>
+                </div>
+
+                <img
+                    src="{% static 'icons/banc-puissance.png' %}"
+                    alt="{% trans 'Passage au banc' %}"
+                    class="h-[60px] w-[60px]"
+                >
+
+            </div>
+        </a>
+
+        <!-- ================================================== -->
         <!-- MOTEUR -->
         <!-- ================================================== -->
 

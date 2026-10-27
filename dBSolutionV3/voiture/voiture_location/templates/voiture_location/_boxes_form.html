@@ -19,7 +19,7 @@
     </div>
     {% for h in f.hidden_fields %}{{ h }}{% endfor %}
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div><label class="{{ C }}">{% trans "Numéro (1 – 100)" %}</label>{{ f.numero }}{% for e in f.numero.errors %}<p class="text-red-600 text-xs">{{ e }}</p>{% endfor %}</div>
+        <div><label class="{{ C }}">{% trans "Numéro du box" %}</label>{{ f.numero }}{% for e in f.numero.errors %}<p class="text-red-600 text-xs">{{ e }}</p>{% endfor %}</div>
         <div><label class="{{ C }}">{% trans "Pit Lane" %}</label>{{ f.pit_lane }}</div>
         <div><label class="{{ C }}">{% trans "Quantité" %}</label>{{ f.quantite }}{% for e in f.quantite.errors %}<p class="text-red-600 text-xs">{{ e }}</p>{% endfor %}</div>
         <div><label class="{{ C }}">{% trans "Prix unitaire TVAC (€)" %}</label>{{ f.prix_unitaire }}{% for e in f.prix_unitaire.errors %}<p class="text-red-600 text-xs">{{ e }}</p>{% endfor %}</div>
@@ -37,7 +37,7 @@
     </div>
     {% for h in boxes_fs.empty_form.hidden_fields %}{{ h }}{% endfor %}
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div><label class="{{ C }}">{% trans "Numéro (1 – 100)" %}</label>{{ boxes_fs.empty_form.numero }}</div>
+        <div><label class="{{ C }}">{% trans "Numéro du box" %}</label>{{ boxes_fs.empty_form.numero }}</div>
         <div><label class="{{ C }}">{% trans "Pit Lane" %}</label>{{ boxes_fs.empty_form.pit_lane }}</div>
         <div><label class="{{ C }}">{% trans "Quantité" %}</label>{{ boxes_fs.empty_form.quantite }}</div>
         <div><label class="{{ C }}">{% trans "Prix unitaire TVAC (€)" %}</label>{{ boxes_fs.empty_form.prix_unitaire }}</div>

@@ -1,0 +1,62 @@
+{% load i18n %}{% with a=obj %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Circonstances" %}</h2>
+        <p><strong>{% trans "Lieu" %} :</strong> {{ a.lieu|default:"-" }}</p>
+        <p><strong>{% trans "Vitesse estimée (km/h)" %} :</strong> {{ a.vitesse_estimee|default:"-" }}</p>
+        <p><strong>{% trans "Conducteur / pilote" %} :</strong> {{ a.conducteur|default:"-" }}</p>
+        <p class="mt-2">
+            {% if a.airbags_deployes %}<span class="px-2 py-0.5 rounded bg-red-100 text-red-800 text-sm mr-1">{% trans "Airbags déployés" %}</span>{% endif %}
+            {% if not a.vehicule_roulant %}<span class="px-2 py-0.5 rounded bg-red-100 text-red-800 text-sm mr-1">{% trans "Non roulant" %}</span>{% endif %}
+            {% if a.blesses %}<span class="px-2 py-0.5 rounded bg-red-100 text-red-800 text-sm mr-1">{% trans "Personne(s) blessée(s)" %}</span>{% endif %}
+        </p>
+        {% if a.circonstances %}<div class="mt-3">{{ a.circonstances|linebreaks }}</div>{% endif %}
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Tiers et assurance" %}</h2>
+        <p><strong>{% trans "Tiers impliqué" %} :</strong> {{ a.tiers_implique|yesno:_("Oui,Non") }}</p>
+        {% if a.tiers_details %}<div class="text-sm mb-2">{{ a.tiers_details|linebreaksbr }}</div>{% endif %}
+        <p><strong>{% trans "Constat amiable rédigé" %} :</strong> {{ a.constat_amiable|yesno:_("Oui,Non") }}</p>
+        <p><strong>{% trans "Procès-verbal de police" %} :</strong> {{ a.proces_verbal|yesno:_("Oui,Non") }}</p>
+        <p><strong>{% trans "Sinistre (assurance)" %} :</strong>
+            {% if a.sinistre %}<a href="{% url 'assurance_police:sinistre_modifier' sinistre_id=a.sinistre.pk %}" class="text-blue-700 underline">{{ a.sinistre }}</a>{% else %}-{% endif %}</p>
+        <p><strong>{% trans "Numéro de sinistre (assureur)" %} :</strong> {{ a.numero_sinistre|default:"-" }}</p>
+        <p><strong>{% trans "Expert" %} :</strong> {{ a.expert|default:"-" }}</p>
+    </div>
+</div>
+
+<div class="bg-amber-50 border border-amber-300 shadow-md rounded-lg p-6 mb-6">
+    <h2 class="text-lg font-semibold mb-2">{% trans "Contrôles à prévoir" %}</h2>
+    <ul class="list-disc ml-6">
+        {% if a.geometrie_a_controler %}<li>{% trans "Géométrie" %}</li>{% endif %}
+        {% if a.marbre_a_controler %}<li>{% trans "Marbre (cotes châssis)" %}</li>{% endif %}
+        {% if a.recalibrage_necessaire %}<li>{% trans "Recalibrage des aides à la conduite" %}</li>{% endif %}
+        {% if not a.geometrie_a_controler and not a.marbre_a_controler and not a.recalibrage_necessaire %}<li>{% trans "Aucun" %}</li>{% endif %}
+    </ul>
+</div>
+
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Pièces endommagées par zone" %}</h2>
+    {% for zone, pieces in a.pieces_par_zone %}
+        <h3 class="font-semibold mt-3 mb-1">{{ zone }}</h3>
+        <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm mb-2">
+            <thead><tr class="bg-gray-100">
+                <th class="border px-2 py-1 text-left">{% trans "Pièce" %}</th>
+                <th class="border px-2 py-1 text-left">{% trans "Dommage" %}</th>
+                <th class="border px-2 py-1 text-left">{% trans "Gravité" %}</th>
+                <th class="border px-2 py-1 text-left">{% trans "Décision" %}</th>
+            </tr></thead>
+            <tbody>{% for p in pieces %}
+                <tr>
+                    <td class="border px-2 py-1">{{ p.libelle }}</td>
+                    <td class="border px-2 py-1">{{ p.get_type_dommage_display }}</td>
+                    <td class="border px-2 py-1"><span class="px-2 py-0.5 rounded text-xs font-semibold {% if p.gravite == 'DETRUITE' or p.gravite == 'GRAVE' %}bg-red-100 text-red-800{% elif p.gravite == 'MOYENNE' %}bg-yellow-100 text-yellow-800{% else %}bg-green-100 text-green-800{% endif %}">{{ p.get_gravite_display }}</span></td>
+                    <td class="border px-2 py-1">{{ p.get_decision_display }}</td>
+                </tr>{% endfor %}
+            </tbody>
+        </table>
+    {% empty %}
+        <p class="text-gray-500">{% trans "Aucune pièce endommagée renseignée." %}</p>
+    {% endfor %}
+</div>
+{% endwith %}

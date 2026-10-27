@@ -36,7 +36,8 @@
 
             <p>
                 <strong>{% trans "Copropriétaire" %} :</strong>
-                {{ proprietaire_voiture.proprietaire }}
+                {{ proprietaire_voiture.nom_proprietaire }}
+                <span class="text-gray-600">({{ proprietaire_voiture.get_type_proprietaire_display }})</span>
             </p>
             <p>
                 <strong>{% trans "Immatriculation" %} :</strong>
@@ -44,7 +45,21 @@
             </p>
             <p>
                 <strong>{% trans "Part en Pourcent" %} :</strong>
-                {{ proprietaire_voiture.part_proprietaire_pourcent }}
+                {{ proprietaire_voiture.part_proprietaire_pourcent }} %
+            </p>
+            <p>
+                <strong>{% trans "Facturation" %} :</strong>
+                {% if proprietaire_voiture.est_tenant %}
+                    {% trans "facture interne au coût (sans marge, TVA récupérée)" %}
+                {% else %}
+                    {% trans "facture avec TVA" %} –
+                    {% trans "marge pièces" %} {{ proprietaire_voiture.marge_pieces }} %,
+                    {% trans "marge main-d'œuvre" %} {{ proprietaire_voiture.marge_main_oeuvre }} %
+                {% endif %}
+            </p>
+            <p>
+                <a href="{% url 'proprietaire:parts_vehicule' exemplaire_id=proprietaire_voiture.voiture_exemplaire_id %}"
+                   class="text-blue-700 hover:underline font-semibold">{% trans "Voir tous les propriétaires du véhicule" %}</a>
             </p>
 
         </div>

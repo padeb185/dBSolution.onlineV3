@@ -62,6 +62,8 @@ class Maintenance(models.Model):
         CARDAN = "CARDAN", _("Cardan")
         ARBRE_TRANSMISSION = "ARBRE_TRANSMISSION", _("Arbre de transmission")
         BOITE_TRANSFERT = "BOITE_TRANSFERT", _("Boîte de transfert / transmission intégrale")
+        BANC_PUISSANCE = "BANC_PUISSANCE", _("Passage au banc de puissance")
+        ACCIDENT = "ACCIDENT", _("Rapport d'accident")
         VITRAGE = "VITRAGE", _("Vitrage et rétroviseurs")
         CREVAISON = "CREVAISON", _("Crevaison")
         CULASSE = "CULASSE", _("Culasse")

@@ -66071,3 +66071,1267 @@ msgid "Elles sont liées à %(n)s véhicule : le lien sera retiré."
 msgid_plural "Elles sont liées à %(n)s véhicules : les liens seront retirés."
 msgstr[0] "Συνδέονται με %(n)s όχημα: η σύνδεση θα αφαιρεθεί."
 msgstr[1] "Συνδέονται με %(n)s οχήματα: οι συνδέσεις θα αφαιρεθούν."
+
+msgid "Référence jante avant / n° OEM"
+msgstr "Κωδικός εμπρός ζάντας / αρ. OEM"
+
+msgid "Référence jante arrière / n° OEM"
+msgstr "Κωδικός πίσω ζάντας / αρ. OEM"
+
+msgid "Profil du rebord avant"
+msgstr "Προφίλ χείλους εμπρός"
+
+msgid "Profil du rebord arrière"
+msgstr "Προφίλ χείλους πίσω"
+
+msgid "Poids jante avant (kg)"
+msgstr "Βάρος εμπρός ζάντας (kg)"
+
+msgid "Poids jante arrière (kg)"
+msgstr "Βάρος πίσω ζάντας (kg)"
+
+msgid "Poids du jeu (kg)"
+msgstr "Βάρος σετ (kg)"
+
+msgid "Jante avant"
+msgstr "Εμπρός ζάντα"
+
+msgid "Jante arrière"
+msgstr "Πίσω ζάντα"
+
+msgid "Jantes avant et arrière identiques"
+msgstr "Ίδιες ζάντες εμπρός και πίσω"
+
+msgid "Après cartographie"
+msgstr "Μετά τη χαρτογράφηση"
+
+msgid "Aucune (non corrigée)"
+msgstr "Καμία (μη διορθωμένη)"
+
+msgid "Aucune courbe jointe."
+msgstr "Δεν επισυνάφθηκε καμπύλη."
+
+msgid "Banc de puissance"
+msgstr "Δυναμόμετρο"
+
+msgid "Banc moteur"
+msgstr "Δυναμόμετρο κινητήρα"
+
+msgid "Banc à moyeux"
+msgstr "Δυναμόμετρο πλήμνης"
+
+msgid "Banc à rouleaux (inertiel)"
+msgstr "Δυναμόμετρο κυλίνδρων (αδρανειακό)"
+
+msgid "Banc à rouleaux à frein (charge)"
+msgstr "Δυναμόμετρο κυλίνδρων με φρένο (φορτίο)"
+
+msgid "Calculateur (ECU / TCU)"
+msgstr "Εγκέφαλος (ECU / TCU)"
+
+msgid "Carburant course"
+msgstr "Αγωνιστικό καύσιμο"
+
+msgid "Cartographie"
+msgstr "Χαρτογράφηση"
+
+msgid "Cartographie réalisée"
+msgstr "Έγινε χαρτογράφηση"
+
+msgid "Conditions"
+msgstr "Συνθήκες"
+
+msgid "Conditions de mesure"
+msgstr "Συνθήκες μέτρησης"
+
+msgid "Couple maximal"
+msgstr "Μέγιστη ροπή"
+
+msgid "Couple maximal (Nm)"
+msgstr "Μέγιστη ροπή (Nm)"
+
+msgid "Courbes (PDF, 10 Mo max.)"
+msgstr "Καμπύλες (PDF, έως 10 MB)"
+
+msgid "Courbes après cartographie"
+msgstr "Καμπύλες μετά τη χαρτογράφηση"
+
+msgid "Courbes et valeurs après cartographie"
+msgstr "Καμπύλες και τιμές μετά τη χαρτογράφηση"
+
+msgid "Courbes et valeurs sans cartographie"
+msgstr "Καμπύλες και τιμές χωρίς χαρτογράφηση"
+
+msgid "Courbes sans cartographie"
+msgstr "Καμπύλες χωρίς χαρτογράφηση"
+
+msgid "Coûts"
+msgstr "Κόστη"
+
+msgid "Date du passage au banc"
+msgstr "Ημερομηνία μέτρησης"
+
+msgid "Détails du passage au banc"
+msgstr "Λεπτομέρειες μέτρησης"
+
+msgid "Fichier actuel"
+msgstr "Τρέχον αρχείο"
+
+msgid "Gain"
+msgstr "Κέρδος"
+
+msgid "Gain de la cartographie"
+msgstr "Κέρδος χαρτογράφησης"
+
+msgid "Humidité (%)"
+msgstr "Υγρασία (%)"
+
+msgid "Indiquez au moins une puissance ou joignez une courbe."
+msgstr "Εισαγάγετε τουλάχιστον μία ισχύ ή επισυνάψτε καμπύλη."
+
+msgid "Kilométrage au passage au banc"
+msgstr "Χιλιόμετρα κατά τη μέτρηση"
+
+msgid "La puissance aux roues ne peut pas dépasser la puissance moteur."
+msgstr "Η ισχύς στους τροχούς δεν μπορεί να υπερβαίνει την ισχύ του κινητήρα."
+
+msgid "Les courbes du banc sont jointes séparément (PDF) dans la fiche du passage au banc."
+msgstr "Οι καμπύλες επισυνάπτονται ξεχωριστά (PDF) στην καρτέλα της μέτρησης."
+
+msgid "Lieu / préparateur du banc"
+msgstr "Τοποθεσία / μηχανικός δυναμόμετρου"
+
+msgid "Liste des passages au banc"
+msgstr "Λίστα μετρήσεων"
+
+msgid "Marque du banc"
+msgstr "Μάρκα δυναμόμετρου"
+
+msgid "Modification du passage au banc"
+msgstr "Τροποποίηση μέτρησης"
+
+msgid "Modifier le passage au banc"
+msgstr "Τροποποίηση μέτρησης"
+
+msgid "Niveau de cartographie"
+msgstr "Επίπεδο χαρτογράφησης"
+
+msgid "Norme de correction"
+msgstr "Πρότυπο διόρθωσης"
+
+msgid "Outil / logiciel"
+msgstr "Εργαλείο / λογισμικό"
+
+msgid "Ouvrir le PDF"
+msgstr "Άνοιγμα PDF"
+
+msgid "PDF uniquement, 10 Mo maximum."
+msgstr "Μόνο PDF, έως 10 MB."
+
+msgid "Passage au banc"
+msgstr "Μέτρηση ισχύος"
+
+msgid "Passage au banc enregistré avec succès."
+msgstr "Η μέτρηση αποθηκεύτηκε."
+
+msgid "Passage au banc modifié avec succès !"
+msgstr "Η μέτρηση τροποποιήθηκε!"
+
+msgid "Passage au banc supprimé avec succès."
+msgstr "Η μέτρηση διαγράφηκε."
+
+msgid "PassageBanc"
+msgstr "Metrisi"
+
+msgid "Passages au banc de puissance"
+msgstr "Μετρήσεις ισχύος"
+
+msgid "Pertes de transmission estimées"
+msgstr "Εκτιμώμενες απώλειες μετάδοσης"
+
+msgid "Pression atmosphérique (hPa)"
+msgstr "Ατμοσφαιρική πίεση (hPa)"
+
+msgid "Prix de la cartographie HTVA"
+msgstr "Τιμή χαρτογράφησης χωρίς ΦΠΑ"
+
+msgid "Prix du passage au banc HTVA"
+msgstr "Τιμή μέτρησης χωρίς ΦΠΑ"
+
+msgid "Préparateur / programmeur"
+msgstr "Μηχανικός / προγραμματιστής"
+
+msgid "Puissance aux roues"
+msgstr "Ισχύς στους τροχούς"
+
+msgid "Puissance aux roues (ch)"
+msgstr "Ισχύς στους τροχούς (ίπποι)"
+
+msgid "Puissance maximale"
+msgstr "Μέγιστη ισχύς"
+
+msgid "Puissance maximale (ch)"
+msgstr "Μέγιστη ισχύς (ίπποι)"
+
+msgid "Puissance, couple, cartographie"
+msgstr "Ισχύς, ροπή, χαρτογράφηση"
+
+msgid "Rapport de boîte utilisé"
+msgstr "Σχέση μετάδοσης"
+
+msgid "Rapport de passage au banc de puissance"
+msgstr "Αναφορά μέτρησης ισχύος"
+
+msgid "Retour à l'origine"
+msgstr "Επαναφορά εργοστασιακής"
+
+msgid "Retour à la liste des passages au banc"
+msgstr "Επιστροφή στη λίστα μετρήσεων"
+
+msgid "Réalisé"
+msgstr "Ολοκληρώθηκε"
+
+msgid "Régime de couple maxi (tr/min)"
+msgstr "Στροφές μέγιστης ροπής (rpm)"
+
+msgid "Régime de puissance maxi (tr/min)"
+msgstr "Στροφές μέγιστης ισχύος (rpm)"
+
+msgid "Résultats du banc de puissance"
+msgstr "Αποτελέσματα μέτρησης"
+
+msgid "Sans cartographie"
+msgstr "Χωρίς χαρτογράφηση"
+
+msgid "Sans plomb 95"
+msgstr "Αμόλυβδη 95"
+
+msgid "Sans plomb 95 E10"
+msgstr "Αμόλυβδη 95 E10"
+
+msgid "Sans plomb 98"
+msgstr "Αμόλυβδη 98"
+
+msgid "Stage 1"
+msgstr "Stage 1"
+
+msgid "Stage 2"
+msgstr "Stage 2"
+
+msgid "Stage 3"
+msgstr "Stage 3"
+
+msgid "Super 100 / 102"
+msgstr "Super 100 / 102"
+
+msgid "Suppression du passage au banc"
+msgstr "Διαγραφή μέτρησης"
+
+msgid "Supprimer le fichier"
+msgstr "Διαγραφή αρχείου"
+
+msgid "Supprimer le passage au banc"
+msgstr "Διαγραφή μέτρησης"
+
+msgid "Sur mesure"
+msgstr "Κατά παραγγελία"
+
+msgid "Température ambiante (°C)"
+msgstr "Θερμοκρασία περιβάλλοντος (°C)"
+
+msgid "Type de banc"
+msgstr "Τύπος δυναμόμετρου"
+
+#, python-format
+msgid "Voulez-vous vraiment supprimer le passage au banc du %(date)s (%(km)s km) pour :"
+msgstr "Θέλετε σίγουρα να διαγράψετε τη μέτρηση της %(date)s (%(km)s km) για:"
+
+msgid "Éco / optimisation consommation"
+msgstr "Eco / βελτιστοποίηση κατανάλωσης"
+
+msgid "Aucun bilan du comptable n'a été introduit : le bilan est établi uniquement à partir des écritures de l'application."
+msgstr "Δεν έχει καταχωρηθεί ισολογισμός λογιστή: ο ισολογισμός βασίζεται μόνο στις εγγραφές της εφαρμογής."
+
+msgid "Aucun bilan introduit."
+msgstr "Δεν έχει καταχωρηθεί ισολογισμός."
+
+#, python-format
+msgid "Base : bilan du comptable au 31/12/%(r)s, complété par les écritures de l'application."
+msgstr "Βάση: ισολογισμός λογιστή στις 31/12/%(r)s, συμπληρωμένος με τις εγγραφές της εφαρμογής."
+
+#, python-format
+msgid "Base : dernier bilan du comptable au 31/12/%(r)s, complété par les écritures de l'application jusqu'au 31/12/%(a)s."
+msgstr "Βάση: τελευταίος ισολογισμός λογιστή στις 31/12/%(r)s, συμπληρωμένος με τις εγγραφές έως 31/12/%(a)s."
+
+msgid "Bilan"
+msgstr "Ισολογισμός"
+
+msgid "Bilan de référence"
+msgstr "Ισολογισμός αναφοράς"
+
+#, python-format
+msgid "Bilan du comptable au 31/12/%(a)s"
+msgstr "Ισολογισμός λογιστή στις 31/12/%(a)s"
+
+msgid "Bilans de référence"
+msgstr "Ισολογισμοί αναφοράς"
+
+msgid "Bénéfice (Perte) d'exploitation"
+msgstr "Λειτουργικό κέρδος (ζημία)"
+
+msgid "Bénéfice (Perte) de l'exercice avant impôts"
+msgstr "Κέρδος (ζημία) χρήσης προ φόρων"
+
+msgid "COMPTE DE RÉSULTATS (facultatif)"
+msgstr "ΚΑΤΑΣΤΑΣΗ ΑΠΟΤΕΛΕΣΜΑΤΩΝ (προαιρετικό)"
+
+msgid "Ce bilan est généré automatiquement à partir des données de l'application. Il ne remplace pas les comptes annuels officiels et doit être vérifié par un comptable ou un expert-comptable (ITAA) avant toute utilisation ou tout dépôt à la BNB."
+msgstr "Αυτός ο ισολογισμός δημιουργείται αυτόματα από τα δεδομένα της εφαρμογής. Δεν αντικαθιστά τους επίσημους ετήσιους λογαριασμούς και πρέπει να ελεγχθεί από λογιστή (ITAA) πριν από οποιαδήποτε χρήση ή κατάθεση στην NBB."
+
+msgid "Date de dépôt à la BNB"
+msgstr "Ημερομηνία κατάθεσης στην NBB"
+
+msgid "Dernier bilan (comptable)"
+msgstr "Τελευταίος ισολογισμός (λογιστής)"
+
+msgid "Dernier bilan du comptable"
+msgstr "Τελευταίος ισολογισμός λογιστή"
+
+msgid "Derniers bilans du comptable"
+msgstr "Ισολογισμοί λογιστή"
+
+msgid "Document indicatif – à faire vérifier par un comptable"
+msgstr "Ενδεικτικό έγγραφο – προς έλεγχο από λογιστή"
+
+msgid "Document à titre indicatif"
+msgstr "Ενδεικτικό έγγραφο"
+
+msgid "Dépôt BNB"
+msgstr "Κατάθεση NBB"
+
+#, python-format
+msgid "Exercice %(a)s : montants du bilan établi par le comptable (%(s)s), introduits dans l'application."
+msgstr "Χρήση %(a)s: ποσά του ισολογισμού του λογιστή (%(s)s), καταχωρημένα στην εφαρμογή."
+
+#, python-format
+msgid "Exercice %(a)s : montants du bilan établi par le comptable."
+msgstr "Χρήση %(a)s: ποσά του ισολογισμού του λογιστή."
+
+msgid "Exercice clôturé au 31/12 de"
+msgstr "Χρήση που έκλεισε στις 31/12 του"
+
+msgid "Exercice invalide."
+msgstr "Μη έγκυρη χρήση."
+
+msgid "Indiquez au moins un montant."
+msgstr "Εισαγάγετε τουλάχιστον ένα ποσό."
+
+msgid "Introduire le dernier bilan"
+msgstr "Καταχώρηση τελευταίου ισολογισμού"
+
+msgid "Introduire le dernier bilan du comptable"
+msgstr "Καταχώρηση τελευταίου ισολογισμού λογιστή"
+
+msgid "Introduire un bilan"
+msgstr "Καταχώρηση ισολογισμού"
+
+msgid "Introduisez ici le dernier bilan établi par votre comptable (rubriques des comptes annuels). Il sert de base : les bilans des exercices suivants partent de ces montants et y ajoutent les écritures de l'application."
+msgstr "Καταχωρήστε εδώ τον τελευταίο ισολογισμό του λογιστή σας (κονδύλια ετήσιων λογαριασμών). Χρησιμεύει ως βάση: οι ισολογισμοί των επόμενων χρήσεων ξεκινούν από αυτά τα ποσά και προσθέτουν τις εγγραφές της εφαρμογής."
+
+#, python-format
+msgid "Le bilan %(annee)s a été enregistré. Il sert de base aux bilans suivants."
+msgstr "Ο ισολογισμός %(annee)s αποθηκεύτηκε. Χρησιμεύει ως βάση για τους επόμενους."
+
+msgid "Le bilan de référence a été supprimé."
+msgstr "Ο ισολογισμός αναφοράς διαγράφηκε."
+
+#, python-format
+msgid "Le bilan n'est pas équilibré : total actif – total passif = %(e)s €."
+msgstr "Ο ισολογισμός δεν ισοσκελίζεται: σύνολο ενεργητικού – σύνολο παθητικού = %(e)s €."
+
+msgid "Marge brute d'exploitation"
+msgstr "Μικτό περιθώριο εκμετάλλευσης"
+
+msgid "Montants par rubrique"
+msgstr "Ποσά ανά κονδύλι"
+
+msgid "Recopiez les montants des comptes annuels établis par votre comptable (en euros, après répartition du résultat comme dans le dépôt BNB). Laissez vide les rubriques sans montant. Le total de l'actif doit être égal au total du passif."
+msgstr "Αντιγράψτε τα ποσά από τους ετήσιους λογαριασμούς του λογιστή σας (σε ευρώ, μετά τη διάθεση του αποτελέσματος όπως στην κατάθεση NBB). Αφήστε κενά τα κονδύλια χωρίς ποσό. Το σύνολο του ενεργητικού πρέπει να ισούται με το σύνολο του παθητικού."
+
+msgid "Rubrique"
+msgstr "Κονδύλι"
+
+msgid "Schéma abrégé"
+msgstr "Συνοπτικό υπόδειγμα"
+
+msgid "Schéma complet"
+msgstr "Πλήρες υπόδειγμα"
+
+msgid "Supprimer le bilan de référence"
+msgstr "Διαγραφή ισολογισμού αναφοράς"
+
+msgid "Un bilan de référence existe déjà pour cet exercice."
+msgstr "Υπάρχει ήδη ισολογισμός αναφοράς για αυτή τη χρήση."
+
+msgid "Voir le bilan de référence"
+msgstr "Προβολή ισολογισμού αναφοράς"
+
+msgid "indicatif"
+msgstr "ενδεικτικό"
+
+msgid "Écart actif – passif :"
+msgstr "Διαφορά ενεργητικού – παθητικού:"
+
+msgid "Établi par"
+msgstr "Συντάχθηκε από"
+
+msgid "Établi par (comptable / fiduciaire)"
+msgstr "Συντάχθηκε από (λογιστής / γραφείο)"
+
+msgid "écritures prises en compte"
+msgstr "εγγραφές που ελήφθησαν υπόψη"
+
+#, python-format
+msgid "%(n)s véhicule(s) ajouté(s) au Trackday."
+msgstr "%(n)s όχημα(τα) προστέθηκαν στο Trackday."
+
+msgid "Ajouter un coût"
+msgstr "Προσθήκη κόστους"
+
+msgid "Aucun Trackday sur l'année."
+msgstr "Κανένα Trackday φέτος."
+
+msgid "Aucun Trackday."
+msgstr "Κανένα Trackday."
+
+msgid "Aucun box disponible pour ce Trackday."
+msgstr "Κανένα box διαθέσιμο για αυτό το Trackday."
+
+msgid "Aucun coût saisi."
+msgstr "Δεν καταχωρήθηκε κόστος."
+
+msgid "Aucun véhicule engagé pour l'instant."
+msgstr "Κανένα όχημα ακόμη."
+
+msgid "Aucune vente."
+msgstr "Καμία πώληση."
+
+#, python-format
+msgid "Box (1 à %(n)s)"
+msgstr "Box (1 έως %(n)s)"
+
+msgid "Box / paddock"
+msgstr "Box / paddock"
+
+msgid "Box disponibles : 1 à"
+msgstr "Διαθέσιμα box: 1 έως"
+
+msgid "Box utilisés"
+msgstr "Χρησιμοποιούμενα box"
+
+msgid "Chaque véhicule d'un Trackday est une location : il est compté dans les ventes du vendeur indiqué sur la location."
+msgstr "Κάθε όχημα Trackday είναι μίσθωση: μετρά στις πωλήσεις του πωλητή της μίσθωσης."
+
+msgid "Chiffres clés"
+msgstr "Βασικά στοιχεία"
+
+msgid "Coût du Trackday"
+msgstr "Κόστος Trackday"
+
+msgid "Coût par véhicule"
+msgstr "Κόστος ανά όχημα"
+
+msgid "Coûts HTVA"
+msgstr "Κόστη χωρίς ΦΠΑ"
+
+msgid "Coûts du Trackday"
+msgstr "Κόστη Trackday"
+
+msgid "En piste"
+msgstr "Στην πίστα"
+
+msgid "Facultatif : nombre maximum de véhicules engagés."
+msgstr "Προαιρετικό: μέγιστος αριθμός οχημάτων."
+
+msgid "Facultatif : rattache la location à un Trackday (ventes et rentabilité)."
+msgstr "Προαιρετικό: συνδέει τη μίσθωση με Trackday (πωλήσεις και κερδοφορία)."
+
+msgid "Facultatif, ex. : « Trackday d'automne »."
+msgstr "Προαιρετικό, π.χ. «Φθινοπωρινό Trackday»."
+
+msgid "Imprimer"
+msgstr "Εκτύπωση"
+
+msgid "Kilomètres réservés"
+msgstr "Κρατημένα χιλιόμετρα"
+
+msgid "Kilométrage actuel du véhicule (sortie non encore validée)"
+msgstr "Τρέχοντα χιλιόμετρα (η έξοδος δεν έχει επικυρωθεί)"
+
+msgid "Km départ"
+msgstr "Χλμ αναχώρησης"
+
+msgid "Km départ : kilométrage relevé à la sortie du véhicule (agenda). * : kilométrage actuel tant que la sortie n'est pas validée."
+msgstr "Χλμ αναχώρησης: χιλιόμετρα κατά την έξοδο (ατζέντα). *: τρέχοντα χιλιόμετρα μέχρι την επικύρωση της εξόδου."
+
+#, python-format
+msgid "Le Trackday ne compte que %(n)s box (1 à %(n)s)."
+msgstr "Το Trackday έχει μόνο %(n)s box (1 έως %(n)s)."
+
+#, python-format
+msgid "Le box n° %(b)s est déjà attribué : indiquez au moins %(b)s box."
+msgstr "Το box αρ. %(b)s έχει ήδη ανατεθεί: εισαγάγετε τουλάχιστον %(b)s box."
+
+#, python-format
+msgid "Le numéro %(n)s est déjà attribué à %(v)s."
+msgstr "Ο αριθμός %(n)s έχει ήδη δοθεί στο %(v)s."
+
+#, python-format
+msgid "Le numéro de course %(n)s est utilisé plusieurs fois."
+msgstr "Ο αριθμός αγώνα %(n)s χρησιμοποιείται πολλές φορές."
+
+msgid "Les box des locations du Trackday sont numérotés de 1 à ce nombre."
+msgstr "Τα box των μισθώσεων αριθμούνται από 1 έως αυτόν τον αριθμό."
+
+msgid "Les locations (ventes et factures) sont conservées : elles ne sont simplement plus rattachées au Trackday. Les numéros de course sont retirés."
+msgstr "Οι μισθώσεις (πωλήσεις και τιμολόγια) διατηρούνται: απλώς δεν συνδέονται πλέον με το Trackday. Οι αριθμοί αγώνα αφαιρούνται."
+
+msgid "Liste d'affichage (numéros)"
+msgstr "Λίστα προβολής (αριθμοί)"
+
+msgid "Location du circuit"
+msgstr "Ενοικίαση πίστας"
+
+msgid "Location du circuit, box, assurance, personnel, carburant… Ces coûts servent au calcul de rentabilité."
+msgstr "Ενοικίαση πίστας, box, ασφάλιση, προσωπικό, καύσιμα… Τα κόστη χρησιμεύουν στον υπολογισμό της κερδοφορίας."
+
+msgid "Marge"
+msgstr "Περιθώριο"
+
+msgid "Modification du Trackday"
+msgstr "Τροποποίηση Trackday"
+
+msgid "Modifier le Trackday"
+msgstr "Τροποποίηση Trackday"
+
+msgid "Montant HTVA (€)"
+msgstr "Ποσό χωρίς ΦΠΑ (€)"
+
+msgid "Nom de l'événement"
+msgstr "Όνομα εκδήλωσης"
+
+msgid "Nombre de box disponibles"
+msgstr "Αριθμός διαθέσιμων box"
+
+msgid "Nouveau Trackday"
+msgstr "Νέο Trackday"
+
+msgid "Numéro affiché sur le véhicule (1 à 200)."
+msgstr "Αριθμός στο όχημα (1 έως 200)."
+
+msgid "Numéro affiché sur le véhicule pendant le Trackday (1 à 200)."
+msgstr "Αριθμός στο όχημα κατά το Trackday (1 έως 200)."
+
+msgid "Numéro de course"
+msgstr "Αριθμός αγώνα"
+
+msgid "Numéros déjà attribués"
+msgstr "Αριθμοί που έχουν ήδη δοθεί"
+
+msgid "Organisateur"
+msgstr "Διοργανωτής"
+
+msgid "Panier moyen HTVA"
+msgstr "Μέση αξία χωρίς ΦΠΑ"
+
+msgid "Personnel / instructeurs"
+msgstr "Προσωπικό / εκπαιδευτές"
+
+msgid "Photo / vidéo"
+msgstr "Φωτογραφία / βίντεο"
+
+msgid "Pilote 1"
+msgstr "Οδηγός 1"
+
+msgid "Pilote 2"
+msgstr "Οδηγός 2"
+
+msgid "Places véhicules"
+msgstr "Θέσεις οχημάτων"
+
+msgid "Prix d'achat (coûts HTVA)"
+msgstr "Τιμή αγοράς (κόστη χωρίς ΦΠΑ)"
+
+msgid "Prix d'achat (coûts du Trackday, HTVA)"
+msgstr "Τιμή αγοράς (κόστη Trackday, χωρίς ΦΠΑ)"
+
+msgid "Prix d'achat total HTVA"
+msgstr "Συνολική τιμή αγοράς χωρίς ΦΠΑ"
+
+msgid "Rentabilité par Trackday"
+msgstr "Κερδοφορία ανά Trackday"
+
+msgid "Rentré"
+msgstr "Επέστρεψε"
+
+msgid "Restauration / hospitalité"
+msgstr "Εστίαση / φιλοξενία"
+
+msgid "Retour aux Trackdays"
+msgstr "Επιστροφή στα Trackday"
+
+msgid "Réservé"
+msgstr "Κράτηση"
+
+msgid "Seuil de rentabilité"
+msgstr "Νεκρό σημείο"
+
+msgid "Statistiques Trackday"
+msgstr "Στατιστικά Trackday"
+
+msgid "Supprimer le Trackday"
+msgstr "Διαγραφή Trackday"
+
+#, python-format
+msgid "Synthèse %(annee)s"
+msgstr "Σύνοψη %(annee)s"
+
+msgid "Sécurité / commissaires / médical"
+msgstr "Ασφάλεια / κομισάριοι / ιατρικό"
+
+msgid "Tours réservés"
+msgstr "Κρατημένοι γύροι"
+
+msgid "Trackday"
+msgstr "Trackday"
+
+msgid "Trackday supprimé. Les locations sont conservées."
+msgstr "Το Trackday διαγράφηκε. Οι μισθώσεις διατηρούνται."
+
+#, python-format
+msgid "Trackday « %(t)s » enregistré."
+msgstr "Το Trackday «%(t)s» αποθηκεύτηκε."
+
+msgid "Trackdays"
+msgstr "Trackdays"
+
+msgid "Transport / camion"
+msgstr "Μεταφορά / φορτηγό"
+
+msgid "Ventes HTVA"
+msgstr "Πωλήσεις χωρίς ΦΠΑ"
+
+msgid "Ventes HTVA par mois"
+msgstr "Πωλήσεις χωρίς ΦΠΑ ανά μήνα"
+
+msgid "Ventes TVAC"
+msgstr "Πωλήσεις με ΦΠΑ"
+
+msgid "Ventes des Trackdays"
+msgstr "Πωλήσεις Trackday"
+
+msgid "Vide : une seule journée."
+msgstr "Κενό: μία μέρα."
+
+msgid "Véhicules engagés"
+msgstr "Συμμετέχοντα οχήματα"
+
+msgid "Véhicules par Trackday"
+msgstr "Οχήματα ανά Trackday"
+
+msgid "libre"
+msgstr "ελεύθερο"
+
+msgid "véh."
+msgstr "οχ."
+
+msgid "véhicules"
+msgstr "οχήματα"
+
+msgid "Événement"
+msgstr "Εκδήλωση"
+
+msgid "à venir"
+msgstr "προσεχές"
+
+#, python-format
+msgid "%(n)s véhicule sans numéro de course."
+msgid_plural "%(n)s véhicules sans numéro de course."
+msgstr[0] "%(n)s όχημα χωρίς αριθμό αγώνα."
+msgstr[1] "%(n)s οχήματα χωρίς αριθμό αγώνα."
+
+msgid "Accident sur piste / en compétition"
+msgstr "Ατύχημα σε πίστα / σε αγώνα"
+
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ rapports"
+msgstr "Εμφάνιση _START_ έως _END_ από _TOTAL_ αναφορές"
+
+msgid "Aides à la conduite (capteurs, radar, caméra)"
+msgstr "Υποβοήθηση οδήγησης (αισθητήρες, ραντάρ, κάμερα)"
+
+msgid "Airbag / prétensionneur"
+msgstr "Αερόσακος / προεντατήρας"
+
+msgid "Airbags déployés"
+msgstr "Άνοιξαν αερόσακοι"
+
+msgid "Ajouter un demi-train complet à contrôler"
+msgstr "Προσθήκη πλήρους ημιάξονα προς έλεγχο"
+
+msgid "Amortisseur, triangles, fusée, roulement, capteur ABS, biellette et rotule de direction, biellette de barre stabilisatrice, cardan (décision « À contrôler »)."
+msgstr "Αμορτισέρ, ψαλίδια, ακραξόνιο, ρουλεμάν, αισθητήρας ABS, μπαράκι και ακρόμπαρο, ντίζα αντιστρεπτικής, ημιαξόνιο (απόφαση «Προς έλεγχο»)."
+
+msgid "Angle arrière droit"
+msgstr "Πίσω δεξιά γωνία"
+
+msgid "Angle arrière gauche"
+msgstr "Πίσω αριστερή γωνία"
+
+msgid "Angle avant droit"
+msgstr "Εμπρός δεξιά γωνία"
+
+msgid "Angle avant gauche"
+msgstr "Εμπρός αριστερή γωνία"
+
+msgid "Arraché"
+msgstr "Ξεριζωμένο"
+
+msgid "Aucun rapport d’accident enregistré pour cet exemplaire."
+msgstr "Καμία αναφορά ατυχήματος για αυτό το όχημα."
+
+msgid "Aucun rapport trouvé"
+msgstr "Δεν βρέθηκε αναφορά"
+
+msgid "Aucune pièce endommagée renseignée."
+msgstr "Δεν καταχωρήθηκε κατεστραμμένο εξάρτημα."
+
+msgid "Autre pièce (à préciser)"
+msgstr "Άλλο εξάρτημα (διευκρινίστε)"
+
+msgid "Berceau / traverse de train"
+msgstr "Υποπλαίσιο / τραβέρσα"
+
+msgid "Biellette de direction"
+msgstr "Μπαράκι τιμονιού"
+
+msgid "Bras de suspension / bras tiré"
+msgstr "Βραχίονας ανάρτησης"
+
+msgid "Calculateur"
+msgstr "Εγκέφαλος"
+
+msgid "Caméra"
+msgstr "Κάμερα"
+
+msgid "Capteur de stationnement"
+msgstr "Αισθητήρας στάθμευσης"
+
+msgid "Cardan / arbre de roue"
+msgstr "Ημιαξόνιο"
+
+msgid "Cardans / transmission"
+msgstr "Ημιαξόνια / μετάδοση"
+
+msgid "Cassé / rompu"
+msgstr "Σπασμένο"
+
+msgid "Choc arrière"
+msgstr "Οπίσθια σύγκρουση"
+
+msgid "Choc frontal"
+msgstr "Μετωπική σύγκρουση"
+
+msgid "Choc latéral droit"
+msgstr "Πλευρική σύγκρουση δεξιά"
+
+msgid "Choc latéral gauche"
+msgstr "Πλευρική σύγκρουση αριστερά"
+
+msgid "Choc sous caisse"
+msgstr "Χτύπημα κάτω από το αμάξωμα"
+
+msgid "Châssis / structure"
+msgstr "Σασί / δομή"
+
+msgid "Circonstances de l'accident"
+msgstr "Συνθήκες ατυχήματος"
+
+msgid "Conclusion"
+msgstr "Συμπέρασμα"
+
+msgid "Condenseur de climatisation"
+msgstr "Συμπυκνωτής κλιματισμού"
+
+msgid "Conducteur / pilote"
+msgstr "Οδηγός"
+
+msgid "Connecteur"
+msgstr "Βύσμα"
+
+msgid "Constat amiable rédigé"
+msgstr "Συντάχθηκε φιλικός διακανονισμός"
+
+msgid "Contrôle au marbre (cotes châssis)"
+msgstr "Έλεγχος σε πάγκο (διαστάσεις σασί)"
+
+msgid "Contrôles et décision"
+msgstr "Έλεγχοι και απόφαση"
+
+msgid "Contrôles à prévoir"
+msgstr "Έλεγχοι προς προγραμματισμό"
+
+msgid "Cotes du châssis (marbre)"
+msgstr "Διαστάσεις σασί (πάγκος)"
+
+msgid "Coupelle / butée d'amortisseur"
+msgstr "Βάση / τακάκι αμορτισέρ"
+
+msgid "Crémaillère / boîtier de direction"
+msgstr "Κρεμαγιέρα"
+
+msgid "Câblage / faisceau"
+msgstr "Καλωδίωση"
+
+msgid "Date de l'accident"
+msgstr "Ημερομηνία ατυχήματος"
+
+msgid "Demi-train"
+msgstr "Ημιάξονας"
+
+msgid "Demi-train arrière droit"
+msgstr "Πίσω δεξιός ημιάξονας"
+
+msgid "Demi-train arrière gauche"
+msgstr "Πίσω αριστερός ημιάξονας"
+
+msgid "Demi-train avant droit"
+msgstr "Εμπρός δεξιός ημιάξονας"
+
+msgid "Demi-train avant gauche"
+msgstr "Εμπρός αριστερός ημιάξονας"
+
+msgid "Différentiel / pont"
+msgstr "Διαφορικό / άξονας"
+
+msgid "Disque de frein"
+msgstr "Δισκόπλακα"
+
+msgid "Défaut électrique / code défaut"
+msgstr "Ηλεκτρικό σφάλμα / κωδικός"
+
+msgid "Déroulement, conditions (pluie, nuit…), trajectoire…"
+msgstr "Εξέλιξη, συνθήκες (βροχή, νύχτα…), πορεία…"
+
+msgid "Déréglé / décalibré"
+msgstr "Απορρυθμισμένο"
+
+msgid "En attente (devis / expertise)"
+msgstr "Σε αναμονή (προσφορά / πραγματογνωμοσύνη)"
+
+msgid "Enfoncé / écrasé"
+msgstr "Βουλιαγμένο / συνθλιμμένο"
+
+msgid "Expert"
+msgstr "Πραγματογνώμονας"
+
+msgid "Expertise demandée"
+msgstr "Ζητήθηκε πραγματογνωμοσύνη"
+
+msgid "Feu arrière"
+msgstr "Πίσω φανάρι"
+
+msgid "Fissuré"
+msgstr "Ραγισμένο"
+
+msgid "Flexible / conduite de frein"
+msgstr "Σωλήνας φρένων"
+
+msgid "Fond plat / protection sous caisse"
+msgstr "Επίπεδο δάπεδο / προστασία"
+
+msgid "Fusée / porte-moyeu"
+msgstr "Ακραξόνιο / φορέας πλήμνης"
+
+msgid "Géométrie à contrôler"
+msgstr "Γεωμετρία προς έλεγχο"
+
+msgid "Heure"
+msgstr "Ώρα"
+
+msgid "Joint homocinétique"
+msgstr "Ομοκινητική άρθρωση"
+
+msgid "Longeron"
+msgstr "Διαμήκης δοκός"
+
+msgid "Marbre (cotes châssis)"
+msgstr "Πάγκος (διαστάσεις σασί)"
+
+msgid "Modification du rapport d’accident"
+msgstr "Τροποποίηση αναφοράς ατυχήματος"
+
+msgid "Moteur / boîte"
+msgstr "Κινητήρας / κιβώτιο"
+
+msgid "Nid-de-poule / obstacle sur la chaussée"
+msgstr "Λακκούβα / εμπόδιο"
+
+msgid "Non roulant"
+msgstr "Μη κινούμενο"
+
+msgid "Personne(s) blessée(s)"
+msgstr "Τραυματίας(ες)"
+
+msgid "Perte totale (VEI / épave)"
+msgstr "Ολική καταστροφή"
+
+msgid "Phare / feu avant"
+msgstr "Προβολέας"
+
+msgid "Pièce endommagée"
+msgstr "Κατεστραμμένο εξάρτημα"
+
+msgid "Pièces endommagées"
+msgstr "Κατεστραμμένα εξαρτήματα"
+
+msgid "Pièces endommagées par zone"
+msgstr "Κατεστραμμένα εξαρτήματα ανά ζώνη"
+
+msgid "Plancher"
+msgstr "Δάπεδο"
+
+msgid "Procès-verbal de police"
+msgstr "Αστυνομική έκθεση"
+
+msgid "Radar de collision / ACC"
+msgstr "Ραντάρ σύγκρουσης / ACC"
+
+msgid "Rapport d'accident"
+msgstr "Αναφορά ατυχήματος"
+
+msgid "Rapport d'accident enregistré avec succès."
+msgstr "Η αναφορά ατυχήματος αποθηκεύτηκε."
+
+msgid "Rapport d'accident modifié avec succès !"
+msgstr "Η αναφορά ατυχήματος τροποποιήθηκε!"
+
+msgid "Rapport d'accident supprimé avec succès."
+msgstr "Η αναφορά ατυχήματος διαγράφηκε."
+
+msgid "Rapport d’accident"
+msgstr "Αναφορά ατυχήματος"
+
+msgid "Rapports d'accident"
+msgstr "Αναφορές ατυχημάτων"
+
+msgid "Rayé / frotté"
+msgstr "Γρατζουνισμένο"
+
+msgid "Recalibrage des aides à la conduite"
+msgstr "Επαναβαθμονόμηση ADAS"
+
+msgid "Réparation partielle / provisoire"
+msgstr "Μερική / προσωρινή επισκευή"
+
+msgid "Réparé / redressé"
+msgstr "Επισκευάστηκε / ισιώθηκε"
+
+msgid "Sectionné / coupé"
+msgstr "Κομμένο"
+
+msgid "Sinistre (assurance)"
+msgstr "Ζημιά (ασφάλεια)"
+
+msgid "Sortie de piste (bac, rail, mur)"
+msgstr "Έξοδος από πίστα (χαλίκι, μπαριέρα, τοίχος)"
+
+msgid "Soufflet de cardan"
+msgstr "Φούσκα ημιαξονίου"
+
+msgid "Suppression du rapport d’accident"
+msgstr "Διαγραφή αναφοράς ατυχήματος"
+
+msgid "Tiers (nom, immatriculation, assureur)"
+msgstr "Τρίτος (όνομα, πινακίδα, ασφαλιστής)"
+
+msgid "Tiers et assurance"
+msgstr "Τρίτος και ασφάλεια"
+
+msgid "Tiers impliqué"
+msgstr "Εμπλοκή τρίτου"
+
+msgid "Tonneau / retournement"
+msgstr "Ανατροπή"
+
+msgid "Tordu / déformé / voilé"
+msgstr "Στραβωμένο / παραμορφωμένο"
+
+msgid "Tour d'amortisseur / passage de roue"
+msgstr "Πύργος αμορτισέρ / θόλος τροχού"
+
+msgid "Train / suspension / direction"
+msgstr "Άξονας / ανάρτηση / τιμόνι"
+
+msgid "Trains, châssis, moteur, cardans, électronique"
+msgstr "Άξονες, σασί, κινητήρας, ημιαξόνια, ηλεκτρονικά"
+
+msgid "Traverse"
+msgstr "Τραβέρσα"
+
+msgid "Triangle inférieur"
+msgstr "Κάτω ψαλίδι"
+
+msgid "Triangle supérieur"
+msgstr "Άνω ψαλίδι"
+
+msgid "Trottoir / bordure / vibreur"
+msgstr "Πεζοδρόμιο / κράσπεδο"
+
+msgid "Type de choc"
+msgstr "Τύπος σύγκρουσης"
+
+msgid "Une ligne par pièce touchée, avec sa zone (demi-train avant / arrière, gauche / droit, châssis, moteur, cardans, électricité…). Les pièces à remplacer, réparer ou recalibrer avec une quantité et un prix sont reprises dans le chiffrage."
+msgstr "Μία γραμμή ανά εξάρτημα, με τη ζώνη του (εμπρός / πίσω ημιάξονας, αριστερά / δεξιά, σασί, κινητήρας, ημιαξόνια, ηλεκτρικά…). Τα εξαρτήματα προς αντικατάσταση, επισκευή ή βαθμονόμηση με ποσότητα και τιμή μπαίνουν στην κοστολόγηση."
+
+msgid "Vitesse estimée (km/h)"
+msgstr "Εκτιμώμενη ταχύτητα (km/h)"
+
+msgid "Véhicule destiné aux pièces"
+msgstr "Όχημα για ανταλλακτικά"
+
+msgid "Véhicule roulant après l'accident"
+msgstr "Όχημα κινούμενο μετά το ατύχημα"
+
+msgid "Zone"
+msgstr "Ζώνη"
+
+msgid "graves"
+msgstr "σοβαρά"
+
+msgid "piste"
+msgstr "πίστα"
+
+msgid "À recalibrer"
+msgstr "Προς βαθμονόμηση"
+
+msgid "À réparer / redresser"
+msgstr "Προς επισκευή / ίσιωμα"
+
+msgid "Électricité / aides à la conduite"
+msgstr "Ηλεκτρικά / υποβοήθηση οδήγησης"
+
+msgid "Électricité / électronique"
+msgstr "Ηλεκτρικά / ηλεκτρονικά"
+
+msgid "Étrier de frein"
+msgstr "Δαγκάνα φρένων"
+
+msgid "Notre société"
+msgstr "Η εταιρεία μας"
+
+msgid "notre société"
+msgstr "η εταιρεία μας"
+
+msgid "Propriétaire (personne)"
+msgstr "Ιδιοκτήτης (πρόσωπο)"
+
+msgid "Société partenaire"
+msgstr "Συνεργαζόμενη εταιρεία"
+
+msgid "Sociétés partenaires"
+msgstr "Συνεργαζόμενες εταιρείες"
+
+msgid "Type de propriétaire"
+msgstr "Τύπος ιδιοκτήτη"
+
+msgid "Part (%)"
+msgstr "Μερίδιο (%)"
+
+msgid "Part (%%)"
+msgstr "Μερίδιο (%%)"
+
+msgid "Marge pièces (%%)"
+msgstr "Περιθώριο ανταλλακτικών (%%)"
+
+msgid "Marge main-d'œuvre (%%)"
+msgstr "Περιθώριο εργασίας (%%)"
+
+msgid "Choisissez la société partenaire."
+msgstr "Επιλέξτε τη συνεργαζόμενη εταιρεία."
+
+msgid "Choisissez le propriétaire."
+msgstr "Επιλέξτε τον ιδιοκτήτη."
+
+msgid "Total des parts > 100 %% interdit (déjà attribué : %(total)s %%, disponible : %(reste)s %%)."
+msgstr "Σύνολο μεριδίων > 100 %% δεν επιτρέπεται (ήδη κατανεμημένο: %(total)s %%, διαθέσιμο: %(reste)s %%)."
+
+msgid "Ce propriétaire a déjà une part sur ce véhicule : modifiez sa part."
+msgstr "Αυτός ο ιδιοκτήτης έχει ήδη μερίδιο σε αυτό το όχημα: τροποποιήστε το μερίδιό του."
+
+msgid "Clients particuliers (repris comme propriétaires)"
+msgstr "Ιδιώτες πελάτες (ως ιδιοκτήτες)"
+
+msgid "Propriétaire invalide."
+msgstr "Μη έγκυρος ιδιοκτήτης."
+
+msgid "Propriétaire introuvable."
+msgstr "Ο ιδιοκτήτης δεν βρέθηκε."
+
+msgid "Un même propriétaire ne peut avoir qu'une seule part."
+msgstr "Ο ίδιος ιδιοκτήτης μπορεί να έχει μόνο ένα μερίδιο."
+
+msgid "Le total des parts (%(total)s %%) dépasse 100 %%."
+msgstr "Το σύνολο των μεριδίων (%(total)s %%) υπερβαίνει το 100 %%."
+
+msgid "Véhicule introuvable."
+msgstr "Το όχημα δεν βρέθηκε."
+
+msgid "Parts enregistrées : %(total)s %% attribués. Le total doit atteindre 100 %% pour facturer par parts."
+msgstr "Τα μερίδια αποθηκεύτηκαν: %(total)s %% κατανεμημένο. Το σύνολο πρέπει να φτάσει το 100 %% για τιμολόγηση ανά μερίδιο."
+
+msgid "Propriétaires du véhicule enregistrés (100 %)."
+msgstr "Οι ιδιοκτήτες του οχήματος αποθηκεύτηκαν (100 %)."
+
+msgid "Propriétaires du véhicule"
+msgstr "Ιδιοκτήτες του οχήματος"
+
+msgid "Quote-part (%)"
+msgstr "Μερίδιο (%)"
+
+msgid "Part du propriétaire facturé : les montants des lignes (coût et marge) sont multipliés par ce pourcentage."
+msgstr "Μερίδιο του τιμολογούμενου ιδιοκτήτη: τα ποσά των γραμμών (κόστος και περιθώριο) πολλαπλασιάζονται με αυτό το ποσοστό."
+
+msgid "Le total des parts de ce véhicule est de %(total)s %% : il doit être de 100 %% pour facturer en fonction des parts."
+msgstr "Το σύνολο των μεριδίων αυτού του οχήματος είναι %(total)s %%: πρέπει να είναι 100 %% για τιμολόγηση ανά μερίδιο."
+
+msgid "Une part n'a pas de société partenaire."
+msgstr "Ένα μερίδιο δεν έχει συνεργαζόμενη εταιρεία."
+
+msgid "Une part n'a pas de propriétaire."
+msgstr "Ένα μερίδιο δεν έχει ιδιοκτήτη."
+
+msgid "Ce véhicule n'a aucun propriétaire enregistré."
+msgstr "Αυτό το όχημα δεν έχει καταχωρισμένο ιδιοκτήτη."
+
+msgid "Quote-part de %(part)s %% du véhicule %(vehicule)s (copropriété)."
+msgstr "Μερίδιο %(part)s %% του οχήματος %(vehicule)s (συνιδιοκτησία)."
+
+msgid "La quote-part de la facture doit être comprise entre 0 et 100 %."
+msgstr "Το μερίδιο του τιμολογίου πρέπει να είναι μεταξύ 0 και 100 %."
+
+msgid "Complétez les parts du véhicule (menu Direction › Propriétaires) puis recommencez."
+msgstr "Συμπληρώστε τα μερίδια του οχήματος (μενού Διεύθυνση › Ιδιοκτήτες) και δοκιμάστε ξανά."
+
+msgid "Notre société est seule propriétaire : facture interne créée, sans marge (TVA des pièces récupérée)."
+msgstr "Η εταιρεία μας είναι ο μόνος ιδιοκτήτης: δημιουργήθηκε εσωτερικό τιμολόγιο χωρίς περιθώριο (ο ΦΠΑ των ανταλλακτικών ανακτάται)."
+
+msgid "%(n)s brouillons de facture créés, un par propriétaire, chacun au pourcentage de sa part."
+msgstr "Δημιουργήθηκαν %(n)s πρόχειρα τιμολόγια, ένα ανά ιδιοκτήτη, το καθένα στο ποσοστό του μεριδίου του."
+
+msgid "%(n)s facture(s) émise(s) : %(numeros)s."
+msgstr "Εκδόθηκαν %(n)s τιμολόγιο(-α): %(numeros)s."
+
+msgid "%(client)s : %(erreurs)s"
+msgstr "%(client)s: %(erreurs)s"
+
+msgid "Toutes les factures de la répartition sont déjà émises."
+msgstr "Όλα τα τιμολόγια της κατανομής έχουν ήδη εκδοθεί."
+
+msgid "Facturation en fonction des parts"
+msgstr "Τιμολόγηση ανά μερίδιο"
+
+msgid "Notre société seule propriétaire (100 %%) : une facture interne, sans marge, TVA récupérée."
+msgstr "Η εταιρεία μας μοναδικός ιδιοκτήτης (100 %%): ένα εσωτερικό τιμολόγιο, χωρίς περιθώριο, ανάκτηση ΦΠΑ."
+
+msgid "Plusieurs propriétaires : une facture par propriétaire, chacune au pourcentage de sa part. Les autres propriétaires reçoivent une facture avec TVA et marges ; la part de notre société est facturée en interne, au coût."
+msgstr "Πολλοί ιδιοκτήτες: ένα τιμολόγιο ανά ιδιοκτήτη, το καθένα στο ποσοστό του μεριδίου του. Οι άλλοι ιδιοκτήτες λαμβάνουν τιμολόγιο με ΦΠΑ και περιθώρια· το μερίδιο της εταιρείας μας τιμολογείται εσωτερικά, στο κόστος."
+
+msgid "Le total des parts ne peut pas dépasser 100 %% et doit atteindre 100 %% pour facturer."
+msgstr "Το σύνολο των μεριδίων δεν μπορεί να υπερβαίνει το 100 %% και πρέπει να φτάσει το 100 %% για τιμολόγηση."
+
+msgid "Nouveau propriétaire (personne)"
+msgstr "Νέος ιδιοκτήτης (πρόσωπο)"
+
+msgid "Nouvelle société partenaire"
+msgstr "Νέα συνεργαζόμενη εταιρεία"
+
+msgid "Les propriétaires, clients particuliers et sociétés déjà enregistrés sont proposés dans la liste. Un client particulier choisi est repris comme propriétaire (fiche existante réutilisée si elle existe déjà)."
+msgstr "Οι ήδη καταχωρισμένοι ιδιοκτήτες, ιδιώτες πελάτες και εταιρείες προτείνονται στη λίστα. Ένας επιλεγμένος ιδιώτης πελάτης καταχωρίζεται ως ιδιοκτήτης (επαναχρησιμοποιείται η υπάρχουσα καρτέλα, αν υπάρχει)."
+
+msgid "Enregistrer les propriétaires"
+msgstr "Αποθήκευση ιδιοκτητών"
+
+msgid "Total complet : facturation par parts possible."
+msgstr "Πλήρες σύνολο: δυνατή η τιμολόγηση ανά μερίδιο."
+
+msgid "Reste à attribuer :"
+msgstr "Υπόλοιπο προς κατανομή:"
+
+msgid "Dépassement :"
+msgstr "Υπέρβαση:"
+
+msgid "Interne : au coût"
+msgstr "Εσωτερικό: στο κόστος"
+
+msgid "Propriétaires d'un véhicule"
+msgstr "Ιδιοκτήτες οχήματος"
+
+msgid "Ajouter des propriétaires à un véhicule"
+msgstr "Προσθήκη ιδιοκτητών σε όχημα"
+
+msgid "Choisissez le véhicule : vous pourrez ensuite saisir tous ses propriétaires (notre société, personnes, sociétés partenaires) et leurs parts, jusqu'à 100 %%."
+msgstr "Επιλέξτε το όχημα: στη συνέχεια μπορείτε να καταχωρίσετε όλους τους ιδιοκτήτες του (η εταιρεία μας, πρόσωπα, συνεργαζόμενες εταιρείες) και τα μερίδιά τους, έως 100 %%."
+
+msgid "Parts du véhicule"
+msgstr "Μερίδια του οχήματος"
+
+msgid "facture interne au coût (sans marge, TVA récupérée)"
+msgstr "εσωτερικό τιμολόγιο στο κόστος (χωρίς περιθώριο, ανάκτηση ΦΠΑ)"
+
+msgid "facture avec TVA"
+msgstr "τιμολόγιο με ΦΠΑ"
+
+msgid "marge pièces"
+msgstr "περιθώριο ανταλλακτικών"
+
+msgid "marge main-d'œuvre"
+msgstr "περιθώριο εργασίας"
+
+msgid "Voir tous les propriétaires du véhicule"
+msgstr "Προβολή όλων των ιδιοκτητών του οχήματος"
+
+msgid "Facturation par parts"
+msgstr "Τιμολόγηση ανά μερίδιο"
+
+msgid "part de notre société"
+msgstr "μερίδιο της εταιρείας μας"
+
+msgid "quote-part facturée"
+msgstr "τιμολογούμενο μερίδιο"
+
+msgid "Quote-part facturée"
+msgstr "Τιμολογούμενο μερίδιο"
+
+msgid "Facture interne : coût de revient de notre part, sans marge, TVA des pièces récupérée."
+msgstr "Εσωτερικό τιμολόγιο: κόστος του μεριδίου μας, χωρίς περιθώριο, ανάκτηση ΦΠΑ ανταλλακτικών."
+
+msgid "Coût et marge de chaque ligne calculée sont multipliés par la quote-part : le coût unitaire affiché est le coût complet, le prix unitaire est celui de la part."
+msgstr "Το κόστος και το περιθώριο κάθε υπολογισμένης γραμμής πολλαπλασιάζονται με το μερίδιο: το εμφανιζόμενο κόστος μονάδας είναι το πλήρες κόστος, η τιμή μονάδας είναι αυτή του μεριδίου."
+
+msgid "Émettre toutes les factures brouillon de la répartition ?"
+msgstr "Έκδοση όλων των πρόχειρων τιμολογίων της κατανομής;"
+
+msgid "Émettre toutes les factures de la répartition"
+msgstr "Έκδοση όλων των τιμολογίων της κατανομής"
+
+msgid "du véhicule (copropriété)"
+msgstr "του οχήματος (συνιδιοκτησία)"
+
+msgid "Clients particuliers, clients atelier et propriétaires."
+msgstr "Ιδιώτες πελάτες, πελάτες συνεργείου και ιδιοκτήτες."
+
+msgid "Véhicule avec des propriétaires enregistrés (Direction › Propriétaires) : une facture est créée par propriétaire, au pourcentage de sa part, quel que soit le bouton choisi. Notre société seule propriétaire : facture interne sans marge."
+msgstr "Όχημα με καταχωρισμένους ιδιοκτήτες (Διεύθυνση › Ιδιοκτήτες): δημιουργείται ένα τιμολόγιο ανά ιδιοκτήτη, στο ποσοστό του μεριδίου του, όποιο κουμπί κι αν επιλεγεί. Η εταιρεία μας μοναδικός ιδιοκτήτης: εσωτερικό τιμολόγιο χωρίς περιθώριο."
+
+msgid "Aucun propriétaire enregistré"
+msgstr "Δεν υπάρχει καταχωρισμένος ιδιοκτήτης"

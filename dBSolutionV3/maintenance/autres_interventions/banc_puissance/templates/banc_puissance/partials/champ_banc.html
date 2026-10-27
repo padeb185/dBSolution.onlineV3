@@ -1,0 +1,31 @@
+{% load widget_tweaks i18n %}
+<div class="mb-4 champ-banc champ-{{ field.name }}">
+    {% if field.field.widget.input_type == "checkbox" %}
+        <label class="inline-flex items-center gap-2">
+            {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+            <span class="font-semibold text-gray-700">{{ field.label }}</span>
+        </label>
+    {% elif field.field.widget.input_type == "file" %}
+        <label for="{{ field.id_for_label }}" class="block font-semibold mb-1">{{ field.label }}</label>
+        {% if field.value and field.value.url %}
+            <p class="text-sm mb-1">
+                {% trans "Fichier actuel" %} :
+                {% if banc.pk %}
+                    <a href="{% url 'banc_puissance:banc_document' banc.pk field.name|slice:':-4' %}" target="_blank" rel="noopener" class="text-blue-700 underline">{% trans "Ouvrir le PDF" %}</a>
+                {% endif %}
+            </p>
+            <label class="inline-flex items-center gap-2 text-sm mb-1">
+                <input type="checkbox" name="{{ field.html_name }}-clear" id="{{ field.html_name }}-clear_id" class="h-4 w-4">
+                {% trans "Supprimer le fichier" %}
+            </label>
+        {% endif %}
+        <input type="file" name="{{ field.html_name }}" id="{{ field.id_for_label }}" accept="application/pdf" class="input">
+        <p class="text-gray-500 text-xs mt-1">{% trans "PDF uniquement, 10 Mo maximum." %}</p>
+    {% else %}
+        <label for="{{ field.id_for_label }}" class="block font-semibold mb-1">{{ field.label }}</label>
+        {{ field|add_class:"input" }}
+    {% endif %}
+
+    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+</div>

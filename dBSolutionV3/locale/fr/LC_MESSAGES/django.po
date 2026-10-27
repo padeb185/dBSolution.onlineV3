@@ -65294,3 +65294,1267 @@ msgid "Elles sont liées à %(n)s véhicule : le lien sera retiré."
 msgid_plural "Elles sont liées à %(n)s véhicules : les liens seront retirés."
 msgstr[0] "Elles sont liées à %(n)s véhicule : le lien sera retiré."
 msgstr[1] "Elles sont liées à %(n)s véhicules : les liens seront retirés."
+
+msgid "Référence jante avant / n° OEM"
+msgstr "Référence jante avant / n° OEM"
+
+msgid "Référence jante arrière / n° OEM"
+msgstr "Référence jante arrière / n° OEM"
+
+msgid "Profil du rebord avant"
+msgstr "Profil du rebord avant"
+
+msgid "Profil du rebord arrière"
+msgstr "Profil du rebord arrière"
+
+msgid "Poids jante avant (kg)"
+msgstr "Poids jante avant (kg)"
+
+msgid "Poids jante arrière (kg)"
+msgstr "Poids jante arrière (kg)"
+
+msgid "Poids du jeu (kg)"
+msgstr "Poids du jeu (kg)"
+
+msgid "Jante avant"
+msgstr "Jante avant"
+
+msgid "Jante arrière"
+msgstr "Jante arrière"
+
+msgid "Jantes avant et arrière identiques"
+msgstr "Jantes avant et arrière identiques"
+
+msgid "Après cartographie"
+msgstr "Après cartographie"
+
+msgid "Aucune (non corrigée)"
+msgstr "Aucune (non corrigée)"
+
+msgid "Aucune courbe jointe."
+msgstr "Aucune courbe jointe."
+
+msgid "Banc de puissance"
+msgstr "Banc de puissance"
+
+msgid "Banc moteur"
+msgstr "Banc moteur"
+
+msgid "Banc à moyeux"
+msgstr "Banc à moyeux"
+
+msgid "Banc à rouleaux (inertiel)"
+msgstr "Banc à rouleaux (inertiel)"
+
+msgid "Banc à rouleaux à frein (charge)"
+msgstr "Banc à rouleaux à frein (charge)"
+
+msgid "Calculateur (ECU / TCU)"
+msgstr "Calculateur (ECU / TCU)"
+
+msgid "Carburant course"
+msgstr "Carburant course"
+
+msgid "Cartographie"
+msgstr "Cartographie"
+
+msgid "Cartographie réalisée"
+msgstr "Cartographie réalisée"
+
+msgid "Conditions"
+msgstr "Conditions"
+
+msgid "Conditions de mesure"
+msgstr "Conditions de mesure"
+
+msgid "Couple maximal"
+msgstr "Couple maximal"
+
+msgid "Couple maximal (Nm)"
+msgstr "Couple maximal (Nm)"
+
+msgid "Courbes (PDF, 10 Mo max.)"
+msgstr "Courbes (PDF, 10 Mo max.)"
+
+msgid "Courbes après cartographie"
+msgstr "Courbes après cartographie"
+
+msgid "Courbes et valeurs après cartographie"
+msgstr "Courbes et valeurs après cartographie"
+
+msgid "Courbes et valeurs sans cartographie"
+msgstr "Courbes et valeurs sans cartographie"
+
+msgid "Courbes sans cartographie"
+msgstr "Courbes sans cartographie"
+
+msgid "Coûts"
+msgstr "Coûts"
+
+msgid "Date du passage au banc"
+msgstr "Date du passage au banc"
+
+msgid "Détails du passage au banc"
+msgstr "Détails du passage au banc"
+
+msgid "Fichier actuel"
+msgstr "Fichier actuel"
+
+msgid "Gain"
+msgstr "Gain"
+
+msgid "Gain de la cartographie"
+msgstr "Gain de la cartographie"
+
+msgid "Humidité (%)"
+msgstr "Humidité (%)"
+
+msgid "Indiquez au moins une puissance ou joignez une courbe."
+msgstr "Indiquez au moins une puissance ou joignez une courbe."
+
+msgid "Kilométrage au passage au banc"
+msgstr "Kilométrage au passage au banc"
+
+msgid "La puissance aux roues ne peut pas dépasser la puissance moteur."
+msgstr "La puissance aux roues ne peut pas dépasser la puissance moteur."
+
+msgid "Les courbes du banc sont jointes séparément (PDF) dans la fiche du passage au banc."
+msgstr "Les courbes du banc sont jointes séparément (PDF) dans la fiche du passage au banc."
+
+msgid "Lieu / préparateur du banc"
+msgstr "Lieu / préparateur du banc"
+
+msgid "Liste des passages au banc"
+msgstr "Liste des passages au banc"
+
+msgid "Marque du banc"
+msgstr "Marque du banc"
+
+msgid "Modification du passage au banc"
+msgstr "Modification du passage au banc"
+
+msgid "Modifier le passage au banc"
+msgstr "Modifier le passage au banc"
+
+msgid "Niveau de cartographie"
+msgstr "Niveau de cartographie"
+
+msgid "Norme de correction"
+msgstr "Norme de correction"
+
+msgid "Outil / logiciel"
+msgstr "Outil / logiciel"
+
+msgid "Ouvrir le PDF"
+msgstr "Ouvrir le PDF"
+
+msgid "PDF uniquement, 10 Mo maximum."
+msgstr "PDF uniquement, 10 Mo maximum."
+
+msgid "Passage au banc"
+msgstr "Passage au banc"
+
+msgid "Passage au banc enregistré avec succès."
+msgstr "Passage au banc enregistré avec succès."
+
+msgid "Passage au banc modifié avec succès !"
+msgstr "Passage au banc modifié avec succès !"
+
+msgid "Passage au banc supprimé avec succès."
+msgstr "Passage au banc supprimé avec succès."
+
+msgid "PassageBanc"
+msgstr "PassageBanc"
+
+msgid "Passages au banc de puissance"
+msgstr "Passages au banc de puissance"
+
+msgid "Pertes de transmission estimées"
+msgstr "Pertes de transmission estimées"
+
+msgid "Pression atmosphérique (hPa)"
+msgstr "Pression atmosphérique (hPa)"
+
+msgid "Prix de la cartographie HTVA"
+msgstr "Prix de la cartographie HTVA"
+
+msgid "Prix du passage au banc HTVA"
+msgstr "Prix du passage au banc HTVA"
+
+msgid "Préparateur / programmeur"
+msgstr "Préparateur / programmeur"
+
+msgid "Puissance aux roues"
+msgstr "Puissance aux roues"
+
+msgid "Puissance aux roues (ch)"
+msgstr "Puissance aux roues (ch)"
+
+msgid "Puissance maximale"
+msgstr "Puissance maximale"
+
+msgid "Puissance maximale (ch)"
+msgstr "Puissance maximale (ch)"
+
+msgid "Puissance, couple, cartographie"
+msgstr "Puissance, couple, cartographie"
+
+msgid "Rapport de boîte utilisé"
+msgstr "Rapport de boîte utilisé"
+
+msgid "Rapport de passage au banc de puissance"
+msgstr "Rapport de passage au banc de puissance"
+
+msgid "Retour à l'origine"
+msgstr "Retour à l'origine"
+
+msgid "Retour à la liste des passages au banc"
+msgstr "Retour à la liste des passages au banc"
+
+msgid "Réalisé"
+msgstr "Réalisé"
+
+msgid "Régime de couple maxi (tr/min)"
+msgstr "Régime de couple maxi (tr/min)"
+
+msgid "Régime de puissance maxi (tr/min)"
+msgstr "Régime de puissance maxi (tr/min)"
+
+msgid "Résultats du banc de puissance"
+msgstr "Résultats du banc de puissance"
+
+msgid "Sans cartographie"
+msgstr "Sans cartographie"
+
+msgid "Sans plomb 95"
+msgstr "Sans plomb 95"
+
+msgid "Sans plomb 95 E10"
+msgstr "Sans plomb 95 E10"
+
+msgid "Sans plomb 98"
+msgstr "Sans plomb 98"
+
+msgid "Stage 1"
+msgstr "Stage 1"
+
+msgid "Stage 2"
+msgstr "Stage 2"
+
+msgid "Stage 3"
+msgstr "Stage 3"
+
+msgid "Super 100 / 102"
+msgstr "Super 100 / 102"
+
+msgid "Suppression du passage au banc"
+msgstr "Suppression du passage au banc"
+
+msgid "Supprimer le fichier"
+msgstr "Supprimer le fichier"
+
+msgid "Supprimer le passage au banc"
+msgstr "Supprimer le passage au banc"
+
+msgid "Sur mesure"
+msgstr "Sur mesure"
+
+msgid "Température ambiante (°C)"
+msgstr "Température ambiante (°C)"
+
+msgid "Type de banc"
+msgstr "Type de banc"
+
+#, python-format
+msgid "Voulez-vous vraiment supprimer le passage au banc du %(date)s (%(km)s km) pour :"
+msgstr "Voulez-vous vraiment supprimer le passage au banc du %(date)s (%(km)s km) pour :"
+
+msgid "Éco / optimisation consommation"
+msgstr "Éco / optimisation consommation"
+
+msgid "Aucun bilan du comptable n'a été introduit : le bilan est établi uniquement à partir des écritures de l'application."
+msgstr "Aucun bilan du comptable n'a été introduit : le bilan est établi uniquement à partir des écritures de l'application."
+
+msgid "Aucun bilan introduit."
+msgstr "Aucun bilan introduit."
+
+#, python-format
+msgid "Base : bilan du comptable au 31/12/%(r)s, complété par les écritures de l'application."
+msgstr "Base : bilan du comptable au 31/12/%(r)s, complété par les écritures de l'application."
+
+#, python-format
+msgid "Base : dernier bilan du comptable au 31/12/%(r)s, complété par les écritures de l'application jusqu'au 31/12/%(a)s."
+msgstr "Base : dernier bilan du comptable au 31/12/%(r)s, complété par les écritures de l'application jusqu'au 31/12/%(a)s."
+
+msgid "Bilan"
+msgstr "Bilan"
+
+msgid "Bilan de référence"
+msgstr "Bilan de référence"
+
+#, python-format
+msgid "Bilan du comptable au 31/12/%(a)s"
+msgstr "Bilan du comptable au 31/12/%(a)s"
+
+msgid "Bilans de référence"
+msgstr "Bilans de référence"
+
+msgid "Bénéfice (Perte) d'exploitation"
+msgstr "Bénéfice (Perte) d'exploitation"
+
+msgid "Bénéfice (Perte) de l'exercice avant impôts"
+msgstr "Bénéfice (Perte) de l'exercice avant impôts"
+
+msgid "COMPTE DE RÉSULTATS (facultatif)"
+msgstr "COMPTE DE RÉSULTATS (facultatif)"
+
+msgid "Ce bilan est généré automatiquement à partir des données de l'application. Il ne remplace pas les comptes annuels officiels et doit être vérifié par un comptable ou un expert-comptable (ITAA) avant toute utilisation ou tout dépôt à la BNB."
+msgstr "Ce bilan est généré automatiquement à partir des données de l'application. Il ne remplace pas les comptes annuels officiels et doit être vérifié par un comptable ou un expert-comptable (ITAA) avant toute utilisation ou tout dépôt à la BNB."
+
+msgid "Date de dépôt à la BNB"
+msgstr "Date de dépôt à la BNB"
+
+msgid "Dernier bilan (comptable)"
+msgstr "Dernier bilan (comptable)"
+
+msgid "Dernier bilan du comptable"
+msgstr "Dernier bilan du comptable"
+
+msgid "Derniers bilans du comptable"
+msgstr "Derniers bilans du comptable"
+
+msgid "Document indicatif – à faire vérifier par un comptable"
+msgstr "Document indicatif – à faire vérifier par un comptable"
+
+msgid "Document à titre indicatif"
+msgstr "Document à titre indicatif"
+
+msgid "Dépôt BNB"
+msgstr "Dépôt BNB"
+
+#, python-format
+msgid "Exercice %(a)s : montants du bilan établi par le comptable (%(s)s), introduits dans l'application."
+msgstr "Exercice %(a)s : montants du bilan établi par le comptable (%(s)s), introduits dans l'application."
+
+#, python-format
+msgid "Exercice %(a)s : montants du bilan établi par le comptable."
+msgstr "Exercice %(a)s : montants du bilan établi par le comptable."
+
+msgid "Exercice clôturé au 31/12 de"
+msgstr "Exercice clôturé au 31/12 de"
+
+msgid "Exercice invalide."
+msgstr "Exercice invalide."
+
+msgid "Indiquez au moins un montant."
+msgstr "Indiquez au moins un montant."
+
+msgid "Introduire le dernier bilan"
+msgstr "Introduire le dernier bilan"
+
+msgid "Introduire le dernier bilan du comptable"
+msgstr "Introduire le dernier bilan du comptable"
+
+msgid "Introduire un bilan"
+msgstr "Introduire un bilan"
+
+msgid "Introduisez ici le dernier bilan établi par votre comptable (rubriques des comptes annuels). Il sert de base : les bilans des exercices suivants partent de ces montants et y ajoutent les écritures de l'application."
+msgstr "Introduisez ici le dernier bilan établi par votre comptable (rubriques des comptes annuels). Il sert de base : les bilans des exercices suivants partent de ces montants et y ajoutent les écritures de l'application."
+
+#, python-format
+msgid "Le bilan %(annee)s a été enregistré. Il sert de base aux bilans suivants."
+msgstr "Le bilan %(annee)s a été enregistré. Il sert de base aux bilans suivants."
+
+msgid "Le bilan de référence a été supprimé."
+msgstr "Le bilan de référence a été supprimé."
+
+#, python-format
+msgid "Le bilan n'est pas équilibré : total actif – total passif = %(e)s €."
+msgstr "Le bilan n'est pas équilibré : total actif – total passif = %(e)s €."
+
+msgid "Marge brute d'exploitation"
+msgstr "Marge brute d'exploitation"
+
+msgid "Montants par rubrique"
+msgstr "Montants par rubrique"
+
+msgid "Recopiez les montants des comptes annuels établis par votre comptable (en euros, après répartition du résultat comme dans le dépôt BNB). Laissez vide les rubriques sans montant. Le total de l'actif doit être égal au total du passif."
+msgstr "Recopiez les montants des comptes annuels établis par votre comptable (en euros, après répartition du résultat comme dans le dépôt BNB). Laissez vide les rubriques sans montant. Le total de l'actif doit être égal au total du passif."
+
+msgid "Rubrique"
+msgstr "Rubrique"
+
+msgid "Schéma abrégé"
+msgstr "Schéma abrégé"
+
+msgid "Schéma complet"
+msgstr "Schéma complet"
+
+msgid "Supprimer le bilan de référence"
+msgstr "Supprimer le bilan de référence"
+
+msgid "Un bilan de référence existe déjà pour cet exercice."
+msgstr "Un bilan de référence existe déjà pour cet exercice."
+
+msgid "Voir le bilan de référence"
+msgstr "Voir le bilan de référence"
+
+msgid "indicatif"
+msgstr "indicatif"
+
+msgid "Écart actif – passif :"
+msgstr "Écart actif – passif :"
+
+msgid "Établi par"
+msgstr "Établi par"
+
+msgid "Établi par (comptable / fiduciaire)"
+msgstr "Établi par (comptable / fiduciaire)"
+
+msgid "écritures prises en compte"
+msgstr "écritures prises en compte"
+
+#, python-format
+msgid "%(n)s véhicule(s) ajouté(s) au Trackday."
+msgstr "%(n)s véhicule(s) ajouté(s) au Trackday."
+
+msgid "Ajouter un coût"
+msgstr "Ajouter un coût"
+
+msgid "Aucun Trackday sur l'année."
+msgstr "Aucun Trackday sur l'année."
+
+msgid "Aucun Trackday."
+msgstr "Aucun Trackday."
+
+msgid "Aucun box disponible pour ce Trackday."
+msgstr "Aucun box disponible pour ce Trackday."
+
+msgid "Aucun coût saisi."
+msgstr "Aucun coût saisi."
+
+msgid "Aucun véhicule engagé pour l'instant."
+msgstr "Aucun véhicule engagé pour l'instant."
+
+msgid "Aucune vente."
+msgstr "Aucune vente."
+
+#, python-format
+msgid "Box (1 à %(n)s)"
+msgstr "Box (1 à %(n)s)"
+
+msgid "Box / paddock"
+msgstr "Box / paddock"
+
+msgid "Box disponibles : 1 à"
+msgstr "Box disponibles : 1 à"
+
+msgid "Box utilisés"
+msgstr "Box utilisés"
+
+msgid "Chaque véhicule d'un Trackday est une location : il est compté dans les ventes du vendeur indiqué sur la location."
+msgstr "Chaque véhicule d'un Trackday est une location : il est compté dans les ventes du vendeur indiqué sur la location."
+
+msgid "Chiffres clés"
+msgstr "Chiffres clés"
+
+msgid "Coût du Trackday"
+msgstr "Coût du Trackday"
+
+msgid "Coût par véhicule"
+msgstr "Coût par véhicule"
+
+msgid "Coûts HTVA"
+msgstr "Coûts HTVA"
+
+msgid "Coûts du Trackday"
+msgstr "Coûts du Trackday"
+
+msgid "En piste"
+msgstr "En piste"
+
+msgid "Facultatif : nombre maximum de véhicules engagés."
+msgstr "Facultatif : nombre maximum de véhicules engagés."
+
+msgid "Facultatif : rattache la location à un Trackday (ventes et rentabilité)."
+msgstr "Facultatif : rattache la location à un Trackday (ventes et rentabilité)."
+
+msgid "Facultatif, ex. : « Trackday d'automne »."
+msgstr "Facultatif, ex. : « Trackday d'automne »."
+
+msgid "Imprimer"
+msgstr "Imprimer"
+
+msgid "Kilomètres réservés"
+msgstr "Kilomètres réservés"
+
+msgid "Kilométrage actuel du véhicule (sortie non encore validée)"
+msgstr "Kilométrage actuel du véhicule (sortie non encore validée)"
+
+msgid "Km départ"
+msgstr "Km départ"
+
+msgid "Km départ : kilométrage relevé à la sortie du véhicule (agenda). * : kilométrage actuel tant que la sortie n'est pas validée."
+msgstr "Km départ : kilométrage relevé à la sortie du véhicule (agenda). * : kilométrage actuel tant que la sortie n'est pas validée."
+
+#, python-format
+msgid "Le Trackday ne compte que %(n)s box (1 à %(n)s)."
+msgstr "Le Trackday ne compte que %(n)s box (1 à %(n)s)."
+
+#, python-format
+msgid "Le box n° %(b)s est déjà attribué : indiquez au moins %(b)s box."
+msgstr "Le box n° %(b)s est déjà attribué : indiquez au moins %(b)s box."
+
+#, python-format
+msgid "Le numéro %(n)s est déjà attribué à %(v)s."
+msgstr "Le numéro %(n)s est déjà attribué à %(v)s."
+
+#, python-format
+msgid "Le numéro de course %(n)s est utilisé plusieurs fois."
+msgstr "Le numéro de course %(n)s est utilisé plusieurs fois."
+
+msgid "Les box des locations du Trackday sont numérotés de 1 à ce nombre."
+msgstr "Les box des locations du Trackday sont numérotés de 1 à ce nombre."
+
+msgid "Les locations (ventes et factures) sont conservées : elles ne sont simplement plus rattachées au Trackday. Les numéros de course sont retirés."
+msgstr "Les locations (ventes et factures) sont conservées : elles ne sont simplement plus rattachées au Trackday. Les numéros de course sont retirés."
+
+msgid "Liste d'affichage (numéros)"
+msgstr "Liste d'affichage (numéros)"
+
+msgid "Location du circuit"
+msgstr "Location du circuit"
+
+msgid "Location du circuit, box, assurance, personnel, carburant… Ces coûts servent au calcul de rentabilité."
+msgstr "Location du circuit, box, assurance, personnel, carburant… Ces coûts servent au calcul de rentabilité."
+
+msgid "Marge"
+msgstr "Marge"
+
+msgid "Modification du Trackday"
+msgstr "Modification du Trackday"
+
+msgid "Modifier le Trackday"
+msgstr "Modifier le Trackday"
+
+msgid "Montant HTVA (€)"
+msgstr "Montant HTVA (€)"
+
+msgid "Nom de l'événement"
+msgstr "Nom de l'événement"
+
+msgid "Nombre de box disponibles"
+msgstr "Nombre de box disponibles"
+
+msgid "Nouveau Trackday"
+msgstr "Nouveau Trackday"
+
+msgid "Numéro affiché sur le véhicule (1 à 200)."
+msgstr "Numéro affiché sur le véhicule (1 à 200)."
+
+msgid "Numéro affiché sur le véhicule pendant le Trackday (1 à 200)."
+msgstr "Numéro affiché sur le véhicule pendant le Trackday (1 à 200)."
+
+msgid "Numéro de course"
+msgstr "Numéro de course"
+
+msgid "Numéros déjà attribués"
+msgstr "Numéros déjà attribués"
+
+msgid "Organisateur"
+msgstr "Organisateur"
+
+msgid "Panier moyen HTVA"
+msgstr "Panier moyen HTVA"
+
+msgid "Personnel / instructeurs"
+msgstr "Personnel / instructeurs"
+
+msgid "Photo / vidéo"
+msgstr "Photo / vidéo"
+
+msgid "Pilote 1"
+msgstr "Pilote 1"
+
+msgid "Pilote 2"
+msgstr "Pilote 2"
+
+msgid "Places véhicules"
+msgstr "Places véhicules"
+
+msgid "Prix d'achat (coûts HTVA)"
+msgstr "Prix d'achat (coûts HTVA)"
+
+msgid "Prix d'achat (coûts du Trackday, HTVA)"
+msgstr "Prix d'achat (coûts du Trackday, HTVA)"
+
+msgid "Prix d'achat total HTVA"
+msgstr "Prix d'achat total HTVA"
+
+msgid "Rentabilité par Trackday"
+msgstr "Rentabilité par Trackday"
+
+msgid "Rentré"
+msgstr "Rentré"
+
+msgid "Restauration / hospitalité"
+msgstr "Restauration / hospitalité"
+
+msgid "Retour aux Trackdays"
+msgstr "Retour aux Trackdays"
+
+msgid "Réservé"
+msgstr "Réservé"
+
+msgid "Seuil de rentabilité"
+msgstr "Seuil de rentabilité"
+
+msgid "Statistiques Trackday"
+msgstr "Statistiques Trackday"
+
+msgid "Supprimer le Trackday"
+msgstr "Supprimer le Trackday"
+
+#, python-format
+msgid "Synthèse %(annee)s"
+msgstr "Synthèse %(annee)s"
+
+msgid "Sécurité / commissaires / médical"
+msgstr "Sécurité / commissaires / médical"
+
+msgid "Tours réservés"
+msgstr "Tours réservés"
+
+msgid "Trackday"
+msgstr "Trackday"
+
+msgid "Trackday supprimé. Les locations sont conservées."
+msgstr "Trackday supprimé. Les locations sont conservées."
+
+#, python-format
+msgid "Trackday « %(t)s » enregistré."
+msgstr "Trackday « %(t)s » enregistré."
+
+msgid "Trackdays"
+msgstr "Trackdays"
+
+msgid "Transport / camion"
+msgstr "Transport / camion"
+
+msgid "Ventes HTVA"
+msgstr "Ventes HTVA"
+
+msgid "Ventes HTVA par mois"
+msgstr "Ventes HTVA par mois"
+
+msgid "Ventes TVAC"
+msgstr "Ventes TVAC"
+
+msgid "Ventes des Trackdays"
+msgstr "Ventes des Trackdays"
+
+msgid "Vide : une seule journée."
+msgstr "Vide : une seule journée."
+
+msgid "Véhicules engagés"
+msgstr "Véhicules engagés"
+
+msgid "Véhicules par Trackday"
+msgstr "Véhicules par Trackday"
+
+msgid "libre"
+msgstr "libre"
+
+msgid "véh."
+msgstr "véh."
+
+msgid "véhicules"
+msgstr "véhicules"
+
+msgid "Événement"
+msgstr "Événement"
+
+msgid "à venir"
+msgstr "à venir"
+
+#, python-format
+msgid "%(n)s véhicule sans numéro de course."
+msgid_plural "%(n)s véhicules sans numéro de course."
+msgstr[0] "%(n)s véhicule sans numéro de course."
+msgstr[1] "%(n)s véhicules sans numéro de course."
+
+msgid "Accident sur piste / en compétition"
+msgstr "Accident sur piste / en compétition"
+
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ rapports"
+msgstr "Affichage de _START_ à _END_ sur _TOTAL_ rapports"
+
+msgid "Aides à la conduite (capteurs, radar, caméra)"
+msgstr "Aides à la conduite (capteurs, radar, caméra)"
+
+msgid "Airbag / prétensionneur"
+msgstr "Airbag / prétensionneur"
+
+msgid "Airbags déployés"
+msgstr "Airbags déployés"
+
+msgid "Ajouter un demi-train complet à contrôler"
+msgstr "Ajouter un demi-train complet à contrôler"
+
+msgid "Amortisseur, triangles, fusée, roulement, capteur ABS, biellette et rotule de direction, biellette de barre stabilisatrice, cardan (décision « À contrôler »)."
+msgstr "Amortisseur, triangles, fusée, roulement, capteur ABS, biellette et rotule de direction, biellette de barre stabilisatrice, cardan (décision « À contrôler »)."
+
+msgid "Angle arrière droit"
+msgstr "Angle arrière droit"
+
+msgid "Angle arrière gauche"
+msgstr "Angle arrière gauche"
+
+msgid "Angle avant droit"
+msgstr "Angle avant droit"
+
+msgid "Angle avant gauche"
+msgstr "Angle avant gauche"
+
+msgid "Arraché"
+msgstr "Arraché"
+
+msgid "Aucun rapport d’accident enregistré pour cet exemplaire."
+msgstr "Aucun rapport d’accident enregistré pour cet exemplaire."
+
+msgid "Aucun rapport trouvé"
+msgstr "Aucun rapport trouvé"
+
+msgid "Aucune pièce endommagée renseignée."
+msgstr "Aucune pièce endommagée renseignée."
+
+msgid "Autre pièce (à préciser)"
+msgstr "Autre pièce (à préciser)"
+
+msgid "Berceau / traverse de train"
+msgstr "Berceau / traverse de train"
+
+msgid "Biellette de direction"
+msgstr "Biellette de direction"
+
+msgid "Bras de suspension / bras tiré"
+msgstr "Bras de suspension / bras tiré"
+
+msgid "Calculateur"
+msgstr "Calculateur"
+
+msgid "Caméra"
+msgstr "Caméra"
+
+msgid "Capteur de stationnement"
+msgstr "Capteur de stationnement"
+
+msgid "Cardan / arbre de roue"
+msgstr "Cardan / arbre de roue"
+
+msgid "Cardans / transmission"
+msgstr "Cardans / transmission"
+
+msgid "Cassé / rompu"
+msgstr "Cassé / rompu"
+
+msgid "Choc arrière"
+msgstr "Choc arrière"
+
+msgid "Choc frontal"
+msgstr "Choc frontal"
+
+msgid "Choc latéral droit"
+msgstr "Choc latéral droit"
+
+msgid "Choc latéral gauche"
+msgstr "Choc latéral gauche"
+
+msgid "Choc sous caisse"
+msgstr "Choc sous caisse"
+
+msgid "Châssis / structure"
+msgstr "Châssis / structure"
+
+msgid "Circonstances de l'accident"
+msgstr "Circonstances de l'accident"
+
+msgid "Conclusion"
+msgstr "Conclusion"
+
+msgid "Condenseur de climatisation"
+msgstr "Condenseur de climatisation"
+
+msgid "Conducteur / pilote"
+msgstr "Conducteur / pilote"
+
+msgid "Connecteur"
+msgstr "Connecteur"
+
+msgid "Constat amiable rédigé"
+msgstr "Constat amiable rédigé"
+
+msgid "Contrôle au marbre (cotes châssis)"
+msgstr "Contrôle au marbre (cotes châssis)"
+
+msgid "Contrôles et décision"
+msgstr "Contrôles et décision"
+
+msgid "Contrôles à prévoir"
+msgstr "Contrôles à prévoir"
+
+msgid "Cotes du châssis (marbre)"
+msgstr "Cotes du châssis (marbre)"
+
+msgid "Coupelle / butée d'amortisseur"
+msgstr "Coupelle / butée d'amortisseur"
+
+msgid "Crémaillère / boîtier de direction"
+msgstr "Crémaillère / boîtier de direction"
+
+msgid "Câblage / faisceau"
+msgstr "Câblage / faisceau"
+
+msgid "Date de l'accident"
+msgstr "Date de l'accident"
+
+msgid "Demi-train"
+msgstr "Demi-train"
+
+msgid "Demi-train arrière droit"
+msgstr "Demi-train arrière droit"
+
+msgid "Demi-train arrière gauche"
+msgstr "Demi-train arrière gauche"
+
+msgid "Demi-train avant droit"
+msgstr "Demi-train avant droit"
+
+msgid "Demi-train avant gauche"
+msgstr "Demi-train avant gauche"
+
+msgid "Différentiel / pont"
+msgstr "Différentiel / pont"
+
+msgid "Disque de frein"
+msgstr "Disque de frein"
+
+msgid "Défaut électrique / code défaut"
+msgstr "Défaut électrique / code défaut"
+
+msgid "Déroulement, conditions (pluie, nuit…), trajectoire…"
+msgstr "Déroulement, conditions (pluie, nuit…), trajectoire…"
+
+msgid "Déréglé / décalibré"
+msgstr "Déréglé / décalibré"
+
+msgid "En attente (devis / expertise)"
+msgstr "En attente (devis / expertise)"
+
+msgid "Enfoncé / écrasé"
+msgstr "Enfoncé / écrasé"
+
+msgid "Expert"
+msgstr "Expert"
+
+msgid "Expertise demandée"
+msgstr "Expertise demandée"
+
+msgid "Feu arrière"
+msgstr "Feu arrière"
+
+msgid "Fissuré"
+msgstr "Fissuré"
+
+msgid "Flexible / conduite de frein"
+msgstr "Flexible / conduite de frein"
+
+msgid "Fond plat / protection sous caisse"
+msgstr "Fond plat / protection sous caisse"
+
+msgid "Fusée / porte-moyeu"
+msgstr "Fusée / porte-moyeu"
+
+msgid "Géométrie à contrôler"
+msgstr "Géométrie à contrôler"
+
+msgid "Heure"
+msgstr "Heure"
+
+msgid "Joint homocinétique"
+msgstr "Joint homocinétique"
+
+msgid "Longeron"
+msgstr "Longeron"
+
+msgid "Marbre (cotes châssis)"
+msgstr "Marbre (cotes châssis)"
+
+msgid "Modification du rapport d’accident"
+msgstr "Modification du rapport d’accident"
+
+msgid "Moteur / boîte"
+msgstr "Moteur / boîte"
+
+msgid "Nid-de-poule / obstacle sur la chaussée"
+msgstr "Nid-de-poule / obstacle sur la chaussée"
+
+msgid "Non roulant"
+msgstr "Non roulant"
+
+msgid "Personne(s) blessée(s)"
+msgstr "Personne(s) blessée(s)"
+
+msgid "Perte totale (VEI / épave)"
+msgstr "Perte totale (VEI / épave)"
+
+msgid "Phare / feu avant"
+msgstr "Phare / feu avant"
+
+msgid "Pièce endommagée"
+msgstr "Pièce endommagée"
+
+msgid "Pièces endommagées"
+msgstr "Pièces endommagées"
+
+msgid "Pièces endommagées par zone"
+msgstr "Pièces endommagées par zone"
+
+msgid "Plancher"
+msgstr "Plancher"
+
+msgid "Procès-verbal de police"
+msgstr "Procès-verbal de police"
+
+msgid "Radar de collision / ACC"
+msgstr "Radar de collision / ACC"
+
+msgid "Rapport d'accident"
+msgstr "Rapport d'accident"
+
+msgid "Rapport d'accident enregistré avec succès."
+msgstr "Rapport d'accident enregistré avec succès."
+
+msgid "Rapport d'accident modifié avec succès !"
+msgstr "Rapport d'accident modifié avec succès !"
+
+msgid "Rapport d'accident supprimé avec succès."
+msgstr "Rapport d'accident supprimé avec succès."
+
+msgid "Rapport d’accident"
+msgstr "Rapport d’accident"
+
+msgid "Rapports d'accident"
+msgstr "Rapports d'accident"
+
+msgid "Rayé / frotté"
+msgstr "Rayé / frotté"
+
+msgid "Recalibrage des aides à la conduite"
+msgstr "Recalibrage des aides à la conduite"
+
+msgid "Réparation partielle / provisoire"
+msgstr "Réparation partielle / provisoire"
+
+msgid "Réparé / redressé"
+msgstr "Réparé / redressé"
+
+msgid "Sectionné / coupé"
+msgstr "Sectionné / coupé"
+
+msgid "Sinistre (assurance)"
+msgstr "Sinistre (assurance)"
+
+msgid "Sortie de piste (bac, rail, mur)"
+msgstr "Sortie de piste (bac, rail, mur)"
+
+msgid "Soufflet de cardan"
+msgstr "Soufflet de cardan"
+
+msgid "Suppression du rapport d’accident"
+msgstr "Suppression du rapport d’accident"
+
+msgid "Tiers (nom, immatriculation, assureur)"
+msgstr "Tiers (nom, immatriculation, assureur)"
+
+msgid "Tiers et assurance"
+msgstr "Tiers et assurance"
+
+msgid "Tiers impliqué"
+msgstr "Tiers impliqué"
+
+msgid "Tonneau / retournement"
+msgstr "Tonneau / retournement"
+
+msgid "Tordu / déformé / voilé"
+msgstr "Tordu / déformé / voilé"
+
+msgid "Tour d'amortisseur / passage de roue"
+msgstr "Tour d'amortisseur / passage de roue"
+
+msgid "Train / suspension / direction"
+msgstr "Train / suspension / direction"
+
+msgid "Trains, châssis, moteur, cardans, électronique"
+msgstr "Trains, châssis, moteur, cardans, électronique"
+
+msgid "Traverse"
+msgstr "Traverse"
+
+msgid "Triangle inférieur"
+msgstr "Triangle inférieur"
+
+msgid "Triangle supérieur"
+msgstr "Triangle supérieur"
+
+msgid "Trottoir / bordure / vibreur"
+msgstr "Trottoir / bordure / vibreur"
+
+msgid "Type de choc"
+msgstr "Type de choc"
+
+msgid "Une ligne par pièce touchée, avec sa zone (demi-train avant / arrière, gauche / droit, châssis, moteur, cardans, électricité…). Les pièces à remplacer, réparer ou recalibrer avec une quantité et un prix sont reprises dans le chiffrage."
+msgstr "Une ligne par pièce touchée, avec sa zone (demi-train avant / arrière, gauche / droit, châssis, moteur, cardans, électricité…). Les pièces à remplacer, réparer ou recalibrer avec une quantité et un prix sont reprises dans le chiffrage."
+
+msgid "Vitesse estimée (km/h)"
+msgstr "Vitesse estimée (km/h)"
+
+msgid "Véhicule destiné aux pièces"
+msgstr "Véhicule destiné aux pièces"
+
+msgid "Véhicule roulant après l'accident"
+msgstr "Véhicule roulant après l'accident"
+
+msgid "Zone"
+msgstr "Zone"
+
+msgid "graves"
+msgstr "graves"
+
+msgid "piste"
+msgstr "piste"
+
+msgid "À recalibrer"
+msgstr "À recalibrer"
+
+msgid "À réparer / redresser"
+msgstr "À réparer / redresser"
+
+msgid "Électricité / aides à la conduite"
+msgstr "Électricité / aides à la conduite"
+
+msgid "Électricité / électronique"
+msgstr "Électricité / électronique"
+
+msgid "Étrier de frein"
+msgstr "Étrier de frein"
+
+msgid "Notre société"
+msgstr "Notre société"
+
+msgid "notre société"
+msgstr "notre société"
+
+msgid "Propriétaire (personne)"
+msgstr "Propriétaire (personne)"
+
+msgid "Société partenaire"
+msgstr "Société partenaire"
+
+msgid "Sociétés partenaires"
+msgstr "Sociétés partenaires"
+
+msgid "Type de propriétaire"
+msgstr "Type de propriétaire"
+
+msgid "Part (%)"
+msgstr "Part (%)"
+
+msgid "Part (%%)"
+msgstr "Part (%%)"
+
+msgid "Marge pièces (%%)"
+msgstr "Marge pièces (%%)"
+
+msgid "Marge main-d'œuvre (%%)"
+msgstr "Marge main-d'œuvre (%%)"
+
+msgid "Choisissez la société partenaire."
+msgstr "Choisissez la société partenaire."
+
+msgid "Choisissez le propriétaire."
+msgstr "Choisissez le propriétaire."
+
+msgid "Total des parts > 100 %% interdit (déjà attribué : %(total)s %%, disponible : %(reste)s %%)."
+msgstr "Total des parts > 100 %% interdit (déjà attribué : %(total)s %%, disponible : %(reste)s %%)."
+
+msgid "Ce propriétaire a déjà une part sur ce véhicule : modifiez sa part."
+msgstr "Ce propriétaire a déjà une part sur ce véhicule : modifiez sa part."
+
+msgid "Clients particuliers (repris comme propriétaires)"
+msgstr "Clients particuliers (repris comme propriétaires)"
+
+msgid "Propriétaire invalide."
+msgstr "Propriétaire invalide."
+
+msgid "Propriétaire introuvable."
+msgstr "Propriétaire introuvable."
+
+msgid "Un même propriétaire ne peut avoir qu'une seule part."
+msgstr "Un même propriétaire ne peut avoir qu'une seule part."
+
+msgid "Le total des parts (%(total)s %%) dépasse 100 %%."
+msgstr "Le total des parts (%(total)s %%) dépasse 100 %%."
+
+msgid "Véhicule introuvable."
+msgstr "Véhicule introuvable."
+
+msgid "Parts enregistrées : %(total)s %% attribués. Le total doit atteindre 100 %% pour facturer par parts."
+msgstr "Parts enregistrées : %(total)s %% attribués. Le total doit atteindre 100 %% pour facturer par parts."
+
+msgid "Propriétaires du véhicule enregistrés (100 %)."
+msgstr "Propriétaires du véhicule enregistrés (100 %)."
+
+msgid "Propriétaires du véhicule"
+msgstr "Propriétaires du véhicule"
+
+msgid "Quote-part (%)"
+msgstr "Quote-part (%)"
+
+msgid "Part du propriétaire facturé : les montants des lignes (coût et marge) sont multipliés par ce pourcentage."
+msgstr "Part du propriétaire facturé : les montants des lignes (coût et marge) sont multipliés par ce pourcentage."
+
+msgid "Le total des parts de ce véhicule est de %(total)s %% : il doit être de 100 %% pour facturer en fonction des parts."
+msgstr "Le total des parts de ce véhicule est de %(total)s %% : il doit être de 100 %% pour facturer en fonction des parts."
+
+msgid "Une part n'a pas de société partenaire."
+msgstr "Une part n'a pas de société partenaire."
+
+msgid "Une part n'a pas de propriétaire."
+msgstr "Une part n'a pas de propriétaire."
+
+msgid "Ce véhicule n'a aucun propriétaire enregistré."
+msgstr "Ce véhicule n'a aucun propriétaire enregistré."
+
+msgid "Quote-part de %(part)s %% du véhicule %(vehicule)s (copropriété)."
+msgstr "Quote-part de %(part)s %% du véhicule %(vehicule)s (copropriété)."
+
+msgid "La quote-part de la facture doit être comprise entre 0 et 100 %."
+msgstr "La quote-part de la facture doit être comprise entre 0 et 100 %."
+
+msgid "Complétez les parts du véhicule (menu Direction › Propriétaires) puis recommencez."
+msgstr "Complétez les parts du véhicule (menu Direction › Propriétaires) puis recommencez."
+
+msgid "Notre société est seule propriétaire : facture interne créée, sans marge (TVA des pièces récupérée)."
+msgstr "Notre société est seule propriétaire : facture interne créée, sans marge (TVA des pièces récupérée)."
+
+msgid "%(n)s brouillons de facture créés, un par propriétaire, chacun au pourcentage de sa part."
+msgstr "%(n)s brouillons de facture créés, un par propriétaire, chacun au pourcentage de sa part."
+
+msgid "%(n)s facture(s) émise(s) : %(numeros)s."
+msgstr "%(n)s facture(s) émise(s) : %(numeros)s."
+
+msgid "%(client)s : %(erreurs)s"
+msgstr "%(client)s : %(erreurs)s"
+
+msgid "Toutes les factures de la répartition sont déjà émises."
+msgstr "Toutes les factures de la répartition sont déjà émises."
+
+msgid "Facturation en fonction des parts"
+msgstr "Facturation en fonction des parts"
+
+msgid "Notre société seule propriétaire (100 %%) : une facture interne, sans marge, TVA récupérée."
+msgstr "Notre société seule propriétaire (100 %%) : une facture interne, sans marge, TVA récupérée."
+
+msgid "Plusieurs propriétaires : une facture par propriétaire, chacune au pourcentage de sa part. Les autres propriétaires reçoivent une facture avec TVA et marges ; la part de notre société est facturée en interne, au coût."
+msgstr "Plusieurs propriétaires : une facture par propriétaire, chacune au pourcentage de sa part. Les autres propriétaires reçoivent une facture avec TVA et marges ; la part de notre société est facturée en interne, au coût."
+
+msgid "Le total des parts ne peut pas dépasser 100 %% et doit atteindre 100 %% pour facturer."
+msgstr "Le total des parts ne peut pas dépasser 100 %% et doit atteindre 100 %% pour facturer."
+
+msgid "Nouveau propriétaire (personne)"
+msgstr "Nouveau propriétaire (personne)"
+
+msgid "Nouvelle société partenaire"
+msgstr "Nouvelle société partenaire"
+
+msgid "Les propriétaires, clients particuliers et sociétés déjà enregistrés sont proposés dans la liste. Un client particulier choisi est repris comme propriétaire (fiche existante réutilisée si elle existe déjà)."
+msgstr "Les propriétaires, clients particuliers et sociétés déjà enregistrés sont proposés dans la liste. Un client particulier choisi est repris comme propriétaire (fiche existante réutilisée si elle existe déjà)."
+
+msgid "Enregistrer les propriétaires"
+msgstr "Enregistrer les propriétaires"
+
+msgid "Total complet : facturation par parts possible."
+msgstr "Total complet : facturation par parts possible."
+
+msgid "Reste à attribuer :"
+msgstr "Reste à attribuer :"
+
+msgid "Dépassement :"
+msgstr "Dépassement :"
+
+msgid "Interne : au coût"
+msgstr "Interne : au coût"
+
+msgid "Propriétaires d'un véhicule"
+msgstr "Propriétaires d'un véhicule"
+
+msgid "Ajouter des propriétaires à un véhicule"
+msgstr "Ajouter des propriétaires à un véhicule"
+
+msgid "Choisissez le véhicule : vous pourrez ensuite saisir tous ses propriétaires (notre société, personnes, sociétés partenaires) et leurs parts, jusqu'à 100 %%."
+msgstr "Choisissez le véhicule : vous pourrez ensuite saisir tous ses propriétaires (notre société, personnes, sociétés partenaires) et leurs parts, jusqu'à 100 %%."
+
+msgid "Parts du véhicule"
+msgstr "Parts du véhicule"
+
+msgid "facture interne au coût (sans marge, TVA récupérée)"
+msgstr "facture interne au coût (sans marge, TVA récupérée)"
+
+msgid "facture avec TVA"
+msgstr "facture avec TVA"
+
+msgid "marge pièces"
+msgstr "marge pièces"
+
+msgid "marge main-d'œuvre"
+msgstr "marge main-d'œuvre"
+
+msgid "Voir tous les propriétaires du véhicule"
+msgstr "Voir tous les propriétaires du véhicule"
+
+msgid "Facturation par parts"
+msgstr "Facturation par parts"
+
+msgid "part de notre société"
+msgstr "part de notre société"
+
+msgid "quote-part facturée"
+msgstr "quote-part facturée"
+
+msgid "Quote-part facturée"
+msgstr "Quote-part facturée"
+
+msgid "Facture interne : coût de revient de notre part, sans marge, TVA des pièces récupérée."
+msgstr "Facture interne : coût de revient de notre part, sans marge, TVA des pièces récupérée."
+
+msgid "Coût et marge de chaque ligne calculée sont multipliés par la quote-part : le coût unitaire affiché est le coût complet, le prix unitaire est celui de la part."
+msgstr "Coût et marge de chaque ligne calculée sont multipliés par la quote-part : le coût unitaire affiché est le coût complet, le prix unitaire est celui de la part."
+
+msgid "Émettre toutes les factures brouillon de la répartition ?"
+msgstr "Émettre toutes les factures brouillon de la répartition ?"
+
+msgid "Émettre toutes les factures de la répartition"
+msgstr "Émettre toutes les factures de la répartition"
+
+msgid "du véhicule (copropriété)"
+msgstr "du véhicule (copropriété)"
+
+msgid "Clients particuliers, clients atelier et propriétaires."
+msgstr "Clients particuliers, clients atelier et propriétaires."
+
+msgid "Véhicule avec des propriétaires enregistrés (Direction › Propriétaires) : une facture est créée par propriétaire, au pourcentage de sa part, quel que soit le bouton choisi. Notre société seule propriétaire : facture interne sans marge."
+msgstr "Véhicule avec des propriétaires enregistrés (Direction › Propriétaires) : une facture est créée par propriétaire, au pourcentage de sa part, quel que soit le bouton choisi. Notre société seule propriétaire : facture interne sans marge."
+
+msgid "Aucun propriétaire enregistré"
+msgstr "Aucun propriétaire enregistré"

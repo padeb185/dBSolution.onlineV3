@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Rapport d'accident" %}{% endblock %}
+
+{% block content %}
+    {% url 'accident:modifier_accident' accident.pk as url_modifier %}
+    {% url 'accident:accident_pdf' accident.pk as url_pdf %}
+    {% url 'accident:delete_accident' accident.pk as url_delete %}
+    {% if exemplaire %}{% url 'accident:accident_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Rapport d'accident" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=accident km_controle=accident.kilometrage_accident icone="accident.png" avec_cote=True extra_template="accident/_detail_accident.html" infos_template="accident/_infos_accident.html" %}
+{% endblock %}

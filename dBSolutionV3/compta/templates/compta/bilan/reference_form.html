@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Dernier bilan du comptable" %}{% endblock %}
+{% block content %}
+<div class="p-6 max-w-6xl mx-auto">
+{% if ref %}{% blocktrans with a=ref.annee asvar titre %}Bilan du comptable au 31/12/{{ a }}{% endblocktrans %}{% else %}{% trans "Introduire le dernier bilan du comptable" as titre %}{% endif %}
+{% include "compta/immo/_nav.html" with icone="icons/bilan.png" %}
+
+<p class="mb-4 text-gray-700">
+    {% trans "Recopiez les montants des comptes annuels établis par votre comptable (en euros, après répartition du résultat comme dans le dépôt BNB). Laissez vide les rubriques sans montant. Le total de l'actif doit être égal au total du passif." %}
+</p>
+
+{% if form.non_field_errors %}
+    <div class="mb-4 px-4 py-3 rounded bg-red-100 text-red-800 border border-red-300">
+        {% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}
+    </div>
+{% endif %}
+
+<form method="post" id="form-reference">
+    {% csrf_token %}
+    <div class="bg-white shadow rounded p-4 mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+        {% for champ in form.visible_fields %}{% if not champ.name|slice:":2" == "m_" %}
+            <div class="{% if champ.name == 'remarques' %}md:col-span-4{% endif %}">
+                <label for="{{ champ.id_for_label }}" class="block font-semibold mb-1">{{ champ.label }}</label>
+                {{ champ }}
+                {% for e in champ.errors %}<p class="text-red-600 text-sm mt-1">{{ e }}</p>{% endfor %}
+            </div>
+        {% endif %}{% endfor %}
+    </div>
+
+    {% for schema, cotes in form.lignes.items %}
+    <div class="bloc-schema" data-schema="{{ schema }}">
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6">
+            {% for cote, lignes in cotes.items %}
+            <div class="bg-white shadow rounded overflow-x-auto {% if cote == 'resultats' %}xl:col-span-2{% endif %}">
+                <h2 class="text-xl font-bold p-3">
+                    {% if cote == "actif" %}{% trans "ACTIF" %}{% elif cote == "passif" %}{% trans "PASSIF" %}{% else %}{% trans "COMPTE DE RÉSULTATS (facultatif)" %}{% endif %}
+                </h2>
+                <table class="tbl w-full">
+                    <thead><tr>
+                        <th class="text-left">{% trans "Rubrique" %}</th>
+                        <th class="code">{% trans "Codes" %}</th>
+                        <th class="n">{% trans "Montant (€)" %}</th>
+                    </tr></thead>
+                    <tbody>
+                    {% for cle, code, libelle, champ in lignes %}
+                        <tr>
+                            <td class="lib">{{ libelle }}</td>
+                            <td class="code">{{ code }}</td>
+                            <td class="n" data-cote="{{ cote }}">{{ champ }}</td>
+                        </tr>
+                    {% endfor %}
+                    {% if cote != "resultats" %}
+                        <tr class="niv-0"><td class="lib">{% if cote == "actif" %}{% trans "TOTAL DE L'ACTIF" %}{% else %}{% trans "TOTAL DU PASSIF" %}{% endif %}</td>
+                            <td class="code">{% if cote == "actif" %}20/58{% else %}10/49{% endif %}</td>
+                            <td class="n"><span class="total-{{ cote }}">0,00</span></td></tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+
+    <div id="controle-equilibre" class="mb-6 p-3 rounded border"></div>
+
+    <div class="flex gap-3">
+        <button type="submit" class="flex-1 bg-blue-700 hover:bg-blue-400 text-white px-5 py-3 rounded font-semibold">{% trans "Enregistrer" %}</button>
+        <a href="{% url 'compta:references_liste' %}" class="flex-1 bg-gray-300 hover:bg-gray-400 px-5 py-3 rounded font-semibold text-center">{% trans "Annuler" %}</a>
+    </div>
+</form>
+</div>
+
+{% include "compta/bilan/_styles.html" %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const select = document.getElementById("id_schema");
+    const blocs = document.querySelectorAll(".bloc-schema");
+    const controle = document.getElementById("controle-equilibre");
+    const txtOk = "{{ _("Bilan équilibré : total de l'actif = total du passif.")|escapejs }}";
+    const txtKo = "{{ _('Écart actif – passif :')|escapejs }}";
+
+    function format(n) { return n.toLocaleString("fr-BE", {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
+    function blocActif() { return document.querySelector('.bloc-schema[data-schema="' + select.value + '"]'); }
+
+    function calculer() {
+        const bloc = blocActif(); if (!bloc) return;
+        const t = {actif: 0, passif: 0};
+        bloc.querySelectorAll("td[data-cote] input").forEach(function (i) {
+            const cote = i.closest("td").dataset.cote;
+            const v = parseFloat((i.value || "0").replace(",", "."));
+            if (cote in t && !isNaN(v)) t[cote] += v;
+        });
+        bloc.querySelectorAll(".total-actif").forEach(function (e) { e.textContent = format(t.actif); });
+        bloc.querySelectorAll(".total-passif").forEach(function (e) { e.textContent = format(t.passif); });
+        const ecart = Math.round((t.actif - t.passif) * 100) / 100;
+        controle.className = "mb-6 p-3 rounded border " + (ecart === 0 ? "bg-green-50 border-green-300 text-green-800" : "bg-red-50 border-red-300 text-red-800");
+        controle.textContent = ecart === 0 ? "✓ " + txtOk : "✗ " + txtKo + " " + format(ecart) + " €";
+    }
+    function majSchema() {
+        blocs.forEach(function (b) {
+            const actif = b.dataset.schema === select.value;
+            b.style.display = actif ? "" : "none";
+            // champs du schéma masqué désactivés : seuls ceux du schéma choisi sont envoyés
+            b.querySelectorAll("input").forEach(function (i) { i.disabled = !actif; });
+        });
+        calculer();
+    }
+    // Les rubriques communes aux deux schémas gardent la même valeur
+    document.querySelectorAll(".bloc-schema input").forEach(function (i) {
+        i.addEventListener("input", function () {
+            document.querySelectorAll('.bloc-schema input[data-cle="' + i.dataset.cle + '"]').forEach(function (j) {
+                if (j !== i) j.value = i.value;
+            });
+            calculer();
+        });
+    });
+    select.addEventListener("change", majSchema);
+    majSchema();
+});
+</script>
+{% endblock %}

@@ -3,6 +3,7 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import gettext_lazy as _
 from django.db.models import Sum
+from decimal import Decimal
 from carrosserie.models import validate_iban
 
 
@@ -89,23 +90,74 @@ class Proprietaire(models.Model):
 
 
 
+class TypeProprietaire(models.TextChoices):
+    TENANT = "TENANT", _("Notre société")
+    PROPRIETAIRE = "PROPRIETAIRE", _("Propriétaire (personne)")
+    SOCIETE_CLIENTE = "SOCIETE_CLIENTE", _("Société partenaire")
+
+
+CENT = Decimal("100")
+
+
 class ProprietaireVoiture(models.Model):
+    """
+    Part de propriété d'un véhicule. Le titulaire est :
+      - notre société (le tenant) : sa quote-part est facturée en interne, au coût (sans marge, TVA récupérée) ;
+      - un propriétaire (personne) ou une société partenaire : facture avec TVA et marges, à hauteur de sa part.
+    Le total des parts d'un véhicule ne dépasse jamais 100 % (100 % exigé pour facturer).
+    """
     voiture_exemplaire = models.ForeignKey(
         "voiture_exemplaire.VoitureExemplaire",
         on_delete=models.CASCADE,
         related_name="proprietaires_voiture"
     )
 
+    type_proprietaire = models.CharField(
+        _("Type de propriétaire"),
+        max_length=20,
+        choices=TypeProprietaire.choices,
+        default=TypeProprietaire.PROPRIETAIRE,
+    )
+
     proprietaire = models.ForeignKey(
         "proprietaire.Proprietaire",
         on_delete=models.CASCADE,
-        related_name="proprietaire_voitures"
+        related_name="proprietaire_voitures",
+        null=True,
+        blank=True,
+        verbose_name=_("Propriétaire"),
+    )
+
+    societe_cliente = models.ForeignKey(
+        "societe_cliente.SocieteCliente",
+        on_delete=models.PROTECT,
+        related_name="parts_vehicules",
+        null=True,
+        blank=True,
+        verbose_name=_("Société partenaire"),
     )
 
     part_proprietaire_pourcent = models.DecimalField(
+        _("Part (%)"),
         max_digits=5,
         decimal_places=2,
-        validators=[MinValueValidator(0), MaxValueValidator(100)]
+        validators=[MinValueValidator(Decimal("0.01")), MaxValueValidator(100)]
+    )
+
+    # Marges appliquées sur les factures de ce propriétaire (ignorées pour notre société : coût sans marge)
+    marge_pieces = models.DecimalField(
+        _("Marge pièces (%)"),
+        max_digits=6,
+        decimal_places=2,
+        default=Decimal("0.00"),
+        validators=[MinValueValidator(0)],
+    )
+    marge_main_oeuvre = models.DecimalField(
+        _("Marge main-d'œuvre (%)"),
+        max_digits=6,
+        decimal_places=2,
+        default=Decimal("0.00"),
+        validators=[MinValueValidator(0)],
     )
 
     societe = models.ForeignKey(
@@ -125,24 +177,93 @@ class ProprietaireVoiture(models.Model):
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
+    class Meta:
+        verbose_name = _("Part de propriété")
+        verbose_name_plural = _("Parts de propriété")
+        ordering = ["voiture_exemplaire_id", "-part_proprietaire_pourcent"]
+
     def __str__(self):
-        return f"{self.proprietaire.nom} {self.proprietaire.prenom}"
+        return f"{self.nom_proprietaire} ({self.part_proprietaire_pourcent} %)"
+
+    # -------------------------
+    # Titulaire
+    # -------------------------
+    @property
+    def est_tenant(self):
+        return self.type_proprietaire == TypeProprietaire.TENANT
+
+    @property
+    def est_societe_cliente(self):
+        return self.type_proprietaire == TypeProprietaire.SOCIETE_CLIENTE
+
+    @property
+    def titulaire(self):
+        if self.est_tenant:
+            return self.societe
+        if self.est_societe_cliente:
+            return self.societe_cliente
+        return self.proprietaire
+
+    @property
+    def nom_proprietaire(self):
+        if self.est_tenant:
+            return getattr(self.societe, "nom", "") or str(_("Notre société"))
+        if self.est_societe_cliente:
+            return getattr(self.societe_cliente, "nom_societe_cliente", "") or ""
+        p = self.proprietaire
+        return f"{p.nom} {p.prenom}".strip() if p else ""
+
+    @property
+    def adresse(self):
+        return getattr(self.titulaire, "adresse", None)
+
+    @property
+    def cle_titulaire(self):
+        """Identifiant du titulaire, pour détecter un même propriétaire saisi deux fois."""
+        if self.est_tenant:
+            return ("tenant",)
+        if self.est_societe_cliente:
+            return ("societe", str(self.societe_cliente_id))
+        return ("proprietaire", self.proprietaire_id)
+
+    @classmethod
+    def total_parts(cls, voiture_exemplaire_id, exclure_pk=None):
+        qs = cls.objects.filter(voiture_exemplaire_id=voiture_exemplaire_id)
+        if exclure_pk:
+            qs = qs.exclude(pk=exclure_pk)
+        return qs.aggregate(total=Sum("part_proprietaire_pourcent"))["total"] or Decimal("0")
 
     def clean(self):
-        total = (
-                self.__class__.objects
-                .filter(voiture_exemplaire=self.voiture_exemplaire)
-                .exclude(pk=self.pk)
-                .aggregate(total=Sum("part_proprietaire_pourcent"))
-                ["total"] or 0
-        )
+        erreurs = {}
+        if self.est_tenant:
+            self.proprietaire = None
+            self.societe_cliente = None
+        elif self.est_societe_cliente:
+            self.proprietaire = None
+            if not self.societe_cliente_id:
+                erreurs["societe_cliente"] = _("Choisissez la société partenaire.")
+        else:
+            self.societe_cliente = None
+            # (client particulier repris comme propriétaire : la fiche est créée juste avant l'enregistrement)
+            if not self.proprietaire_id and not getattr(self, "proprietaire_a_creer", False):
+                erreurs["proprietaire"] = _("Choisissez le propriétaire.")
+        if erreurs:
+            raise ValidationError(erreurs)
 
-        if total + self.part_proprietaire_pourcent > 100:
-            raise ValidationError("Total des parts > 100% interdit.")
+        # Saisie groupée (toutes les parts du véhicule en une fois) : total et doublons vérifiés par le formset
+        if getattr(self, "verifier_parts", True) and self.voiture_exemplaire_id and self.part_proprietaire_pourcent is not None:
+            total = self.total_parts(self.voiture_exemplaire_id, exclure_pk=self.pk)
+            if total + self.part_proprietaire_pourcent > CENT:
+                raise ValidationError(
+                    _("Total des parts > 100 %% interdit (déjà attribué : %(total)s %%, disponible : %(reste)s %%).")
+                    % {"total": total, "reste": max(CENT - total, Decimal("0"))}
+                )
+
+            # Un même titulaire n'a qu'une part par véhicule
+            autres = type(self).objects.filter(voiture_exemplaire_id=self.voiture_exemplaire_id).exclude(pk=self.pk)
+            if any(a.cle_titulaire == self.cle_titulaire for a in autres):
+                raise ValidationError(_("Ce propriétaire a déjà une part sur ce véhicule : modifiez sa part."))
 
     def save(self, *args, **kwargs):
         self.full_clean()
         super().save(*args, **kwargs)
-
-
-

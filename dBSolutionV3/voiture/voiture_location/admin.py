@@ -32,3 +32,18 @@ from .models import InterdictionLocation  # noqa: E402
 class InterdictionLocationAdmin(admin.ModelAdmin):
     list_display = ("motif", "voiture_exemplaire", "date_debut", "date_fin", "heure_debut", "heure_fin", "jours_semaine", "actif")
     list_filter = ("motif", "actif")
+
+
+from .models import Trackday, TrackdayCout  # noqa: E402
+
+
+class TrackdayCoutInline(admin.TabularInline):
+    model = TrackdayCout
+    extra = 0
+
+
+@admin.register(Trackday)
+class TrackdayAdmin(admin.ModelAdmin):
+    inlines = [TrackdayCoutInline]
+    list_display = ("date_debut", "circuit", "nom", "nombre_box", "societe")
+    list_filter = ("circuit",)

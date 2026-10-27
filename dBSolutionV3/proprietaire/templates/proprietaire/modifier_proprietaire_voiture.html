@@ -8,14 +8,14 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
-            {% with image_name=propretaire_voiture.nom|slugify %}
+            {% with image_name=proprietaire_voiture.nom_proprietaire|slugify %}
                 <img src="{% static 'copropriete/'|add:image_name|add:'.png' %}"
-                     alt="{{ proprietaire_voiture.nom }}"
+                     alt="{{ proprietaire_voiture.nom_proprietaire }}"
                      class="w-12 h-12"
                      onerror="this.onerror=null; this.src='{% static 'icons/coproprietaire.png' %}';">
             {% endwith %}
             <span>{% trans "Modifier la copropriété:" %}</span>
-            <span class="text-black-700">{{ proprietaire_voiture.nom }}</span>
+            <span class="text-black-700">{{ proprietaire_voiture.nom_proprietaire }}</span>
         </h1>
     </div>
 

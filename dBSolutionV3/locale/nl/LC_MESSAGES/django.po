@@ -66043,3 +66043,1267 @@ msgid "Elles sont liées à %(n)s véhicule : le lien sera retiré."
 msgid_plural "Elles sont liées à %(n)s véhicules : les liens seront retirés."
 msgstr[0] "Ze zijn gekoppeld aan %(n)s voertuig: de koppeling wordt verwijderd."
 msgstr[1] "Ze zijn gekoppeld aan %(n)s voertuigen: de koppelingen worden verwijderd."
+
+msgid "Référence jante avant / n° OEM"
+msgstr "Referentie voorvelg / OEM-nr."
+
+msgid "Référence jante arrière / n° OEM"
+msgstr "Referentie achtervelg / OEM-nr."
+
+msgid "Profil du rebord avant"
+msgstr "Velgflensprofiel voor"
+
+msgid "Profil du rebord arrière"
+msgstr "Velgflensprofiel achter"
+
+msgid "Poids jante avant (kg)"
+msgstr "Gewicht voorvelg (kg)"
+
+msgid "Poids jante arrière (kg)"
+msgstr "Gewicht achtervelg (kg)"
+
+msgid "Poids du jeu (kg)"
+msgstr "Gewicht van de set (kg)"
+
+msgid "Jante avant"
+msgstr "Voorvelg"
+
+msgid "Jante arrière"
+msgstr "Achtervelg"
+
+msgid "Jantes avant et arrière identiques"
+msgstr "Identieke voor- en achtervelgen"
+
+msgid "Après cartographie"
+msgstr "Na herprogrammering"
+
+msgid "Aucune (non corrigée)"
+msgstr "Geen (niet gecorrigeerd)"
+
+msgid "Aucune courbe jointe."
+msgstr "Geen curve bijgevoegd."
+
+msgid "Banc de puissance"
+msgstr "Vermogensbank"
+
+msgid "Banc moteur"
+msgstr "Motorbank"
+
+msgid "Banc à moyeux"
+msgstr "Naafbank"
+
+msgid "Banc à rouleaux (inertiel)"
+msgstr "Rollenbank (inertie)"
+
+msgid "Banc à rouleaux à frein (charge)"
+msgstr "Rollenbank met rem (belasting)"
+
+msgid "Calculateur (ECU / TCU)"
+msgstr "Regeleenheid (ECU / TCU)"
+
+msgid "Carburant course"
+msgstr "Racebrandstof"
+
+msgid "Cartographie"
+msgstr "Herprogrammering"
+
+msgid "Cartographie réalisée"
+msgstr "Herprogrammering uitgevoerd"
+
+msgid "Conditions"
+msgstr "Omstandigheden"
+
+msgid "Conditions de mesure"
+msgstr "Meetomstandigheden"
+
+msgid "Couple maximal"
+msgstr "Maximumkoppel"
+
+msgid "Couple maximal (Nm)"
+msgstr "Maximumkoppel (Nm)"
+
+msgid "Courbes (PDF, 10 Mo max.)"
+msgstr "Curves (PDF, max. 10 MB)"
+
+msgid "Courbes après cartographie"
+msgstr "Curves na herprogrammering"
+
+msgid "Courbes et valeurs après cartographie"
+msgstr "Curves en waarden na herprogrammering"
+
+msgid "Courbes et valeurs sans cartographie"
+msgstr "Curves en waarden zonder herprogrammering"
+
+msgid "Courbes sans cartographie"
+msgstr "Curves zonder herprogrammering"
+
+msgid "Coûts"
+msgstr "Kosten"
+
+msgid "Date du passage au banc"
+msgstr "Datum vermogensmeting"
+
+msgid "Détails du passage au banc"
+msgstr "Details vermogensmeting"
+
+msgid "Fichier actuel"
+msgstr "Huidig bestand"
+
+msgid "Gain"
+msgstr "Winst"
+
+msgid "Gain de la cartographie"
+msgstr "Winst door herprogrammering"
+
+msgid "Humidité (%)"
+msgstr "Luchtvochtigheid (%)"
+
+msgid "Indiquez au moins une puissance ou joignez une courbe."
+msgstr "Vul minstens één vermogen in of voeg een curve toe."
+
+msgid "Kilométrage au passage au banc"
+msgstr "Kilometerstand bij meting"
+
+msgid "La puissance aux roues ne peut pas dépasser la puissance moteur."
+msgstr "Wielvermogen kan niet hoger zijn dan motorvermogen."
+
+msgid "Les courbes du banc sont jointes séparément (PDF) dans la fiche du passage au banc."
+msgstr "De curves zijn afzonderlijk (PDF) bijgevoegd in de fiche van de meting."
+
+msgid "Lieu / préparateur du banc"
+msgstr "Locatie / tuner van de bank"
+
+msgid "Liste des passages au banc"
+msgstr "Lijst vermogensmetingen"
+
+msgid "Marque du banc"
+msgstr "Merk van de bank"
+
+msgid "Modification du passage au banc"
+msgstr "Wijziging vermogensmeting"
+
+msgid "Modifier le passage au banc"
+msgstr "Vermogensmeting wijzigen"
+
+msgid "Niveau de cartographie"
+msgstr "Niveau herprogrammering"
+
+msgid "Norme de correction"
+msgstr "Correctienorm"
+
+msgid "Outil / logiciel"
+msgstr "Tool / software"
+
+msgid "Ouvrir le PDF"
+msgstr "PDF openen"
+
+msgid "PDF uniquement, 10 Mo maximum."
+msgstr "Alleen PDF, max. 10 MB."
+
+msgid "Passage au banc"
+msgstr "Vermogensmeting"
+
+msgid "Passage au banc enregistré avec succès."
+msgstr "Vermogensmeting succesvol opgeslagen."
+
+msgid "Passage au banc modifié avec succès !"
+msgstr "Vermogensmeting succesvol gewijzigd!"
+
+msgid "Passage au banc supprimé avec succès."
+msgstr "Vermogensmeting succesvol verwijderd."
+
+msgid "PassageBanc"
+msgstr "Vermogensmeting"
+
+msgid "Passages au banc de puissance"
+msgstr "Vermogensmetingen"
+
+msgid "Pertes de transmission estimées"
+msgstr "Geschatte transmissieverliezen"
+
+msgid "Pression atmosphérique (hPa)"
+msgstr "Luchtdruk (hPa)"
+
+msgid "Prix de la cartographie HTVA"
+msgstr "Prijs herprogrammering excl. btw"
+
+msgid "Prix du passage au banc HTVA"
+msgstr "Prijs vermogensmeting excl. btw"
+
+msgid "Préparateur / programmeur"
+msgstr "Tuner / programmeur"
+
+msgid "Puissance aux roues"
+msgstr "Wielvermogen"
+
+msgid "Puissance aux roues (ch)"
+msgstr "Wielvermogen (pk)"
+
+msgid "Puissance maximale"
+msgstr "Maximumvermogen"
+
+msgid "Puissance maximale (ch)"
+msgstr "Maximumvermogen (pk)"
+
+msgid "Puissance, couple, cartographie"
+msgstr "Vermogen, koppel, herprogrammering"
+
+msgid "Rapport de boîte utilisé"
+msgstr "Gebruikte versnelling"
+
+msgid "Rapport de passage au banc de puissance"
+msgstr "Rapport vermogensmeting"
+
+msgid "Retour à l'origine"
+msgstr "Terug naar origineel"
+
+msgid "Retour à la liste des passages au banc"
+msgstr "Terug naar de lijst vermogensmetingen"
+
+msgid "Réalisé"
+msgstr "Uitgevoerd"
+
+msgid "Régime de couple maxi (tr/min)"
+msgstr "Toerental max. koppel (tpm)"
+
+msgid "Régime de puissance maxi (tr/min)"
+msgstr "Toerental max. vermogen (tpm)"
+
+msgid "Résultats du banc de puissance"
+msgstr "Resultaten vermogensmeting"
+
+msgid "Sans cartographie"
+msgstr "Zonder herprogrammering"
+
+msgid "Sans plomb 95"
+msgstr "Loodvrij 95"
+
+msgid "Sans plomb 95 E10"
+msgstr "Loodvrij 95 E10"
+
+msgid "Sans plomb 98"
+msgstr "Loodvrij 98"
+
+msgid "Stage 1"
+msgstr "Stage 1"
+
+msgid "Stage 2"
+msgstr "Stage 2"
+
+msgid "Stage 3"
+msgstr "Stage 3"
+
+msgid "Super 100 / 102"
+msgstr "Super 100 / 102"
+
+msgid "Suppression du passage au banc"
+msgstr "Verwijdering vermogensmeting"
+
+msgid "Supprimer le fichier"
+msgstr "Bestand verwijderen"
+
+msgid "Supprimer le passage au banc"
+msgstr "Vermogensmeting verwijderen"
+
+msgid "Sur mesure"
+msgstr "Op maat"
+
+msgid "Température ambiante (°C)"
+msgstr "Omgevingstemperatuur (°C)"
+
+msgid "Type de banc"
+msgstr "Type bank"
+
+#, python-format
+msgid "Voulez-vous vraiment supprimer le passage au banc du %(date)s (%(km)s km) pour :"
+msgstr "Wilt u de vermogensmeting van %(date)s (%(km)s km) echt verwijderen voor:"
+
+msgid "Éco / optimisation consommation"
+msgstr "Eco / verbruiksoptimalisatie"
+
+msgid "Aucun bilan du comptable n'a été introduit : le bilan est établi uniquement à partir des écritures de l'application."
+msgstr "Er is geen balans van de boekhouder ingevoerd: de balans is enkel gebaseerd op de boekingen van de applicatie."
+
+msgid "Aucun bilan introduit."
+msgstr "Geen balans ingevoerd."
+
+#, python-format
+msgid "Base : bilan du comptable au 31/12/%(r)s, complété par les écritures de l'application."
+msgstr "Basis: balans van de boekhouder op 31/12/%(r)s, aangevuld met de boekingen van de applicatie."
+
+#, python-format
+msgid "Base : dernier bilan du comptable au 31/12/%(r)s, complété par les écritures de l'application jusqu'au 31/12/%(a)s."
+msgstr "Basis: laatste balans van de boekhouder op 31/12/%(r)s, aangevuld met de boekingen van de applicatie tot 31/12/%(a)s."
+
+msgid "Bilan"
+msgstr "Balans"
+
+msgid "Bilan de référence"
+msgstr "Referentiebalans"
+
+#, python-format
+msgid "Bilan du comptable au 31/12/%(a)s"
+msgstr "Balans van de boekhouder op 31/12/%(a)s"
+
+msgid "Bilans de référence"
+msgstr "Referentiebalansen"
+
+msgid "Bénéfice (Perte) d'exploitation"
+msgstr "Bedrijfswinst (-verlies)"
+
+msgid "Bénéfice (Perte) de l'exercice avant impôts"
+msgstr "Winst (verlies) van het boekjaar vóór belastingen"
+
+msgid "COMPTE DE RÉSULTATS (facultatif)"
+msgstr "RESULTATENREKENING (facultatief)"
+
+msgid "Ce bilan est généré automatiquement à partir des données de l'application. Il ne remplace pas les comptes annuels officiels et doit être vérifié par un comptable ou un expert-comptable (ITAA) avant toute utilisation ou tout dépôt à la BNB."
+msgstr "Deze balans wordt automatisch gegenereerd op basis van de gegevens van de applicatie. Ze vervangt de officiële jaarrekening niet en moet door een boekhouder of accountant (ITAA) worden nagekeken vóór elk gebruik of elke neerlegging bij de NBB."
+
+msgid "Date de dépôt à la BNB"
+msgstr "Datum neerlegging bij de NBB"
+
+msgid "Dernier bilan (comptable)"
+msgstr "Laatste balans (boekhouder)"
+
+msgid "Dernier bilan du comptable"
+msgstr "Laatste balans van de boekhouder"
+
+msgid "Derniers bilans du comptable"
+msgstr "Balansen van de boekhouder"
+
+msgid "Document indicatif – à faire vérifier par un comptable"
+msgstr "Indicatief document – te laten nakijken door een boekhouder"
+
+msgid "Document à titre indicatif"
+msgstr "Indicatief document"
+
+msgid "Dépôt BNB"
+msgstr "Neerlegging NBB"
+
+#, python-format
+msgid "Exercice %(a)s : montants du bilan établi par le comptable (%(s)s), introduits dans l'application."
+msgstr "Boekjaar %(a)s: bedragen van de balans opgesteld door de boekhouder (%(s)s), ingevoerd in de applicatie."
+
+#, python-format
+msgid "Exercice %(a)s : montants du bilan établi par le comptable."
+msgstr "Boekjaar %(a)s: bedragen van de balans opgesteld door de boekhouder."
+
+msgid "Exercice clôturé au 31/12 de"
+msgstr "Boekjaar afgesloten op 31/12 van"
+
+msgid "Exercice invalide."
+msgstr "Ongeldig boekjaar."
+
+msgid "Indiquez au moins un montant."
+msgstr "Vul minstens één bedrag in."
+
+msgid "Introduire le dernier bilan"
+msgstr "Laatste balans invoeren"
+
+msgid "Introduire le dernier bilan du comptable"
+msgstr "Laatste balans van de boekhouder invoeren"
+
+msgid "Introduire un bilan"
+msgstr "Een balans invoeren"
+
+msgid "Introduisez ici le dernier bilan établi par votre comptable (rubriques des comptes annuels). Il sert de base : les bilans des exercices suivants partent de ces montants et y ajoutent les écritures de l'application."
+msgstr "Voer hier de laatste balans in die uw boekhouder heeft opgesteld (rubrieken van de jaarrekening). Ze dient als basis: de balansen van de volgende boekjaren vertrekken van deze bedragen en voegen er de boekingen van de applicatie aan toe."
+
+#, python-format
+msgid "Le bilan %(annee)s a été enregistré. Il sert de base aux bilans suivants."
+msgstr "De balans %(annee)s is opgeslagen. Ze dient als basis voor de volgende balansen."
+
+msgid "Le bilan de référence a été supprimé."
+msgstr "De referentiebalans is verwijderd."
+
+#, python-format
+msgid "Le bilan n'est pas équilibré : total actif – total passif = %(e)s €."
+msgstr "De balans is niet in evenwicht: totaal activa – totaal passiva = %(e)s €."
+
+msgid "Marge brute d'exploitation"
+msgstr "Brutomarge"
+
+msgid "Montants par rubrique"
+msgstr "Bedragen per rubriek"
+
+msgid "Recopiez les montants des comptes annuels établis par votre comptable (en euros, après répartition du résultat comme dans le dépôt BNB). Laissez vide les rubriques sans montant. Le total de l'actif doit être égal au total du passif."
+msgstr "Neem de bedragen over uit de jaarrekening van uw boekhouder (in euro, na resultaatverwerking zoals in de NBB-neerlegging). Laat rubrieken zonder bedrag leeg. Het totaal van de activa moet gelijk zijn aan het totaal van de passiva."
+
+msgid "Rubrique"
+msgstr "Rubriek"
+
+msgid "Schéma abrégé"
+msgstr "Verkort schema"
+
+msgid "Schéma complet"
+msgstr "Volledig schema"
+
+msgid "Supprimer le bilan de référence"
+msgstr "Referentiebalans verwijderen"
+
+msgid "Un bilan de référence existe déjà pour cet exercice."
+msgstr "Er bestaat al een referentiebalans voor dit boekjaar."
+
+msgid "Voir le bilan de référence"
+msgstr "Referentiebalans bekijken"
+
+msgid "indicatif"
+msgstr "indicatief"
+
+msgid "Écart actif – passif :"
+msgstr "Verschil activa – passiva:"
+
+msgid "Établi par"
+msgstr "Opgesteld door"
+
+msgid "Établi par (comptable / fiduciaire)"
+msgstr "Opgesteld door (boekhouder / kantoor)"
+
+msgid "écritures prises en compte"
+msgstr "boekingen meegerekend"
+
+#, python-format
+msgid "%(n)s véhicule(s) ajouté(s) au Trackday."
+msgstr "%(n)s voertuig(en) toegevoegd aan de Trackday."
+
+msgid "Ajouter un coût"
+msgstr "Kost toevoegen"
+
+msgid "Aucun Trackday sur l'année."
+msgstr "Geen Trackday dit jaar."
+
+msgid "Aucun Trackday."
+msgstr "Geen Trackday."
+
+msgid "Aucun box disponible pour ce Trackday."
+msgstr "Geen box beschikbaar voor deze Trackday."
+
+msgid "Aucun coût saisi."
+msgstr "Geen kost ingevoerd."
+
+msgid "Aucun véhicule engagé pour l'instant."
+msgstr "Nog geen voertuig ingeschreven."
+
+msgid "Aucune vente."
+msgstr "Geen verkoop."
+
+#, python-format
+msgid "Box (1 à %(n)s)"
+msgstr "Boxen (1 tot %(n)s)"
+
+msgid "Box / paddock"
+msgstr "Box / paddock"
+
+msgid "Box disponibles : 1 à"
+msgstr "Beschikbare boxen: 1 tot"
+
+msgid "Box utilisés"
+msgstr "Gebruikte boxen"
+
+msgid "Chaque véhicule d'un Trackday est une location : il est compté dans les ventes du vendeur indiqué sur la location."
+msgstr "Elk voertuig van een Trackday is een verhuur: het telt mee in de verkoop van de verkoper van de verhuur."
+
+msgid "Chiffres clés"
+msgstr "Kerncijfers"
+
+msgid "Coût du Trackday"
+msgstr "Kost van de Trackday"
+
+msgid "Coût par véhicule"
+msgstr "Kost per voertuig"
+
+msgid "Coûts HTVA"
+msgstr "Kosten excl. btw"
+
+msgid "Coûts du Trackday"
+msgstr "Kosten van de Trackday"
+
+msgid "En piste"
+msgstr "Op het circuit"
+
+msgid "Facultatif : nombre maximum de véhicules engagés."
+msgstr "Facultatief: maximum aantal voertuigen."
+
+msgid "Facultatif : rattache la location à un Trackday (ventes et rentabilité)."
+msgstr "Facultatief: koppelt de verhuur aan een Trackday (verkoop en rendabiliteit)."
+
+msgid "Facultatif, ex. : « Trackday d'automne »."
+msgstr "Facultatief, bv. “Herfst-Trackday”."
+
+msgid "Imprimer"
+msgstr "Afdrukken"
+
+msgid "Kilomètres réservés"
+msgstr "Gereserveerde kilometers"
+
+msgid "Kilométrage actuel du véhicule (sortie non encore validée)"
+msgstr "Huidige kilometerstand (vertrek nog niet bevestigd)"
+
+msgid "Km départ"
+msgstr "Km vertrek"
+
+msgid "Km départ : kilométrage relevé à la sortie du véhicule (agenda). * : kilométrage actuel tant que la sortie n'est pas validée."
+msgstr "Km vertrek: kilometerstand bij vertrek van het voertuig (agenda). *: huidige kilometerstand zolang het vertrek niet bevestigd is."
+
+#, python-format
+msgid "Le Trackday ne compte que %(n)s box (1 à %(n)s)."
+msgstr "De Trackday telt slechts %(n)s boxen (1 tot %(n)s)."
+
+#, python-format
+msgid "Le box n° %(b)s est déjà attribué : indiquez au moins %(b)s box."
+msgstr "Box nr. %(b)s is al toegewezen: vul minstens %(b)s boxen in."
+
+#, python-format
+msgid "Le numéro %(n)s est déjà attribué à %(v)s."
+msgstr "Nummer %(n)s is al toegewezen aan %(v)s."
+
+#, python-format
+msgid "Le numéro de course %(n)s est utilisé plusieurs fois."
+msgstr "Startnummer %(n)s wordt meermaals gebruikt."
+
+msgid "Les box des locations du Trackday sont numérotés de 1 à ce nombre."
+msgstr "De boxen van de Trackday-verhuringen zijn genummerd van 1 tot dit aantal."
+
+msgid "Les locations (ventes et factures) sont conservées : elles ne sont simplement plus rattachées au Trackday. Les numéros de course sont retirés."
+msgstr "De verhuringen (verkoop en facturen) blijven behouden: ze zijn gewoon niet meer aan de Trackday gekoppeld. De startnummers worden verwijderd."
+
+msgid "Liste d'affichage (numéros)"
+msgstr "Weergavelijst (nummers)"
+
+msgid "Location du circuit"
+msgstr "Huur van het circuit"
+
+msgid "Location du circuit, box, assurance, personnel, carburant… Ces coûts servent au calcul de rentabilité."
+msgstr "Huur van het circuit, boxen, verzekering, personeel, brandstof… Deze kosten dienen voor de rendabiliteitsberekening."
+
+msgid "Marge"
+msgstr "Marge"
+
+msgid "Modification du Trackday"
+msgstr "Wijziging van de Trackday"
+
+msgid "Modifier le Trackday"
+msgstr "Trackday wijzigen"
+
+msgid "Montant HTVA (€)"
+msgstr "Bedrag excl. btw (€)"
+
+msgid "Nom de l'événement"
+msgstr "Naam van het evenement"
+
+msgid "Nombre de box disponibles"
+msgstr "Aantal beschikbare boxen"
+
+msgid "Nouveau Trackday"
+msgstr "Nieuwe Trackday"
+
+msgid "Numéro affiché sur le véhicule (1 à 200)."
+msgstr "Nummer op het voertuig (1 tot 200)."
+
+msgid "Numéro affiché sur le véhicule pendant le Trackday (1 à 200)."
+msgstr "Nummer op het voertuig tijdens de Trackday (1 tot 200)."
+
+msgid "Numéro de course"
+msgstr "Startnummer"
+
+msgid "Numéros déjà attribués"
+msgstr "Reeds toegewezen nummers"
+
+msgid "Organisateur"
+msgstr "Organisator"
+
+msgid "Panier moyen HTVA"
+msgstr "Gemiddeld bedrag excl. btw"
+
+msgid "Personnel / instructeurs"
+msgstr "Personeel / instructeurs"
+
+msgid "Photo / vidéo"
+msgstr "Foto / video"
+
+msgid "Pilote 1"
+msgstr "Piloot 1"
+
+msgid "Pilote 2"
+msgstr "Piloot 2"
+
+msgid "Places véhicules"
+msgstr "Plaatsen voertuigen"
+
+msgid "Prix d'achat (coûts HTVA)"
+msgstr "Aankoopprijs (kosten excl. btw)"
+
+msgid "Prix d'achat (coûts du Trackday, HTVA)"
+msgstr "Aankoopprijs (kosten van de Trackday, excl. btw)"
+
+msgid "Prix d'achat total HTVA"
+msgstr "Totale aankoopprijs excl. btw"
+
+msgid "Rentabilité par Trackday"
+msgstr "Rendabiliteit per Trackday"
+
+msgid "Rentré"
+msgstr "Terug"
+
+msgid "Restauration / hospitalité"
+msgstr "Catering / hospitality"
+
+msgid "Retour aux Trackdays"
+msgstr "Terug naar de Trackdays"
+
+msgid "Réservé"
+msgstr "Gereserveerd"
+
+msgid "Seuil de rentabilité"
+msgstr "Rendabiliteitsdrempel"
+
+msgid "Statistiques Trackday"
+msgstr "Trackday-statistieken"
+
+msgid "Supprimer le Trackday"
+msgstr "Trackday verwijderen"
+
+#, python-format
+msgid "Synthèse %(annee)s"
+msgstr "Overzicht %(annee)s"
+
+msgid "Sécurité / commissaires / médical"
+msgstr "Veiligheid / commissarissen / medisch"
+
+msgid "Tours réservés"
+msgstr "Gereserveerde ronden"
+
+msgid "Trackday"
+msgstr "Trackday"
+
+msgid "Trackday supprimé. Les locations sont conservées."
+msgstr "Trackday verwijderd. De verhuringen blijven behouden."
+
+#, python-format
+msgid "Trackday « %(t)s » enregistré."
+msgstr "Trackday “%(t)s” opgeslagen."
+
+msgid "Trackdays"
+msgstr "Trackdays"
+
+msgid "Transport / camion"
+msgstr "Transport / vrachtwagen"
+
+msgid "Ventes HTVA"
+msgstr "Verkoop excl. btw"
+
+msgid "Ventes HTVA par mois"
+msgstr "Verkoop excl. btw per maand"
+
+msgid "Ventes TVAC"
+msgstr "Verkoop incl. btw"
+
+msgid "Ventes des Trackdays"
+msgstr "Verkoop Trackdays"
+
+msgid "Vide : une seule journée."
+msgstr "Leeg: één dag."
+
+msgid "Véhicules engagés"
+msgstr "Ingeschreven voertuigen"
+
+msgid "Véhicules par Trackday"
+msgstr "Voertuigen per Trackday"
+
+msgid "libre"
+msgstr "vrij"
+
+msgid "véh."
+msgstr "voert."
+
+msgid "véhicules"
+msgstr "voertuigen"
+
+msgid "Événement"
+msgstr "Evenement"
+
+msgid "à venir"
+msgstr "komend"
+
+#, python-format
+msgid "%(n)s véhicule sans numéro de course."
+msgid_plural "%(n)s véhicules sans numéro de course."
+msgstr[0] "%(n)s voertuig zonder startnummer."
+msgstr[1] "%(n)s voertuigen zonder startnummer."
+
+msgid "Accident sur piste / en compétition"
+msgstr "Ongeval op circuit / in competitie"
+
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ rapports"
+msgstr "Weergave _START_ tot _END_ van _TOTAL_ rapporten"
+
+msgid "Aides à la conduite (capteurs, radar, caméra)"
+msgstr "Rijhulpsystemen (sensoren, radar, camera)"
+
+msgid "Airbag / prétensionneur"
+msgstr "Airbag / gordelspanner"
+
+msgid "Airbags déployés"
+msgstr "Airbags afgegaan"
+
+msgid "Ajouter un demi-train complet à contrôler"
+msgstr "Een volledige halve as toevoegen om te controleren"
+
+msgid "Amortisseur, triangles, fusée, roulement, capteur ABS, biellette et rotule de direction, biellette de barre stabilisatrice, cardan (décision « À contrôler »)."
+msgstr "Schokdemper, draagarmen, fusee, lager, ABS-sensor, stuurstang en stuurkogel, stabilisatorstang, aandrijfas (beslissing “Te controleren”)."
+
+msgid "Angle arrière droit"
+msgstr "Hoek rechtsachter"
+
+msgid "Angle arrière gauche"
+msgstr "Hoek linksachter"
+
+msgid "Angle avant droit"
+msgstr "Hoek rechtsvoor"
+
+msgid "Angle avant gauche"
+msgstr "Hoek linksvoor"
+
+msgid "Arraché"
+msgstr "Afgerukt"
+
+msgid "Aucun rapport d’accident enregistré pour cet exemplaire."
+msgstr "Geen ongevalsrapport voor dit voertuig."
+
+msgid "Aucun rapport trouvé"
+msgstr "Geen rapport gevonden"
+
+msgid "Aucune pièce endommagée renseignée."
+msgstr "Geen beschadigd onderdeel ingevoerd."
+
+msgid "Autre pièce (à préciser)"
+msgstr "Ander onderdeel (te preciseren)"
+
+msgid "Berceau / traverse de train"
+msgstr "Subframe / astraverse"
+
+msgid "Biellette de direction"
+msgstr "Stuurstang"
+
+msgid "Bras de suspension / bras tiré"
+msgstr "Draagarm / langsarm"
+
+msgid "Calculateur"
+msgstr "Regeleenheid"
+
+msgid "Caméra"
+msgstr "Camera"
+
+msgid "Capteur de stationnement"
+msgstr "Parkeersensor"
+
+msgid "Cardan / arbre de roue"
+msgstr "Aandrijfas"
+
+msgid "Cardans / transmission"
+msgstr "Aandrijfassen / transmissie"
+
+msgid "Cassé / rompu"
+msgstr "Gebroken"
+
+msgid "Choc arrière"
+msgstr "Aanrijding achteraan"
+
+msgid "Choc frontal"
+msgstr "Frontale aanrijding"
+
+msgid "Choc latéral droit"
+msgstr "Zijdelingse aanrijding rechts"
+
+msgid "Choc latéral gauche"
+msgstr "Zijdelingse aanrijding links"
+
+msgid "Choc sous caisse"
+msgstr "Klap onder de bodem"
+
+msgid "Châssis / structure"
+msgstr "Chassis / structuur"
+
+msgid "Circonstances de l'accident"
+msgstr "Omstandigheden van het ongeval"
+
+msgid "Conclusion"
+msgstr "Besluit"
+
+msgid "Condenseur de climatisation"
+msgstr "Airco-condensor"
+
+msgid "Conducteur / pilote"
+msgstr "Bestuurder / piloot"
+
+msgid "Connecteur"
+msgstr "Connector"
+
+msgid "Constat amiable rédigé"
+msgstr "Aanrijdingsformulier ingevuld"
+
+msgid "Contrôle au marbre (cotes châssis)"
+msgstr "Controle op de richtbank (chassismaten)"
+
+msgid "Contrôles et décision"
+msgstr "Controles en beslissing"
+
+msgid "Contrôles à prévoir"
+msgstr "Te plannen controles"
+
+msgid "Cotes du châssis (marbre)"
+msgstr "Chassismaten (richtbank)"
+
+msgid "Coupelle / butée d'amortisseur"
+msgstr "Veerpootlager / aanslagrubber"
+
+msgid "Crémaillère / boîtier de direction"
+msgstr "Stuurhuis"
+
+msgid "Câblage / faisceau"
+msgstr "Bekabeling / kabelboom"
+
+msgid "Date de l'accident"
+msgstr "Datum van het ongeval"
+
+msgid "Demi-train"
+msgstr "Halve as"
+
+msgid "Demi-train arrière droit"
+msgstr "Halve achteras rechts"
+
+msgid "Demi-train arrière gauche"
+msgstr "Halve achteras links"
+
+msgid "Demi-train avant droit"
+msgstr "Halve vooras rechts"
+
+msgid "Demi-train avant gauche"
+msgstr "Halve vooras links"
+
+msgid "Différentiel / pont"
+msgstr "Differentieel / brug"
+
+msgid "Disque de frein"
+msgstr "Remschijf"
+
+msgid "Défaut électrique / code défaut"
+msgstr "Elektrische storing / foutcode"
+
+msgid "Déroulement, conditions (pluie, nuit…), trajectoire…"
+msgstr "Verloop, omstandigheden (regen, nacht…), traject…"
+
+msgid "Déréglé / décalibré"
+msgstr "Ontregeld / niet gekalibreerd"
+
+msgid "En attente (devis / expertise)"
+msgstr "In afwachting (offerte / expertise)"
+
+msgid "Enfoncé / écrasé"
+msgstr "Ingedeukt / geplet"
+
+msgid "Expert"
+msgstr "Expert"
+
+msgid "Expertise demandée"
+msgstr "Expertise aangevraagd"
+
+msgid "Feu arrière"
+msgstr "Achterlicht"
+
+msgid "Fissuré"
+msgstr "Gescheurd"
+
+msgid "Flexible / conduite de frein"
+msgstr "Remslang / remleiding"
+
+msgid "Fond plat / protection sous caisse"
+msgstr "Vlakke bodem / bodembescherming"
+
+msgid "Fusée / porte-moyeu"
+msgstr "Fusee / naafdrager"
+
+msgid "Géométrie à contrôler"
+msgstr "Uitlijning te controleren"
+
+msgid "Heure"
+msgstr "Uur"
+
+msgid "Joint homocinétique"
+msgstr "Homokineet"
+
+msgid "Longeron"
+msgstr "Langsligger"
+
+msgid "Marbre (cotes châssis)"
+msgstr "Richtbank (chassismaten)"
+
+msgid "Modification du rapport d’accident"
+msgstr "Wijziging van het ongevalsrapport"
+
+msgid "Moteur / boîte"
+msgstr "Motor / versnellingsbak"
+
+msgid "Nid-de-poule / obstacle sur la chaussée"
+msgstr "Put / obstakel op de weg"
+
+msgid "Non roulant"
+msgstr "Niet rijklaar"
+
+msgid "Personne(s) blessée(s)"
+msgstr "Gewonde(n)"
+
+msgid "Perte totale (VEI / épave)"
+msgstr "Totaalverlies"
+
+msgid "Phare / feu avant"
+msgstr "Koplamp"
+
+msgid "Pièce endommagée"
+msgstr "Beschadigd onderdeel"
+
+msgid "Pièces endommagées"
+msgstr "Beschadigde onderdelen"
+
+msgid "Pièces endommagées par zone"
+msgstr "Beschadigde onderdelen per zone"
+
+msgid "Plancher"
+msgstr "Bodemplaat"
+
+msgid "Procès-verbal de police"
+msgstr "Proces-verbaal van de politie"
+
+msgid "Radar de collision / ACC"
+msgstr "Botsradar / ACC"
+
+msgid "Rapport d'accident"
+msgstr "Ongevalsrapport"
+
+msgid "Rapport d'accident enregistré avec succès."
+msgstr "Ongevalsrapport succesvol opgeslagen."
+
+msgid "Rapport d'accident modifié avec succès !"
+msgstr "Ongevalsrapport succesvol gewijzigd!"
+
+msgid "Rapport d'accident supprimé avec succès."
+msgstr "Ongevalsrapport succesvol verwijderd."
+
+msgid "Rapport d’accident"
+msgstr "Ongevalsrapport"
+
+msgid "Rapports d'accident"
+msgstr "Ongevalsrapporten"
+
+msgid "Rayé / frotté"
+msgstr "Gekrast / geschuurd"
+
+msgid "Recalibrage des aides à la conduite"
+msgstr "Herkalibratie van de rijhulpsystemen"
+
+msgid "Réparation partielle / provisoire"
+msgstr "Gedeeltelijke / voorlopige herstelling"
+
+msgid "Réparé / redressé"
+msgstr "Hersteld / gericht"
+
+msgid "Sectionné / coupé"
+msgstr "Doorgesneden"
+
+msgid "Sinistre (assurance)"
+msgstr "Schadegeval (verzekering)"
+
+msgid "Sortie de piste (bac, rail, mur)"
+msgstr "Van de baan (grind, vangrail, muur)"
+
+msgid "Soufflet de cardan"
+msgstr "Asmanchet"
+
+msgid "Suppression du rapport d’accident"
+msgstr "Verwijdering van het ongevalsrapport"
+
+msgid "Tiers (nom, immatriculation, assureur)"
+msgstr "Tegenpartij (naam, nummerplaat, verzekeraar)"
+
+msgid "Tiers et assurance"
+msgstr "Tegenpartij en verzekering"
+
+msgid "Tiers impliqué"
+msgstr "Tegenpartij betrokken"
+
+msgid "Tonneau / retournement"
+msgstr "Over de kop"
+
+msgid "Tordu / déformé / voilé"
+msgstr "Verbogen / vervormd"
+
+msgid "Tour d'amortisseur / passage de roue"
+msgstr "Veerpoottoren / wielkast"
+
+msgid "Train / suspension / direction"
+msgstr "As / ophanging / stuurinrichting"
+
+msgid "Trains, châssis, moteur, cardans, électronique"
+msgstr "Assen, chassis, motor, aandrijfassen, elektronica"
+
+msgid "Traverse"
+msgstr "Dwarsbalk"
+
+msgid "Triangle inférieur"
+msgstr "Onderste draagarm"
+
+msgid "Triangle supérieur"
+msgstr "Bovenste draagarm"
+
+msgid "Trottoir / bordure / vibreur"
+msgstr "Stoeprand / curb"
+
+msgid "Type de choc"
+msgstr "Type aanrijding"
+
+msgid "Une ligne par pièce touchée, avec sa zone (demi-train avant / arrière, gauche / droit, châssis, moteur, cardans, électricité…). Les pièces à remplacer, réparer ou recalibrer avec une quantité et un prix sont reprises dans le chiffrage."
+msgstr "Eén lijn per getroffen onderdeel, met de zone (halve voor- / achteras, links / rechts, chassis, motor, aandrijfassen, elektriciteit…). Te vervangen, herstellen of herkalibreren onderdelen met hoeveelheid en prijs worden in de raming opgenomen."
+
+msgid "Vitesse estimée (km/h)"
+msgstr "Geschatte snelheid (km/u)"
+
+msgid "Véhicule destiné aux pièces"
+msgstr "Voertuig voor onderdelen"
+
+msgid "Véhicule roulant après l'accident"
+msgstr "Voertuig rijklaar na het ongeval"
+
+msgid "Zone"
+msgstr "Zone"
+
+msgid "graves"
+msgstr "ernstig"
+
+msgid "piste"
+msgstr "circuit"
+
+msgid "À recalibrer"
+msgstr "Te herkalibreren"
+
+msgid "À réparer / redresser"
+msgstr "Te herstellen / richten"
+
+msgid "Électricité / aides à la conduite"
+msgstr "Elektriciteit / rijhulpsystemen"
+
+msgid "Électricité / électronique"
+msgstr "Elektriciteit / elektronica"
+
+msgid "Étrier de frein"
+msgstr "Remklauw"
+
+msgid "Notre société"
+msgstr "Ons bedrijf"
+
+msgid "notre société"
+msgstr "ons bedrijf"
+
+msgid "Propriétaire (personne)"
+msgstr "Eigenaar (persoon)"
+
+msgid "Société partenaire"
+msgstr "Partnerbedrijf"
+
+msgid "Sociétés partenaires"
+msgstr "Partnerbedrijven"
+
+msgid "Type de propriétaire"
+msgstr "Type eigenaar"
+
+msgid "Part (%)"
+msgstr "Aandeel (%)"
+
+msgid "Part (%%)"
+msgstr "Aandeel (%%)"
+
+msgid "Marge pièces (%%)"
+msgstr "Marge onderdelen (%%)"
+
+msgid "Marge main-d'œuvre (%%)"
+msgstr "Marge arbeid (%%)"
+
+msgid "Choisissez la société partenaire."
+msgstr "Kies het partnerbedrijf."
+
+msgid "Choisissez le propriétaire."
+msgstr "Kies de eigenaar."
+
+msgid "Total des parts > 100 %% interdit (déjà attribué : %(total)s %%, disponible : %(reste)s %%)."
+msgstr "Totaal aandelen > 100 %% niet toegestaan (al toegewezen: %(total)s %%, beschikbaar: %(reste)s %%)."
+
+msgid "Ce propriétaire a déjà une part sur ce véhicule : modifiez sa part."
+msgstr "Deze eigenaar heeft al een aandeel in dit voertuig: wijzig zijn aandeel."
+
+msgid "Clients particuliers (repris comme propriétaires)"
+msgstr "Particuliere klanten (overgenomen als eigenaars)"
+
+msgid "Propriétaire invalide."
+msgstr "Ongeldige eigenaar."
+
+msgid "Propriétaire introuvable."
+msgstr "Eigenaar niet gevonden."
+
+msgid "Un même propriétaire ne peut avoir qu'une seule part."
+msgstr "Eenzelfde eigenaar kan maar één aandeel hebben."
+
+msgid "Le total des parts (%(total)s %%) dépasse 100 %%."
+msgstr "Het totaal van de aandelen (%(total)s %%) overschrijdt 100 %%."
+
+msgid "Véhicule introuvable."
+msgstr "Voertuig niet gevonden."
+
+msgid "Parts enregistrées : %(total)s %% attribués. Le total doit atteindre 100 %% pour facturer par parts."
+msgstr "Aandelen opgeslagen: %(total)s %% toegewezen. Het totaal moet 100 %% bereiken om per aandeel te factureren."
+
+msgid "Propriétaires du véhicule enregistrés (100 %)."
+msgstr "Eigenaars van het voertuig opgeslagen (100 %)."
+
+msgid "Propriétaires du véhicule"
+msgstr "Eigenaars van het voertuig"
+
+msgid "Quote-part (%)"
+msgstr "Aandeel (%)"
+
+msgid "Part du propriétaire facturé : les montants des lignes (coût et marge) sont multipliés par ce pourcentage."
+msgstr "Aandeel van de gefactureerde eigenaar: de bedragen van de lijnen (kost en marge) worden met dit percentage vermenigvuldigd."
+
+msgid "Le total des parts de ce véhicule est de %(total)s %% : il doit être de 100 %% pour facturer en fonction des parts."
+msgstr "Het totaal van de aandelen van dit voertuig is %(total)s %%: het moet 100 %% zijn om per aandeel te factureren."
+
+msgid "Une part n'a pas de société partenaire."
+msgstr "Een aandeel heeft geen partnerbedrijf."
+
+msgid "Une part n'a pas de propriétaire."
+msgstr "Een aandeel heeft geen eigenaar."
+
+msgid "Ce véhicule n'a aucun propriétaire enregistré."
+msgstr "Dit voertuig heeft geen geregistreerde eigenaar."
+
+msgid "Quote-part de %(part)s %% du véhicule %(vehicule)s (copropriété)."
+msgstr "Aandeel van %(part)s %% in voertuig %(vehicule)s (mede-eigendom)."
+
+msgid "La quote-part de la facture doit être comprise entre 0 et 100 %."
+msgstr "Het aandeel van de factuur moet tussen 0 en 100 % liggen."
+
+msgid "Complétez les parts du véhicule (menu Direction › Propriétaires) puis recommencez."
+msgstr "Vul de aandelen van het voertuig aan (menu Directie › Eigenaars) en probeer opnieuw."
+
+msgid "Notre société est seule propriétaire : facture interne créée, sans marge (TVA des pièces récupérée)."
+msgstr "Ons bedrijf is enige eigenaar: interne factuur aangemaakt, zonder marge (btw op onderdelen gerecupereerd)."
+
+msgid "%(n)s brouillons de facture créés, un par propriétaire, chacun au pourcentage de sa part."
+msgstr "%(n)s conceptfacturen aangemaakt, één per eigenaar, elk volgens het percentage van zijn aandeel."
+
+msgid "%(n)s facture(s) émise(s) : %(numeros)s."
+msgstr "%(n)s factuur/facturen uitgegeven: %(numeros)s."
+
+msgid "%(client)s : %(erreurs)s"
+msgstr "%(client)s: %(erreurs)s"
+
+msgid "Toutes les factures de la répartition sont déjà émises."
+msgstr "Alle facturen van de verdeling zijn al uitgegeven."
+
+msgid "Facturation en fonction des parts"
+msgstr "Facturatie volgens aandelen"
+
+msgid "Notre société seule propriétaire (100 %%) : une facture interne, sans marge, TVA récupérée."
+msgstr "Ons bedrijf enige eigenaar (100 %%): één interne factuur, zonder marge, btw gerecupereerd."
+
+msgid "Plusieurs propriétaires : une facture par propriétaire, chacune au pourcentage de sa part. Les autres propriétaires reçoivent une facture avec TVA et marges ; la part de notre société est facturée en interne, au coût."
+msgstr "Meerdere eigenaars: één factuur per eigenaar, elk volgens het percentage van zijn aandeel. De andere eigenaars ontvangen een factuur met btw en marges; het aandeel van ons bedrijf wordt intern gefactureerd, tegen kostprijs."
+
+msgid "Le total des parts ne peut pas dépasser 100 %% et doit atteindre 100 %% pour facturer."
+msgstr "Het totaal van de aandelen mag 100 %% niet overschrijden en moet 100 %% bereiken om te factureren."
+
+msgid "Nouveau propriétaire (personne)"
+msgstr "Nieuwe eigenaar (persoon)"
+
+msgid "Nouvelle société partenaire"
+msgstr "Nieuw partnerbedrijf"
+
+msgid "Les propriétaires, clients particuliers et sociétés déjà enregistrés sont proposés dans la liste. Un client particulier choisi est repris comme propriétaire (fiche existante réutilisée si elle existe déjà)."
+msgstr "Reeds geregistreerde eigenaars, particuliere klanten en bedrijven worden in de lijst voorgesteld. Een gekozen particuliere klant wordt overgenomen als eigenaar (bestaande fiche wordt hergebruikt indien aanwezig)."
+
+msgid "Enregistrer les propriétaires"
+msgstr "Eigenaars opslaan"
+
+msgid "Total complet : facturation par parts possible."
+msgstr "Totaal volledig: facturatie per aandeel mogelijk."
+
+msgid "Reste à attribuer :"
+msgstr "Nog toe te wijzen:"
+
+msgid "Dépassement :"
+msgstr "Overschrijding:"
+
+msgid "Interne : au coût"
+msgstr "Intern: tegen kostprijs"
+
+msgid "Propriétaires d'un véhicule"
+msgstr "Eigenaars van een voertuig"
+
+msgid "Ajouter des propriétaires à un véhicule"
+msgstr "Eigenaars aan een voertuig toevoegen"
+
+msgid "Choisissez le véhicule : vous pourrez ensuite saisir tous ses propriétaires (notre société, personnes, sociétés partenaires) et leurs parts, jusqu'à 100 %%."
+msgstr "Kies het voertuig: daarna kunt u alle eigenaars (ons bedrijf, personen, partnerbedrijven) en hun aandelen invoeren, tot 100 %%."
+
+msgid "Parts du véhicule"
+msgstr "Aandelen van het voertuig"
+
+msgid "facture interne au coût (sans marge, TVA récupérée)"
+msgstr "interne factuur tegen kostprijs (zonder marge, btw gerecupereerd)"
+
+msgid "facture avec TVA"
+msgstr "factuur met btw"
+
+msgid "marge pièces"
+msgstr "marge onderdelen"
+
+msgid "marge main-d'œuvre"
+msgstr "marge arbeid"
+
+msgid "Voir tous les propriétaires du véhicule"
+msgstr "Alle eigenaars van het voertuig bekijken"
+
+msgid "Facturation par parts"
+msgstr "Facturatie per aandeel"
+
+msgid "part de notre société"
+msgstr "aandeel van ons bedrijf"
+
+msgid "quote-part facturée"
+msgstr "gefactureerd aandeel"
+
+msgid "Quote-part facturée"
+msgstr "Gefactureerd aandeel"
+
+msgid "Facture interne : coût de revient de notre part, sans marge, TVA des pièces récupérée."
+msgstr "Interne factuur: kostprijs van ons aandeel, zonder marge, btw op onderdelen gerecupereerd."
+
+msgid "Coût et marge de chaque ligne calculée sont multipliés par la quote-part : le coût unitaire affiché est le coût complet, le prix unitaire est celui de la part."
+msgstr "Kost en marge van elke berekende lijn worden met het aandeel vermenigvuldigd: de getoonde eenheidskost is de volledige kost, de eenheidsprijs is die van het aandeel."
+
+msgid "Émettre toutes les factures brouillon de la répartition ?"
+msgstr "Alle conceptfacturen van de verdeling uitgeven?"
+
+msgid "Émettre toutes les factures de la répartition"
+msgstr "Alle facturen van de verdeling uitgeven"
+
+msgid "du véhicule (copropriété)"
+msgstr "van het voertuig (mede-eigendom)"
+
+msgid "Clients particuliers, clients atelier et propriétaires."
+msgstr "Particuliere klanten, werkplaatsklanten en eigenaars."
+
+msgid "Véhicule avec des propriétaires enregistrés (Direction › Propriétaires) : une facture est créée par propriétaire, au pourcentage de sa part, quel que soit le bouton choisi. Notre société seule propriétaire : facture interne sans marge."
+msgstr "Voertuig met geregistreerde eigenaars (Directie › Eigenaars): er wordt één factuur per eigenaar aangemaakt, volgens het percentage van zijn aandeel, ongeacht de gekozen knop. Ons bedrijf enige eigenaar: interne factuur zonder marge."
+
+msgid "Aucun propriétaire enregistré"
+msgstr "Geen eigenaar geregistreerd"

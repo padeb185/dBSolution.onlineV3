@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{{ trackday }}{% endblock %}
+{% block content %}
+{% include "voiture_location/trackday/_styles.html" %}
+<div class="p-6">
+    <h1 class="text-2xl font-bold mb-2 flex items-center gap-3">
+        <img src="{% static 'icons/trackday.png' %}" alt="" class="w-16 h-16">
+        <span>{% if trackday.nom %}{{ trackday.nom }} – {% endif %}{{ trackday.get_circuit_display }}</span>
+    </h1>
+    <p class="text-gray-600 mb-4">
+        {{ trackday.periode_affichage }}
+        {% if trackday.organisateur %} · {% trans "Organisateur" %} : {{ trackday.organisateur }}{% endif %}
+        {% if trackday.longueur_circuit_km %} · {% trans "Longueur du circuit" %} : {{ trackday.longueur_circuit_km }} km{% endif %}
+    </p>
+    {% include "voiture_location/_messages.html" %}
+
+    <div class="flex flex-wrap gap-2 mb-6">
+        <a href="{% url 'voiture_location:location_ajouter' %}?trackday={{ trackday.pk }}" class="td-btn td-btn-vert">+ {% trans "Ajouter un véhicule" %}</a>
+        <a href="{% url 'voiture_location:trackday_affichage' trackday.pk %}" target="_blank" class="td-btn">{% trans "Liste d'affichage (numéros)" %}</a>
+        <a href="{% url 'voiture_location:trackday_modifier' trackday.pk %}" class="td-btn td-btn-gris">{% trans "Modifier" %}</a>
+        {% if peut_supprimer %}<a href="{% url 'voiture_location:trackday_supprimer' trackday.pk %}" class="td-btn td-btn-rouge">{% trans "Supprimer" %}</a>{% endif %}
+        <a href="{% url 'voiture_location:trackday_liste' %}" class="td-btn td-btn-gris">{% trans "Retour aux Trackdays" %}</a>
+    </div>
+
+    <!-- Chiffres clés -->
+    <div class="td-carte mb-6">
+        <h2 class="td-titre">{% trans "Chiffres clés" %}</h2>
+        <div class="td-kpi">
+            <div><span>{% trans "Véhicules" %}</span><strong>{{ r.nb_vehicules }}{% if trackday.places_vehicules %} / {{ trackday.places_vehicules }}{% endif %}</strong></div>
+            <div><span>{% trans "Box utilisés" %}</span><strong>{{ r.nb_box }} / {{ r.nombre_box }}</strong></div>
+            <div><span>{% trans "Tours réservés" %}</span><strong>{{ r.tours }}</strong></div>
+            <div><span>{% trans "Kilomètres réservés" %}</span><strong>{{ r.km }} km</strong></div>
+            <div><span>{% trans "Ventes HTVA" %}</span><strong>{{ r.ventes_htva|floatformat:2 }} €</strong></div>
+            <div><span>{% trans "Ventes TVAC" %}</span><strong>{{ r.ventes_tvac|floatformat:2 }} €</strong></div>
+            {% if voit_rentabilite %}
+            <div><span>{% trans "Prix d'achat total HTVA" %}</span><strong>{{ r.couts_htva|floatformat:2 }} €</strong></div>
+            <div><span>{% trans "Marge" %}</span><strong class="{% if r.marge >= 0 %}td-positif{% else %}td-negatif{% endif %}">{{ r.marge|floatformat:2 }} €{% if r.marge_pct is not None %} <small>({{ r.marge_pct }} %)</small>{% endif %}</strong></div>
+            <div><span>{% trans "Panier moyen HTVA" %}</span><strong>{{ r.panier_moyen_htva|floatformat:2 }} €</strong></div>
+            <div><span>{% trans "Coût par véhicule" %}</span><strong>{{ r.cout_par_vehicule|floatformat:2 }} €</strong></div>
+            {% if r.seuil_vehicules %}<div><span>{% trans "Seuil de rentabilité" %}</span><strong>{{ r.seuil_vehicules }} {% trans "véhicules" %}</strong></div>{% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Véhicules engagés -->
+    <div class="td-carte mb-6 overflow-x-auto">
+        <h2 class="td-titre">{% trans "Véhicules engagés" %}</h2>
+        {% if sans_numero %}<p class="mb-3 text-sm text-amber-700">{% blocktrans count n=sans_numero|length %}{{ n }} véhicule sans numéro de course.{% plural %}{{ n }} véhicules sans numéro de course.{% endblocktrans %}</p>{% endif %}
+        <table class="td-table">
+            <thead><tr>
+                <th>{% trans "N°" %}</th><th>{% trans "Véhicule" %}</th><th>{% trans "Pilote 1" %}</th><th>{% trans "Pilote 2" %}</th>
+                <th>{% trans "Box" %}</th><th class="text-right">{% trans "Km départ" %}</th><th class="text-right">{% trans "Réservé" %}</th>
+                <th>{% trans "Vendeur" %}</th><th class="text-right">{% trans "Prix TVAC" %}</th><th>{% trans "Statut" %}</th><th></th>
+            </tr></thead>
+            <tbody>
+            {% for l in lignes %}
+                <tr>
+                    <td>{% if l.loc.numero_course %}<span class="td-num">{{ l.loc.numero_course }}</span>{% else %}<span class="td-num td-num-vide">?</span>{% endif %}</td>
+                    <td>
+                        <div class="flex items-center gap-2">
+                            <img src="{% static 'images/marques/' %}{{ l.exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png" alt="" class="w-10 h-10 object-contain" onerror="this.style.display='none'">
+                            <div>
+                                <div class="font-semibold">{{ l.exemplaire.voiture_modele.nom_modele }}{% if l.exemplaire.voiture_modele.nom_variante %} {{ l.exemplaire.voiture_modele.nom_variante }}{% endif %}</div>
+                                {% include "maintenance/partials/plaque.html" with exemplaire=l.exemplaire taille="petite" %}
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{ l.pilote1|default:"-" }}</td>
+                    <td>{{ l.pilote2|default:"-" }}</td>
+                    <td class="whitespace-nowrap">{% for b in l.boxes %}{{ b.numero }}{% if b.pit_lane != 1 %} <small>(PL{{ b.pit_lane }})</small>{% endif %}{% if not forloop.last %}, {% endif %}{% empty %}-{% endfor %}</td>
+                    <td class="text-right whitespace-nowrap">{% if l.km_depart is not None %}{{ l.km_depart }} km{% else %}<span class="text-gray-400" title="{% trans 'Kilométrage actuel du véhicule (sortie non encore validée)' %}">{{ l.km_actuel|default:"-" }} km*</span>{% endif %}</td>
+                    <td class="text-right whitespace-nowrap">{{ l.loc.distance_affichage|default:"-" }}</td>
+                    <td>{% if l.loc.vendeur %}{{ l.loc.vendeur.prenom }} {{ l.loc.vendeur.nom }}{% else %}-{% endif %}</td>
+                    <td class="text-right whitespace-nowrap">{{ l.loc.prix_tvac|floatformat:2 }} €</td>
+                    <td class="whitespace-nowrap">
+                        {% if l.retour %}<span class="td-badge td-badge-ok">{% trans "Rentré" %}</span>
+                        {% elif l.sortie %}<span class="td-badge td-badge-att">{% trans "En piste" %}</span>
+                        {% else %}<span class="td-badge td-badge-gris">{% trans "Prévu" %}</span>{% endif %}
+                        <div class="text-xs text-gray-500 mt-1">{{ l.loc.statut_paiement_display }}</div>
+                    </td>
+                    <td class="whitespace-nowrap">
+                        <a href="{% url 'voiture_location:location_detail' location_id=l.loc.id %}" class="text-blue-700 underline">{% trans "Voir" %}</a>
+                        <a href="{% url 'voiture_location:location_modifier' location_id=l.loc.id %}" class="text-blue-700 underline ml-2">{% trans "Modifier" %}</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="11" class="text-center text-gray-500 py-6">{% trans "Aucun véhicule engagé pour l'instant." %}</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <p class="text-xs text-gray-500 mt-2">{% trans "Km départ : kilométrage relevé à la sortie du véhicule (agenda). * : kilométrage actuel tant que la sortie n'est pas validée." %}</p>
+    </div>
+
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6">
+        <!-- Plan des box -->
+        <div class="td-carte">
+            <h2 class="td-titre">{% blocktrans with n=trackday.nombre_box %}Box (1 à {{ n }}){% endblocktrans %}</h2>
+            {% for lane in plan_box %}
+                {% if plan_box|length > 1 %}<h3 class="font-semibold mt-2 mb-2">{{ lane.pit_lane }}</h3>{% endif %}
+                <div class="td-box-grille">
+                {% for numero, locs in lane.box %}
+                    <div class="td-box {% if locs|length > 1 %}td-box-double{% elif locs %}td-box-pris{% endif %}">
+                        <b>{% trans "Box" %} {{ numero }}</b>
+                        {% for loc in locs %}<div>{% if loc.numero_course %}#{{ loc.numero_course }} {% endif %}{{ loc.voiture_exemplaire.voiture_modele.nom_modele }}</div>{% empty %}<div class="text-gray-400">{% trans "libre" %}</div>{% endfor %}
+                    </div>
+                {% endfor %}
+                </div>
+            {% endfor %}
+            {% if not trackday.nombre_box %}<p class="text-gray-500">{% trans "Aucun box disponible pour ce Trackday." %}</p>{% endif %}
+        </div>
+
+        <!-- Ventes par vendeur + coûts -->
+        <div class="td-carte">
+            <h2 class="td-titre">{% trans "Ventes par vendeur" %}</h2>
+            <table class="td-table mb-4">
+                <thead><tr><th>{% trans "Vendeur" %}</th><th class="text-right">{% trans "Véhicules" %}</th><th class="text-right">{% trans "HTVA" %}</th><th class="text-right">{% trans "TVAC" %}</th></tr></thead>
+                <tbody>
+                {% for v in vendeurs %}
+                    <tr><td>{% if v.vendeur %}{{ v.vendeur.prenom }} {{ v.vendeur.nom }}{% else %}{% trans "Non attribué" %}{% endif %}</td>
+                        <td class="text-right">{{ v.nb }}</td><td class="text-right">{{ v.htva|floatformat:2 }} €</td><td class="text-right">{{ v.tvac|floatformat:2 }} €</td></tr>
+                {% empty %}
+                    <tr><td colspan="4" class="text-gray-500">{% trans "Aucune vente." %}</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {% if voit_rentabilite %}
+            <h2 class="td-titre">{% trans "Prix d'achat (coûts HTVA)" %}</h2>
+            <table class="td-table">
+                <tbody>
+                {% for c in trackday.couts.all %}
+                    <tr><td>{{ c.get_categorie_display }}{% if c.libelle %} – {{ c.libelle }}{% endif %}{% if c.fournisseur %} <small class="text-gray-500">({{ c.fournisseur }})</small>{% endif %}</td>
+                        <td class="text-right whitespace-nowrap">{{ c.montant_htva|floatformat:2 }} €</td></tr>
+                {% empty %}
+                    <tr><td colspan="2" class="text-gray-500">{% trans "Aucun coût saisi." %} <a href="{% url 'voiture_location:trackday_modifier' trackday.pk %}" class="underline">{% trans "Ajouter" %}</a></td></tr>
+                {% endfor %}
+                <tr class="font-bold"><td>{% trans "Prix d'achat total HTVA" %}</td><td class="text-right">{{ r.couts_htva|floatformat:2 }} €</td></tr>
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if trackday.remarques %}<div class="td-carte mb-6"><h2 class="td-titre">{% trans "Remarques" %}</h2>{{ trackday.remarques|linebreaks }}</div>{% endif %}
+</div>
+{% endblock %}

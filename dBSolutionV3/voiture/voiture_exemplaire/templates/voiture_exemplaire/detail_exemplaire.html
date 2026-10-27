@@ -368,6 +368,32 @@
                 {% endfor %}
             </ul>
 
+            <!-- PROPRIÉTAIRES (parts de propriété, facturation par parts) -->
+            <h2 class="text-xl font-semibold mb-2 mt-6 flex items-center">
+                <img src="{% static 'icons/coproprietaire.png' %}" alt="{% trans 'Propriétaires' %}"
+                     style="width:60px; height:60px; margin-right:10px;">
+                {% trans "Propriétaires" %}
+            </h2>
+            <ul class="space-y-2">
+                {% for part in exemplaire.proprietaires_voiture.all %}
+                <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center gap-4">
+                    <div>
+                        <span class="font-semibold">{{ part.nom_proprietaire }}</span>
+                        <span class="ml-2 text-gray-600">{{ part.get_type_proprietaire_display }}</span>
+                        <span class="ml-2 font-semibold text-blue-800">{{ part.part_proprietaire_pourcent }} %</span>
+                    </div>
+                    <a href="{% url 'proprietaire:parts_vehicule' exemplaire_id=exemplaire.id %}"
+                       class="text-blue-700 hover:underline whitespace-nowrap">{% trans "Modifier" %}</a>
+                </li>
+                {% empty %}
+                <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center gap-4">
+                    <span class="text-gray-500">{% trans "Aucun propriétaire enregistré" %}</span>
+                    <a href="{% url 'proprietaire:parts_vehicule' exemplaire_id=exemplaire.id %}"
+                       class="text-blue-700 hover:underline whitespace-nowrap">{% trans "Ajouter" %}</a>
+                </li>
+                {% endfor %}
+            </ul>
+
         </div>
         <div class="mt-auto w-full">
             <a href="{% url 'voiture_exemplaire:modifier_exemplaire' exemplaire_id=exemplaire.id %}" class="block w-full">

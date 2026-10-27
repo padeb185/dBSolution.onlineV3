@@ -11,7 +11,7 @@
             {% trans "Jantes du véhicule" %}
             {% static 'images/marques/' as marques_path %}
             <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
-                 alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}" class="w-14 h-14 object-contain">
+                 alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}" class="w-20 h-20 object-contain">
             <span class="font-semibold">{{ exemplaire.voiture_modele.nom_modele }}</span>
         </span>
         {% include "maintenance/partials/plaque.html" %}

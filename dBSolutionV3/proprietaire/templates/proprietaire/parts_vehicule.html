@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Propriétaires du véhicule" %}{% endblock %}
+
+{% block content %}
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            <img src="{% static 'icons/coproprietaire.png' %}" alt="{% trans 'Propriétaires' %}" class="w-12 h-12">
+            <span>{% trans "Propriétaires du véhicule" %}</span>
+        </h1>
+        <div class="flex items-center gap-3">
+            {% include "maintenance/partials/plaque.html" with taille="petite" %}
+            <span class="font-semibold">{{ voiture.voiture_marque.nom_marque }} {{ voiture.voiture_modele.nom_modele }}</span>
+        </div>
+    </div>
+
+    {% include "partials/messages.html" %}
+
+    <div class="parts-aide mb-6">
+        <p><strong>{% trans "Facturation en fonction des parts" %}</strong></p>
+        <ul>
+            <li>{% trans "Notre société seule propriétaire (100 %) : une facture interne, sans marge, TVA récupérée." %}</li>
+            <li>{% trans "Plusieurs propriétaires : une facture par propriétaire, chacune au pourcentage de sa part. Les autres propriétaires reçoivent une facture avec TVA et marges ; la part de notre société est facturée en interne, au coût." %}</li>
+            <li>{% trans "Le total des parts ne peut pas dépasser 100 % et doit atteindre 100 % pour facturer." %}</li>
+        </ul>
+    </div>
+
+    <form method="post" id="form-parts">
+        {% csrf_token %}
+        {{ formset.management_form }}
+
+        {% if formset.non_form_errors %}
+            <div class="mb-4 p-4 bg-red-50 border border-red-300 rounded text-red-700">{{ formset.non_form_errors }}</div>
+        {% endif %}
+
+        <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+            <table class="table-parts">
+                <thead>
+                    <tr>
+                        <th>{% trans "Propriétaire" %}</th>
+                        <th class="col-num">{% trans "Part (%)" %}</th>
+                        <th class="col-num">{% trans "Marge pièces (%)" %}</th>
+                        <th class="col-num">{% trans "Marge main-d'œuvre (%)" %}</th>
+                        <th>{% trans "Remarques" %}</th>
+                        <th class="col-sup">{% trans "Supprimer" %}</th>
+                    </tr>
+                </thead>
+                <tbody id="lignes-parts">
+                    {% for form in formset %}
+                        {% include "proprietaire/_ligne_part.html" %}
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="text-right font-semibold">{% trans "Total" %}</td>
+                        <td class="col-num"><span id="total-parts" class="total-parts">{{ total }}</span> %</td>
+                        <td colspan="4"><span id="reste-parts" class="text-sm"></span></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="flex flex-wrap gap-3 mt-4">
+                <button type="button" id="ajouter-part" class="bouton-secondaire">+ {% trans "Ajouter un propriétaire" %}</button>
+                <a href="{% url 'proprietaire:proprietaire_form' %}" target="_blank" class="lien-creer">{% trans "Nouveau propriétaire (personne)" %}</a>
+                <a href="{% url 'societe_cliente:societe_cliente_form' %}" target="_blank" class="lien-creer">{% trans "Nouvelle société partenaire" %}</a>
+            </div>
+            <p class="text-sm text-gray-500 mt-2">
+                {% trans "Les propriétaires, clients particuliers et sociétés déjà enregistrés sont proposés dans la liste. Un client particulier choisi est repris comme propriétaire (fiche existante réutilisée si elle existe déjà)." %}
+            </p>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-3">
+            <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Enregistrer les propriétaires" %}
+            </button>
+            <a href="{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=voiture.id %}"
+               class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                {% trans "Retour au véhicule" %}
+            </a>
+        </div>
+    </form>
+
+    <template id="modele-part">
+        {% with form=formset.empty_form %}{% include "proprietaire/_ligne_part.html" %}{% endwith %}
+    </template>
+
+    <br>
+    <a href="{% url 'proprietaire:proprietaire_voiture_list' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour à la liste des parts par propriétaires" %}
+    </a>
+</div>
+
+<style>
+.parts-aide { background:#eff6ff; border:1px solid #bfdbfe; border-radius:8px; padding:14px 18px; color:#1e3a8a; }
+.parts-aide ul { list-style:disc; margin:6px 0 0 20px; }
+.table-parts { width:100%; border-collapse:collapse; }
+.table-parts th { background:#f3f4f6; text-align:left; padding:8px; border:1px solid #e5e7eb; font-weight:600; }
+.table-parts td { padding:6px 8px; border:1px solid #e5e7eb; vertical-align:top; }
+.table-parts .col-num { width:140px; text-align:right; }
+.table-parts .col-sup { width:90px; text-align:center; }
+.table-parts .input { width:100%; border:1px solid #ccc; border-radius:6px; padding:6px 8px; box-sizing:border-box; }
+.table-parts textarea.input { min-height:38px; }
+.table-parts .erreur { color:#b91c1c; font-size:0.85rem; margin-top:2px; }
+.table-parts tr.ligne-supprimee td { opacity:0.45; }
+.table-parts .marge-interne { color:#6b7280; font-size:0.85rem; display:none; }
+.table-parts tr.ligne-tenant .marge-interne { display:block; }
+.table-parts tr.ligne-tenant .champ-marge { display:none; }
+.total-parts { font-weight:700; font-size:1.1rem; }
+.total-ok { color:#166534; }
+.total-ko { color:#b91c1c; }
+.total-partiel { color:#b45309; }
+.bouton-secondaire { background:#e5e7eb; padding:8px 16px; border-radius:6px; font-weight:600; }
+.bouton-secondaire:hover { background:#d1d5db; }
+.lien-creer { color:#1d4ed8; font-weight:600; padding:8px 4px; }
+.lien-creer:hover { text-decoration:underline; }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const corps = document.getElementById("lignes-parts");
+    const totalForms = document.getElementById("id_parts-TOTAL_FORMS");
+    const modele = document.getElementById("modele-part");
+    const totalEl = document.getElementById("total-parts");
+    const resteEl = document.getElementById("reste-parts");
+    const txt = {
+        complet: "{% trans 'Total complet : facturation par parts possible.'|escapejs %}",
+        reste: "{% trans 'Reste à attribuer :'|escapejs %}",
+        depasse: "{% trans 'Dépassement :'|escapejs %}",
+    };
+
+    function nombre(v) {
+        const n = parseFloat(String(v || "").replace(",", "."));
+        return isNaN(n) ? 0 : n;
+    }
+
+    function majLigne(tr) {
+        const sel = tr.querySelector("select.titulaire");
+        tr.classList.toggle("ligne-tenant", !!sel && sel.value === "tenant");
+        const sup = tr.querySelector("input[type=checkbox][name$='-DELETE']");
+        tr.classList.toggle("ligne-supprimee", !!sup && sup.checked);
+    }
+
+    function majTotal() {
+        let total = 0;
+        corps.querySelectorAll("tr.ligne-part").forEach(function (tr) {
+            majLigne(tr);
+            const sup = tr.querySelector("input[type=checkbox][name$='-DELETE']");
+            if (sup && sup.checked) return;
+            const sel = tr.querySelector("select.titulaire");
+            if (!sel || !sel.value) return;
+            total += nombre(tr.querySelector("input.part-pourcent") && tr.querySelector("input.part-pourcent").value);
+        });
+        total = Math.round(total * 100) / 100;
+        totalEl.textContent = total.toFixed(2);
+        totalEl.classList.remove("total-ok", "total-ko", "total-partiel");
+        if (Math.abs(total - 100) < 0.005) {
+            totalEl.classList.add("total-ok");
+            resteEl.textContent = txt.complet;
+        } else if (total > 100) {
+            totalEl.classList.add("total-ko");
+            resteEl.textContent = txt.depasse + " " + (total - 100).toFixed(2) + " %";
+        } else {
+            totalEl.classList.add("total-partiel");
+            resteEl.textContent = txt.reste + " " + (100 - total).toFixed(2) + " %";
+        }
+    }
+
+    document.getElementById("ajouter-part").addEventListener("click", function () {
+        const index = parseInt(totalForms.value, 10);
+        const html = modele.innerHTML.replace(/__prefix__/g, index);
+        corps.insertAdjacentHTML("beforeend", html);
+        totalForms.value = index + 1;
+        // Propose le reste à attribuer
+        const ligne = corps.lastElementChild;
+        const champ = ligne && ligne.querySelector("input.part-pourcent");
+        const reste = 100 - nombre(totalEl.textContent);
+        if (champ && reste > 0) champ.value = reste.toFixed(2);
+        majTotal();
+    });
+
+    corps.addEventListener("input", majTotal);
+    corps.addEventListener("change", majTotal);
+    majTotal();
+});
+</script>
+{% endblock %}

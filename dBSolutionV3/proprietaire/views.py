@@ -36,12 +36,14 @@ def proprietaire_dashboard_view(request):
     proprietaire = Proprietaire.objects.none()
     proprietaire_voiture = ProprietaireVoiture.objects.none()
 
-    # Chargement des données
-    proprietaire = Proprietaire.objects.all()
-    proprietaire_voiture = ProprietaireVoiture.objects.all()
+    # Chargement des données (société de l'utilisateur)
+    societe = getattr(user, "societe", None)
+    proprietaire = Proprietaire.objects.filter(societe=societe)
+    proprietaire_voiture = ProprietaireVoiture.objects.filter(societe=societe)
 
     total_proprietaire = proprietaire.count()
-    total_voiture_cop = proprietaire_voiture.count()
+    # Véhicules ayant au moins une part (un véhicule à 3 propriétaires compte une fois)
+    total_voiture_cop = proprietaire_voiture.values("voiture_exemplaire").distinct().count()
 
     context = {
         "user": user,
@@ -196,60 +198,100 @@ class ProprietaireVoitureListView(ListView):
         if not hasattr(user, "societe") or user.societe is None:
             return ProprietaireVoiture.objects.none()
 
-        return ProprietaireVoiture.objects.filter(societe=user.societe)
+        return (
+            ProprietaireVoiture.objects.filter(societe=user.societe)
+            .select_related("proprietaire", "proprietaire__adresse", "societe_cliente", "societe_cliente__adresse",
+                            "societe", "societe__adresse",
+                            "voiture_exemplaire__voiture_marque", "voiture_exemplaire__voiture_modele")
+            .order_by("voiture_exemplaire_id", "-part_proprietaire_pourcent")
+        )
 
 
 
 
 @login_required
 def proprietaire_voiture_form_view(request):
+    """Choix du véhicule, puis saisie de tous ses propriétaires et de leurs parts."""
+    from voiture.voiture_exemplaire.models import VoitureExemplaire
+
     tenant = request.user.societe
+    vehicules = (
+        VoitureExemplaire.objects.filter(societe=tenant)
+        .select_related("voiture_marque", "voiture_modele")
+        .order_by("immatriculation")
+    )
+    exemplaire_id = request.GET.get("exemplaire") or request.POST.get("exemplaire")
+    if exemplaire_id:
+        if vehicules.filter(pk=exemplaire_id).exists():
+            return redirect("proprietaire:parts_vehicule", exemplaire_id=exemplaire_id)
+        messages.error(request, _("Véhicule introuvable."))
+    return render(request, "proprietaire/choisir_vehicule.html", {"vehicules": vehicules})
+
+
+@login_required
+def parts_vehicule_view(request, exemplaire_id):
+    """Tous les propriétaires d'un véhicule en une page : parts (max 100 %) et marges de facturation."""
+    from django.forms import modelformset_factory
+    from voiture.voiture_exemplaire.models import VoitureExemplaire
+    from .forms import BasePartsVehiculeFormSet
+
+    tenant = request.user.societe
+    voiture = get_object_or_404(
+        VoitureExemplaire.objects.filter(societe=tenant).select_related("voiture_marque", "voiture_modele", "client"),
+        pk=exemplaire_id,
+    )
+    PartsFormSet = modelformset_factory(
+        ProprietaireVoiture,
+        form=ProprietaireVoitureForm,
+        formset=BasePartsVehiculeFormSet,
+        extra=0 if voiture.proprietaires_voiture.exists() else 1,
+        can_delete=True,
+    )
+    qs = (ProprietaireVoiture.objects.filter(voiture_exemplaire=voiture)
+          .select_related("proprietaire", "societe_cliente", "societe")
+          .order_by("-part_proprietaire_pourcent", "id"))
 
     if request.method == "POST":
-        form = ProprietaireVoitureForm(request.POST)
-
-        if form.is_valid():
-
-            proprietaire_voiture = form.save(commit=False)
-            proprietaire_voiture.societe = tenant
-            proprietaire_voiture.save()
-
-            messages.success(
-                request,
-                _("Lien propriétaire / voiture ajouté avec succès !")
-            )
-
-            return redirect(
-                f"{reverse('proprietaire:proprietaire_voiture_list')}?saved=1"
-            )
-
-
-        else:
-            messages.error(
-                request,
-                _("Veuillez corriger les erreurs du formulaire.")
-            )
-
+        formset = PartsFormSet(request.POST, queryset=qs, prefix="parts", societe=tenant, voiture=voiture)
+        if formset.is_valid():
+            with transaction.atomic():
+                for obj in formset.deleted_objects:
+                    obj.delete()
+                for form in formset.forms:
+                    if form in formset.deleted_forms or not form.has_changed():
+                        continue
+                    form.save()
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_PARTS_VEHICULE} : {voiture.immatriculation or voiture.pk} ({formset.total} %)",
+                )
+            if formset.total < 100:
+                messages.warning(
+                    request,
+                    _("Parts enregistrées : %(total)s %% attribués. Le total doit atteindre 100 %% pour facturer par parts.")
+                    % {"total": formset.total},
+                )
+            else:
+                messages.success(request, _("Propriétaires du véhicule enregistrés (100 %)."))
+            return redirect("proprietaire:parts_vehicule", exemplaire_id=voiture.pk)
+        messages.error(request, _("Veuillez corriger les erreurs du formulaire."))
     else:
-        form = ProprietaireVoitureForm()
+        formset = PartsFormSet(queryset=qs, prefix="parts", societe=tenant, voiture=voiture)
 
-    return render(
-        request,
-        "proprietaire/proprietaire_voiture_form.html",
-        {
-            "form": form,
-            "tenant": tenant,
-        }
-    )
-
-
+    return render(request, "proprietaire/parts_vehicule.html", {
+        "voiture": voiture,
+        "exemplaire": voiture,
+        "formset": formset,
+        "total": ProprietaireVoiture.total_parts(voiture.pk),
+        "tenant": tenant,
+    })
 
 
 @login_required
 def total_part_voiture(request, voiture_id):
     total = (
         ProprietaireVoiture.objects
-        .filter(voiture_exemplaire_id=voiture_id)
+        .filter(voiture_exemplaire_id=voiture_id, societe=request.user.societe)
         .aggregate(total=Sum("part_proprietaire_pourcent"))
         ["total"] or 0
     )
@@ -262,8 +304,12 @@ def proprietaire_voiture_detail_view(request, proprietaire_voiture_id):
     tenant = request.user.societe
 
 
-    proprietaire_voiture = get_object_or_404(ProprietaireVoiture, id=proprietaire_voiture_id)
-    adresse = proprietaire_voiture.proprietaire.adresse
+    proprietaire_voiture = get_object_or_404(
+        ProprietaireVoiture.objects.filter(societe=tenant)
+        .select_related("proprietaire", "societe_cliente", "societe", "voiture_exemplaire"),
+        id=proprietaire_voiture_id,
+    )
+    adresse = proprietaire_voiture.adresse
 
     return render(
         request,
@@ -281,14 +327,15 @@ def modifier_proprietaire_voiture_view(request, proprietaire_voiture_id):
     tenant = request.user.societe
 
     proprietaire_voiture = get_object_or_404(
-        ProprietaireVoiture,
+        ProprietaireVoiture.objects.filter(societe=tenant),
         id=proprietaire_voiture_id
     )
 
     if request.method == "POST":
         form_proprietaire_voiture = ProprietaireVoitureForm(
             request.POST,
-            instance=proprietaire_voiture
+            instance=proprietaire_voiture,
+            societe=tenant,
         )
 
         if form_proprietaire_voiture.is_valid():  # ✅ corrigé
@@ -300,7 +347,7 @@ def modifier_proprietaire_voiture_view(request, proprietaire_voiture_id):
             )
 
             return redirect(
-                f"{reverse('proprietaire:propriétaire_voiture_detail', kwargs={'proprietaire_voiture_id': proprietaire_voiture.id})}?saved=1"
+                f"{reverse('proprietaire:proprietaire_voiture_detail', kwargs={'proprietaire_voiture_id': proprietaire_voiture.id})}?saved=1"
             )
 
         else:
@@ -308,7 +355,8 @@ def modifier_proprietaire_voiture_view(request, proprietaire_voiture_id):
 
     else:
         form_proprietaire_voiture = ProprietaireVoitureForm(
-            instance=proprietaire_voiture
+            instance=proprietaire_voiture,
+            societe=tenant,
         )
 
     return render(
@@ -325,6 +373,7 @@ def modifier_proprietaire_voiture_view(request, proprietaire_voiture_id):
 
 
 ACTION_SUPPRESSION_PROPRIETAIRE = gettext_noop("Suppression du propriétaire")
+ACTION_PARTS_VEHICULE = gettext_noop("Propriétaires du véhicule")
 
 
 @login_required
@@ -434,7 +483,8 @@ def delete_proprietaire_voiture_view(request, pk):
         return refuser_suppression(request)
 
     part = get_object_or_404(
-        ProprietaireVoiture.objects.select_related("proprietaire", "voiture_exemplaire", "societe"),
+        ProprietaireVoiture.objects.filter(societe=request.user.societe)
+        .select_related("proprietaire", "societe_cliente", "voiture_exemplaire", "societe"),
         pk=pk,
     )
 
@@ -443,7 +493,7 @@ def delete_proprietaire_voiture_view(request, pk):
         ProprietaireVoiture.objects
         .filter(voiture_exemplaire_id=part.voiture_exemplaire_id)
         .exclude(pk=part.pk)
-        .select_related("proprietaire")
+        .select_related("proprietaire", "societe_cliente", "societe")
         .order_by("-part_proprietaire_pourcent")
     )
     total_autres = sum((p.part_proprietaire_pourcent or Decimal("0")) for p in autres_parts)
@@ -454,7 +504,7 @@ def delete_proprietaire_voiture_view(request, pk):
     objets_supprimes = analyse["supprimes"]
 
     if request.method == "POST":
-        proprietaire_nom = f"{part.proprietaire.nom} {part.proprietaire.prenom}"
+        proprietaire_nom = part.nom_proprietaire
         voiture_libelle = str(part.voiture_exemplaire)
         libelle = f"{proprietaire_nom} – {voiture_libelle}"
         voiture_id = part.voiture_exemplaire_id
@@ -492,8 +542,8 @@ def delete_proprietaire_voiture_view(request, pk):
             },
         )
         return _redirect_premier(
-            ("voiture_exemplaire:detail", {"exemplaire_id": voiture_id}),
-            ("proprietaire:proprietaire_detail", {"pk": proprietaire_id}),
+            ("voiture_exemplaire:voiture_exemplaire_detail", {"exemplaire_id": voiture_id}),
+            ("proprietaire:proprietaire_detail", {"proprietaire_id": proprietaire_id}) if proprietaire_id else ("proprietaire:proprietaire_voiture_list", {}),
             ("proprietaire:proprietaire_list", {}),
         )
 

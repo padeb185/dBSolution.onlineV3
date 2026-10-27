@@ -63,6 +63,16 @@
     <form method="POST" id="location-form" class="space-y-4">
         {% csrf_token %}
 
+        <!-- ================= TRACKDAY ================= -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/trackday.png' %}" alt="{% trans 'Trackday' %}" class="w-20 h-20">
+            {% trans "Trackday" %}
+        </h2>
+        {% include "voiture_location/_champ.html" with field=form.trackday %}
+        {% if location %}{% include "voiture_location/_champ.html" with field=form.numero_course %}{% endif %}
+        <p id="info-trackday" class="text-sm text-blue-800 bg-blue-50 border border-blue-200 rounded p-2 mb-4" style="display:none"></p>
+        {{ trackdays_data|json_script:"trackdays-data" }}
+
         {% if location %}
         <!-- Véhicule -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
@@ -523,5 +533,49 @@
     document.addEventListener("DOMContentLoaded", () => groupes().forEach(z => verifier(z)));
     if (document.readyState !== "loading") groupes().forEach(z => verifier(z));
 })();
+</script>
+<script>
+/* Trackday : circuit, dates, box disponibles et numéros déjà attribués */
+document.addEventListener("DOMContentLoaded", function () {
+    const select = document.getElementById("id_trackday");
+    if (!select) return;
+    let data = {};
+    try { data = JSON.parse(document.getElementById("trackdays-data").textContent || "{}"); } catch (e) {}
+    const info = document.getElementById("info-trackday");
+    const txtBox = "{{ _('Box disponibles : 1 à')|escapejs }}";
+    const txtPris = "{{ _('Numéros déjà attribués')|escapejs }}";
+
+    function champs(suffixe) { return document.querySelectorAll('[name$="' + suffixe + '"]'); }
+    function appliquer(init) {
+        const t = data[select.value];
+        const blocs = document.querySelectorAll('[data-bloc="type_location"], [data-bloc="circuit"], [data-bloc="route"]');
+        if (!t) {
+            if (info) info.style.display = "none";
+            champs("-numero").forEach(function (i) { i.max = 100; });
+            return;
+        }
+        champs("type_location").forEach(function (s) { s.value = "circuit"; s.dispatchEvent(new Event("change")); });
+        champs("circuit").forEach(function (s) { s.value = t.circuit; s.dispatchEvent(new Event("change")); });
+        if (!init) {
+            champs("date_debut").forEach(function (d) { if (!d.value) d.value = t.date_debut; });
+            champs("date_fin").forEach(function (d) { if (!d.value && t.date_fin) d.value = t.date_fin; });
+        }
+        champs("-numero").forEach(function (i) { i.max = t.nombre_box; i.placeholder = "1 – " + t.nombre_box; });
+        champs("numero_course").forEach(function (s) {
+            Array.from(s.options).forEach(function (o) {
+                const pris = o.value && t.numeros_pris.indexOf(parseInt(o.value, 10)) !== -1 && o.value !== s.dataset.initial;
+                o.disabled = !!pris;
+                o.textContent = o.value ? o.value + (pris ? " ✗" : "") : o.textContent;
+            });
+        });
+        if (info) {
+            info.style.display = "";
+            info.textContent = txtBox + " " + t.nombre_box + (t.numeros_pris.length ? " · " + txtPris + " : " + t.numeros_pris.join(", ") : "");
+        }
+    }
+    champs("numero_course").forEach(function (s) { s.dataset.initial = s.value; });
+    select.addEventListener("change", function () { appliquer(false); });
+    appliquer(true);
+});
 </script>
 {% endblock %}

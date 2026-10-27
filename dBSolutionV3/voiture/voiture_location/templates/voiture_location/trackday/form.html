@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% if trackday %}{% trans "Modifier le Trackday" %}{% else %}{% trans "Nouveau Trackday" %}{% endif %}{% endblock %}
+{% block content %}
+{% include "voiture_location/trackday/_styles.html" %}
+<div class="max-w-3xl mx-auto mt-8 mb-8 td-carte">
+    <h1 class="text-2xl font-bold mb-4 flex items-center gap-3">
+        <img src="{% static 'icons/trackday.png' %}" alt="" class="w-16 h-16">
+        {% if trackday %}{% trans "Modifier le Trackday" %}{% else %}{% trans "Nouveau Trackday" %}{% endif %}
+    </h1>
+    {% include "voiture_location/_messages.html" %}
+    {% if form.non_field_errors %}<div class="mb-4 px-4 py-2 rounded bg-red-100 text-red-800 border border-red-300">{{ form.non_field_errors }}</div>{% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <h2 class="td-titre">{% trans "Événement" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            {% for field in form %}
+            <div class="{% if field.name == 'remarques' or field.name == 'nom' %}md:col-span-2{% endif %}">
+                <label for="{{ field.id_for_label }}" class="block font-semibold mb-1">{{ field.label }}{% if field.field.required %} <span class="text-red-600">*</span>{% endif %}</label>
+                {{ field }}
+                {% if field.help_text %}<p class="text-gray-500 text-xs mt-1">{{ field.help_text }}</p>{% endif %}
+                {% for e in field.errors %}<p class="text-red-600 text-sm mt-1">{{ e }}</p>{% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div {% if not voit_couts %}style="display:none"{% endif %}>
+        <h2 class="td-titre">{% trans "Prix d'achat (coûts du Trackday, HTVA)" %}</h2>
+        <p class="text-sm text-gray-500 mb-3">{% trans "Location du circuit, box, assurance, personnel, carburant… Ces coûts servent au calcul de rentabilité." %}</p>
+        {{ couts_fs.management_form }}
+        {% if couts_fs.non_form_errors %}<div class="text-red-600 text-sm mb-2">{{ couts_fs.non_form_errors }}</div>{% endif %}
+        <div id="lignes-cout">
+        {% for f in couts_fs %}
+            <div class="ligne-cout grid grid-cols-1 md:grid-cols-12 gap-2 mb-2 items-end border rounded p-2 bg-gray-50">
+                {% for h in f.hidden_fields %}{{ h }}{% endfor %}
+                <div class="md:col-span-3"><label class="block text-xs font-semibold text-gray-600">{{ f.categorie.label }}</label>{{ f.categorie }}</div>
+                <div class="md:col-span-3"><label class="block text-xs font-semibold text-gray-600">{{ f.libelle.label }}</label>{{ f.libelle }}</div>
+                <div class="md:col-span-3"><label class="block text-xs font-semibold text-gray-600">{{ f.fournisseur.label }}</label>{{ f.fournisseur }}</div>
+                <div class="md:col-span-2"><label class="block text-xs font-semibold text-gray-600">{{ f.montant_htva.label }}</label>{{ f.montant_htva }}{% for e in f.montant_htva.errors %}<p class="text-red-600 text-xs">{{ e }}</p>{% endfor %}</div>
+                <div class="md:col-span-1 text-sm text-red-700">{% if f.instance.pk %}<label class="flex items-center gap-1">{{ f.DELETE }} {% trans "Suppr." %}</label>{% else %}<button type="button" class="retirer-cout hover:underline">{% trans "Retirer" %}</button>{% endif %}</div>
+            </div>
+        {% endfor %}
+        </div>
+        <template id="modele-cout">
+            <div class="ligne-cout grid grid-cols-1 md:grid-cols-12 gap-2 mb-2 items-end border rounded p-2 bg-gray-50">
+                {% for h in couts_fs.empty_form.hidden_fields %}{{ h }}{% endfor %}
+                <div class="md:col-span-3"><label class="block text-xs font-semibold text-gray-600">{{ couts_fs.empty_form.categorie.label }}</label>{{ couts_fs.empty_form.categorie }}</div>
+                <div class="md:col-span-3"><label class="block text-xs font-semibold text-gray-600">{{ couts_fs.empty_form.libelle.label }}</label>{{ couts_fs.empty_form.libelle }}</div>
+                <div class="md:col-span-3"><label class="block text-xs font-semibold text-gray-600">{{ couts_fs.empty_form.fournisseur.label }}</label>{{ couts_fs.empty_form.fournisseur }}</div>
+                <div class="md:col-span-2"><label class="block text-xs font-semibold text-gray-600">{{ couts_fs.empty_form.montant_htva.label }}</label>{{ couts_fs.empty_form.montant_htva }}</div>
+                <div class="md:col-span-1 text-sm text-red-700"><button type="button" class="retirer-cout hover:underline">{% trans "Retirer" %}</button></div>
+            </div>
+        </template>
+        <div class="flex items-center justify-between mt-3 mb-6">
+            <button type="button" id="ajouter-cout" class="td-btn td-btn-gris">+ {% trans "Ajouter un coût" %}</button>
+            <div class="text-lg">{% trans "Prix d'achat total HTVA" %} : <strong id="total-couts">0,00 €</strong></div>
+        </div>
+        </div>
+
+        <div class="flex gap-3">
+            <button type="submit" class="td-btn flex-1">{% trans "Enregistrer" %}</button>
+            <a href="{% if trackday %}{% url 'voiture_location:trackday_detail' trackday.pk %}{% else %}{% url 'voiture_location:trackday_liste' %}{% endif %}" class="td-btn td-btn-gris flex-1">{% trans "Annuler" %}</a>
+        </div>
+    </form>
+</div>
+<script>
+(function () {
+    var total = document.getElementById("id_cout-TOTAL_FORMS");
+    var corps = document.getElementById("lignes-cout");
+    var modele = document.getElementById("modele-cout");
+    function somme() {
+        var t = 0;
+        corps.querySelectorAll(".ligne-cout").forEach(function (l) {
+            var del = l.querySelector('input[type="checkbox"][name$="-DELETE"]');
+            var m = l.querySelector(".montant-cout");
+            if (m && !(del && del.checked)) { var v = parseFloat((m.value || "0").replace(",", ".")); if (!isNaN(v)) t += v; }
+        });
+        document.getElementById("total-couts").textContent = t.toLocaleString("fr-BE", {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " €";
+    }
+    document.getElementById("ajouter-cout").addEventListener("click", function () {
+        var i = parseInt(total.value, 10);
+        var html = modele.innerHTML.replace(/__prefix__/g, i);
+        corps.insertAdjacentHTML("beforeend", html);
+        total.value = i + 1;
+    });
+    corps.addEventListener("click", function (e) {
+        if (e.target.classList.contains("retirer-cout")) { e.target.closest(".ligne-cout").remove(); renumeroter(); somme(); }
+    });
+    function renumeroter() {
+        var lignes = corps.querySelectorAll(".ligne-cout");
+        lignes.forEach(function (l, i) {
+            l.querySelectorAll("input,select").forEach(function (el) {
+                ["name", "id"].forEach(function (a) { var v = el.getAttribute(a); if (v) el.setAttribute(a, v.replace(/cout-\d+-/, "cout-" + i + "-")); });
+            });
+        });
+        total.value = lignes.length;
+    }
+    corps.addEventListener("input", somme);
+    corps.addEventListener("change", somme);
+    somme();
+})();
+</script>
+{% endblock %}

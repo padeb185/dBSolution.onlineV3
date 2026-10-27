@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 from utilisateurs.models import Utilisateur
 from voiture.voiture_exemplaire.models import VoitureExemplaire
-from .models import Location
+from .models import Location, Trackday
 from client_particulier.models import ClientParticulier
 from client_pilotage.models import ClientPilotage
 from societe_cliente.models import SocieteCliente
@@ -14,6 +14,39 @@ ROLES_VENDEUR = ("vendeur", "direction", "chef_mecanicien")
 
 # Rôles pouvant être choisis comme instructeur
 ROLES_INSTRUCTEUR = ("instructeur", "instructeur externe")
+
+
+NUMEROS_COURSE = [("", "—")] + [(n, n) for n in range(1, 201)]
+
+
+def trackdays_societe(societe, courant=None):
+    """Trackdays proposés : ceux de la société (les plus récents d'abord)."""
+    qs = Trackday.objects.all()
+    if societe is not None:
+        qs = qs.filter(societe=societe)
+    return qs.order_by("-date_debut")
+
+
+def _config_trackday(form, societe, inclure_trackday=True):
+    """Ajoute / configure les champs Trackday d'un formulaire de location."""
+    if inclure_trackday and "trackday" in form.fields:
+        form.fields["trackday"].queryset = trackdays_societe(societe)
+        form.fields["trackday"].required = False
+        form.fields["trackday"].help_text = _("Facultatif : rattache la location à un Trackday (ventes et rentabilité).")
+    if "numero_course" in form.fields:
+        form.fields["numero_course"] = forms.TypedChoiceField(
+            choices=NUMEROS_COURSE, coerce=int, empty_value=None, required=False,
+            label=_("Numéro de course"), help_text=_("Numéro affiché sur le véhicule (1 à 200)."),
+        )
+
+
+def appliquer_trackday(location, trackday):
+    """Une location de Trackday se déroule sur le circuit et aux dates du Trackday."""
+    if trackday is None:
+        return
+    location.type_location = "circuit"
+    location.circuit = trackday.circuit
+    location.route = None
 
 
 # préfixe -> (modèle, champ de Location)
@@ -74,6 +107,8 @@ class LocationForm(forms.ModelForm):
             "prix_km_supplementaire",
             "carburant_inclus",
             "prix_carburant",
+            "trackday",
+            "numero_course",
         )
         widgets = {
             "date_debut": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
@@ -198,11 +233,21 @@ class LocationForm(forms.ModelForm):
         self.fields["prix"].label = _("Prix TVAC (€)")
         self.fields["prix"].help_text = _("Prix de la location TVA comprise : la TVA est calculée au taux du pays de la société.")
 
+        # Trackday et numéro de course
+        _config_trackday(self, societe)
+
         # Ordre d'affichage : le client juste après le véhicule
         self.order_fields(["voiture_exemplaire", "locataire"])
 
     def clean(self):
         cleaned = super().clean()
+        trackday = cleaned.get("trackday")
+        if trackday is not None:
+            cleaned["type_location"] = "circuit"
+            cleaned["circuit"] = trackday.circuit
+            cleaned["route"] = None
+            for champ in ("circuit", "type_location", "route"):
+                self.errors.pop(champ, None)
         societe = self.instance.societe if self.instance.societe_id else getattr(self.user, "societe", None)
         verifier_regles_location(self, societe, exclure_pk=self.instance.pk if not self.instance._state.adding else None)
         return cleaned
@@ -290,6 +335,7 @@ class LocationVehiculeSupForm(forms.ModelForm):
             "nombre_tours",
             "kilometrage",
             "prix",
+            "numero_course",
         )
         widgets = {
             "date_debut": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
@@ -301,15 +347,26 @@ class LocationVehiculeSupForm(forms.ModelForm):
             "prix": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
         }
 
-    def __init__(self, *args, vehicules=None, societe=None, **kwargs):
+    def __init__(self, *args, vehicules=None, societe=None, trackday=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.societe = societe
+        # Trackday de la location principale : appliqué avant la validation du modèle
+        self.trackday = trackday
+        if trackday is not None:
+            self.instance.trackday = trackday
         if vehicules is not None:
             self.fields["voiture_exemplaire"].queryset = vehicules
         self.fields["prix"].label = _("Prix TVAC (€)")
+        _config_trackday(self, societe, inclure_trackday=False)
 
     def clean(self):
         cleaned = super().clean()
+        if self.trackday is not None:
+            cleaned["type_location"] = "circuit"
+            cleaned["circuit"] = self.trackday.circuit
+            cleaned["route"] = None
+            for champ in ("circuit", "type_location", "route"):
+                self.errors.pop(champ, None)
         if self.societe is not None:
             verifier_regles_location(self, self.societe)
         return cleaned
@@ -336,9 +393,13 @@ class LocationBoxForm(forms.ModelForm):
 
 
 class BaseLocationBoxFormSet(forms.BaseInlineFormSet):
+    # Nombre de box disponibles (Trackday) ; None = 1 à 100
+    limite_box = None
+
     def clean(self):
         super().clean()
         vus = set()
+        limite = self.limite_box
         for f in self.forms:
             if not hasattr(f, "cleaned_data") or not f.cleaned_data or f.cleaned_data.get("DELETE"):
                 continue
@@ -348,6 +409,8 @@ class BaseLocationBoxFormSet(forms.BaseInlineFormSet):
             if cle in vus:
                 f.add_error("numero", _("Ce box est déjà dans la liste."))
             vus.add(cle)
+            if limite is not None and cle[1] > limite:
+                f.add_error("numero", _("Le Trackday ne compte que %(n)s box (1 à %(n)s).") % {"n": limite})
 
 
 LocationBoxFormSet = forms.inlineformset_factory(
@@ -397,3 +460,55 @@ class InterdictionLocationForm(forms.ModelForm):
         if commit:
             obj.save()
         return obj
+
+
+# =====================================================================
+# TRACKDAY
+# =====================================================================
+from .models import TrackdayCout  # noqa: E402
+
+_C_TD = "input block w-full border rounded px-3 py-2 bg-white"
+
+
+class TrackdayForm(forms.ModelForm):
+    class Meta:
+        model = Trackday
+        fields = ["nom", "circuit", "date_debut", "date_fin", "organisateur", "nombre_box", "places_vehicules", "remarques"]
+        widgets = {
+            "nom": forms.TextInput(attrs={"class": _C_TD}),
+            "circuit": forms.Select(attrs={"class": _C_TD}),
+            "date_debut": forms.DateInput(attrs={"type": "date", "class": _C_TD}, format="%Y-%m-%d"),
+            "date_fin": forms.DateInput(attrs={"type": "date", "class": _C_TD}, format="%Y-%m-%d"),
+            "organisateur": forms.TextInput(attrs={"class": _C_TD}),
+            "nombre_box": forms.NumberInput(attrs={"class": _C_TD, "min": "0", "max": "100"}),
+            "places_vehicules": forms.NumberInput(attrs={"class": _C_TD, "min": "1", "max": "200"}),
+            "remarques": forms.Textarea(attrs={"class": _C_TD, "rows": 3}),
+        }
+
+    def clean_nombre_box(self):
+        n = self.cleaned_data.get("nombre_box") or 0
+        if self.instance.pk:
+            from .models import LocationBox
+            plus_haut = (LocationBox.objects.filter(location__trackday=self.instance)
+                         .order_by("-numero").values_list("numero", flat=True).first())
+            if plus_haut and plus_haut > n:
+                raise forms.ValidationError(
+                    _("Le box n° %(b)s est déjà attribué : indiquez au moins %(b)s box.") % {"b": plus_haut})
+        return n
+
+
+class TrackdayCoutForm(forms.ModelForm):
+    class Meta:
+        model = TrackdayCout
+        fields = ["categorie", "libelle", "fournisseur", "montant_htva"]
+        widgets = {
+            "categorie": forms.Select(attrs={"class": _C_TD}),
+            "libelle": forms.TextInput(attrs={"class": _C_TD}),
+            "fournisseur": forms.TextInput(attrs={"class": _C_TD}),
+            "montant_htva": forms.NumberInput(attrs={"class": _C_TD + " montant-cout", "min": "0", "step": "0.01"}),
+        }
+
+
+TrackdayCoutFormSet = forms.inlineformset_factory(
+    Trackday, TrackdayCout, form=TrackdayCoutForm, extra=0, can_delete=True,
+)

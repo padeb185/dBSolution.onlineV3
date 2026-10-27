@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Derniers bilans du comptable" %}{% endblock %}
+{% block content %}
+<div class="p-6 max-w-5xl mx-auto">
+{% trans "Derniers bilans du comptable" as titre %}
+{% include "compta/immo/_nav.html" with icone="icons/bilan.png" %}
+
+<p class="mb-4 text-gray-700">
+    {% trans "Introduisez ici le dernier bilan établi par votre comptable (rubriques des comptes annuels). Il sert de base : les bilans des exercices suivants partent de ces montants et y ajoutent les écritures de l'application." %}
+</p>
+
+<div class="mb-6">
+    <a href="{% url 'compta:reference_ajouter' %}" class="bg-blue-700 hover:bg-blue-400 text-white px-5 py-3 rounded font-semibold">+ {% trans "Introduire un bilan" %}</a>
+</div>
+
+<table class="w-full bg-white shadow rounded border-collapse">
+    <thead>
+        <tr class="bg-gray-100 text-left">
+            <th class="border px-4 py-2">{% trans "Exercice" %}</th>
+            <th class="border px-4 py-2">{% trans "Schéma" %}</th>
+            <th class="border px-4 py-2">{% trans "Établi par" %}</th>
+            <th class="border px-4 py-2">{% trans "Dépôt BNB" %}</th>
+            <th class="border px-4 py-2">{% trans "Mis à jour le" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Actions" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for r in refs %}
+        <tr>
+            <td class="border px-4 py-2 font-semibold">31/12/{{ r.annee }}</td>
+            <td class="border px-4 py-2">{{ r.get_schema_display }}</td>
+            <td class="border px-4 py-2">{{ r.etabli_par|default:"-" }}</td>
+            <td class="border px-4 py-2">{{ r.date_depot|date:"d/m/Y"|default:"-" }}</td>
+            <td class="border px-4 py-2">{{ r.updated_at|date:"d/m/Y H:i" }}</td>
+            <td class="border px-4 py-2 text-center whitespace-nowrap">
+                <a href="{% url 'compta:bilan' %}?annee={{ r.annee }}&schema={{ r.schema }}" class="text-blue-700 underline mr-3">{% trans "Voir" %}</a>
+                <a href="{% url 'compta:reference_modifier' r.pk %}" class="text-blue-700 underline mr-3">{% trans "Modifier" %}</a>
+                <a href="{% url 'compta:reference_supprimer' r.pk %}" class="text-red-700 underline">{% trans "Supprimer" %}</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="6" class="border px-4 py-6 text-center text-gray-500">{% trans "Aucun bilan introduit." %}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

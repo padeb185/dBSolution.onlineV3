@@ -35,13 +35,15 @@
         {% for section in form.sections %}
             <section id="{{ section.id }}">
                 <h2 class="titre-section-jante">
-                    <img src="{% static 'icons/jante.png' %}" alt="" class="w-8 h-8">
+                    {% with "icons/"|add:section.id|add:".png" as icone %}
+                    <img src="{% static icone %}" alt="{{ section.titre }}" class="w-12 h-12">
+                    {% endwith %}
                     {{ section.titre }}
                 </h2>
 
                 {% if section.id == "jante-arriere" %}
                     <label class="flex items-center gap-2 mb-3 font-semibold">
-                        {{ form.meme_dimension }} {{ form.meme_dimension.label }}
+                        {{ form.meme_dimension }} {% trans "Jantes avant et arrière identiques" %}
                     </label>
                 {% endif %}
 
@@ -79,7 +81,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const arriere = document.querySelector(".champs-arriere");
     const fixations = document.getElementById("id_nombre_fixations");
     const entraxe = document.querySelector(".champ-entraxe_mm");
-    const paires = [["diametre_av", "diametre_ar"], ["largeur_av", "largeur_ar"], ["deport_av", "deport_ar"]];
+    const paires = [["diametre_av", "diametre_ar"], ["largeur_av", "largeur_ar"], ["profil", "profil_ar"],
+                    ["deport_av", "deport_ar"], ["reference", "reference_ar"], ["poids_kg", "poids_ar_kg"]];
 
     function copier() {
         if (!meme || !meme.checked) return;

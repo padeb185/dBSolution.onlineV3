@@ -1,0 +1,415 @@
+{% load i18n static format_numbers %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    .hors { color: #991b1b; font-weight: bold; }
+        td.num, th.num { text-align: right; font-family: "DejaVu Sans Mono", monospace; }
+        table.mesures { font-size: 9.5px; }
+        table.mesures th, table.mesures td { padding: 3px 4px; }
+    </style>
+</head>
+<body>
+{% if accident.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ accident.tech_societe.nom }}
+            </div>
+
+            {% if accident.tech_societe.adresse %}
+                <div>
+                    {{ accident.tech_societe.adresse.rue }}
+                    {{ accident.tech_societe.adresse.numero }}
+                    {% if accident.tech_societe.adresse.boite %}
+                        / {{ accident.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ accident.tech_societe.adresse.code_postal }}
+                    {{ accident.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if accident.tech_societe.adresse.pays %}
+                <div>{{ accident.tech_societe.adresse.pays }}
+                    {{ accident.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if accident.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ accident.tech_societe.numero_tva|format_tva }}
+                </div>
+            {% endif %}
+             {% if accident.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ accident.tech_societe.iban|format_iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ accident.tech_societe.nom }}.png"
+                alt="{{ accident.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+<h1>{% trans "Rapport d'accident" %}</h1>
+
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Date" %} :</span> {{ accident.date|date:"d/m/Y H:i" }}</div>
+        <div><span class="label">{% trans "Technicien" %} :</span> {{ accident.tech_nom_technicien }}</div>
+        <div><span class="label">{% trans "Société" %} :</span> {{ accident.tech_societe }}</div>
+        <div><span class="label">{% trans "Véhicule" %} :</span> {{ accident.voiture_exemplaire }}</div>
+        <div><span class="label">{% trans "Immatriculation" %} :</span> {{ accident.voiture_exemplaire.immatriculation|default:"-" }}</div>
+        <div><span class="label">{% trans "Kilométrage de l'intervention" %} :</span> {{ accident.kilometrage_accident }} km</div>
+        <div><span class="label">{% trans "Tag" %} :</span>
+            <span class="tag {% if accident.tag == 'VERT' %}tag-vert{% elif accident.tag == 'JAUNE' %}tag-jaune{% else %}tag-rouge{% endif %}">{{ accident.get_tag_display }}</span></div>
+    </div>
+</div>
+
+<h2>{% trans "Circonstances" %}</h2>
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Date de l'accident" %} :</span> {{ accident.date_accident|date:"d/m/Y" }}{% if accident.heure_accident %} {{ accident.heure_accident|time:"H:i" }}{% endif %}</div>
+        <div><span class="label">{% trans "Lieu" %} :</span> {{ accident.lieu|default:"-" }}{% if accident.sur_piste %} – {% trans "sur piste" %}{% endif %}</div>
+        <div><span class="label">{% trans "Type de choc" %} :</span> {{ accident.get_type_choc_display }}</div>
+        <div><span class="label">{% trans "Vitesse estimée (km/h)" %} :</span> {{ accident.vitesse_estimee|default:"-" }}</div>
+        <div><span class="label">{% trans "Conducteur / pilote" %} :</span> {{ accident.conducteur|default:"-" }}</div>
+        <div><span class="label">{% trans "Airbags déployés" %} :</span> {{ accident.airbags_deployes|yesno:_("Oui,Non") }}</div>
+        <div><span class="label">{% trans "Véhicule roulant après l'accident" %} :</span> {{ accident.vehicule_roulant|yesno:_("Oui,Non") }}</div>
+        <div><span class="label">{% trans "Personne(s) blessée(s)" %} :</span> {{ accident.blesses|yesno:_("Oui,Non") }}</div>
+    </div>
+    {% if accident.circonstances %}<p style="margin-top:6px">{{ accident.circonstances|linebreaksbr }}</p>{% endif %}
+</div>
+
+<h2>{% trans "Tiers et assurance" %}</h2>
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Tiers impliqué" %} :</span> {{ accident.tiers_implique|yesno:_("Oui,Non") }}</div>
+        <div><span class="label">{% trans "Constat amiable rédigé" %} :</span> {{ accident.constat_amiable|yesno:_("Oui,Non") }}</div>
+        <div><span class="label">{% trans "Procès-verbal de police" %} :</span> {{ accident.proces_verbal|yesno:_("Oui,Non") }}</div>
+        <div><span class="label">{% trans "Sinistre (assurance)" %} :</span> {{ accident.sinistre|default:"-" }}</div>
+        <div><span class="label">{% trans "Numéro de sinistre (assureur)" %} :</span> {{ accident.numero_sinistre|default:"-" }}</div>
+        <div><span class="label">{% trans "Expert" %} :</span> {{ accident.expert|default:"-" }}</div>
+    </div>
+    {% if accident.tiers_details %}<p style="margin-top:6px">{{ accident.tiers_details|linebreaksbr }}</p>{% endif %}
+</div>
+
+<h2>{% trans "Pièces endommagées" %}</h2>
+{% for zone, pieces in accident.pieces_par_zone %}
+<p style="font-weight:bold;margin:6px 0 2px">{{ zone }}</p>
+<table class="mesures">
+    <thead><tr><th>{% trans "Pièce" %}</th><th>{% trans "Dommage" %}</th><th>{% trans "Gravité" %}</th><th>{% trans "Décision" %}</th><th>{% trans "Fabricant" %}</th><th class="text-right">{% trans "Qté" %}</th><th class="text-right">{% trans "Total HTVA" %}</th></tr></thead>
+    <tbody>{% for p in pieces %}
+        <tr>
+            <td>{{ p.libelle }}</td>
+            <td>{{ p.get_type_dommage_display }}</td>
+            <td>{% if p.gravite == 'GRAVE' or p.gravite == 'DETRUITE' %}<span class="not-ok">{{ p.get_gravite_display }}</span>{% else %}{{ p.get_gravite_display }}{% endif %}</td>
+            <td>{{ p.get_decision_display }}</td>
+            <td>{% if p.fabricant and p.fabricant != "CHOISIR" %}{{ p.get_fabricant_display }}{% else %}-{% endif %}</td>
+            <td class="text-right">{{ p.quantite }}</td>
+            <td class="text-right">{{ p.total|floatformat:2 }} €</td>
+        </tr>{% endfor %}
+    </tbody>
+</table>
+{% empty %}
+<p>{% trans "Aucune pièce endommagée renseignée." %}</p>
+{% endfor %}
+
+<h2>{% trans "Conclusion" %}</h2>
+<div class="box">
+    <div><span class="label">{% trans "Décision" %} :</span> {{ accident.get_decision_display }}</div>
+    <div><span class="label">{% trans "Contrôles à prévoir" %} :</span>
+        {% if accident.geometrie_a_controler %}{% trans "Géométrie" %} · {% endif %}{% if accident.marbre_a_controler %}{% trans "Marbre (cotes châssis)" %} · {% endif %}{% if accident.recalibrage_necessaire %}{% trans "Recalibrage des aides à la conduite" %}{% endif %}
+    </div>
+</div>
+
+<h2>{% trans "Chiffrage" %}</h2>
+<div class="box">
+    <table class="table-2-cols">
+        <tr><td class="text-right">{% trans "Total pièces HTVA" %}</td><td class="text-right">{{ rapport.total_general|default:0|floatformat:2 }} €</td></tr>
+        <tr><td class="text-right">{% trans "Temps" %}</td><td class="text-right">{{ accident.temps_main_oeuvre_display }}</td></tr>
+        <tr class="total"><td class="text-right"><strong>{% trans "Main-d'œuvre HTVA" %}</strong></td><td class="text-right"><strong>{{ accident.cout_main_oeuvre|default:0|floatformat:2 }} €</strong></td></tr>
+        <tr class="total-general"><td class="text-right"><strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong></td><td class="text-right"><strong>{{ accident.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €</strong></td></tr>
+    </table>
+</div>
+
+{% include "piece/stock/_pieces_utilisees_pdf.html" with maintenance=accident.maintenance %}
+
+<h2>{% trans "Remarques" %}</h2>
+<div class="box">{{ accident.remarques|default:_("Aucune remarque.") }}</div>
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}<br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+</body>
+</html>

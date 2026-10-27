@@ -65715,3 +65715,1267 @@ msgid "Elles sont liées à %(n)s véhicule : le lien sera retiré."
 msgid_plural "Elles sont liées à %(n)s véhicules : les liens seront retirés."
 msgstr[0] "They are linked to %(n)s vehicle: the link will be removed."
 msgstr[1] "They are linked to %(n)s vehicles: the links will be removed."
+
+msgid "Référence jante avant / n° OEM"
+msgstr "Front wheel reference / OEM no."
+
+msgid "Référence jante arrière / n° OEM"
+msgstr "Rear wheel reference / OEM no."
+
+msgid "Profil du rebord avant"
+msgstr "Front rim flange profile"
+
+msgid "Profil du rebord arrière"
+msgstr "Rear rim flange profile"
+
+msgid "Poids jante avant (kg)"
+msgstr "Front wheel weight (kg)"
+
+msgid "Poids jante arrière (kg)"
+msgstr "Rear wheel weight (kg)"
+
+msgid "Poids du jeu (kg)"
+msgstr "Set weight (kg)"
+
+msgid "Jante avant"
+msgstr "Front wheel"
+
+msgid "Jante arrière"
+msgstr "Rear wheel"
+
+msgid "Jantes avant et arrière identiques"
+msgstr "Identical front and rear wheels"
+
+msgid "Après cartographie"
+msgstr "After remap"
+
+msgid "Aucune (non corrigée)"
+msgstr "None (uncorrected)"
+
+msgid "Aucune courbe jointe."
+msgstr "No curve attached."
+
+msgid "Banc de puissance"
+msgstr "Dyno"
+
+msgid "Banc moteur"
+msgstr "Engine dyno"
+
+msgid "Banc à moyeux"
+msgstr "Hub dyno"
+
+msgid "Banc à rouleaux (inertiel)"
+msgstr "Roller dyno (inertia)"
+
+msgid "Banc à rouleaux à frein (charge)"
+msgstr "Roller dyno with brake (load)"
+
+msgid "Calculateur (ECU / TCU)"
+msgstr "Control unit (ECU / TCU)"
+
+msgid "Carburant course"
+msgstr "Race fuel"
+
+msgid "Cartographie"
+msgstr "Remap"
+
+msgid "Cartographie réalisée"
+msgstr "Remap performed"
+
+msgid "Conditions"
+msgstr "Conditions"
+
+msgid "Conditions de mesure"
+msgstr "Measuring conditions"
+
+msgid "Couple maximal"
+msgstr "Maximum torque"
+
+msgid "Couple maximal (Nm)"
+msgstr "Maximum torque (Nm)"
+
+msgid "Courbes (PDF, 10 Mo max.)"
+msgstr "Curves (PDF, 10 MB max.)"
+
+msgid "Courbes après cartographie"
+msgstr "Curves after remap"
+
+msgid "Courbes et valeurs après cartographie"
+msgstr "Curves and values after remap"
+
+msgid "Courbes et valeurs sans cartographie"
+msgstr "Curves and values without remap"
+
+msgid "Courbes sans cartographie"
+msgstr "Curves without remap"
+
+msgid "Coûts"
+msgstr "Costs"
+
+msgid "Date du passage au banc"
+msgstr "Dyno run date"
+
+msgid "Détails du passage au banc"
+msgstr "Dyno run details"
+
+msgid "Fichier actuel"
+msgstr "Current file"
+
+msgid "Gain"
+msgstr "Gain"
+
+msgid "Gain de la cartographie"
+msgstr "Remap gain"
+
+msgid "Humidité (%)"
+msgstr "Humidity (%)"
+
+msgid "Indiquez au moins une puissance ou joignez une courbe."
+msgstr "Enter at least one power figure or attach a curve."
+
+msgid "Kilométrage au passage au banc"
+msgstr "Mileage at dyno run"
+
+msgid "La puissance aux roues ne peut pas dépasser la puissance moteur."
+msgstr "Wheel power cannot exceed engine power."
+
+msgid "Les courbes du banc sont jointes séparément (PDF) dans la fiche du passage au banc."
+msgstr "Dyno curves are attached separately (PDF) in the dyno run record."
+
+msgid "Lieu / préparateur du banc"
+msgstr "Dyno location / tuner"
+
+msgid "Liste des passages au banc"
+msgstr "Dyno run list"
+
+msgid "Marque du banc"
+msgstr "Dyno brand"
+
+msgid "Modification du passage au banc"
+msgstr "Dyno run update"
+
+msgid "Modifier le passage au banc"
+msgstr "Edit dyno run"
+
+msgid "Niveau de cartographie"
+msgstr "Remap level"
+
+msgid "Norme de correction"
+msgstr "Correction standard"
+
+msgid "Outil / logiciel"
+msgstr "Tool / software"
+
+msgid "Ouvrir le PDF"
+msgstr "Open PDF"
+
+msgid "PDF uniquement, 10 Mo maximum."
+msgstr "PDF only, 10 MB maximum."
+
+msgid "Passage au banc"
+msgstr "Dyno run"
+
+msgid "Passage au banc enregistré avec succès."
+msgstr "Dyno run saved successfully."
+
+msgid "Passage au banc modifié avec succès !"
+msgstr "Dyno run updated successfully!"
+
+msgid "Passage au banc supprimé avec succès."
+msgstr "Dyno run deleted successfully."
+
+msgid "PassageBanc"
+msgstr "DynoRun"
+
+msgid "Passages au banc de puissance"
+msgstr "Dyno runs"
+
+msgid "Pertes de transmission estimées"
+msgstr "Estimated drivetrain losses"
+
+msgid "Pression atmosphérique (hPa)"
+msgstr "Atmospheric pressure (hPa)"
+
+msgid "Prix de la cartographie HTVA"
+msgstr "Remap price excl. VAT"
+
+msgid "Prix du passage au banc HTVA"
+msgstr "Dyno run price excl. VAT"
+
+msgid "Préparateur / programmeur"
+msgstr "Tuner / programmer"
+
+msgid "Puissance aux roues"
+msgstr "Wheel power"
+
+msgid "Puissance aux roues (ch)"
+msgstr "Wheel power (hp)"
+
+msgid "Puissance maximale"
+msgstr "Maximum power"
+
+msgid "Puissance maximale (ch)"
+msgstr "Maximum power (hp)"
+
+msgid "Puissance, couple, cartographie"
+msgstr "Power, torque, remap"
+
+msgid "Rapport de boîte utilisé"
+msgstr "Gear used"
+
+msgid "Rapport de passage au banc de puissance"
+msgstr "Dyno run report"
+
+msgid "Retour à l'origine"
+msgstr "Back to stock"
+
+msgid "Retour à la liste des passages au banc"
+msgstr "Back to the dyno run list"
+
+msgid "Réalisé"
+msgstr "Done"
+
+msgid "Régime de couple maxi (tr/min)"
+msgstr "Max torque rpm"
+
+msgid "Régime de puissance maxi (tr/min)"
+msgstr "Max power rpm"
+
+msgid "Résultats du banc de puissance"
+msgstr "Dyno results"
+
+msgid "Sans cartographie"
+msgstr "Without remap"
+
+msgid "Sans plomb 95"
+msgstr "Unleaded 95"
+
+msgid "Sans plomb 95 E10"
+msgstr "Unleaded 95 E10"
+
+msgid "Sans plomb 98"
+msgstr "Unleaded 98"
+
+msgid "Stage 1"
+msgstr "Stage 1"
+
+msgid "Stage 2"
+msgstr "Stage 2"
+
+msgid "Stage 3"
+msgstr "Stage 3"
+
+msgid "Super 100 / 102"
+msgstr "Super 100 / 102"
+
+msgid "Suppression du passage au banc"
+msgstr "Dyno run deletion"
+
+msgid "Supprimer le fichier"
+msgstr "Delete file"
+
+msgid "Supprimer le passage au banc"
+msgstr "Delete dyno run"
+
+msgid "Sur mesure"
+msgstr "Custom"
+
+msgid "Température ambiante (°C)"
+msgstr "Ambient temperature (°C)"
+
+msgid "Type de banc"
+msgstr "Dyno type"
+
+#, python-format
+msgid "Voulez-vous vraiment supprimer le passage au banc du %(date)s (%(km)s km) pour :"
+msgstr "Do you really want to delete the dyno run of %(date)s (%(km)s km) for:"
+
+msgid "Éco / optimisation consommation"
+msgstr "Eco / fuel economy"
+
+msgid "Aucun bilan du comptable n'a été introduit : le bilan est établi uniquement à partir des écritures de l'application."
+msgstr "No accountant's balance sheet has been entered: the balance sheet is based only on the application's entries."
+
+msgid "Aucun bilan introduit."
+msgstr "No balance sheet entered."
+
+#, python-format
+msgid "Base : bilan du comptable au 31/12/%(r)s, complété par les écritures de l'application."
+msgstr "Basis: accountant's balance sheet at 31/12/%(r)s, supplemented by the application's entries."
+
+#, python-format
+msgid "Base : dernier bilan du comptable au 31/12/%(r)s, complété par les écritures de l'application jusqu'au 31/12/%(a)s."
+msgstr "Basis: latest accountant's balance sheet at 31/12/%(r)s, supplemented by the application's entries up to 31/12/%(a)s."
+
+msgid "Bilan"
+msgstr "Balance sheet"
+
+msgid "Bilan de référence"
+msgstr "Reference balance sheet"
+
+#, python-format
+msgid "Bilan du comptable au 31/12/%(a)s"
+msgstr "Accountant's balance sheet at 31/12/%(a)s"
+
+msgid "Bilans de référence"
+msgstr "Reference balance sheets"
+
+msgid "Bénéfice (Perte) d'exploitation"
+msgstr "Operating profit (loss)"
+
+msgid "Bénéfice (Perte) de l'exercice avant impôts"
+msgstr "Profit (loss) for the period before taxes"
+
+msgid "COMPTE DE RÉSULTATS (facultatif)"
+msgstr "INCOME STATEMENT (optional)"
+
+msgid "Ce bilan est généré automatiquement à partir des données de l'application. Il ne remplace pas les comptes annuels officiels et doit être vérifié par un comptable ou un expert-comptable (ITAA) avant toute utilisation ou tout dépôt à la BNB."
+msgstr "This balance sheet is generated automatically from the application's data. It does not replace the official annual accounts and must be checked by an accountant or certified accountant (ITAA) before any use or filing with the NBB."
+
+msgid "Date de dépôt à la BNB"
+msgstr "NBB filing date"
+
+msgid "Dernier bilan (comptable)"
+msgstr "Latest balance sheet (accountant)"
+
+msgid "Dernier bilan du comptable"
+msgstr "Accountant's latest balance sheet"
+
+msgid "Derniers bilans du comptable"
+msgstr "Accountant's balance sheets"
+
+msgid "Document indicatif – à faire vérifier par un comptable"
+msgstr "Indicative document – to be checked by an accountant"
+
+msgid "Document à titre indicatif"
+msgstr "Indicative document"
+
+msgid "Dépôt BNB"
+msgstr "NBB filing"
+
+#, python-format
+msgid "Exercice %(a)s : montants du bilan établi par le comptable (%(s)s), introduits dans l'application."
+msgstr "Financial year %(a)s: amounts of the balance sheet prepared by the accountant (%(s)s), entered in the application."
+
+#, python-format
+msgid "Exercice %(a)s : montants du bilan établi par le comptable."
+msgstr "Financial year %(a)s: amounts of the balance sheet prepared by the accountant."
+
+msgid "Exercice clôturé au 31/12 de"
+msgstr "Financial year closed on 31/12 of"
+
+msgid "Exercice invalide."
+msgstr "Invalid financial year."
+
+msgid "Indiquez au moins un montant."
+msgstr "Enter at least one amount."
+
+msgid "Introduire le dernier bilan"
+msgstr "Enter the latest balance sheet"
+
+msgid "Introduire le dernier bilan du comptable"
+msgstr "Enter the accountant's latest balance sheet"
+
+msgid "Introduire un bilan"
+msgstr "Enter a balance sheet"
+
+msgid "Introduisez ici le dernier bilan établi par votre comptable (rubriques des comptes annuels). Il sert de base : les bilans des exercices suivants partent de ces montants et y ajoutent les écritures de l'application."
+msgstr "Enter here the latest balance sheet prepared by your accountant (annual accounts headings). It serves as a basis: the balance sheets of the following years start from these amounts and add the application's entries."
+
+#, python-format
+msgid "Le bilan %(annee)s a été enregistré. Il sert de base aux bilans suivants."
+msgstr "The %(annee)s balance sheet has been saved. It serves as the basis for the following balance sheets."
+
+msgid "Le bilan de référence a été supprimé."
+msgstr "The reference balance sheet has been deleted."
+
+#, python-format
+msgid "Le bilan n'est pas équilibré : total actif – total passif = %(e)s €."
+msgstr "The balance sheet does not balance: total assets – total liabilities = %(e)s €."
+
+msgid "Marge brute d'exploitation"
+msgstr "Gross operating margin"
+
+msgid "Montants par rubrique"
+msgstr "Amounts per heading"
+
+msgid "Recopiez les montants des comptes annuels établis par votre comptable (en euros, après répartition du résultat comme dans le dépôt BNB). Laissez vide les rubriques sans montant. Le total de l'actif doit être égal au total du passif."
+msgstr "Copy the amounts from the annual accounts prepared by your accountant (in euros, after appropriation of the result as in the NBB filing). Leave headings without an amount empty. Total assets must equal total liabilities."
+
+msgid "Rubrique"
+msgstr "Heading"
+
+msgid "Schéma abrégé"
+msgstr "Abbreviated format"
+
+msgid "Schéma complet"
+msgstr "Full format"
+
+msgid "Supprimer le bilan de référence"
+msgstr "Delete the reference balance sheet"
+
+msgid "Un bilan de référence existe déjà pour cet exercice."
+msgstr "A reference balance sheet already exists for this financial year."
+
+msgid "Voir le bilan de référence"
+msgstr "View the reference balance sheet"
+
+msgid "indicatif"
+msgstr "indicative"
+
+msgid "Écart actif – passif :"
+msgstr "Assets – liabilities difference:"
+
+msgid "Établi par"
+msgstr "Prepared by"
+
+msgid "Établi par (comptable / fiduciaire)"
+msgstr "Prepared by (accountant / firm)"
+
+msgid "écritures prises en compte"
+msgstr "entries taken into account"
+
+#, python-format
+msgid "%(n)s véhicule(s) ajouté(s) au Trackday."
+msgstr "%(n)s vehicle(s) added to the Trackday."
+
+msgid "Ajouter un coût"
+msgstr "Add a cost"
+
+msgid "Aucun Trackday sur l'année."
+msgstr "No Trackday this year."
+
+msgid "Aucun Trackday."
+msgstr "No Trackday."
+
+msgid "Aucun box disponible pour ce Trackday."
+msgstr "No box available for this Trackday."
+
+msgid "Aucun coût saisi."
+msgstr "No cost entered."
+
+msgid "Aucun véhicule engagé pour l'instant."
+msgstr "No vehicle entered yet."
+
+msgid "Aucune vente."
+msgstr "No sales."
+
+#, python-format
+msgid "Box (1 à %(n)s)"
+msgstr "Boxes (1 to %(n)s)"
+
+msgid "Box / paddock"
+msgstr "Box / paddock"
+
+msgid "Box disponibles : 1 à"
+msgstr "Available boxes: 1 to"
+
+msgid "Box utilisés"
+msgstr "Boxes used"
+
+msgid "Chaque véhicule d'un Trackday est une location : il est compté dans les ventes du vendeur indiqué sur la location."
+msgstr "Each Trackday vehicle is a rental: it counts in the sales of the salesperson set on the rental."
+
+msgid "Chiffres clés"
+msgstr "Key figures"
+
+msgid "Coût du Trackday"
+msgstr "Trackday cost"
+
+msgid "Coût par véhicule"
+msgstr "Cost per vehicle"
+
+msgid "Coûts HTVA"
+msgstr "Costs excl. VAT"
+
+msgid "Coûts du Trackday"
+msgstr "Trackday costs"
+
+msgid "En piste"
+msgstr "On track"
+
+msgid "Facultatif : nombre maximum de véhicules engagés."
+msgstr "Optional: maximum number of vehicles."
+
+msgid "Facultatif : rattache la location à un Trackday (ventes et rentabilité)."
+msgstr "Optional: links the rental to a Trackday (sales and profitability)."
+
+msgid "Facultatif, ex. : « Trackday d'automne »."
+msgstr "Optional, e.g. “Autumn Trackday”."
+
+msgid "Imprimer"
+msgstr "Print"
+
+msgid "Kilomètres réservés"
+msgstr "Kilometres booked"
+
+msgid "Kilométrage actuel du véhicule (sortie non encore validée)"
+msgstr "Current vehicle mileage (departure not yet validated)"
+
+msgid "Km départ"
+msgstr "Departure km"
+
+msgid "Km départ : kilométrage relevé à la sortie du véhicule (agenda). * : kilométrage actuel tant que la sortie n'est pas validée."
+msgstr "Departure km: mileage recorded when the vehicle leaves (calendar). *: current mileage until the departure is validated."
+
+#, python-format
+msgid "Le Trackday ne compte que %(n)s box (1 à %(n)s)."
+msgstr "The Trackday only has %(n)s boxes (1 to %(n)s)."
+
+#, python-format
+msgid "Le box n° %(b)s est déjà attribué : indiquez au moins %(b)s box."
+msgstr "Box no. %(b)s is already assigned: enter at least %(b)s boxes."
+
+#, python-format
+msgid "Le numéro %(n)s est déjà attribué à %(v)s."
+msgstr "Number %(n)s is already assigned to %(v)s."
+
+#, python-format
+msgid "Le numéro de course %(n)s est utilisé plusieurs fois."
+msgstr "Race number %(n)s is used more than once."
+
+msgid "Les box des locations du Trackday sont numérotés de 1 à ce nombre."
+msgstr "Trackday rental boxes are numbered from 1 to this number."
+
+msgid "Les locations (ventes et factures) sont conservées : elles ne sont simplement plus rattachées au Trackday. Les numéros de course sont retirés."
+msgstr "Rentals (sales and invoices) are kept: they are simply no longer linked to the Trackday. Race numbers are removed."
+
+msgid "Liste d'affichage (numéros)"
+msgstr "Display list (numbers)"
+
+msgid "Location du circuit"
+msgstr "Circuit rental"
+
+msgid "Location du circuit, box, assurance, personnel, carburant… Ces coûts servent au calcul de rentabilité."
+msgstr "Circuit rental, boxes, insurance, staff, fuel… These costs are used to calculate profitability."
+
+msgid "Marge"
+msgstr "Margin"
+
+msgid "Modification du Trackday"
+msgstr "Trackday update"
+
+msgid "Modifier le Trackday"
+msgstr "Edit Trackday"
+
+msgid "Montant HTVA (€)"
+msgstr "Amount excl. VAT (€)"
+
+msgid "Nom de l'événement"
+msgstr "Event name"
+
+msgid "Nombre de box disponibles"
+msgstr "Number of boxes available"
+
+msgid "Nouveau Trackday"
+msgstr "New Trackday"
+
+msgid "Numéro affiché sur le véhicule (1 à 200)."
+msgstr "Number shown on the vehicle (1 to 200)."
+
+msgid "Numéro affiché sur le véhicule pendant le Trackday (1 à 200)."
+msgstr "Number shown on the vehicle during the Trackday (1 to 200)."
+
+msgid "Numéro de course"
+msgstr "Race number"
+
+msgid "Numéros déjà attribués"
+msgstr "Numbers already assigned"
+
+msgid "Organisateur"
+msgstr "Organiser"
+
+msgid "Panier moyen HTVA"
+msgstr "Average basket excl. VAT"
+
+msgid "Personnel / instructeurs"
+msgstr "Staff / instructors"
+
+msgid "Photo / vidéo"
+msgstr "Photo / video"
+
+msgid "Pilote 1"
+msgstr "Driver 1"
+
+msgid "Pilote 2"
+msgstr "Driver 2"
+
+msgid "Places véhicules"
+msgstr "Vehicle places"
+
+msgid "Prix d'achat (coûts HTVA)"
+msgstr "Purchase price (costs excl. VAT)"
+
+msgid "Prix d'achat (coûts du Trackday, HTVA)"
+msgstr "Purchase price (Trackday costs, excl. VAT)"
+
+msgid "Prix d'achat total HTVA"
+msgstr "Total purchase price excl. VAT"
+
+msgid "Rentabilité par Trackday"
+msgstr "Profitability per Trackday"
+
+msgid "Rentré"
+msgstr "Returned"
+
+msgid "Restauration / hospitalité"
+msgstr "Catering / hospitality"
+
+msgid "Retour aux Trackdays"
+msgstr "Back to Trackdays"
+
+msgid "Réservé"
+msgstr "Booked"
+
+msgid "Seuil de rentabilité"
+msgstr "Break-even point"
+
+msgid "Statistiques Trackday"
+msgstr "Trackday statistics"
+
+msgid "Supprimer le Trackday"
+msgstr "Delete Trackday"
+
+#, python-format
+msgid "Synthèse %(annee)s"
+msgstr "Summary %(annee)s"
+
+msgid "Sécurité / commissaires / médical"
+msgstr "Safety / marshals / medical"
+
+msgid "Tours réservés"
+msgstr "Laps booked"
+
+msgid "Trackday"
+msgstr "Trackday"
+
+msgid "Trackday supprimé. Les locations sont conservées."
+msgstr "Trackday deleted. Rentals are kept."
+
+#, python-format
+msgid "Trackday « %(t)s » enregistré."
+msgstr "Trackday “%(t)s” saved."
+
+msgid "Trackdays"
+msgstr "Trackdays"
+
+msgid "Transport / camion"
+msgstr "Transport / truck"
+
+msgid "Ventes HTVA"
+msgstr "Sales excl. VAT"
+
+msgid "Ventes HTVA par mois"
+msgstr "Sales excl. VAT per month"
+
+msgid "Ventes TVAC"
+msgstr "Sales incl. VAT"
+
+msgid "Ventes des Trackdays"
+msgstr "Trackday sales"
+
+msgid "Vide : une seule journée."
+msgstr "Empty: a single day."
+
+msgid "Véhicules engagés"
+msgstr "Vehicles entered"
+
+msgid "Véhicules par Trackday"
+msgstr "Vehicles per Trackday"
+
+msgid "libre"
+msgstr "free"
+
+msgid "véh."
+msgstr "veh."
+
+msgid "véhicules"
+msgstr "vehicles"
+
+msgid "Événement"
+msgstr "Event"
+
+msgid "à venir"
+msgstr "upcoming"
+
+#, python-format
+msgid "%(n)s véhicule sans numéro de course."
+msgid_plural "%(n)s véhicules sans numéro de course."
+msgstr[0] "%(n)s vehicle without a race number."
+msgstr[1] "%(n)s vehicles without a race number."
+
+msgid "Accident sur piste / en compétition"
+msgstr "Accident on track / in competition"
+
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ rapports"
+msgstr "Showing _START_ to _END_ of _TOTAL_ reports"
+
+msgid "Aides à la conduite (capteurs, radar, caméra)"
+msgstr "Driver assistance (sensors, radar, camera)"
+
+msgid "Airbag / prétensionneur"
+msgstr "Airbag / pretensioner"
+
+msgid "Airbags déployés"
+msgstr "Airbags deployed"
+
+msgid "Ajouter un demi-train complet à contrôler"
+msgstr "Add a complete corner to check"
+
+msgid "Amortisseur, triangles, fusée, roulement, capteur ABS, biellette et rotule de direction, biellette de barre stabilisatrice, cardan (décision « À contrôler »)."
+msgstr "Shock absorber, wishbones, knuckle, bearing, ABS sensor, tie rod and tie rod end, anti-roll bar link, driveshaft (decision “To check”)."
+
+msgid "Angle arrière droit"
+msgstr "Rear right corner"
+
+msgid "Angle arrière gauche"
+msgstr "Rear left corner"
+
+msgid "Angle avant droit"
+msgstr "Front right corner"
+
+msgid "Angle avant gauche"
+msgstr "Front left corner"
+
+msgid "Arraché"
+msgstr "Torn off"
+
+msgid "Aucun rapport d’accident enregistré pour cet exemplaire."
+msgstr "No accident report recorded for this vehicle."
+
+msgid "Aucun rapport trouvé"
+msgstr "No report found"
+
+msgid "Aucune pièce endommagée renseignée."
+msgstr "No damaged part entered."
+
+msgid "Autre pièce (à préciser)"
+msgstr "Other part (specify)"
+
+msgid "Berceau / traverse de train"
+msgstr "Subframe / axle crossmember"
+
+msgid "Biellette de direction"
+msgstr "Tie rod"
+
+msgid "Bras de suspension / bras tiré"
+msgstr "Suspension arm / trailing arm"
+
+msgid "Calculateur"
+msgstr "Control unit"
+
+msgid "Caméra"
+msgstr "Camera"
+
+msgid "Capteur de stationnement"
+msgstr "Parking sensor"
+
+msgid "Cardan / arbre de roue"
+msgstr "Driveshaft / half shaft"
+
+msgid "Cardans / transmission"
+msgstr "Driveshafts / transmission"
+
+msgid "Cassé / rompu"
+msgstr "Broken"
+
+msgid "Choc arrière"
+msgstr "Rear impact"
+
+msgid "Choc frontal"
+msgstr "Frontal impact"
+
+msgid "Choc latéral droit"
+msgstr "Right side impact"
+
+msgid "Choc latéral gauche"
+msgstr "Left side impact"
+
+msgid "Choc sous caisse"
+msgstr "Underbody impact"
+
+msgid "Châssis / structure"
+msgstr "Chassis / structure"
+
+msgid "Circonstances de l'accident"
+msgstr "Accident circumstances"
+
+msgid "Conclusion"
+msgstr "Conclusion"
+
+msgid "Condenseur de climatisation"
+msgstr "A/C condenser"
+
+msgid "Conducteur / pilote"
+msgstr "Driver"
+
+msgid "Connecteur"
+msgstr "Connector"
+
+msgid "Constat amiable rédigé"
+msgstr "Accident report form completed"
+
+msgid "Contrôle au marbre (cotes châssis)"
+msgstr "Frame bench check (chassis dimensions)"
+
+msgid "Contrôles et décision"
+msgstr "Checks and decision"
+
+msgid "Contrôles à prévoir"
+msgstr "Checks to plan"
+
+msgid "Cotes du châssis (marbre)"
+msgstr "Chassis dimensions (frame bench)"
+
+msgid "Coupelle / butée d'amortisseur"
+msgstr "Strut mount / bump stop"
+
+msgid "Crémaillère / boîtier de direction"
+msgstr "Steering rack / box"
+
+msgid "Câblage / faisceau"
+msgstr "Wiring / harness"
+
+msgid "Date de l'accident"
+msgstr "Accident date"
+
+msgid "Demi-train"
+msgstr "Corner"
+
+msgid "Demi-train arrière droit"
+msgstr "Rear right corner (suspension)"
+
+msgid "Demi-train arrière gauche"
+msgstr "Rear left corner (suspension)"
+
+msgid "Demi-train avant droit"
+msgstr "Front right corner (suspension)"
+
+msgid "Demi-train avant gauche"
+msgstr "Front left corner (suspension)"
+
+msgid "Différentiel / pont"
+msgstr "Differential / axle"
+
+msgid "Disque de frein"
+msgstr "Brake disc"
+
+msgid "Défaut électrique / code défaut"
+msgstr "Electrical fault / fault code"
+
+msgid "Déroulement, conditions (pluie, nuit…), trajectoire…"
+msgstr "Sequence of events, conditions (rain, night…), trajectory…"
+
+msgid "Déréglé / décalibré"
+msgstr "Misaligned / out of calibration"
+
+msgid "En attente (devis / expertise)"
+msgstr "Pending (quote / assessment)"
+
+msgid "Enfoncé / écrasé"
+msgstr "Dented / crushed"
+
+msgid "Expert"
+msgstr "Assessor"
+
+msgid "Expertise demandée"
+msgstr "Assessment requested"
+
+msgid "Feu arrière"
+msgstr "Rear light"
+
+msgid "Fissuré"
+msgstr "Cracked"
+
+msgid "Flexible / conduite de frein"
+msgstr "Brake hose / line"
+
+msgid "Fond plat / protection sous caisse"
+msgstr "Flat floor / underbody protection"
+
+msgid "Fusée / porte-moyeu"
+msgstr "Steering knuckle / hub carrier"
+
+msgid "Géométrie à contrôler"
+msgstr "Wheel alignment to check"
+
+msgid "Heure"
+msgstr "Time"
+
+msgid "Joint homocinétique"
+msgstr "CV joint"
+
+msgid "Longeron"
+msgstr "Chassis rail"
+
+msgid "Marbre (cotes châssis)"
+msgstr "Frame bench (chassis dimensions)"
+
+msgid "Modification du rapport d’accident"
+msgstr "Accident report update"
+
+msgid "Moteur / boîte"
+msgstr "Engine / gearbox"
+
+msgid "Nid-de-poule / obstacle sur la chaussée"
+msgstr "Pothole / road obstacle"
+
+msgid "Non roulant"
+msgstr "Not drivable"
+
+msgid "Personne(s) blessée(s)"
+msgstr "Person(s) injured"
+
+msgid "Perte totale (VEI / épave)"
+msgstr "Total loss (write-off)"
+
+msgid "Phare / feu avant"
+msgstr "Headlight"
+
+msgid "Pièce endommagée"
+msgstr "Damaged part"
+
+msgid "Pièces endommagées"
+msgstr "Damaged parts"
+
+msgid "Pièces endommagées par zone"
+msgstr "Damaged parts by area"
+
+msgid "Plancher"
+msgstr "Floor pan"
+
+msgid "Procès-verbal de police"
+msgstr "Police report"
+
+msgid "Radar de collision / ACC"
+msgstr "Collision radar / ACC"
+
+msgid "Rapport d'accident"
+msgstr "Accident report"
+
+msgid "Rapport d'accident enregistré avec succès."
+msgstr "Accident report saved successfully."
+
+msgid "Rapport d'accident modifié avec succès !"
+msgstr "Accident report updated successfully!"
+
+msgid "Rapport d'accident supprimé avec succès."
+msgstr "Accident report deleted successfully."
+
+msgid "Rapport d’accident"
+msgstr "Accident report"
+
+msgid "Rapports d'accident"
+msgstr "Accident reports"
+
+msgid "Rayé / frotté"
+msgstr "Scratched / scuffed"
+
+msgid "Recalibrage des aides à la conduite"
+msgstr "Driver assistance recalibration"
+
+msgid "Réparation partielle / provisoire"
+msgstr "Partial / temporary repair"
+
+msgid "Réparé / redressé"
+msgstr "Repaired / straightened"
+
+msgid "Sectionné / coupé"
+msgstr "Severed / cut"
+
+msgid "Sinistre (assurance)"
+msgstr "Claim (insurance)"
+
+msgid "Sortie de piste (bac, rail, mur)"
+msgstr "Off track (gravel, barrier, wall)"
+
+msgid "Soufflet de cardan"
+msgstr "CV boot"
+
+msgid "Suppression du rapport d’accident"
+msgstr "Accident report deletion"
+
+msgid "Tiers (nom, immatriculation, assureur)"
+msgstr "Third party (name, plate, insurer)"
+
+msgid "Tiers et assurance"
+msgstr "Third party and insurance"
+
+msgid "Tiers impliqué"
+msgstr "Third party involved"
+
+msgid "Tonneau / retournement"
+msgstr "Rollover"
+
+msgid "Tordu / déformé / voilé"
+msgstr "Bent / deformed / warped"
+
+msgid "Tour d'amortisseur / passage de roue"
+msgstr "Strut tower / wheel arch"
+
+msgid "Train / suspension / direction"
+msgstr "Axle / suspension / steering"
+
+msgid "Trains, châssis, moteur, cardans, électronique"
+msgstr "Axles, chassis, engine, driveshafts, electronics"
+
+msgid "Traverse"
+msgstr "Crossmember"
+
+msgid "Triangle inférieur"
+msgstr "Lower wishbone"
+
+msgid "Triangle supérieur"
+msgstr "Upper wishbone"
+
+msgid "Trottoir / bordure / vibreur"
+msgstr "Kerb / curb / rumble strip"
+
+msgid "Type de choc"
+msgstr "Impact type"
+
+msgid "Une ligne par pièce touchée, avec sa zone (demi-train avant / arrière, gauche / droit, châssis, moteur, cardans, électricité…). Les pièces à remplacer, réparer ou recalibrer avec une quantité et un prix sont reprises dans le chiffrage."
+msgstr "One line per affected part, with its area (front / rear corner, left / right, chassis, engine, driveshafts, electrics…). Parts to replace, repair or recalibrate with a quantity and a price are included in the estimate."
+
+msgid "Vitesse estimée (km/h)"
+msgstr "Estimated speed (km/h)"
+
+msgid "Véhicule destiné aux pièces"
+msgstr "Vehicle for parts"
+
+msgid "Véhicule roulant après l'accident"
+msgstr "Vehicle drivable after the accident"
+
+msgid "Zone"
+msgstr "Area"
+
+msgid "graves"
+msgstr "serious"
+
+msgid "piste"
+msgstr "track"
+
+msgid "À recalibrer"
+msgstr "To recalibrate"
+
+msgid "À réparer / redresser"
+msgstr "To repair / straighten"
+
+msgid "Électricité / aides à la conduite"
+msgstr "Electrics / driver assistance"
+
+msgid "Électricité / électronique"
+msgstr "Electrics / electronics"
+
+msgid "Étrier de frein"
+msgstr "Brake caliper"
+
+msgid "Notre société"
+msgstr "Our company"
+
+msgid "notre société"
+msgstr "our company"
+
+msgid "Propriétaire (personne)"
+msgstr "Owner (person)"
+
+msgid "Société partenaire"
+msgstr "Partner company"
+
+msgid "Sociétés partenaires"
+msgstr "Partner companies"
+
+msgid "Type de propriétaire"
+msgstr "Owner type"
+
+msgid "Part (%)"
+msgstr "Share (%)"
+
+msgid "Part (%%)"
+msgstr "Share (%%)"
+
+msgid "Marge pièces (%%)"
+msgstr "Parts markup (%%)"
+
+msgid "Marge main-d'œuvre (%%)"
+msgstr "Labour markup (%%)"
+
+msgid "Choisissez la société partenaire."
+msgstr "Choose the partner company."
+
+msgid "Choisissez le propriétaire."
+msgstr "Choose the owner."
+
+msgid "Total des parts > 100 %% interdit (déjà attribué : %(total)s %%, disponible : %(reste)s %%)."
+msgstr "Total shares > 100 %% not allowed (already allocated: %(total)s %%, available: %(reste)s %%)."
+
+msgid "Ce propriétaire a déjà une part sur ce véhicule : modifiez sa part."
+msgstr "This owner already has a share in this vehicle: edit their share."
+
+msgid "Clients particuliers (repris comme propriétaires)"
+msgstr "Private customers (taken over as owners)"
+
+msgid "Propriétaire invalide."
+msgstr "Invalid owner."
+
+msgid "Propriétaire introuvable."
+msgstr "Owner not found."
+
+msgid "Un même propriétaire ne peut avoir qu'une seule part."
+msgstr "The same owner can only have one share."
+
+msgid "Le total des parts (%(total)s %%) dépasse 100 %%."
+msgstr "Total shares (%(total)s %%) exceed 100 %%."
+
+msgid "Véhicule introuvable."
+msgstr "Vehicle not found."
+
+msgid "Parts enregistrées : %(total)s %% attribués. Le total doit atteindre 100 %% pour facturer par parts."
+msgstr "Shares saved: %(total)s %% allocated. The total must reach 100 %% to invoice by shares."
+
+msgid "Propriétaires du véhicule enregistrés (100 %)."
+msgstr "Vehicle owners saved (100 %)."
+
+msgid "Propriétaires du véhicule"
+msgstr "Vehicle owners"
+
+msgid "Quote-part (%)"
+msgstr "Share (%)"
+
+msgid "Part du propriétaire facturé : les montants des lignes (coût et marge) sont multipliés par ce pourcentage."
+msgstr "Share of the invoiced owner: line amounts (cost and markup) are multiplied by this percentage."
+
+msgid "Le total des parts de ce véhicule est de %(total)s %% : il doit être de 100 %% pour facturer en fonction des parts."
+msgstr "The total shares of this vehicle are %(total)s %%: they must be 100 %% to invoice by shares."
+
+msgid "Une part n'a pas de société partenaire."
+msgstr "A share has no partner company."
+
+msgid "Une part n'a pas de propriétaire."
+msgstr "A share has no owner."
+
+msgid "Ce véhicule n'a aucun propriétaire enregistré."
+msgstr "This vehicle has no registered owner."
+
+msgid "Quote-part de %(part)s %% du véhicule %(vehicule)s (copropriété)."
+msgstr "%(part)s %% share of vehicle %(vehicule)s (co-ownership)."
+
+msgid "La quote-part de la facture doit être comprise entre 0 et 100 %."
+msgstr "The invoice share must be between 0 and 100 %."
+
+msgid "Complétez les parts du véhicule (menu Direction › Propriétaires) puis recommencez."
+msgstr "Complete the vehicle shares (Management › Owners menu) and try again."
+
+msgid "Notre société est seule propriétaire : facture interne créée, sans marge (TVA des pièces récupérée)."
+msgstr "Our company is the sole owner: internal invoice created, without markup (VAT on parts recovered)."
+
+msgid "%(n)s brouillons de facture créés, un par propriétaire, chacun au pourcentage de sa part."
+msgstr "%(n)s draft invoices created, one per owner, each at the percentage of their share."
+
+msgid "%(n)s facture(s) émise(s) : %(numeros)s."
+msgstr "%(n)s invoice(s) issued: %(numeros)s."
+
+msgid "%(client)s : %(erreurs)s"
+msgstr "%(client)s: %(erreurs)s"
+
+msgid "Toutes les factures de la répartition sont déjà émises."
+msgstr "All invoices of the split are already issued."
+
+msgid "Facturation en fonction des parts"
+msgstr "Invoicing by shares"
+
+msgid "Notre société seule propriétaire (100 %%) : une facture interne, sans marge, TVA récupérée."
+msgstr "Our company sole owner (100 %%): one internal invoice, without markup, VAT recovered."
+
+msgid "Plusieurs propriétaires : une facture par propriétaire, chacune au pourcentage de sa part. Les autres propriétaires reçoivent une facture avec TVA et marges ; la part de notre société est facturée en interne, au coût."
+msgstr "Several owners: one invoice per owner, each at the percentage of their share. The other owners receive an invoice with VAT and markups; our company's share is invoiced internally, at cost."
+
+msgid "Le total des parts ne peut pas dépasser 100 %% et doit atteindre 100 %% pour facturer."
+msgstr "The total shares cannot exceed 100 %% and must reach 100 %% to invoice."
+
+msgid "Nouveau propriétaire (personne)"
+msgstr "New owner (person)"
+
+msgid "Nouvelle société partenaire"
+msgstr "New partner company"
+
+msgid "Les propriétaires, clients particuliers et sociétés déjà enregistrés sont proposés dans la liste. Un client particulier choisi est repris comme propriétaire (fiche existante réutilisée si elle existe déjà)."
+msgstr "Owners, private customers and companies already registered are listed. A selected private customer is taken over as an owner (the existing record is reused if there is one)."
+
+msgid "Enregistrer les propriétaires"
+msgstr "Save owners"
+
+msgid "Total complet : facturation par parts possible."
+msgstr "Total complete: invoicing by shares possible."
+
+msgid "Reste à attribuer :"
+msgstr "Left to allocate:"
+
+msgid "Dépassement :"
+msgstr "Excess:"
+
+msgid "Interne : au coût"
+msgstr "Internal: at cost"
+
+msgid "Propriétaires d'un véhicule"
+msgstr "Owners of a vehicle"
+
+msgid "Ajouter des propriétaires à un véhicule"
+msgstr "Add owners to a vehicle"
+
+msgid "Choisissez le véhicule : vous pourrez ensuite saisir tous ses propriétaires (notre société, personnes, sociétés partenaires) et leurs parts, jusqu'à 100 %%."
+msgstr "Choose the vehicle: you can then enter all its owners (our company, persons, partner companies) and their shares, up to 100 %%."
+
+msgid "Parts du véhicule"
+msgstr "Vehicle shares"
+
+msgid "facture interne au coût (sans marge, TVA récupérée)"
+msgstr "internal invoice at cost (no markup, VAT recovered)"
+
+msgid "facture avec TVA"
+msgstr "invoice with VAT"
+
+msgid "marge pièces"
+msgstr "parts markup"
+
+msgid "marge main-d'œuvre"
+msgstr "labour markup"
+
+msgid "Voir tous les propriétaires du véhicule"
+msgstr "See all vehicle owners"
+
+msgid "Facturation par parts"
+msgstr "Invoicing by shares"
+
+msgid "part de notre société"
+msgstr "our company's share"
+
+msgid "quote-part facturée"
+msgstr "invoiced share"
+
+msgid "Quote-part facturée"
+msgstr "Invoiced share"
+
+msgid "Facture interne : coût de revient de notre part, sans marge, TVA des pièces récupérée."
+msgstr "Internal invoice: cost price of our share, without markup, VAT on parts recovered."
+
+msgid "Coût et marge de chaque ligne calculée sont multipliés par la quote-part : le coût unitaire affiché est le coût complet, le prix unitaire est celui de la part."
+msgstr "The cost and markup of each calculated line are multiplied by the share: the unit cost shown is the full cost, the unit price is that of the share."
+
+msgid "Émettre toutes les factures brouillon de la répartition ?"
+msgstr "Issue all draft invoices of the split?"
+
+msgid "Émettre toutes les factures de la répartition"
+msgstr "Issue all invoices of the split"
+
+msgid "du véhicule (copropriété)"
+msgstr "of the vehicle (co-ownership)"
+
+msgid "Clients particuliers, clients atelier et propriétaires."
+msgstr "Private customers, workshop customers and owners."
+
+msgid "Véhicule avec des propriétaires enregistrés (Direction › Propriétaires) : une facture est créée par propriétaire, au pourcentage de sa part, quel que soit le bouton choisi. Notre société seule propriétaire : facture interne sans marge."
+msgstr "Vehicle with registered owners (Management › Owners): one invoice is created per owner, at the percentage of their share, whichever button is chosen. Our company sole owner: internal invoice without markup."
+
+msgid "Aucun propriétaire enregistré"
+msgstr "No owner registered"
