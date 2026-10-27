@@ -255,8 +255,10 @@ def parts_vehicule_view(request, exemplaire_id):
         formset = PartsFormSet(request.POST, queryset=qs, prefix="parts", societe=tenant, voiture=voiture)
         if formset.is_valid():
             with transaction.atomic():
-                for obj in formset.deleted_objects:
-                    obj.delete()
+                # Suppressions d'abord (libère les pourcentages), puis ajouts / modifications
+                for form in formset.deleted_forms:
+                    if form.instance.pk:
+                        form.instance.delete()
                 for form in formset.forms:
                     if form in formset.deleted_forms or not form.has_changed():
                         continue

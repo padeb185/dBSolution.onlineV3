@@ -248,7 +248,9 @@ class ProprietaireVoiture(models.Model):
             if not self.proprietaire_id and not getattr(self, "proprietaire_a_creer", False):
                 erreurs["proprietaire"] = _("Choisissez le propriétaire.")
         if erreurs:
-            raise ValidationError(erreurs)
+            # Erreur générale (pas liée à un champ) : les formulaires choisissent le titulaire
+            # via un champ « titulaire », sans champs proprietaire / societe_cliente
+            raise ValidationError(list(erreurs.values()))
 
         # Saisie groupée (toutes les parts du véhicule en une fois) : total et doublons vérifiés par le formset
         if getattr(self, "verifier_parts", True) and self.voiture_exemplaire_id and self.part_proprietaire_pourcent is not None:

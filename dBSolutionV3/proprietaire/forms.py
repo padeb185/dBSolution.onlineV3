@@ -156,6 +156,9 @@ class ProprietaireVoitureForm(forms.ModelForm):
         for champ in ("marge_pieces", "marge_main_oeuvre"):
             if self.cleaned_data.get(champ) is None and champ in self.cleaned_data:
                 self.cleaned_data[champ] = Decimal("0.00")
+        if not choix:
+            # Titulaire absent ou invalide : l'erreur est déjà sur le champ « Propriétaire »
+            return
         if choix:
             genre, obj = choix
             inst.proprietaire = None
