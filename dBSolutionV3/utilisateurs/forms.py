@@ -263,6 +263,11 @@ class PaieUtilisateurForm(forms.ModelForm):
         "csss",
         "double_pecule_brut",
         "double_pecule_net",
+        "treizieme_mois_brut",
+        "treizieme_mois_net",
+        "conges_jours_solde",
+        "conges_simple_pecule",
+        "conges_pecule_ouvrier_annuel",
         "salaire_net_mois",
         "cotisations_patronales",
         "reduction_structurelle",
@@ -282,7 +287,7 @@ class PaieUtilisateurForm(forms.ModelForm):
         "reduction_groupe_cible", "atn_autres", "voiture_societe",
         "voiture_valeur_catalogue", "voiture_co2", "voiture_carburant",
         "voiture_date_immatriculation", "voiture_commandee_apres_07_2023",
-        "voiture_contribution_personnelle",
+        "voiture_contribution_personnelle", "conges_jours_droit",
     ]
 
     SECTIONS = [
@@ -297,9 +302,14 @@ class PaieUtilisateurForm(forms.ModelForm):
         (_("Prestations et salaire"), [
             "salaire_brut_heure", "nombre_jours_preste", "nombre_heures_preste",
             "salaire_brut_mensuel", "heures_supplementaires", "majoration_heures_sup",
-            "taux_charges_patronales", "reduction_groupe_cible", "conges_payes",
+            "taux_charges_patronales", "reduction_groupe_cible",
         ]),
-        (_("Pécule de vacances"), ["double_pecule_ce_mois"]),
+        (_("Congés payés et pécule de vacances"), [
+            "conges_jours_droit", "conges_jours_pris", "conges_payes", "double_pecule_ce_mois",
+        ]),
+        (_("Prime de fin d'année (13e mois)"), [
+            "treizieme_mois_ce_mois", "treizieme_mois_mois_prestes", "treizieme_mois_reference",
+        ]),
         (_("Avantages en nature"), [
             "atn_autres", "voiture_societe", "voiture_valeur_catalogue", "voiture_co2",
             "voiture_carburant", "voiture_date_immatriculation",
@@ -314,6 +324,8 @@ class PaieUtilisateurForm(forms.ModelForm):
             "date_paiement",
             "double_pecule_onss",
             "double_pecule_precompte",
+            "treizieme_mois_onss",
+            "treizieme_mois_precompte",
         ]
         widgets = {
             "voiture_date_immatriculation": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
@@ -332,6 +344,12 @@ class PaieUtilisateurForm(forms.ModelForm):
         if "salaire_brut_mensuel" in self.fields:
             self.fields["salaire_brut_mensuel"].help_text = _(
                 "Calculé automatiquement (heures × taux horaire) si des heures sont saisies."
+            )
+        if "conges_payes" in self.fields:
+            self.fields["conges_payes"].label = _("Autres congés payés à charge de l'employeur")
+            self.fields["conges_payes"].help_text = _(
+                "Montant ajouté au coût total employeur (ex. pécule de vacances de sortie). "
+                "Le simple pécule des jours pris est compris dans le salaire du mois."
             )
         if "taux_charges_patronales" in self.fields:
             self.fields["taux_charges_patronales"].help_text = _(

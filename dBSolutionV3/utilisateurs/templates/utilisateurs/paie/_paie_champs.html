@@ -88,10 +88,14 @@ document.addEventListener("DOMContentLoaded", function () {
             "voiture_date_immatriculation", "voiture_commandee_apres_07_2023",
             "voiture_contribution_personnelle"
         ], voiture && voiture.checked);
-        afficher(["double_pecule_ce_mois"], !statut || statut.value === "employe");
+        afficher(["double_pecule_ce_mois", "conges_simple_pecule"], !statut || statut.value === "employe");
+        afficher(["conges_pecule_ouvrier_annuel"], !!statut && statut.value === "ouvrier");
+        const treizieme = document.getElementById("id_treizieme_mois_ce_mois");
+        afficher(["treizieme_mois_mois_prestes", "treizieme_mois_reference", "treizieme_mois_brut", "treizieme_mois_net"],
+                 !treizieme || treizieme.checked);
     }
 
-    [cp, voiture, statut].forEach(el => el && el.addEventListener("change", maj));
+    [cp, voiture, statut, document.getElementById("id_treizieme_mois_ce_mois")].forEach(el => el && el.addEventListener("change", maj));
     maj();
 });
 </script>

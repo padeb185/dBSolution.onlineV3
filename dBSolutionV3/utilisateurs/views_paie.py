@@ -452,7 +452,7 @@ def paie_comptabilite(request):
     # ---- ONSS à verser (trimestriel, fin du mois qui suit le trimestre)
     onss = OrderedDict()
     for paie in paies:
-        pp = (paie.montant_precompte or z) + (paie.double_pecule_precompte or z)
+        pp = (paie.montant_precompte or z) + (paie.double_pecule_precompte or z) + (paie.treizieme_mois_precompte or z)
         cle = paie.mois
         if cle not in precompte:
             m_suiv, a_suiv = (1, paie.annee + 1) if paie.mois == 12 else (paie.mois + 1, paie.annee)
@@ -462,7 +462,7 @@ def paie_comptabilite(request):
 
         montant_onss = (
             (paie.montant_onss or z) + (paie.csss or z) + (paie.cotisations_patronales or z)
-            + (paie.cotisation_co2 or z) + (paie.double_pecule_onss or z)
+            + (paie.cotisation_co2 or z) + (paie.double_pecule_onss or z) + (paie.treizieme_mois_onss or z)
             + ((paie.cotisations_vacances or z) if paie.statut_travailleur == "ouvrier" else z)
         )
         trimestre = (paie.mois - 1) // 3 + 1

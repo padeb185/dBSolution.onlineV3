@@ -5,7 +5,8 @@ Brut (+ heures supplémentaires) -> brut majoré (108 % ouvriers) -> ONSS
 travailleur 13,07 % – bonus à l'emploi (proratisé temps partiel)
 -> imposable (+ avantages en nature) -> précompte professionnel
 (formule-clé annexe III) -> cotisation spéciale de sécurité sociale
--> net.  Double pécule de vacances (employés) calculé à part.
+-> net.  Double pécule de vacances (employés) et prime de fin d'année
+(13e mois) calculés à part ; informations congés payés (droit, solde, simple pécule).
 Coût employeur = brut + cotisations patronales – réduction structurelle
 – réduction groupe-cible + cotisations / provision vacances
 + cotisation de solidarité CO2.
@@ -96,6 +97,17 @@ PRECOMPTE_PECULE = [  # (rémunération annuelle brute jusqu'à, taux)
     (None, D("0.5350")),
 ]
 COTISATION_VACANCES_OUVRIER = D("15.84")     # % (5,57 trim. + 10,27 annuelle) sur 108 %
+
+# ---- Congés payés (vacances annuelles)
+CONGES_JOURS_TEMPS_PLEIN = D("20")           # régime 5 jours / semaine, année complète
+SALAIRE_JOURNALIER_COEF = D("3") / D("65")   # salaire journalier = mensuel × 3 / 65 (5 jours / semaine)
+PECULE_OUVRIER_TAUX = D("15.38")             # % du brut à 108 % de l'exercice (payé par la caisse de vacances)
+
+# ---- Prime de fin d'année (13e mois)
+#   CP 200 : un salaire mensuel brut, au prorata des mois prestés / assimilés (année civile) ;
+#   CP 112 : taux horaire au 1er décembre × horaire hebdomadaire × 52 / 12, période du 01/12 au 30/11,
+#            payée au plus tard le 20 décembre (min. 3 mois d'ancienneté).
+#   Précompte : barème des allocations exceptionnelles (mêmes taux que le pécule de vacances).
 
 # ---- Réduction structurelle (catégorie 1, à partir du 01/07/2026, par trimestre)
 STRUCT_F = D("0")
@@ -279,6 +291,60 @@ def double_pecule_employe(brut_mensuel_temps_plein, fraction=D("1")):
     return {"brut": brut, "onss": onss, "precompte": precompte, "net": r2(brut - onss - precompte)}
 
 
+def taux_precompte_exceptionnel(brut_mensuel_normal):
+    """Taux du précompte des allocations exceptionnelles (pécule, 13e mois) selon le brut annuel normal."""
+    annuel = D(brut_mensuel_normal or 0) * 12
+    for plafond, t in PRECOMPTE_PECULE:
+        if plafond is None or annuel <= plafond:
+            return t
+    return PRECOMPTE_PECULE[-1][1]
+
+
+def prime_fin_annee(montant_reference, mois_prestes=12, statut="employe", brut_mensuel_normal=None):
+    """
+    Prime de fin d'année (13e mois) : référence × mois prestés / 12.
+    ONSS 13,07 % (sur 108 % pour un ouvrier, sans bonus à l'emploi), précompte des allocations exceptionnelles.
+    """
+    mois = max(0, min(12, int(mois_prestes or 0)))
+    brut = r2(D(montant_reference or 0) * mois / 12)
+    if brut <= 0:
+        return None
+    base_onss = r2(brut * COEF_BRUT_MAJORE_OUVRIER) if statut == "ouvrier" else brut
+    onss = r2(base_onss * TAUX_ONSS_TRAVAILLEUR / 100)
+    taux = taux_precompte_exceptionnel(brut_mensuel_normal if brut_mensuel_normal is not None else montant_reference)
+    precompte = r2((brut - onss) * taux)
+    return {
+        "reference": r2(montant_reference or 0),
+        "mois": mois,
+        "brut": brut,
+        "base_onss": base_onss,
+        "onss": onss,
+        "taux_precompte": r2(taux * 100),
+        "precompte": precompte,
+        "net": r2(brut - onss - precompte),
+    }
+
+
+def conges_payes(statut, brut_mensuel, jours_pris=0, jours_droit=None, fraction=D("1"), brut_majore=None):
+    """
+    Informations congés payés du mois :
+      - employé : simple pécule = salaire maintenu des jours pris (compris dans le salaire du mois) ;
+      - ouvrier : jours payés par la caisse de vacances (pécule simple + double ≈ 15,38 % du brut à 108 %
+        de l'année précédente) — estimation annuelle sur la base du mois.
+    """
+    jours = D(jours_pris or 0)
+    journalier = r2(D(brut_mensuel or 0) * SALAIRE_JOURNALIER_COEF)
+    droit = D(jours_droit) if jours_droit not in (None, "") else r2(CONGES_JOURS_TEMPS_PLEIN * D(fraction or 1))
+    info = {"droit": droit, "jours_pris": jours, "salaire_journalier": journalier,
+            "simple_pecule": ZERO, "pecule_ouvrier_annuel": ZERO}
+    if statut == "ouvrier":
+        base = D(brut_majore if brut_majore is not None else D(brut_mensuel or 0) * COEF_BRUT_MAJORE_OUVRIER)
+        info["pecule_ouvrier_annuel"] = r2(base * 12 * PECULE_OUVRIER_TAUX / 100)
+    else:
+        info["simple_pecule"] = r2(journalier * jours)
+    return info
+
+
 def reduction_structurelle(brut_onss_mensuel, fraction=D("1")):
     """Réduction structurelle mensuelle (catégorie 1)."""
     if fraction <= 0:
@@ -337,7 +403,8 @@ def calculer_paie(brut, statut="employe", taux_patronal=None, situation_familial
                   regime_travail=D("100"), taux_horaire=ZERO,
                   heures_sup=ZERO, majoration_heures_sup=50,
                   atn_autres=ZERO, voiture=None, date_paie=None,
-                  double_pecule=False, reduction_groupe_cible=ZERO):
+                  double_pecule=False, reduction_groupe_cible=ZERO,
+                  treizieme_mois=None, conges_jours_pris=ZERO, conges_jours_droit=None):
     fraction = (D(regime_travail or 100) / 100) if regime_travail else D("1")
     date_paie = date_paie or date.today()
 
@@ -391,6 +458,17 @@ def calculer_paie(brut, statut="employe", taux_patronal=None, situation_familial
         pecule = double_pecule_employe(brut_base / fraction, fraction)
         net = r2(net + pecule["net"])
 
+    # ---- Prime de fin d'année (13e mois) : treizieme_mois = {"reference": montant, "mois": n} ou None
+    prime = None
+    if treizieme_mois:
+        prime = prime_fin_annee(treizieme_mois.get("reference"), treizieme_mois.get("mois", 12),
+                                statut, brut_mensuel_normal=brut_base / fraction if fraction else brut_base)
+        if prime:
+            net = r2(net + prime["net"])
+
+    # ---- Congés payés (informations)
+    conges = conges_payes(statut, brut_base, conges_jours_pris, conges_jours_droit, fraction, brut_majore)
+
     # ---- Employeur
     taux_patronal = D(taux_patronal) if taux_patronal not in (None, "") else TAUX_PATRONAL_DEFAUT
     cotisations_patronales = r2(brut_majore * taux_patronal / 100)
@@ -404,7 +482,21 @@ def calculer_paie(brut, statut="employe", taux_patronal=None, situation_familial
         # provision mensuelle du double pécule
         vacances = r2(brut_base * DOUBLE_PECULE_TAUX / 12)
 
-    brut_employeur = r2(brut_total + cotisations_nettes + vacances + co2)
+    # Prime de fin d'année : cotisations patronales (+ cotisations vacances ouvriers) sur la prime
+    prime_patronal = prime_vacances = ZERO
+    if prime:
+        prime_patronal = r2(prime["base_onss"] * taux_patronal / 100)
+        if statut == "ouvrier":
+            prime_vacances = r2(prime["base_onss"] * COTISATION_VACANCES_OUVRIER / 100)
+        prime["cotisations_patronales"] = prime_patronal
+        prime["cotisations_vacances"] = prime_vacances
+        cotisations_nettes = r2(cotisations_nettes + prime_patronal)
+        vacances = r2(vacances + prime_vacances)
+        brut_total_employeur = r2(brut_total + prime["brut"])
+    else:
+        brut_total_employeur = brut_total
+
+    brut_employeur = r2(brut_total_employeur + cotisations_nettes + vacances + co2)
 
     return {
         "fraction": fraction,
@@ -423,6 +515,8 @@ def calculer_paie(brut, statut="employe", taux_patronal=None, situation_familial
         "taux_precompte": r2(precompte / imposable * 100) if imposable else ZERO,
         "csss": csss,
         "double_pecule": pecule,
+        "treizieme_mois": prime,
+        "conges": conges,
         "net": net,
         "taux_patronal": taux_patronal,
         "cotisations_patronales": cotisations_patronales,
@@ -455,7 +549,7 @@ COMPTES = {
 
 def ecritures_paie(statut, brut, cotisations_patronales=ZERO, cotisation_co2=ZERO,
                    cotisations_vacances=ZERO, onss=ZERO, csss=ZERO, precompte=ZERO,
-                   net_salaire=ZERO, double_pecule=None, date_paiement=None):
+                   net_salaire=ZERO, double_pecule=None, date_paiement=None, treizieme_mois=None):
     """
     Écriture de salaire (journal des opérations diverses) + paiement.
     Retourne une liste de lignes {compte, libelle, debit, credit, type}.
@@ -498,9 +592,17 @@ def ecritures_paie(statut, brut, cotisations_patronales=ZERO, cotisation_co2=ZER
         ligne("453000", _("Précompte double pécule"), credit=double_pecule.get("precompte"), type_="pecule")
         ligne("455000", _("Double pécule net à payer"), credit=double_pecule.get("net"), type_="pecule")
 
+    # ---- Prime de fin d'année (13e mois) : charge de rémunération, retenues et net à payer
+    if treizieme_mois and treizieme_mois.get("brut"):
+        ligne(compte_brut, _("Prime de fin d'année (13e mois) brute"), debit=treizieme_mois["brut"], type_="prime")
+        ligne("454000", _("Retenue ONSS prime de fin d'année"), credit=treizieme_mois.get("onss"), type_="prime")
+        ligne("453000", _("Précompte prime de fin d'année"), credit=treizieme_mois.get("precompte"), type_="prime")
+        ligne("455000", _("Prime de fin d'année nette à payer"), credit=treizieme_mois.get("net"), type_="prime")
+
     # ---- Paiement du net
     if date_paiement:
-        total_net = D(net_salaire or 0) + D((double_pecule or {}).get("net") or 0)
+        total_net = (D(net_salaire or 0) + D((double_pecule or {}).get("net") or 0)
+                     + D((treizieme_mois or {}).get("net") or 0))
         ligne("455000", _("Paiement du salaire net"), debit=total_net, type_="paiement")
         ligne("550000", _("Paiement du salaire net"), credit=total_net, type_="paiement")
 

@@ -131,7 +131,7 @@
             <td class="n">{% if l.base is not None %}{{ l.base|floatformat:2 }}{% endif %}</td>
             <td class="n">{% if l.taux is not None %}{{ l.taux|floatformat:2 }} {{ l.unite_taux }}{% endif %}</td>
             <td class="n {% if l.signe == '-' %}moins{% elif l.signe == '+' %}plus{% endif %}">
-                {% if l.montant is not None %}{% if l.signe == '-' %}− {% elif l.signe == '+' %}+ {% endif %}{{ l.montant|floatformat:2 }} €{% endif %}
+                {% if l.montant is not None %}{% if l.signe == '-' %}− {% elif l.signe == '+' %}+ {% endif %}{% if l.unite == "j" %}{{ l.montant|floatformat:"-1" }} {% trans "jours" %}{% else %}{{ l.montant|floatformat:2 }} €{% endif %}{% endif %}
             </td>
         </tr>
     {% endfor %}

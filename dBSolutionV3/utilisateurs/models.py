@@ -8,6 +8,7 @@ from core.iban import normaliser_iban, validate_iban
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 from rest_framework.exceptions import ValidationError
 from adresse.models import Adresse
 from societe.models import Societe
@@ -658,6 +659,68 @@ class PaieUtilisateur(models.Model):
         default=False,
         verbose_name=_("Payer le double pécule de vacances ce mois (employés)"),
     )
+    # -------------------------
+    # CONGÉS PAYÉS
+    # -------------------------
+    conges_jours_droit = models.DecimalField(
+        max_digits=4, decimal_places=1, blank=True, null=True,
+        verbose_name=_("Droit annuel aux vacances (jours)"),
+        help_text=_("20 jours pour un temps plein (5 jours / semaine) ayant travaillé toute l'année précédente. "
+                    "Vide : 20 jours × régime de travail."),
+    )
+    conges_jours_pris = models.DecimalField(
+        max_digits=4, decimal_places=1, default=0,
+        verbose_name=_("Jours de vacances pris ce mois"),
+    )
+    conges_jours_solde = models.DecimalField(
+        max_digits=5, decimal_places=1, blank=True, null=True,
+        verbose_name=_("Solde de jours de vacances (fin du mois)"),
+    )
+    conges_simple_pecule = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True,
+        verbose_name=_("Simple pécule des jours pris (compris dans le salaire)"),
+    )
+    conges_pecule_ouvrier_annuel = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True,
+        verbose_name=_("Pécule de vacances ouvrier estimé (annuel, caisse de vacances)"),
+    )
+
+    # -------------------------
+    # PRIME DE FIN D'ANNÉE (13e MOIS)
+    # -------------------------
+    treizieme_mois_ce_mois = models.BooleanField(
+        default=False,
+        verbose_name=_("Payer la prime de fin d'année (13e mois) ce mois"),
+        help_text=_("CP 200 : en décembre. CP 112 : au plus tard le 20 décembre (période du 1er décembre au 30 novembre)."),
+    )
+    treizieme_mois_mois_prestes = models.PositiveSmallIntegerField(
+        default=12,
+        validators=[MinValueValidator(0), MaxValueValidator(12)],
+        verbose_name=_("Mois prestés ou assimilés (période de référence)"),
+        help_text=_("12 = prime complète. Prorata pour une entrée ou une sortie en cours d'année."),
+    )
+    treizieme_mois_reference = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True,
+        verbose_name=_("Montant de référence de la prime"),
+        help_text=_("Vide : salaire mensuel brut (employé) ou taux horaire × 38 h × 52 / 12 × régime (ouvrier CP 112)."),
+    )
+    treizieme_mois_brut = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True,
+        verbose_name=_("13e mois brut"),
+    )
+    treizieme_mois_onss = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True,
+        verbose_name=_("13e mois – ONSS"),
+    )
+    treizieme_mois_precompte = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True,
+        verbose_name=_("13e mois – précompte"),
+    )
+    treizieme_mois_net = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True,
+        verbose_name=_("13e mois net"),
+    )
+
     reduction_groupe_cible = models.DecimalField(
         max_digits=10, decimal_places=2, default=0,
         verbose_name=_("Réduction groupe-cible (montant mensuel)"),
@@ -819,7 +882,39 @@ class PaieUtilisateur(models.Model):
             date_paie=date_paie,
             double_pecule=self.double_pecule_ce_mois,
             reduction_groupe_cible=self.reduction_groupe_cible,
+            treizieme_mois=self.parametres_treizieme_mois(),
+            conges_jours_pris=self.conges_jours_pris,
+            conges_jours_droit=self.conges_jours_droit,
         )
+
+    def parametres_treizieme_mois(self):
+        """{"reference", "mois"} si la prime de fin d'année est payée ce mois, sinon None."""
+        from decimal import Decimal
+        from .paie_belgique import HEURES_MOIS_TEMPS_PLEIN
+        if not self.treizieme_mois_ce_mois:
+            return None
+        reference = self.treizieme_mois_reference
+        if not reference:
+            fraction = Decimal(self.regime_travail or 100) / 100
+            if self.statut_travailleur == "ouvrier" and self.salaire_brut_heure:
+                # CP 112 : taux horaire × horaire hebdomadaire (38 h × régime) × 52 / 12
+                reference = (Decimal(self.salaire_brut_heure) * HEURES_MOIS_TEMPS_PLEIN * fraction).quantize(Decimal("0.01"))
+            else:
+                reference = self.salaire_brut_mensuel or Decimal("0")
+        return {"reference": reference, "mois": self.treizieme_mois_mois_prestes}
+
+    def jours_conges_pris_annee(self):
+        """Jours de vacances pris dans l'année jusqu'à ce mois inclus (toutes les paies du travailleur)."""
+        from decimal import Decimal
+        from django.db.models import Sum
+        if not self.utilisateur_id or not self.annee or not self.mois:
+            return Decimal(self.conges_jours_pris or 0)
+        autres = (
+            PaieUtilisateur.objects.filter(utilisateur_id=self.utilisateur_id, annee=self.annee, mois__lt=self.mois)
+            .exclude(pk=self.pk)
+            .aggregate(t=Sum("conges_jours_pris"))["t"] or Decimal("0")
+        )
+        return autres + Decimal(self.conges_jours_pris or 0)
 
     def calculer(self):
         """Calcule la paie complète (brut → net, coût employeur)."""
@@ -875,6 +970,15 @@ class PaieUtilisateur(models.Model):
         self.double_pecule_net = pecule.get("net")
         self.double_pecule_onss = pecule.get("onss")
         self.double_pecule_precompte = pecule.get("precompte")
+        prime = r["treizieme_mois"] or {}
+        self.treizieme_mois_brut = prime.get("brut")
+        self.treizieme_mois_onss = prime.get("onss")
+        self.treizieme_mois_precompte = prime.get("precompte")
+        self.treizieme_mois_net = prime.get("net")
+        conges = r["conges"]
+        self.conges_simple_pecule = conges["simple_pecule"] or None
+        self.conges_pecule_ouvrier_annuel = conges["pecule_ouvrier_annuel"] or None
+        self.conges_jours_solde = (conges["droit"] - self.jours_conges_pris_annee()).quantize(Decimal("0.1"))
         self.salaire_net_mois = r["net"]
         self.taux_charges_patronales = r["taux_patronal"]
         self.cotisations_patronales = r["cotisations_patronales_nettes"]
@@ -894,15 +998,16 @@ class PaieUtilisateur(models.Model):
         """Lignes détaillées de la fiche de paie (base, taux, montant), sans les charges patronales."""
         from decimal import Decimal
         from .paie_belgique import (TAUX_ONSS_TRAVAILLEUR, COEF_BRUT_MAJORE_OUVRIER,
-                                    REDUCTION_PP_HEURES_SUP, DOUBLE_PECULE_TAUX, DOUBLE_PECULE_PART_ONSS)
+                                    REDUCTION_PP_HEURES_SUP, DOUBLE_PECULE_TAUX, DOUBLE_PECULE_PART_ONSS,
+                                    PECULE_OUVRIER_TAUX)
         z = Decimal("0")
         r = self._resultat_calcul() if self.salaire_brut_mensuel else None
         if not r:
             return None
 
-        def ligne(libelle, base=None, taux=None, montant=None, signe="", style="", unite_taux="%"):
+        def ligne(libelle, base=None, taux=None, montant=None, signe="", style="", unite_taux="%", unite="€"):
             return {"libelle": libelle, "base": base, "taux": taux, "unite_taux": unite_taux,
-                    "montant": montant, "signe": signe, "style": style}
+                    "montant": montant, "signe": signe, "style": style, "unite": unite}
 
         maj = int(self.majoration_heures_sup or 50)
         heures = self.nombre_heures_preste or z
@@ -957,7 +1062,9 @@ class PaieUtilisateur(models.Model):
         if r["atn_total"]:
             lignes.append(ligne(_("Avantages de toute nature (non payés en argent)"), montant=r["atn_total"], signe="-"))
 
-        lignes.append(ligne(_("Net du salaire"), montant=(r["net"] - ((r["double_pecule"] or {}).get("net") or z)), style="total"))
+        prime = r["treizieme_mois"]
+        lignes.append(ligne(_("Net du salaire"), montant=(r["net"] - ((r["double_pecule"] or {}).get("net") or z)
+                                                         - ((prime or {}).get("net") or z)), style="total"))
 
         # ---- Double pécule de vacances
         pecule = r["double_pecule"]
@@ -974,6 +1081,35 @@ class PaieUtilisateur(models.Model):
                                 montant=pecule["precompte"], signe="-"))
             lignes.append(ligne(_("Double pécule net"), montant=pecule["net"], style="sous-total"))
 
+        # ---- Prime de fin d'année (13e mois)
+        if prime:
+            lignes.append(ligne(_("Prime de fin d'année (13e mois) brute – %(m)s / 12 mois") % {"m": prime["mois"]},
+                                base=prime["reference"], montant=prime["brut"], signe="+"))
+            if self.statut_travailleur == "ouvrier":
+                lignes.append(ligne(_("Prime soumise à l'ONSS (ouvrier : 108 %)"), base=prime["brut"],
+                                    taux=(COEF_BRUT_MAJORE_OUVRIER * 100).quantize(Decimal("0.01")),
+                                    montant=prime["base_onss"], style="info"))
+            lignes.append(ligne(_("ONSS sur la prime de fin d'année"), base=prime["base_onss"],
+                                taux=TAUX_ONSS_TRAVAILLEUR, montant=prime["onss"], signe="-"))
+            lignes.append(ligne(_("Précompte sur la prime (allocation exceptionnelle)"), base=prime["brut"] - prime["onss"],
+                                taux=prime["taux_precompte"], montant=prime["precompte"], signe="-"))
+            lignes.append(ligne(_("Prime de fin d'année nette"), montant=prime["net"], style="sous-total"))
+
+        # ---- Congés payés (informations, pas de montant ajouté au net)
+        conges = r["conges"]
+        if conges["jours_pris"] or self.conges_jours_droit is not None:
+            lignes.append(ligne(_("Vacances : droit annuel"), montant=conges["droit"], style="info", unite="j"))
+            lignes.append(ligne(_("Vacances : jours pris ce mois"), montant=conges["jours_pris"], style="info", unite="j"))
+            if self.conges_jours_solde is not None:
+                lignes.append(ligne(_("Vacances : solde en fin de mois"), montant=self.conges_jours_solde, style="info", unite="j"))
+            if conges["simple_pecule"]:
+                lignes.append(ligne(_("Simple pécule des jours de vacances (compris dans le salaire)"),
+                                    base=conges["jours_pris"], taux=conges["salaire_journalier"], unite_taux="€/j",
+                                    montant=conges["simple_pecule"], style="info"))
+        if conges["pecule_ouvrier_annuel"]:
+            lignes.append(ligne(_("Pécule de vacances ouvrier estimé (annuel, payé par la caisse de vacances)"),
+                                taux=PECULE_OUVRIER_TAUX, montant=conges["pecule_ouvrier_annuel"], style="info"))
+
         return {"lignes": lignes, "net": r["net"], "resultat": r}
 
     # -------------------------
@@ -981,9 +1117,10 @@ class PaieUtilisateur(models.Model):
     # -------------------------
     @property
     def net_salaire(self):
-        """Net du salaire du mois, hors double pécule."""
+        """Net du salaire du mois, hors double pécule et prime de fin d'année."""
         from decimal import Decimal
-        return (self.salaire_net_mois or Decimal("0")) - (self.double_pecule_net or Decimal("0"))
+        return ((self.salaire_net_mois or Decimal("0")) - (self.double_pecule_net or Decimal("0"))
+                - (self.treizieme_mois_net or Decimal("0")))
 
     @property
     def net_a_payer(self):
@@ -1020,6 +1157,12 @@ class PaieUtilisateur(models.Model):
             net_salaire=self.net_salaire,
             double_pecule=pecule,
             date_paiement=self.date_paiement if avec_paiement else None,
+            treizieme_mois={
+                "brut": self.treizieme_mois_brut,
+                "onss": self.treizieme_mois_onss or z,
+                "precompte": self.treizieme_mois_precompte or z,
+                "net": self.treizieme_mois_net or z,
+            } if self.treizieme_mois_brut else None,
         )
 
     def save(self, *args, **kwargs):
