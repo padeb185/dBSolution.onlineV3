@@ -128,6 +128,7 @@ def dashboard_view(request):
     total_boites = total_embrayages = total_freins = 0
     total_freins_ar = total_pneus = total_maintenance = 0
     total_jantes = 0
+    total_parking_box = total_parking_occupes = 0
     total_fournisseur = total_client_particulier = 0
     total_carrosserie = total_societe_cliente = 0
     total_adresse = total_assurance = total_modele = total_outils = 0
@@ -192,6 +193,10 @@ def dashboard_view(request):
             total_pneus = pneus.count()
             from voiture.voiture_jantes.models import VoitureJante
             total_jantes = VoitureJante.objects.filter(societe=societe).count()
+            from parking.models import OccupationBox, Parking
+            parkings = list(Parking.objects.filter(societe=societe))
+            total_parking_box = sum(p.nombre_box for p in parkings)
+            total_parking_occupes = OccupationBox.objects.filter(parking__societe=societe).count()
             total_maintenance = maintenance.count()
             total_fournisseur = fournisseurs.count()
             total_client_particulier = client_particulier.count()
@@ -272,6 +277,8 @@ def dashboard_view(request):
         'total_freins_ar': total_freins_ar,
         'total_pneus': total_pneus,
         'total_jantes': total_jantes,
+        'total_parking_box': total_parking_box,
+        'total_parking_occupes': total_parking_occupes,
 
         'total_maintenance': total_maintenance,
 

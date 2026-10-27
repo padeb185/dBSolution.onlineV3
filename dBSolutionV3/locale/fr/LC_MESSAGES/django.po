@@ -66699,3 +66699,281 @@ msgstr "Client atelier du véhicule repris sur la facture."
 
 msgid "Tél."
 msgstr "Tél."
+
+msgid "Parking"
+msgstr "Parking"
+
+msgid "Parkings"
+msgstr "Parkings"
+
+msgid "Lignes nommées de A à Z (26 au maximum)."
+msgstr "Lignes nommées de A à Z (26 au maximum)."
+
+msgid "Emplacements numérotés de 1 à X (50 par défaut, 200 au maximum)."
+msgstr "Emplacements numérotés de 1 à X (50 par défaut, 200 au maximum)."
+
+msgid "Ligne d'accès"
+msgstr "Ligne d'accès"
+
+msgid "Zone inaccessible"
+msgstr "Zone inaccessible"
+
+msgid "Nom du parking"
+msgstr "Nom du parking"
+
+msgid "Largeur (m)"
+msgstr "Largeur (m)"
+
+msgid "Sens des emplacements 1 → X."
+msgstr "Sens des emplacements 1 → X."
+
+msgid "Longueur (m)"
+msgstr "Longueur (m)"
+
+msgid "Sens des lignes A → Z."
+msgstr "Sens des lignes A → Z."
+
+msgid "Nombre de lignes (A–Z)"
+msgstr "Nombre de lignes (A–Z)"
+
+msgid "Emplacements par ligne (1–X)"
+msgstr "Emplacements par ligne (1–X)"
+
+msgid "Plan"
+msgstr "Plan"
+
+msgid "Ces box sont occupés et sortiraient du parking : %(codes)s. Libérez-les d'abord."
+msgstr "Ces box sont occupés et sortiraient du parking : %(codes)s. Libérez-les d'abord."
+
+msgid "Modifié par"
+msgstr "Modifié par"
+
+msgid "Box occupé"
+msgstr "Box occupé"
+
+msgid "Box occupés"
+msgstr "Box occupés"
+
+msgid "Box occupés :"
+msgstr "Box occupés :"
+
+msgid "Modification du plan du parking"
+msgstr "Modification du plan du parking"
+
+msgid "Parking : box"
+msgstr "Parking : box"
+
+msgid "Suppression du parking"
+msgstr "Suppression du parking"
+
+msgid "Parking « %(nom)s » enregistré."
+msgstr "Parking « %(nom)s » enregistré."
+
+msgid "Le parking « %(nom)s » a bien été supprimé."
+msgstr "Le parking « %(nom)s » a bien été supprimé."
+
+msgid "Ce n'est pas un box : %(code)s."
+msgstr "Ce n'est pas un box : %(code)s."
+
+msgid "libéré"
+msgstr "libéré"
+
+msgid "Box %(code)s libéré."
+msgstr "Box %(code)s libéré."
+
+msgid "Indiquez l'immatriculation ou choisissez un véhicule."
+msgstr "Indiquez l'immatriculation ou choisissez un véhicule."
+
+msgid "Le box %(code)s est déjà occupé par %(plaque)s : libérez-le d'abord."
+msgstr "Le box %(code)s est déjà occupé par %(plaque)s : libérez-le d'abord."
+
+msgid "%(plaque)s quitte le box %(ancien)s (%(parking)s)."
+msgstr "%(plaque)s quitte le box %(ancien)s (%(parking)s)."
+
+msgid "%(plaque)s placé dans le box %(code)s."
+msgstr "%(plaque)s placé dans le box %(code)s."
+
+msgid "Plan invalide."
+msgstr "Plan invalide."
+
+msgid "Ces box sont occupés et ne peuvent pas devenir une ligne d'accès ou une zone inaccessible : %(codes)s. Libérez-les d'abord."
+msgstr "Ces box sont occupés et ne peuvent pas devenir une ligne d'accès ou une zone inaccessible : %(codes)s. Libérez-les d'abord."
+
+msgid "%(n)s box"
+msgstr "%(n)s box"
+
+msgid "Plan enregistré : %(n)s box."
+msgstr "Plan enregistré : %(n)s box."
+
+msgid "Appliquer l’outil à toute la colonne"
+msgstr "Appliquer l’outil à toute la colonne"
+
+msgid "Appliquer l’outil à toute la ligne"
+msgstr "Appliquer l’outil à toute la ligne"
+
+msgid "Box libre"
+msgstr "Box libre"
+
+msgid "Supprimer le parking"
+msgstr "Supprimer le parking"
+
+msgid "Le plan et les emplacements sont supprimés définitivement."
+msgstr "Le plan et les emplacements sont supprimés définitivement."
+
+msgid "Éditer le plan"
+msgstr "Éditer le plan"
+
+msgid "Outil"
+msgstr "Outil"
+
+msgid "Cliquez ou glissez sur les cases pour les peindre. Cliquez sur une lettre pour appliquer l'outil à toute la ligne horizontale, sur un numéro pour toute la ligne verticale de box."
+msgstr "Cliquez ou glissez sur les cases pour les peindre. Cliquez sur une lettre pour appliquer l'outil à toute la ligne horizontale, sur un numéro pour toute la ligne verticale de box."
+
+msgid "Coins inaccessibles"
+msgstr "Coins inaccessibles"
+
+msgid "case(s)"
+msgstr "case(s)"
+
+msgid "Bloquer les 4 coins"
+msgstr "Bloquer les 4 coins"
+
+msgid "Tout remettre en box"
+msgstr "Tout remettre en box"
+
+msgid "Zoom"
+msgstr "Zoom"
+
+msgid "box"
+msgstr "box"
+
+msgid "Les box occupés (en rouge) ne peuvent pas devenir une ligne d'accès ou une zone inaccessible : libérez-les d'abord."
+msgstr "Les box occupés (en rouge) ne peuvent pas devenir une ligne d'accès ou une zone inaccessible : libérez-les d'abord."
+
+msgid "Enregistrer le plan"
+msgstr "Enregistrer le plan"
+
+msgid "Voir le parking"
+msgstr "Voir le parking"
+
+msgid "Dimensions et nombre de lignes"
+msgstr "Dimensions et nombre de lignes"
+
+msgid "Box occupé : libérez-le avant de changer son type."
+msgstr "Box occupé : libérez-le avant de changer son type."
+
+msgid "Paramètres du parking"
+msgstr "Paramètres du parking"
+
+msgid "Nouveau parking"
+msgstr "Nouveau parking"
+
+msgid "Créer et dessiner le plan"
+msgstr "Créer et dessiner le plan"
+
+msgid "Taille d’une case :"
+msgstr "Taille d’une case :"
+
+msgid "lignes"
+msgstr "lignes"
+
+msgid "emplacements"
+msgstr "emplacements"
+
+msgid "Occupés"
+msgstr "Occupés"
+
+msgid "Libres"
+msgstr "Libres"
+
+msgid "Ouvrir le parking"
+msgstr "Ouvrir le parking"
+
+msgid "Écran TV"
+msgstr "Écran TV"
+
+msgid "Paramètres"
+msgstr "Paramètres"
+
+msgid "Aucun parking enregistré."
+msgstr "Aucun parking enregistré."
+
+msgid "Rechercher une immatriculation ou un box"
+msgstr "Rechercher une immatriculation ou un box"
+
+msgid "Cliquez sur un box pour y placer une immatriculation ou le libérer. Chaque box contient une seule immatriculation ; une voiture placée ailleurs quitte son ancien box."
+msgstr "Cliquez sur un box pour y placer une immatriculation ou le libérer. Chaque box contient une seule immatriculation ; une voiture placée ailleurs quitte son ancien box."
+
+msgid "Retour à la liste des parkings"
+msgstr "Retour à la liste des parkings"
+
+msgid "Véhicule enregistré"
+msgstr "Véhicule enregistré"
+
+msgid "ou immatriculation"
+msgstr "ou immatriculation"
+
+msgid "Placer dans le box"
+msgstr "Placer dans le box"
+
+msgid "Libérer le box"
+msgstr "Libérer le box"
+
+msgid "Introuvable dans ce parking."
+msgstr "Introuvable dans ce parking."
+
+msgid "Mise à jour"
+msgstr "Mise à jour"
+
+msgid "Plein écran"
+msgstr "Plein écran"
+
+msgid "%(n)s box occupé sera libéré."
+msgid_plural "%(n)s box occupés seront libérés."
+msgstr[0] "%(n)s box occupé sera libéré."
+msgstr[1] "%(n)s box occupés seront libérés."
+
+msgid "Pays de la plaque"
+msgstr "Pays de la plaque"
+
+msgid "Véhicule enregistré : le pays de sa fiche est utilisé."
+msgstr "Véhicule enregistré : le pays de sa fiche est utilisé."
+
+msgid "Box vertical"
+msgstr "Box vertical"
+
+msgid "Box horizontal"
+msgstr "Box horizontal"
+
+msgid "Sans case"
+msgstr "Sans case"
+
+msgid "Largeur d'un box (m)"
+msgstr "Largeur d'un box (m)"
+
+msgid "Box vertical : largeur × longueur. Box horizontal : longueur × largeur."
+msgstr "Box vertical : largeur × longueur. Box horizontal : longueur × largeur."
+
+msgid "Longueur d'un box (m)"
+msgstr "Longueur d'un box (m)"
+
+msgid "Largeur d'une ligne d'accès (m)"
+msgstr "Largeur d'une ligne d'accès (m)"
+
+msgid "Profondeur d'une ligne entièrement en accès (allée de circulation)."
+msgstr "Profondeur d'une ligne entièrement en accès (allée de circulation)."
+
+msgid "Sur la largeur du parking : %%(v)s box verticaux ou %%(h)s box horizontaux par ligne."
+msgstr "Sur la largeur du parking : %%(v)s box verticaux ou %%(h)s box horizontaux par ligne."
+
+msgid "Dimensions réelles : box vertical %(l)s × %(L)s m, box horizontal %(L)s × %(l)s m. « Sans case » raccourcit une ligne (par ex. une ligne de box horizontaux, deux fois plus longs)."
+msgstr "Dimensions réelles : box vertical %(l)s × %(L)s m, box horizontal %(L)s × %(l)s m. « Sans case » raccourcit une ligne (par ex. une ligne de box horizontaux, deux fois plus longs)."
+
+msgid "Lignes plus longues que la largeur du parking (%(largeur)s m) : %(lignes)s."
+msgstr "Lignes plus longues que la largeur du parking (%(largeur)s m) : %(lignes)s."
+
+msgid "Profondeur totale des lignes : %(total)s m, pour un parking de %(longueur)s m."
+msgstr "Profondeur totale des lignes : %(total)s m, pour un parking de %(longueur)s m."
+
+msgid "Longueur de la ligne : %(l)s m"
+msgstr "Longueur de la ligne : %(l)s m"

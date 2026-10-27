@@ -1,0 +1,155 @@
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Parking" %} – {{ parking.nom }}</title>
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.ico' %}">
+    {% include "parking/_style.html" %}
+    <style>
+        /* Écran TV : plein écran, fond sombre, la grille occupe tout l'écran */
+        html, body { margin:0; height:100%; background:#0f172a; color:#e2e8f0; font-family:system-ui, -apple-system, "Segoe UI", sans-serif; overflow:hidden; }
+        .tv-entete { display:flex; align-items:center; justify-content:space-between; gap:2vw; padding:1vh 1.5vw; }
+        .tv-titre { font-size:clamp(18px, 2.6vw, 56px); font-weight:800; }
+        .tv-heure { font-size:clamp(16px, 2vw, 44px); font-variant-numeric:tabular-nums; color:#93c5fd; }
+        .tv-compteurs { display:flex; gap:1.5vw; font-size:clamp(14px, 1.6vw, 36px); }
+        .tv-compteurs b { font-size:1.4em; }
+        .tv-libres b { color:#4ade80; } .tv-occupes b { color:#f87171; }
+        .tv-zone { padding:0 1.5vw; display:flex; justify-content:center; }
+        .tv-zone .pk-dessin { gap:2px; }   /* TV : l'échelle (--m) est calculée pour remplir l'écran */
+        .tv-zone .pk-entete, .tv-zone .pk-lettre { color:#cbd5e1; font-size:max(9px, calc(var(--m) * 0.8)); }
+        .tv-zone .pk-case { font-size:max(7px, calc(var(--m) * 0.5)); }
+        .tv-zone .pk-case.BOX { background:#14532d; border-color:#22c55e; color:#bbf7d0; }
+        .tv-zone .pk-case.BOX.occupe { background:#7f1d1d; border-color:#f87171; color:#fecaca; }
+        .tv-zone .pk-case.BOX .sens { display:none; }
+        .tv-zone .pk-case.ACCES { background:#334155; border-color:#475569; }
+        .tv-zone .pk-case.BLOQUE { background:repeating-linear-gradient(45deg,#1e293b 0 5px,#334155 5px 10px); border-color:#1e293b; }
+        .tv-zone .pk-entete, .tv-zone .pk-lettre { background:#0f172a; }
+        .tv-zone .pk-plaque { box-shadow:0 0 0 1px rgba(0,0,0,.4); }
+        /* Cases plus profondes que larges : plaque tournée dans le sens de la case, lisible de loin */
+        .tv-zone .pk-case.occupe .code { display:none; }   /* plus de place pour la plaque */
+        .tv-pied .pastille { border-color:#64748b; }
+        .tv-pied .lg-box { background:#14532d !important; border-color:#22c55e !important; }
+        .tv-pied .lg-occupe { background:#7f1d1d !important; border-color:#f87171 !important; }
+        .tv-pied .lg-acces { background:#334155 !important; }
+        .tv-pied { position:fixed; bottom:0.8vh; left:1.5vw; right:1.5vw; display:flex; justify-content:space-between; align-items:center;
+                   font-size:clamp(11px, 1vw, 22px); color:#94a3b8; }
+        .tv-pied .pk-legende { color:#cbd5e1; font-size:inherit; }
+        #tv-plein-ecran { background:#1d4ed8; color:#fff; border:0; border-radius:6px; padding:0.6em 1.2em; font-weight:700; cursor:pointer; font-size:inherit; }
+        :fullscreen #tv-plein-ecran { display:none; }
+    </style>
+</head>
+<body>
+    <div class="tv-entete">
+        <div class="tv-titre">{{ parking.nom }}</div>
+        <div class="tv-compteurs">
+            <span class="tv-libres">{% trans "Libres" %} <b id="tv-libres">{{ parking.nombre_libres }}</b></span>
+            <span class="tv-occupes">{% trans "Occupés" %} <b id="tv-occupes">{{ parking.nombre_occupes }}</b></span>
+            <span>{% trans "Box" %} <b>{{ parking.nombre_box }}</b></span>
+        </div>
+        <div class="tv-heure" id="tv-heure">{{ maintenant|time:"H:i" }}</div>
+    </div>
+
+    <div class="tv-zone" id="tv-zone">
+        {% include "parking/_dessin.html" with mode="tv" %}
+    </div>
+
+    <div class="tv-pied">
+        {% include "parking/_legende.html" %}
+        <span>{% trans "Mise à jour" %} : <span id="tv-maj">{{ maintenant|time:"H:i:s" }}</span>
+            <button type="button" id="tv-plein-ecran">{% trans "Plein écran" %}</button></span>
+    </div>
+
+<script>
+(function () {
+    const grille = document.getElementById("pk-grille");
+    const largeurM = parseFloat(grille.dataset.largeur) || 1;     // ligne la plus longue (m)
+    const hauteurM = parseFloat(grille.dataset.hauteur) || 1;     // profondeur totale (m)
+    const nbCases = parseInt(grille.dataset.cases, 10) || 1;
+    const nbRangees = parseInt(grille.dataset.rangees, 10) || 1;
+    const maj = "{{ jeton_plan }}";
+
+    // Taille des cases : toute la largeur et toute la hauteur disponibles
+    function ajuster() {
+        // Échelle (pixels par mètre) : le plan à l'échelle remplit toute la largeur et toute la hauteur disponibles
+        const largeur = window.innerWidth * 0.97;
+        const entete = document.querySelector(".tv-entete").offsetHeight;
+        const pied = document.querySelector(".tv-pied").offsetHeight;
+        const hauteur = window.innerHeight - entete - pied - 24;
+        const lettre = Math.max(18, largeur * 0.02);
+        const ecart = 2;
+        const parLargeur = (largeur - lettre - ecart * (nbCases + 1)) / largeurM;
+        const parHauteur = (hauteur - ecart * nbRangees) / hauteurM;
+        const m = Math.max(3, Math.min(parLargeur, parHauteur));
+        grille.style.setProperty("--m", m.toFixed(2) + "px");
+        grille.querySelectorAll(".pk-lettre").forEach(el => { el.style.width = lettre.toFixed(0) + "px"; });
+    }
+    window.addEventListener("resize", ajuster);
+    ajuster();
+
+    // Horloge
+    const heure = document.getElementById("tv-heure");
+    setInterval(() => {
+        const d = new Date();
+        heure.textContent = d.toLocaleTimeString("{{ LANGUAGE_CODE }}", {hour: "2-digit", minute: "2-digit"});
+    }, 1000);
+
+    // Plaque (même mise en forme que parking/_plaque.html)
+    const ETOILES = '<svg viewBox="0 0 20 20" aria-hidden="true"><g fill="#FFDD00">' +
+        [[10,3],[13.5,3.94],[16.06,6.5],[17,10],[16.06,13.5],[13.5,16.06],[10,17],[6.5,16.06],[3.94,13.5],[3,10],[3.94,6.5],[6.5,3.94]]
+        .map(p => '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="1.3"/>').join("") + '</g></svg>';
+    const SUISSE = '<svg viewBox="0 0 32 38" aria-hidden="true"><path d="M2 2 H30 V17 C30 27 23 33 16 36 C9 33 2 27 2 17 Z" fill="#DA291C"/>' +
+        '<rect x="13.25" y="8" width="5.5" height="18" fill="#fff"/><rect x="7" y="14.25" width="18" height="5.5" fill="#fff"/></svg>';
+    const echapper = s => String(s || "").replace(/[&<>"']/g, ch => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[ch]));
+    function plaqueHTML(o) {
+        const s = o.style || {};
+        let bande = "";
+        if (s.bande) bande = '<span class="pk-ue">' + (s.etoiles ? ETOILES : "") + "<b>" + echapper(s.code) + "</b></span>";
+        else if (s.suisse) bande = '<span class="pk-ue pk-ch">' + SUISSE + "</span>";
+        return '<span class="pk-plaque" data-pays="' + echapper(s.pays) + '" style="--pf:' + echapper(s.fond) +
+               ";--pt:" + echapper(s.texte) + ";--pb:" + echapper(s.bordure) + '">' + bande +
+               '<span class="pk-num">' + echapper(o.plaque) + "</span></span>";
+    }
+
+    // Rafraîchissement des box toutes les 15 secondes (sans recharger la page)
+    async function rafraichir() {
+        try {
+            const r = await fetch("{% url 'parking:etat' parking.pk %}", {credentials: "same-origin", cache: "no-store"});
+            if (!r.ok) return;
+            const etat = await r.json();
+            if (etat.maj && maj && etat.maj !== maj) { window.location.reload(); return; }   // plan modifié
+            grille.querySelectorAll(".pk-case.BOX").forEach(function (c) {
+                const o = etat.occupes[c.dataset.code];
+                let plaque = c.querySelector(".pk-plaque");
+                if (o) {
+                    c.classList.add("occupe");
+                    if (!plaque || plaque.querySelector(".pk-num").textContent !== o.plaque || plaque.dataset.pays !== o.style.pays) {
+                        if (plaque) plaque.remove();
+                        c.insertAdjacentHTML("beforeend", plaqueHTML(o));
+                    }
+                    c.title = c.dataset.code + " – " + o.plaque + (o.vehicule ? " – " + o.vehicule : "");
+                } else {
+                    c.classList.remove("occupe");
+                    if (plaque) plaque.remove();
+                    c.title = c.dataset.code;
+                }
+            });
+            document.getElementById("tv-libres").textContent = etat.libres;
+            document.getElementById("tv-occupes").textContent = Object.keys(etat.occupes).length;
+            document.getElementById("tv-maj").textContent = new Date().toLocaleTimeString("{{ LANGUAGE_CODE }}");
+        } catch (e) { /* réseau indisponible : nouvel essai au prochain passage */ }
+    }
+    setInterval(rafraichir, 15000);
+
+    // Plein écran (le navigateur exige un clic)
+    document.getElementById("tv-plein-ecran").addEventListener("click", function () {
+        const el = document.documentElement;
+        (el.requestFullscreen || el.webkitRequestFullscreen || function () {}).call(el);
+    });
+    document.addEventListener("fullscreenchange", ajuster);
+})();
+</script>
+</body>
+</html>

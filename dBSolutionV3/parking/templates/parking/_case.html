@@ -1,0 +1,12 @@
+{# Une case du parking. Variables : c (case), mode, style_case #}
+<div class="pk-case {% if c.est_box %}BOX{% if c.type == 'BOX_H' %} horizontal{% endif %}{% else %}{{ c.type }}{% endif %}{% if c.occupation %} occupe{% endif %}{% if mode != 'tv' and c.est_box or mode == 'editer' %} cliquable{% endif %}"
+     style="{{ style_case }}"
+     data-code="{{ c.code }}" data-type="{{ c.type }}"
+     {% if c.occupation %}data-plaque="{{ c.occupation.immatriculation }}" data-vehicule="{{ c.occupation.vehicule_id|default:'' }}" data-remarque="{{ c.occupation.remarque }}" data-pays="{{ c.occupation.pays_plaque }}"
+     title="{{ c.code }} – {{ c.occupation.immatriculation }}{% if c.occupation.libelle_vehicule %} – {{ c.occupation.libelle_vehicule }}{% endif %}"{% else %}title="{{ c.code }}"{% endif %}>
+    {% if c.est_box %}
+        <span class="sens" aria-hidden="true">{% if c.type == "BOX_H" %}↔{% else %}↕{% endif %}</span>
+        <span class="code">{{ c.code }}</span>
+        {% if c.occupation %}{% include "parking/_plaque.html" with o=c.occupation %}{% endif %}
+    {% endif %}
+</div>

@@ -67420,3 +67420,282 @@ msgstr "El cliente de taller del vehículo se ha incluido en la factura."
 
 msgid "Tél."
 msgstr "Tel."
+
+msgid "Parking"
+msgstr "Aparcamiento"
+
+msgid "Parkings"
+msgstr "Aparcamientos"
+
+msgid "Lignes nommées de A à Z (26 au maximum)."
+msgstr "Filas nombradas de la A a la Z (26 como máximo)."
+
+msgid "Emplacements numérotés de 1 à X (50 par défaut, 200 au maximum)."
+msgstr "Plazas numeradas del 1 al X (50 por defecto, 200 como máximo)."
+
+msgid "Ligne d'accès"
+msgstr "Pasillo de acceso"
+
+msgid "Zone inaccessible"
+msgstr "Zona inaccesible"
+
+msgid "Nom du parking"
+msgstr "Nombre del aparcamiento"
+
+msgid "Largeur (m)"
+msgstr "Anchura (m)"
+
+msgid "Sens des emplacements 1 → X."
+msgstr "Sentido de las plazas 1 → X."
+
+msgid "Longueur (m)"
+msgstr "Longitud (m)"
+
+msgid "Sens des lignes A → Z."
+msgstr "Sentido de las filas A → Z."
+
+msgid "Nombre de lignes (A–Z)"
+msgstr "Número de filas (A–Z)"
+
+msgid "Emplacements par ligne (1–X)"
+msgstr "Plazas por fila (1–X)"
+
+msgid "Plan"
+msgstr "Plano"
+
+msgid "Ces box sont occupés et sortiraient du parking : %(codes)s. Libérez-les d'abord."
+msgstr "Estas plazas están ocupadas y quedarían fuera del aparcamiento: %(codes)s. Libérelas primero."
+
+msgid "Modifié par"
+msgstr "Modificado por"
+
+msgid "Box occupé"
+msgstr "Plaza ocupada"
+
+msgid "Box occupés"
+msgstr "Plazas ocupadas"
+
+msgid "Box occupés :"
+msgstr "Plazas ocupadas:"
+
+msgid "Modification du plan du parking"
+msgstr "Modificación del plano del aparcamiento"
+
+msgid "Parking : box"
+msgstr "Aparcamiento: plaza"
+
+msgid "Suppression du parking"
+msgstr "Eliminación del aparcamiento"
+
+msgid "Parking « %(nom)s » enregistré."
+msgstr "Aparcamiento «%(nom)s» guardado."
+
+msgid "Le parking « %(nom)s » a bien été supprimé."
+msgstr "El aparcamiento «%(nom)s» se ha eliminado."
+
+msgid "Ce n'est pas un box : %(code)s."
+msgstr "No es una plaza: %(code)s."
+
+msgid "libéré"
+msgstr "liberada"
+
+msgid "Box %(code)s libéré."
+msgstr "Plaza %(code)s liberada."
+
+msgid "Indiquez l'immatriculation ou choisissez un véhicule."
+msgstr "Indique la matrícula o elija un vehículo."
+
+msgid "Le box %(code)s est déjà occupé par %(plaque)s : libérez-le d'abord."
+msgstr "La plaza %(code)s ya está ocupada por %(plaque)s: libérela primero."
+
+msgid "%(plaque)s quitte le box %(ancien)s (%(parking)s)."
+msgstr "%(plaque)s deja la plaza %(ancien)s (%(parking)s)."
+
+msgid "%(plaque)s placé dans le box %(code)s."
+msgstr "%(plaque)s colocado en la plaza %(code)s."
+
+msgid "Plan invalide."
+msgstr "Plano no válido."
+
+msgid "Ces box sont occupés et ne peuvent pas devenir une ligne d'accès ou une zone inaccessible : %(codes)s. Libérez-les d'abord."
+msgstr "Estas plazas están ocupadas y no pueden convertirse en pasillo de acceso o zona inaccesible: %(codes)s. Libérelas primero."
+
+msgid "%(n)s box"
+msgstr "%(n)s plazas"
+
+msgid "Plan enregistré : %(n)s box."
+msgstr "Plano guardado: %(n)s plazas."
+
+msgid "Appliquer l’outil à toute la colonne"
+msgstr "Aplicar la herramienta a toda la columna"
+
+msgid "Appliquer l’outil à toute la ligne"
+msgstr "Aplicar la herramienta a toda la fila"
+
+msgid "Box libre"
+msgstr "Plaza libre"
+
+msgid "Supprimer le parking"
+msgstr "Eliminar el aparcamiento"
+
+msgid "Le plan et les emplacements sont supprimés définitivement."
+msgstr "El plano y las plazas se eliminan definitivamente."
+
+msgid "Éditer le plan"
+msgstr "Editar el plano"
+
+msgid "Outil"
+msgstr "Herramienta"
+
+msgid "Cliquez ou glissez sur les cases pour les peindre. Cliquez sur une lettre pour appliquer l'outil à toute la ligne horizontale, sur un numéro pour toute la ligne verticale de box."
+msgstr "Haga clic o arrastre sobre las casillas para pintarlas. Haga clic en una letra para aplicar la herramienta a toda la fila horizontal, en un número para toda la línea vertical de plazas."
+
+msgid "Coins inaccessibles"
+msgstr "Esquinas inaccesibles"
+
+msgid "case(s)"
+msgstr "casilla(s)"
+
+msgid "Bloquer les 4 coins"
+msgstr "Bloquear las 4 esquinas"
+
+msgid "Tout remettre en box"
+msgstr "Volver todo a plazas"
+
+msgid "Zoom"
+msgstr "Zoom"
+
+msgid "box"
+msgstr "plazas"
+
+msgid "Les box occupés (en rouge) ne peuvent pas devenir une ligne d'accès ou une zone inaccessible : libérez-les d'abord."
+msgstr "Las plazas ocupadas (en rojo) no pueden convertirse en pasillo de acceso o zona inaccesible: libérelas primero."
+
+msgid "Enregistrer le plan"
+msgstr "Guardar el plano"
+
+msgid "Voir le parking"
+msgstr "Ver el aparcamiento"
+
+msgid "Dimensions et nombre de lignes"
+msgstr "Dimensiones y número de filas"
+
+msgid "Box occupé : libérez-le avant de changer son type."
+msgstr "Plaza ocupada: libérela antes de cambiar su tipo."
+
+msgid "Paramètres du parking"
+msgstr "Parámetros del aparcamiento"
+
+msgid "Nouveau parking"
+msgstr "Nuevo aparcamiento"
+
+msgid "Créer et dessiner le plan"
+msgstr "Crear y dibujar el plano"
+
+msgid "Taille d’une case :"
+msgstr "Tamaño de una casilla:"
+
+msgid "lignes"
+msgstr "filas"
+
+msgid "emplacements"
+msgstr "plazas"
+
+msgid "Occupés"
+msgstr "Ocupadas"
+
+msgid "Libres"
+msgstr "Libres"
+
+msgid "Ouvrir le parking"
+msgstr "Abrir el aparcamiento"
+
+msgid "Écran TV"
+msgstr "Pantalla TV"
+
+msgid "Paramètres"
+msgstr "Parámetros"
+
+msgid "Aucun parking enregistré."
+msgstr "Ningún aparcamiento registrado."
+
+msgid "Rechercher une immatriculation ou un box"
+msgstr "Buscar una matrícula o una plaza"
+
+msgid "Cliquez sur un box pour y placer une immatriculation ou le libérer. Chaque box contient une seule immatriculation ; une voiture placée ailleurs quitte son ancien box."
+msgstr "Haga clic en una plaza para colocar una matrícula o liberarla. Cada plaza contiene una sola matrícula; un coche colocado en otro lugar deja su plaza anterior."
+
+msgid "Retour à la liste des parkings"
+msgstr "Volver a la lista de aparcamientos"
+
+msgid "Véhicule enregistré"
+msgstr "Vehículo registrado"
+
+msgid "ou immatriculation"
+msgstr "o matrícula"
+
+msgid "Placer dans le box"
+msgstr "Colocar en la plaza"
+
+msgid "Libérer le box"
+msgstr "Liberar la plaza"
+
+msgid "Introuvable dans ce parking."
+msgstr "No encontrado en este aparcamiento."
+
+msgid "Mise à jour"
+msgstr "Actualizado"
+
+msgid "Plein écran"
+msgstr "Pantalla completa"
+
+msgid "%(n)s box occupé sera libéré."
+msgid_plural "%(n)s box occupés seront libérés."
+msgstr[0] "%(n)s plaza ocupada será liberada."
+msgstr[1] "%(n)s plazas ocupadas serán liberadas."
+msgstr[2] "%(n)s plazas ocupadas serán liberadas."
+
+msgid "Pays de la plaque"
+msgstr "País de la matrícula"
+
+msgid "Véhicule enregistré : le pays de sa fiche est utilisé."
+msgstr "Vehículo registrado: se usa el país de su ficha."
+
+msgid "Box vertical"
+msgstr "Plaza vertical"
+
+msgid "Box horizontal"
+msgstr "Plaza horizontal"
+
+msgid "Sans case"
+msgstr "Sin casilla"
+
+msgid "Largeur d'un box (m)"
+msgstr "Anchura de una plaza (m)"
+
+msgid "Box vertical : largeur × longueur. Box horizontal : longueur × largeur."
+msgstr "Plaza vertical: anchura × longitud. Plaza horizontal: longitud × anchura."
+
+msgid "Longueur d'un box (m)"
+msgstr "Longitud de una plaza (m)"
+
+msgid "Largeur d'une ligne d'accès (m)"
+msgstr "Anchura de un pasillo de acceso (m)"
+
+msgid "Profondeur d'une ligne entièrement en accès (allée de circulation)."
+msgstr "Profundidad de una fila totalmente de acceso (pasillo de circulación)."
+
+msgid "Sur la largeur du parking : %%(v)s box verticaux ou %%(h)s box horizontaux par ligne."
+msgstr "A lo ancho del aparcamiento: %%(v)s plazas verticales o %%(h)s horizontales por fila."
+
+msgid "Dimensions réelles : box vertical %(l)s × %(L)s m, box horizontal %(L)s × %(l)s m. « Sans case » raccourcit une ligne (par ex. une ligne de box horizontaux, deux fois plus longs)."
+msgstr "Dimensiones reales: plaza vertical %(l)s × %(L)s m, plaza horizontal %(L)s × %(l)s m. «Sin casilla» acorta una fila (p. ej. una fila de plazas horizontales, el doble de largas)."
+
+msgid "Lignes plus longues que la largeur du parking (%(largeur)s m) : %(lignes)s."
+msgstr "Filas más largas que la anchura del aparcamiento (%(largeur)s m): %(lignes)s."
+
+msgid "Profondeur totale des lignes : %(total)s m, pour un parking de %(longueur)s m."
+msgstr "Profundidad total de las filas: %(total)s m, para un aparcamiento de %(longueur)s m."
+
+msgid "Longueur de la ligne : %(l)s m"
+msgstr "Longitud de la fila: %(l)s m"

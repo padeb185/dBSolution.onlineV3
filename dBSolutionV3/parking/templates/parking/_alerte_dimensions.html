@@ -1,0 +1,12 @@
+{% load i18n %}
+{# Plan à l'échelle plus grand que le parking : avertissement #}
+{% if dessin.lignes_trop_longues or dessin.trop_profond %}
+<p class="pk-alerte-dim mt-2">
+    {% if dessin.lignes_trop_longues %}
+        {% blocktrans with lignes=dessin.lignes_trop_longues|join:", " largeur=parking.largeur_m|floatformat:"-2" %}Lignes plus longues que la largeur du parking ({{ largeur }} m) : {{ lignes }}.{% endblocktrans %}
+    {% endif %}
+    {% if dessin.trop_profond %}
+        {% blocktrans with total=dessin.hauteur_m|floatformat:"-2" longueur=parking.longueur_m|floatformat:"-2" %}Profondeur totale des lignes : {{ total }} m, pour un parking de {{ longueur }} m.{% endblocktrans %}
+    {% endif %}
+</p>
+{% endif %}

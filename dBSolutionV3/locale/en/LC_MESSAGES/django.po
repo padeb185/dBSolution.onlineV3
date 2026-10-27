@@ -67120,3 +67120,281 @@ msgstr "The vehicle's workshop customer has been added to the invoice."
 
 msgid "Tél."
 msgstr "Tel."
+
+msgid "Parking"
+msgstr "Car park"
+
+msgid "Parkings"
+msgstr "Car parks"
+
+msgid "Lignes nommées de A à Z (26 au maximum)."
+msgstr "Rows named A to Z (26 maximum)."
+
+msgid "Emplacements numérotés de 1 à X (50 par défaut, 200 au maximum)."
+msgstr "Spaces numbered 1 to X (50 by default, 200 maximum)."
+
+msgid "Ligne d'accès"
+msgstr "Access lane"
+
+msgid "Zone inaccessible"
+msgstr "Inaccessible area"
+
+msgid "Nom du parking"
+msgstr "Car park name"
+
+msgid "Largeur (m)"
+msgstr "Width (m)"
+
+msgid "Sens des emplacements 1 → X."
+msgstr "Direction of spaces 1 → X."
+
+msgid "Longueur (m)"
+msgstr "Length (m)"
+
+msgid "Sens des lignes A → Z."
+msgstr "Direction of rows A → Z."
+
+msgid "Nombre de lignes (A–Z)"
+msgstr "Number of rows (A–Z)"
+
+msgid "Emplacements par ligne (1–X)"
+msgstr "Spaces per row (1–X)"
+
+msgid "Plan"
+msgstr "Layout"
+
+msgid "Ces box sont occupés et sortiraient du parking : %(codes)s. Libérez-les d'abord."
+msgstr "These spaces are occupied and would fall outside the car park: %(codes)s. Free them first."
+
+msgid "Modifié par"
+msgstr "Modified by"
+
+msgid "Box occupé"
+msgstr "Occupied space"
+
+msgid "Box occupés"
+msgstr "Occupied spaces"
+
+msgid "Box occupés :"
+msgstr "Occupied spaces:"
+
+msgid "Modification du plan du parking"
+msgstr "Car park layout modified"
+
+msgid "Parking : box"
+msgstr "Car park: space"
+
+msgid "Suppression du parking"
+msgstr "Car park deleted"
+
+msgid "Parking « %(nom)s » enregistré."
+msgstr "Car park “%(nom)s” saved."
+
+msgid "Le parking « %(nom)s » a bien été supprimé."
+msgstr "The car park “%(nom)s” has been deleted."
+
+msgid "Ce n'est pas un box : %(code)s."
+msgstr "This is not a parking space: %(code)s."
+
+msgid "libéré"
+msgstr "freed"
+
+msgid "Box %(code)s libéré."
+msgstr "Space %(code)s freed."
+
+msgid "Indiquez l'immatriculation ou choisissez un véhicule."
+msgstr "Enter the registration or choose a vehicle."
+
+msgid "Le box %(code)s est déjà occupé par %(plaque)s : libérez-le d'abord."
+msgstr "Space %(code)s is already occupied by %(plaque)s: free it first."
+
+msgid "%(plaque)s quitte le box %(ancien)s (%(parking)s)."
+msgstr "%(plaque)s leaves space %(ancien)s (%(parking)s)."
+
+msgid "%(plaque)s placé dans le box %(code)s."
+msgstr "%(plaque)s placed in space %(code)s."
+
+msgid "Plan invalide."
+msgstr "Invalid layout."
+
+msgid "Ces box sont occupés et ne peuvent pas devenir une ligne d'accès ou une zone inaccessible : %(codes)s. Libérez-les d'abord."
+msgstr "These spaces are occupied and cannot become an access lane or an inaccessible area: %(codes)s. Free them first."
+
+msgid "%(n)s box"
+msgstr "%(n)s spaces"
+
+msgid "Plan enregistré : %(n)s box."
+msgstr "Layout saved: %(n)s spaces."
+
+msgid "Appliquer l’outil à toute la colonne"
+msgstr "Apply the tool to the whole column"
+
+msgid "Appliquer l’outil à toute la ligne"
+msgstr "Apply the tool to the whole row"
+
+msgid "Box libre"
+msgstr "Free space"
+
+msgid "Supprimer le parking"
+msgstr "Delete the car park"
+
+msgid "Le plan et les emplacements sont supprimés définitivement."
+msgstr "The layout and spaces are permanently deleted."
+
+msgid "Éditer le plan"
+msgstr "Edit layout"
+
+msgid "Outil"
+msgstr "Tool"
+
+msgid "Cliquez ou glissez sur les cases pour les peindre. Cliquez sur une lettre pour appliquer l'outil à toute la ligne horizontale, sur un numéro pour toute la ligne verticale de box."
+msgstr "Click or drag over cells to paint them. Click a letter to apply the tool to the whole horizontal row, a number for the whole vertical line of spaces."
+
+msgid "Coins inaccessibles"
+msgstr "Inaccessible corners"
+
+msgid "case(s)"
+msgstr "cell(s)"
+
+msgid "Bloquer les 4 coins"
+msgstr "Block the 4 corners"
+
+msgid "Tout remettre en box"
+msgstr "Reset everything to spaces"
+
+msgid "Zoom"
+msgstr "Zoom"
+
+msgid "box"
+msgstr "spaces"
+
+msgid "Les box occupés (en rouge) ne peuvent pas devenir une ligne d'accès ou une zone inaccessible : libérez-les d'abord."
+msgstr "Occupied spaces (in red) cannot become an access lane or an inaccessible area: free them first."
+
+msgid "Enregistrer le plan"
+msgstr "Save layout"
+
+msgid "Voir le parking"
+msgstr "View car park"
+
+msgid "Dimensions et nombre de lignes"
+msgstr "Dimensions and number of rows"
+
+msgid "Box occupé : libérez-le avant de changer son type."
+msgstr "Occupied space: free it before changing its type."
+
+msgid "Paramètres du parking"
+msgstr "Car park settings"
+
+msgid "Nouveau parking"
+msgstr "New car park"
+
+msgid "Créer et dessiner le plan"
+msgstr "Create and draw the layout"
+
+msgid "Taille d’une case :"
+msgstr "Cell size:"
+
+msgid "lignes"
+msgstr "rows"
+
+msgid "emplacements"
+msgstr "spaces"
+
+msgid "Occupés"
+msgstr "Occupied"
+
+msgid "Libres"
+msgstr "Free"
+
+msgid "Ouvrir le parking"
+msgstr "Open car park"
+
+msgid "Écran TV"
+msgstr "TV screen"
+
+msgid "Paramètres"
+msgstr "Settings"
+
+msgid "Aucun parking enregistré."
+msgstr "No car park saved."
+
+msgid "Rechercher une immatriculation ou un box"
+msgstr "Search a registration or a space"
+
+msgid "Cliquez sur un box pour y placer une immatriculation ou le libérer. Chaque box contient une seule immatriculation ; une voiture placée ailleurs quitte son ancien box."
+msgstr "Click a space to place a registration in it or free it. Each space holds a single registration; a car placed elsewhere leaves its previous space."
+
+msgid "Retour à la liste des parkings"
+msgstr "Back to car park list"
+
+msgid "Véhicule enregistré"
+msgstr "Registered vehicle"
+
+msgid "ou immatriculation"
+msgstr "or registration"
+
+msgid "Placer dans le box"
+msgstr "Place in space"
+
+msgid "Libérer le box"
+msgstr "Free space"
+
+msgid "Introuvable dans ce parking."
+msgstr "Not found in this car park."
+
+msgid "Mise à jour"
+msgstr "Updated"
+
+msgid "Plein écran"
+msgstr "Full screen"
+
+msgid "%(n)s box occupé sera libéré."
+msgid_plural "%(n)s box occupés seront libérés."
+msgstr[0] "%(n)s occupied space will be freed."
+msgstr[1] "%(n)s occupied spaces will be freed."
+
+msgid "Pays de la plaque"
+msgstr "Plate country"
+
+msgid "Véhicule enregistré : le pays de sa fiche est utilisé."
+msgstr "Registered vehicle: the country on its record is used."
+
+msgid "Box vertical"
+msgstr "Vertical space"
+
+msgid "Box horizontal"
+msgstr "Horizontal space"
+
+msgid "Sans case"
+msgstr "No cell"
+
+msgid "Largeur d'un box (m)"
+msgstr "Space width (m)"
+
+msgid "Box vertical : largeur × longueur. Box horizontal : longueur × largeur."
+msgstr "Vertical space: width × length. Horizontal space: length × width."
+
+msgid "Longueur d'un box (m)"
+msgstr "Space length (m)"
+
+msgid "Largeur d'une ligne d'accès (m)"
+msgstr "Access lane width (m)"
+
+msgid "Profondeur d'une ligne entièrement en accès (allée de circulation)."
+msgstr "Depth of a row that is entirely access (driving lane)."
+
+msgid "Sur la largeur du parking : %%(v)s box verticaux ou %%(h)s box horizontaux par ligne."
+msgstr "Across the car park width: %%(v)s vertical or %%(h)s horizontal spaces per row."
+
+msgid "Dimensions réelles : box vertical %(l)s × %(L)s m, box horizontal %(L)s × %(l)s m. « Sans case » raccourcit une ligne (par ex. une ligne de box horizontaux, deux fois plus longs)."
+msgstr "Real dimensions: vertical space %(l)s × %(L)s m, horizontal space %(L)s × %(l)s m. “No cell” shortens a row (e.g. a row of horizontal spaces, twice as long)."
+
+msgid "Lignes plus longues que la largeur du parking (%(largeur)s m) : %(lignes)s."
+msgstr "Rows longer than the car park width (%(largeur)s m): %(lignes)s."
+
+msgid "Profondeur totale des lignes : %(total)s m, pour un parking de %(longueur)s m."
+msgstr "Total depth of the rows: %(total)s m, for a car park of %(longueur)s m."
+
+msgid "Longueur de la ligne : %(l)s m"
+msgstr "Row length: %(l)s m"

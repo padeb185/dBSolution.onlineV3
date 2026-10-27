@@ -1,0 +1,14 @@
+{% load i18n %}
+{# Plan à l'échelle : box vertical largeur × longueur, box horizontal l'inverse (mètres × --m pixels). Variables : dessin, parking, mode #}
+<div class="pk-dessin" id="pk-grille" data-largeur="{{ dessin.largeur_css }}" data-hauteur="{{ dessin.hauteur_css }}"
+     data-rangees="{{ dessin.rangees|length }}" data-cases="{{ dessin.cases_max }}">
+    {% for r in dessin.rangees %}
+        <div class="pk-rang{% if r.trop_longue %} trop-longue{% endif %}" style="--hr:{{ r.hauteur_css }}">
+            <div class="pk-lettre" data-ligne="{{ r.lettre }}"
+                 title="{% blocktrans with l=r.longueur_m|floatformat:'-2' %}Longueur de la ligne : {{ l }} m{% endblocktrans %}">{{ r.lettre }}</div>
+            {% for c in r.cases %}{% if not c.vide %}
+                {% include "parking/_case.html" with style_case="--w:"|add:c.largeur_css|add:";--h:"|add:c.hauteur_css %}
+            {% endif %}{% endfor %}
+        </div>
+    {% endfor %}
+</div>

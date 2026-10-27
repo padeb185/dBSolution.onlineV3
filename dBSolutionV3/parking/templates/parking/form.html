@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% if parking %}{% trans "Paramètres du parking" %}{% else %}{% trans "Nouveau parking" %}{% endif %}{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto p-6 bg-white rounded shadow mt-10 mb-4">
+    <h1 class="text-2xl font-bold mb-4 flex items-center gap-3">
+        <img src="{% static 'icons/parking.png' %}" alt="{% trans 'Parking' %}" class="w-12 h-12">
+        {% if parking %}{% trans "Paramètres du parking" %} : {{ parking.nom }}{% else %}{% trans "Nouveau parking" %}{% endif %}
+    </h1>
+
+    {% include "partials/messages.html" %}
+    {% include "parking/_style.html" %}
+
+    <form method="post" class="flex flex-col gap-4">
+        {% csrf_token %}
+        {% if form.non_field_errors %}<div class="p-3 bg-red-50 border border-red-300 rounded text-red-700">{{ form.non_field_errors }}</div>{% endif %}
+        {% for field in form %}
+            <div>
+                <label class="block font-semibold mb-1" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}<p class="text-sm text-gray-500 mt-1">{{ field.help_text }}</p>{% endif %}
+                {% for e in field.errors %}<p class="text-red-600 text-sm mt-1">{{ e }}</p>{% endfor %}
+            </div>
+        {% endfor %}
+        <p class="text-sm text-gray-600" id="taille-case"></p>
+
+        <div class="flex gap-3 mt-4">
+            <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold">
+                {% if parking %}{% trans "Enregistrer" %}{% else %}{% trans "Créer et dessiner le plan" %}{% endif %}
+            </button>
+            <a href="{% url 'parking:liste' %}" class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+        </div>
+    </form>
+</div>
+
+<script>
+// Capacité indicative calculée en direct (box de taille réelle)
+document.addEventListener("DOMContentLoaded", function () {
+    const v = id => parseFloat(((document.getElementById(id) || {}).value || "0").replace(",", "."));
+    const sortie = document.getElementById("taille-case");
+    const txt = "{% trans 'Sur la largeur du parking : %(v)s box verticaux ou %(h)s box horizontaux par ligne.'|escapejs %}";
+    function maj() {
+        const L = v("id_largeur_m"), bl = v("id_box_largeur_m"), bL = v("id_box_longueur_m");
+        if (!(L && bl && bL)) { sortie.textContent = ""; return; }
+        sortie.textContent = txt.replace("%(v)s", Math.floor(L / bl)).replace("%(h)s", Math.floor(L / bL));
+    }
+    ["id_largeur_m", "id_box_largeur_m", "id_box_longueur_m"].forEach(id => {
+        const el = document.getElementById(id); if (el) el.addEventListener("input", maj);
+    });
+    maj();
+});
+</script>
+{% endblock %}

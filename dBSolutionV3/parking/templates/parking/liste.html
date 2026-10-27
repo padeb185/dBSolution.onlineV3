@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Parkings" %}{% endblock %}
+
+{% block content %}
+<div class="p-6 w-full">
+    <h1 class="text-2xl font-bold mb-6 flex items-center gap-4">
+        <img src="{% static 'icons/parking.png' %}" alt="{% trans 'Parking' %}" class="w-12 h-12">
+        {% trans "Parkings" %}
+    </h1>
+
+    {% include "partials/messages.html" %}
+    {% include "parking/_style.html" %}
+
+    {% if peut_editer %}
+        <a href="{% url 'parking:creer' %}" class="pk-bouton mb-6">{% trans "Nouveau parking" %}</a>
+    {% endif %}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        {% for p in parkings %}
+            <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-3">
+                <h2 class="text-xl font-semibold">{{ p.nom }}</h2>
+                <p class="text-gray-600">
+                    {{ p.largeur_m|floatformat:"-2" }} m × {{ p.longueur_m|floatformat:"-2" }} m
+                    ({{ p.surface_m2|floatformat:"-2" }} m²) ·
+                    {% trans "lignes" %} A–{{ p.lettres|last }} · {% trans "emplacements" %} 1–{{ p.nombre_emplacements }}
+                </p>
+                <div class="pk-stats">
+                    <div class="pk-stat">{% trans "Box" %}<b>{{ p.nombre_box }}</b></div>
+                    <div class="pk-stat">{% trans "Occupés" %}<b class="text-red-700">{{ p.nombre_occupes }}</b></div>
+                    <div class="pk-stat">{% trans "Libres" %}<b class="text-green-700">{{ p.nombre_libres }}</b></div>
+                </div>
+                <div class="flex flex-wrap gap-2 mt-2">
+                    <a href="{% url 'parking:plan' p.pk %}" class="pk-bouton js-fenetre" data-nom="parking_{{ p.pk }}">{% trans "Ouvrir le parking" %}</a>
+                    <a href="{% url 'parking:tv' p.pk %}" class="pk-bouton vert js-fenetre" data-nom="parking_tv_{{ p.pk }}" data-tv="1">{% trans "Écran TV" %}</a>
+                    {% if peut_editer %}
+                        <a href="{% url 'parking:editer' p.pk %}" class="pk-bouton gris">{% trans "Éditer le plan" %}</a>
+                        <a href="{% url 'parking:modifier' p.pk %}" class="pk-bouton gris">{% trans "Paramètres" %}</a>
+                    {% endif %}
+                    {% if request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.is_superuser %}
+                        <a href="{% url 'parking:supprimer' p.pk %}" class="pk-bouton rouge">{% trans "Supprimer" %}</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-gray-500">{% trans "Aucun parking enregistré." %}</p>
+        {% endfor %}
+    </div>
+
+    <br>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+
+<script>
+// Le parking s'ouvre dans une nouvelle fenêtre ; l'écran TV en plein écran (grand écran)
+document.querySelectorAll(".js-fenetre").forEach(function (lien) {
+    lien.addEventListener("click", function (e) {
+        e.preventDefault();
+        const tv = lien.dataset.tv === "1";
+        const largeur = tv ? screen.availWidth : Math.round(screen.availWidth * 0.9);
+        const hauteur = tv ? screen.availHeight : Math.round(screen.availHeight * 0.9);
+        const fenetre = window.open(lien.href, lien.dataset.nom,
+            "width=" + largeur + ",height=" + hauteur + ",left=0,top=0,resizable=yes,scrollbars=yes");
+        if (!fenetre) { window.location.href = lien.href; return; }
+        fenetre.focus();
+    });
+});
+</script>
+{% endblock %}

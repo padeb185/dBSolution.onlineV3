@@ -265,6 +265,8 @@ urlpatterns += i18n_patterns(
 
     path('proprietaire/', include(('proprietaire.urls', 'proprietaire'), namespace='proprietaire')),
 
+    path('parking/', include(('parking.urls', 'parking'), namespace='parking')),
+
     path("remplacement_moteur/",include(("maintenance.autres_interventions.moteur.remplacement_moteur.urls", "remplacement_moteur"), namespace="remplacement_moteur")),
 
     path("turbo/",include(("maintenance.autres_interventions.moteur.turbo.urls", "turbo"),namespace="turbo")),

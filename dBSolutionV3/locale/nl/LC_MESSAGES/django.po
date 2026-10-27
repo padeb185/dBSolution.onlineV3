@@ -67448,3 +67448,281 @@ msgstr "De werkplaatsklant van het voertuig is op de factuur overgenomen."
 
 msgid "Tél."
 msgstr "Tel."
+
+msgid "Parking"
+msgstr "Parking"
+
+msgid "Parkings"
+msgstr "Parkings"
+
+msgid "Lignes nommées de A à Z (26 au maximum)."
+msgstr "Rijen genoemd van A tot Z (maximaal 26)."
+
+msgid "Emplacements numérotés de 1 à X (50 par défaut, 200 au maximum)."
+msgstr "Plaatsen genummerd van 1 tot X (standaard 50, maximaal 200)."
+
+msgid "Ligne d'accès"
+msgstr "Toegangsrijstrook"
+
+msgid "Zone inaccessible"
+msgstr "Ontoegankelijke zone"
+
+msgid "Nom du parking"
+msgstr "Naam van de parking"
+
+msgid "Largeur (m)"
+msgstr "Breedte (m)"
+
+msgid "Sens des emplacements 1 → X."
+msgstr "Richting van de plaatsen 1 → X."
+
+msgid "Longueur (m)"
+msgstr "Lengte (m)"
+
+msgid "Sens des lignes A → Z."
+msgstr "Richting van de rijen A → Z."
+
+msgid "Nombre de lignes (A–Z)"
+msgstr "Aantal rijen (A–Z)"
+
+msgid "Emplacements par ligne (1–X)"
+msgstr "Plaatsen per rij (1–X)"
+
+msgid "Plan"
+msgstr "Plan"
+
+msgid "Ces box sont occupés et sortiraient du parking : %(codes)s. Libérez-les d'abord."
+msgstr "Deze plaatsen zijn bezet en zouden buiten de parking vallen: %(codes)s. Maak ze eerst vrij."
+
+msgid "Modifié par"
+msgstr "Gewijzigd door"
+
+msgid "Box occupé"
+msgstr "Bezette plaats"
+
+msgid "Box occupés"
+msgstr "Bezette plaatsen"
+
+msgid "Box occupés :"
+msgstr "Bezette plaatsen:"
+
+msgid "Modification du plan du parking"
+msgstr "Wijziging van het parkingplan"
+
+msgid "Parking : box"
+msgstr "Parking: plaats"
+
+msgid "Suppression du parking"
+msgstr "Verwijdering van de parking"
+
+msgid "Parking « %(nom)s » enregistré."
+msgstr "Parking “%(nom)s” opgeslagen."
+
+msgid "Le parking « %(nom)s » a bien été supprimé."
+msgstr "De parking “%(nom)s” is verwijderd."
+
+msgid "Ce n'est pas un box : %(code)s."
+msgstr "Dit is geen plaats: %(code)s."
+
+msgid "libéré"
+msgstr "vrijgemaakt"
+
+msgid "Box %(code)s libéré."
+msgstr "Plaats %(code)s vrijgemaakt."
+
+msgid "Indiquez l'immatriculation ou choisissez un véhicule."
+msgstr "Vul de nummerplaat in of kies een voertuig."
+
+msgid "Le box %(code)s est déjà occupé par %(plaque)s : libérez-le d'abord."
+msgstr "Plaats %(code)s is al bezet door %(plaque)s: maak ze eerst vrij."
+
+msgid "%(plaque)s quitte le box %(ancien)s (%(parking)s)."
+msgstr "%(plaque)s verlaat plaats %(ancien)s (%(parking)s)."
+
+msgid "%(plaque)s placé dans le box %(code)s."
+msgstr "%(plaque)s geplaatst op plaats %(code)s."
+
+msgid "Plan invalide."
+msgstr "Ongeldig plan."
+
+msgid "Ces box sont occupés et ne peuvent pas devenir une ligne d'accès ou une zone inaccessible : %(codes)s. Libérez-les d'abord."
+msgstr "Deze plaatsen zijn bezet en kunnen geen toegangsrijstrook of ontoegankelijke zone worden: %(codes)s. Maak ze eerst vrij."
+
+msgid "%(n)s box"
+msgstr "%(n)s plaatsen"
+
+msgid "Plan enregistré : %(n)s box."
+msgstr "Plan opgeslagen: %(n)s plaatsen."
+
+msgid "Appliquer l’outil à toute la colonne"
+msgstr "Het hulpmiddel op de hele kolom toepassen"
+
+msgid "Appliquer l’outil à toute la ligne"
+msgstr "Het hulpmiddel op de hele rij toepassen"
+
+msgid "Box libre"
+msgstr "Vrije plaats"
+
+msgid "Supprimer le parking"
+msgstr "De parking verwijderen"
+
+msgid "Le plan et les emplacements sont supprimés définitivement."
+msgstr "Het plan en de plaatsen worden definitief verwijderd."
+
+msgid "Éditer le plan"
+msgstr "Plan bewerken"
+
+msgid "Outil"
+msgstr "Hulpmiddel"
+
+msgid "Cliquez ou glissez sur les cases pour les peindre. Cliquez sur une lettre pour appliquer l'outil à toute la ligne horizontale, sur un numéro pour toute la ligne verticale de box."
+msgstr "Klik of sleep over de vakken om ze te kleuren. Klik op een letter om het hulpmiddel op de hele horizontale rij toe te passen, op een nummer voor de hele verticale rij plaatsen."
+
+msgid "Coins inaccessibles"
+msgstr "Ontoegankelijke hoeken"
+
+msgid "case(s)"
+msgstr "vak(ken)"
+
+msgid "Bloquer les 4 coins"
+msgstr "De 4 hoeken blokkeren"
+
+msgid "Tout remettre en box"
+msgstr "Alles terug naar plaatsen"
+
+msgid "Zoom"
+msgstr "Zoom"
+
+msgid "box"
+msgstr "plaatsen"
+
+msgid "Les box occupés (en rouge) ne peuvent pas devenir une ligne d'accès ou une zone inaccessible : libérez-les d'abord."
+msgstr "Bezette plaatsen (in het rood) kunnen geen toegangsrijstrook of ontoegankelijke zone worden: maak ze eerst vrij."
+
+msgid "Enregistrer le plan"
+msgstr "Plan opslaan"
+
+msgid "Voir le parking"
+msgstr "Parking bekijken"
+
+msgid "Dimensions et nombre de lignes"
+msgstr "Afmetingen en aantal rijen"
+
+msgid "Box occupé : libérez-le avant de changer son type."
+msgstr "Bezette plaats: maak ze vrij voordat u het type wijzigt."
+
+msgid "Paramètres du parking"
+msgstr "Instellingen van de parking"
+
+msgid "Nouveau parking"
+msgstr "Nieuwe parking"
+
+msgid "Créer et dessiner le plan"
+msgstr "Aanmaken en plan tekenen"
+
+msgid "Taille d’une case :"
+msgstr "Grootte van een vak:"
+
+msgid "lignes"
+msgstr "rijen"
+
+msgid "emplacements"
+msgstr "plaatsen"
+
+msgid "Occupés"
+msgstr "Bezet"
+
+msgid "Libres"
+msgstr "Vrij"
+
+msgid "Ouvrir le parking"
+msgstr "Parking openen"
+
+msgid "Écran TV"
+msgstr "Tv-scherm"
+
+msgid "Paramètres"
+msgstr "Instellingen"
+
+msgid "Aucun parking enregistré."
+msgstr "Geen parking geregistreerd."
+
+msgid "Rechercher une immatriculation ou un box"
+msgstr "Zoek een nummerplaat of een plaats"
+
+msgid "Cliquez sur un box pour y placer une immatriculation ou le libérer. Chaque box contient une seule immatriculation ; une voiture placée ailleurs quitte son ancien box."
+msgstr "Klik op een plaats om er een nummerplaat te plaatsen of ze vrij te maken. Elke plaats bevat één nummerplaat; een elders geplaatste wagen verlaat zijn vorige plaats."
+
+msgid "Retour à la liste des parkings"
+msgstr "Terug naar de lijst van parkings"
+
+msgid "Véhicule enregistré"
+msgstr "Geregistreerd voertuig"
+
+msgid "ou immatriculation"
+msgstr "of nummerplaat"
+
+msgid "Placer dans le box"
+msgstr "Op de plaats zetten"
+
+msgid "Libérer le box"
+msgstr "Plaats vrijmaken"
+
+msgid "Introuvable dans ce parking."
+msgstr "Niet gevonden in deze parking."
+
+msgid "Mise à jour"
+msgstr "Bijgewerkt"
+
+msgid "Plein écran"
+msgstr "Volledig scherm"
+
+msgid "%(n)s box occupé sera libéré."
+msgid_plural "%(n)s box occupés seront libérés."
+msgstr[0] "%(n)s bezette plaats wordt vrijgemaakt."
+msgstr[1] "%(n)s bezette plaatsen worden vrijgemaakt."
+
+msgid "Pays de la plaque"
+msgstr "Land van de nummerplaat"
+
+msgid "Véhicule enregistré : le pays de sa fiche est utilisé."
+msgstr "Geregistreerd voertuig: het land van zijn fiche wordt gebruikt."
+
+msgid "Box vertical"
+msgstr "Verticale plaats"
+
+msgid "Box horizontal"
+msgstr "Horizontale plaats"
+
+msgid "Sans case"
+msgstr "Geen vak"
+
+msgid "Largeur d'un box (m)"
+msgstr "Breedte van een plaats (m)"
+
+msgid "Box vertical : largeur × longueur. Box horizontal : longueur × largeur."
+msgstr "Verticale plaats: breedte × lengte. Horizontale plaats: lengte × breedte."
+
+msgid "Longueur d'un box (m)"
+msgstr "Lengte van een plaats (m)"
+
+msgid "Largeur d'une ligne d'accès (m)"
+msgstr "Breedte van een toegangsrijstrook (m)"
+
+msgid "Profondeur d'une ligne entièrement en accès (allée de circulation)."
+msgstr "Diepte van een rij die volledig toegang is (rijstrook)."
+
+msgid "Sur la largeur du parking : %%(v)s box verticaux ou %%(h)s box horizontaux par ligne."
+msgstr "Over de breedte van de parking: %%(v)s verticale of %%(h)s horizontale plaatsen per rij."
+
+msgid "Dimensions réelles : box vertical %(l)s × %(L)s m, box horizontal %(L)s × %(l)s m. « Sans case » raccourcit une ligne (par ex. une ligne de box horizontaux, deux fois plus longs)."
+msgstr "Werkelijke afmetingen: verticale plaats %(l)s × %(L)s m, horizontale plaats %(L)s × %(l)s m. “Geen vak” maakt een rij korter (bv. een rij horizontale plaatsen, twee keer zo lang)."
+
+msgid "Lignes plus longues que la largeur du parking (%(largeur)s m) : %(lignes)s."
+msgstr "Rijen langer dan de breedte van de parking (%(largeur)s m): %(lignes)s."
+
+msgid "Profondeur totale des lignes : %(total)s m, pour un parking de %(longueur)s m."
+msgstr "Totale diepte van de rijen: %(total)s m, voor een parking van %(longueur)s m."
+
+msgid "Longueur de la ligne : %(l)s m"
+msgstr "Lengte van de rij: %(l)s m"

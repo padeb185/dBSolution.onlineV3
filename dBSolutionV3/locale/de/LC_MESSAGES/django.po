@@ -67470,3 +67470,281 @@ msgstr "Der Werkstattkunde des Fahrzeugs wurde in die Rechnung übernommen."
 
 msgid "Tél."
 msgstr "Tel."
+
+msgid "Parking"
+msgstr "Parkplatz"
+
+msgid "Parkings"
+msgstr "Parkplätze"
+
+msgid "Lignes nommées de A à Z (26 au maximum)."
+msgstr "Reihen von A bis Z benannt (maximal 26)."
+
+msgid "Emplacements numérotés de 1 à X (50 par défaut, 200 au maximum)."
+msgstr "Stellplätze von 1 bis X nummeriert (standardmäßig 50, maximal 200)."
+
+msgid "Ligne d'accès"
+msgstr "Zufahrtsgasse"
+
+msgid "Zone inaccessible"
+msgstr "Unzugänglicher Bereich"
+
+msgid "Nom du parking"
+msgstr "Name des Parkplatzes"
+
+msgid "Largeur (m)"
+msgstr "Breite (m)"
+
+msgid "Sens des emplacements 1 → X."
+msgstr "Richtung der Stellplätze 1 → X."
+
+msgid "Longueur (m)"
+msgstr "Länge (m)"
+
+msgid "Sens des lignes A → Z."
+msgstr "Richtung der Reihen A → Z."
+
+msgid "Nombre de lignes (A–Z)"
+msgstr "Anzahl Reihen (A–Z)"
+
+msgid "Emplacements par ligne (1–X)"
+msgstr "Stellplätze pro Reihe (1–X)"
+
+msgid "Plan"
+msgstr "Plan"
+
+msgid "Ces box sont occupés et sortiraient du parking : %(codes)s. Libérez-les d'abord."
+msgstr "Diese Stellplätze sind belegt und lägen außerhalb des Parkplatzes: %(codes)s. Geben Sie sie zuerst frei."
+
+msgid "Modifié par"
+msgstr "Geändert von"
+
+msgid "Box occupé"
+msgstr "Belegter Stellplatz"
+
+msgid "Box occupés"
+msgstr "Belegte Stellplätze"
+
+msgid "Box occupés :"
+msgstr "Belegte Stellplätze:"
+
+msgid "Modification du plan du parking"
+msgstr "Änderung des Parkplatzplans"
+
+msgid "Parking : box"
+msgstr "Parkplatz: Stellplatz"
+
+msgid "Suppression du parking"
+msgstr "Löschung des Parkplatzes"
+
+msgid "Parking « %(nom)s » enregistré."
+msgstr "Parkplatz „%(nom)s“ gespeichert."
+
+msgid "Le parking « %(nom)s » a bien été supprimé."
+msgstr "Der Parkplatz „%(nom)s“ wurde gelöscht."
+
+msgid "Ce n'est pas un box : %(code)s."
+msgstr "Das ist kein Stellplatz: %(code)s."
+
+msgid "libéré"
+msgstr "freigegeben"
+
+msgid "Box %(code)s libéré."
+msgstr "Stellplatz %(code)s freigegeben."
+
+msgid "Indiquez l'immatriculation ou choisissez un véhicule."
+msgstr "Geben Sie das Kennzeichen ein oder wählen Sie ein Fahrzeug."
+
+msgid "Le box %(code)s est déjà occupé par %(plaque)s : libérez-le d'abord."
+msgstr "Stellplatz %(code)s ist bereits von %(plaque)s belegt: Geben Sie ihn zuerst frei."
+
+msgid "%(plaque)s quitte le box %(ancien)s (%(parking)s)."
+msgstr "%(plaque)s verlässt Stellplatz %(ancien)s (%(parking)s)."
+
+msgid "%(plaque)s placé dans le box %(code)s."
+msgstr "%(plaque)s auf Stellplatz %(code)s abgestellt."
+
+msgid "Plan invalide."
+msgstr "Ungültiger Plan."
+
+msgid "Ces box sont occupés et ne peuvent pas devenir une ligne d'accès ou une zone inaccessible : %(codes)s. Libérez-les d'abord."
+msgstr "Diese Stellplätze sind belegt und können keine Zufahrtsgasse oder kein unzugänglicher Bereich werden: %(codes)s. Geben Sie sie zuerst frei."
+
+msgid "%(n)s box"
+msgstr "%(n)s Stellplätze"
+
+msgid "Plan enregistré : %(n)s box."
+msgstr "Plan gespeichert: %(n)s Stellplätze."
+
+msgid "Appliquer l’outil à toute la colonne"
+msgstr "Werkzeug auf die ganze Spalte anwenden"
+
+msgid "Appliquer l’outil à toute la ligne"
+msgstr "Werkzeug auf die ganze Reihe anwenden"
+
+msgid "Box libre"
+msgstr "Freier Stellplatz"
+
+msgid "Supprimer le parking"
+msgstr "Parkplatz löschen"
+
+msgid "Le plan et les emplacements sont supprimés définitivement."
+msgstr "Plan und Stellplätze werden endgültig gelöscht."
+
+msgid "Éditer le plan"
+msgstr "Plan bearbeiten"
+
+msgid "Outil"
+msgstr "Werkzeug"
+
+msgid "Cliquez ou glissez sur les cases pour les peindre. Cliquez sur une lettre pour appliquer l'outil à toute la ligne horizontale, sur un numéro pour toute la ligne verticale de box."
+msgstr "Klicken oder ziehen Sie über die Felder, um sie zu färben. Klicken Sie auf einen Buchstaben für die ganze waagerechte Reihe, auf eine Zahl für die ganze senkrechte Stellplatzreihe."
+
+msgid "Coins inaccessibles"
+msgstr "Unzugängliche Ecken"
+
+msgid "case(s)"
+msgstr "Feld(er)"
+
+msgid "Bloquer les 4 coins"
+msgstr "Die 4 Ecken sperren"
+
+msgid "Tout remettre en box"
+msgstr "Alles wieder zu Stellplätzen"
+
+msgid "Zoom"
+msgstr "Zoom"
+
+msgid "box"
+msgstr "Stellplätze"
+
+msgid "Les box occupés (en rouge) ne peuvent pas devenir une ligne d'accès ou une zone inaccessible : libérez-les d'abord."
+msgstr "Belegte Stellplätze (rot) können keine Zufahrtsgasse oder kein unzugänglicher Bereich werden: Geben Sie sie zuerst frei."
+
+msgid "Enregistrer le plan"
+msgstr "Plan speichern"
+
+msgid "Voir le parking"
+msgstr "Parkplatz ansehen"
+
+msgid "Dimensions et nombre de lignes"
+msgstr "Abmessungen und Anzahl der Reihen"
+
+msgid "Box occupé : libérez-le avant de changer son type."
+msgstr "Belegter Stellplatz: Geben Sie ihn frei, bevor Sie den Typ ändern."
+
+msgid "Paramètres du parking"
+msgstr "Parkplatzeinstellungen"
+
+msgid "Nouveau parking"
+msgstr "Neuer Parkplatz"
+
+msgid "Créer et dessiner le plan"
+msgstr "Erstellen und Plan zeichnen"
+
+msgid "Taille d’une case :"
+msgstr "Feldgröße:"
+
+msgid "lignes"
+msgstr "Reihen"
+
+msgid "emplacements"
+msgstr "Stellplätze"
+
+msgid "Occupés"
+msgstr "Belegt"
+
+msgid "Libres"
+msgstr "Frei"
+
+msgid "Ouvrir le parking"
+msgstr "Parkplatz öffnen"
+
+msgid "Écran TV"
+msgstr "TV-Bildschirm"
+
+msgid "Paramètres"
+msgstr "Einstellungen"
+
+msgid "Aucun parking enregistré."
+msgstr "Kein Parkplatz erfasst."
+
+msgid "Rechercher une immatriculation ou un box"
+msgstr "Kennzeichen oder Stellplatz suchen"
+
+msgid "Cliquez sur un box pour y placer une immatriculation ou le libérer. Chaque box contient une seule immatriculation ; une voiture placée ailleurs quitte son ancien box."
+msgstr "Klicken Sie auf einen Stellplatz, um ein Kennzeichen abzustellen oder ihn freizugeben. Jeder Stellplatz hat nur ein Kennzeichen; ein anderswo abgestelltes Auto verlässt seinen alten Platz."
+
+msgid "Retour à la liste des parkings"
+msgstr "Zurück zur Parkplatzliste"
+
+msgid "Véhicule enregistré"
+msgstr "Erfasstes Fahrzeug"
+
+msgid "ou immatriculation"
+msgstr "oder Kennzeichen"
+
+msgid "Placer dans le box"
+msgstr "Auf den Stellplatz stellen"
+
+msgid "Libérer le box"
+msgstr "Stellplatz freigeben"
+
+msgid "Introuvable dans ce parking."
+msgstr "In diesem Parkplatz nicht gefunden."
+
+msgid "Mise à jour"
+msgstr "Aktualisiert"
+
+msgid "Plein écran"
+msgstr "Vollbild"
+
+msgid "%(n)s box occupé sera libéré."
+msgid_plural "%(n)s box occupés seront libérés."
+msgstr[0] "%(n)s belegter Stellplatz wird freigegeben."
+msgstr[1] "%(n)s belegte Stellplätze werden freigegeben."
+
+msgid "Pays de la plaque"
+msgstr "Land des Kennzeichens"
+
+msgid "Véhicule enregistré : le pays de sa fiche est utilisé."
+msgstr "Erfasstes Fahrzeug: Das Land aus seinem Datensatz wird verwendet."
+
+msgid "Box vertical"
+msgstr "Senkrechter Stellplatz"
+
+msgid "Box horizontal"
+msgstr "Waagerechter Stellplatz"
+
+msgid "Sans case"
+msgstr "Kein Feld"
+
+msgid "Largeur d'un box (m)"
+msgstr "Stellplatzbreite (m)"
+
+msgid "Box vertical : largeur × longueur. Box horizontal : longueur × largeur."
+msgstr "Senkrechter Stellplatz: Breite × Länge. Waagerechter Stellplatz: Länge × Breite."
+
+msgid "Longueur d'un box (m)"
+msgstr "Stellplatzlänge (m)"
+
+msgid "Largeur d'une ligne d'accès (m)"
+msgstr "Breite einer Zufahrtsgasse (m)"
+
+msgid "Profondeur d'une ligne entièrement en accès (allée de circulation)."
+msgstr "Tiefe einer Reihe, die ganz Zufahrt ist (Fahrgasse)."
+
+msgid "Sur la largeur du parking : %%(v)s box verticaux ou %%(h)s box horizontaux par ligne."
+msgstr "Über die Parkplatzbreite: %%(v)s senkrechte oder %%(h)s waagerechte Stellplätze pro Reihe."
+
+msgid "Dimensions réelles : box vertical %(l)s × %(L)s m, box horizontal %(L)s × %(l)s m. « Sans case » raccourcit une ligne (par ex. une ligne de box horizontaux, deux fois plus longs)."
+msgstr "Tatsächliche Maße: senkrechter Stellplatz %(l)s × %(L)s m, waagerechter Stellplatz %(L)s × %(l)s m. „Kein Feld“ verkürzt eine Reihe (z. B. eine Reihe waagerechter, doppelt so langer Stellplätze)."
+
+msgid "Lignes plus longues que la largeur du parking (%(largeur)s m) : %(lignes)s."
+msgstr "Reihen länger als die Parkplatzbreite (%(largeur)s m): %(lignes)s."
+
+msgid "Profondeur totale des lignes : %(total)s m, pour un parking de %(longueur)s m."
+msgstr "Gesamttiefe der Reihen: %(total)s m, bei einem Parkplatz von %(longueur)s m."
+
+msgid "Longueur de la ligne : %(l)s m"
+msgstr "Länge der Reihe: %(l)s m"

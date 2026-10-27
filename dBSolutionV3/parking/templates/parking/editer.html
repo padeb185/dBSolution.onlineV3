@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Éditer le plan" %} – {{ parking.nom }}{% endblock %}
+
+{% block content %}
+<div class="p-4 w-full">
+    {% include "parking/_style.html" %}
+
+    <h1 class="text-2xl font-bold flex items-center gap-3 mb-4">
+        <img src="{% static 'icons/parking.png' %}" alt="{% trans 'Parking' %}" class="w-12 h-12">
+        {% trans "Éditer le plan" %} : {{ parking.nom }}
+        <span class="text-base font-normal text-gray-600">
+            {{ parking.largeur_m|floatformat:"-2" }} m × {{ parking.longueur_m|floatformat:"-2" }} m ·
+            A–{{ parking.lettres|last }} × 1–{{ parking.nombre_emplacements }}
+        </span>
+    </h1>
+
+    {% include "partials/messages.html" %}
+
+    <div class="bg-white shadow-md rounded-lg p-4 mb-3 flex flex-col gap-3">
+        <div class="flex flex-wrap items-center gap-4">
+            <strong>{% trans "Outil" %} :</strong>
+            <label class="pk-outil"><input type="radio" name="outil" value="BOX" checked> <span class="pastille" style="background:#f0fdf4;border-color:#16a34a;border-width:1px 3px">↕</span>{% trans "Box vertical" %}</label>
+            <label class="pk-outil"><input type="radio" name="outil" value="BOX_H"> <span class="pastille" style="background:#f0fdf4;border-color:#16a34a;border-width:3px 1px">↔</span>{% trans "Box horizontal" %}</label>
+            <label class="pk-outil"><input type="radio" name="outil" value="ACCES"> <span class="pastille" style="background:#d1d5db"></span>{% trans "Ligne d'accès" %}</label>
+            <label class="pk-outil"><input type="radio" name="outil" value="VIDE"> <span class="pastille" style="background:#fff;border-style:dotted"></span>{% trans "Sans case" %}</label>
+            <label class="pk-outil"><input type="radio" name="outil" value="BLOQUE"> <span class="pastille" style="background:repeating-linear-gradient(45deg,#4b5563 0 4px,#6b7280 4px 8px)"></span>{% trans "Zone inaccessible" %}</label>
+        </div>
+        <p class="text-sm text-gray-600">
+            {% trans "Cliquez ou glissez sur les cases pour les peindre. Cliquez sur une lettre pour appliquer l'outil à toute la ligne horizontale, sur un numéro pour toute la ligne verticale de box." %}
+            {% blocktrans with l=parking.box_largeur_m|floatformat:"-2" L=parking.box_longueur_m|floatformat:"-2" %}Dimensions réelles : box vertical {{ l }} × {{ L }} m, box horizontal {{ L }} × {{ l }} m. « Sans case » raccourcit une ligne (par ex. une ligne de box horizontaux, deux fois plus longs).{% endblocktrans %}
+        </p>
+        <div class="flex flex-wrap items-center gap-3">
+            <label class="text-sm">{% trans "Coins inaccessibles" %} :
+                <input type="number" id="pk-coin" min="1" max="10" value="1" class="input" style="width:70px;display:inline-block">
+                {% trans "case(s)" %}
+            </label>
+            <button type="button" id="pk-coins" class="pk-bouton gris">{% trans "Bloquer les 4 coins" %}</button>
+            <button type="button" id="pk-tout-box" class="pk-bouton gris">{% trans "Tout remettre en box" %}</button>
+            <label class="text-sm text-gray-600 flex items-center gap-2">{% trans "Zoom" %}
+                <input type="range" id="pk-zoom" min="20" max="100" value="40">
+            </label>
+            <span class="text-sm"><strong id="pk-nb-box"></strong> {% trans "box" %}</span>
+        </div>
+    </div>
+
+    {% include "parking/_legende.html" %}
+    {% include "parking/_alerte_dimensions.html" %}
+    <p id="pk-alerte" class="text-red-700 font-semibold mt-2" role="alert"></p>
+
+    <div class="pk-zone mt-3 shadow-md">
+        {% include "parking/_grille.html" with mode="editer" %}
+    </div>
+    <p class="text-sm text-gray-500 mt-2">{% trans "Les box occupés (en rouge) ne peuvent pas devenir une ligne d'accès ou une zone inaccessible : libérez-les d'abord." %}</p>
+
+    <form method="post" id="pk-form-plan" class="flex flex-col md:flex-row gap-3 mt-4">
+        {% csrf_token %}
+        <input type="hidden" name="plan" id="pk-plan">
+        <button type="submit" class="flex-1 bg-green-600 text-white px-5 py-4 rounded hover:bg-green-500 font-semibold">{% trans "Enregistrer le plan" %}</button>
+        <a href="{% url 'parking:plan' parking.pk %}" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">{% trans "Voir le parking" %}</a>
+        <a href="{% url 'parking:modifier' parking.pk %}" class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Dimensions et nombre de lignes" %}</a>
+    </form>
+</div>
+
+<style>
+.pk-outil { display:flex; align-items:center; gap:6px; cursor:pointer; }
+.pk-outil .pastille { display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:3px; border:1px solid #9ca3af; font-size:12px; line-height:1; }
+#pk-grille .pk-case { cursor:crosshair; }
+#pk-grille .pk-case.occupe { cursor:not-allowed; }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const grille = document.getElementById("pk-grille");
+    grille.style.setProperty("--l", "40px");
+    const plan = {{ plan_json|safe }};
+    const occupes = new Set({{ occupes_json|safe }});
+    const lettres = [{% for l in parking.lettres %}"{{ l }}"{% if not forloop.last %},{% endif %}{% endfor %}];
+    const nb = {{ parking.nombre_emplacements }};
+    const txtOccupe = "{% trans 'Box occupé : libérez-le avant de changer son type.'|escapejs %}";
+
+    const outil = () => document.querySelector("input[name=outil]:checked").value;
+    const caseDe = code => grille.querySelector('.pk-case[data-code="' + code + '"]');
+
+    function appliquer(code, type) {
+        const estBox = t => t === "BOX" || t === "BOX_H";
+        if (occupes.has(code) && !estBox(type)) return false;
+        const c = caseDe(code);
+        if (!c) return false;
+        if (type === "BOX") delete plan[code]; else plan[code] = type;
+        c.classList.remove("BOX", "BOX_H", "horizontal", "ACCES", "BLOQUE", "VIDE");
+        if (estBox(type)) { c.classList.add("BOX"); if (type === "BOX_H") c.classList.add("horizontal"); }
+        else c.classList.add(type);
+        c.dataset.type = type;
+        let etiquette = c.querySelector(".code");
+        let sens = c.querySelector(".sens");
+        if (estBox(type)) {
+            if (!etiquette) { etiquette = document.createElement("span"); etiquette.className = "code"; etiquette.textContent = code; c.prepend(etiquette); }
+            if (!sens) { sens = document.createElement("span"); sens.className = "sens"; c.prepend(sens); }
+            sens.textContent = type === "BOX_H" ? "↔" : "↕";
+        } else {
+            if (etiquette) etiquette.remove();
+            if (sens) sens.remove();
+        }
+        return true;
+    }
+
+    function compter() {
+        document.getElementById("pk-nb-box").textContent = grille.querySelectorAll(".pk-case.BOX").length;
+    }
+
+    // Peinture au clic / glisser
+    let peinture = false;
+    grille.addEventListener("mousedown", function (e) {
+        const c = e.target.closest(".pk-case");
+        if (!c) return;
+        e.preventDefault();
+        if (occupes.has(c.dataset.code) && outil() !== "BOX" && outil() !== "BOX_H") {
+            const a = document.getElementById("pk-alerte"); a.textContent = c.dataset.code + " : " + txtOccupe;
+            setTimeout(() => { a.textContent = ""; }, 4000);
+            return;
+        }
+        peinture = true;
+        appliquer(c.dataset.code, outil()); compter();
+    });
+    grille.addEventListener("mouseover", function (e) {
+        if (!peinture) return;
+        const c = e.target.closest(".pk-case");
+        if (c) { appliquer(c.dataset.code, outil()); compter(); }
+    });
+    document.addEventListener("mouseup", () => { peinture = false; });
+
+    // Ligne horizontale (lettre) / ligne verticale (numéro)
+    grille.addEventListener("click", function (e) {
+        const l = e.target.closest(".pk-lettre.cliquable");
+        const n = e.target.closest(".pk-entete.cliquable");
+        if (l) { for (let i = 1; i <= nb; i++) appliquer(l.dataset.ligne + i, outil()); compter(); }
+        if (n) { lettres.forEach(x => appliquer(x + n.dataset.colonne, outil())); compter(); }
+    });
+
+    // Coins inaccessibles
+    document.getElementById("pk-coins").addEventListener("click", function () {
+        const k = Math.max(1, parseInt(document.getElementById("pk-coin").value || "1", 10));
+        const lignes = [...lettres.slice(0, k), ...lettres.slice(-k)];
+        const cols = [];
+        for (let i = 1; i <= Math.min(k, nb); i++) { cols.push(i); cols.push(nb - i + 1); }
+        lignes.forEach(l => cols.forEach(c => appliquer(l + c, "BLOQUE")));
+        compter();
+    });
+    document.getElementById("pk-tout-box").addEventListener("click", function () {
+        Object.keys(plan).forEach(code => appliquer(code, "BOX")); compter();
+    });
+
+    document.getElementById("pk-zoom").addEventListener("input", function () {
+        grille.style.setProperty("--l", this.value + "px");
+    });
+
+    document.getElementById("pk-form-plan").addEventListener("submit", function () {
+        document.getElementById("pk-plan").value = JSON.stringify(plan);
+    });
+    compter();
+});
+</script>
+{% endblock %}

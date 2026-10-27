@@ -1,0 +1,17 @@
+{% load i18n %}
+{# Grille logique du parking (éditeur du plan). Variables : grille, parking, mode #}
+<div class="pk-grille" id="pk-grille"
+     style="--n:{{ parking.nombre_emplacements }}; --r:{{ parking.ratio_case_css }}; --m:var(--l, 56px); --w:var(--lx, 3); --h:var(--r); grid-template-columns: var(--lettre, 26px) repeat(var(--n), calc(var(--l, 56px) * var(--lx, 3)));">
+    <div></div>
+    {% for n in parking.numeros %}
+        <div class="pk-entete{% if mode == 'editer' %} cliquable{% endif %}" data-colonne="{{ n }}"
+             {% if mode == 'editer' %}title="{% trans 'Appliquer l’outil à toute la colonne' %}"{% endif %}>{{ n }}</div>
+    {% endfor %}
+    {% for ligne in grille %}
+        <div class="pk-lettre{% if mode == 'editer' %} cliquable{% endif %}" data-ligne="{{ ligne.lettre }}"
+             {% if mode == 'editer' %}title="{% trans 'Appliquer l’outil à toute la ligne' %}"{% endif %}>{{ ligne.lettre }}</div>
+        {% for c in ligne.cases %}
+            {% include "parking/_case.html" with style_case="height: calc(var(--l, 56px) * var(--r));" %}
+        {% endfor %}
+    {% endfor %}
+</div>

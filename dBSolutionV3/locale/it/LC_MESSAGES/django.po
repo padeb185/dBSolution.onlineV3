@@ -67419,3 +67419,281 @@ msgstr "Il cliente officina del veicolo è stato ripreso sulla fattura."
 
 msgid "Tél."
 msgstr "Tel."
+
+msgid "Parking"
+msgstr "Parcheggio"
+
+msgid "Parkings"
+msgstr "Parcheggi"
+
+msgid "Lignes nommées de A à Z (26 au maximum)."
+msgstr "Righe denominate da A a Z (massimo 26)."
+
+msgid "Emplacements numérotés de 1 à X (50 par défaut, 200 au maximum)."
+msgstr "Posti numerati da 1 a X (50 di default, massimo 200)."
+
+msgid "Ligne d'accès"
+msgstr "Corsia di accesso"
+
+msgid "Zone inaccessible"
+msgstr "Zona inaccessibile"
+
+msgid "Nom du parking"
+msgstr "Nome del parcheggio"
+
+msgid "Largeur (m)"
+msgstr "Larghezza (m)"
+
+msgid "Sens des emplacements 1 → X."
+msgstr "Direzione dei posti 1 → X."
+
+msgid "Longueur (m)"
+msgstr "Lunghezza (m)"
+
+msgid "Sens des lignes A → Z."
+msgstr "Direzione delle righe A → Z."
+
+msgid "Nombre de lignes (A–Z)"
+msgstr "Numero di righe (A–Z)"
+
+msgid "Emplacements par ligne (1–X)"
+msgstr "Posti per riga (1–X)"
+
+msgid "Plan"
+msgstr "Pianta"
+
+msgid "Ces box sont occupés et sortiraient du parking : %(codes)s. Libérez-les d'abord."
+msgstr "Questi posti sono occupati e uscirebbero dal parcheggio: %(codes)s. Liberali prima."
+
+msgid "Modifié par"
+msgstr "Modificato da"
+
+msgid "Box occupé"
+msgstr "Posto occupato"
+
+msgid "Box occupés"
+msgstr "Posti occupati"
+
+msgid "Box occupés :"
+msgstr "Posti occupati:"
+
+msgid "Modification du plan du parking"
+msgstr "Modifica della pianta del parcheggio"
+
+msgid "Parking : box"
+msgstr "Parcheggio: posto"
+
+msgid "Suppression du parking"
+msgstr "Eliminazione del parcheggio"
+
+msgid "Parking « %(nom)s » enregistré."
+msgstr "Parcheggio «%(nom)s» salvato."
+
+msgid "Le parking « %(nom)s » a bien été supprimé."
+msgstr "Il parcheggio «%(nom)s» è stato eliminato."
+
+msgid "Ce n'est pas un box : %(code)s."
+msgstr "Non è un posto: %(code)s."
+
+msgid "libéré"
+msgstr "liberato"
+
+msgid "Box %(code)s libéré."
+msgstr "Posto %(code)s liberato."
+
+msgid "Indiquez l'immatriculation ou choisissez un véhicule."
+msgstr "Inserisci la targa o scegli un veicolo."
+
+msgid "Le box %(code)s est déjà occupé par %(plaque)s : libérez-le d'abord."
+msgstr "Il posto %(code)s è già occupato da %(plaque)s: liberalo prima."
+
+msgid "%(plaque)s quitte le box %(ancien)s (%(parking)s)."
+msgstr "%(plaque)s lascia il posto %(ancien)s (%(parking)s)."
+
+msgid "%(plaque)s placé dans le box %(code)s."
+msgstr "%(plaque)s collocato nel posto %(code)s."
+
+msgid "Plan invalide."
+msgstr "Pianta non valida."
+
+msgid "Ces box sont occupés et ne peuvent pas devenir une ligne d'accès ou une zone inaccessible : %(codes)s. Libérez-les d'abord."
+msgstr "Questi posti sono occupati e non possono diventare una corsia di accesso o una zona inaccessibile: %(codes)s. Liberali prima."
+
+msgid "%(n)s box"
+msgstr "%(n)s posti"
+
+msgid "Plan enregistré : %(n)s box."
+msgstr "Pianta salvata: %(n)s posti."
+
+msgid "Appliquer l’outil à toute la colonne"
+msgstr "Applica lo strumento a tutta la colonna"
+
+msgid "Appliquer l’outil à toute la ligne"
+msgstr "Applica lo strumento a tutta la riga"
+
+msgid "Box libre"
+msgstr "Posto libero"
+
+msgid "Supprimer le parking"
+msgstr "Elimina il parcheggio"
+
+msgid "Le plan et les emplacements sont supprimés définitivement."
+msgstr "La pianta e i posti vengono eliminati definitivamente."
+
+msgid "Éditer le plan"
+msgstr "Modifica la pianta"
+
+msgid "Outil"
+msgstr "Strumento"
+
+msgid "Cliquez ou glissez sur les cases pour les peindre. Cliquez sur une lettre pour appliquer l'outil à toute la ligne horizontale, sur un numéro pour toute la ligne verticale de box."
+msgstr "Clicca o trascina sulle caselle per colorarle. Clicca su una lettera per applicare lo strumento a tutta la riga orizzontale, su un numero per tutta la linea verticale di posti."
+
+msgid "Coins inaccessibles"
+msgstr "Angoli inaccessibili"
+
+msgid "case(s)"
+msgstr "casella/e"
+
+msgid "Bloquer les 4 coins"
+msgstr "Blocca i 4 angoli"
+
+msgid "Tout remettre en box"
+msgstr "Riporta tutto a posti"
+
+msgid "Zoom"
+msgstr "Zoom"
+
+msgid "box"
+msgstr "posti"
+
+msgid "Les box occupés (en rouge) ne peuvent pas devenir une ligne d'accès ou une zone inaccessible : libérez-les d'abord."
+msgstr "I posti occupati (in rosso) non possono diventare corsia di accesso o zona inaccessibile: liberali prima."
+
+msgid "Enregistrer le plan"
+msgstr "Salva la pianta"
+
+msgid "Voir le parking"
+msgstr "Vedi il parcheggio"
+
+msgid "Dimensions et nombre de lignes"
+msgstr "Dimensioni e numero di righe"
+
+msgid "Box occupé : libérez-le avant de changer son type."
+msgstr "Posto occupato: liberalo prima di cambiarne il tipo."
+
+msgid "Paramètres du parking"
+msgstr "Parametri del parcheggio"
+
+msgid "Nouveau parking"
+msgstr "Nuovo parcheggio"
+
+msgid "Créer et dessiner le plan"
+msgstr "Crea e disegna la pianta"
+
+msgid "Taille d’une case :"
+msgstr "Dimensione di una casella:"
+
+msgid "lignes"
+msgstr "righe"
+
+msgid "emplacements"
+msgstr "posti"
+
+msgid "Occupés"
+msgstr "Occupati"
+
+msgid "Libres"
+msgstr "Liberi"
+
+msgid "Ouvrir le parking"
+msgstr "Apri il parcheggio"
+
+msgid "Écran TV"
+msgstr "Schermo TV"
+
+msgid "Paramètres"
+msgstr "Parametri"
+
+msgid "Aucun parking enregistré."
+msgstr "Nessun parcheggio registrato."
+
+msgid "Rechercher une immatriculation ou un box"
+msgstr "Cerca una targa o un posto"
+
+msgid "Cliquez sur un box pour y placer une immatriculation ou le libérer. Chaque box contient une seule immatriculation ; une voiture placée ailleurs quitte son ancien box."
+msgstr "Clicca su un posto per collocarvi una targa o liberarlo. Ogni posto contiene una sola targa; un'auto collocata altrove lascia il posto precedente."
+
+msgid "Retour à la liste des parkings"
+msgstr "Torna all'elenco dei parcheggi"
+
+msgid "Véhicule enregistré"
+msgstr "Veicolo registrato"
+
+msgid "ou immatriculation"
+msgstr "o targa"
+
+msgid "Placer dans le box"
+msgstr "Colloca nel posto"
+
+msgid "Libérer le box"
+msgstr "Libera il posto"
+
+msgid "Introuvable dans ce parking."
+msgstr "Non trovato in questo parcheggio."
+
+msgid "Mise à jour"
+msgstr "Aggiornato"
+
+msgid "Plein écran"
+msgstr "Schermo intero"
+
+msgid "%(n)s box occupé sera libéré."
+msgid_plural "%(n)s box occupés seront libérés."
+msgstr[0] "%(n)s posto occupato sarà liberato."
+msgstr[1] "%(n)s posti occupati saranno liberati."
+
+msgid "Pays de la plaque"
+msgstr "Paese della targa"
+
+msgid "Véhicule enregistré : le pays de sa fiche est utilisé."
+msgstr "Veicolo registrato: viene usato il paese della sua scheda."
+
+msgid "Box vertical"
+msgstr "Posto verticale"
+
+msgid "Box horizontal"
+msgstr "Posto orizzontale"
+
+msgid "Sans case"
+msgstr "Nessuna casella"
+
+msgid "Largeur d'un box (m)"
+msgstr "Larghezza di un posto (m)"
+
+msgid "Box vertical : largeur × longueur. Box horizontal : longueur × largeur."
+msgstr "Posto verticale: larghezza × lunghezza. Posto orizzontale: lunghezza × larghezza."
+
+msgid "Longueur d'un box (m)"
+msgstr "Lunghezza di un posto (m)"
+
+msgid "Largeur d'une ligne d'accès (m)"
+msgstr "Larghezza di una corsia di accesso (m)"
+
+msgid "Profondeur d'une ligne entièrement en accès (allée de circulation)."
+msgstr "Profondità di una riga interamente di accesso (corsia di circolazione)."
+
+msgid "Sur la largeur du parking : %%(v)s box verticaux ou %%(h)s box horizontaux par ligne."
+msgstr "Sulla larghezza del parcheggio: %%(v)s posti verticali o %%(h)s orizzontali per riga."
+
+msgid "Dimensions réelles : box vertical %(l)s × %(L)s m, box horizontal %(L)s × %(l)s m. « Sans case » raccourcit une ligne (par ex. une ligne de box horizontaux, deux fois plus longs)."
+msgstr "Dimensioni reali: posto verticale %(l)s × %(L)s m, posto orizzontale %(L)s × %(l)s m. «Nessuna casella» accorcia una riga (es. una riga di posti orizzontali, lunghi il doppio)."
+
+msgid "Lignes plus longues que la largeur du parking (%(largeur)s m) : %(lignes)s."
+msgstr "Righe più lunghe della larghezza del parcheggio (%(largeur)s m): %(lignes)s."
+
+msgid "Profondeur totale des lignes : %(total)s m, pour un parking de %(longueur)s m."
+msgstr "Profondità totale delle righe: %(total)s m, per un parcheggio di %(longueur)s m."
+
+msgid "Longueur de la ligne : %(l)s m"
+msgstr "Lunghezza della riga: %(l)s m"

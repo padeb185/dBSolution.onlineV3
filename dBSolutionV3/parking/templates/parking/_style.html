@@ -1,0 +1,66 @@
+<style>
+/* Plan du parking : grille lignes A–Z × emplacements 1–X, cases à l'échelle (dimensions en mètres) */
+/* Plan à l'échelle : rangées de cases de tailles réelles (mètres × --m) */
+.pk-dessin { --m:40px; display:flex; flex-direction:column; gap:2px; width:max-content; }
+.pk-rang { display:flex; align-items:flex-start; gap:2px; }
+.pk-dessin .pk-case { width:calc(var(--m) * var(--w)); height:calc(var(--m) * var(--h)); flex-shrink:0; }
+.pk-dessin .pk-lettre { width:26px; flex-shrink:0; height:calc(var(--m) * var(--hr)); }
+.pk-rang.trop-longue > .pk-lettre { color:#b91c1c; background:#fee2e2; }
+.pk-alerte-dim { color:#92400e; background:#fef3c7; border:1px solid #fcd34d; border-radius:6px; padding:6px 10px; font-size:0.9rem; }
+.pk-legende { display:flex; flex-wrap:wrap; gap:14px; align-items:center; font-size:0.9rem; }
+.pk-legende span.pastille { display:inline-block; width:18px; height:18px; border-radius:3px; vertical-align:middle; margin-right:4px; border:1px solid #9ca3af; }
+.pk-zone { overflow:auto; background:#fff; border-radius:8px; padding:10px; }
+.pk-grille { display:grid; gap:2px; width:max-content; }
+.pk-entete, .pk-lettre { font-weight:700; color:#374151; font-size:0.75rem; display:flex; align-items:center; justify-content:center; user-select:none; }
+/* lettres et numéros toujours visibles quand on fait défiler un grand parking */
+.pk-lettre { position:sticky; left:0; z-index:3; background:#fff; }
+.pk-entete { position:sticky; top:0; z-index:3; background:#fff; }
+.pk-entete.cliquable, .pk-lettre.cliquable { cursor:pointer; background:#e5e7eb; border-radius:3px; }
+.pk-entete.cliquable:hover, .pk-lettre.cliquable:hover { background:#bfdbfe; }
+.pk-case { box-sizing:border-box; position:relative; border-radius:3px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+           overflow:hidden; font-size:0.62rem; line-height:1.1; text-align:center; user-select:none; }
+.pk-case.BOX { background:#f0fdf4; border:1px solid #86efac; color:#166534; }
+.pk-case.BOX.occupe { background:#fee2e2; border-color:#f87171; color:#7f1d1d; }
+/* Traits de stationnement : box vertical = traits à gauche et à droite ; box horizontal = traits en haut et en bas */
+.pk-case.BOX { border-left-width:3px; border-right-width:3px; border-top-style:dashed; border-bottom-style:dashed; }
+.pk-case.BOX.horizontal { border-left-width:1px; border-right-width:1px; border-left-style:dashed; border-right-style:dashed;
+                          border-top-width:3px; border-bottom-width:3px; border-top-style:solid; border-bottom-style:solid; }
+.pk-case.BOX .sens { position:absolute; right:3px; top:2px; font-size:0.7rem; opacity:0.55; line-height:1; }
+.pk-case.VIDE { background:#fff; border:1px dotted #d1d5db; }
+.pk-case.ACCES { background:#d1d5db; border:1px dashed #9ca3af; }
+.pk-case.BLOQUE { background:repeating-linear-gradient(45deg,#4b5563 0 4px,#6b7280 4px 8px); border:1px solid #374151; }
+.pk-case .code { font-weight:700; opacity:0.75; }
+/* Plaque d'immatriculation (mise en forme par pays), à l'échelle de la case */
+.pk-plaque { --pw: calc(var(--m, 40px) * var(--w, 2.5) * 0.94);
+             --fs: min(calc(var(--pw) / 6.2), calc(var(--m, 40px) * var(--h, 5) * 0.3));
+             font-size: max(7px, calc(var(--fs) * 0.9)); height:1.55em; max-width:var(--pw);   /* plaque réduite de 10 % */
+             display:inline-flex; align-items:stretch; overflow:hidden; margin-top:2px;
+             background:var(--pf, #fff); border:max(1px, 0.09em) solid var(--pb, #000); border-radius:0.18em;
+             font-family:Arial, Helvetica, sans-serif; box-shadow:0 1px 2px rgba(0,0,0,.25); }
+/* Plaque toujours horizontale (box vertical comme horizontal) */
+.pk-ue { width:0.95em; flex-shrink:0; background:#003399; color:#fff; display:flex; flex-direction:column;
+         align-items:center; justify-content:center; gap:0.03em; }
+.pk-ue svg { width:0.62em; height:0.62em; }
+.pk-ue b { font-size:0.42em; line-height:1; }
+.pk-ue.pk-ch { background:var(--pf, #fff); }
+.pk-ue.pk-ch svg { width:0.7em; height:0.82em; }
+.pk-num { display:flex; align-items:center; justify-content:center; padding:0 0.18em; min-width:0;
+          color:var(--pt, #000); font-weight:700; text-transform:uppercase; letter-spacing:0.02em;
+          white-space:nowrap; overflow:hidden; line-height:1; }
+.pk-case.cliquable { cursor:pointer; }
+.pk-case.cliquable:hover { outline:2px solid #2563eb; z-index:1; }
+.pk-case.trouve { outline:3px solid #f59e0b; z-index:2; animation:pk-clignote 1s ease-in-out 4; }
+@keyframes pk-clignote { 50% { outline-color:transparent; } }
+.pk-stats { display:flex; flex-wrap:wrap; gap:12px; }
+.pk-stat { background:#fff; border-radius:8px; padding:10px 16px; box-shadow:0 1px 3px rgba(0,0,0,.1); }
+.pk-stat b { font-size:1.3rem; display:block; }
+.pk-bouton { display:inline-block; padding:8px 16px; border-radius:6px; font-weight:600; color:#fff; background:#1d4ed8; }
+.pk-bouton:hover { background:#3b82f6; }
+.pk-bouton.gris { background:#e5e7eb; color:#111827; }
+.pk-bouton.gris:hover { background:#d1d5db; }
+.pk-bouton.vert { background:#16a34a; }
+.pk-bouton.vert:hover { background:#22c55e; }
+.pk-bouton.rouge { background:#b91c1c; }
+.pk-bouton.rouge:hover { background:#dc2626; }
+.input { width:100%; border:1px solid #ccc; border-radius:6px; padding:8px; box-sizing:border-box; }
+</style>

@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Parking" %} – {{ parking.nom }}{% endblock %}
+
+{% block content %}
+<div class="p-4 w-full">
+    {% include "parking/_style.html" %}
+
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-4">
+        <h1 class="text-2xl font-bold flex items-center gap-3">
+            <img src="{% static 'icons/parking.png' %}" alt="{% trans 'Parking' %}" class="w-12 h-12">
+            {{ parking.nom }}
+            <span class="text-base font-normal text-gray-600">{{ parking.largeur_m|floatformat:"-2" }} m × {{ parking.longueur_m|floatformat:"-2" }} m</span>
+        </h1>
+        <div class="pk-stats">
+            <div class="pk-stat">{% trans "Box" %}<b>{{ parking.nombre_box }}</b></div>
+            <div class="pk-stat">{% trans "Occupés" %}<b class="text-red-700">{{ parking.nombre_occupes }}</b></div>
+            <div class="pk-stat">{% trans "Libres" %}<b class="text-green-700">{{ parking.nombre_libres }}</b></div>
+        </div>
+    </div>
+
+    {% include "partials/messages.html" %}
+
+    <div class="flex flex-wrap items-center gap-3 mb-3">
+        <input type="search" id="pk-recherche" class="input" style="max-width:260px" value="{{ recherche }}"
+               placeholder="{% trans 'Rechercher une immatriculation ou un box' %}">
+        <span id="pk-resultat" class="text-sm text-gray-600"></span>
+        <a href="{% url 'parking:tv' parking.pk %}" id="pk-tv" class="pk-bouton vert">{% trans "Écran TV" %}</a>
+        {% if peut_editer %}
+            <a href="{% url 'parking:editer' parking.pk %}" class="pk-bouton gris">{% trans "Éditer le plan" %}</a>
+            <a href="{% url 'parking:modifier' parking.pk %}" class="pk-bouton gris">{% trans "Paramètres" %}</a>
+        {% endif %}
+        <label class="text-sm text-gray-600 flex items-center gap-2">{% trans "Zoom" %}
+            <input type="range" id="pk-zoom" min="12" max="120" value="40">
+        </label>
+    </div>
+
+    {% include "parking/_legende.html" %}
+    {% include "parking/_alerte_dimensions.html" %}
+
+    <div class="pk-zone mt-3 shadow-md">
+        {% include "parking/_dessin.html" with mode="plan" %}
+    </div>
+    <p class="text-sm text-gray-500 mt-2">{% trans "Cliquez sur un box pour y placer une immatriculation ou le libérer. Chaque box contient une seule immatriculation ; une voiture placée ailleurs quitte son ancien box." %}</p>
+
+    <br>
+    <a href="{% url 'parking:liste' %}" class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour à la liste des parkings" %}
+    </a>
+</div>
+
+<!-- Fenêtre : placer / libérer un box -->
+<div id="pk-modale" class="pk-modale" hidden>
+    <div class="pk-modale-boite">
+        <h2 class="text-xl font-bold mb-3">{% trans "Box" %} <span id="pk-modale-code"></span></h2>
+        <form method="post" action="{% url 'parking:box' parking.pk %}" id="pk-form-box" class="flex flex-col gap-3">
+            {% csrf_token %}
+            <input type="hidden" name="code" id="pk-code">
+            <div>
+                <label class="block font-semibold mb-1" for="pk-vehicule">{% trans "Véhicule enregistré" %}</label>
+                <select name="vehicule" id="pk-vehicule" class="input">
+                    <option value="">---------</option>
+                    {% for v in vehicules %}
+                        <option value="{{ v.pk }}" data-plaque="{{ v.immatriculation }}">{{ v.immatriculation }} – {{ v.voiture_marque.nom_marque }} {{ v.voiture_modele.nom_modele }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label class="block font-semibold mb-1" for="pk-immatriculation">{% trans "ou immatriculation" %}</label>
+                <input type="text" name="immatriculation" id="pk-immatriculation" class="input" maxlength="12"
+                       style="text-transform:uppercase" placeholder="1-ABC-123">
+            </div>
+            <div id="pk-bloc-pays">
+                <label class="block font-semibold mb-1" for="pk-pays">{% trans "Pays de la plaque" %}</label>
+                <select name="pays" id="pk-pays" class="input">
+                    {% for p in pays_plaques %}<option value="{{ p }}"{% if p == pays_defaut %} selected{% endif %}>{{ p }}</option>{% endfor %}
+                </select>
+                <p class="text-sm text-gray-500 mt-1">{% trans "Véhicule enregistré : le pays de sa fiche est utilisé." %}</p>
+            </div>
+            <div>
+                <label class="block font-semibold mb-1" for="pk-remarque">{% trans "Remarque" %}</label>
+                <input type="text" name="remarque" id="pk-remarque" class="input" maxlength="120">
+            </div>
+            <div class="flex flex-wrap gap-2 mt-2">
+                <button type="submit" name="action" value="placer" class="pk-bouton vert">{% trans "Placer dans le box" %}</button>
+                <button type="submit" name="action" value="liberer" id="pk-liberer" class="pk-bouton rouge">{% trans "Libérer le box" %}</button>
+                <button type="button" id="pk-fermer" class="pk-bouton gris">{% trans "Annuler" %}</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+.pk-modale { position:fixed; inset:0; background:rgba(0,0,0,.45); display:flex; align-items:center; justify-content:center; z-index:1000; }
+.pk-modale[hidden] { display:none; }
+.pk-modale-boite { background:#fff; border-radius:10px; padding:24px; width:min(480px, 92vw); box-shadow:0 10px 30px rgba(0,0,0,.3); }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const grille = document.getElementById("pk-grille");
+    const modale = document.getElementById("pk-modale");
+    const cle = s => (s || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+
+    // Zoom (taille des cases)
+    const zoom = document.getElementById("pk-zoom");
+    zoom.addEventListener("input", () => grille.style.setProperty("--m", zoom.value + "px"));   // pixels par mètre
+
+    // Écran TV : nouvelle fenêtre plein écran
+    document.getElementById("pk-tv").addEventListener("click", function (e) {
+        e.preventDefault();
+        const f = window.open(this.href, "parking_tv_{{ parking.pk }}",
+            "width=" + screen.availWidth + ",height=" + screen.availHeight + ",left=0,top=0,resizable=yes");
+        if (!f) { window.location.href = this.href; } else { f.focus(); }
+    });
+
+    // Placer / libérer un box
+    grille.addEventListener("click", function (e) {
+        const c = e.target.closest(".pk-case.BOX");
+        if (!c) return;
+        document.getElementById("pk-modale-code").textContent = c.dataset.code;
+        document.getElementById("pk-code").value = c.dataset.code;
+        document.getElementById("pk-vehicule").value = c.dataset.vehicule || "";
+        document.getElementById("pk-immatriculation").value = c.dataset.plaque || "";
+        document.getElementById("pk-remarque").value = c.dataset.remarque || "";
+        document.getElementById("pk-pays").value = c.dataset.pays || "{{ pays_defaut|escapejs }}";
+        document.getElementById("pk-liberer").style.display = c.dataset.plaque ? "" : "none";
+        modale.hidden = false;
+    });
+    document.getElementById("pk-vehicule").addEventListener("change", function () {
+        const o = this.selectedOptions[0];
+        if (o && o.dataset.plaque) document.getElementById("pk-immatriculation").value = o.dataset.plaque;
+    });
+    document.getElementById("pk-fermer").addEventListener("click", () => { modale.hidden = true; });
+    modale.addEventListener("click", e => { if (e.target === modale) modale.hidden = true; });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") modale.hidden = true; });
+
+    // Recherche : immatriculation ou code de box
+    const champ = document.getElementById("pk-recherche");
+    const resultat = document.getElementById("pk-resultat");
+    const txtAucun = "{% trans 'Introuvable dans ce parking.'|escapejs %}";
+    function chercher() {
+        const q = cle(champ.value);
+        grille.querySelectorAll(".pk-case.trouve").forEach(c => c.classList.remove("trouve"));
+        resultat.textContent = "";
+        if (!q) return;
+        const trouves = [...grille.querySelectorAll(".pk-case.BOX")].filter(c =>
+            cle(c.dataset.code) === q || (c.dataset.plaque && cle(c.dataset.plaque).includes(q)));
+        trouves.forEach(c => c.classList.add("trouve"));
+        if (trouves.length) {
+            trouves[0].scrollIntoView({block: "center", inline: "center", behavior: "smooth"});
+            resultat.textContent = trouves.map(c => c.dataset.code + (c.dataset.plaque ? " (" + c.dataset.plaque + ")" : "")).join(", ");
+        } else {
+            resultat.textContent = txtAucun;
+        }
+    }
+    champ.addEventListener("input", chercher);
+    chercher();
+});
+</script>
+{% endblock %}

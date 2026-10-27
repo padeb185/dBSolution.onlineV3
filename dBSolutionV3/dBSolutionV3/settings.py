@@ -144,6 +144,7 @@ TENANT_APPS = (
     'investissements',
 
     'proprietaire',
+    'parking',
 
 
     'maintenance',

@@ -67476,3 +67476,281 @@ msgstr "Ο πελάτης συνεργείου του οχήματος προσ�
 
 msgid "Tél."
 msgstr "Τηλ."
+
+msgid "Parking"
+msgstr "Χώρος στάθμευσης"
+
+msgid "Parkings"
+msgstr "Χώροι στάθμευσης"
+
+msgid "Lignes nommées de A à Z (26 au maximum)."
+msgstr "Σειρές με ονόματα από A έως Z (έως 26)."
+
+msgid "Emplacements numérotés de 1 à X (50 par défaut, 200 au maximum)."
+msgstr "Θέσεις αριθμημένες από 1 έως X (50 προεπιλογή, έως 200)."
+
+msgid "Ligne d'accès"
+msgstr "Διάδρομος πρόσβασης"
+
+msgid "Zone inaccessible"
+msgstr "Μη προσβάσιμη ζώνη"
+
+msgid "Nom du parking"
+msgstr "Όνομα χώρου στάθμευσης"
+
+msgid "Largeur (m)"
+msgstr "Πλάτος (m)"
+
+msgid "Sens des emplacements 1 → X."
+msgstr "Κατεύθυνση θέσεων 1 → X."
+
+msgid "Longueur (m)"
+msgstr "Μήκος (m)"
+
+msgid "Sens des lignes A → Z."
+msgstr "Κατεύθυνση σειρών A → Z."
+
+msgid "Nombre de lignes (A–Z)"
+msgstr "Αριθμός σειρών (A–Z)"
+
+msgid "Emplacements par ligne (1–X)"
+msgstr "Θέσεις ανά σειρά (1–X)"
+
+msgid "Plan"
+msgstr "Σχέδιο"
+
+msgid "Ces box sont occupés et sortiraient du parking : %(codes)s. Libérez-les d'abord."
+msgstr "Αυτές οι θέσεις είναι κατειλημμένες και θα έμεναν εκτός χώρου: %(codes)s. Ελευθερώστε τις πρώτα."
+
+msgid "Modifié par"
+msgstr "Τροποποιήθηκε από"
+
+msgid "Box occupé"
+msgstr "Κατειλημμένη θέση"
+
+msgid "Box occupés"
+msgstr "Κατειλημμένες θέσεις"
+
+msgid "Box occupés :"
+msgstr "Κατειλημμένες θέσεις:"
+
+msgid "Modification du plan du parking"
+msgstr "Τροποποίηση σχεδίου χώρου στάθμευσης"
+
+msgid "Parking : box"
+msgstr "Χώρος στάθμευσης: θέση"
+
+msgid "Suppression du parking"
+msgstr "Διαγραφή χώρου στάθμευσης"
+
+msgid "Parking « %(nom)s » enregistré."
+msgstr "Ο χώρος «%(nom)s» αποθηκεύτηκε."
+
+msgid "Le parking « %(nom)s » a bien été supprimé."
+msgstr "Ο χώρος «%(nom)s» διαγράφηκε."
+
+msgid "Ce n'est pas un box : %(code)s."
+msgstr "Δεν είναι θέση: %(code)s."
+
+msgid "libéré"
+msgstr "ελευθερώθηκε"
+
+msgid "Box %(code)s libéré."
+msgstr "Η θέση %(code)s ελευθερώθηκε."
+
+msgid "Indiquez l'immatriculation ou choisissez un véhicule."
+msgstr "Συμπληρώστε την πινακίδα ή επιλέξτε όχημα."
+
+msgid "Le box %(code)s est déjà occupé par %(plaque)s : libérez-le d'abord."
+msgstr "Η θέση %(code)s είναι ήδη κατειλημμένη από %(plaque)s: ελευθερώστε την πρώτα."
+
+msgid "%(plaque)s quitte le box %(ancien)s (%(parking)s)."
+msgstr "Το %(plaque)s αφήνει τη θέση %(ancien)s (%(parking)s)."
+
+msgid "%(plaque)s placé dans le box %(code)s."
+msgstr "Το %(plaque)s τοποθετήθηκε στη θέση %(code)s."
+
+msgid "Plan invalide."
+msgstr "Μη έγκυρο σχέδιο."
+
+msgid "Ces box sont occupés et ne peuvent pas devenir une ligne d'accès ou une zone inaccessible : %(codes)s. Libérez-les d'abord."
+msgstr "Αυτές οι θέσεις είναι κατειλημμένες και δεν μπορούν να γίνουν διάδρομος ή μη προσβάσιμη ζώνη: %(codes)s. Ελευθερώστε τις πρώτα."
+
+msgid "%(n)s box"
+msgstr "%(n)s θέσεις"
+
+msgid "Plan enregistré : %(n)s box."
+msgstr "Το σχέδιο αποθηκεύτηκε: %(n)s θέσεις."
+
+msgid "Appliquer l’outil à toute la colonne"
+msgstr "Εφαρμογή του εργαλείου σε όλη τη στήλη"
+
+msgid "Appliquer l’outil à toute la ligne"
+msgstr "Εφαρμογή του εργαλείου σε όλη τη σειρά"
+
+msgid "Box libre"
+msgstr "Ελεύθερη θέση"
+
+msgid "Supprimer le parking"
+msgstr "Διαγραφή χώρου στάθμευσης"
+
+msgid "Le plan et les emplacements sont supprimés définitivement."
+msgstr "Το σχέδιο και οι θέσεις διαγράφονται οριστικά."
+
+msgid "Éditer le plan"
+msgstr "Επεξεργασία σχεδίου"
+
+msgid "Outil"
+msgstr "Εργαλείο"
+
+msgid "Cliquez ou glissez sur les cases pour les peindre. Cliquez sur une lettre pour appliquer l'outil à toute la ligne horizontale, sur un numéro pour toute la ligne verticale de box."
+msgstr "Κάντε κλικ ή σύρετε πάνω στα κελιά για να τα χρωματίσετε. Κλικ σε γράμμα για όλη την οριζόντια σειρά, σε αριθμό για όλη την κάθετη γραμμή θέσεων."
+
+msgid "Coins inaccessibles"
+msgstr "Μη προσβάσιμες γωνίες"
+
+msgid "case(s)"
+msgstr "κελί(ά)"
+
+msgid "Bloquer les 4 coins"
+msgstr "Αποκλεισμός των 4 γωνιών"
+
+msgid "Tout remettre en box"
+msgstr "Επαναφορά όλων σε θέσεις"
+
+msgid "Zoom"
+msgstr "Μεγέθυνση"
+
+msgid "box"
+msgstr "θέσεις"
+
+msgid "Les box occupés (en rouge) ne peuvent pas devenir une ligne d'accès ou une zone inaccessible : libérez-les d'abord."
+msgstr "Οι κατειλημμένες θέσεις (κόκκινες) δεν μπορούν να γίνουν διάδρομος ή μη προσβάσιμη ζώνη: ελευθερώστε τις πρώτα."
+
+msgid "Enregistrer le plan"
+msgstr "Αποθήκευση σχεδίου"
+
+msgid "Voir le parking"
+msgstr "Προβολή χώρου"
+
+msgid "Dimensions et nombre de lignes"
+msgstr "Διαστάσεις και αριθμός σειρών"
+
+msgid "Box occupé : libérez-le avant de changer son type."
+msgstr "Κατειλημμένη θέση: ελευθερώστε την πριν αλλάξετε τον τύπο."
+
+msgid "Paramètres du parking"
+msgstr "Ρυθμίσεις χώρου"
+
+msgid "Nouveau parking"
+msgstr "Νέος χώρος στάθμευσης"
+
+msgid "Créer et dessiner le plan"
+msgstr "Δημιουργία και σχεδίαση"
+
+msgid "Taille d’une case :"
+msgstr "Μέγεθος κελιού:"
+
+msgid "lignes"
+msgstr "σειρές"
+
+msgid "emplacements"
+msgstr "θέσεις"
+
+msgid "Occupés"
+msgstr "Κατειλημμένες"
+
+msgid "Libres"
+msgstr "Ελεύθερες"
+
+msgid "Ouvrir le parking"
+msgstr "Άνοιγμα χώρου"
+
+msgid "Écran TV"
+msgstr "Οθόνη TV"
+
+msgid "Paramètres"
+msgstr "Ρυθμίσεις"
+
+msgid "Aucun parking enregistré."
+msgstr "Δεν υπάρχει καταχωρισμένος χώρος."
+
+msgid "Rechercher une immatriculation ou un box"
+msgstr "Αναζήτηση πινακίδας ή θέσης"
+
+msgid "Cliquez sur un box pour y placer une immatriculation ou le libérer. Chaque box contient une seule immatriculation ; une voiture placée ailleurs quitte son ancien box."
+msgstr "Κάντε κλικ σε θέση για να τοποθετήσετε πινακίδα ή να την ελευθερώσετε. Κάθε θέση έχει μία μόνο πινακίδα· ένα όχημα που τοποθετείται αλλού αφήνει την παλιά θέση."
+
+msgid "Retour à la liste des parkings"
+msgstr "Επιστροφή στη λίστα χώρων"
+
+msgid "Véhicule enregistré"
+msgstr "Καταχωρισμένο όχημα"
+
+msgid "ou immatriculation"
+msgstr "ή πινακίδα"
+
+msgid "Placer dans le box"
+msgstr "Τοποθέτηση στη θέση"
+
+msgid "Libérer le box"
+msgstr "Ελευθέρωση θέσης"
+
+msgid "Introuvable dans ce parking."
+msgstr "Δεν βρέθηκε σε αυτόν τον χώρο."
+
+msgid "Mise à jour"
+msgstr "Ενημέρωση"
+
+msgid "Plein écran"
+msgstr "Πλήρης οθόνη"
+
+msgid "%(n)s box occupé sera libéré."
+msgid_plural "%(n)s box occupés seront libérés."
+msgstr[0] "%(n)s κατειλημμένη θέση θα ελευθερωθεί."
+msgstr[1] "%(n)s κατειλημμένες θέσεις θα ελευθερωθούν."
+
+msgid "Pays de la plaque"
+msgstr "Χώρα πινακίδας"
+
+msgid "Véhicule enregistré : le pays de sa fiche est utilisé."
+msgstr "Καταχωρισμένο όχημα: χρησιμοποιείται η χώρα της καρτέλας του."
+
+msgid "Box vertical"
+msgstr "Κάθετη θέση"
+
+msgid "Box horizontal"
+msgstr "Οριζόντια θέση"
+
+msgid "Sans case"
+msgstr "Χωρίς κελί"
+
+msgid "Largeur d'un box (m)"
+msgstr "Πλάτος θέσης (m)"
+
+msgid "Box vertical : largeur × longueur. Box horizontal : longueur × largeur."
+msgstr "Κάθετη θέση: πλάτος × μήκος. Οριζόντια θέση: μήκος × πλάτος."
+
+msgid "Longueur d'un box (m)"
+msgstr "Μήκος θέσης (m)"
+
+msgid "Largeur d'une ligne d'accès (m)"
+msgstr "Πλάτος διαδρόμου πρόσβασης (m)"
+
+msgid "Profondeur d'une ligne entièrement en accès (allée de circulation)."
+msgstr "Βάθος σειράς που είναι όλη διάδρομος (λωρίδα κυκλοφορίας)."
+
+msgid "Sur la largeur du parking : %%(v)s box verticaux ou %%(h)s box horizontaux par ligne."
+msgstr "Στο πλάτος του χώρου: %%(v)s κάθετες ή %%(h)s οριζόντιες θέσεις ανά σειρά."
+
+msgid "Dimensions réelles : box vertical %(l)s × %(L)s m, box horizontal %(L)s × %(l)s m. « Sans case » raccourcit une ligne (par ex. une ligne de box horizontaux, deux fois plus longs)."
+msgstr "Πραγματικές διαστάσεις: κάθετη θέση %(l)s × %(L)s m, οριζόντια θέση %(L)s × %(l)s m. Το «Χωρίς κελί» κονταίνει μια σειρά (π.χ. σειρά οριζόντιων θέσεων, διπλάσιου μήκους)."
+
+msgid "Lignes plus longues que la largeur du parking (%(largeur)s m) : %(lignes)s."
+msgstr "Σειρές μεγαλύτερες από το πλάτος του χώρου (%(largeur)s m): %(lignes)s."
+
+msgid "Profondeur totale des lignes : %(total)s m, pour un parking de %(longueur)s m."
+msgstr "Συνολικό βάθος σειρών: %(total)s m, για χώρο %(longueur)s m."
+
+msgid "Longueur de la ligne : %(l)s m"
+msgstr "Μήκος σειράς: %(l)s m"
