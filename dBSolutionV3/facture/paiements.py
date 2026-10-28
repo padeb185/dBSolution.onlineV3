@@ -87,9 +87,18 @@ def compte_tresorerie(mode):
 
 
 def ecritures_paiement(paiement):
-    """Encaissement : débit caisse ou banque / crédit clients."""
+    """
+    Encaissement : débit caisse ou banque / crédit clients.
+    Remboursement au client (note de crédit, montant négatif) : débit clients / crédit caisse ou banque.
+    """
     tresorerie = compte_tresorerie(paiement.mode)
     libelle = f"{paiement.facture.numero or ''} – {paiement.facture.nom_client_courant()}".strip(" –")
+    if paiement.montant < 0:
+        montant = -paiement.montant
+        return [
+            {"compte": COMPTE_CLIENTS, "intitule": COMPTES[COMPTE_CLIENTS], "libelle": libelle, "debit": montant, "credit": Decimal("0")},
+            {"compte": tresorerie, "intitule": COMPTES[tresorerie], "libelle": libelle, "debit": Decimal("0"), "credit": montant},
+        ]
     return [
         {"compte": tresorerie, "intitule": COMPTES[tresorerie], "libelle": libelle, "debit": paiement.montant, "credit": Decimal("0")},
         {"compte": COMPTE_CLIENTS, "intitule": COMPTES[COMPTE_CLIENTS], "libelle": libelle, "debit": Decimal("0"), "credit": paiement.montant},

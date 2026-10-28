@@ -3,7 +3,7 @@
 /* Plan à l'échelle : rangées de cases de tailles réelles (mètres × --m) */
 .pk-dessin { --m:40px; display:flex; flex-direction:column; gap:2px; width:max-content; }
 .pk-rang { display:flex; align-items:flex-start; gap:2px; }
-.pk-dessin .pk-case { width:calc(var(--m) * var(--w)); height:calc(var(--m) * var(--h)); flex-shrink:0; }
+.pk-dessin .pk-case { width:calc(var(--m) * var(--w) * var(--wf, 1)); height:calc(var(--m) * var(--h)); flex-shrink:0; }
 .pk-dessin .pk-lettre { width:26px; flex-shrink:0; height:calc(var(--m) * var(--hr)); }
 .pk-rang.trop-longue > .pk-lettre { color:#b91c1c; background:#fee2e2; }
 .pk-alerte-dim { color:#92400e; background:#fef3c7; border:1px solid #fcd34d; border-radius:6px; padding:6px 10px; font-size:0.9rem; }
@@ -31,7 +31,7 @@
 .pk-case.BLOQUE { background:repeating-linear-gradient(45deg,#4b5563 0 4px,#6b7280 4px 8px); border:1px solid #374151; }
 .pk-case .code { font-weight:700; opacity:0.75; }
 /* Plaque d'immatriculation (mise en forme par pays), à l'échelle de la case */
-.pk-plaque { --pw: calc(var(--m, 40px) * var(--w, 2.5) * 0.94);
+.pk-plaque { --pw: calc(var(--m, 40px) * var(--w, 2.5) * var(--wf, 1) * 0.94);
              --fs: min(calc(var(--pw) / 6.2), calc(var(--m, 40px) * var(--h, 5) * 0.3));
              font-size: max(7px, calc(var(--fs) * 0.9)); height:1.55em; max-width:var(--pw);   /* plaque réduite de 10 % */
              display:inline-flex; align-items:stretch; overflow:hidden; margin-top:2px;

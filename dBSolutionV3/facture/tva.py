@@ -207,18 +207,22 @@ class CalculTVA:
                 continue
             nb_factures += 1
             groupes = {}
+            note = facture.type_document != Facture.TypeDocument.FACTURE
+            signe = Decimal("-1") if facture.type_document == Facture.TypeDocument.NOTE_CREDIT else Decimal("1")
             for ligne in facture.lines.all():
-                if ligne.type_ligne == FactureLine.TypeLigne.LOCATION:
+                # Lignes « Location » d'une facture : comptées en 2) ; celles d'une note (crédit / débit) sont comptées ici
+                if ligne.type_ligne == FactureLine.TypeLigne.LOCATION and not note:
                     continue
                 taux = ZERO if facture.autoliquidation else arrondi(ligne.vat_rate)
-                groupes[taux] = groupes.get(taux, ZERO) + ligne.total_ht
+                groupes[taux] = groupes.get(taux, ZERO) + ligne.total_ht * signe
             for taux, base in groupes.items():
                 base = arrondi(base)
                 tva_ligne = ZERO if facture.autoliquidation else arrondi(base * taux / Decimal("100"))
                 self._mvts_payer.append({
                     "date": facture.issue_date, "piece": str(facture.numero or ""),
                     "tiers": str(facture.nom_client_courant() or ""), "libelle": "",
-                    "nature": "facture", "taux": taux, "base": base, "tva": tva_ligne,
+                    "nature": "note_credit" if signe < 0 else ("note_debit" if note else "facture"),
+                    "taux": taux, "base": base, "tva": tva_ligne,
                     "autoliquidation": bool(facture.autoliquidation),
                 })
                 if facture.autoliquidation:

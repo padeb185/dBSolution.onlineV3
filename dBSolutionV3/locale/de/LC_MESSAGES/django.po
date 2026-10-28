@@ -67754,3 +67754,156 @@ msgstr "Senkrechter Stellplatz: Länge × Breite (5 × 2,50 m). Waagerechter Ste
 
 msgid "Dimensions réelles : box vertical %(l)s × %(L)s m, box horizontal %(L)s × %(l)s m. « Sans case » raccourcit une ligne (par ex. une ligne de box verticaux, deux fois plus longs)."
 msgstr "Tatsächliche Maße: senkrechter Stellplatz %(l)s × %(L)s m, waagerechter Stellplatz %(L)s × %(l)s m. „Kein Feld“ verkürzt eine Reihe (z. B. eine Reihe senkrechter, doppelt so langer Stellplätze)."
+
+msgid "Note de crédit"
+msgstr "Gutschrift"
+
+msgid "Note de débit"
+msgstr "Lastschrift"
+
+msgid "Type de document"
+msgstr "Dokumenttyp"
+
+msgid "Facture d'origine"
+msgstr "Ursprungsrechnung"
+
+msgid "Motif de la note"
+msgstr "Grund der Gutschrift / Lastschrift"
+
+msgid "Une note de crédit ou de débit doit se rapporter à une facture émise."
+msgstr "Eine Gutschrift oder Lastschrift muss sich auf eine ausgestellte Rechnung beziehen."
+
+msgid "Indiquez le motif de la note."
+msgstr "Geben Sie den Grund an."
+
+msgid "Le montant de la note doit être positif."
+msgstr "Der Betrag muss positiv sein."
+
+msgid "La note de crédit (%(note)s €) dépasse le montant encore créditable de la facture %(numero)s (%(reste)s €)."
+msgstr "Die Gutschrift (%(note)s €) übersteigt den noch gutschreibbaren Betrag der Rechnung %(numero)s (%(reste)s €)."
+
+msgid "Une note se crée à partir d'une facture, pas d'une autre note."
+msgstr "Eine Gutschrift wird aus einer Rechnung erstellt, nicht aus einer anderen Gutschrift."
+
+msgid "La facture doit être émise pour créer une note de crédit ou de débit."
+msgstr "Die Rechnung muss ausgestellt sein, um eine Gutschrift oder Lastschrift zu erstellen."
+
+msgid "Facture interne à notre société : pas de note de crédit ou de débit (ce n'est pas une vente)."
+msgstr "Interne Rechnung an unser Unternehmen: keine Gutschrift oder Lastschrift (kein Verkauf)."
+
+msgid "Cette facture est déjà entièrement créditée."
+msgstr "Diese Rechnung ist bereits vollständig gutgeschrieben."
+
+msgid "Type de note inconnu."
+msgstr "Unbekannter Typ."
+
+msgid "Note de crédit relative à la facture %(numero)s du %(date)s."
+msgstr "Gutschrift zur Rechnung %(numero)s vom %(date)s."
+
+msgid "Note de débit relative à la facture %(numero)s du %(date)s."
+msgstr "Lastschrift zur Rechnung %(numero)s vom %(date)s."
+
+msgid "Création d'une note"
+msgstr "Erstellung einer Gutschrift / Lastschrift"
+
+msgid "%(document)s %(numero)s émise."
+msgstr "%(document)s %(numero)s ausgestellt."
+
+msgid "Brouillon de note de crédit créé avec les lignes de la facture %(numero)s : supprimez ou réduisez les lignes pour un crédit partiel, indiquez le motif puis émettez."
+msgstr "Gutschriftsentwurf mit den Zeilen der Rechnung %(numero)s erstellt: Zeilen für eine Teilgutschrift löschen oder reduzieren, Grund angeben und ausstellen."
+
+msgid "Brouillon de note de débit créé pour la facture %(numero)s : ajoutez les lignes à facturer en plus, indiquez le motif puis émettez."
+msgstr "Lastschriftentwurf für die Rechnung %(numero)s erstellt: zusätzliche Zeilen hinzufügen, Grund angeben und ausstellen."
+
+msgid "Le brouillon a bien été supprimé."
+msgstr "Der Entwurf wurde gelöscht."
+
+msgid "Le remboursement dépasse le montant à rembourser au client (%(reste)s €)."
+msgstr "Die Rückerstattung übersteigt den zu erstattenden Betrag (%(reste)s €)."
+
+msgid "Remboursement enregistré."
+msgstr "Rückerstattung erfasst."
+
+msgid "Raison de la note (erreur de prix, retour de pièce, geste commercial…). Imprimé sur le document."
+msgstr "Grund (Preisfehler, Teilerückgabe, Kulanz…). Wird auf dem Dokument gedruckt."
+
+msgid "Remboursement note de crédit"
+msgstr "Rückerstattung Gutschrift"
+
+msgid "du"
+msgstr "vom"
+
+msgid "Notes de crédit et de débit"
+msgstr "Gutschriften und Lastschriften"
+
+msgid "Un brouillon de note de crédit est créé avec les lignes de la facture : réduisez-les pour un crédit partiel avant d'émettre."
+msgstr "Ein Gutschriftsentwurf mit den Rechnungszeilen wird erstellt: Für eine Teilgutschrift vor dem Ausstellen reduzieren."
+
+msgid "Créer une note de crédit ?"
+msgstr "Gutschrift erstellen?"
+
+msgid "Créer une note de crédit"
+msgstr "Gutschrift erstellen"
+
+msgid "Facture entièrement créditée."
+msgstr "Rechnung vollständig gutgeschrieben."
+
+msgid "Un brouillon de note de débit est créé pour le même client : ajoutez les montants à facturer en plus."
+msgstr "Ein Lastschriftentwurf für denselben Kunden wird erstellt: zusätzliche Beträge hinzufügen."
+
+msgid "Créer une note de débit ?"
+msgstr "Lastschrift erstellen?"
+
+msgid "Créer une note de débit"
+msgstr "Lastschrift erstellen"
+
+msgid "complément facturé au même client"
+msgstr "Nachberechnung an denselben Kunden"
+
+msgid "Total de la note (TVAC)"
+msgstr "Gesamtbetrag (inkl. MwSt.)"
+
+msgid "Remboursé au client"
+msgstr "An den Kunden erstattet"
+
+msgid "Reste à rembourser"
+msgstr "Noch zu erstatten"
+
+msgid "Notes de crédit"
+msgstr "Gutschriften"
+
+msgid "Enregistrer le remboursement"
+msgstr "Rückerstattung erfassen"
+
+msgid "Rien à rembourser : la note est imputée sur la facture."
+msgstr "Nichts zu erstatten: Die Gutschrift wird mit der Rechnung verrechnet."
+
+msgid "Crédit partiel : supprimez les lignes non concernées ou réduisez les quantités / prix. Les montants s'inscrivent en positif : la note est déduite de la facture."
+msgstr "Teilgutschrift: nicht betroffene Zeilen löschen oder Mengen / Preise reduzieren. Beträge werden positiv erfasst: Die Gutschrift wird von der Rechnung abgezogen."
+
+msgid "Émettre la note de crédit"
+msgstr "Gutschrift ausstellen"
+
+msgid "Émettre la note de débit"
+msgstr "Lastschrift ausstellen"
+
+msgid "Relative à la facture"
+msgstr "Zur Rechnung"
+
+msgid "Total TVAC en votre faveur"
+msgstr "Gesamtbetrag inkl. MwSt. zu Ihren Gunsten"
+
+msgid "jusqu'à %(montant)s € TVAC"
+msgstr "bis %(montant)s € inkl. MwSt."
+
+msgid "Cette note de crédit est imputée sur la facture %(numero)s : elle réduit son reste à payer. Si la facture était déjà payée, le trop-perçu est à rembourser au client."
+msgstr "Diese Gutschrift wird mit der Rechnung %(numero)s verrechnet: Sie verringert den offenen Betrag. War die Rechnung bereits bezahlt, ist die Überzahlung dem Kunden zu erstatten."
+
+msgid "Trop-perçu à rembourser au client : %(montant)s € (à enregistrer sur la note de crédit)."
+msgstr "An den Kunden zu erstattende Überzahlung: %(montant)s € (auf der Gutschrift zu erfassen)."
+
+msgid "encore créditable : %(montant)s €"
+msgstr "noch gutschreibbar: %(montant)s €"
+
+msgid "Ce montant est déduit de la facture %(numero)s ; un éventuel trop-perçu vous est remboursé."
+msgstr "Dieser Betrag wird von der Rechnung %(numero)s abgezogen; eine eventuelle Überzahlung wird Ihnen erstattet."

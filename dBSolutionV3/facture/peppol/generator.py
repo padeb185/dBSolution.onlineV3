@@ -10,6 +10,7 @@ import xml.etree.ElementTree as etree
 from facture.models import Company, ParametresPeppol, arrondi
 
 NS_INVOICE = "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+NS_CREDIT_NOTE = "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2"
 NS_CBC = "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
 NS_CAC = "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
 
@@ -142,21 +143,37 @@ def generate_peppol_invoice(facture):
     parametres = ParametresPeppol.pour_societe(societe)
     client = facture.societe_cliente
 
-    root = etree.Element(f"{{{NS_INVOICE}}}Invoice")
+    # Note de crédit : document UBL « CreditNote » (type 381) ; note de débit : « Invoice » de type 383
+    note_credit = facture.type_document == "NOTE_CREDIT"
+    ns_document = NS_CREDIT_NOTE if note_credit else NS_INVOICE
+    etree.register_namespace("", ns_document)
+    root = etree.Element(f"{{{ns_document}}}{'CreditNote' if note_credit else 'Invoice'}")
 
     cbc(root, "CustomizationID", CUSTOMIZATION_ID)
     cbc(root, "ProfileID", PROFILE_ID)
     cbc(root, "ID", facture.numero)
     cbc(root, "IssueDate", facture.issue_date.isoformat())
-    if facture.due_date:
+    if facture.due_date and not note_credit:
         cbc(root, "DueDate", facture.due_date.isoformat())
-    cbc(root, "InvoiceTypeCode", "380")
-    if facture.remarques:
-        cbc(root, "Note", facture.remarques[:1000])
+    if note_credit:
+        cbc(root, "CreditNoteTypeCode", "381")
+    else:
+        cbc(root, "InvoiceTypeCode", "383" if facture.type_document == "NOTE_DEBIT" else "380")
+    note = " – ".join(x for x in ((facture.motif or "").strip(), (facture.remarques or "").strip()) if x)
+    if note:
+        cbc(root, "Note", note[:1000])
     cbc(root, "DocumentCurrencyCode", devise)
     # BT-10 obligatoire Peppol (référence acheteur) : numéro de facture par défaut
     vehicule = facture.voiture_exemplaire
     cbc(root, "BuyerReference", (vehicule.immatriculation if vehicule and vehicule.immatriculation else facture.numero))
+    # Facture d'origine (BT-25 / BT-26) d'une note de crédit ou de débit
+    origine = facture.facture_origine if facture.facture_origine_id else None
+    if origine is not None and origine.numero:
+        reference = cac(root, "BillingReference")
+        document = cac(reference, "InvoiceDocumentReference")
+        cbc(document, "ID", origine.numero)
+        if origine.issue_date:
+            cbc(document, "IssueDate", origine.issue_date.isoformat())
 
     # === Vendeur ===
     ajouter_partie(
@@ -220,9 +237,9 @@ def generate_peppol_invoice(facture):
     for index, ligne in enumerate(facture.lines.all(), start=1):
         taux = Decimal("0.00") if facture.autoliquidation else arrondi(ligne.vat_rate)
 
-        invoice_line = cac(root, "InvoiceLine")
+        invoice_line = cac(root, "CreditNoteLine" if note_credit else "InvoiceLine")
         cbc(invoice_line, "ID", index)
-        cbc(invoice_line, "InvoicedQuantity", f"{ligne.quantity:.2f}", unitCode=ligne.unite)
+        cbc(invoice_line, "CreditedQuantity" if note_credit else "InvoicedQuantity", f"{ligne.quantity:.2f}", unitCode=ligne.unite)
         cbc(invoice_line, "LineExtensionAmount", money(ligne.total_ht), currencyID=devise)
 
         item = cac(invoice_line, "Item")

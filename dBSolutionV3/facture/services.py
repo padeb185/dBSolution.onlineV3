@@ -537,7 +537,9 @@ def factures_existantes(maintenances=(), diagnostics=()):
         filtre |= models.Q(maintenances__in=ids_m)
     if ids_d:
         filtre |= models.Q(diagnostics__in=ids_d)
-    return list(Facture.objects.filter(filtre).distinct().order_by("created_at"))
+    factures = Facture.objects.filter(filtre).distinct().order_by("created_at")
+    # Facture entièrement annulée par des notes de crédit : la maintenance peut être refacturée
+    return [f for f in factures if not f.est_creditee]
 
 
 # ------------------------------------------------------------
@@ -956,10 +958,24 @@ def appliquer_marges(facture):
 
 
 def erreurs_emission(facture):
-    """Liste des problèmes qui empêchent d'émettre la facture."""
+    """Liste des problèmes qui empêchent d'émettre la facture (ou la note de crédit / de débit)."""
     erreurs = []
     if not facture.lines.exists():
         erreurs.append(_("La facture ne contient aucune ligne."))
+    if facture.est_note:
+        origine = facture.facture_origine
+        if origine is None or not origine.est_emise:
+            erreurs.append(_("Une note de crédit ou de débit doit se rapporter à une facture émise."))
+        if not (facture.motif or "").strip():
+            erreurs.append(_("Indiquez le motif de la note."))
+        facture.recalculer_totaux(save=False)
+        if Decimal(facture.total or 0) <= 0:
+            erreurs.append(_("Le montant de la note doit être positif."))
+        if facture.est_note_credit and origine is not None and Decimal(facture.total or 0) > origine.credit_disponible:
+            erreurs.append(
+                _("La note de crédit (%(note)s €) dépasse le montant encore créditable de la facture %(numero)s (%(reste)s €).")
+                % {"note": facture.total, "numero": origine.numero, "reste": origine.credit_disponible}
+            )
 
     if facture.client_est_societe:
         societe = facture.societe
@@ -1008,7 +1024,7 @@ def emettre_facture(facture):
 
     if not facture.issue_date:
         facture.issue_date = timezone.localdate()
-    facture.numero = Facture.prochain_numero(facture.issue_date.year)
+    facture.numero = Facture.prochain_numero(facture.issue_date.year, facture.type_document)
     facture.statut = Facture.Statut.EMISE
     facture.emise_le = timezone.now()
     facture.copier_coordonnees_client()
@@ -1020,6 +1036,15 @@ def emettre_facture(facture):
     if facture.est_pro:
         facture.xml_ubl = generate_peppol_invoice(facture).decode("utf-8")
         facture.save(update_fields=["xml_ubl"])
+
+    # Note de crédit : imputée sur la facture d'origine (reste à payer / trop-perçu à rembourser)
+    if facture.est_note_credit and facture.facture_origine_id:
+        origine = Facture.objects.select_for_update().get(pk=facture.facture_origine_id)
+        origine.recalculer_paiement(origine.montant_non_ventile)
+        origine.save(update_fields=["statut_paiement", "montant_paye", "date_paiement", "updated_at"])
+        facture.recalculer_paiement()
+        facture.save(update_fields=["statut_paiement", "montant_paye", "date_paiement", "updated_at"])
+        return facture
 
     # Stock : les pièces utilisées des maintenances facturées sont débitées à l'émission
     from piece.stock import debiter_facture
@@ -1061,3 +1086,72 @@ def emettre_repartition(facture):
         if getattr(emise, "vient_d_etre_emise", False):
             emises.append(emise)
     return emises, refusees
+
+
+# ------------------------------------------------------------
+# Notes de crédit / de débit
+# ------------------------------------------------------------
+CHAMPS_CLIENT_NOTE = (
+    "type_facture", "societe", "company", "voiture_exemplaire", "client_particulier", "client_atelier",
+    "societe_cliente", "proprietaire", "client_est_societe", "currency", "autoliquidation",
+    "marge_pieces", "marge_main_oeuvre", "part_pourcent", "part_proprietaire",
+)
+
+
+def erreurs_creation_note(facture, type_document):
+    erreurs = []
+    if not facture.est_facture:
+        erreurs.append(_("Une note se crée à partir d'une facture, pas d'une autre note."))
+    if not facture.est_emise:
+        erreurs.append(_("La facture doit être émise pour créer une note de crédit ou de débit."))
+    if facture.client_est_societe:
+        erreurs.append(_("Facture interne à notre société : pas de note de crédit ou de débit (ce n'est pas une vente)."))
+    if type_document == Facture.TypeDocument.NOTE_CREDIT and facture.credit_disponible <= 0:
+        erreurs.append(_("Cette facture est déjà entièrement créditée."))
+    return erreurs
+
+
+@transaction.atomic
+def creer_note(facture, type_document, user):
+    """
+    Brouillon de note de crédit (lignes de la facture copiées, à réduire pour un crédit partiel)
+    ou de note de débit (client et véhicule repris, lignes à saisir). Lève ValueError si impossible.
+    """
+    if type_document not in (Facture.TypeDocument.NOTE_CREDIT, Facture.TypeDocument.NOTE_DEBIT):
+        raise ValueError(_("Type de note inconnu."))
+    facture = Facture.objects.select_for_update().get(pk=facture.pk)
+    erreurs = erreurs_creation_note(facture, type_document)
+    if erreurs:
+        raise ValueError(" ".join(str(e) for e in erreurs))
+
+    valeurs = {champ: getattr(facture, champ) for champ in CHAMPS_CLIENT_NOTE}
+    note = Facture.objects.create(
+        type_document=type_document,
+        facture_origine=facture,
+        issue_date=timezone.localdate(),
+        due_date=timezone.localdate() + timedelta(days=30),
+        cree_par=user,
+        remarques=(_("Note de crédit relative à la facture %(numero)s du %(date)s.")
+                   if type_document == Facture.TypeDocument.NOTE_CREDIT else
+                   _("Note de débit relative à la facture %(numero)s du %(date)s."))
+        % {"numero": facture.numero, "date": facture.issue_date.strftime("%d/%m/%Y")},
+        **valeurs,
+    )
+    if type_document == Facture.TypeDocument.NOTE_CREDIT:
+        for ligne in facture.lines.all().order_by("ordre", "id"):
+            FactureLine.objects.create(
+                facture=note,
+                maintenance=ligne.maintenance,
+                type_ligne=ligne.type_ligne,
+                ordre=ligne.ordre,
+                description=ligne.description,
+                reference=ligne.reference,
+                quantity=ligne.quantity,
+                unit_cost=ligne.unit_cost,
+                marge=ligne.marge,
+                unit_price=ligne.unit_price,
+                vat_rate=ligne.vat_rate,
+            )
+        # Montant déjà crédité par d'autres notes : la nouvelle note ne peut porter que sur le solde
+        note.recalculer_totaux()
+    return note

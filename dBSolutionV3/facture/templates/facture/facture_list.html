@@ -69,7 +69,10 @@
             <tr>
                 <td class="border px-4 py-2 font-semibold">{{ f.numero|default:"—" }}</td>
                 <td class="border px-4 py-2" data-order="{{ f.issue_date|date:'Y-m-d' }}" data-search="{{ f.issue_date|date:'Y-m-d' }} {{ f.issue_date|date:'d/m/Y' }}">{{ f.issue_date|date:"d/m/Y" }}</td>
-                <td class="border px-4 py-2" data-search="{{ f.get_type_facture_display }}">{{ f.get_type_facture_display }}</td>
+                <td class="border px-4 py-2" data-search="{{ f.get_type_facture_display }} {{ f.get_type_document_display }}">
+                    {{ f.get_type_facture_display }}
+                    {% if f.est_note %}<span class="badge-doc {% if f.est_note_credit %}credit{% else %}debit{% endif %}">{{ f.get_type_document_display }}</span>{% endif %}
+                </td>
                 <td class="border px-4 py-2">{{ f.nom_client_courant|default:"-" }}</td>
                 <td class="border px-4 py-2" data-search="{{ f.voiture_exemplaire.immatriculation|default:'' }}" data-order="{{ f.voiture_exemplaire.immatriculation|default:'' }}">
                     {% if f.voiture_exemplaire %}
@@ -78,7 +81,7 @@
                         -
                     {% endif %}
                 </td>
-                <td class="border px-4 py-2 text-right" data-order="{{ f.total|stringformat:'.2f' }}" data-search="{{ f.total|stringformat:'.2f' }} {{ f.total|floatformat:2 }}">{{ f.total|floatformat:2 }} €</td>
+                <td class="border px-4 py-2 text-right" data-order="{{ f.total|stringformat:'.2f' }}" data-search="{{ f.total|stringformat:'.2f' }} {{ f.total|floatformat:2 }}">{% if f.est_note_credit %}− {% endif %}{{ f.total|floatformat:2 }} €</td>
                 <td class="border px-4 py-2" data-search="{{ f.get_statut_display }}">
                     <span class="px-2 py-1 rounded text-sm font-semibold {% if f.est_emise %}bg-green-100 text-green-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
                         {{ f.get_statut_display }}
@@ -146,4 +149,9 @@ $(document).ready(function () {
     exact('#search-paiement', 7);
 });
 </script>
+<style>
+.badge-doc { display:inline-block; margin-left:4px; padding:1px 6px; border-radius:6px; font-size:0.75rem; font-weight:600; }
+.badge-doc.credit { background:#ffedd5; color:#9a3412; }
+.badge-doc.debit { background:#dbeafe; color:#1e40af; }
+</style>
 {% endblock %}

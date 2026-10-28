@@ -1,0 +1,83 @@
+{% load i18n %}
+{# Notes de crédit / de débit : référence à la facture d'origine, ou liste des notes d'une facture et création #}
+{% if facture.est_note %}
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 note-origine">
+    <h2 class="text-lg font-semibold mb-2">{{ facture.libelle_document }}</h2>
+    {% with o=facture.facture_origine %}
+        {% if o %}
+            <p>{% trans "Facture d'origine" %} :
+                <a href="{% if o.est_brouillon %}{% url 'facture:modifier' o.pk %}{% else %}{% url 'facture:detail' o.pk %}{% endif %}" class="text-blue-700 font-semibold hover:underline">{{ o.numero|default:_("brouillon") }}</a>
+                {% trans "du" %} {{ o.issue_date|date:"d/m/Y" }} – {{ o.total|floatformat:2 }} € {% trans "TVAC" %}
+            </p>
+        {% endif %}
+    {% endwith %}
+    {% if facture.motif %}<p class="mt-1"><strong>{% trans "Motif" %} :</strong> {{ facture.motif|linebreaksbr }}</p>{% endif %}
+</div>
+{% elif facture.est_emise and not facture.client_est_societe %}
+<div class="bg-white shadow-md rounded-lg p-6 mb-6">
+    <h2 class="text-lg font-semibold mb-3">{% trans "Notes de crédit et de débit" %}</h2>
+    {% with notes=facture.notes.all %}
+        {% if notes %}
+        <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm mb-4">
+            <thead><tr class="bg-gray-100">
+                <th class="border px-2 py-2 text-left">{% trans "Document" %}</th>
+                <th class="border px-2 py-2 text-left">{% trans "Numéro" %}</th>
+                <th class="border px-2 py-2 text-left">{% trans "Date" %}</th>
+                <th class="border px-2 py-2 text-left">{% trans "Motif" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Total TVAC" %}</th>
+            </tr></thead>
+            <tbody>
+            {% for n in notes %}
+                <tr>
+                    <td class="border px-2 py-1"><span class="badge-note {% if n.est_note_credit %}credit{% else %}debit{% endif %}">{{ n.libelle_document }}</span></td>
+                    <td class="border px-2 py-1">
+                        <a href="{% if n.est_brouillon %}{% url 'facture:modifier' n.pk %}{% else %}{% url 'facture:detail' n.pk %}{% endif %}" class="text-blue-700 hover:underline">{{ n.numero|default:_("Brouillon") }}</a>
+                    </td>
+                    <td class="border px-2 py-1">{{ n.issue_date|date:"d/m/Y" }}</td>
+                    <td class="border px-2 py-1">{{ n.motif|default:"—"|truncatechars:80 }}</td>
+                    <td class="border px-2 py-1 text-right font-semibold">{% if n.est_note_credit %}− {% endif %}{{ n.total|floatformat:2 }} €</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    {% endwith %}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {% if facture.credit_disponible > 0 %}
+        <form method="post" action="{% url 'facture:creer_note' facture.pk %}"
+              data-confirm="{% trans "Un brouillon de note de crédit est créé avec les lignes de la facture : réduisez-les pour un crédit partiel avant d'émettre." %}"
+              data-confirm-titre="{% trans "Créer une note de crédit ?" %}"
+              data-confirm-ok="{% trans "Créer" %}">
+            {% csrf_token %}
+            <input type="hidden" name="type_document" value="NOTE_CREDIT">
+            <button type="submit" class="w-full btn-note-credit px-4 py-2 rounded font-semibold">
+                {% trans "Créer une note de crédit" %}
+                <span class="block text-xs font-normal">{% blocktrans with montant=facture.credit_disponible|floatformat:2 %}jusqu'à {{ montant }} € TVAC{% endblocktrans %}</span>
+            </button>
+        </form>
+        {% else %}
+        <p class="text-gray-600">{% trans "Facture entièrement créditée." %}</p>
+        {% endif %}
+        <form method="post" action="{% url 'facture:creer_note' facture.pk %}"
+              data-confirm="{% trans "Un brouillon de note de débit est créé pour le même client : ajoutez les montants à facturer en plus." %}"
+              data-confirm-titre="{% trans "Créer une note de débit ?" %}"
+              data-confirm-ok="{% trans "Créer" %}">
+            {% csrf_token %}
+            <input type="hidden" name="type_document" value="NOTE_DEBIT">
+            <button type="submit" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                {% trans "Créer une note de débit" %}
+                <span class="block text-xs font-normal">{% trans "complément facturé au même client" %}</span>
+            </button>
+        </form>
+    </div>
+</div>
+{% endif %}
+<style>
+.badge-note { display:inline-block; padding:2px 8px; border-radius:6px; font-size:0.8rem; font-weight:600; }
+.badge-note.credit { background:#ffedd5; color:#9a3412; }
+.badge-note.debit { background:#dbeafe; color:#1e40af; }
+.btn-note-credit { background:#ea580c; color:#fff; }
+.btn-note-credit:hover { background:#f97316; }
+.carte-credit { background:#fff7ed; border:1px solid #fed7aa; border-radius:0.25rem; padding:0.75rem; }
+.alerte-rembourser { background:#fff7ed; border:1px solid #fed7aa; color:#7c2d12; border-radius:0.25rem; padding:0.75rem; }
+</style>

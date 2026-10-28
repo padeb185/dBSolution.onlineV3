@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n static %}
 
-{% block title %}{% trans "Facture" %} – {% trans "Brouillon" %}{% endblock %}
+{% block title %}{{ facture.libelle_document }} – {% trans "Brouillon" %}{% endblock %}
 
 {% block content %}
 <div class="p-6 w-full ml-[-10px] mr-[10px]">
@@ -10,7 +10,8 @@
         <h1 class="text-2xl font-bold flex items-center gap-4">
             {% include "facture/_icone.html" %}
             <span>
-                {% if facture.est_pro %}{% trans "Facture professionnelle" %}{% else %}{% trans "Facture client particulier" %}{% endif %}
+                {% if facture.est_note %}{{ facture.libelle_document }}{% if facture.facture_origine %} – {% trans "facture" %} {{ facture.facture_origine.numero }}{% endif %}
+                {% elif facture.est_pro %}{% trans "Facture professionnelle" %}{% else %}{% trans "Facture client particulier" %}{% endif %}
                 <span class="block text-lg font-semibold text-gray-600">{% trans "Brouillon – vérifiez avant d'émettre" %}</span>
             </span>
         </h1>
@@ -25,6 +26,27 @@
 
     <form method="post" id="form-facture">
         {% csrf_token %}
+
+        {% if form.motif %}
+        <div class="bg-white shadow-md rounded-lg p-6 mb-6 note-motif">
+            <h2 class="text-lg font-semibold mb-2">{{ facture.libelle_document }}</h2>
+            {% with o=facture.facture_origine %}{% if o %}
+                <p class="text-sm text-gray-700 mb-3">
+                    {% trans "Facture d'origine" %} :
+                    <a href="{% url 'facture:detail' o.pk %}" class="text-blue-700 font-semibold hover:underline">{{ o.numero }}</a>
+                    {% trans "du" %} {{ o.issue_date|date:"d/m/Y" }} – {{ o.total|floatformat:2 }} € {% trans "TVAC" %}
+                    {% if facture.est_note_credit %}· {% blocktrans with montant=o.credit_disponible|floatformat:2 %}encore créditable : {{ montant }} €{% endblocktrans %}{% endif %}
+                </p>
+            {% endif %}{% endwith %}
+            <label class="font-semibold block mb-1" for="{{ form.motif.id_for_label }}">{{ form.motif.label }} *</label>
+            {{ form.motif }}
+            {% for e in form.motif.errors %}<p class="text-red-600 text-sm">{{ e }}</p>{% endfor %}
+            <p class="text-sm text-gray-500 mt-1">{{ form.motif.help_text }}</p>
+            {% if facture.est_note_credit %}
+                <p class="text-sm text-gray-600 mt-2">{% trans "Crédit partiel : supprimez les lignes non concernées ou réduisez les quantités / prix. Les montants s'inscrivent en positif : la note est déduite de la facture." %}</p>
+            {% endif %}
+        </div>
+        {% endif %}
 
         {% if form.non_field_errors %}
             <div class="mb-4 p-4 bg-red-50 border border-red-300 rounded text-red-700">{{ form.non_field_errors }}</div>
@@ -195,7 +217,7 @@
                     data-confirm-ok="{% trans "Émettre" %}"
                     data-confirm-style="vert"
                     class="w-full bg-green-600 text-white px-4 py-3 rounded hover:bg-green-500 font-semibold">
-                {% if facture.est_pro %}{% trans "Émettre la facture (PDF + XML)" %}{% else %}{% trans "Émettre la facture" %}{% endif %}
+                {% if facture.est_note_credit %}{% trans "Émettre la note de crédit" %}{% elif facture.est_note_debit %}{% trans "Émettre la note de débit" %}{% elif facture.est_pro %}{% trans "Émettre la facture (PDF + XML)" %}{% else %}{% trans "Émettre la facture" %}{% endif %}
             </button>
         </div>
     </form>

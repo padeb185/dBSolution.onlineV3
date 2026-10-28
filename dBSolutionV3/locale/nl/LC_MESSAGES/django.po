@@ -67732,3 +67732,156 @@ msgstr "Verticale plaats: lengte × breedte (5 × 2,50 m). Horizontale plaats: b
 
 msgid "Dimensions réelles : box vertical %(l)s × %(L)s m, box horizontal %(L)s × %(l)s m. « Sans case » raccourcit une ligne (par ex. une ligne de box verticaux, deux fois plus longs)."
 msgstr "Werkelijke afmetingen: verticale plaats %(l)s × %(L)s m, horizontale plaats %(L)s × %(l)s m. “Geen vak” maakt een rij korter (bv. een rij verticale plaatsen, twee keer zo lang)."
+
+msgid "Note de crédit"
+msgstr "Creditnota"
+
+msgid "Note de débit"
+msgstr "Debetnota"
+
+msgid "Type de document"
+msgstr "Documenttype"
+
+msgid "Facture d'origine"
+msgstr "Oorspronkelijke factuur"
+
+msgid "Motif de la note"
+msgstr "Reden van de nota"
+
+msgid "Une note de crédit ou de débit doit se rapporter à une facture émise."
+msgstr "Een credit- of debetnota moet betrekking hebben op een uitgegeven factuur."
+
+msgid "Indiquez le motif de la note."
+msgstr "Vul de reden van de nota in."
+
+msgid "Le montant de la note doit être positif."
+msgstr "Het bedrag van de nota moet positief zijn."
+
+msgid "La note de crédit (%(note)s €) dépasse le montant encore créditable de la facture %(numero)s (%(reste)s €)."
+msgstr "De creditnota (%(note)s €) overschrijdt het nog te crediteren bedrag van factuur %(numero)s (%(reste)s €)."
+
+msgid "Une note se crée à partir d'une facture, pas d'une autre note."
+msgstr "Een nota wordt opgemaakt vanuit een factuur, niet vanuit een andere nota."
+
+msgid "La facture doit être émise pour créer une note de crédit ou de débit."
+msgstr "De factuur moet uitgegeven zijn om een credit- of debetnota op te maken."
+
+msgid "Facture interne à notre société : pas de note de crédit ou de débit (ce n'est pas une vente)."
+msgstr "Interne factuur aan ons bedrijf: geen credit- of debetnota (het is geen verkoop)."
+
+msgid "Cette facture est déjà entièrement créditée."
+msgstr "Deze factuur is al volledig gecrediteerd."
+
+msgid "Type de note inconnu."
+msgstr "Onbekend type nota."
+
+msgid "Note de crédit relative à la facture %(numero)s du %(date)s."
+msgstr "Creditnota betreffende factuur %(numero)s van %(date)s."
+
+msgid "Note de débit relative à la facture %(numero)s du %(date)s."
+msgstr "Debetnota betreffende factuur %(numero)s van %(date)s."
+
+msgid "Création d'une note"
+msgstr "Aanmaak van een nota"
+
+msgid "%(document)s %(numero)s émise."
+msgstr "%(document)s %(numero)s uitgegeven."
+
+msgid "Brouillon de note de crédit créé avec les lignes de la facture %(numero)s : supprimez ou réduisez les lignes pour un crédit partiel, indiquez le motif puis émettez."
+msgstr "Concept-creditnota aangemaakt met de lijnen van factuur %(numero)s: verwijder of verminder lijnen voor een gedeeltelijke creditering, vul de reden in en geef uit."
+
+msgid "Brouillon de note de débit créé pour la facture %(numero)s : ajoutez les lignes à facturer en plus, indiquez le motif puis émettez."
+msgstr "Concept-debetnota aangemaakt voor factuur %(numero)s: voeg de bijkomende lijnen toe, vul de reden in en geef uit."
+
+msgid "Le brouillon a bien été supprimé."
+msgstr "Het concept is verwijderd."
+
+msgid "Le remboursement dépasse le montant à rembourser au client (%(reste)s €)."
+msgstr "De terugbetaling overschrijdt het aan de klant terug te betalen bedrag (%(reste)s €)."
+
+msgid "Remboursement enregistré."
+msgstr "Terugbetaling geregistreerd."
+
+msgid "Raison de la note (erreur de prix, retour de pièce, geste commercial…). Imprimé sur le document."
+msgstr "Reden van de nota (prijsfout, teruggestuurd onderdeel, commerciële geste…). Afgedrukt op het document."
+
+msgid "Remboursement note de crédit"
+msgstr "Terugbetaling creditnota"
+
+msgid "du"
+msgstr "van"
+
+msgid "Notes de crédit et de débit"
+msgstr "Credit- en debetnota's"
+
+msgid "Un brouillon de note de crédit est créé avec les lignes de la facture : réduisez-les pour un crédit partiel avant d'émettre."
+msgstr "Er wordt een concept-creditnota aangemaakt met de factuurlijnen: verminder ze voor een gedeeltelijke creditering voor u uitgeeft."
+
+msgid "Créer une note de crédit ?"
+msgstr "Een creditnota aanmaken?"
+
+msgid "Créer une note de crédit"
+msgstr "Creditnota aanmaken"
+
+msgid "Facture entièrement créditée."
+msgstr "Factuur volledig gecrediteerd."
+
+msgid "Un brouillon de note de débit est créé pour le même client : ajoutez les montants à facturer en plus."
+msgstr "Er wordt een concept-debetnota aangemaakt voor dezelfde klant: voeg de bijkomende bedragen toe."
+
+msgid "Créer une note de débit ?"
+msgstr "Een debetnota aanmaken?"
+
+msgid "Créer une note de débit"
+msgstr "Debetnota aanmaken"
+
+msgid "complément facturé au même client"
+msgstr "aanvulling gefactureerd aan dezelfde klant"
+
+msgid "Total de la note (TVAC)"
+msgstr "Totaal van de nota (incl. btw)"
+
+msgid "Remboursé au client"
+msgstr "Terugbetaald aan de klant"
+
+msgid "Reste à rembourser"
+msgstr "Nog terug te betalen"
+
+msgid "Notes de crédit"
+msgstr "Creditnota's"
+
+msgid "Enregistrer le remboursement"
+msgstr "Terugbetaling registreren"
+
+msgid "Rien à rembourser : la note est imputée sur la facture."
+msgstr "Niets terug te betalen: de nota wordt verrekend met de factuur."
+
+msgid "Crédit partiel : supprimez les lignes non concernées ou réduisez les quantités / prix. Les montants s'inscrivent en positif : la note est déduite de la facture."
+msgstr "Gedeeltelijke creditering: verwijder de niet-betrokken lijnen of verminder hoeveelheden / prijzen. Bedragen worden positief ingevuld: de nota wordt van de factuur afgetrokken."
+
+msgid "Émettre la note de crédit"
+msgstr "Creditnota uitgeven"
+
+msgid "Émettre la note de débit"
+msgstr "Debetnota uitgeven"
+
+msgid "Relative à la facture"
+msgstr "Betreffende factuur"
+
+msgid "Total TVAC en votre faveur"
+msgstr "Totaal incl. btw in uw voordeel"
+
+msgid "jusqu'à %(montant)s € TVAC"
+msgstr "tot %(montant)s € incl. btw"
+
+msgid "Cette note de crédit est imputée sur la facture %(numero)s : elle réduit son reste à payer. Si la facture était déjà payée, le trop-perçu est à rembourser au client."
+msgstr "Deze creditnota wordt verrekend met factuur %(numero)s: ze vermindert het openstaand bedrag. Was de factuur al betaald, dan moet het teveel betaalde aan de klant terugbetaald worden."
+
+msgid "Trop-perçu à rembourser au client : %(montant)s € (à enregistrer sur la note de crédit)."
+msgstr "Teveel betaald, terug te betalen aan de klant: %(montant)s € (te registreren op de creditnota)."
+
+msgid "encore créditable : %(montant)s €"
+msgstr "nog te crediteren: %(montant)s €"
+
+msgid "Ce montant est déduit de la facture %(numero)s ; un éventuel trop-perçu vous est remboursé."
+msgstr "Dit bedrag wordt afgetrokken van factuur %(numero)s; een eventueel teveel betaald bedrag wordt u terugbetaald."

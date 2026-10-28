@@ -67703,3 +67703,156 @@ msgstr "Posto verticale: lunghezza × larghezza (5 × 2,50 m). Posto orizzontale
 
 msgid "Dimensions réelles : box vertical %(l)s × %(L)s m, box horizontal %(L)s × %(l)s m. « Sans case » raccourcit une ligne (par ex. une ligne de box verticaux, deux fois plus longs)."
 msgstr "Dimensioni reali: posto verticale %(l)s × %(L)s m, posto orizzontale %(L)s × %(l)s m. «Nessuna casella» accorcia una riga (es. una riga di posti verticali, lunghi il doppio)."
+
+msgid "Note de crédit"
+msgstr "Nota di credito"
+
+msgid "Note de débit"
+msgstr "Nota di debito"
+
+msgid "Type de document"
+msgstr "Tipo di documento"
+
+msgid "Facture d'origine"
+msgstr "Fattura di origine"
+
+msgid "Motif de la note"
+msgstr "Motivo della nota"
+
+msgid "Une note de crédit ou de débit doit se rapporter à une facture émise."
+msgstr "Una nota di credito o di debito deve riferirsi a una fattura emessa."
+
+msgid "Indiquez le motif de la note."
+msgstr "Indica il motivo della nota."
+
+msgid "Le montant de la note doit être positif."
+msgstr "L'importo della nota deve essere positivo."
+
+msgid "La note de crédit (%(note)s €) dépasse le montant encore créditable de la facture %(numero)s (%(reste)s €)."
+msgstr "La nota di credito (%(note)s €) supera l'importo ancora accreditabile della fattura %(numero)s (%(reste)s €)."
+
+msgid "Une note se crée à partir d'une facture, pas d'une autre note."
+msgstr "Una nota si crea da una fattura, non da un'altra nota."
+
+msgid "La facture doit être émise pour créer une note de crédit ou de débit."
+msgstr "La fattura deve essere emessa per creare una nota di credito o di debito."
+
+msgid "Facture interne à notre société : pas de note de crédit ou de débit (ce n'est pas une vente)."
+msgstr "Fattura interna alla nostra società: nessuna nota di credito o di debito (non è una vendita)."
+
+msgid "Cette facture est déjà entièrement créditée."
+msgstr "Questa fattura è già interamente accreditata."
+
+msgid "Type de note inconnu."
+msgstr "Tipo di nota sconosciuto."
+
+msgid "Note de crédit relative à la facture %(numero)s du %(date)s."
+msgstr "Nota di credito relativa alla fattura %(numero)s del %(date)s."
+
+msgid "Note de débit relative à la facture %(numero)s du %(date)s."
+msgstr "Nota di debito relativa alla fattura %(numero)s del %(date)s."
+
+msgid "Création d'une note"
+msgstr "Creazione di una nota"
+
+msgid "%(document)s %(numero)s émise."
+msgstr "%(document)s %(numero)s emessa."
+
+msgid "Brouillon de note de crédit créé avec les lignes de la facture %(numero)s : supprimez ou réduisez les lignes pour un crédit partiel, indiquez le motif puis émettez."
+msgstr "Bozza di nota di credito creata con le righe della fattura %(numero)s: elimina o riduci le righe per un credito parziale, indica il motivo ed emetti."
+
+msgid "Brouillon de note de débit créé pour la facture %(numero)s : ajoutez les lignes à facturer en plus, indiquez le motif puis émettez."
+msgstr "Bozza di nota di debito creata per la fattura %(numero)s: aggiungi le righe in più, indica il motivo ed emetti."
+
+msgid "Le brouillon a bien été supprimé."
+msgstr "La bozza è stata eliminata."
+
+msgid "Le remboursement dépasse le montant à rembourser au client (%(reste)s €)."
+msgstr "Il rimborso supera l'importo da rimborsare al cliente (%(reste)s €)."
+
+msgid "Remboursement enregistré."
+msgstr "Rimborso registrato."
+
+msgid "Raison de la note (erreur de prix, retour de pièce, geste commercial…). Imprimé sur le document."
+msgstr "Motivo della nota (errore di prezzo, reso di un ricambio, gesto commerciale…). Stampato sul documento."
+
+msgid "Remboursement note de crédit"
+msgstr "Rimborso nota di credito"
+
+msgid "du"
+msgstr "del"
+
+msgid "Notes de crédit et de débit"
+msgstr "Note di credito e di debito"
+
+msgid "Un brouillon de note de crédit est créé avec les lignes de la facture : réduisez-les pour un crédit partiel avant d'émettre."
+msgstr "Viene creata una bozza di nota di credito con le righe della fattura: riducile per un credito parziale prima di emettere."
+
+msgid "Créer une note de crédit ?"
+msgstr "Creare una nota di credito?"
+
+msgid "Créer une note de crédit"
+msgstr "Crea una nota di credito"
+
+msgid "Facture entièrement créditée."
+msgstr "Fattura interamente accreditata."
+
+msgid "Un brouillon de note de débit est créé pour le même client : ajoutez les montants à facturer en plus."
+msgstr "Viene creata una bozza di nota di debito per lo stesso cliente: aggiungi gli importi in più."
+
+msgid "Créer une note de débit ?"
+msgstr "Creare una nota di debito?"
+
+msgid "Créer une note de débit"
+msgstr "Crea una nota di debito"
+
+msgid "complément facturé au même client"
+msgstr "integrazione fatturata allo stesso cliente"
+
+msgid "Total de la note (TVAC)"
+msgstr "Totale della nota (IVA incl.)"
+
+msgid "Remboursé au client"
+msgstr "Rimborsato al cliente"
+
+msgid "Reste à rembourser"
+msgstr "Da rimborsare"
+
+msgid "Notes de crédit"
+msgstr "Note di credito"
+
+msgid "Enregistrer le remboursement"
+msgstr "Registra il rimborso"
+
+msgid "Rien à rembourser : la note est imputée sur la facture."
+msgstr "Nulla da rimborsare: la nota è imputata alla fattura."
+
+msgid "Crédit partiel : supprimez les lignes non concernées ou réduisez les quantités / prix. Les montants s'inscrivent en positif : la note est déduite de la facture."
+msgstr "Credito parziale: elimina le righe non interessate o riduci quantità / prezzi. Gli importi si inseriscono in positivo: la nota viene dedotta dalla fattura."
+
+msgid "Émettre la note de crédit"
+msgstr "Emetti la nota di credito"
+
+msgid "Émettre la note de débit"
+msgstr "Emetti la nota di debito"
+
+msgid "Relative à la facture"
+msgstr "Relativa alla fattura"
+
+msgid "Total TVAC en votre faveur"
+msgstr "Totale IVA incl. a vostro favore"
+
+msgid "jusqu'à %(montant)s € TVAC"
+msgstr "fino a %(montant)s € IVA incl."
+
+msgid "Cette note de crédit est imputée sur la facture %(numero)s : elle réduit son reste à payer. Si la facture était déjà payée, le trop-perçu est à rembourser au client."
+msgstr "Questa nota di credito è imputata alla fattura %(numero)s: ne riduce il residuo da pagare. Se la fattura era già pagata, l'eccedenza va rimborsata al cliente."
+
+msgid "Trop-perçu à rembourser au client : %(montant)s € (à enregistrer sur la note de crédit)."
+msgstr "Eccedenza da rimborsare al cliente: %(montant)s € (da registrare sulla nota di credito)."
+
+msgid "encore créditable : %(montant)s €"
+msgstr "ancora accreditabile: %(montant)s €"
+
+msgid "Ce montant est déduit de la facture %(numero)s ; un éventuel trop-perçu vous est remboursé."
+msgstr "Questo importo viene dedotto dalla fattura %(numero)s; un'eventuale eccedenza vi sarà rimborsata."

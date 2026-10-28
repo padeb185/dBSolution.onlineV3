@@ -206,10 +206,11 @@ class CompteTresorerie(models.Model):
             else:
                 paiements = paiements.exclude(mode=PaiementFacture.Mode.ESPECES)
             for p in paiements:
-                client = getattr(p.facture, "nom_client_courant", "") or ""
+                client = p.facture.nom_client_courant() or ""
                 L.append({
                     "date": p.date,
-                    "libelle": f"{_('Encaissement facture')} {p.facture.numero or ''} {client}".strip(),
+                    "libelle": (f"{_('Remboursement note de crédit')} {p.facture.numero or ''} {client}".strip() if p.montant < 0
+                                else f"{_('Encaissement facture')} {p.facture.numero or ''} {client}".strip()),
                     "entree": p.montant if p.montant > 0 else ZERO,
                     "sortie": -p.montant if p.montant < 0 else ZERO,
                     "contrepartie": "400000", "piece": p.facture.numero or "",

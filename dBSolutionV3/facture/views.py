@@ -29,6 +29,7 @@ from .services import (
     creer_factures_par_parts,
     emettre_facture,
     emettre_repartition,
+    creer_note,
     erreurs_emission,
     factures_existantes,
     parts_vehicule,
@@ -49,6 +50,7 @@ ACTION_SUPPRESSION_FACTURE = gettext_noop("Suppression d'un brouillon de facture
 ACTION_PARAMETRES_PEPPOL = gettext_noop("Modification des paramètres Peppol")
 ACTION_ENVOI_PEPPOL = gettext_noop("Envoi Peppol de la facture")
 ACTION_PAIEMENT_FACTURE = gettext_noop("Paiement de la facture")
+ACTION_CREATION_NOTE = gettext_noop("Création d'une note")
 
 
 def _peut(user, roles):
@@ -86,7 +88,7 @@ def _get_facture(request, pk):
             "societe", "societe__adresse", "client_particulier", "client_particulier__adresse",
             "client_atelier__client_particulier", "client_atelier__societe_cliente",
             "societe_cliente", "societe_cliente__adresse", "voiture_exemplaire",
-            "proprietaire", "proprietaire__adresse", "part_proprietaire",
+            "proprietaire", "proprietaire__adresse", "part_proprietaire", "facture_origine",
             "voiture_exemplaire__voiture_marque", "voiture_exemplaire__voiture_modele",
         ),
         pk=pk,
@@ -389,7 +391,11 @@ def facture_modifier_view(request, pk):
                                   % {"numero": facture.numero})
                     return redirect("facture:detail", pk=facture.pk)
                 _log(request.user, ACTION_EMISSION_FACTURE, facture)
-                messages.success(request, _("Facture %(numero)s émise.") % {"numero": facture.numero})
+                if facture.est_note:
+                    messages.success(request, _("%(document)s %(numero)s émise.")
+                                     % {"document": facture.libelle_document, "numero": facture.numero})
+                else:
+                    messages.success(request, _("Facture %(numero)s émise.") % {"numero": facture.numero})
 
                 parametres = ParametresPeppol.pour_societe(request.user.societe)
                 if facture.est_pro and parametres and parametres.est_configure and parametres.envoi_automatique:
@@ -414,6 +420,32 @@ def facture_modifier_view(request, pk):
         "peut_supprimer": _peut(request.user, ROLES_SUPPRESSION),
         "vendeur_locations": _vendeur_locations(request.user),
     })
+
+
+# -----------------------------
+# Note de crédit / note de débit sur une facture émise
+# -----------------------------
+@login_required
+@require_POST
+def creer_note_view(request, pk):
+    if not _peut(request.user, ROLES_FACTURATION):
+        return _refuser(request)
+    facture = _get_facture(request, pk)
+    type_document = request.POST.get("type_document")
+    try:
+        note = creer_note(facture, type_document, request.user)
+    except ValueError as erreur:
+        messages.error(request, str(erreur))
+        return redirect("facture:detail", pk=facture.pk)
+    _log(request.user, ACTION_CREATION_NOTE, note)
+    if note.est_note_credit:
+        messages.success(request, _("Brouillon de note de crédit créé avec les lignes de la facture %(numero)s : "
+                                    "supprimez ou réduisez les lignes pour un crédit partiel, indiquez le motif puis émettez.")
+                         % {"numero": facture.numero})
+    else:
+        messages.success(request, _("Brouillon de note de débit créé pour la facture %(numero)s : ajoutez les lignes "
+                                    "à facturer en plus, indiquez le motif puis émettez.") % {"numero": facture.numero})
+    return redirect("facture:modifier", pk=note.pk)
 
 
 # -----------------------------
@@ -708,10 +740,13 @@ def delete_facture_view(request, pk):
     analyse = analyser_suppression(facture)
 
     if request.method == "POST":
+        origine_id = facture.facture_origine_id
         with transaction.atomic():
             _log(request.user, ACTION_SUPPRESSION_FACTURE, facture)
             facture.delete()
-        messages.success(request, _("Le brouillon de facture a bien été supprimé."))
+        messages.success(request, _("Le brouillon a bien été supprimé."))
+        if origine_id:
+            return redirect("facture:detail", pk=origine_id)
         return redirect("facture:maintenances")
 
     return render(request, "facture/delete_facture.html", {
@@ -981,14 +1016,19 @@ def facture_paiement_view(request, pk):
                     raise ValueError(_("Montant invalide."))
                 if montant <= 0:
                     raise ValueError(_("Le montant doit être positif."))
-                if montant > facture.reste_a_payer:
+                if facture.est_note_credit:
+                    # Note de crédit : remboursement au client (sortie de caisse / banque, montant négatif)
+                    if montant > facture.reste_a_rembourser:
+                        raise ValueError(_("Le remboursement dépasse le montant à rembourser au client (%(reste)s €).")
+                                         % {"reste": facture.reste_a_rembourser})
+                elif montant > facture.reste_a_payer:
                     raise ValueError(_("Le montant dépasse le reste à payer (%(reste)s €).") % {"reste": facture.reste_a_payer})
                 try:
                     jour = datetime.strptime(request.POST.get("date") or "", "%Y-%m-%d").date()
                 except ValueError:
                     jour = timezone.localdate()
 
-                if mode == PaiementFacture.Mode.ESPECES:
+                if mode == PaiementFacture.Mode.ESPECES and not facture.est_note_credit:
                     plafond = plafond_especes(facture.pays_vendeur(), jour, request.POST.get("non_resident") == "1")
                     total_especes = facture.total_especes + montant
                     # Plafond légal : total des espèces reçues pour cette facture (paiements fractionnés compris)
@@ -999,14 +1039,20 @@ def facture_paiement_view(request, pk):
                         ) % {"total": total_especes, "pays": facture.pays_vendeur(), "plafond": plafond["montant"]})
 
                 PaiementFacture.objects.create(
-                    facture=facture, date=jour, montant=montant, mode=mode,
+                    facture=facture, date=jour, montant=-montant if facture.est_note_credit else montant, mode=mode,
                     reference=(request.POST.get("reference") or "")[:100], cree_par=request.user,
                 )
-                message = _("Paiement enregistré.")
+                message = _("Remboursement enregistré.") if facture.est_note_credit else _("Paiement enregistré.")
 
             facture.recalculer_paiement(non_ventile)
             facture.save(update_fields=["statut_paiement", "montant_paye", "date_paiement", "updated_at"])
-            _synchroniser_locations(facture)
+            if facture.est_note_credit and facture.facture_origine_id:
+                # Statut des autres notes de crédit de la même facture (reste à rembourser partagé)
+                for autre in facture.facture_origine.notes_emises(Facture.TypeDocument.NOTE_CREDIT).exclude(pk=facture.pk):
+                    autre.recalculer_paiement()
+                    autre.save(update_fields=["statut_paiement", "montant_paye", "date_paiement", "updated_at"])
+            else:
+                _synchroniser_locations(facture)
     except ValueError as e:
         messages.error(request, str(e))
         return redirect("facture:detail", pk=facture.pk)

@@ -74,6 +74,14 @@ class Facture(models.Model):
         BROUILLON = "BROUILLON", _("Brouillon")
         EMISE = "EMISE", _("Émise")
 
+    class TypeDocument(models.TextChoices):
+        FACTURE = "FACTURE", _("Facture")
+        NOTE_CREDIT = "NOTE_CREDIT", _("Note de crédit")
+        NOTE_DEBIT = "NOTE_DEBIT", _("Note de débit")
+
+    # Préfixe de numérotation par type de document (une séquence par type et par année)
+    PREFIXES = {"FACTURE": "F", "NOTE_CREDIT": "NC", "NOTE_DEBIT": "ND"}
+
     class StatutPaiement(models.TextChoices):
         A_PAYER = "A_PAYER", _("À payer")
         ACOMPTE = "ACOMPTE", _("Acompte")
@@ -108,6 +116,24 @@ class Facture(models.Model):
         choices=Statut.choices,
         default=Statut.BROUILLON,
     )
+
+    # Facture, note de crédit (annule / réduit une facture émise) ou note de débit (complément)
+    type_document = models.CharField(
+        _("Type de document"),
+        max_length=12,
+        choices=TypeDocument.choices,
+        default=TypeDocument.FACTURE,
+        db_index=True,
+    )
+    facture_origine = models.ForeignKey(
+        "self",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="notes",
+        verbose_name=_("Facture d'origine"),
+    )
+    motif = models.TextField(_("Motif de la note"), blank=True)
 
     societe = models.ForeignKey(
         "societe.Societe",
@@ -294,7 +320,7 @@ class Facture(models.Model):
         ordering = ["-issue_date", "-created_at"]
 
     def __str__(self):
-        return _("Facture %(numero)s") % {"numero": self.numero or _("brouillon")}
+        return "%s %s" % (self.get_type_document_display(), self.numero or _("brouillon"))
 
     # -------------------------
     # ÉTAT
@@ -302,6 +328,88 @@ class Facture(models.Model):
     @property
     def est_pro(self):
         return self.type_facture == self.TypeFacture.PRO
+
+    # -------------------------
+    # NOTES DE CRÉDIT / DE DÉBIT
+    # -------------------------
+    @property
+    def est_facture(self):
+        return self.type_document == self.TypeDocument.FACTURE
+
+    @property
+    def est_note_credit(self):
+        return self.type_document == self.TypeDocument.NOTE_CREDIT
+
+    @property
+    def est_note_debit(self):
+        return self.type_document == self.TypeDocument.NOTE_DEBIT
+
+    @property
+    def est_note(self):
+        return not self.est_facture
+
+    @property
+    def signe(self):
+        """-1 pour une note de crédit (montants à déduire du chiffre d'affaires et de la TVA), sinon 1."""
+        return Decimal("-1") if self.est_note_credit else Decimal("1")
+
+    @property
+    def libelle_document(self):
+        return self.get_type_document_display()
+
+    def notes_emises(self, type_document=None):
+        qs = self.notes.filter(statut=self.Statut.EMISE)
+        if type_document:
+            qs = qs.filter(type_document=type_document)
+        return qs
+
+    @property
+    def total_notes_credit(self):
+        """Total TVAC des notes de crédit émises sur cette facture."""
+        if not self.pk or not self.est_facture:
+            return Decimal("0.00")
+        return arrondi(sum((n.total for n in self.notes_emises(self.TypeDocument.NOTE_CREDIT)), Decimal("0")))
+
+    @property
+    def credit_disponible(self):
+        """Montant TVAC encore créditable (total de la facture − notes de crédit émises)."""
+        return max(arrondi(Decimal(self.total or 0) - self.total_notes_credit), Decimal("0.00"))
+
+    @property
+    def est_creditee(self):
+        """Facture entièrement annulée par des notes de crédit."""
+        return self.est_facture and self.est_emise and self.total and self.credit_disponible <= 0
+
+    @property
+    def excedent_client(self):
+        """Facture : payé + crédits au-delà du total = trop-perçu à rembourser au client."""
+        if not self.est_facture:
+            return Decimal("0.00")
+        return max(arrondi(Decimal(self.montant_paye or 0) + self.total_notes_credit - Decimal(self.total or 0)),
+                   Decimal("0.00"))
+
+    @property
+    def total_rembourse(self):
+        """Remboursements enregistrés sur les notes de crédit de la facture (paiements négatifs)."""
+        if not self.pk or not self.est_facture:
+            return Decimal("0.00")
+        return arrondi(-sum((p.montant for n in self.notes_emises(self.TypeDocument.NOTE_CREDIT)
+                             for p in n.paiements.all()), Decimal("0")))
+
+    @property
+    def reste_a_rembourser(self):
+        """Note de crédit : ce qu'il reste à rembourser au client (trop-perçu de la facture d'origine)."""
+        if self.est_note_credit and self.facture_origine_id:
+            o = self.facture_origine
+            reste = max(arrondi(o.excedent_client - o.total_rembourse), Decimal("0.00"))
+            return min(reste, arrondi(Decimal(self.total or 0) - self.total_rembourse_note))
+        if self.est_facture:
+            return max(arrondi(self.excedent_client - self.total_rembourse), Decimal("0.00"))
+        return Decimal("0.00")
+
+    @property
+    def total_rembourse_note(self):
+        return arrondi(-sum((p.montant for p in self.paiements.all()), Decimal("0"))) if self.pk else Decimal("0.00")
 
     @property
     def est_quote_part(self):
@@ -337,7 +445,11 @@ class Facture(models.Model):
 
     @property
     def reste_a_payer(self):
-        return max(arrondi(Decimal(self.total or 0) - Decimal(self.montant_paye or 0)), Decimal("0.00"))
+        """Facture : total − payé − notes de crédit émises. Note de crédit : reste à rembourser au client."""
+        if self.est_note_credit:
+            return self.reste_a_rembourser
+        return max(arrondi(Decimal(self.total or 0) - Decimal(self.montant_paye or 0) - self.total_notes_credit),
+                   Decimal("0.00"))
 
     def appliquer_paiement(self, statut, montant=None, date=None):
         """
@@ -418,10 +530,23 @@ class Facture(models.Model):
         """
         if not self.est_emise:
             raise ValueError(_("Le paiement ne peut être enregistré que sur une facture émise."))
+        derniers = sorted(self.paiements.all(), key=lambda p: p.date)
+        if self.est_note_credit:
+            # Note de crédit : montant_paye = remboursements au client ; « payée » quand plus rien n'est dû
+            self.montant_paye = self.total_rembourse_note
+            reste = self.reste_a_rembourser
+            self.statut_paiement = (self.StatutPaiement.PAYE if reste <= 0 else
+                                    self.StatutPaiement.ACOMPTE if self.montant_paye > 0 else self.StatutPaiement.A_PAYER)
+            self.date_paiement = derniers[-1].date if derniers else (timezone.localdate() if reste <= 0 else None)
+            return
         paye = arrondi(Decimal(non_ventile or 0) + self.total_paiements_detailles)
         self.montant_paye = paye
-        derniers = sorted(self.paiements.all(), key=lambda p: p.date)
-        if paye <= 0:
+        # Notes de crédit émises : imputées sur la facture (réduisent ce qu'il reste à payer)
+        credits = self.total_notes_credit
+        if paye + credits >= arrondi(self.total) and arrondi(self.total) > 0:
+            self.statut_paiement = self.StatutPaiement.PAYE
+            self.date_paiement = derniers[-1].date if derniers else (self.date_paiement or timezone.localdate())
+        elif paye <= 0:
             self.statut_paiement = self.StatutPaiement.A_PAYER
             self.date_paiement = None
         else:
@@ -580,9 +705,9 @@ class Facture(models.Model):
     # NUMÉROTATION
     # -------------------------
     @classmethod
-    def prochain_numero(cls, annee):
-        """F2026-0001, F2026-0002… (une séquence par année et par tenant)."""
-        prefixe = f"F{annee}-"
+    def prochain_numero(cls, annee, type_document="FACTURE"):
+        """F2026-0001… ; NC2026-0001… (notes de crédit) ; ND2026-0001… (notes de débit). Une séquence par type et par année."""
+        prefixe = f"{cls.PREFIXES.get(type_document, 'F')}{annee}-"
         derniers = (
             cls.objects.select_for_update()
             .filter(numero__startswith=prefixe)

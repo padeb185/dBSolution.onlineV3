@@ -67760,3 +67760,156 @@ msgstr "Κάθετη θέση: μήκος × πλάτος (5 × 2,50 m). Ορι�
 
 msgid "Dimensions réelles : box vertical %(l)s × %(L)s m, box horizontal %(L)s × %(l)s m. « Sans case » raccourcit une ligne (par ex. une ligne de box verticaux, deux fois plus longs)."
 msgstr "Πραγματικές διαστάσεις: κάθετη θέση %(l)s × %(L)s m, οριζόντια θέση %(L)s × %(l)s m. Το «Χωρίς κελί» κονταίνει μια σειρά (π.χ. σειρά κάθετων θέσεων, διπλάσιου μήκους)."
+
+msgid "Note de crédit"
+msgstr "Πιστωτικό σημείωμα"
+
+msgid "Note de débit"
+msgstr "Χρεωστικό σημείωμα"
+
+msgid "Type de document"
+msgstr "Τύπος εγγράφου"
+
+msgid "Facture d'origine"
+msgstr "Αρχικό τιμολόγιο"
+
+msgid "Motif de la note"
+msgstr "Αιτία σημειώματος"
+
+msgid "Une note de crédit ou de débit doit se rapporter à une facture émise."
+msgstr "Ένα πιστωτικό ή χρεωστικό σημείωμα πρέπει να αφορά εκδοθέν τιμολόγιο."
+
+msgid "Indiquez le motif de la note."
+msgstr "Συμπληρώστε την αιτία του σημειώματος."
+
+msgid "Le montant de la note doit être positif."
+msgstr "Το ποσό του σημειώματος πρέπει να είναι θετικό."
+
+msgid "La note de crédit (%(note)s €) dépasse le montant encore créditable de la facture %(numero)s (%(reste)s €)."
+msgstr "Το πιστωτικό (%(note)s €) υπερβαίνει το ποσό που μπορεί ακόμη να πιστωθεί στο τιμολόγιο %(numero)s (%(reste)s €)."
+
+msgid "Une note se crée à partir d'une facture, pas d'une autre note."
+msgstr "Ένα σημείωμα δημιουργείται από τιμολόγιο, όχι από άλλο σημείωμα."
+
+msgid "La facture doit être émise pour créer une note de crédit ou de débit."
+msgstr "Το τιμολόγιο πρέπει να έχει εκδοθεί για πιστωτικό ή χρεωστικό σημείωμα."
+
+msgid "Facture interne à notre société : pas de note de crédit ou de débit (ce n'est pas une vente)."
+msgstr "Εσωτερικό τιμολόγιο στην εταιρεία μας: χωρίς πιστωτικό ή χρεωστικό (δεν είναι πώληση)."
+
+msgid "Cette facture est déjà entièrement créditée."
+msgstr "Αυτό το τιμολόγιο έχει ήδη πιστωθεί πλήρως."
+
+msgid "Type de note inconnu."
+msgstr "Άγνωστος τύπος σημειώματος."
+
+msgid "Note de crédit relative à la facture %(numero)s du %(date)s."
+msgstr "Πιστωτικό για το τιμολόγιο %(numero)s της %(date)s."
+
+msgid "Note de débit relative à la facture %(numero)s du %(date)s."
+msgstr "Χρεωστικό για το τιμολόγιο %(numero)s της %(date)s."
+
+msgid "Création d'une note"
+msgstr "Δημιουργία σημειώματος"
+
+msgid "%(document)s %(numero)s émise."
+msgstr "%(document)s %(numero)s εκδόθηκε."
+
+msgid "Brouillon de note de crédit créé avec les lignes de la facture %(numero)s : supprimez ou réduisez les lignes pour un crédit partiel, indiquez le motif puis émettez."
+msgstr "Δημιουργήθηκε πρόχειρο πιστωτικό με τις γραμμές του τιμολογίου %(numero)s: διαγράψτε ή μειώστε γραμμές για μερική πίστωση, συμπληρώστε την αιτία και εκδώστε."
+
+msgid "Brouillon de note de débit créé pour la facture %(numero)s : ajoutez les lignes à facturer en plus, indiquez le motif puis émettez."
+msgstr "Δημιουργήθηκε πρόχειρο χρεωστικό για το τιμολόγιο %(numero)s: προσθέστε τις επιπλέον γραμμές, συμπληρώστε την αιτία και εκδώστε."
+
+msgid "Le brouillon a bien été supprimé."
+msgstr "Το πρόχειρο διαγράφηκε."
+
+msgid "Le remboursement dépasse le montant à rembourser au client (%(reste)s €)."
+msgstr "Η επιστροφή υπερβαίνει το ποσό προς επιστροφή στον πελάτη (%(reste)s €)."
+
+msgid "Remboursement enregistré."
+msgstr "Η επιστροφή καταχωρίστηκε."
+
+msgid "Raison de la note (erreur de prix, retour de pièce, geste commercial…). Imprimé sur le document."
+msgstr "Αιτία (λάθος τιμής, επιστροφή ανταλλακτικού, εμπορική χειρονομία…). Τυπώνεται στο έγγραφο."
+
+msgid "Remboursement note de crédit"
+msgstr "Επιστροφή πιστωτικού"
+
+msgid "du"
+msgstr "της"
+
+msgid "Notes de crédit et de débit"
+msgstr "Πιστωτικά και χρεωστικά"
+
+msgid "Un brouillon de note de crédit est créé avec les lignes de la facture : réduisez-les pour un crédit partiel avant d'émettre."
+msgstr "Δημιουργείται πρόχειρο πιστωτικό με τις γραμμές του τιμολογίου: μειώστε τις για μερική πίστωση πριν την έκδοση."
+
+msgid "Créer une note de crédit ?"
+msgstr "Δημιουργία πιστωτικού;"
+
+msgid "Créer une note de crédit"
+msgstr "Δημιουργία πιστωτικού"
+
+msgid "Facture entièrement créditée."
+msgstr "Το τιμολόγιο πιστώθηκε πλήρως."
+
+msgid "Un brouillon de note de débit est créé pour le même client : ajoutez les montants à facturer en plus."
+msgstr "Δημιουργείται πρόχειρο χρεωστικό για τον ίδιο πελάτη: προσθέστε τα επιπλέον ποσά."
+
+msgid "Créer une note de débit ?"
+msgstr "Δημιουργία χρεωστικού;"
+
+msgid "Créer une note de débit"
+msgstr "Δημιουργία χρεωστικού"
+
+msgid "complément facturé au même client"
+msgstr "συμπλήρωμα στον ίδιο πελάτη"
+
+msgid "Total de la note (TVAC)"
+msgstr "Σύνολο σημειώματος (με ΦΠΑ)"
+
+msgid "Remboursé au client"
+msgstr "Επιστράφηκε στον πελάτη"
+
+msgid "Reste à rembourser"
+msgstr "Υπόλοιπο προς επιστροφή"
+
+msgid "Notes de crédit"
+msgstr "Πιστωτικά"
+
+msgid "Enregistrer le remboursement"
+msgstr "Καταχώριση επιστροφής"
+
+msgid "Rien à rembourser : la note est imputée sur la facture."
+msgstr "Τίποτα προς επιστροφή: το σημείωμα συμψηφίζεται με το τιμολόγιο."
+
+msgid "Crédit partiel : supprimez les lignes non concernées ou réduisez les quantités / prix. Les montants s'inscrivent en positif : la note est déduite de la facture."
+msgstr "Μερική πίστωση: διαγράψτε τις άσχετες γραμμές ή μειώστε ποσότητες / τιμές. Τα ποσά καταχωρίζονται θετικά: το σημείωμα αφαιρείται από το τιμολόγιο."
+
+msgid "Émettre la note de crédit"
+msgstr "Έκδοση πιστωτικού"
+
+msgid "Émettre la note de débit"
+msgstr "Έκδοση χρεωστικού"
+
+msgid "Relative à la facture"
+msgstr "Σχετικά με το τιμολόγιο"
+
+msgid "Total TVAC en votre faveur"
+msgstr "Σύνολο με ΦΠΑ υπέρ σας"
+
+msgid "jusqu'à %(montant)s € TVAC"
+msgstr "έως %(montant)s € με ΦΠΑ"
+
+msgid "Cette note de crédit est imputée sur la facture %(numero)s : elle réduit son reste à payer. Si la facture était déjà payée, le trop-perçu est à rembourser au client."
+msgstr "Αυτό το πιστωτικό συμψηφίζεται με το τιμολόγιο %(numero)s: μειώνει το υπόλοιπο. Αν το τιμολόγιο είχε ήδη πληρωθεί, το επιπλέον ποσό επιστρέφεται στον πελάτη."
+
+msgid "Trop-perçu à rembourser au client : %(montant)s € (à enregistrer sur la note de crédit)."
+msgstr "Επιπλέον ποσό προς επιστροφή: %(montant)s € (καταχώριση στο πιστωτικό)."
+
+msgid "encore créditable : %(montant)s €"
+msgstr "μπορεί ακόμη να πιστωθεί: %(montant)s €"
+
+msgid "Ce montant est déduit de la facture %(numero)s ; un éventuel trop-perçu vous est remboursé."
+msgstr "Το ποσό αφαιρείται από το τιμολόγιο %(numero)s· τυχόν επιπλέον ποσό σας επιστρέφεται."

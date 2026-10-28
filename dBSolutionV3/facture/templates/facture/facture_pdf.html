@@ -133,9 +133,16 @@
 {% endif %}
 
 <h1>
-    {% trans "Facture" %}
+    {% if facture.est_note %}{{ facture.libelle_document }}{% else %}{% trans "Facture" %}{% endif %}
     {% if facture.numero %}{{ facture.numero }}{% else %}({% trans "brouillon" %}){% endif %}
 </h1>
+{% if facture.est_note and facture.facture_origine %}
+    <div class="box">
+        <span class="label">{% trans "Relative à la facture" %} :</span> {{ facture.facture_origine.numero }}
+        {% trans "du" %} {{ facture.facture_origine.issue_date|date:"d/m/Y" }}
+        {% if facture.motif %}<br><span class="label">{% trans "Motif" %} :</span> {{ facture.motif|linebreaksbr }}{% endif %}
+    </div>
+{% endif %}
 
 <!-- ================================================== -->
 <!-- INFORMATIONS / CLIENT -->
@@ -263,7 +270,7 @@
             <td class="text-right">{{ facture.total_tva|floatformat:2 }} €</td>
         </tr>
         <tr class="total-general">
-            <td>{% trans "Total TVAC" %}</td>
+            <td>{% if facture.est_note_credit %}{% trans "Total TVAC en votre faveur" %}{% else %}{% trans "Total TVAC" %}{% endif %}</td>
             <td class="text-right">{{ facture.total|floatformat:2 }} €</td>
         </tr>
     </tbody>
@@ -278,6 +285,10 @@
 {% if facture.client_est_societe %}
     <div class="mention">
         {% trans "Facture interne (véhicule de la société) : pas de paiement, pas de TVA due – coût d'entretien imputé au véhicule." %}
+    </div>
+{% elif facture.est_note_credit %}
+    <div class="mention">
+        {% blocktrans with numero=facture.facture_origine.numero %}Ce montant est déduit de la facture {{ numero }} ; un éventuel trop-perçu vous est remboursé.{% endblocktrans %}
     </div>
 {% elif societe.iban and facture.numero %}
     <div class="mention">

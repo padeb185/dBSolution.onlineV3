@@ -21,4 +21,5 @@ urlpatterns = [
     path("<uuid:pk>/paiement/", views.facture_paiement_view, name="paiement"),
     path("<uuid:pk>/supprimer/", views.delete_facture_view, name="delete_facture"),
     path("<uuid:pk>/emettre-repartition/", views.emettre_repartition_view, name="emettre_repartition"),
+    path("<uuid:pk>/note/", views.creer_note_view, name="creer_note"),
 ]

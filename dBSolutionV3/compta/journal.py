@@ -58,6 +58,15 @@ def ecritures_societe(societe, debut=None, fin=None, sources=None):
             for f in qs:
                 lib = f"{f.numero} – {f.nom_client_courant()}"
                 base = {"libelle": lib, "date": f.issue_date}
+                if f.type_document == Facture.TypeDocument.NOTE_CREDIT:
+                    # Note de crédit : écriture inverse de la facture (clients au crédit, ventes et TVA au débit)
+                    lib = f"{f.numero} – {_('Note de crédit')} – {f.nom_client_courant()}"
+                    base = {"libelle": lib, "date": f.issue_date}
+                    E.append(_norm(dict(base, compte="400000", intitule=_("Clients"), credit=f.total), "vente", f.numero, "VEN"))
+                    E.append(_norm(dict(base, compte="700000", intitule=_("Chiffre d'affaires – ventes"), debit=f.total_ht), "vente", f.numero, "VEN"))
+                    if f.total_tva:
+                        E.append(_norm(dict(base, compte="451000", intitule=_("TVA à payer"), debit=f.total_tva), "vente", f.numero, "VEN"))
+                    continue
                 E.append(_norm(dict(base, compte="400000", intitule=_("Clients"), debit=f.total), "vente", f.numero, "VEN"))
                 E.append(_norm(dict(base, compte="700000", intitule=_("Chiffre d'affaires – ventes"), credit=f.total_ht), "vente", f.numero, "VEN"))
                 if f.total_tva:

@@ -26,8 +26,10 @@ class FactureForm(forms.ModelForm):
             "marge_main_oeuvre",
             "autoliquidation",
             "remarques",
+            "motif",
         ]
         widgets = {
+            "motif": forms.Textarea(attrs={"rows": 2}),
             "issue_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "due_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "remarques": forms.Textarea(attrs={"rows": 3}),
@@ -38,6 +40,12 @@ class FactureForm(forms.ModelForm):
     def __init__(self, *args, user=None, **kwargs):
         super().__init__(*args, **kwargs)
         societe = getattr(user, "societe", None)
+        if self.instance.est_note:
+            # Note de crédit / de débit : client repris de la facture d'origine, motif obligatoire à l'émission
+            self.fields["motif"].help_text = _("Raison de la note (erreur de prix, retour de pièce, geste commercial…). Imprimé sur le document.")
+            self.fields["client_est_societe"].disabled = True
+        else:
+            del self.fields["motif"]
 
         if self.instance.est_pro:
             del self.fields["client_particulier"]

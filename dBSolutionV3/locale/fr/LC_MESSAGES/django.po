@@ -66983,3 +66983,156 @@ msgstr "Box vertical : longueur × largeur (5 × 2,50 m). Box horizontal : large
 
 msgid "Dimensions réelles : box vertical %(l)s × %(L)s m, box horizontal %(L)s × %(l)s m. « Sans case » raccourcit une ligne (par ex. une ligne de box verticaux, deux fois plus longs)."
 msgstr "Dimensions réelles : box vertical %(l)s × %(L)s m, box horizontal %(L)s × %(l)s m. « Sans case » raccourcit une ligne (par ex. une ligne de box verticaux, deux fois plus longs)."
+
+msgid "Note de crédit"
+msgstr "Note de crédit"
+
+msgid "Note de débit"
+msgstr "Note de débit"
+
+msgid "Type de document"
+msgstr "Type de document"
+
+msgid "Facture d'origine"
+msgstr "Facture d'origine"
+
+msgid "Motif de la note"
+msgstr "Motif de la note"
+
+msgid "Une note de crédit ou de débit doit se rapporter à une facture émise."
+msgstr "Une note de crédit ou de débit doit se rapporter à une facture émise."
+
+msgid "Indiquez le motif de la note."
+msgstr "Indiquez le motif de la note."
+
+msgid "Le montant de la note doit être positif."
+msgstr "Le montant de la note doit être positif."
+
+msgid "La note de crédit (%(note)s €) dépasse le montant encore créditable de la facture %(numero)s (%(reste)s €)."
+msgstr "La note de crédit (%(note)s €) dépasse le montant encore créditable de la facture %(numero)s (%(reste)s €)."
+
+msgid "Une note se crée à partir d'une facture, pas d'une autre note."
+msgstr "Une note se crée à partir d'une facture, pas d'une autre note."
+
+msgid "La facture doit être émise pour créer une note de crédit ou de débit."
+msgstr "La facture doit être émise pour créer une note de crédit ou de débit."
+
+msgid "Facture interne à notre société : pas de note de crédit ou de débit (ce n'est pas une vente)."
+msgstr "Facture interne à notre société : pas de note de crédit ou de débit (ce n'est pas une vente)."
+
+msgid "Cette facture est déjà entièrement créditée."
+msgstr "Cette facture est déjà entièrement créditée."
+
+msgid "Type de note inconnu."
+msgstr "Type de note inconnu."
+
+msgid "Note de crédit relative à la facture %(numero)s du %(date)s."
+msgstr "Note de crédit relative à la facture %(numero)s du %(date)s."
+
+msgid "Note de débit relative à la facture %(numero)s du %(date)s."
+msgstr "Note de débit relative à la facture %(numero)s du %(date)s."
+
+msgid "Création d'une note"
+msgstr "Création d'une note"
+
+msgid "%(document)s %(numero)s émise."
+msgstr "%(document)s %(numero)s émise."
+
+msgid "Brouillon de note de crédit créé avec les lignes de la facture %(numero)s : supprimez ou réduisez les lignes pour un crédit partiel, indiquez le motif puis émettez."
+msgstr "Brouillon de note de crédit créé avec les lignes de la facture %(numero)s : supprimez ou réduisez les lignes pour un crédit partiel, indiquez le motif puis émettez."
+
+msgid "Brouillon de note de débit créé pour la facture %(numero)s : ajoutez les lignes à facturer en plus, indiquez le motif puis émettez."
+msgstr "Brouillon de note de débit créé pour la facture %(numero)s : ajoutez les lignes à facturer en plus, indiquez le motif puis émettez."
+
+msgid "Le brouillon a bien été supprimé."
+msgstr "Le brouillon a bien été supprimé."
+
+msgid "Le remboursement dépasse le montant à rembourser au client (%(reste)s €)."
+msgstr "Le remboursement dépasse le montant à rembourser au client (%(reste)s €)."
+
+msgid "Remboursement enregistré."
+msgstr "Remboursement enregistré."
+
+msgid "Raison de la note (erreur de prix, retour de pièce, geste commercial…). Imprimé sur le document."
+msgstr "Raison de la note (erreur de prix, retour de pièce, geste commercial…). Imprimé sur le document."
+
+msgid "Remboursement note de crédit"
+msgstr "Remboursement note de crédit"
+
+msgid "du"
+msgstr "du"
+
+msgid "Notes de crédit et de débit"
+msgstr "Notes de crédit et de débit"
+
+msgid "Un brouillon de note de crédit est créé avec les lignes de la facture : réduisez-les pour un crédit partiel avant d'émettre."
+msgstr "Un brouillon de note de crédit est créé avec les lignes de la facture : réduisez-les pour un crédit partiel avant d'émettre."
+
+msgid "Créer une note de crédit ?"
+msgstr "Créer une note de crédit ?"
+
+msgid "Créer une note de crédit"
+msgstr "Créer une note de crédit"
+
+msgid "Facture entièrement créditée."
+msgstr "Facture entièrement créditée."
+
+msgid "Un brouillon de note de débit est créé pour le même client : ajoutez les montants à facturer en plus."
+msgstr "Un brouillon de note de débit est créé pour le même client : ajoutez les montants à facturer en plus."
+
+msgid "Créer une note de débit ?"
+msgstr "Créer une note de débit ?"
+
+msgid "Créer une note de débit"
+msgstr "Créer une note de débit"
+
+msgid "complément facturé au même client"
+msgstr "complément facturé au même client"
+
+msgid "Total de la note (TVAC)"
+msgstr "Total de la note (TVAC)"
+
+msgid "Remboursé au client"
+msgstr "Remboursé au client"
+
+msgid "Reste à rembourser"
+msgstr "Reste à rembourser"
+
+msgid "Notes de crédit"
+msgstr "Notes de crédit"
+
+msgid "Enregistrer le remboursement"
+msgstr "Enregistrer le remboursement"
+
+msgid "Rien à rembourser : la note est imputée sur la facture."
+msgstr "Rien à rembourser : la note est imputée sur la facture."
+
+msgid "Crédit partiel : supprimez les lignes non concernées ou réduisez les quantités / prix. Les montants s'inscrivent en positif : la note est déduite de la facture."
+msgstr "Crédit partiel : supprimez les lignes non concernées ou réduisez les quantités / prix. Les montants s'inscrivent en positif : la note est déduite de la facture."
+
+msgid "Émettre la note de crédit"
+msgstr "Émettre la note de crédit"
+
+msgid "Émettre la note de débit"
+msgstr "Émettre la note de débit"
+
+msgid "Relative à la facture"
+msgstr "Relative à la facture"
+
+msgid "Total TVAC en votre faveur"
+msgstr "Total TVAC en votre faveur"
+
+msgid "jusqu'à %(montant)s € TVAC"
+msgstr "jusqu'à %(montant)s € TVAC"
+
+msgid "Cette note de crédit est imputée sur la facture %(numero)s : elle réduit son reste à payer. Si la facture était déjà payée, le trop-perçu est à rembourser au client."
+msgstr "Cette note de crédit est imputée sur la facture %(numero)s : elle réduit son reste à payer. Si la facture était déjà payée, le trop-perçu est à rembourser au client."
+
+msgid "Trop-perçu à rembourser au client : %(montant)s € (à enregistrer sur la note de crédit)."
+msgstr "Trop-perçu à rembourser au client : %(montant)s € (à enregistrer sur la note de crédit)."
+
+msgid "encore créditable : %(montant)s €"
+msgstr "encore créditable : %(montant)s €"
+
+msgid "Ce montant est déduit de la facture %(numero)s ; un éventuel trop-perçu vous est remboursé."
+msgstr "Ce montant est déduit de la facture %(numero)s ; un éventuel trop-perçu vous est remboursé."

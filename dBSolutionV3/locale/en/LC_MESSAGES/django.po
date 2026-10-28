@@ -67404,3 +67404,156 @@ msgstr "Vertical space: length × width (5 × 2.50 m). Horizontal space: width �
 
 msgid "Dimensions réelles : box vertical %(l)s × %(L)s m, box horizontal %(L)s × %(l)s m. « Sans case » raccourcit une ligne (par ex. une ligne de box verticaux, deux fois plus longs)."
 msgstr "Real dimensions: vertical space %(l)s × %(L)s m, horizontal space %(L)s × %(l)s m. “No cell” shortens a row (e.g. a row of vertical spaces, twice as long)."
+
+msgid "Note de crédit"
+msgstr "Credit note"
+
+msgid "Note de débit"
+msgstr "Debit note"
+
+msgid "Type de document"
+msgstr "Document type"
+
+msgid "Facture d'origine"
+msgstr "Original invoice"
+
+msgid "Motif de la note"
+msgstr "Reason for the note"
+
+msgid "Une note de crédit ou de débit doit se rapporter à une facture émise."
+msgstr "A credit or debit note must relate to an issued invoice."
+
+msgid "Indiquez le motif de la note."
+msgstr "Enter the reason for the note."
+
+msgid "Le montant de la note doit être positif."
+msgstr "The note amount must be positive."
+
+msgid "La note de crédit (%(note)s €) dépasse le montant encore créditable de la facture %(numero)s (%(reste)s €)."
+msgstr "The credit note (%(note)s €) exceeds the amount still creditable on invoice %(numero)s (%(reste)s €)."
+
+msgid "Une note se crée à partir d'une facture, pas d'une autre note."
+msgstr "A note is created from an invoice, not from another note."
+
+msgid "La facture doit être émise pour créer une note de crédit ou de débit."
+msgstr "The invoice must be issued to create a credit or debit note."
+
+msgid "Facture interne à notre société : pas de note de crédit ou de débit (ce n'est pas une vente)."
+msgstr "Internal invoice to our company: no credit or debit note (it is not a sale)."
+
+msgid "Cette facture est déjà entièrement créditée."
+msgstr "This invoice is already fully credited."
+
+msgid "Type de note inconnu."
+msgstr "Unknown note type."
+
+msgid "Note de crédit relative à la facture %(numero)s du %(date)s."
+msgstr "Credit note relating to invoice %(numero)s of %(date)s."
+
+msgid "Note de débit relative à la facture %(numero)s du %(date)s."
+msgstr "Debit note relating to invoice %(numero)s of %(date)s."
+
+msgid "Création d'une note"
+msgstr "Note created"
+
+msgid "%(document)s %(numero)s émise."
+msgstr "%(document)s %(numero)s issued."
+
+msgid "Brouillon de note de crédit créé avec les lignes de la facture %(numero)s : supprimez ou réduisez les lignes pour un crédit partiel, indiquez le motif puis émettez."
+msgstr "Draft credit note created with the lines of invoice %(numero)s: delete or reduce lines for a partial credit, enter the reason, then issue."
+
+msgid "Brouillon de note de débit créé pour la facture %(numero)s : ajoutez les lignes à facturer en plus, indiquez le motif puis émettez."
+msgstr "Draft debit note created for invoice %(numero)s: add the extra lines to invoice, enter the reason, then issue."
+
+msgid "Le brouillon a bien été supprimé."
+msgstr "The draft has been deleted."
+
+msgid "Le remboursement dépasse le montant à rembourser au client (%(reste)s €)."
+msgstr "The refund exceeds the amount to be refunded to the customer (%(reste)s €)."
+
+msgid "Remboursement enregistré."
+msgstr "Refund recorded."
+
+msgid "Raison de la note (erreur de prix, retour de pièce, geste commercial…). Imprimé sur le document."
+msgstr "Reason for the note (price error, returned part, goodwill gesture…). Printed on the document."
+
+msgid "Remboursement note de crédit"
+msgstr "Credit note refund"
+
+msgid "du"
+msgstr "of"
+
+msgid "Notes de crédit et de débit"
+msgstr "Credit and debit notes"
+
+msgid "Un brouillon de note de crédit est créé avec les lignes de la facture : réduisez-les pour un crédit partiel avant d'émettre."
+msgstr "A draft credit note is created with the invoice lines: reduce them for a partial credit before issuing."
+
+msgid "Créer une note de crédit ?"
+msgstr "Create a credit note?"
+
+msgid "Créer une note de crédit"
+msgstr "Create a credit note"
+
+msgid "Facture entièrement créditée."
+msgstr "Invoice fully credited."
+
+msgid "Un brouillon de note de débit est créé pour le même client : ajoutez les montants à facturer en plus."
+msgstr "A draft debit note is created for the same customer: add the extra amounts to invoice."
+
+msgid "Créer une note de débit ?"
+msgstr "Create a debit note?"
+
+msgid "Créer une note de débit"
+msgstr "Create a debit note"
+
+msgid "complément facturé au même client"
+msgstr "extra amount invoiced to the same customer"
+
+msgid "Total de la note (TVAC)"
+msgstr "Note total (incl. VAT)"
+
+msgid "Remboursé au client"
+msgstr "Refunded to customer"
+
+msgid "Reste à rembourser"
+msgstr "Left to refund"
+
+msgid "Notes de crédit"
+msgstr "Credit notes"
+
+msgid "Enregistrer le remboursement"
+msgstr "Record refund"
+
+msgid "Rien à rembourser : la note est imputée sur la facture."
+msgstr "Nothing to refund: the note is offset against the invoice."
+
+msgid "Crédit partiel : supprimez les lignes non concernées ou réduisez les quantités / prix. Les montants s'inscrivent en positif : la note est déduite de la facture."
+msgstr "Partial credit: delete the lines not concerned or reduce quantities / prices. Amounts are entered as positive: the note is deducted from the invoice."
+
+msgid "Émettre la note de crédit"
+msgstr "Issue the credit note"
+
+msgid "Émettre la note de débit"
+msgstr "Issue the debit note"
+
+msgid "Relative à la facture"
+msgstr "Relating to invoice"
+
+msgid "Total TVAC en votre faveur"
+msgstr "Total incl. VAT in your favour"
+
+msgid "jusqu'à %(montant)s € TVAC"
+msgstr "up to %(montant)s € incl. VAT"
+
+msgid "Cette note de crédit est imputée sur la facture %(numero)s : elle réduit son reste à payer. Si la facture était déjà payée, le trop-perçu est à rembourser au client."
+msgstr "This credit note is offset against invoice %(numero)s: it reduces the amount still due. If the invoice was already paid, the overpayment must be refunded to the customer."
+
+msgid "Trop-perçu à rembourser au client : %(montant)s € (à enregistrer sur la note de crédit)."
+msgstr "Overpayment to refund to the customer: %(montant)s € (to record on the credit note)."
+
+msgid "encore créditable : %(montant)s €"
+msgstr "still creditable: %(montant)s €"
+
+msgid "Ce montant est déduit de la facture %(numero)s ; un éventuel trop-perçu vous est remboursé."
+msgstr "This amount is deducted from invoice %(numero)s; any overpayment will be refunded to you."
