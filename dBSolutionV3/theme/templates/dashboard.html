@@ -969,6 +969,16 @@
         <img src="{% static 'icons/proprietaire.png' %}" alt="{% trans 'Reversements aux propriétaires' %}" class="w-[60px] h-[60px]">
     </a>
 
+    <!-- Conditions générales de vente (atelier / location), imprimées sur les factures -->
+    <a href="{% url 'facture:conditions_generales' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">{% trans "Conditions générales de vente" %}</h2>
+            <p class="text-gray-600 text-sm">{% trans "Atelier · Location" %}</p>
+        </div>
+        {% include "facture/_icone.html" with classe="w-[60px] h-[60px]" %}
+    </a>
+
     <!-- Propriétaires -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/proprietaire/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">

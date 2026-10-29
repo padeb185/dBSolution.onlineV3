@@ -1055,3 +1055,56 @@ class PaiementFacture(models.Model):
     def compte(self):
         from .paiements import compte_tresorerie
         return compte_tresorerie(self.mode)
+
+
+# =====================================================================
+# Conditions générales de vente (Direction) : atelier et location
+# =====================================================================
+class ConditionsGenerales(models.Model):
+    """Texte des conditions générales, imprimé à la fin des factures (et du bon de location)."""
+
+    class Type(models.TextChoices):
+        ATELIER = "ATELIER", _("Atelier (maintenances, diagnostics, pièces)")
+        LOCATION = "LOCATION", _("Location de véhicules")
+
+    societe = models.ForeignKey("societe.Societe", on_delete=models.CASCADE, related_name="conditions_generales")
+    type_conditions = models.CharField(_("Type"), max_length=10, choices=Type.choices)
+    titre = models.CharField(_("Titre"), max_length=150, default=_("Conditions générales de vente"))
+    texte = models.TextField(_("Texte"), blank=True)
+    actif = models.BooleanField(_("Imprimer sur les factures"), default=True)
+    modifie_par = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,
+                                    related_name="+")
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("Conditions générales de vente")
+        verbose_name_plural = _("Conditions générales de vente")
+        constraints = [
+            models.UniqueConstraint(fields=["societe", "type_conditions"], name="conditions_generales_unique_type"),
+        ]
+
+    def __str__(self):
+        return f"{self.get_type_conditions_display()} – {self.titre}"
+
+    @classmethod
+    def pour_societe(cls, societe, type_conditions):
+        """Conditions actives et non vides d'un type, ou None."""
+        if societe is None:
+            return None
+        cg = cls.objects.filter(societe=societe, type_conditions=type_conditions, actif=True).first()
+        return cg if cg and cg.texte.strip() else None
+
+    @classmethod
+    def pour_facture(cls, facture):
+        """
+        Conditions à imprimer sur une facture : location si elle contient des locations,
+        atelier si elle contient d'autres lignes (maintenances, diagnostics, pièces…). Liste (0, 1 ou 2).
+        Notes de crédit : aucune.
+        """
+        if facture.est_note_credit:
+            return []
+        lignes = list(facture.lines.all())
+        location = facture.locations.exists() or any(l.location_id for l in lignes)
+        atelier = any(not l.location_id for l in lignes) or not lignes and not location
+        types = ([cls.Type.ATELIER] if atelier else []) + ([cls.Type.LOCATION] if location else [])
+        return [cg for cg in (cls.pour_societe(facture.societe, t) for t in types) if cg]

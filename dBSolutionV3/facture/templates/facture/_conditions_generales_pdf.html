@@ -1,0 +1,13 @@
+{# Conditions générales de vente en fin de document (PDF). Variable : conditions_generales (liste) #}
+{% for cg in conditions_generales %}
+<div class="cgv">
+    <h2 class="cgv-titre">{{ cg.titre }}</h2>
+    <div class="cgv-texte">{{ cg.texte|linebreaks }}</div>
+</div>
+{% endfor %}
+<style>
+    .cgv { page-break-before: always; }
+    .cgv-titre { font-size: 13px; margin: 0 0 6px 0; text-align: center; }
+    .cgv-texte { font-size: 8px; line-height: 1.35; column-count: 2; column-gap: 8mm; text-align: justify; }
+    .cgv-texte p { margin: 0 0 4px 0; }
+</style>

@@ -13,6 +13,7 @@ urlpatterns = [
     path("caisse-banque/", views.caisse_banque_view, name="caisse_banque"),
     path("a-payer/", views.factures_a_payer_view, name="a_payer"),
     path("parametres-peppol/", views.parametres_peppol_view, name="parametres_peppol"),
+    path("conditions-generales/", views.conditions_generales_view, name="conditions_generales"),
     path("<uuid:pk>/", views.facture_detail_view, name="detail"),
     path("<uuid:pk>/modifier/", views.facture_modifier_view, name="modifier"),
     path("<uuid:pk>/pdf/", views.facture_pdf_view, name="pdf"),

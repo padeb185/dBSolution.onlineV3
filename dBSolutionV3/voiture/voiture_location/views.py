@@ -480,7 +480,10 @@ def location_pdf(request, location_id):
     from weasyprint import HTML
 
     location = get_object_or_404(_queryset(request), id=location_id)
+    from facture.models import ConditionsGenerales
+    cg = ConditionsGenerales.pour_societe(location.societe or request.user.societe, ConditionsGenerales.Type.LOCATION)
     html = render_to_string("voiture_location/location_detail_pdf.html", {
+        "conditions_generales": [cg] if cg else [],
         "location": location,
         "societe": request.user.societe,
         "date_export": timezone.now(),

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Conditions générales de vente" %}{% endblock %}
+{% block content %}
+<br>
+<div class="p-6 max-w-5xl mx-auto">
+    <h1 class="text-2xl font-bold mb-2 flex items-center gap-3">
+        {% include "facture/_icone.html" %}
+        {% trans "Conditions générales de vente" %}
+    </h1>
+    <p class="text-gray-600 text-sm mb-4">
+        {% trans "Imprimées en dernière page des factures : conditions « atelier » pour les maintenances, diagnostics et pièces, conditions « location » pour les locations (et sur le bon de location). Une facture qui contient les deux reçoit les deux. Pas sur les notes de crédit." %}
+    </p>
+    {% include "partials/messages.html" %}
+
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+        {% for b in blocs %}
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-3">{{ b.libelle }}</h2>
+            <label class="block font-semibold mb-1" for="{{ b.prefixe }}-titre">{% trans "Titre" %}</label>
+            <input type="text" name="{{ b.prefixe }}-titre" id="{{ b.prefixe }}-titre" maxlength="150"
+                   value="{{ b.cg.titre }}" class="border rounded px-3 py-2 w-full mb-3">
+            <label class="block font-semibold mb-1" for="{{ b.prefixe }}-texte">{% trans "Texte" %}</label>
+            <textarea name="{{ b.prefixe }}-texte" id="{{ b.prefixe }}-texte" rows="16"
+                      class="border rounded px-3 py-2 w-full font-mono text-sm"
+                      placeholder="{% trans 'Article 1 – Objet…' %}">{{ b.cg.texte }}</textarea>
+            <p class="text-gray-500 text-xs mt-1">{% trans "Un paragraphe par bloc de texte ; laissez une ligne vide entre deux articles." %}</p>
+            <label class="inline-flex items-center gap-2 mt-3">
+                <input type="checkbox" name="{{ b.prefixe }}-actif" {% if b.cg.actif %}checked{% endif %} class="h-5 w-5">
+                <span class="font-semibold">{% trans "Imprimer sur les factures" %}</span>
+            </label>
+            {% if b.cg.modifie_par %}
+            <p class="text-gray-500 text-xs mt-2">{% trans "Mis à jour le" %} {{ b.cg.updated_at|date:"d/m/Y H:i" }} – {{ b.cg.modifie_par.prenom }} {{ b.cg.modifie_par.nom }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <div class="flex gap-3">
+            <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold">{% trans "Enregistrer" %}</button>
+            <a href="{% url 'utilisateurs:dashboard' %}" class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Retour au tableau de bord" %}</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

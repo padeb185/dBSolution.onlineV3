@@ -578,8 +578,10 @@ def facture_pdf_view(request, pk):
     if not _peut_facture(request.user, facture):
 
         return _refuser(request)
+    from .models import ConditionsGenerales
     html_string = render_to_string("facture/facture_pdf.html", {
         "facture": facture,
+        "conditions_generales": ConditionsGenerales.pour_facture(facture),
         "lignes": facture.lines.all(),
         "groupes_tva": facture.totaux_par_taux(),
         "societe": facture.societe or request.user.societe,
@@ -1358,3 +1360,35 @@ def factures_a_payer_view(request):
         "payees_recentes": payees_recentes,
         "aujourdhui": aujourdhui,
     })
+
+
+
+# -----------------------------
+# Conditions générales de vente (Direction) : atelier et location
+# -----------------------------
+@never_cache
+@login_required
+def conditions_generales_view(request):
+    from .models import ConditionsGenerales
+
+    if not (request.user.is_superuser or getattr(request.user, "role", None) == "direction"):
+        return _refuser(request)
+    societe = request.user.societe
+    blocs = []
+    for type_conditions, libelle in ConditionsGenerales.Type.choices:
+        cg, _creee = ConditionsGenerales.objects.get_or_create(societe=societe, type_conditions=type_conditions)
+        blocs.append({"cg": cg, "libelle": libelle, "prefixe": type_conditions.lower()})
+
+    if request.method == "POST":
+        for b in blocs:
+            cg, p = b["cg"], b["prefixe"]
+            cg.titre = (request.POST.get(f"{p}-titre") or "").strip()[:150] or str(_("Conditions générales de vente"))
+            cg.texte = request.POST.get(f"{p}-texte") or ""
+            cg.actif = request.POST.get(f"{p}-actif") == "on"
+            cg.modifie_par = request.user
+            cg.save()
+        UserLog.objects.create(utilisateur=request.user, action=str(_("Conditions générales de vente mises à jour")))
+        messages.success(request, _("Conditions générales de vente enregistrées."))
+        return redirect("facture:conditions_generales")
+
+    return render(request, "facture/conditions_generales.html", {"blocs": blocs})
