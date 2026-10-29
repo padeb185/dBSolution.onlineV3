@@ -68072,3 +68072,63 @@ msgstr "Noch nicht fakturierte Mietanzahlung: Gegenkonto 460000 Erhaltene Anzahl
 
 msgid "pas encore facturé"
 msgstr "noch nicht fakturiert"
+
+msgid "Carburant non encodé (estimation)"
+msgstr "Nicht erfasster Kraftstoff (Schätzung)"
+
+msgid "Consommation moyenne (L/100 km)"
+msgstr "Durchschnittsverbrauch (L/100 km)"
+
+msgid "Prix approximatif du carburant (€/L TVAC)"
+msgstr "Ungefährer Kraftstoffpreis (€/L inkl. MwSt.)"
+
+msgid "Pour estimer le carburant non encodé. Vide : moyenne calculée sur les pleins encodés."
+msgstr "Zur Schätzung des nicht erfassten Kraftstoffs. Leer: Durchschnitt aus den erfassten Tankfüllungen."
+
+msgid "Pour estimer le carburant non encodé. Vide : prix moyen des pleins encodés, sinon 1,850 €/L."
+msgstr "Zur Schätzung des nicht erfassten Kraftstoffs. Leer: Durchschnittspreis der erfassten Tankfüllungen, sonst 1,850 €/L."
+
+msgid "saisie"
+msgstr "erfasst"
+
+msgid "moyenne des pleins encodés"
+msgstr "Durchschnitt der erfassten Tankfüllungen"
+
+msgid "Litres nécessaires"
+msgstr "Benötigte Liter"
+
+msgid "Litres des pleins encodés"
+msgstr "Liter der erfassten Tankfüllungen"
+
+msgid "Litres non encodés"
+msgstr "Nicht erfasste Liter"
+
+msgid "Prix approximatif du carburant"
+msgstr "Ungefährer Kraftstoffpreis"
+
+msgid "saisi"
+msgstr "erfasst"
+
+msgid "prix moyen des pleins encodés"
+msgstr "Durchschnittspreis der erfassten Tankfüllungen"
+
+msgid "valeur par défaut"
+msgstr "Standardwert"
+
+msgid "Coût estimé TVAC"
+msgstr "Geschätzte Kosten inkl. MwSt."
+
+msgid "Coût estimé HTVA (repris dans la rentabilité)"
+msgstr "Geschätzte Kosten exkl. MwSt. (in der Rentabilität berücksichtigt)"
+
+msgid "Complétez le kilométrage de départ pour estimer le carburant non encodé."
+msgstr "Geben Sie den Anfangskilometerstand ein, um den nicht erfassten Kraftstoff zu schätzen."
+
+msgid "Indiquez une consommation moyenne (L/100 km) dans les données financières pour estimer le carburant non encodé."
+msgstr "Geben Sie in den Finanzdaten einen Durchschnittsverbrauch (L/100 km) ein, um den nicht erfassten Kraftstoff zu schätzen."
+
+msgid "Approximation : consommation et prix modifiables dans les données financières."
+msgstr "Näherung: Verbrauch und Preis sind in den Finanzdaten änderbar."
+
+msgid "(km actuels − km de départ) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
+msgstr "(aktuelle km − Anfangs-km) × Verbrauch ÷ 100 = Liter; abzüglich der Liter der erfassten Tankfüllungen; × ungefährer Preis."

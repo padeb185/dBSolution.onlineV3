@@ -83,7 +83,7 @@ class MouvementTresorerieForm(forms.ModelForm):
 class VirementInterneForm(forms.Form):
     compte_source = forms.ModelChoiceField(queryset=CompteTresorerie.objects.none(), label=_("Depuis le compte"))
     compte_destination = forms.ModelChoiceField(queryset=CompteTresorerie.objects.none(), label=_("Vers le compte"))
-    date = forms.DateField(label=_("Date"), widget=forms.DateInput(attrs={"type": "date"}))
+    date = forms.DateField(label=_("Date"), widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"))
     montant = forms.DecimalField(label=_("Montant"), max_digits=12, decimal_places=2, min_value=Decimal("0.01"))
     libelle = forms.CharField(label=_("Libellé"), max_length=255, required=False,
                               help_text=_("Ex. : dépôt de la caisse en banque, retrait au distributeur…"))

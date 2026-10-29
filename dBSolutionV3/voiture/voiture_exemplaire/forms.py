@@ -77,7 +77,7 @@ class VoitureExemplaireForm(forms.ModelForm):
             "date_mise_en_circulation": forms.DateInput(attrs={
                 "type": "date",
                 "class": "input"
-            }),
+            }, format="%Y-%m-%d"),
             "est_apres_2010": forms.CheckboxInput(attrs={"class": "mt-2"}),
             "kilometrage_achat": forms.NumberInput(attrs={"min": "0"}),
             "date_achat": forms.DateInput(attrs={"type": "date", "class": "input"}, format="%Y-%m-%d"),
@@ -227,6 +227,8 @@ FINANCE_FIELDS = (
 FINANCE_FIELDS_OPTIONNELS = (
     "frais_achat",
     "valeur_revente",
+    "consommation_estimee",
+    "prix_carburant_estime",
 )
 
 
@@ -255,8 +257,12 @@ class VoitureExemplaireFinanceForm(forms.ModelForm):
             "valeur_revente": _("Valeur de revente (€)"),
             "nombre_proprietaires": _("Nombre de propriétaires"),
             "part_proprietaires_pourcent": _("Part des propriétaires (%)"),
+            "consommation_estimee": _("Consommation moyenne (L/100 km)"),
+            "prix_carburant_estime": _("Prix approximatif du carburant (€/L TVAC)"),
         }
         help_texts = {
+            "consommation_estimee": _("Pour estimer le carburant non encodé. Vide : moyenne calculée sur les pleins encodés."),
+            "prix_carburant_estime": _("Pour estimer le carburant non encodé. Vide : prix moyen des pleins encodés, sinon 1,850 €/L."),
             "kilometrage_achat": _("Neuf : 0 km. Occasion : kilométrage du véhicule au moment de l'achat."),
             "valeur_revente": _("Valeur estimée ou prix de revente réel, déduit du coût total. 0 par défaut."),
         }
@@ -271,11 +277,14 @@ class VoitureExemplaireFinanceForm(forms.ModelForm):
             "valeur_revente": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
             "nombre_proprietaires": forms.NumberInput(attrs={"min": "1", "max": "10"}),
             "part_proprietaires_pourcent": forms.NumberInput(attrs={"step": "0.01", "min": "0", "max": "100"}),
+            "consommation_estimee": forms.NumberInput(attrs={"step": "0.01", "min": "0", "placeholder": "8.24"}),
+            "prix_carburant_estime": forms.NumberInput(attrs={"step": "0.001", "min": "0", "placeholder": "1.850"}),
         }
 
     def clean(self):
         cleaned_data = super().clean()
-        for name in ("prix_achat", "assurance", "taxe_mise_en_circulation", "taxe_roulage", "frais_achat", "valeur_revente"):
+        for name in ("prix_achat", "assurance", "taxe_mise_en_circulation", "taxe_roulage", "frais_achat", "valeur_revente",
+                     "consommation_estimee", "prix_carburant_estime"):
             value = cleaned_data.get(name)
             if value is not None and value < 0:
                 self.add_error(name, _("Le montant ne peut pas être négatif."))

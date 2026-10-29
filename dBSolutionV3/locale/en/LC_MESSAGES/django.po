@@ -67722,3 +67722,63 @@ msgstr "Rental deposit not yet invoiced: offset 460000 Advances received; when t
 
 msgid "pas encore facturé"
 msgstr "not yet invoiced"
+
+msgid "Carburant non encodé (estimation)"
+msgstr "Unrecorded fuel (estimate)"
+
+msgid "Consommation moyenne (L/100 km)"
+msgstr "Average consumption (L/100 km)"
+
+msgid "Prix approximatif du carburant (€/L TVAC)"
+msgstr "Approximate fuel price (€/L incl. VAT)"
+
+msgid "Pour estimer le carburant non encodé. Vide : moyenne calculée sur les pleins encodés."
+msgstr "Used to estimate unrecorded fuel. Empty: average calculated from recorded fill-ups."
+
+msgid "Pour estimer le carburant non encodé. Vide : prix moyen des pleins encodés, sinon 1,850 €/L."
+msgstr "Used to estimate unrecorded fuel. Empty: average price of recorded fill-ups, otherwise 1.850 €/L."
+
+msgid "saisie"
+msgstr "entered"
+
+msgid "moyenne des pleins encodés"
+msgstr "average of recorded fill-ups"
+
+msgid "Litres nécessaires"
+msgstr "Litres needed"
+
+msgid "Litres des pleins encodés"
+msgstr "Litres of recorded fill-ups"
+
+msgid "Litres non encodés"
+msgstr "Unrecorded litres"
+
+msgid "Prix approximatif du carburant"
+msgstr "Approximate fuel price"
+
+msgid "saisi"
+msgstr "entered"
+
+msgid "prix moyen des pleins encodés"
+msgstr "average price of recorded fill-ups"
+
+msgid "valeur par défaut"
+msgstr "default value"
+
+msgid "Coût estimé TVAC"
+msgstr "Estimated cost incl. VAT"
+
+msgid "Coût estimé HTVA (repris dans la rentabilité)"
+msgstr "Estimated cost excl. VAT (included in profitability)"
+
+msgid "Complétez le kilométrage de départ pour estimer le carburant non encodé."
+msgstr "Fill in the starting mileage to estimate unrecorded fuel."
+
+msgid "Indiquez une consommation moyenne (L/100 km) dans les données financières pour estimer le carburant non encodé."
+msgstr "Enter an average consumption (L/100 km) in the financial data to estimate unrecorded fuel."
+
+msgid "Approximation : consommation et prix modifiables dans les données financières."
+msgstr "Approximation: consumption and price can be changed in the financial data."
+
+msgid "(km actuels − km de départ) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
+msgstr "(current km − starting km) × consumption ÷ 100 = litres; minus the litres of recorded fill-ups; × approximate price."

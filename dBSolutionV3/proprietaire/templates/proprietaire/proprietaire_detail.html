@@ -39,7 +39,7 @@
 
             <p>
                 <strong>{% trans "Date de naissance" %} :</strong>
-                {{ proprietaire.date_naissance }}
+                {{ proprietaire.date_naissance|date:"d/m/Y"|default:"—" }}
             </p>
 
 

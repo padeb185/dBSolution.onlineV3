@@ -67301,3 +67301,63 @@ msgstr "Acompte de location pas encore facturé : contrepartie 460000 Acomptes r
 
 msgid "pas encore facturé"
 msgstr "pas encore facturé"
+
+msgid "Carburant non encodé (estimation)"
+msgstr "Carburant non encodé (estimation)"
+
+msgid "Consommation moyenne (L/100 km)"
+msgstr "Consommation moyenne (L/100 km)"
+
+msgid "Prix approximatif du carburant (€/L TVAC)"
+msgstr "Prix approximatif du carburant (€/L TVAC)"
+
+msgid "Pour estimer le carburant non encodé. Vide : moyenne calculée sur les pleins encodés."
+msgstr "Pour estimer le carburant non encodé. Vide : moyenne calculée sur les pleins encodés."
+
+msgid "Pour estimer le carburant non encodé. Vide : prix moyen des pleins encodés, sinon 1,850 €/L."
+msgstr "Pour estimer le carburant non encodé. Vide : prix moyen des pleins encodés, sinon 1,850 €/L."
+
+msgid "saisie"
+msgstr "saisie"
+
+msgid "moyenne des pleins encodés"
+msgstr "moyenne des pleins encodés"
+
+msgid "Litres nécessaires"
+msgstr "Litres nécessaires"
+
+msgid "Litres des pleins encodés"
+msgstr "Litres des pleins encodés"
+
+msgid "Litres non encodés"
+msgstr "Litres non encodés"
+
+msgid "Prix approximatif du carburant"
+msgstr "Prix approximatif du carburant"
+
+msgid "saisi"
+msgstr "saisi"
+
+msgid "prix moyen des pleins encodés"
+msgstr "prix moyen des pleins encodés"
+
+msgid "valeur par défaut"
+msgstr "valeur par défaut"
+
+msgid "Coût estimé TVAC"
+msgstr "Coût estimé TVAC"
+
+msgid "Coût estimé HTVA (repris dans la rentabilité)"
+msgstr "Coût estimé HTVA (repris dans la rentabilité)"
+
+msgid "Complétez le kilométrage de départ pour estimer le carburant non encodé."
+msgstr "Complétez le kilométrage de départ pour estimer le carburant non encodé."
+
+msgid "Indiquez une consommation moyenne (L/100 km) dans les données financières pour estimer le carburant non encodé."
+msgstr "Indiquez une consommation moyenne (L/100 km) dans les données financières pour estimer le carburant non encodé."
+
+msgid "Approximation : consommation et prix modifiables dans les données financières."
+msgstr "Approximation : consommation et prix modifiables dans les données financières."
+
+msgid "(km actuels − km de départ) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
+msgstr "(km actuels − km de départ) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."

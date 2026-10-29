@@ -96,7 +96,7 @@
             <tr class="bg-yellow-50 font-semibold"><td class="border px-2 py-1" colspan="3">{% trans "Utilisation" %}</td></tr>
             {% for cle, e in r.energie.items %}
             <tr>
-                <td class="border px-2 py-1 pl-6">{{ e.label }} <span class="text-gray-400 text-xs">({{ e.nb }} – {{ e.quantite|floatformat:"-2" }} {{ e.unite }})</span></td>
+                <td class="border px-2 py-1 pl-6">{% if e.estimation %}<a href="#carburant-estime" class="hover:underline" style="color:#c2410c">{{ e.label }}</a> <span class="text-gray-400 text-xs">(≈ {{ e.quantite|floatformat:"-2" }} {{ e.unite }})</span>{% else %}{{ e.label }} <span class="text-gray-400 text-xs">({{ e.nb }} – {{ e.quantite|floatformat:"-2" }} {{ e.unite }})</span>{% endif %}</td>
                 <td class="border px-2 py-1 text-right">{{ e.ht|floatformat:2 }} €</td><td class="border px-2 py-1"></td>
             </tr>
             {% endfor %}
@@ -117,6 +117,45 @@
         ({% trans "km châssis" %} {{ exemplaire.kilometres_chassis|default:0 }} − {% trans "km de départ" %} {{ r.km_depart }}).
         {% if not r.km %}<span class="text-orange-700">{% trans "Coût au kilomètre indisponible : complétez le kilométrage de départ." %}</span>{% endif %}
     </p>
+
+    <!-- ================= CARBURANT NON ENCODÉ (ESTIMATION) ================= -->
+    {% with c=r.carburant_estime %}
+    <div id="carburant-estime" class="rounded p-4 mb-6 text-sm" style="background:#fff7ed;border:1px solid #fed7aa">
+        <h2 class="text-lg font-semibold mb-2">{% trans "Carburant non encodé (estimation)" %}</h2>
+        {% if c.calculable %}
+        <table class="table-auto border-collapse text-sm mb-2 bg-white">
+            <tbody>
+                <tr><td class="border px-3 py-1">{% trans "Kilomètres parcourus depuis l'achat" %}</td>
+                    <td class="border px-3 py-1 text-right">{{ exemplaire.kilometres_chassis|default:0 }} − {{ r.km_depart }} = <strong>{{ c.km }} km</strong></td></tr>
+                <tr><td class="border px-3 py-1">{% trans "Consommation moyenne" %}
+                        <span class="text-gray-500 text-xs">({% if c.source_consommation == "saisie" %}{% trans "saisie" %}{% else %}{% trans "moyenne des pleins encodés" %}{% endif %})</span></td>
+                    <td class="border px-3 py-1 text-right">{{ c.consommation|floatformat:2 }} L/100 km</td></tr>
+                <tr><td class="border px-3 py-1">{% trans "Litres nécessaires" %} <span class="text-gray-500 text-xs">(km × L/100 ÷ 100)</span></td>
+                    <td class="border px-3 py-1 text-right">{{ c.litres_total|floatformat:2 }} L</td></tr>
+                <tr><td class="border px-3 py-1">− {% trans "Litres des pleins encodés" %}</td>
+                    <td class="border px-3 py-1 text-right">{{ c.litres_encodes|floatformat:2 }} L</td></tr>
+                <tr class="font-semibold"><td class="border px-3 py-1">= {% trans "Litres non encodés" %}</td>
+                    <td class="border px-3 py-1 text-right">{{ c.litres|floatformat:2 }} L</td></tr>
+                <tr><td class="border px-3 py-1">× {% trans "Prix approximatif du carburant" %}
+                        <span class="text-gray-500 text-xs">({% if c.source_prix == "saisie" %}{% trans "saisi" %}{% elif c.source_prix == "pleins" %}{% trans "prix moyen des pleins encodés" %}{% else %}{% trans "valeur par défaut" %}{% endif %})</span></td>
+                    <td class="border px-3 py-1 text-right">{{ c.prix|floatformat:3 }} €/L</td></tr>
+                <tr class="font-bold"><td class="border px-3 py-1">= {% trans "Coût estimé TVAC" %}</td>
+                    <td class="border px-3 py-1 text-right">{{ c.ttc|floatformat:2 }} €</td></tr>
+                <tr><td class="border px-3 py-1">{% trans "Coût estimé HTVA (repris dans la rentabilité)" %} <span class="text-gray-500 text-xs">({% trans "TVA" %} {{ c.taux_tva|floatformat:"-2" }} %)</span></td>
+                    <td class="border px-3 py-1 text-right">{{ c.ht|floatformat:2 }} €</td></tr>
+            </tbody>
+        </table>
+        {% elif not r.km_depart and exemplaire.kilometrage_achat is None %}
+            <p style="color:#9a3412">{% trans "Complétez le kilométrage de départ pour estimer le carburant non encodé." %}</p>
+        {% else %}
+            <p style="color:#9a3412">{% trans "Indiquez une consommation moyenne (L/100 km) dans les données financières pour estimer le carburant non encodé." %}</p>
+        {% endif %}
+        <p class="text-xs text-gray-600 mt-2">
+            {% trans "Approximation : consommation et prix modifiables dans les données financières." %}
+            <a href="{% url 'voiture_exemplaire:finances_modifier' exemplaire.id %}" class="text-blue-700 underline">{% trans "Modifier" %}</a>
+        </p>
+    </div>
+    {% endwith %}
 
     <!-- ================= COÛTS ANNUELS ================= -->
     <div id="couts-annuels" class="bg-blue-50 rounded p-4 mb-6">

@@ -68050,3 +68050,63 @@ msgstr "Voorschot op verhuur nog niet gefactureerd: tegenrekening 460000 Ontvang
 
 msgid "pas encore facturé"
 msgstr "nog niet gefactureerd"
+
+msgid "Carburant non encodé (estimation)"
+msgstr "Niet ingevoerde brandstof (schatting)"
+
+msgid "Consommation moyenne (L/100 km)"
+msgstr "Gemiddeld verbruik (L/100 km)"
+
+msgid "Prix approximatif du carburant (€/L TVAC)"
+msgstr "Geschatte brandstofprijs (€/L incl. btw)"
+
+msgid "Pour estimer le carburant non encodé. Vide : moyenne calculée sur les pleins encodés."
+msgstr "Om de niet ingevoerde brandstof te schatten. Leeg: gemiddelde berekend op de ingevoerde tankbeurten."
+
+msgid "Pour estimer le carburant non encodé. Vide : prix moyen des pleins encodés, sinon 1,850 €/L."
+msgstr "Om de niet ingevoerde brandstof te schatten. Leeg: gemiddelde prijs van de ingevoerde tankbeurten, anders 1,850 €/L."
+
+msgid "saisie"
+msgstr "ingevoerd"
+
+msgid "moyenne des pleins encodés"
+msgstr "gemiddelde van de ingevoerde tankbeurten"
+
+msgid "Litres nécessaires"
+msgstr "Benodigde liters"
+
+msgid "Litres des pleins encodés"
+msgstr "Liters van de ingevoerde tankbeurten"
+
+msgid "Litres non encodés"
+msgstr "Niet ingevoerde liters"
+
+msgid "Prix approximatif du carburant"
+msgstr "Geschatte brandstofprijs"
+
+msgid "saisi"
+msgstr "ingevoerd"
+
+msgid "prix moyen des pleins encodés"
+msgstr "gemiddelde prijs van de ingevoerde tankbeurten"
+
+msgid "valeur par défaut"
+msgstr "standaardwaarde"
+
+msgid "Coût estimé TVAC"
+msgstr "Geschatte kost incl. btw"
+
+msgid "Coût estimé HTVA (repris dans la rentabilité)"
+msgstr "Geschatte kost excl. btw (opgenomen in de rendabiliteit)"
+
+msgid "Complétez le kilométrage de départ pour estimer le carburant non encodé."
+msgstr "Vul de beginkilometerstand in om de niet ingevoerde brandstof te schatten."
+
+msgid "Indiquez une consommation moyenne (L/100 km) dans les données financières pour estimer le carburant non encodé."
+msgstr "Vul een gemiddeld verbruik (L/100 km) in bij de financiële gegevens om de niet ingevoerde brandstof te schatten."
+
+msgid "Approximation : consommation et prix modifiables dans les données financières."
+msgstr "Benadering: verbruik en prijs aanpasbaar in de financiële gegevens."
+
+msgid "(km actuels − km de départ) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
+msgstr "(huidige km − begin-km) × verbruik ÷ 100 = liters; min de liters van de ingevoerde tankbeurten; × geschatte prijs."

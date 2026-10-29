@@ -112,12 +112,12 @@ class AchatForm(forms.ModelForm):
             "date_facture": forms.DateInput(attrs={
                 "class": "border rounded px-3 py-2 w-full text-sm",
                 "type": "date"
-            }),
+            }, format="%Y-%m-%d"),
 
             "date_paiement": forms.DateInput(attrs={
                 "class": "border rounded px-3 py-2 w-full text-sm",
                 "type": "date"
-            }),
+            }, format="%Y-%m-%d"),
         }
 
     def __init__(self, *args, societe=None, **kwargs):

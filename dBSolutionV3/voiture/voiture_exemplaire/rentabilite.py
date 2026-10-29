@@ -3,6 +3,7 @@ Rentabilité d'un véhicule (Données financières).
 
     coût d'acquisition  = prix d'achat + taxe de mise en circulation + autres frais d'achat
   + coûts d'utilisation = carburant + recharges + AdBlue (HTVA)
+                        + carburant non encodé (estimation : km × consommation × prix approximatif)
                         + maintenances (internes au coût de revient – factures internes émises
                           et maintenances d'atelier non facturées – + garages externes HTVA)
                         + coûts annuels (assurance, taxe de circulation, vignettes, contrôle technique…)
@@ -79,6 +80,49 @@ def energie(ex):
 
     for l in res.values():
         l["ht"], l["ttc"] = r2(l["ht"]), r2(l["ttc"])
+    return res
+
+
+PRIX_CARBURANT_DEFAUT = Decimal("1.850")
+
+
+def carburant_estime(ex, en, km):
+    """
+    Carburant non encodé (estimation) :
+        litres nécessaires = km parcourus depuis l'achat × consommation moyenne ÷ 100
+        litres non encodés = litres nécessaires − litres des pleins encodés
+        coût TVAC = litres non encodés × prix approximatif ; HTVA = TVAC ÷ (1 + TVA carburant)
+    Consommation : saisie dans les données financières, sinon moyenne des pleins encodés.
+    Prix : saisi, sinon prix moyen des pleins encodés, sinon 1,850 €/L.
+    """
+    from fuel.models import Fuel
+    from fuel.totaux_energie import PAYS_SOCIETE
+
+    carburant = en["carburant"]
+    conso, source_conso = ex.consommation_estimee, "saisie"
+    if not conso:
+        moyenne = Fuel.consommation_moyenne_all(ex)
+        conso, source_conso = (moyenne, "pleins") if moyenne and moyenne > 0 else (None, None)
+
+    prix, source_prix = ex.prix_carburant_estime, "saisie"
+    if not prix:
+        if carburant["quantite"] > 0:
+            prix, source_prix = (carburant["ttc"] / carburant["quantite"]).quantize(Decimal("0.001"), rounding=ROUND_HALF_UP), "pleins"
+        else:
+            prix, source_prix = PRIX_CARBURANT_DEFAUT, "defaut"
+
+    res = {"km": km, "consommation": conso, "source_consommation": source_conso,
+           "prix": prix, "source_prix": source_prix, "litres_encodes": r2(carburant["quantite"]),
+           "litres_total": ZERO, "litres": ZERO, "ttc": ZERO, "ht": ZERO, "taux_tva": None, "calculable": False}
+    # Sans kilométrage de départ, les km parcourus depuis l'achat sont inconnus
+    if ex.kilometrage_achat is None or not conso or not km:
+        return res
+    taux = Decimal(str(Fuel.TVA_CARBURANT.get(PAYS_SOCIETE, 21)))
+    litres_total = r2(Decimal(km) * Decimal(conso) / Decimal("100"))
+    litres = max(r2(litres_total - carburant["quantite"]), ZERO)
+    ttc = r2(litres * Decimal(prix))
+    ht = r2(ttc * Decimal("100") / (Decimal("100") + taux))
+    res.update({"litres_total": litres_total, "litres": litres, "ttc": ttc, "ht": ht, "taux_tva": taux, "calculable": True})
     return res
 
 
@@ -237,7 +281,15 @@ def rentabilite(ex):
     }
     acquisition["total"] = r2(sum(acquisition.values(), ZERO))
 
+    km = max(int(ex.kilometres_chassis or 0) - int(ex.kilometrage_achat or 0), 0)
+
     en = energie(ex)
+    # Carburant non encodé : estimation ajoutée aux coûts d'énergie (HTVA)
+    estimation = carburant_estime(ex, en, km)
+    if estimation["ht"] > 0:
+        en["carburant_estime"] = {"label": _("Carburant non encodé (estimation)"), "quantite": estimation["litres"],
+                                  "unite": "L", "ht": estimation["ht"], "ttc": estimation["ttc"], "nb": 0,
+                                  "estimation": True}
     total_energie = r2(sum((l["ht"] for l in en.values()), ZERO))
     mt = maintenances(ex)
     an = couts_annuels(ex)
@@ -249,12 +301,12 @@ def rentabilite(ex):
     cout_net = r2(cout_total - valeur_revente)
     resultat = r2(loc["htva"] - cout_net)
 
-    km = max(int(ex.kilometres_chassis or 0) - int(ex.kilometrage_achat or 0), 0)
     par_km = lambda x: (Decimal(x) / km).quantize(Decimal("0.001"), rounding=ROUND_HALF_UP) if km else None
 
     return {
         "acquisition": acquisition,
         "energie": en,
+        "carburant_estime": estimation,
         "total_energie": total_energie,
         "maintenances": mt,
         "couts_annuels": an,

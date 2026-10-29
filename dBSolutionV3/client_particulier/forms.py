@@ -179,7 +179,7 @@ class ClientParticulierForm(forms.ModelForm):
             "email": forms.EmailInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
 
             "date_naissance": forms.DateInput(
-                attrs={"type": "date", "class": "border rounded px-4 py-2 w-full"}
+                attrs={"type": "date", "class": "border rounded px-4 py-2 w-full"}, format="%Y-%m-%d"
             ),
 
             "rue": forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"}),

@@ -68078,3 +68078,63 @@ msgstr "Προκαταβολή ενοικίασης που δεν έχει τι�
 
 msgid "pas encore facturé"
 msgstr "δεν έχει τιμολογηθεί"
+
+msgid "Carburant non encodé (estimation)"
+msgstr "Μη καταχωρημένο καύσιμο (εκτίμηση)"
+
+msgid "Consommation moyenne (L/100 km)"
+msgstr "Μέση κατανάλωση (L/100 km)"
+
+msgid "Prix approximatif du carburant (€/L TVAC)"
+msgstr "Κατά προσέγγιση τιμή καυσίμου (€/L με ΦΠΑ)"
+
+msgid "Pour estimer le carburant non encodé. Vide : moyenne calculée sur les pleins encodés."
+msgstr "Για εκτίμηση του μη καταχωρημένου καυσίμου. Κενό: μέσος όρος από τους καταχωρημένους ανεφοδιασμούς."
+
+msgid "Pour estimer le carburant non encodé. Vide : prix moyen des pleins encodés, sinon 1,850 €/L."
+msgstr "Για εκτίμηση του μη καταχωρημένου καυσίμου. Κενό: μέση τιμή των καταχωρημένων ανεφοδιασμών, αλλιώς 1,850 €/L."
+
+msgid "saisie"
+msgstr "καταχωρημένη"
+
+msgid "moyenne des pleins encodés"
+msgstr "μέσος όρος καταχωρημένων ανεφοδιασμών"
+
+msgid "Litres nécessaires"
+msgstr "Απαιτούμενα λίτρα"
+
+msgid "Litres des pleins encodés"
+msgstr "Λίτρα καταχωρημένων ανεφοδιασμών"
+
+msgid "Litres non encodés"
+msgstr "Μη καταχωρημένα λίτρα"
+
+msgid "Prix approximatif du carburant"
+msgstr "Κατά προσέγγιση τιμή καυσίμου"
+
+msgid "saisi"
+msgstr "καταχωρημένη"
+
+msgid "prix moyen des pleins encodés"
+msgstr "μέση τιμή καταχωρημένων ανεφοδιασμών"
+
+msgid "valeur par défaut"
+msgstr "προεπιλεγμένη τιμή"
+
+msgid "Coût estimé TVAC"
+msgstr "Εκτιμώμενο κόστος με ΦΠΑ"
+
+msgid "Coût estimé HTVA (repris dans la rentabilité)"
+msgstr "Εκτιμώμενο κόστος χωρίς ΦΠΑ (περιλαμβάνεται στην αποδοτικότητα)"
+
+msgid "Complétez le kilométrage de départ pour estimer le carburant non encodé."
+msgstr "Συμπληρώστε τα αρχικά χιλιόμετρα για εκτίμηση του μη καταχωρημένου καυσίμου."
+
+msgid "Indiquez une consommation moyenne (L/100 km) dans les données financières pour estimer le carburant non encodé."
+msgstr "Εισαγάγετε μέση κατανάλωση (L/100 km) στα οικονομικά στοιχεία για εκτίμηση του μη καταχωρημένου καυσίμου."
+
+msgid "Approximation : consommation et prix modifiables dans les données financières."
+msgstr "Προσέγγιση: η κατανάλωση και η τιμή τροποποιούνται στα οικονομικά στοιχεία."
+
+msgid "(km actuels − km de départ) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
+msgstr "(τρέχοντα km − αρχικά km) × κατανάλωση ÷ 100 = λίτρα· μείον τα λίτρα των καταχωρημένων ανεφοδιασμών· × κατά προσέγγιση τιμή."

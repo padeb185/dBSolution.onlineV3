@@ -68021,3 +68021,63 @@ msgstr "Acconto di noleggio non ancora fatturato: contropartita 460000 Acconti r
 
 msgid "pas encore facturé"
 msgstr "non ancora fatturato"
+
+msgid "Carburant non encodé (estimation)"
+msgstr "Carburante non registrato (stima)"
+
+msgid "Consommation moyenne (L/100 km)"
+msgstr "Consumo medio (L/100 km)"
+
+msgid "Prix approximatif du carburant (€/L TVAC)"
+msgstr "Prezzo approssimativo del carburante (€/L IVA incl.)"
+
+msgid "Pour estimer le carburant non encodé. Vide : moyenne calculée sur les pleins encodés."
+msgstr "Per stimare il carburante non registrato. Vuoto: media calcolata sui rifornimenti registrati."
+
+msgid "Pour estimer le carburant non encodé. Vide : prix moyen des pleins encodés, sinon 1,850 €/L."
+msgstr "Per stimare il carburante non registrato. Vuoto: prezzo medio dei rifornimenti registrati, altrimenti 1,850 €/L."
+
+msgid "saisie"
+msgstr "inserita"
+
+msgid "moyenne des pleins encodés"
+msgstr "media dei rifornimenti registrati"
+
+msgid "Litres nécessaires"
+msgstr "Litri necessari"
+
+msgid "Litres des pleins encodés"
+msgstr "Litri dei rifornimenti registrati"
+
+msgid "Litres non encodés"
+msgstr "Litri non registrati"
+
+msgid "Prix approximatif du carburant"
+msgstr "Prezzo approssimativo del carburante"
+
+msgid "saisi"
+msgstr "inserito"
+
+msgid "prix moyen des pleins encodés"
+msgstr "prezzo medio dei rifornimenti registrati"
+
+msgid "valeur par défaut"
+msgstr "valore predefinito"
+
+msgid "Coût estimé TVAC"
+msgstr "Costo stimato IVA incl."
+
+msgid "Coût estimé HTVA (repris dans la rentabilité)"
+msgstr "Costo stimato IVA esclusa (incluso nella redditività)"
+
+msgid "Complétez le kilométrage de départ pour estimer le carburant non encodé."
+msgstr "Completa il chilometraggio iniziale per stimare il carburante non registrato."
+
+msgid "Indiquez une consommation moyenne (L/100 km) dans les données financières pour estimer le carburant non encodé."
+msgstr "Indica un consumo medio (L/100 km) nei dati finanziari per stimare il carburante non registrato."
+
+msgid "Approximation : consommation et prix modifiables dans les données financières."
+msgstr "Approssimazione: consumo e prezzo modificabili nei dati finanziari."
+
+msgid "(km actuels − km de départ) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
+msgstr "(km attuali − km iniziali) × consumo ÷ 100 = litri; meno i litri dei rifornimenti registrati; × prezzo approssimativo."

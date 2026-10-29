@@ -32,7 +32,7 @@ class TenantCreationForm(forms.Form):
     max_utilisateurs = forms.IntegerField(label=_("Nombre maximum d'utilisateurs"), min_value=1, initial=3)
     paid_until = forms.DateField(
         label=_("Abonnement payé jusqu'au"), required=False,
-        widget=forms.DateInput(attrs={"type": "date"}),
+        widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
     )
     on_trial = forms.BooleanField(label=_("Période d'essai"), required=False, initial=True)
 

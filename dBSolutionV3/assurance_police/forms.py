@@ -10,8 +10,8 @@ class AssurancePoliceCreateView(CreateView):
     template_name = 'assurance_police/assurance_police_form.html'
     fields = '__all__'
     widgets = {
-        'date_debut': forms.DateInput(attrs={'type': 'date'}),
-        'date_fin': forms.DateInput(attrs={'type': 'date'}),
+        'date_debut': forms.DateInput(attrs={'type': 'date'}, format="%Y-%m-%d"),
+        'date_fin': forms.DateInput(attrs={'type': 'date'}, format="%Y-%m-%d"),
         'remarques': forms.Textarea(attrs={'rows': 3}),
     }
     success_url = reverse_lazy('assurance_police:assurance_police_list')
@@ -58,11 +58,11 @@ class AssurancePoliceForm(forms.ModelForm):
             'date_debut': forms.DateInput(attrs={
                 'type': 'date',
                 'class': 'border rounded px-4 py-2 w-full',
-            }),
+            }, format="%Y-%m-%d"),
             'date_fin': forms.DateInput(attrs={
                 'type': 'date',
                 'class': 'border rounded px-4 py-2 w-full',
-            }),
+            }, format="%Y-%m-%d"),
             'prime_mensuelle': forms.NumberInput(attrs={
                 'class': 'border rounded px-4 py-2 w-full',
                 'placeholder': 'Prime mensuelle',

@@ -72,7 +72,7 @@ class RemplacementMoteurForm(forms.ModelForm):
             "date_derniere_intervention": forms.DateInput(
                 attrs={
                     "type": "date"
-                }
+                }, format="%Y-%m-%d"
             ),
 
             # ==========================================

@@ -68,7 +68,7 @@ class RemplacementBoiteForm(forms.ModelForm):
         ]
 
         widgets = {
-            "date_derniere_intervention": forms.DateInput(attrs={"type": "date"}),
+            "date_derniere_intervention": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "boite_niveau_huile_quantite": forms.NumberInput(
                 attrs={
                     "step": "0.1",

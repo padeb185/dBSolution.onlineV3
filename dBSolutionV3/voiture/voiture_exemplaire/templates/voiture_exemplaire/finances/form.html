@@ -121,6 +121,17 @@
         {% include "voiture_exemplaire/finances/_champ.html" with field=form.nombre_proprietaires %}
         {% include "voiture_exemplaire/finances/_champ.html" with field=form.part_proprietaires_pourcent %}
 
+        <br>
+
+        <!-- Carburant non encodé (estimation) -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/pompe-a-essence.png' %}" alt="{% trans 'Carburant' %}" class="w-20 h-20">
+            {% trans "Carburant non encodé (estimation)" %}
+        </h2>
+        <p class="text-sm text-gray-500">{% trans "(km actuels − km de départ) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif." %}</p>
+        {% include "voiture_exemplaire/finances/_champ.html" with field=form.consommation_estimee manquant_label="" %}
+        {% include "voiture_exemplaire/finances/_champ.html" with field=form.prix_carburant_estime manquant_label="" %}
+
         <!-- Boutons -->
         <div class="flex gap-3 mt-6">
             <button type="submit"

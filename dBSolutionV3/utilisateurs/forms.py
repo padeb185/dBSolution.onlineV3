@@ -165,7 +165,7 @@ class UtilisateurCreationForm(forms.ModelForm):
             "date_naissance": forms.DateInput(
                 attrs={
                     "type": "date",
-                }
+                }, format="%Y-%m-%d"
             ),
             "numero_compte_bancaire": forms.TextInput(
                 attrs={

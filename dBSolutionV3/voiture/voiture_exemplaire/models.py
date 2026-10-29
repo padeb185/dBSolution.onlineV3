@@ -341,6 +341,22 @@ class VoitureExemplaire(models.Model):
         verbose_name=_("Valeur de revente"),
     )
 
+    # Estimation du carburant non encodé (pleins manquants depuis l'achat)
+    consommation_estimee = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        verbose_name=_("Consommation moyenne (L/100 km)"),
+    )
+    prix_carburant_estime = models.DecimalField(
+        max_digits=6,
+        decimal_places=3,
+        null=True,
+        blank=True,
+        verbose_name=_("Prix approximatif du carburant (€/L TVAC)"),
+    )
+
     # 👥 Propriétaires
     nombre_proprietaires = models.PositiveSmallIntegerField(
         default=1,

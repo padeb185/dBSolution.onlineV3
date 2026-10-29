@@ -294,7 +294,7 @@ class ProprietaireForm(forms.ModelForm):
             attrs={
                 "type": "date",
                 "class": "border rounded px-4 py-2 w-full",
-            }
+            }, format="%Y-%m-%d"
         )
     )
 

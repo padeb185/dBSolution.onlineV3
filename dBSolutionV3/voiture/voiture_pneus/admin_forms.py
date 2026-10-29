@@ -26,6 +26,6 @@ class RemplacementPneusForm(forms.Form):
     date_remplacement = forms.DateField(
         required=False,
         initial=timezone.now,
-        widget=forms.DateInput(attrs={"type": "date"}),
+        widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
         label="Date de remplacement"
     )
