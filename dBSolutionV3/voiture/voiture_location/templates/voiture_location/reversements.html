@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Reversements aux propriétaires" %}{% endblock %}
+{% block content %}
+{% include "voiture_location/_style_reversements.html" %}
+<br>
+<div class="p-6">
+    <h1 class="text-2xl font-bold mb-2 flex items-center gap-3">
+        <img src="{% static 'icons/proprietaire.png' %}" alt="" class="w-14 h-14">
+        {% trans "Reversements aux propriétaires" %}
+    </h1>
+    <p class="rv-aide mb-4">{% trans "Locations de véhicules à plusieurs propriétaires : nous facturons toute la location ; la part HTVA de chaque autre propriétaire, moins sa commission, lui est due (compte 489000) jusqu'au reversement (banque 550000 ou caisse 570000)." %}</p>
+    {% include "partials/messages.html" %}
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="rv-carte" style="margin:0">
+            <div class="rv-aide">{% trans "Total à reverser" %}</div>
+            <div class="text-2xl font-bold" style="color:#991b1b">{{ total_a_reverser|floatformat:2 }} €</div>
+        </div>
+        <div class="rv-carte md:col-span-2" style="margin:0">
+            <div class="rv-aide mb-1">{% trans "À reverser par propriétaire" %}</div>
+            {% for p in par_proprietaire %}
+                <a href="?statut=A_PAYER&beneficiaire={{ p.nom|urlencode }}" class="block hover:underline">{{ p.nom }} : <strong>{{ p.total|floatformat:2 }} €</strong> <span class="rv-aide">({{ p.nb }})</span></a>
+            {% empty %}<span class="rv-aide">{% trans "Rien à reverser." %}</span>{% endfor %}
+        </div>
+    </div>
+
+    <form method="get" class="flex flex-wrap gap-2 items-center mb-4">
+        <select name="statut" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            <option value="TOUS" {% if statut == "TOUS" %}selected{% endif %}>{% trans "Tous" %}</option>
+            {% for v, l in statuts %}<option value="{{ v }}" {% if v == statut %}selected{% endif %}>{{ l }}</option>{% endfor %}
+        </select>
+        {% if beneficiaire %}<input type="hidden" name="beneficiaire" value="{{ beneficiaire }}"><span>{{ beneficiaire }}</span> <a href="?statut={{ statut }}" class="underline">{% trans "tous les propriétaires" %}</a>{% endif %}
+    </form>
+
+    <div class="rv-carte overflow-x-auto">
+        <table class="rv-table">
+            <thead><tr>
+                <th>{% trans "Date" %}</th><th>{% trans "Propriétaire" %}</th><th>{% trans "Location" %}</th>
+                <th class="num">{% trans "Part (%)" %}</th><th class="num">{% trans "Part HTVA" %}</th>
+                <th class="num">{% trans "Commission" %}</th><th class="num">{% trans "À reverser" %}</th>
+                <th>{% trans "Statut" %}</th><th>{% trans "Paiement" %}</th>
+            </tr></thead>
+            <tbody>
+            {% url 'voiture_location:reversements_liste' as url_liste %}
+            {% for r in lignes %}
+                <tr>
+                    <td>{{ r.date|date:"d/m/Y" }}</td>
+                    <td>{{ r.beneficiaire }}</td>
+                    <td><a class="text-blue-700 underline" href="{% url 'voiture_location:location_detail' location_id=r.location_id %}#ventilation">{{ r.location }}</a></td>
+                    <td class="num">{{ r.part_pourcent|floatformat:"-2" }} %</td>
+                    <td class="num">{{ r.montant_part_htva|floatformat:2 }} €</td>
+                    <td class="num">{{ r.commission_htva|floatformat:2 }} €</td>
+                    <td class="num font-semibold">{{ r.montant_du|floatformat:2 }} €</td>
+                    <td><span class="rv-badge {{ r.statut }}">{{ r.get_statut_display }}</span></td>
+                    <td>{% with action_url=url_liste|add:"?"|add:request.GET.urlencode %}{% include "voiture_location/_form_reversement.html" %}{% endwith %}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="9" class="rv-aide" style="text-align:center;padding:1.2rem">{% trans "Aucun reversement." %}</td></tr>
+            {% endfor %}
+            </tbody>
+            <tfoot><tr class="font-semibold">
+                <td colspan="5">{% trans "Total" %}</td>
+                <td class="num">{{ commissions_liste|floatformat:2 }} €</td>
+                <td class="num">{{ total_liste|floatformat:2 }} €</td><td colspan="2"></td>
+            </tr></tfoot>
+        </table>
+    </div>
+    <a href="{% url 'voiture_location:location_liste' %}" class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">{% trans "Retour aux locations" %}</a>
+</div>
+{% endblock %}

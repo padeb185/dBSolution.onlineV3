@@ -21,6 +21,7 @@ SOURCES = OrderedDict([
     ("paiement_salaire", gettext_lazy("Paiement des salaires")),
     ("versement_social", gettext_lazy("Versements ONSS / précompte")),
     ("instructeur", gettext_lazy("Instructeurs indépendants")),
+    ("reversement", gettext_lazy("Reversements aux propriétaires (locations)")),
     ("immobilisation", gettext_lazy("Immobilisations et amortissements")),
     ("stock", gettext_lazy("Stock")),
     ("tresorerie", gettext_lazy("Trésorerie (mouvements manuels)")),
@@ -133,6 +134,16 @@ def ecritures_societe(societe, debut=None, fin=None, sources=None):
             for l in f.ecritures():
                 if _dans(l["date"], debut, fin):
                     E.append(_norm(l, "instructeur", f.piece))
+    if "reversement" in sources:
+        try:
+            from voiture.voiture_location.models import ReversementLocation
+            for r in ReversementLocation.objects.filter(location__societe=societe).select_related(
+                    "location", "location__voiture_exemplaire"):
+                for l in r.ecritures():
+                    if _dans(l["date"], debut, fin):
+                        E.append(_norm(l, "reversement", r.piece))
+        except Exception:
+            pass
     if "immobilisation" in sources:
         for i in Immobilisation.objects.filter(societe=societe).select_related("compte_paiement"):
             for l in i.ecritures(debut, fin):

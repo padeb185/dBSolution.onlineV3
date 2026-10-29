@@ -44,6 +44,8 @@ COMPTES_CONTREPARTIE = [
     ("455000", _("Rémunérations")),
     ("430000", _("Dettes financières à court terme")),
     ("480000", _("Dettes diverses")),
+    ("460000", _("Acomptes reçus sur commandes")),
+    ("489000", _("Dettes envers les propriétaires (reversements de locations)")),
     ("490000", _("Charges à reporter")),
     ("492000", _("Charges à imputer")),
     ("499000", _("Compte d'attente")),
@@ -215,6 +217,36 @@ class CompteTresorerie(models.Model):
                     "sortie": -p.montant if p.montant < 0 else ZERO,
                     "contrepartie": "400000", "piece": p.facture.numero or "",
                     "source": "facture", "objet": p, "ordre": 2,
+                })
+        except Exception:
+            pass
+
+        # Reversements aux propriétaires (locations) : sortie de caisse (espèces) ou de banque
+        try:
+            from voiture.voiture_location.models import ReversementLocation, StatutReversement
+            reversements = ReversementLocation.objects.filter(
+                location__societe=self.societe, statut=StatutReversement.PAYE, date_paiement__gte=bornes_debut)
+            if fin:
+                reversements = reversements.filter(date_paiement__lte=fin)
+            if self.type == self.Type.CAISSE:
+                reversements = reversements.filter(mode_paiement="ESPECES")
+            else:
+                reversements = reversements.exclude(mode_paiement="ESPECES")
+            L += [r.ligne_tresorerie() for r in reversements]
+        except Exception:
+            pass
+
+        # Acomptes de location reçus, pas encore repris sur une facture émise
+        try:
+            from facture.paiements import acomptes_locations_encaisses
+            for a in acomptes_locations_encaisses(self.societe, debut=bornes_debut, fin=fin):
+                if a.est_especes != (self.type == self.Type.CAISSE):
+                    continue
+                L.append({
+                    "date": a.date, "libelle": f"{_('Acompte location')} – {a.location.nom_locataire}".strip(" –"),
+                    "entree": a.montant, "sortie": ZERO,
+                    "contrepartie": "400000" if a.facture else "460000", "piece": a.piece,
+                    "source": "acompte", "objet": a, "ordre": 2,
                 })
         except Exception:
             pass

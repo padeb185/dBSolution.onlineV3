@@ -68531,3 +68531,135 @@ msgstr "Kühlung:"
 
 msgid "Embrayage :"
 msgstr "Kupplung:"
+
+msgid "À venir :"
+msgstr "Bevorstehend:"
+
+msgid "À reverser"
+msgstr "Auszuzahlen"
+
+msgid "Reversé"
+msgstr "Ausgezahlt"
+
+msgid "Location HTVA"
+msgstr "Vermietung exkl. MwSt."
+
+msgid "Part HTVA"
+msgstr "Anteil exkl. MwSt."
+
+msgid "Commission (%)"
+msgstr "Provision (%)"
+
+msgid "Commission"
+msgstr "Provision"
+
+msgid "Montant à reverser"
+msgstr "Auszuzahlender Betrag"
+
+msgid "Date du reversement"
+msgstr "Auszahlungsdatum"
+
+msgid "Reversement de location"
+msgstr "Mietauszahlung"
+
+msgid "Reversements de locations"
+msgstr "Mietauszahlungen"
+
+msgid "Reversement location"
+msgstr "Mietauszahlung"
+
+msgid "Chiffre d'affaires – part des propriétaires"
+msgstr "Umsatz – Anteil der Eigentümer"
+
+msgid "Dettes envers les propriétaires"
+msgstr "Verbindlichkeiten gegenüber den Eigentümern"
+
+msgid "annulé"
+msgstr "storniert"
+
+msgid "Paiement du reversement annulé : %(nom)s."
+msgstr "Zahlung der Auszahlung storniert: %(nom)s."
+
+msgid "Reversement payé : %(nom)s – %(montant)s €."
+msgstr "Auszahlung bezahlt: %(nom)s – %(montant)s €."
+
+msgid "La location n'est pas encore facturée : les reversements seront calculés à l'émission de la facture."
+msgstr "Die Vermietung ist noch nicht fakturiert: Die Auszahlungen werden bei Ausstellung der Rechnung berechnet."
+
+msgid "Reversements recalculés (%(n)s modifié(s))."
+msgstr "Auszahlungen neu berechnet (%(n)s geändert)."
+
+msgid "Ventilation entre les propriétaires"
+msgstr "Aufteilung zwischen den Eigentümern"
+
+msgid "Recalculer"
+msgstr "Neu berechnen"
+
+msgid "Tous les reversements"
+msgstr "Alle Auszahlungen"
+
+msgid "Aperçu sur le prix de la location : les reversements sont créés à l'émission de la facture."
+msgstr "Vorschau auf Basis des Mietpreises: Die Auszahlungen werden bei Ausstellung der Rechnung erstellt."
+
+msgid "Base : location facturée HTVA (facture, km supplémentaires, notes de crédit déduites). La TVA est due par notre société sur le total facturé."
+msgstr "Basis: fakturierte Vermietung exkl. MwSt. (Rechnung, Mehrkilometer, abzüglich Gutschriften). Die MwSt. auf den fakturierten Gesamtbetrag schuldet unser Unternehmen."
+
+msgid "Notre part (commissions comprises)"
+msgstr "Unser Anteil (inkl. Provisionen)"
+
+msgid "Reversements"
+msgstr "Auszahlungen"
+
+msgid "Reversements aux propriétaires"
+msgstr "Auszahlungen an die Eigentümer"
+
+msgid "Locations de véhicules à plusieurs propriétaires : nous facturons toute la location ; la part HTVA de chaque autre propriétaire, moins sa commission, lui est due (compte 489000) jusqu'au reversement (banque 550000 ou caisse 570000)."
+msgstr "Vermietung von Fahrzeugen mit mehreren Eigentümern: Wir fakturieren die gesamte Vermietung; der Anteil exkl. MwSt. jedes anderen Eigentümers abzüglich seiner Provision wird ihm geschuldet (Konto 489000) bis zur Auszahlung (Bank 550000 oder Kasse 570000)."
+
+msgid "Total à reverser"
+msgstr "Gesamt auszuzahlen"
+
+msgid "À reverser par propriétaire"
+msgstr "Auszuzahlen pro Eigentümer"
+
+msgid "Rien à reverser."
+msgstr "Nichts auszuzahlen."
+
+msgid "tous les propriétaires"
+msgstr "alle Eigentümer"
+
+msgid "Aucun reversement."
+msgstr "Keine Auszahlung."
+
+msgid "Annuler le paiement de ce reversement ?"
+msgstr "Zahlung dieser Auszahlung stornieren?"
+
+msgid "Marquer reversé"
+msgstr "Als ausgezahlt markieren"
+
+msgid "Commission location (%)"
+msgstr "Mietprovision (%)"
+
+msgid "Commission location (%%)"
+msgstr "Mietprovision (%%)"
+
+msgid "Retenue sur la part du propriétaire dans le prix des locations (frais de gestion)."
+msgstr "Einbehalt vom Anteil des Eigentümers am Mietpreis (Verwaltungsgebühr)."
+
+msgid "Locations : nous facturons toute la location au client ; la part HTVA de chaque autre propriétaire, moins sa commission, lui est reversée (détail de la location et page Reversements)."
+msgstr "Vermietungen: Wir fakturieren dem Kunden die gesamte Vermietung; der Anteil exkl. MwSt. jedes anderen Eigentümers abzüglich seiner Provision wird ihm ausgezahlt (Details der Vermietung und Seite Auszahlungen)."
+
+msgid "Reversements aux propriétaires (locations)"
+msgstr "Auszahlungen an die Eigentümer (Vermietungen)"
+
+msgid "Dettes envers les propriétaires (reversements de locations)"
+msgstr "Verbindlichkeiten gegenüber den Eigentümern (Mietauszahlungen)"
+
+msgid "reversement propriétaire"
+msgstr "Eigentümerauszahlung"
+
+msgid "acompte location"
+msgstr "Mietanzahlung"
+
+msgid "À reverser :"
+msgstr "Auszuzahlen:"

@@ -160,6 +160,16 @@ class ProprietaireVoiture(models.Model):
         validators=[MinValueValidator(0)],
     )
 
+    # Locations : commission retenue par notre société sur la part de ce propriétaire
+    commission_location = models.DecimalField(
+        _("Commission location (%)"),
+        max_digits=5,
+        decimal_places=2,
+        default=Decimal("0.00"),
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        help_text=_("Retenue sur la part du propriétaire dans le prix des locations (frais de gestion)."),
+    )
+
     societe = models.ForeignKey(
         "societe.Societe",
         on_delete=models.CASCADE,

@@ -790,6 +790,30 @@
              class="w-[60px] h-[60px]">
     </a>
 
+    <!-- Trackdays -->
+    <a href="{% url 'voiture_location:trackday_liste' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Trackdays" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">{{ total_trackday|default:0 }}</span>
+            </p>
+            <p class="text-gray-600 text-sm">
+                {% trans "À venir :" %}
+                <span class="font-bold">{{ trackdays_a_venir|default:0 }}</span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/trackday.png' %}"
+             alt="{% trans 'Trackdays' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
     <!-- Ventes détails (locations : HTVA / TVA / TVAC) -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/location/ventes/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -930,6 +954,19 @@
         <img src="{% static 'icons/main-doeuvre.png' %}"
              alt="{% trans "Main d'oeuvre" %}"
              class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Reversements aux propriétaires (locations de véhicules à plusieurs propriétaires) -->
+    <a href="{% url 'voiture_location:reversements_liste' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">{% trans "Reversements aux propriétaires" %}</h2>
+            <p class="text-gray-600 text-sm">
+                {% trans "À reverser :" %}
+                <span class="font-bold">{{ total_a_reverser|default:0|floatformat:2 }} €</span>
+            </p>
+        </div>
+        <img src="{% static 'icons/proprietaire.png' %}" alt="{% trans 'Reversements aux propriétaires' %}" class="w-[60px] h-[60px]">
     </a>
 
     <!-- Propriétaires -->

@@ -410,6 +410,16 @@ class Location(models.Model):
         return self.client_pilotage or self.societe_cliente or self.client
 
     @property
+    def nom_locataire(self):
+        """Nom court du client : « Prénom Nom » (particulier / pilotage) ou nom de la société cliente."""
+        if self.societe_cliente_id:
+            return self.societe_cliente.nom_societe_cliente or str(self.societe_cliente)
+        personne = self.client_pilotage.client_particulier if self.client_pilotage_id else self.client
+        if personne is None:
+            return ""
+        return f"{personne.prenom or ''} {personne.nom or ''}".strip()
+
+    @property
     def longueur_circuit_km(self):
         return LONGUEUR_CIRCUIT_KM.get(self.circuit) if self.circuit else None
 
@@ -1249,3 +1259,106 @@ class TrackdayCout(models.Model):
 
     def __str__(self):
         return self.libelle or self.get_categorie_display()
+
+
+# =====================================================================
+# Location d'un véhicule à plusieurs propriétaires : reversement des parts
+# =====================================================================
+# Nous facturons toute la location au client (TVA due sur le total). La part HTVA des autres
+# propriétaires, moins notre commission, leur est due : elle sort de notre chiffre d'affaires
+# (700000) vers une dette (489000), soldée au paiement (550000 banque / 570000 caisse).
+COMPTE_CA_LOCATIONS = "700000"
+COMPTE_DETTES_PROPRIETAIRES = "489000"
+COMPTE_BANQUE = "550000"
+COMPTE_CAISSE = "570000"
+
+
+class StatutReversement(models.TextChoices):
+    A_PAYER = "A_PAYER", _("À reverser")
+    PAYE = "PAYE", _("Reversé")
+
+
+class ReversementLocation(models.Model):
+    """Part d'un autre propriétaire du véhicule dans une location facturée (commission déduite)."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    societe = models.ForeignKey("societe.Societe", on_delete=models.CASCADE, related_name="reversements_location",
+                                null=True, blank=True)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name="reversements")
+    part = models.ForeignKey("proprietaire.ProprietaireVoiture", on_delete=models.SET_NULL, null=True, blank=True,
+                             related_name="reversements_location", verbose_name=_("Part de propriété"))
+    beneficiaire = models.CharField(_("Propriétaire"), max_length=150)
+    date = models.DateField(_("Date"))
+    part_pourcent = models.DecimalField(_("Part (%)"), max_digits=5, decimal_places=2)
+    base_htva = models.DecimalField(_("Location HTVA"), max_digits=12, decimal_places=2)
+    montant_part_htva = models.DecimalField(_("Part HTVA"), max_digits=12, decimal_places=2)
+    commission_pourcent = models.DecimalField(_("Commission (%)"), max_digits=5, decimal_places=2, default=Decimal("0"))
+    commission_htva = models.DecimalField(_("Commission"), max_digits=12, decimal_places=2, default=Decimal("0"))
+    montant_du = models.DecimalField(_("Montant à reverser"), max_digits=12, decimal_places=2)
+    statut = models.CharField(_("Statut"), max_length=10, choices=StatutReversement.choices,
+                              default=StatutReversement.A_PAYER)
+    date_paiement = models.DateField(_("Date du reversement"), null=True, blank=True)
+    mode_paiement = models.CharField(
+        _("Mode de paiement"), max_length=10, default="VIREMENT",
+        choices=[("VIREMENT", _("Virement bancaire")), ("ESPECES", _("Espèces (caisse)")),
+                 ("CHEQUE", _("Chèque")), ("AUTRE", _("Autre (banque)"))],
+    )
+    reference = models.CharField(_("Référence"), max_length=100, blank=True)
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("Reversement de location")
+        verbose_name_plural = _("Reversements de locations")
+        ordering = ["-date", "beneficiaire"]
+
+    def __str__(self):
+        return f"{self.beneficiaire} – {self.montant_du} €"
+
+    @property
+    def est_paye(self):
+        return self.statut == StatutReversement.PAYE
+
+    @property
+    def piece(self):
+        return f"REV-{str(self.pk)[:8].upper()}"
+
+    @property
+    def compte_tresorerie(self):
+        return COMPTE_CAISSE if self.mode_paiement == "ESPECES" else COMPTE_BANQUE
+
+    def ecritures(self):
+        """
+        Constatation (date de la facture) : 700000 au débit / 489000 au crédit (part due, commission déduite).
+        Paiement : 489000 au débit / 550000 ou 570000 au crédit. Montant négatif : écritures inversées.
+        """
+        z = Decimal("0.00")
+        libelle = f"{gettext('Reversement location')} – {self.beneficiaire} – {self.location}"
+        m = Decimal(self.montant_du or 0)
+        lignes = []
+
+        def ligne(journal, jour, compte, intitule, montant, debit):
+            if not montant:
+                return
+            d, c = (montant, z) if debit else (z, montant)
+            if montant < 0:
+                d, c = (z, -montant) if debit else (-montant, z)
+            lignes.append({"journal": journal, "date": jour, "compte": compte, "intitule": intitule,
+                           "libelle": libelle, "piece": self.piece, "debit": d, "credit": c})
+
+        ligne("OD", self.date, COMPTE_CA_LOCATIONS, gettext("Chiffre d'affaires – part des propriétaires"), m, True)
+        ligne("OD", self.date, COMPTE_DETTES_PROPRIETAIRES, gettext("Dettes envers les propriétaires"), m, False)
+        if self.est_paye and self.date_paiement:
+            journal = "CAI" if self.mode_paiement == "ESPECES" else "BQ"
+            intitule = gettext("Caisse – espèces") if journal == "CAI" else gettext("Banque – compte courant")
+            ligne(journal, self.date_paiement, COMPTE_DETTES_PROPRIETAIRES, gettext("Dettes envers les propriétaires"), m, True)
+            ligne(journal, self.date_paiement, self.compte_tresorerie, intitule, m, False)
+        return lignes
+
+    def ligne_tresorerie(self):
+        m = Decimal(self.montant_du or 0)
+        return {
+            "date": self.date_paiement,
+            "libelle": f"{gettext('Reversement location')} – {self.beneficiaire}",
+            "entree": -m if m < 0 else Decimal("0.00"), "sortie": m if m > 0 else Decimal("0.00"),
+            "contrepartie": COMPTE_DETTES_PROPRIETAIRES, "piece": self.piece,
+            "source": "reversement", "objet": self, "ordre": 6,
+        }

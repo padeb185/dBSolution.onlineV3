@@ -102,7 +102,7 @@
                 {% for numero, locs in lane.box %}
                     <div class="td-box {% if locs|length > 1 %}td-box-double{% elif locs %}td-box-pris{% endif %}">
                         <b>{% trans "Box" %} {{ numero }}</b>
-                        {% for loc in locs %}<div>{% if loc.numero_course %}#{{ loc.numero_course }} {% endif %}{{ loc.voiture_exemplaire.voiture_modele.nom_modele }}</div>{% empty %}<div class="text-gray-400">{% trans "libre" %}</div>{% endfor %}
+                        {% for loc in locs %}<div>{% if loc.numero_course %}#{{ loc.numero_course }} {% endif %}<span class="font-semibold">{{ loc.nom_locataire|default:"—" }}</span><div class="text-xs text-gray-500">{{ loc.voiture_exemplaire.voiture_modele.nom_modele }}</div></div>{% empty %}<div class="text-gray-400">{% trans "libre" %}</div>{% endfor %}
                     </div>
                 {% endfor %}
                 </div>

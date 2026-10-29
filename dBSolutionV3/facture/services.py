@@ -1044,6 +1044,8 @@ def emettre_facture(facture):
         origine.save(update_fields=["statut_paiement", "montant_paye", "date_paiement", "updated_at"])
         facture.recalculer_paiement()
         facture.save(update_fields=["statut_paiement", "montant_paye", "date_paiement", "updated_at"])
+        # Location : la note de crédit diminue la part reversée aux autres propriétaires
+        regenerer_reversements_facture(origine, jour=facture.issue_date)
         return facture
 
     # Stock : les pièces utilisées des maintenances facturées sont débitées à l'émission
@@ -1053,6 +1055,8 @@ def emettre_facture(facture):
     # Location(s) facturée(s) : l'acompte déjà versé est repris sur la facture comme paiement détaillé
     # (même mode et même date : espèces = caisse, autres modes = banque)
     reprendre_acomptes_locations(facture)
+    # Véhicule à plusieurs propriétaires : part des autres propriétaires à leur reverser
+    regenerer_reversements_facture(facture)
 
     return facture
 
@@ -1176,3 +1180,12 @@ def reprendre_acomptes_locations(facture):
         facture.recalculer_paiement(non_ventile)
         facture.save(update_fields=["statut_paiement", "montant_paye", "date_paiement", "updated_at"])
     return crees
+
+
+def regenerer_reversements_facture(facture, jour=None):
+    """Reversements aux autres propriétaires pour chaque location de la facture."""
+    from voiture.voiture_location.reversements import generer_reversements
+    if facture.client_est_societe:
+        return
+    for location in facture.locations.all():
+        generer_reversements(location, jour or facture.issue_date)

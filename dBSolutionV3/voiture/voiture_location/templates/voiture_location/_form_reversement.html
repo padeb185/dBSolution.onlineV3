@@ -1,0 +1,25 @@
+{% load i18n %}
+{# Paiement / annulation d'un reversement. Variables : r, action_url #}
+{% if r.est_paye %}
+    <form method="post" action="{{ action_url }}" class="rv-form">
+        {% csrf_token %}
+        <input type="hidden" name="reversement_id" value="{{ r.pk }}">
+        <span class="rv-aide">{{ r.date_paiement|date:"d/m/Y" }} · {{ r.get_mode_paiement_display }}{% if r.reference %} · {{ r.reference }}{% endif %}</span>
+        <button type="submit" name="action" value="annuler" class="rv-btn gris"
+                data-confirm="{% trans 'Annuler le paiement de ce reversement ?' %}">{% trans "Annuler" %}</button>
+    </form>
+{% else %}
+    <form method="post" action="{{ action_url }}" class="rv-form">
+        {% csrf_token %}
+        <input type="hidden" name="reversement_id" value="{{ r.pk }}">
+        <input type="date" name="date" value="{{ aujourdhui|date:'Y-m-d' }}">
+        <select name="mode">
+            <option value="VIREMENT">{% trans "Virement bancaire" %}</option>
+            <option value="ESPECES">{% trans "Espèces (caisse)" %}</option>
+            <option value="CHEQUE">{% trans "Chèque" %}</option>
+            <option value="AUTRE">{% trans "Autre (banque)" %}</option>
+        </select>
+        <input type="text" name="reference" maxlength="100" placeholder="{% trans 'Référence' %}" style="width:7rem">
+        <button type="submit" name="action" value="payer" class="rv-btn">{% trans "Marquer reversé" %}</button>
+    </form>
+{% endif %}

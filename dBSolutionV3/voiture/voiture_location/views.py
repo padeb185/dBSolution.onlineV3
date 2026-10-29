@@ -454,7 +454,13 @@ def location_detail(request, location_id):
         return redirect("utilisateurs:dashboard")
 
     location = get_object_or_404(_queryset(request), id=location_id)
+    # Véhicule à plusieurs propriétaires : ventilation du prix et reversements (direction / comptabilité)
+    from .reversements import parts_a_reverser, ventilation
+    from .views_reversements import peut_reverser
+    ventil = ventilation(location) if peut_reverser(request.user) and parts_a_reverser(location) else None
     return render(request, "voiture_location/location_detail.html", {
+        "ventilation": ventil,
+        "aujourdhui": timezone.localdate(),
         "location": location,
         "exemplaire": location.voiture_exemplaire,
         "peut_facturer": _peut_facturer(request.user),

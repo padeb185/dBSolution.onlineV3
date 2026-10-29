@@ -1,0 +1,72 @@
+{% load i18n %}
+<!-- Ventilation du prix entre les propriétaires du véhicule et reversements -->
+{% if ventilation %}
+{% include "voiture_location/_style_reversements.html" %}
+<div class="rv-carte" id="ventilation">
+    <div class="flex flex-wrap justify-between items-center gap-2 mb-2">
+        <h2 class="text-lg font-semibold">{% trans "Ventilation entre les propriétaires" %}</h2>
+        <div class="flex gap-2">
+            <form method="post" action="{% url 'voiture_location:location_reversements' location_id=location.id %}">
+                {% csrf_token %}
+                <button type="submit" name="action" value="recalculer" class="rv-btn bleu">{% trans "Recalculer" %}</button>
+            </form>
+            <a href="{% url 'voiture_location:reversements_liste' %}" class="rv-btn gris">{% trans "Tous les reversements" %}</a>
+        </div>
+    </div>
+    <p class="rv-aide mb-3">
+        {% if ventilation.previsionnel %}
+            {% trans "Aperçu sur le prix de la location : les reversements sont créés à l'émission de la facture." %}
+        {% else %}
+            {% trans "Base : location facturée HTVA (facture, km supplémentaires, notes de crédit déduites). La TVA est due par notre société sur le total facturé." %}
+        {% endif %}
+    </p>
+    <table class="rv-table mb-3">
+        <thead><tr>
+            <th>{% trans "Propriétaire" %}</th><th class="num">{% trans "Part (%)" %}</th>
+            <th class="num">{% trans "Part HTVA" %}</th><th class="num">{% trans "Commission" %}</th>
+            <th class="num">{% trans "À reverser" %}</th><th class="num">{% trans "Reversé" %}</th>
+        </tr></thead>
+        <tbody>
+        {% for l in ventilation.lignes %}
+            <tr>
+                <td>{{ l.nom }}</td>
+                <td class="num">{{ l.calcul.part_pourcent|floatformat:"-2" }} %</td>
+                <td class="num">{{ l.calcul.montant_part_htva|floatformat:2 }} €</td>
+                <td class="num">{{ l.calcul.commission_htva|floatformat:2 }} €{% if l.calcul.commission_pourcent %} <span class="rv-aide">({{ l.calcul.commission_pourcent|floatformat:"-2" }} %)</span>{% endif %}</td>
+                <td class="num font-semibold">{{ l.calcul.montant_du|floatformat:2 }} €</td>
+                <td class="num">{{ l.reverse|floatformat:2 }} €</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr class="font-semibold">
+                <td colspan="4">{% trans "Notre part (commissions comprises)" %}</td>
+                <td class="num">{{ ventilation.notre_part|floatformat:2 }} €</td>
+                <td></td>
+            </tr>
+            <tr><td colspan="4">{% trans "Location HTVA" %}</td><td class="num">{{ ventilation.base_htva|floatformat:2 }} €</td><td></td></tr>
+        </tfoot>
+    </table>
+
+    {% with reversements=location.reversements.all %}
+    {% if reversements %}
+    <h3 class="font-semibold mb-1">{% trans "Reversements" %}</h3>
+    <table class="rv-table">
+        <thead><tr><th>{% trans "Date" %}</th><th>{% trans "Propriétaire" %}</th><th class="num">{% trans "Montant" %}</th><th>{% trans "Statut" %}</th><th>{% trans "Paiement" %}</th></tr></thead>
+        <tbody>
+        {% url 'voiture_location:location_reversements' location_id=location.id as action_url %}
+        {% for r in reversements %}
+            <tr>
+                <td>{{ r.date|date:"d/m/Y" }}</td>
+                <td>{{ r.beneficiaire }}</td>
+                <td class="num">{{ r.montant_du|floatformat:2 }} €</td>
+                <td><span class="rv-badge {{ r.statut }}">{{ r.get_statut_display }}</span></td>
+                <td>{% include "voiture_location/_form_reversement.html" %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% endwith %}
+</div>
+{% endif %}

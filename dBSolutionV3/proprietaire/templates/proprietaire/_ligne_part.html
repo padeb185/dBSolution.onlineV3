@@ -20,6 +20,11 @@
         <span class="marge-interne">{% trans "Interne : au coût" %}</span>
         {% for e in form.marge_main_oeuvre.errors %}<div class="erreur">{{ e }}</div>{% endfor %}
     </td>
+    <td class="col-num">
+        <span class="champ-marge">{{ form.commission_location }}</span>
+        <span class="marge-interne">—</span>
+        {% for e in form.commission_location.errors %}<div class="erreur">{{ e }}</div>{% endfor %}
+    </td>
     <td>{{ form.remarques }}</td>
     <td class="col-sup">{% if form.DELETE %}{{ form.DELETE }}{% endif %}</td>
 </tr>

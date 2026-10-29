@@ -85,6 +85,7 @@ class ProprietaireVoitureForm(forms.ModelForm):
             "part_proprietaire_pourcent",
             "marge_pieces",
             "marge_main_oeuvre",
+            "commission_location",
             "remarques",
         ]
         widgets = {
@@ -93,6 +94,7 @@ class ProprietaireVoitureForm(forms.ModelForm):
             }),
             "marge_pieces": forms.NumberInput(attrs={"step": "0.01", "min": "0", "class": "input"}),
             "marge_main_oeuvre": forms.NumberInput(attrs={"step": "0.01", "min": "0", "class": "input"}),
+            "commission_location": forms.NumberInput(attrs={"step": "0.01", "min": "0", "max": "100", "class": "input"}),
             "remarques": forms.Textarea(attrs={"rows": 2, "class": "input"}),
         }
 
@@ -106,6 +108,7 @@ class ProprietaireVoitureForm(forms.ModelForm):
         self.fields["titulaire"].widget.attrs.update({"class": "input titulaire"})
         self.fields["marge_pieces"].required = False
         self.fields["marge_main_oeuvre"].required = False
+        self.fields["commission_location"].required = False
         self.fields["remarques"].required = False
 
         from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -153,7 +156,7 @@ class ProprietaireVoitureForm(forms.ModelForm):
             inst.voiture_exemplaire = self.voiture
         if self.societe is not None:
             inst.societe = self.societe
-        for champ in ("marge_pieces", "marge_main_oeuvre"):
+        for champ in ("marge_pieces", "marge_main_oeuvre", "commission_location"):
             if self.cleaned_data.get(champ) is None and champ in self.cleaned_data:
                 self.cleaned_data[champ] = Decimal("0.00")
         if not choix:

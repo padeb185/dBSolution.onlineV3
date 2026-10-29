@@ -24,6 +24,7 @@
         <ul>
             <li>{% trans "Notre société seule propriétaire (100 %) : une facture interne, sans marge, TVA récupérée." %}</li>
             <li>{% trans "Plusieurs propriétaires : une facture par propriétaire, chacune au pourcentage de sa part. Les autres propriétaires reçoivent une facture avec TVA et marges ; la part de notre société est facturée en interne, au coût." %}</li>
+            <li>{% trans "Locations : nous facturons toute la location au client ; la part HTVA de chaque autre propriétaire, moins sa commission, lui est reversée (détail de la location et page Reversements)." %}</li>
             <li>{% trans "Le total des parts ne peut pas dépasser 100 % et doit atteindre 100 % pour facturer." %}</li>
         </ul>
     </div>
@@ -44,6 +45,7 @@
                         <th class="col-num">{% trans "Part (%)" %}</th>
                         <th class="col-num">{% trans "Marge pièces (%)" %}</th>
                         <th class="col-num">{% trans "Marge main-d'œuvre (%)" %}</th>
+                        <th class="col-num">{% trans "Commission location (%)" %}</th>
                         <th>{% trans "Remarques" %}</th>
                         <th class="col-sup">{% trans "Supprimer" %}</th>
                     </tr>
@@ -57,7 +59,7 @@
                     <tr>
                         <td class="text-right font-semibold">{% trans "Total" %}</td>
                         <td class="col-num"><span id="total-parts" class="total-parts">{{ total }}</span> %</td>
-                        <td colspan="4"><span id="reste-parts" class="text-sm"></span></td>
+                        <td colspan="5"><span id="reste-parts" class="text-sm"></span></td>
                     </tr>
                 </tfoot>
             </table>

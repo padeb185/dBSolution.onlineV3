@@ -85,7 +85,7 @@
                 <td class="border px-3 py-2"></td>
             </tr>
             {% for l in lignes %}
-            <tr class="{% if l.source == 'ouverture' %}bg-yellow-50 font-semibold{% elif l.source == 'facture' or l.source == 'paie' or l.source == 'instructeur' or l.source == 'immobilisation' or l.source == 'versement_social' %}bg-blue-50{% endif %}">
+            <tr class="{% if l.source == 'ouverture' %}bg-yellow-50 font-semibold{% elif l.source == 'facture' or l.source == 'paie' or l.source == 'instructeur' or l.source == 'immobilisation' or l.source == 'versement_social' or l.source == 'reversement' or l.source == 'acompte' %}bg-blue-50{% endif %}">
                 <td class="border px-3 py-2 whitespace-nowrap">{{ l.date|date:"d/m/Y" }}</td>
                 <td class="border px-3 py-2">{{ l.piece|default:"" }}</td>
                 <td class="border px-3 py-2">
@@ -95,6 +95,8 @@
                     {% elif l.source == 'immobilisation' %}<a href="{% url 'compta:immobilisation_detail' l.objet.pk %}" class="text-xs text-blue-700 hover:underline">({% trans "investissement" %})</a>
                     {% elif l.source == 'versement_social' %}<span class="text-xs text-blue-700">({% trans "ONSS / précompte" %})</span>
                     {% elif l.source == 'instructeur' %}<a href="{% url 'compta:facture_instructeur_detail' l.objet.pk %}" class="text-xs text-blue-700 hover:underline">({% trans "instructeur" %})</a>
+                    {% elif l.source == 'reversement' %}<a href="{% url 'voiture_location:location_detail' location_id=l.objet.location_id %}#ventilation" class="text-xs text-blue-700 hover:underline">({% trans "reversement propriétaire" %})</a>
+                    {% elif l.source == 'acompte' %}<a href="{% url 'voiture_location:location_detail' location_id=l.objet.location.id %}" class="text-xs text-blue-700 hover:underline">({% trans "acompte location" %})</a>
                     {% elif l.source == 'virement' %}<span class="text-xs text-gray-500">({% trans "virement interne" %})</span>{% endif %}
                 </td>
                 <td class="border px-3 py-2"><span class="font-mono">{{ l.contrepartie }}</span> {{ l.intitule_contrepartie }}</td>

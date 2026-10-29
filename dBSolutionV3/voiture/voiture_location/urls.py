@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views, views_trackday as vt
+from . import views, views_reversements as vr, views_trackday as vt
 
 app_name = "voiture_location"
 
@@ -12,6 +12,7 @@ urlpatterns = [
     path("mes-statistiques/", views.mes_statistiques, name="mes_statistiques"),
     path("objectifs/", views.objectifs_ventes, name="objectifs_ventes"),
     path("disponibilite/", views.location_disponibilite, name="location_disponibilite"),
+    path("reversements/", vr.reversements_liste, name="reversements_liste"),
     path("trackdays/", vt.trackday_liste, name="trackday_liste"),
     path("trackdays/ajouter/", vt.trackday_ajouter, name="trackday_ajouter"),
     path("trackdays/statistiques/", vt.trackday_statistiques, name="trackday_statistiques"),
@@ -28,6 +29,7 @@ urlpatterns = [
          name="location_facturer_km_supplementaires"),
     path("<uuid:location_id>/", views.location_detail, name="location_detail"),
     path("<uuid:location_id>/pdf/", views.location_pdf, name="location_pdf"),
+    path("<uuid:location_id>/reversements/", vr.location_reversements, name="location_reversements"),
     path("<uuid:location_id>/modifier/", views.location_modifier, name="location_modifier"),
     path("<uuid:location_id>/supprimer/", views.location_supprimer, name="location_supprimer"),
 ]

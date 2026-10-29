@@ -148,6 +148,8 @@ def dashboard_view(request):
     total_adresse = total_assurance = total_modele = total_outils = 0
     total_recharge = total_main = total_proprietaire = total_client = 0
     total_location = 0
+    total_trackday = trackdays_a_venir = 0
+    total_a_reverser = 0
     total_achat = 0
     ventes_tva_annee = 0
     ventes_tvac_annee = 0
@@ -254,6 +256,19 @@ def dashboard_view(request):
 
             from voiture.voiture_location.models import Location
             total_location = Location.objects.filter(societe=societe).count()
+            from voiture.voiture_location.models import Trackday
+            from django.utils import timezone as _tz
+            trackdays = Trackday.objects.filter(societe=societe)
+            total_trackday = trackdays.count()
+            trackdays_a_venir = trackdays.filter(date_debut__gte=_tz.localdate()).count()
+            try:
+                from django.db.models import Sum
+                from voiture.voiture_location.models import ReversementLocation, StatutReversement
+                total_a_reverser = ReversementLocation.objects.filter(
+                    location__societe=societe, statut=StatutReversement.A_PAYER
+                ).aggregate(t=Sum("montant_du"))["t"] or 0
+            except Exception:
+                total_a_reverser = 0
             from achat_mds.models import AchatMds
             total_achat = AchatMds.objects.filter(societe=societe).count()
             # Ventes (locations) de l'année en cours : prix TVAC -> TVA
@@ -311,6 +326,9 @@ def dashboard_view(request):
         'total_proprietaire': total_proprietaire,
         'total_client': total_client,
         'total_location': total_location,
+        'total_trackday': total_trackday,
+        'trackdays_a_venir': trackdays_a_venir,
+        'total_a_reverser': total_a_reverser,
         'total_achat': total_achat,
         'ventes_tva_annee': ventes_tva_annee,
         'ventes_tvac_annee': ventes_tvac_annee,

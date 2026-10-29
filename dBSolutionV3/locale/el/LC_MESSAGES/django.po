@@ -68537,3 +68537,135 @@ msgstr "Ψύξη:"
 
 msgid "Embrayage :"
 msgstr "Συμπλέκτης:"
+
+msgid "À venir :"
+msgstr "Προσεχώς:"
+
+msgid "À reverser"
+msgstr "Προς απόδοση"
+
+msgid "Reversé"
+msgstr "Αποδόθηκε"
+
+msgid "Location HTVA"
+msgstr "Ενοικίαση χωρίς ΦΠΑ"
+
+msgid "Part HTVA"
+msgstr "Μερίδιο χωρίς ΦΠΑ"
+
+msgid "Commission (%)"
+msgstr "Προμήθεια (%)"
+
+msgid "Commission"
+msgstr "Προμήθεια"
+
+msgid "Montant à reverser"
+msgstr "Ποσό προς απόδοση"
+
+msgid "Date du reversement"
+msgstr "Ημερομηνία απόδοσης"
+
+msgid "Reversement de location"
+msgstr "Απόδοση ενοικίασης"
+
+msgid "Reversements de locations"
+msgstr "Αποδόσεις ενοικιάσεων"
+
+msgid "Reversement location"
+msgstr "Απόδοση ενοικίασης"
+
+msgid "Chiffre d'affaires – part des propriétaires"
+msgstr "Κύκλος εργασιών – μερίδιο ιδιοκτητών"
+
+msgid "Dettes envers les propriétaires"
+msgstr "Οφειλές προς ιδιοκτήτες"
+
+msgid "annulé"
+msgstr "ακυρώθηκε"
+
+msgid "Paiement du reversement annulé : %(nom)s."
+msgstr "Η πληρωμή απόδοσης ακυρώθηκε: %(nom)s."
+
+msgid "Reversement payé : %(nom)s – %(montant)s €."
+msgstr "Απόδοση πληρώθηκε: %(nom)s – %(montant)s €."
+
+msgid "La location n'est pas encore facturée : les reversements seront calculés à l'émission de la facture."
+msgstr "Η ενοικίαση δεν έχει τιμολογηθεί: οι αποδόσεις θα υπολογιστούν με την έκδοση του τιμολογίου."
+
+msgid "Reversements recalculés (%(n)s modifié(s))."
+msgstr "Οι αποδόσεις υπολογίστηκαν ξανά (%(n)s τροποποιήθηκαν)."
+
+msgid "Ventilation entre les propriétaires"
+msgstr "Κατανομή μεταξύ ιδιοκτητών"
+
+msgid "Recalculer"
+msgstr "Επανυπολογισμός"
+
+msgid "Tous les reversements"
+msgstr "Όλες οι αποδόσεις"
+
+msgid "Aperçu sur le prix de la location : les reversements sont créés à l'émission de la facture."
+msgstr "Προεπισκόπηση με βάση την τιμή ενοικίασης: οι αποδόσεις δημιουργούνται με την έκδοση του τιμολογίου."
+
+msgid "Base : location facturée HTVA (facture, km supplémentaires, notes de crédit déduites). La TVA est due par notre société sur le total facturé."
+msgstr "Βάση: τιμολογημένη ενοικίαση χωρίς ΦΠΑ (τιμολόγιο, επιπλέον km, μείον πιστωτικά). Ο ΦΠΑ οφείλεται από την εταιρεία μας επί του συνόλου."
+
+msgid "Notre part (commissions comprises)"
+msgstr "Το μερίδιό μας (με τις προμήθειες)"
+
+msgid "Reversements"
+msgstr "Αποδόσεις"
+
+msgid "Reversements aux propriétaires"
+msgstr "Αποδόσεις στους ιδιοκτήτες"
+
+msgid "Locations de véhicules à plusieurs propriétaires : nous facturons toute la location ; la part HTVA de chaque autre propriétaire, moins sa commission, lui est due (compte 489000) jusqu'au reversement (banque 550000 ou caisse 570000)."
+msgstr "Ενοικιάσεις οχημάτων με πολλούς ιδιοκτήτες: τιμολογούμε όλη την ενοικίαση· το μερίδιο χωρίς ΦΠΑ κάθε άλλου ιδιοκτήτη, μείον την προμήθειά του, του οφείλεται (λογαριασμός 489000) μέχρι την απόδοση (τράπεζα 550000 ή ταμείο 570000)."
+
+msgid "Total à reverser"
+msgstr "Σύνολο προς απόδοση"
+
+msgid "À reverser par propriétaire"
+msgstr "Προς απόδοση ανά ιδιοκτήτη"
+
+msgid "Rien à reverser."
+msgstr "Τίποτα προς απόδοση."
+
+msgid "tous les propriétaires"
+msgstr "όλοι οι ιδιοκτήτες"
+
+msgid "Aucun reversement."
+msgstr "Καμία απόδοση."
+
+msgid "Annuler le paiement de ce reversement ?"
+msgstr "Ακύρωση της πληρωμής αυτής της απόδοσης;"
+
+msgid "Marquer reversé"
+msgstr "Σήμανση ως αποδοθέν"
+
+msgid "Commission location (%)"
+msgstr "Προμήθεια ενοικίασης (%)"
+
+msgid "Commission location (%%)"
+msgstr "Προμήθεια ενοικίασης (%%)"
+
+msgid "Retenue sur la part du propriétaire dans le prix des locations (frais de gestion)."
+msgstr "Παρακράτηση από το μερίδιο του ιδιοκτήτη στην τιμή ενοικίασης (έξοδα διαχείρισης)."
+
+msgid "Locations : nous facturons toute la location au client ; la part HTVA de chaque autre propriétaire, moins sa commission, lui est reversée (détail de la location et page Reversements)."
+msgstr "Ενοικιάσεις: τιμολογούμε όλη την ενοικίαση στον πελάτη· το μερίδιο χωρίς ΦΠΑ κάθε άλλου ιδιοκτήτη, μείον την προμήθειά του, του αποδίδεται (λεπτομέρειες ενοικίασης και σελίδα Αποδόσεις)."
+
+msgid "Reversements aux propriétaires (locations)"
+msgstr "Αποδόσεις σε ιδιοκτήτες (ενοικιάσεις)"
+
+msgid "Dettes envers les propriétaires (reversements de locations)"
+msgstr "Οφειλές προς ιδιοκτήτες (αποδόσεις ενοικιάσεων)"
+
+msgid "reversement propriétaire"
+msgstr "απόδοση ιδιοκτήτη"
+
+msgid "acompte location"
+msgstr "προκαταβολή ενοικίασης"
+
+msgid "À reverser :"
+msgstr "Προς απόδοση:"
