@@ -31,13 +31,13 @@
         <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Montants" %}</h2>
         <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
             <dt class="text-gray-600">{% trans "Brut" %}</dt>
-            <dd class="font-medium">{{ paie.salaire_brut_mensuel|default:0|floatformat:2 }} €</dd>
+            <dd class="font-medium">{{ paie.salaire_brut_mensuel|default:0|floatformat:"2g" }} €</dd>
 
             <dt class="text-gray-600">{% trans "Net" %}</dt>
-            <dd class="font-medium">{{ paie.salaire_net_mois|default:0|floatformat:2 }} €</dd>
+            <dd class="font-medium">{{ paie.salaire_net_mois|default:0|floatformat:"2g" }} €</dd>
 
             <dt class="text-gray-600 font-semibold">{% trans "Coût employeur" %}</dt>
-            <dd class="font-bold">{{ paie.salaire_brut_mensuel_employeur|default:0|floatformat:2 }} €</dd>
+            <dd class="font-bold">{{ paie.salaire_brut_mensuel_employeur|default:0|floatformat:"2g" }} €</dd>
         </dl>
     </div>
 

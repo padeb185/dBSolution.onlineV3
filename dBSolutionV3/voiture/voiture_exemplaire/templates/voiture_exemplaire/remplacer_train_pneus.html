@@ -15,7 +15,7 @@
 
     <p class="mb-4 text-gray-600">
         {{ exemplaire.voiture_marque }} {{ exemplaire.immatriculation }}
-        · {% trans "Kilométrage actuel :" %} {{ km_actuel }} km
+        · {% trans "Kilométrage actuel :" %} {{ km_actuel|milliers }} km
     </p>
 
     <!-- ONGLETS MONTE -->
@@ -48,7 +48,7 @@
             </div>
             <div>{{ train.libelle }}</div>
             <div class="text-sm text-gray-600 mt-1">
-                {% trans "Km effectués :" %} <strong>{{ train.km_effectues }} km</strong>
+                {% trans "Km effectués :" %} <strong>{{ train.km_effectues|milliers }} km</strong>
                 · {% trans "monté le" %} {{ train.date_montage|date:"d/m/Y" }}
                 {% if not train.est_monte %}· {% trans "non monté actuellement" %}{% endif %}
             </div>

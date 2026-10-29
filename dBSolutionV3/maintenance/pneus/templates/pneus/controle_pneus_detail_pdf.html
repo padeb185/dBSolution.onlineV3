@@ -328,8 +328,8 @@
         <div><span class="label">{% trans "Rôle" %} :</span> {{ controle_pneus.tech_role_technicien }}</div>
         <div><span class="label">{% trans "Société" %} :</span> {{ controle_pneus.tech_societe }}</div>
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ controle_pneus.voiture_exemplaire }}</div>
-        <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ controle_pneus.kilometres_chassis }} km</div>
-        <div><span class="label">{% trans "Kilométrage du contrôle des pneus" %} :</span> {{ controle_pneus.kilometrage_pneus }} km</div>
+        <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ controle_pneus.kilometres_chassis|milliers }} km</div>
+        <div><span class="label">{% trans "Kilométrage du contrôle des pneus" %} :</span> {{ controle_pneus.kilometrage_pneus|milliers }} km</div>
 
         <div>
             <span class="label">{% trans "Tag" %} :</span>
@@ -561,13 +561,13 @@
 
         <div>
             <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-            {{ controle_pneus.taux_horaire|floatformat:2 }} €
+            {{ controle_pneus.taux_horaire|floatformat:"2g" }} €
         </div>
 
         {% if controle_pneus.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ controle_pneus.cout_main_oeuvre|floatformat:2 }} €
+                {{ controle_pneus.cout_main_oeuvre|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -654,11 +654,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -673,7 +673,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ rapport.total_general|default:0|floatformat:2 }} €
+                            {{ rapport.total_general|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -688,7 +688,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ controle_pneus.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ controle_pneus.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -703,7 +703,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ controle_pneus.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ controle_pneus.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -729,7 +729,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ controle_pneus.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ controle_pneus.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -743,7 +743,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ controle_pneus.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ controle_pneus.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

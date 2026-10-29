@@ -29,12 +29,12 @@
             <a class="text-blue-700 underline" href="{% url url_detail doc.document_origine.pk %}">
                 {{ doc.document_origine.reference_facture|default:doc.document_origine }}
             </a>
-            ({{ doc.document_origine.date_facture|date:"d/m/Y" }} – {{ doc.document_origine.total_tvac|floatformat:2 }} € {% trans "TVAC" %})
+            ({{ doc.document_origine.date_facture|date:"d/m/Y" }} – {{ doc.document_origine.total_tvac|floatformat:"2g" }} € {% trans "TVAC" %})
         </p>
         <p class="mb-2"><strong>{% trans "Motif" %} :</strong> {{ doc.motif|linebreaksbr }}</p>
         <p class="mb-2">
             <strong>{% trans "Montant" %} :</strong>
-            <span class="{% if doc.est_note_credit %}na-neg{% endif %} font-semibold">{{ doc.total_tvac_signe|floatformat:2 }} € {% trans "TVAC" %}</span>
+            <span class="{% if doc.est_note_credit %}na-neg{% endif %} font-semibold">{{ doc.total_tvac_signe|floatformat:"2g" }} € {% trans "TVAC" %}</span>
         </p>
         {% if doc.est_note_credit %}
             <div class="na-info">
@@ -68,7 +68,7 @@
                             <td><a class="text-blue-700 underline" href="{% url url_detail n.pk %}">{{ n.reference_facture|default:"—" }}</a></td>
                             <td>{{ n.date_facture|date:"d/m/Y" }}</td>
                             <td>{{ n.motif|truncatechars:60 }}</td>
-                            <td style="text-align:right" class="{% if n.est_note_credit %}na-neg{% endif %}">{{ n.total_tvac_signe|floatformat:2 }} €</td>
+                            <td style="text-align:right" class="{% if n.est_note_credit %}na-neg{% endif %}">{{ n.total_tvac_signe|floatformat:"2g" }} €</td>
                             <td>
                                 {% if n.imputee_sur_origine %}{% trans "Imputée" %}
                                 {% elif n.date_paiement %}{% if n.est_note_credit %}{% trans "Remboursée" %}{% else %}{% trans "Payée" %}{% endif %}
@@ -80,7 +80,7 @@
                     <tfoot>
                         <tr class="font-semibold">
                             <td colspan="4">{% trans "Solde net de la facture" %}</td>
-                            <td style="text-align:right">{{ doc.solde_net|floatformat:2 }} €</td>
+                            <td style="text-align:right">{{ doc.solde_net|floatformat:"2g" }} €</td>
                             <td></td>
                         </tr>
                     </tfoot>

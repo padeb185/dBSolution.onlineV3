@@ -35,23 +35,23 @@
 <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
     <div class="bg-white shadow-md rounded-lg p-4">
         <p class="text-gray-500 text-sm">{% trans "Report (début de période)" %}</p>
-        <p class="text-xl font-bold">{{ report|floatformat:2 }} €</p>
+        <p class="text-xl font-bold">{{ report|floatformat:"2g" }} €</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-4">
         <p class="text-gray-500 text-sm">{% trans "Entrées" %}</p>
-        <p class="text-xl font-bold text-green-700">{{ total_entrees|floatformat:2 }} €</p>
+        <p class="text-xl font-bold text-green-700">{{ total_entrees|floatformat:"2g" }} €</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-4">
         <p class="text-gray-500 text-sm">{% trans "Sorties" %}</p>
-        <p class="text-xl font-bold text-red-700">{{ total_sorties|floatformat:2 }} €</p>
+        <p class="text-xl font-bold text-red-700">{{ total_sorties|floatformat:"2g" }} €</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-4">
         <p class="text-gray-500 text-sm">{% trans "Solde fin de période" %}</p>
-        <p class="text-xl font-bold">{{ solde_fin|floatformat:2 }} €</p>
+        <p class="text-xl font-bold">{{ solde_fin|floatformat:"2g" }} €</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-4">
         <p class="text-gray-500 text-sm">{% trans "Solde actuel" %}</p>
-        <p class="text-xl font-bold {% if solde_actuel < 0 %}text-red-700{% else %}text-blue-700{% endif %}">{{ solde_actuel|floatformat:2 }} €</p>
+        <p class="text-xl font-bold {% if solde_actuel < 0 %}text-red-700{% else %}text-blue-700{% endif %}">{{ solde_actuel|floatformat:"2g" }} €</p>
     </div>
 </div>
 
@@ -81,7 +81,7 @@
         <tbody>
             <tr class="bg-gray-50 italic">
                 <td class="border px-3 py-2" colspan="6">{% trans "Report" %}</td>
-                <td class="border px-3 py-2 text-right font-semibold">{{ report|floatformat:2 }}</td>
+                <td class="border px-3 py-2 text-right font-semibold">{{ report|floatformat:"2g" }}</td>
                 <td class="border px-3 py-2"></td>
             </tr>
             {% for l in lignes %}
@@ -100,9 +100,9 @@
                     {% elif l.source == 'virement' %}<span class="text-xs text-gray-500">({% trans "virement interne" %})</span>{% endif %}
                 </td>
                 <td class="border px-3 py-2"><span class="font-mono">{{ l.contrepartie }}</span> {{ l.intitule_contrepartie }}</td>
-                <td class="border px-3 py-2 text-right text-green-700">{% if l.entree %}{{ l.entree|floatformat:2 }}{% endif %}</td>
-                <td class="border px-3 py-2 text-right text-red-700">{% if l.sortie %}{{ l.sortie|floatformat:2 }}{% endif %}</td>
-                <td class="border px-3 py-2 text-right font-semibold">{{ l.solde|floatformat:2 }}</td>
+                <td class="border px-3 py-2 text-right text-green-700">{% if l.entree %}{{ l.entree|floatformat:"2g" }}{% endif %}</td>
+                <td class="border px-3 py-2 text-right text-red-700">{% if l.sortie %}{{ l.sortie|floatformat:"2g" }}{% endif %}</td>
+                <td class="border px-3 py-2 text-right font-semibold">{{ l.solde|floatformat:"2g" }}</td>
                 <td class="border px-3 py-2 text-center whitespace-nowrap">
                     {% if l.source == 'manuel' %}
                         <a href="{% url 'compta:mouvement_modifier' l.objet.pk %}" class="text-blue-700 hover:underline">{% trans "Modifier" %}</a>
@@ -121,9 +121,9 @@
         <tfoot>
             <tr class="bg-blue-50 font-bold">
                 <td class="border px-3 py-2" colspan="4">{% trans "Total de la période" %}</td>
-                <td class="border px-3 py-2 text-right">{{ total_entrees|floatformat:2 }}</td>
-                <td class="border px-3 py-2 text-right">{{ total_sorties|floatformat:2 }}</td>
-                <td class="border px-3 py-2 text-right">{{ solde_fin|floatformat:2 }}</td>
+                <td class="border px-3 py-2 text-right">{{ total_entrees|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right">{{ total_sorties|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right">{{ solde_fin|floatformat:"2g" }}</td>
                 <td class="border px-3 py-2"></td>
             </tr>
         </tfoot>

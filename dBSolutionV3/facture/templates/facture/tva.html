@@ -93,24 +93,24 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-2">{% trans "TVA à payer (ventes)" %}</h2>
-            <p class="text-2xl font-bold">{{ a_payer.tva|floatformat:2 }} €</p>
+            <p class="text-2xl font-bold">{{ a_payer.tva|floatformat:"2g" }} €</p>
             <p class="text-sm text-gray-600">{{ a_payer.nb_factures }} {% trans "facture(s) émise(s)" %}</p>
             {% if a_payer.locations.nb %}
-                <p class="text-sm text-gray-600">{% trans "Dont locations" %} : {{ a_payer.locations.tva|floatformat:2 }} € ({{ a_payer.locations.nb }})</p>
+                <p class="text-sm text-gray-600">{% trans "Dont locations" %} : {{ a_payer.locations.tva|floatformat:"2g" }} € ({{ a_payer.locations.nb }})</p>
             {% endif %}
         </div>
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-2">{% trans "TVA à récupérer (achats)" %}</h2>
-            <p class="text-2xl font-bold">{{ a_recuperer.tva_deductible|floatformat:2 }} €</p>
-            <p class="text-sm text-gray-600">{% trans "TVA payée" %} : {{ a_recuperer.tva|floatformat:2 }} €</p>
+            <p class="text-2xl font-bold">{{ a_recuperer.tva_deductible|floatformat:"2g" }} €</p>
+            <p class="text-sm text-gray-600">{% trans "TVA payée" %} : {{ a_recuperer.tva|floatformat:"2g" }} €</p>
         </div>
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-2">{% trans "Solde" %}</h2>
             {% if calcul.a_payer %}
-                <p class="text-2xl font-bold text-red-800">{{ calcul.solde|floatformat:2 }} €</p>
+                <p class="text-2xl font-bold text-red-800">{{ calcul.solde|floatformat:"2g" }} €</p>
                 <p class="text-sm text-gray-600">{% trans "à payer à l'État" %}</p>
             {% else %}
-                <p class="text-2xl font-bold text-green-800">{{ calcul.solde|floatformat:2 }} €</p>
+                <p class="text-2xl font-bold text-green-800">{{ calcul.solde|floatformat:"2g" }} €</p>
                 <p class="text-sm text-gray-600">{% trans "à récupérer (crédit de TVA)" %}</p>
             {% endif %}
         </div>
@@ -131,9 +131,9 @@
                 <tbody>
                     {% for l in a_payer.lignes %}
                         <tr>
-                            <td class="border px-2 py-1">{{ l.taux|floatformat:"-2" }} %</td>
-                            <td class="border px-2 py-1 text-right">{{ l.base|floatformat:2 }} €</td>
-                            <td class="border px-2 py-1 text-right">{{ l.tva|floatformat:2 }} €</td>
+                            <td class="border px-2 py-1">{{ l.taux|floatformat:"-2g" }} %</td>
+                            <td class="border px-2 py-1 text-right">{{ l.base|floatformat:"2g" }} €</td>
+                            <td class="border px-2 py-1 text-right">{{ l.tva|floatformat:"2g" }} €</td>
                         </tr>
                     {% empty %}
                         <tr><td colspan="3" class="border px-2 py-2 text-gray-500">{% trans "Aucune facture émise sur la période." %}</td></tr>
@@ -141,14 +141,14 @@
                     {% if a_payer.base_autoliquidation %}
                         <tr>
                             <td class="border px-2 py-1">{% trans "Autoliquidation" %}</td>
-                            <td class="border px-2 py-1 text-right">{{ a_payer.base_autoliquidation|floatformat:2 }} €</td>
+                            <td class="border px-2 py-1 text-right">{{ a_payer.base_autoliquidation|floatformat:"2g" }} €</td>
                             <td class="border px-2 py-1 text-right">0,00 €</td>
                         </tr>
                     {% endif %}
                     <tr class="bg-gray-100 font-semibold">
                         <td class="border px-2 py-1">{% trans "Total" %}</td>
-                        <td class="border px-2 py-1 text-right">{{ a_payer.base|floatformat:2 }} €</td>
-                        <td class="border px-2 py-1 text-right">{{ a_payer.tva|floatformat:2 }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ a_payer.base|floatformat:"2g" }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ a_payer.tva|floatformat:"2g" }} €</td>
                     </tr>
                 </tbody>
             </table>
@@ -168,18 +168,18 @@
                 <tbody>
                     <tr>
                         <td class="border px-2 py-1">{% trans "Acomptes reçus avant la location" %} ({{ a_payer.locations.acomptes.nb }})</td>
-                        <td class="border px-2 py-1 text-right">{{ a_payer.locations.acomptes.base|floatformat:2 }} €</td>
-                        <td class="border px-2 py-1 text-right">{{ a_payer.locations.acomptes.tva|floatformat:2 }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ a_payer.locations.acomptes.base|floatformat:"2g" }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ a_payer.locations.acomptes.tva|floatformat:"2g" }} €</td>
                     </tr>
                     <tr>
                         <td class="border px-2 py-1">{% trans "Locations réalisées (solde)" %} ({{ a_payer.locations.prestations.nb }})</td>
-                        <td class="border px-2 py-1 text-right">{{ a_payer.locations.prestations.base|floatformat:2 }} €</td>
-                        <td class="border px-2 py-1 text-right">{{ a_payer.locations.prestations.tva|floatformat:2 }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ a_payer.locations.prestations.base|floatformat:"2g" }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ a_payer.locations.prestations.tva|floatformat:"2g" }} €</td>
                     </tr>
                     <tr class="bg-gray-100 font-semibold">
                         <td class="border px-2 py-1">{% trans "Total" %} ({{ a_payer.locations.nb }})</td>
-                        <td class="border px-2 py-1 text-right">{{ a_payer.locations.base|floatformat:2 }} €</td>
-                        <td class="border px-2 py-1 text-right">{{ a_payer.locations.tva|floatformat:2 }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ a_payer.locations.base|floatformat:"2g" }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ a_payer.locations.tva|floatformat:"2g" }} €</td>
                     </tr>
                 </tbody>
             </table>
@@ -196,8 +196,8 @@
                                 <td class="border px-2 py-1">{{ l.date|date:"d/m/Y" }}</td>
                                 <td class="border px-2 py-1">{% if l.nature == "acompte" %}{% trans "Acompte" %}{% else %}{% trans "Location réalisée" %}{% endif %}</td>
                                 <td class="border px-2 py-1">{{ l.location.voiture_exemplaire.immatriculation }} – {{ l.location.lieu|default:"—" }}</td>
-                                <td class="border px-2 py-1 text-right">{{ l.tvac|floatformat:2 }} € {% trans "TVAC" %}</td>
-                                <td class="border px-2 py-1 text-right">{{ l.tva|floatformat:2 }} €</td>
+                                <td class="border px-2 py-1 text-right">{{ l.tvac|floatformat:"2g" }} € {% trans "TVAC" %}</td>
+                                <td class="border px-2 py-1 text-right">{{ l.tva|floatformat:"2g" }} €</td>
                                 <td class="border px-2 py-1">{% if l.facture %}{{ l.facture.numero }}{% else %}{% trans "Non facturée" %}{% endif %}</td>
                             </tr>
                         {% endfor %}
@@ -237,27 +237,27 @@
                         <tr class="text-gray-500">
                             <td class="border px-2 py-1">{{ l.label }}</td>
                             <td class="border px-2 py-1 text-right">{{ l.nb }}</td>
-                            <td class="border px-2 py-1 text-right">({{ l.base|floatformat:2 }} €)</td>
-                            <td class="border px-2 py-1 text-right">({{ l.tva|floatformat:2 }} €)</td>
+                            <td class="border px-2 py-1 text-right">({{ l.base|floatformat:"2g" }} €)</td>
+                            <td class="border px-2 py-1 text-right">({{ l.tva|floatformat:"2g" }} €)</td>
                             <td class="border px-2 py-1 text-right" colspan="2">{% trans "déjà dans « Achats »" %}</td>
                         </tr>
                         {% else %}
                         <tr>
                             <td class="border px-2 py-1">{{ l.label }}</td>
                             <td class="border px-2 py-1 text-right">{{ l.nb }}</td>
-                            <td class="border px-2 py-1 text-right">{{ l.base|floatformat:2 }} €</td>
-                            <td class="border px-2 py-1 text-right">{{ l.tva|floatformat:2 }} €</td>
-                            <td class="border px-2 py-1 text-right">{{ l.deductible|floatformat:"-2" }} %</td>
-                            <td class="border px-2 py-1 text-right font-semibold">{{ l.tva_deductible|floatformat:2 }} €</td>
+                            <td class="border px-2 py-1 text-right">{{ l.base|floatformat:"2g" }} €</td>
+                            <td class="border px-2 py-1 text-right">{{ l.tva|floatformat:"2g" }} €</td>
+                            <td class="border px-2 py-1 text-right">{{ l.deductible|floatformat:"-2g" }} %</td>
+                            <td class="border px-2 py-1 text-right font-semibold">{{ l.tva_deductible|floatformat:"2g" }} €</td>
                         </tr>
                         {% endif %}
                     {% endfor %}
                     <tr class="bg-gray-100 font-semibold">
                         <td class="border px-2 py-1" colspan="2">{% trans "Total" %}</td>
-                        <td class="border px-2 py-1 text-right">{{ a_recuperer.base|floatformat:2 }} €</td>
-                        <td class="border px-2 py-1 text-right">{{ a_recuperer.tva|floatformat:2 }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ a_recuperer.base|floatformat:"2g" }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ a_recuperer.tva|floatformat:"2g" }} €</td>
                         <td class="border px-2 py-1"></td>
-                        <td class="border px-2 py-1 text-right">{{ a_recuperer.tva_deductible|floatformat:2 }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ a_recuperer.tva_deductible|floatformat:"2g" }} €</td>
                     </tr>
                 </tbody>
             </table>
@@ -303,10 +303,10 @@
                                 {% else %}{% trans "Facture" %}{% endif %}
                                 {% if m.autoliquidation %}<span class="ml-1 px-1 rounded bg-yellow-100 text-yellow-800 text-xs">{% trans "Autoliquidation" %}</span>{% endif %}
                             </td>
-                            <td class="border px-2 py-1 text-right">{{ m.taux|floatformat:"-2" }} %</td>
-                            <td class="border px-2 py-1 text-right">{{ m.base|floatformat:2 }} €</td>
-                            <td class="border px-2 py-1 text-right">{{ m.tva|floatformat:2 }} €</td>
-                            <td class="border px-2 py-1 text-right font-semibold">{{ m.cumul|floatformat:2 }} €</td>
+                            <td class="border px-2 py-1 text-right">{{ m.taux|floatformat:"-2g" }} %</td>
+                            <td class="border px-2 py-1 text-right">{{ m.base|floatformat:"2g" }} €</td>
+                            <td class="border px-2 py-1 text-right">{{ m.tva|floatformat:"2g" }} €</td>
+                            <td class="border px-2 py-1 text-right font-semibold">{{ m.cumul|floatformat:"2g" }} €</td>
                         </tr>
                     {% empty %}
                         <tr><td colspan="8" class="border px-2 py-2 text-gray-500">{% trans "Aucun mouvement sur la période." %}</td></tr>
@@ -316,7 +316,7 @@
                 <tfoot>
                     <tr class="bg-gray-100 font-semibold">
                         <td class="border px-2 py-1" colspan="6">{% trans "Total TVA à payer" %}</td>
-                        <td class="border px-2 py-1 text-right">{{ a_payer.tva|floatformat:2 }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ a_payer.tva|floatformat:"2g" }} €</td>
                         <td class="border px-2 py-1"></td>
                     </tr>
                 </tfoot>
@@ -366,16 +366,16 @@
                                 {% if m.libelle %}<span class="block text-xs text-gray-500">{{ m.libelle }}</span>{% endif %}
                             </td>
                             {% if m.informatif %}
-                                <td class="border px-2 py-1 text-right">({{ m.base|floatformat:2 }} €)</td>
-                                <td class="border px-2 py-1 text-right">({{ m.tva|floatformat:2 }} €)</td>
+                                <td class="border px-2 py-1 text-right">({{ m.base|floatformat:"2g" }} €)</td>
+                                <td class="border px-2 py-1 text-right">({{ m.tva|floatformat:"2g" }} €)</td>
                                 <td class="border px-2 py-1 text-right" colspan="2">{% trans "informatif – hors total" %}</td>
                             {% else %}
-                                <td class="border px-2 py-1 text-right">{{ m.base|floatformat:2 }} €</td>
-                                <td class="border px-2 py-1 text-right">{{ m.tva|floatformat:2 }} €</td>
-                                <td class="border px-2 py-1 text-right">{{ m.deductible|floatformat:"-2" }} %</td>
-                                <td class="border px-2 py-1 text-right">{{ m.tva_deductible|floatformat:2 }} €</td>
+                                <td class="border px-2 py-1 text-right">{{ m.base|floatformat:"2g" }} €</td>
+                                <td class="border px-2 py-1 text-right">{{ m.tva|floatformat:"2g" }} €</td>
+                                <td class="border px-2 py-1 text-right">{{ m.deductible|floatformat:"-2g" }} %</td>
+                                <td class="border px-2 py-1 text-right">{{ m.tva_deductible|floatformat:"2g" }} €</td>
                             {% endif %}
-                            <td class="border px-2 py-1 text-right font-semibold">{{ m.cumul|floatformat:2 }} €</td>
+                            <td class="border px-2 py-1 text-right font-semibold">{{ m.cumul|floatformat:"2g" }} €</td>
                         </tr>
                     {% empty %}
                         <tr><td colspan="9" class="border px-2 py-2 text-gray-500">{% trans "Aucun mouvement sur la période." %}</td></tr>
@@ -385,7 +385,7 @@
                 <tfoot>
                     <tr class="bg-gray-100 font-semibold">
                         <td class="border px-2 py-1" colspan="7">{% trans "Total TVA à récupérer" %}</td>
-                        <td class="border px-2 py-1 text-right">{{ a_recuperer.tva_deductible|floatformat:2 }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ a_recuperer.tva_deductible|floatformat:"2g" }} €</td>
                         <td class="border px-2 py-1"></td>
                     </tr>
                 </tfoot>
@@ -418,7 +418,7 @@
                     <tr>
                         <td class="border px-2 py-1 font-semibold">{{ g.grille }}</td>
                         <td class="border px-2 py-1">{{ g.libelle }}</td>
-                        <td class="border px-2 py-1 text-right">{{ g.montant|floatformat:2 }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ g.montant|floatformat:"2g" }} €</td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -452,22 +452,22 @@
                 <tr>
                     <td class="border px-2 py-1"><a href="{% url 'facture:detail' i.facture.pk %}" class="text-blue-700 hover:underline">{{ i.facture.numero }}</a></td>
                     <td class="border px-2 py-1">{% if i.facture.voiture_exemplaire %}{{ i.facture.voiture_exemplaire }}{% else %}—{% endif %}</td>
-                    <td class="border px-2 py-1 text-right">{{ i.pieces|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right text-gray-500">{{ i.tva_pieces|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right">{{ i.main_oeuvre|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right">{{ i.autres|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right font-semibold">{{ i.total|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ i.pieces|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right text-gray-500">{{ i.tva_pieces|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ i.main_oeuvre|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ i.autres|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right font-semibold">{{ i.total|floatformat:"2g" }} €</td>
                 </tr>
             {% endfor %}
             </tbody>
             <tfoot>
                 <tr class="bg-gray-100 font-semibold">
                     <td class="border px-2 py-1" colspan="2">{% trans "Total" %}</td>
-                    <td class="border px-2 py-1 text-right">{{ tot_internes.pieces|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right">{{ tot_internes.tva_pieces|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right">{{ tot_internes.main_oeuvre|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right">{{ tot_internes.autres|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right">{{ tot_internes.total|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ tot_internes.pieces|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ tot_internes.tva_pieces|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ tot_internes.main_oeuvre|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ tot_internes.autres|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ tot_internes.total|floatformat:"2g" }} €</td>
                 </tr>
             </tfoot>
         </table>

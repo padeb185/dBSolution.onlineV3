@@ -37,19 +37,19 @@
     </div>
     <div class="bg-white shadow-md rounded-lg p-4">
         <p class="text-gray-500 text-sm">{% trans "Total brut" %}</p>
-        <p class="text-xl font-bold">{{ totaux.brut|default:0|floatformat:2 }} €</p>
+        <p class="text-xl font-bold">{{ totaux.brut|default:0|floatformat:"2g" }} €</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-4">
         <p class="text-gray-500 text-sm">{% trans "Total net" %}</p>
-        <p class="text-xl font-bold text-green-700">{{ totaux.net|default:0|floatformat:2 }} €</p>
+        <p class="text-xl font-bold text-green-700">{{ totaux.net|default:0|floatformat:"2g" }} €</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-4">
         <p class="text-gray-500 text-sm">{% trans "Précompte" %}</p>
-        <p class="text-xl font-bold text-red-700">{{ totaux.precompte|default:0|floatformat:2 }} €</p>
+        <p class="text-xl font-bold text-red-700">{{ totaux.precompte|default:0|floatformat:"2g" }} €</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-4">
         <p class="text-gray-500 text-sm">{% trans "Coût employeur" %}</p>
-        <p class="text-xl font-bold text-blue-700">{{ totaux.cout|default:0|floatformat:2 }} €</p>
+        <p class="text-xl font-bold text-blue-700">{{ totaux.cout|default:0|floatformat:"2g" }} €</p>
     </div>
 </div>
 
@@ -94,11 +94,11 @@
             <td class="border px-4 py-2" data-order="{{ paie.annee }}{{ paie.mois|stringformat:'02d' }}">{{ paie.annee }}-{{ paie.mois|stringformat:"02d" }}</td>
             <td class="border px-4 py-2">{{ paie.get_statut_travailleur_display }}</td>
             <td class="border px-4 py-2">{{ paie.commission_paritaire }}</td>
-            <td class="border px-4 py-2 text-right">{{ paie.salaire_brut_mensuel|default:0|floatformat:2 }} €</td>
-            <td class="border px-4 py-2 text-right">{{ paie.montant_onss|default:0|floatformat:2 }} €</td>
-            <td class="border px-4 py-2 text-right">{{ paie.montant_precompte|default:0|floatformat:2 }} €</td>
-            <td class="border px-4 py-2 text-right font-semibold text-green-700">{{ paie.salaire_net_mois|default:0|floatformat:2 }} €</td>
-            <td class="border px-4 py-2 text-right">{{ paie.salaire_brut_mensuel_employeur|default:0|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ paie.salaire_brut_mensuel|default:0|floatformat:"2g" }} €</td>
+            <td class="border px-4 py-2 text-right">{{ paie.montant_onss|default:0|floatformat:"2g" }} €</td>
+            <td class="border px-4 py-2 text-right">{{ paie.montant_precompte|default:0|floatformat:"2g" }} €</td>
+            <td class="border px-4 py-2 text-right font-semibold text-green-700">{{ paie.salaire_net_mois|default:0|floatformat:"2g" }} €</td>
+            <td class="border px-4 py-2 text-right">{{ paie.salaire_brut_mensuel_employeur|default:0|floatformat:"2g" }} €</td>
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'utilisateurs:paie_detail' paie.pk %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">

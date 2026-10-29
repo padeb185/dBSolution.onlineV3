@@ -16,8 +16,8 @@
                 <td class="border px-3 py-1 font-mono">{{ l.compte }}</td>
                 <td class="border px-3 py-1">{{ l.intitule }}</td>
                 <td class="border px-3 py-1">{{ l.libelle }}</td>
-                <td class="border px-3 py-1 text-right">{% if l.debit %}{{ l.debit|floatformat:2 }}{% endif %}</td>
-                <td class="border px-3 py-1 text-right">{% if l.credit %}{{ l.credit|floatformat:2 }}{% endif %}</td>
+                <td class="border px-3 py-1 text-right">{% if l.debit %}{{ l.debit|floatformat:"2g" }}{% endif %}</td>
+                <td class="border px-3 py-1 text-right">{% if l.credit %}{{ l.credit|floatformat:"2g" }}{% endif %}</td>
             </tr>
             {% endfor %}
         </tbody>

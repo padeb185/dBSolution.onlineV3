@@ -329,8 +329,8 @@
         <div><span class="label">{% trans "Société" %} :</span> {{ casse.tech_societe }}</div>
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ casse.voiture_exemplaire }}</div>
         {% if casse.moteur_lie %}<div><span class="label">{% trans "Moteur" %} :</span> {{ casse.moteur_lie }}</div>{% endif %}
-        <div><span class="label">{% trans "Kilométrage véhicule" %} :</span> {{ casse.kilometres_chassis }} km</div>
-        <div><span class="label">{% trans "Kilométrage de l'intervention" %} :</span> {{ casse.kilometrage_casse }} km</div>
+        <div><span class="label">{% trans "Kilométrage véhicule" %} :</span> {{ casse.kilometres_chassis|milliers }} km</div>
+        <div><span class="label">{% trans "Kilométrage de l'intervention" %} :</span> {{ casse.kilometrage_casse|milliers }} km</div>
         <div><span class="label">{% trans "Date de la casse" %} :</span> {{ casse.date_casse|date:"d/m/Y"|default:"-" }}{% if casse.sur_piste %} – {% trans "sur piste" %}{% endif %}</div>
         <div><span class="label">{% trans "Tag" %} :</span>
             <span class="tag {% if casse.tag == 'VERT' %}tag-vert{% elif casse.tag == 'JAUNE' %}tag-jaune{% else %}tag-rouge{% endif %}">{{ casse.get_tag_display }}</span></div>
@@ -386,7 +386,7 @@
             <td>{% if p.gravite == 'GRAVE' or p.gravite == 'DETRUITE' %}<span class="not-ok">{{ p.get_gravite_display }}</span>{% else %}{{ p.get_gravite_display }}{% endif %}</td>
             <td>{{ p.get_decision_display }}</td>
             <td>{% if p.fabricant and p.fabricant != "CHOISIR" %}{{ p.get_fabricant_display }}{% else %}-{% endif %}</td>
-            <td class="num">{{ p.quantite }}</td><td class="num">{{ p.prix|floatformat:2 }} €</td><td class="num">{{ p.total|floatformat:2 }} €</td></tr>
+            <td class="num">{{ p.quantite }}</td><td class="num">{{ p.prix|floatformat:"2g" }} €</td><td class="num">{{ p.total|floatformat:"2g" }} €</td></tr>
     {% endfor %}</tbody>
 </table>
 {% else %}<p>{% trans "Aucune pièce cassée renseignée." %}</p>{% endif %}
@@ -395,10 +395,10 @@
 <h2>{% trans "Chiffrage" %}</h2>
 <table class="table-2-cols">
     <tbody>
-        <tr><td class="text-right">{% trans "Total pièces HTVA" %}</td><td class="text-right">{{ rapport.total_general|default:0|floatformat:2 }} €</td></tr>
+        <tr><td class="text-right">{% trans "Total pièces HTVA" %}</td><td class="text-right">{{ rapport.total_general|default:0|floatformat:"2g" }} €</td></tr>
         <tr><td class="text-right">{% trans "Temps" %}</td><td class="text-right">{{ casse.temps_main_oeuvre_display }}</td></tr>
-        <tr class="total"><td class="text-right"><strong>{% trans "Main-d'œuvre HTVA" %}</strong></td><td class="text-right"><strong>{{ casse.cout_main_oeuvre|default:0|floatformat:2 }} €</strong></td></tr>
-        <tr class="total-general"><td class="text-right"><strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong></td><td class="text-right"><strong>{{ casse.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €</strong></td></tr>
+        <tr class="total"><td class="text-right"><strong>{% trans "Main-d'œuvre HTVA" %}</strong></td><td class="text-right"><strong>{{ casse.cout_main_oeuvre|default:0|floatformat:"2g" }} €</strong></td></tr>
+        <tr class="total-general"><td class="text-right"><strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong></td><td class="text-right"><strong>{{ casse.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €</strong></td></tr>
     </tbody>
 </table>
 

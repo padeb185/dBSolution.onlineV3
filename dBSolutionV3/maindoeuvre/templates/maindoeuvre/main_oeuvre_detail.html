@@ -47,7 +47,7 @@
 
             <p>
                 <strong>{% trans "Kilométrage de l'intervention" %} :</strong>
-                {% if maindoeuvre.kilometres_chassis %}{{ maindoeuvre.kilometres_chassis }} km{% else %}-{% endif %}
+                {% if maindoeuvre.kilometres_chassis %}{{ maindoeuvre.kilometres_chassis|milliers }} km{% else %}-{% endif %}
             </p>
 
             {% if intervention_libelle %}

@@ -22,7 +22,7 @@
             {% if exemplaire %}
                 {% include "maintenance/partials/plaque.html" with taille="petite" %}
                 <p>{{ exemplaire.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }}</p>
-                <p><strong>{% trans "Kilométrage" %} :</strong> {{ exemplaire.kilometres_chassis|default:0 }} km</p>
+                <p><strong>{% trans "Kilométrage" %} :</strong> {{ exemplaire.kilometres_chassis|default:0|milliers }} km</p>
             {% else %}
                 <p class="text-gray-500">—</p>
             {% endif %}
@@ -52,7 +52,7 @@
         <h2 class="text-lg font-semibold">
             {% trans "Facturation par parts" %} –
             {% if facture.client_est_societe %}{% trans "part de notre société" %}{% else %}{% trans "quote-part facturée" %}{% endif %} :
-            <span class="repartition-pourcent">{{ facture.part_pourcent|floatformat:2 }} %</span>
+            <span class="repartition-pourcent">{{ facture.part_pourcent|floatformat:"2g" }} %</span>
         </h2>
         {% if facture.voiture_exemplaire_id %}
             <a href="{% url 'proprietaire:parts_vehicule' exemplaire_id=facture.voiture_exemplaire_id %}" class="repartition-lien">{% trans "Propriétaires du véhicule" %}</a>
@@ -86,9 +86,9 @@
                                 </a>
                             </td>
                             <td>{% if f.client_est_societe %}{% trans "Interne" %}{% else %}{{ f.get_type_facture_display }}{% endif %}</td>
-                            <td class="num">{{ f.part_pourcent|floatformat:2 }} %</td>
+                            <td class="num">{{ f.part_pourcent|floatformat:"2g" }} %</td>
                             <td>{% if f.est_emise %}{{ f.numero }}{% else %}{% trans "Brouillon" %}{% endif %}</td>
-                            <td class="num">{{ f.total|floatformat:2 }} €</td>
+                            <td class="num">{{ f.total|floatformat:"2g" }} €</td>
                         </tr>
                     {% endfor %}
                 </tbody>

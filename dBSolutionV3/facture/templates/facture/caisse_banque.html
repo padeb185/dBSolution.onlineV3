@@ -30,18 +30,18 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
     <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-yellow-500">
         <p class="text-gray-500 text-sm">{% trans "Encaissements caisse" %} ({{ compte_caisse }})</p>
-        <p class="text-2xl font-bold text-yellow-700">{{ total_caisse|floatformat:2 }} €</p>
+        <p class="text-2xl font-bold text-yellow-700">{{ total_caisse|floatformat:"2g" }} €</p>
         <p class="text-xs text-gray-500">{{ nb_caisse }} {% trans "paiement(s) en espèces" %}</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-blue-600">
         <p class="text-gray-500 text-sm">{% trans "Encaissements banque" %} ({{ compte_banque }})</p>
-        <p class="text-2xl font-bold text-blue-700">{{ total_banque|floatformat:2 }} €</p>
+        <p class="text-2xl font-bold text-blue-700">{{ total_banque|floatformat:"2g" }} €</p>
         <p class="text-xs text-gray-500">{{ nb_banque }} {% trans "paiement(s)" %}</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-green-600">
         <p class="text-gray-500 text-sm">{% trans "Total encaissé" %}</p>
-        <p class="text-2xl font-bold text-green-700">{{ total_encaisse|floatformat:2 }} €</p>
-        <div class="text-xs text-gray-500">{% for m in par_mode %}{{ m.label }} : {{ m.total|floatformat:2 }} € ({{ m.nb }}){% if not forloop.last %} · {% endif %}{% endfor %}</div>
+        <p class="text-2xl font-bold text-green-700">{{ total_encaisse|floatformat:"2g" }} €</p>
+        <div class="text-xs text-gray-500">{% for m in par_mode %}{{ m.label }} : {{ m.total|floatformat:"2g" }} € ({{ m.nb }}){% if not forloop.last %} · {% endif %}{% endfor %}</div>
     </div>
 </div>
 
@@ -72,8 +72,8 @@
                 <td class="border px-2 py-1 font-mono">{{ l.compte }} <span class="text-gray-500">{{ l.intitule }}</span></td>
                 <td class="border px-2 py-1">{{ l.libelle }}</td>
                 <td class="border px-2 py-1">{% if forloop.first %}{{ e.paiement.get_mode_display }}{% if e.paiement.reference %} <span class="text-gray-500">– {{ e.paiement.reference }}</span>{% endif %}{% endif %}</td>
-                <td class="border px-2 py-1 text-right">{% if l.debit %}{{ l.debit|floatformat:2 }}{% endif %}</td>
-                <td class="border px-2 py-1 text-right">{% if l.credit %}{{ l.credit|floatformat:2 }}{% endif %}</td>
+                <td class="border px-2 py-1 text-right">{% if l.debit %}{{ l.debit|floatformat:"2g" }}{% endif %}</td>
+                <td class="border px-2 py-1 text-right">{% if l.credit %}{{ l.credit|floatformat:"2g" }}{% endif %}</td>
             </tr>
             {% endfor %}
         {% empty %}

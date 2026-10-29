@@ -44,7 +44,7 @@
             <td><span class="fil" style="{% if f.hex_bande %}background:repeating-linear-gradient(90deg, {{ f.hex_fil }} 0 7px, {{ f.hex_bande }} 7px 11px){% else %}background:{{ f.hex_fil }}{% endif %}"></span>{{ f.libelle_couleur }}</td>
             <td>{{ f.get_fonction_display }}</td>
             <td>{{ f.description }}</td>
-            <td>{% if f.section_mm2 %}{{ f.section_mm2|floatformat:"-2" }} mm²{% endif %}</td>
+            <td>{% if f.section_mm2 %}{{ f.section_mm2|floatformat:"-2g" }} mm²{% endif %}</td>
         </tr>
         {% endfor %}
     </table>

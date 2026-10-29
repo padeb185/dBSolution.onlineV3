@@ -121,7 +121,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
             <div class="bg-blue-50 rounded p-3"><p class="text-gray-500 text-sm">{% trans "Sessions" %}</p><p class="text-2xl font-bold">{{ stats.sessions }}</p></div>
             <div class="bg-blue-50 rounded p-3"><p class="text-gray-500 text-sm">{% trans "Tours au total" %}</p><p class="text-2xl font-bold">{{ stats.tours }}</p></div>
-            <div class="bg-blue-50 rounded p-3"><p class="text-gray-500 text-sm">{% trans "Kilomètres" %}</p><p class="text-2xl font-bold">{{ stats.km }} km</p></div>
+            <div class="bg-blue-50 rounded p-3"><p class="text-gray-500 text-sm">{% trans "Kilomètres" %}</p><p class="text-2xl font-bold">{{ stats.km|milliers }} km</p></div>
             <div class="bg-blue-50 rounded p-3"><p class="text-gray-500 text-sm">{% trans "Circuits différents" %}</p><p class="text-2xl font-bold">{{ stats.nb_circuits }}</p>
                 <p class="text-xs text-gray-500">{{ stats.premiere|date:"d/m/Y" }} → {{ stats.derniere|date:"d/m/Y" }}</p></div>
         </div>
@@ -140,10 +140,10 @@
             <tbody>
             {% for c in stats.circuits %}
                 <tr>
-                    <td class="border px-3 py-2 font-semibold">{{ c.nom }}{% if c.longueur %} <span class="text-xs text-gray-500">({{ c.longueur }} km)</span>{% endif %}</td>
+                    <td class="border px-3 py-2 font-semibold">{{ c.nom }}{% if c.longueur %} <span class="text-xs text-gray-500">({{ c.longueur|milliers }} km)</span>{% endif %}</td>
                     <td class="border px-3 py-2 text-right">{{ c.sessions }}</td>
                     <td class="border px-3 py-2 text-right">{{ c.tours|default:"—" }}</td>
-                    <td class="border px-3 py-2 text-right">{{ c.km }} km</td>
+                    <td class="border px-3 py-2 text-right">{{ c.km|milliers }} km</td>
                     <td class="border px-3 py-2 text-right">{{ c.max_tours|default:"—" }}</td>
                     <td class="border px-3 py-2">{{ c.derniere|date:"d/m/Y" }}</td>
                 </tr>
@@ -177,9 +177,9 @@
                     <td class="border px-3 py-2">{{ l.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }} {{ l.voiture_exemplaire.voiture_modele.nom_modele }}
                         <span class="block text-xs text-gray-500">{{ l.voiture_exemplaire.immatriculation }}</span></td>
                     <td class="border px-3 py-2 text-right font-semibold">{{ l.nombre_tours|default:"—" }}</td>
-                    <td class="border px-3 py-2 text-right">{% if l.kilometrage is not None %}{{ l.kilometrage }} km{% else %}—{% endif %}</td>
-                    <td class="border px-3 py-2">{% if l.instructeur %}{{ l.instructeur.prenom }} {{ l.instructeur.nom }}{% if l.instructeur_heures %} <span class="text-xs text-gray-500">({{ l.instructeur_heures|floatformat:"-2" }} h)</span>{% endif %}{% else %}—{% endif %}</td>
-                    <td class="border px-3 py-2 text-right">{{ l.prix_tvac|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right">{% if l.kilometrage is not None %}{{ l.kilometrage|milliers }} km{% else %}—{% endif %}</td>
+                    <td class="border px-3 py-2">{% if l.instructeur %}{{ l.instructeur.prenom }} {{ l.instructeur.nom }}{% if l.instructeur_heures %} <span class="text-xs text-gray-500">({{ l.instructeur_heures|floatformat:"-2g" }} h)</span>{% endif %}{% else %}—{% endif %}</td>
+                    <td class="border px-3 py-2 text-right">{{ l.prix_tvac|floatformat:"2g" }} €</td>
                     <td class="border px-3 py-2 text-center"><a href="{% url 'voiture_location:location_detail' l.id %}" class="text-blue-700 hover:underline">{% trans "Voir" %}</a></td>
                 </tr>
             {% endfor %}

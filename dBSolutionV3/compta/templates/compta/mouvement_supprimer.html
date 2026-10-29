@@ -11,7 +11,7 @@
             <dt class="text-gray-600">{% trans "Date" %}</dt><dd>{{ mouvement.date|date:"d/m/Y" }}</dd>
             <dt class="text-gray-600">{% trans "Libellé" %}</dt><dd>{{ mouvement.libelle }}</dd>
             <dt class="text-gray-600">{% trans "Montant" %}</dt>
-            <dd class="font-bold">{% if mouvement.sens == 'ENTREE' %}+{% else %}−{% endif %}{{ mouvement.montant|floatformat:2 }} €</dd>
+            <dd class="font-bold">{% if mouvement.sens == 'ENTREE' %}+{% else %}−{% endif %}{{ mouvement.montant|floatformat:"2g" }} €</dd>
         </dl>
     </div>
 

@@ -44,7 +44,7 @@
             </td>
             <td class="border px-3 py-2"><a href="{% url 'assurance_police:assurance_police_detail' s.police.pk %}" class="text-blue-700 hover:underline">{{ s.police.numero_contrat }}</a></td>
             <td class="border px-3 py-2">{{ s.description|truncatechars:80 }}</td>
-            <td class="border px-3 py-2 text-right whitespace-nowrap">{% if s.montant_estime %}{{ s.montant_estime|floatformat:2 }} €{% else %}—{% endif %}</td>
+            <td class="border px-3 py-2 text-right whitespace-nowrap">{% if s.montant_estime %}{{ s.montant_estime|floatformat:"2g" }} €{% else %}—{% endif %}</td>
             <td class="border px-3 py-2 text-center">{{ s.responsable|yesno:_("Oui,Non") }}</td>
             <td class="border px-3 py-2 text-center">{% if s.cloture %}<span class="px-2 py-0.5 rounded bg-gray-200 text-gray-700 text-xs font-semibold">{% trans "Clôturé" %}</span>{% else %}<span class="px-2 py-0.5 rounded bg-orange-100 text-orange-800 text-xs font-semibold">{% trans "Ouvert" %}</span>{% endif %}</td>
             <td class="border px-3 py-2 text-center whitespace-nowrap">

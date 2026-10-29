@@ -439,8 +439,8 @@
         <div><span class="label">{% trans "Rôle" %} :</span> {{ entretien.tech_role_technicien }}</div>
         <div><span class="label">{% trans "Société" %} :</span> {{ entretien.tech_societe }}</div>
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ entretien.voiture_exemplaire }}</div>
-        <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ entretien.kilometres_chassis }} km</div>
-        <div><span class="label">{% trans "Kilométrage entretien" %} :</span> {{ entretien.kilometrage_entretien }} km</div>
+        <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ entretien.kilometres_chassis|milliers }} km</div>
+        <div><span class="label">{% trans "Kilométrage entretien" %} :</span> {{ entretien.kilometrage_entretien|milliers }} km</div>
 
         <div>
             <span class="label">{% trans "Tag" %} :</span>
@@ -695,7 +695,7 @@
     {% if entretien.filtre_huile_bte_fabricant != "CHOISIR" %}
     <tr>
         <td>{% trans "Prix d'achat HTVA du filtre à huile de boîte" %}</td>
-        <td>{{ entretien.filtre_huile_bte_prix|floatformat:2 }} €</td>
+        <td>{{ entretien.filtre_huile_bte_prix|floatformat:"2g" }} €</td>
     </tr>
     {% endif %}
     {% endif %}
@@ -1120,13 +1120,13 @@
         </div>
          <div>
             <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-            {{ entretien.taux_horaire|floatformat:2 }} €
+            {{ entretien.taux_horaire|floatformat:"2g" }} €
         </div>
 
         {% if entretien.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ entretien.cout_main_oeuvre|floatformat:2 }} €
+                {{ entretien.cout_main_oeuvre|floatformat:"2g" }} €
             </div>
             
             <div>
@@ -1217,11 +1217,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -1233,7 +1233,7 @@
                     </td>
 
                     <td class="total-montant">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -1243,7 +1243,7 @@
                     </td>
 
                     <td class="total-montant">
-                        {{ entretien.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ entretien.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -1253,7 +1253,7 @@
                     </td>
 
                     <td class="total-montant">
-                        {{ entretien.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ entretien.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -1278,7 +1278,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ entretien.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ entretien.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -1292,7 +1292,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ entretien.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ entretien.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

@@ -35,13 +35,13 @@
 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
     <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-red-600 col-span-2 md:col-span-1 lg:col-span-2">
         <p class="text-gray-500 text-sm">{% trans "Total à payer aux fournisseurs (440000)" %}</p>
-        <p class="text-2xl font-bold text-red-700">{{ total_a_payer|floatformat:2 }} €</p>
-        <p class="text-xs text-gray-500">{{ lignes|length }} {% trans "facture(s)" %} – {% trans "dont TVA" %} {{ total_tva|floatformat:2 }} €</p>
+        <p class="text-2xl font-bold text-red-700">{{ total_a_payer|floatformat:"2g" }} €</p>
+        <p class="text-xs text-gray-500">{{ lignes|length }} {% trans "facture(s)" %} – {% trans "dont TVA" %} {{ total_tva|floatformat:"2g" }} €</p>
     </div>
     {% for t in tranches %}
     <div class="bg-white shadow-md rounded-lg p-5 border-l-4 {{ t.bordure }}">
         <p class="text-gray-500 text-sm">{{ t.libelle }}</p>
-        <p class="text-xl font-bold">{{ t.total|floatformat:2 }} €</p>
+        <p class="text-xl font-bold">{{ t.total|floatformat:"2g" }} €</p>
         <p class="text-xs text-gray-500">{{ t.nb }} {% trans "facture(s)" %}</p>
     </div>
     {% endfor %}
@@ -76,9 +76,9 @@
                     <a href="{{ l.url }}" class="text-blue-700 hover:underline">{{ l.achat.reference_facture|default:"—" }}</a>
                 </td>
                 <td class="border px-2 py-1">{{ l.libelle|default:"—" }}</td>
-                <td class="border px-2 py-1 text-right">{% if l.achat.est_note %}{{ l.achat.montant_htva_signe|floatformat:2 }}{% else %}{{ l.achat.montant_htva_total|floatformat:2 }}{% endif %} €</td>
-                <td class="border px-2 py-1 text-right">{% if l.achat.est_note %}{{ l.achat.montant_tva_signe|floatformat:2 }}{% else %}{{ l.achat.montant_tva|floatformat:2 }}{% endif %} €</td>
-                <td class="border px-2 py-1 text-right font-semibold">{{ l.a_payer|floatformat:2 }} €{% if l.achat.est_note_credit %}<span class="block text-xs font-normal text-red-700">{% trans "remboursement à recevoir" %}</span>{% elif l.a_payer != l.achat.total_tvac %}<span class="block text-xs font-normal text-gray-500">{% trans "facture" %} {{ l.achat.total_tvac|floatformat:2 }} € − {% if l.type == 'achat' or l.type == 'outillage' %}{% trans "notes de crédit" %}{% else %}{% trans "assurance" %}{% endif %}</span>{% endif %}</td>
+                <td class="border px-2 py-1 text-right">{% if l.achat.est_note %}{{ l.achat.montant_htva_signe|floatformat:"2g" }}{% else %}{{ l.achat.montant_htva_total|floatformat:"2g" }}{% endif %} €</td>
+                <td class="border px-2 py-1 text-right">{% if l.achat.est_note %}{{ l.achat.montant_tva_signe|floatformat:"2g" }}{% else %}{{ l.achat.montant_tva|floatformat:"2g" }}{% endif %} €</td>
+                <td class="border px-2 py-1 text-right font-semibold">{{ l.a_payer|floatformat:"2g" }} €{% if l.achat.est_note_credit %}<span class="block text-xs font-normal text-red-700">{% trans "remboursement à recevoir" %}</span>{% elif l.a_payer != l.achat.total_tvac %}<span class="block text-xs font-normal text-gray-500">{% trans "facture" %} {{ l.achat.total_tvac|floatformat:"2g" }} € − {% if l.type == 'achat' or l.type == 'outillage' %}{% trans "notes de crédit" %}{% else %}{% trans "assurance" %}{% endif %}</span>{% endif %}</td>
                 <td class="border px-2 py-1 text-right">
                     <span class="px-2 py-1 rounded text-xs font-semibold {{ l.badge }}">{{ l.age }} {% trans "j" %}</span>
                 </td>
@@ -97,7 +97,7 @@
         <tfoot>
             <tr class="bg-gray-100 font-semibold">
                 <td class="border px-2 py-1" colspan="7">{% trans "Total" %}</td>
-                <td class="border px-2 py-1 text-right">{{ total_a_payer|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ total_a_payer|floatformat:"2g" }} €</td>
                 <td class="border px-2 py-1" colspan="2"></td>
             </tr>
         </tfoot>
@@ -124,7 +124,7 @@
                 <tr>
                     <td class="border px-2 py-1"><a href="?fournisseur={{ f.fournisseur.pk }}" class="text-blue-700 hover:underline">{{ f.fournisseur.nom }}</a></td>
                     <td class="border px-2 py-1 text-right">{{ f.nb }}</td>
-                    <td class="border px-2 py-1 text-right">{{ f.total|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ f.total|floatformat:"2g" }} €</td>
                 </tr>
             {% empty %}
                 <tr><td colspan="3" class="border px-2 py-1 text-gray-400">—</td></tr>
@@ -153,7 +153,7 @@
                         <a href="{{ p.url }}" class="text-blue-700 hover:underline">{{ a.fournisseur.nom }}</a>
                         <span class="text-gray-400 text-xs">{{ p.nature }} {{ a.reference_facture|default:"" }}</span>
                     </td>
-                    <td class="border px-2 py-1 text-right">{{ a.total_tvac|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ a.total_tvac|floatformat:"2g" }} €</td>
                     <td class="border px-2 py-1 text-center">
                         <form method="post">
                             {% csrf_token %}

@@ -344,12 +344,12 @@
 
         <div>
             <span class="label">{% trans "Kilométrage véhicule" %} :</span>
-            {{ suspension_origine.kilometres_chassis }} km
+            {{ suspension_origine.kilometres_chassis|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage de l'intervention" %} :</span>
-            {{ suspension_origine.kilometrage_suspension_origine }} km
+            {{ suspension_origine.kilometrage_suspension_origine|milliers }} km
         </div>
 
 
@@ -553,12 +553,12 @@
         {% if suspension_origine.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-                {{ suspension_origine.main_oeuvre.taux_horaire|floatformat:2 }} €
+                {{ suspension_origine.main_oeuvre.taux_horaire|floatformat:"2g" }} €
             </div>
 
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ suspension_origine.main_oeuvre.prix_facture|floatformat:2 }} €
+                {{ suspension_origine.main_oeuvre.prix_facture|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -637,11 +637,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -652,7 +652,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -662,7 +662,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ suspension_origine.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ suspension_origine.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -672,7 +672,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ suspension_origine.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ suspension_origine.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -697,7 +697,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ suspension_origine.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ suspension_origine.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -711,7 +711,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ suspension_origine.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ suspension_origine.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

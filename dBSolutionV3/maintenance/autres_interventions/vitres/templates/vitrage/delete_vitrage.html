@@ -16,7 +16,7 @@
     {% include "partials/messages.html" %}
 
     <p class="mb-6">
-        {% blocktrans with date=vitrage.date|date:"d/m/Y H:i" km=vitrage.kilometrage_vitrage %}Voulez-vous vraiment supprimer le contrôle vitrage du {{ date }} ({{ km }} km) pour :{% endblocktrans %}
+        {% blocktrans with date=vitrage.date|date:"d/m/Y H:i" km=vitrage.kilometrage_vitrage %}Voulez-vous vraiment supprimer le contrôle vitrage du {{ date }} ({{ km|milliers }} km) pour :{% endblocktrans %}
     </p>
 
     <div class="flex justify-center mb-6">

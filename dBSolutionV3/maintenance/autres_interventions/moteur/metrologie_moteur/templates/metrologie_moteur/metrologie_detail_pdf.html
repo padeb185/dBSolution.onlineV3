@@ -329,8 +329,8 @@
         <div><span class="label">{% trans "Société" %} :</span> {{ metrologie.tech_societe }}</div>
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ metrologie.voiture_exemplaire }}</div>
         {% if metrologie.moteur_lie %}<div><span class="label">{% trans "Moteur" %} :</span> {{ metrologie.moteur_lie }}</div>{% endif %}
-        <div><span class="label">{% trans "Kilométrage véhicule" %} :</span> {{ metrologie.kilometres_chassis }} km</div>
-        <div><span class="label">{% trans "Kilométrage de l'intervention" %} :</span> {{ metrologie.kilometrage_metrologie }} km</div>
+        <div><span class="label">{% trans "Kilométrage véhicule" %} :</span> {{ metrologie.kilometres_chassis|milliers }} km</div>
+        <div><span class="label">{% trans "Kilométrage de l'intervention" %} :</span> {{ metrologie.kilometrage_metrologie|milliers }} km</div>
         <div><span class="label">{% trans "Tag" %} :</span>
             <span class="tag {% if metrologie.tag == 'VERT' %}tag-vert{% elif metrologie.tag == 'JAUNE' %}tag-jaune{% else %}tag-rouge{% endif %}">{{ metrologie.get_tag_display }}</span>
         </div>
@@ -346,12 +346,12 @@
     <thead><tr><th></th><th class="num">{% trans "Constructeur" %}</th><th class="num">{% trans "Mesuré / calculé" %}</th></tr></thead>
     <tbody>
         <tr><td>{% trans "Nombre de cylindres" %}</td><td class="num" colspan="2">{{ metrologie.nombre_cylindres }}</td></tr>
-        <tr><td>{% trans "Alésage (mm)" %}</td><td class="num">{{ metrologie.alesage_nominal|floatformat:2|default:"-" }}</td><td class="num">{{ metrologie.alesage_mesure|floatformat:2|default:"-" }}</td></tr>
-        <tr><td>{% trans "Course (mm)" %}</td><td class="num">{{ metrologie.course_nominale|floatformat:2|default:"-" }}</td><td class="num">{{ metrologie.course_mesuree|floatformat:2|default:"-" }}</td></tr>
-        <tr class="total"><td>{% trans "Cylindrée (cm³)" %}</td><td class="num">{{ metrologie.cylindree_constructeur_cm3|floatformat:1|default:"-" }}</td><td class="num">{{ metrologie.cylindree_cm3|floatformat:1|default:"-" }}</td></tr>
-        <tr><td>{% trans "Cylindrée unitaire (cm³)" %}</td><td></td><td class="num">{{ metrologie.cylindree_unitaire_cm3|floatformat:1|default:"-" }}</td></tr>
-        <tr><td>{% trans "Rapport course / alésage" %}</td><td></td><td class="num">{% if metrologie.rapport_course_alesage %}{{ metrologie.rapport_course_alesage|floatformat:2 }} ({{ metrologie.type_moteur_geometrie }}){% else %}-{% endif %}</td></tr>
-        {% if metrologie.ecart_cylindree_pct is not None %}<tr><td>{% trans "Écart de cylindrée / constructeur" %}</td><td></td><td class="num">{{ metrologie.ecart_cylindree_pct|floatformat:2 }} %</td></tr>{% endif %}
+        <tr><td>{% trans "Alésage (mm)" %}</td><td class="num">{{ metrologie.alesage_nominal|floatformat:"2g"|default:"-" }}</td><td class="num">{{ metrologie.alesage_mesure|floatformat:"2g"|default:"-" }}</td></tr>
+        <tr><td>{% trans "Course (mm)" %}</td><td class="num">{{ metrologie.course_nominale|floatformat:"2g"|default:"-" }}</td><td class="num">{{ metrologie.course_mesuree|floatformat:"2g"|default:"-" }}</td></tr>
+        <tr class="total"><td>{% trans "Cylindrée (cm³)" %}</td><td class="num">{{ metrologie.cylindree_constructeur_cm3|floatformat:"1g"|default:"-" }}</td><td class="num">{{ metrologie.cylindree_cm3|floatformat:"1g"|default:"-" }}</td></tr>
+        <tr><td>{% trans "Cylindrée unitaire (cm³)" %}</td><td></td><td class="num">{{ metrologie.cylindree_unitaire_cm3|floatformat:"1g"|default:"-" }}</td></tr>
+        <tr><td>{% trans "Rapport course / alésage" %}</td><td></td><td class="num">{% if metrologie.rapport_course_alesage %}{{ metrologie.rapport_course_alesage|floatformat:"2g" }} ({{ metrologie.type_moteur_geometrie }}){% else %}-{% endif %}</td></tr>
+        {% if metrologie.ecart_cylindree_pct is not None %}<tr><td>{% trans "Écart de cylindrée / constructeur" %}</td><td></td><td class="num">{{ metrologie.ecart_cylindree_pct|floatformat:"2g" }} %</td></tr>{% endif %}
     </tbody>
 </table>
 
@@ -361,8 +361,8 @@
 <table>
     <thead><tr><th>{% trans "Élément" %}</th><th>{% trans "Contrôle" %}</th><th class="num">{% trans "Mesure (mm)" %}</th><th class="num">{% trans "Tolérance mini / maxi (mm)" %}</th></tr></thead>
     <tbody>{% for h in hors %}
-        <tr><td>{{ h.element }}</td><td>{{ h.libelle }}</td><td class="num hors">{{ h.valeur|floatformat:2 }}</td>
-            <td class="num">{% if h.mini is not None %}{{ h.mini|floatformat:2 }}{% else %}-{% endif %} / {% if h.maxi is not None %}{{ h.maxi|floatformat:2 }}{% else %}-{% endif %}</td></tr>
+        <tr><td>{{ h.element }}</td><td>{{ h.libelle }}</td><td class="num hors">{{ h.valeur|floatformat:"2g" }}</td>
+            <td class="num">{% if h.mini is not None %}{{ h.mini|floatformat:"2g" }}{% else %}-{% endif %} / {% if h.maxi is not None %}{{ h.maxi|floatformat:"2g" }}{% else %}-{% endif %}</td></tr>
     {% endfor %}</tbody>
 </table>
 {% else %}
@@ -380,12 +380,12 @@
     </thead>
     <tbody>{% for c in cylindres %}
         <tr><td>{{ c.numero }}</td>
-            <td class="num">{{ c.chemise_haut_a|floatformat:2|default:"-" }}</td><td class="num">{{ c.chemise_haut_b|floatformat:2|default:"-" }}</td>
-            <td class="num">{{ c.chemise_milieu_a|floatformat:2|default:"-" }}</td><td class="num">{{ c.chemise_milieu_b|floatformat:2|default:"-" }}</td>
-            <td class="num">{{ c.chemise_bas_a|floatformat:2|default:"-" }}</td><td class="num">{{ c.chemise_bas_b|floatformat:2|default:"-" }}</td>
-            <td class="num">{{ c.chemise_ovalisation|floatformat:2|default:"-" }}</td><td class="num">{{ c.chemise_conicite|floatformat:2|default:"-" }}</td>
-            <td class="num">{{ c.piston_diametre|floatformat:2|default:"-" }}</td>
-            <td class="num">{% if c.jeu_piston_min is not None %}{{ c.jeu_piston_min|floatformat:2 }} – {{ c.jeu_piston_max|floatformat:2 }}{% else %}-{% endif %}</td></tr>
+            <td class="num">{{ c.chemise_haut_a|floatformat:"2g"|default:"-" }}</td><td class="num">{{ c.chemise_haut_b|floatformat:"2g"|default:"-" }}</td>
+            <td class="num">{{ c.chemise_milieu_a|floatformat:"2g"|default:"-" }}</td><td class="num">{{ c.chemise_milieu_b|floatformat:"2g"|default:"-" }}</td>
+            <td class="num">{{ c.chemise_bas_a|floatformat:"2g"|default:"-" }}</td><td class="num">{{ c.chemise_bas_b|floatformat:"2g"|default:"-" }}</td>
+            <td class="num">{{ c.chemise_ovalisation|floatformat:"2g"|default:"-" }}</td><td class="num">{{ c.chemise_conicite|floatformat:"2g"|default:"-" }}</td>
+            <td class="num">{{ c.piston_diametre|floatformat:"2g"|default:"-" }}</td>
+            <td class="num">{% if c.jeu_piston_min is not None %}{{ c.jeu_piston_min|floatformat:"2g" }} – {{ c.jeu_piston_max|floatformat:"2g" }}{% else %}-{% endif %}</td></tr>
     {% endfor %}</tbody>
 </table>
 
@@ -399,12 +399,12 @@
     </thead>
     <tbody>{% for c in cylindres %}
         <tr><td>{{ c.numero }}</td>
-            <td class="num">{{ c.segment_feu_jeu|floatformat:2|default:"-" }}</td><td class="num">{{ c.segment_etancheite_jeu|floatformat:2|default:"-" }}</td><td class="num">{{ c.segment_racleur_jeu|floatformat:2|default:"-" }}</td>
-            <td class="num">{% if c.maneton_min is not None %}{{ c.maneton_min|floatformat:2 }} – {{ c.maneton_max|floatformat:2 }}{% else %}-{% endif %}</td>
-            <td class="num">{{ c.maneton_ovalisation|floatformat:2|default:"-" }}</td><td class="num">{{ c.maneton_conicite|floatformat:2|default:"-" }}</td>
-            <td class="num">{{ c.pied_bielle_a|floatformat:2|default:"-" }} / {{ c.pied_bielle_b|floatformat:2|default:"-" }}</td>
-            <td class="num">{{ c.axe_piston_diametre|floatformat:2|default:"-" }}</td>
-            <td class="num">{% if c.jeu_pied_bielle_min is not None %}{{ c.jeu_pied_bielle_min|floatformat:2 }} – {{ c.jeu_pied_bielle_max|floatformat:2 }}{% else %}-{% endif %}</td></tr>
+            <td class="num">{{ c.segment_feu_jeu|floatformat:"2g"|default:"-" }}</td><td class="num">{{ c.segment_etancheite_jeu|floatformat:"2g"|default:"-" }}</td><td class="num">{{ c.segment_racleur_jeu|floatformat:"2g"|default:"-" }}</td>
+            <td class="num">{% if c.maneton_min is not None %}{{ c.maneton_min|floatformat:"2g" }} – {{ c.maneton_max|floatformat:"2g" }}{% else %}-{% endif %}</td>
+            <td class="num">{{ c.maneton_ovalisation|floatformat:"2g"|default:"-" }}</td><td class="num">{{ c.maneton_conicite|floatformat:"2g"|default:"-" }}</td>
+            <td class="num">{{ c.pied_bielle_a|floatformat:"2g"|default:"-" }} / {{ c.pied_bielle_b|floatformat:"2g"|default:"-" }}</td>
+            <td class="num">{{ c.axe_piston_diametre|floatformat:"2g"|default:"-" }}</td>
+            <td class="num">{% if c.jeu_pied_bielle_min is not None %}{{ c.jeu_pied_bielle_min|floatformat:"2g" }} – {{ c.jeu_pied_bielle_max|floatformat:"2g" }}{% else %}-{% endif %}</td></tr>
         {% if c.remarque %}<tr><td></td><td colspan="9"><em>{{ c.remarque }}</em></td></tr>{% endif %}
     {% endfor %}</tbody>
 </table>
@@ -419,9 +419,9 @@
     </thead>
     <tbody>{% for t in tourillons %}
         <tr><td>{{ t.numero }}</td>
-            <td class="num">{{ t.section_1_a|floatformat:2|default:"-" }}</td><td class="num">{{ t.section_1_b|floatformat:2|default:"-" }}</td>
-            <td class="num">{{ t.section_2_a|floatformat:2|default:"-" }}</td><td class="num">{{ t.section_2_b|floatformat:2|default:"-" }}</td>
-            <td class="num">{{ t.ovalisation|floatformat:2|default:"-" }}</td><td class="num">{{ t.conicite|floatformat:2|default:"-" }}</td>
+            <td class="num">{{ t.section_1_a|floatformat:"2g"|default:"-" }}</td><td class="num">{{ t.section_1_b|floatformat:"2g"|default:"-" }}</td>
+            <td class="num">{{ t.section_2_a|floatformat:"2g"|default:"-" }}</td><td class="num">{{ t.section_2_b|floatformat:"2g"|default:"-" }}</td>
+            <td class="num">{{ t.ovalisation|floatformat:"2g"|default:"-" }}</td><td class="num">{{ t.conicite|floatformat:"2g"|default:"-" }}</td>
             <td>{{ t.remarque|default:"" }}</td></tr>
     {% endfor %}</tbody>
 </table>
@@ -431,8 +431,8 @@
 <table class="table-2-cols">
     <tbody>
         <tr><td>{% trans "Temps" %}</td><td class="text-right">{{ metrologie.temps_main_oeuvre_display }}</td></tr>
-        <tr class="total"><td class="text-right"><strong>{% trans "Main-d'œuvre HTVA" %}</strong></td><td class="text-right"><strong>{{ metrologie.cout_main_oeuvre|default:0|floatformat:2 }} €</strong></td></tr>
-        <tr class="total-general"><td class="text-right"><strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong></td><td class="text-right"><strong>{{ metrologie.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €</strong></td></tr>
+        <tr class="total"><td class="text-right"><strong>{% trans "Main-d'œuvre HTVA" %}</strong></td><td class="text-right"><strong>{{ metrologie.cout_main_oeuvre|default:0|floatformat:"2g" }} €</strong></td></tr>
+        <tr class="total-general"><td class="text-right"><strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong></td><td class="text-right"><strong>{{ metrologie.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €</strong></td></tr>
     </tbody>
 </table>
 

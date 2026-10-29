@@ -31,11 +31,11 @@
 
 <!-- Totaux -->
 <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Devis en cours HTVA" %}</p><p class="text-xl font-bold">{{ totaux.devis|floatformat:2 }} €</p></div>
-    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Facturé HTVA" %}</p><p class="text-xl font-bold">{{ totaux.htva|floatformat:2 }} €</p></div>
-    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Facturé TVAC" %}</p><p class="text-xl font-bold">{{ totaux.tvac|floatformat:2 }} €</p></div>
-    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Pris en charge par l'assurance" %}</p><p class="text-xl font-bold text-green-700">{{ totaux.assurance|floatformat:2 }} €</p></div>
-    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Reste à charge TVAC" %}</p><p class="text-xl font-bold text-blue-700">{{ totaux.reste|floatformat:2 }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Devis en cours HTVA" %}</p><p class="text-xl font-bold">{{ totaux.devis|floatformat:"2g" }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Facturé HTVA" %}</p><p class="text-xl font-bold">{{ totaux.htva|floatformat:"2g" }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Facturé TVAC" %}</p><p class="text-xl font-bold">{{ totaux.tvac|floatformat:"2g" }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Pris en charge par l'assurance" %}</p><p class="text-xl font-bold text-green-700">{{ totaux.assurance|floatformat:"2g" }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Reste à charge TVAC" %}</p><p class="text-xl font-bold text-blue-700">{{ totaux.reste|floatformat:"2g" }} €</p></div>
 </div>
 
 <form method="get" class="bg-white shadow-md rounded-lg p-4 mb-4 flex flex-wrap items-end gap-3">
@@ -74,10 +74,10 @@
             </td>
             <td class="border px-3 py-2">{{ c.carrossier|default:"—" }}</td>
             <td class="border px-3 py-2">{% include "maintenance_externe/_statut_carrosserie.html" %}</td>
-            <td class="border px-3 py-2 text-right whitespace-nowrap">{% if c.devis_htva %}{{ c.devis_htva|floatformat:2 }} €{% else %}—{% endif %}</td>
-            <td class="border px-3 py-2 text-right whitespace-nowrap">{% if c.est_facturee %}{{ c.total_tvac|floatformat:2 }} €{% else %}—{% endif %}</td>
-            <td class="border px-3 py-2 text-right whitespace-nowrap">{% if c.prise_en_charge_assurance %}{{ c.montant_assurance|floatformat:2 }} €{% else %}—{% endif %}</td>
-            <td class="border px-3 py-2 text-right whitespace-nowrap font-semibold">{% if c.est_facturee %}{{ c.reste_a_charge_tvac|floatformat:2 }} €{% else %}—{% endif %}</td>
+            <td class="border px-3 py-2 text-right whitespace-nowrap">{% if c.devis_htva %}{{ c.devis_htva|floatformat:"2g" }} €{% else %}—{% endif %}</td>
+            <td class="border px-3 py-2 text-right whitespace-nowrap">{% if c.est_facturee %}{{ c.total_tvac|floatformat:"2g" }} €{% else %}—{% endif %}</td>
+            <td class="border px-3 py-2 text-right whitespace-nowrap">{% if c.prise_en_charge_assurance %}{{ c.montant_assurance|floatformat:"2g" }} €{% else %}—{% endif %}</td>
+            <td class="border px-3 py-2 text-right whitespace-nowrap font-semibold">{% if c.est_facturee %}{{ c.reste_a_charge_tvac|floatformat:"2g" }} €{% else %}—{% endif %}</td>
             <td class="border px-3 py-2 text-center">{% if c.date_paiement %}<span class="text-green-700">✔ {{ c.date_paiement|date:"d/m/Y" }}</span>{% elif c.est_facturee %}<span class="text-red-600">{% trans "Non" %}</span>{% else %}—{% endif %}</td>
             <td class="border px-3 py-2 text-center whitespace-nowrap">
                 <a href="{% url 'maintenance_externe:carrosserie_detail' c.pk %}" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">{% trans "Infos" %}</a>

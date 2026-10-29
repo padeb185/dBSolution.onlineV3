@@ -75,10 +75,10 @@
                         </div>
                     </td>
                     <td class="px-4 py-3">{% include "maintenance/partials/plaque.html" with exemplaire=ex taille="petite" %}</td>
-                    <td class="px-4 py-3 text-right">{{ ex.kilometres_chassis|default:0 }} km</td>
-                    <td class="px-4 py-3 text-right">{% if ex.prix_achat is not None %}{{ ex.prix_achat|floatformat:2 }} €{% else %}<span class="text-gray-400">—</span>{% endif %}</td>
-                    <td class="px-4 py-3 text-right">{% if ex.assurance is not None %}{{ ex.assurance|floatformat:2 }} €{% else %}<span class="text-gray-400">—</span>{% endif %}</td>
-                    <td class="px-4 py-3 text-right">{% if ex.taxe_roulage is not None %}{{ ex.taxe_roulage|floatformat:2 }} €{% else %}<span class="text-gray-400">—</span>{% endif %}</td>
+                    <td class="px-4 py-3 text-right">{{ ex.kilometres_chassis|default:0|milliers }} km</td>
+                    <td class="px-4 py-3 text-right">{% if ex.prix_achat is not None %}{{ ex.prix_achat|floatformat:"2g" }} €{% else %}<span class="text-gray-400">—</span>{% endif %}</td>
+                    <td class="px-4 py-3 text-right">{% if ex.assurance is not None %}{{ ex.assurance|floatformat:"2g" }} €{% else %}<span class="text-gray-400">—</span>{% endif %}</td>
+                    <td class="px-4 py-3 text-right">{% if ex.taxe_roulage is not None %}{{ ex.taxe_roulage|floatformat:"2g" }} €{% else %}<span class="text-gray-400">—</span>{% endif %}</td>
                     <td class="px-4 py-3 text-center">
                         {% if ex.nb_manquants == 0 %}
                             <span class="px-2 py-1 rounded bg-green-100 text-green-800 text-xs font-semibold">{% trans "Complet" %}</span>

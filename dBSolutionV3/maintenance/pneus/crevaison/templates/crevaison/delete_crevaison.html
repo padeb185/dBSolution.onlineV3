@@ -16,7 +16,7 @@
     {% include "partials/messages.html" %}
 
     <p class="mb-6">
-        {% blocktrans with date=crevaison.date|date:"d/m/Y H:i" km=crevaison.kilometrage_crevaison %}Voulez-vous vraiment supprimer la crevaison du {{ date }} ({{ km }} km) pour :{% endblocktrans %}
+        {% blocktrans with date=crevaison.date|date:"d/m/Y H:i" km=crevaison.kilometrage_crevaison %}Voulez-vous vraiment supprimer la crevaison du {{ date }} ({{ km|milliers }} km) pour :{% endblocktrans %}
     </p>
 
     <div class="flex justify-center mb-6">

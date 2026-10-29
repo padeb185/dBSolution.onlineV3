@@ -6,7 +6,7 @@
 <br>
 <div class="p-6">
     <h1 class="text-2xl font-bold mb-2 flex items-center gap-3">
-        <img src="{% static 'icons/proprietaire.png' %}" alt="" class="w-14 h-14">
+        <img src="{% static 'icons/proprietaire.png' %}" alt="" class="w-20 h-20">
         {% trans "Reversements aux propriétaires" %}
     </h1>
     <p class="rv-aide mb-4">{% trans "Locations de véhicules à plusieurs propriétaires : nous facturons toute la location ; la part HTVA de chaque autre propriétaire, moins sa commission, lui est due (compte 489000) jusqu'au reversement (banque 550000 ou caisse 570000)." %}</p>
@@ -15,12 +15,12 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div class="rv-carte" style="margin:0">
             <div class="rv-aide">{% trans "Total à reverser" %}</div>
-            <div class="text-2xl font-bold" style="color:#991b1b">{{ total_a_reverser|floatformat:2 }} €</div>
+            <div class="text-2xl font-bold" style="color:#991b1b">{{ total_a_reverser|floatformat:"2g" }} €</div>
         </div>
         <div class="rv-carte md:col-span-2" style="margin:0">
             <div class="rv-aide mb-1">{% trans "À reverser par propriétaire" %}</div>
             {% for p in par_proprietaire %}
-                <a href="?statut=A_PAYER&beneficiaire={{ p.nom|urlencode }}" class="block hover:underline">{{ p.nom }} : <strong>{{ p.total|floatformat:2 }} €</strong> <span class="rv-aide">({{ p.nb }})</span></a>
+                <a href="?statut=A_PAYER&beneficiaire={{ p.nom|urlencode }}" class="block hover:underline">{{ p.nom }} : <strong>{{ p.total|floatformat:"2g" }} €</strong> <span class="rv-aide">({{ p.nb }})</span></a>
             {% empty %}<span class="rv-aide">{% trans "Rien à reverser." %}</span>{% endfor %}
         </div>
     </div>
@@ -48,10 +48,10 @@
                     <td>{{ r.date|date:"d/m/Y" }}</td>
                     <td>{{ r.beneficiaire }}</td>
                     <td><a class="text-blue-700 underline" href="{% url 'voiture_location:location_detail' location_id=r.location_id %}#ventilation">{{ r.location }}</a></td>
-                    <td class="num">{{ r.part_pourcent|floatformat:"-2" }} %</td>
-                    <td class="num">{{ r.montant_part_htva|floatformat:2 }} €</td>
-                    <td class="num">{{ r.commission_htva|floatformat:2 }} €</td>
-                    <td class="num font-semibold">{{ r.montant_du|floatformat:2 }} €</td>
+                    <td class="num">{{ r.part_pourcent|floatformat:"-2g" }} %</td>
+                    <td class="num">{{ r.montant_part_htva|floatformat:"2g" }} €</td>
+                    <td class="num">{{ r.commission_htva|floatformat:"2g" }} €</td>
+                    <td class="num font-semibold">{{ r.montant_du|floatformat:"2g" }} €</td>
                     <td><span class="rv-badge {{ r.statut }}">{{ r.get_statut_display }}</span></td>
                     <td>{% with action_url=url_liste|add:"?"|add:request.GET.urlencode %}{% include "voiture_location/_form_reversement.html" %}{% endwith %}</td>
                 </tr>
@@ -61,8 +61,8 @@
             </tbody>
             <tfoot><tr class="font-semibold">
                 <td colspan="5">{% trans "Total" %}</td>
-                <td class="num">{{ commissions_liste|floatformat:2 }} €</td>
-                <td class="num">{{ total_liste|floatformat:2 }} €</td><td colspan="2"></td>
+                <td class="num">{{ commissions_liste|floatformat:"2g" }} €</td>
+                <td class="num">{{ total_liste|floatformat:"2g" }} €</td><td colspan="2"></td>
             </tr></tfoot>
         </table>
     </div>

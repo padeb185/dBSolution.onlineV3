@@ -173,8 +173,8 @@
         <div><span class="label">{% trans "Société" %} :</span> {{ banc.tech_societe|default:"-" }}</div>
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ banc.voiture_exemplaire }}</div>
         <div><span class="label">{% trans "Immatriculation" %} :</span> {{ banc.voiture_exemplaire.immatriculation|default:"-" }}</div>
-        <div><span class="label">{% trans "Kilométrage avant intervention" %} :</span> {{ banc.kilometres_chassis|default:0 }} km</div>
-        <div><span class="label">{% trans "Kilométrage au passage au banc" %} :</span> {{ banc.kilometrage_banc }} km</div>
+        <div><span class="label">{% trans "Kilométrage avant intervention" %} :</span> {{ banc.kilometres_chassis|default:0|milliers }} km</div>
+        <div><span class="label">{% trans "Kilométrage au passage au banc" %} :</span> {{ banc.kilometrage_banc|milliers }} km</div>
         <div><span class="label">{% trans "Date du passage au banc" %} :</span> {{ banc.date_passage|date:"d/m/Y" }}</div>
         <div><span class="label">{% trans "Lieu / préparateur du banc" %} :</span> {{ banc.lieu_banc|default:"-" }}</div>
         <div><span class="label">{% trans "Type de banc" %} :</span> {{ banc.get_type_banc_display }}{% if banc.marque_banc != "CHOISIR" %} – {{ banc.get_marque_banc_display }}{% endif %}</div>
@@ -268,8 +268,8 @@
         <div><span class="label">{% trans "Temps" %} :</span> {{ banc.temps_main_oeuvre_display }}</div>
 
         {% if banc.main_oeuvre %}
-            <div><span class="label">{% trans "Taux horaire HTVA" %} :</span> {{ banc.taux_horaire_main_oeuvre|floatformat:2 }} €</div>
-            <div><span class="label">{% trans "Prix HTVA" %} :</span> {{ banc.cout_main_oeuvre|floatformat:2 }} €</div>
+            <div><span class="label">{% trans "Taux horaire HTVA" %} :</span> {{ banc.taux_horaire_main_oeuvre|floatformat:"2g" }} €</div>
+            <div><span class="label">{% trans "Prix HTVA" %} :</span> {{ banc.cout_main_oeuvre|floatformat:"2g" }} €</div>
             <div><span class="label">{% trans "Descriptif" %} :</span> {{ banc.main_oeuvre.descriptif|default:"-" }}</div>
         {% else %}
             <div>{% trans "Aucune main d'œuvre liée" %}</div>
@@ -309,23 +309,23 @@
             </td>
             <td>{{ ligne.cote|default:"-" }}</td>
             <td>{{ ligne.fabricant|default:"-" }}</td>
-            <td class="text-right">{{ ligne.quantite|floatformat:0 }}</td>
-            <td class="text-right">{{ ligne.prix|floatformat:2 }} €</td>
-            <td class="text-right">{{ ligne.total|floatformat:2 }} €</td>
+            <td class="text-right">{{ ligne.quantite|floatformat:"0g" }}</td>
+            <td class="text-right">{{ ligne.prix|floatformat:"2g" }} €</td>
+            <td class="text-right">{{ ligne.total|floatformat:"2g" }} €</td>
         </tr>
         {% endfor %}
 
         <tr class="total">
             <td colspan="6" class="text-right">{% trans "Total pièces HTVA" %}</td>
-            <td class="text-right">{{ rapport.total_pieces|floatformat:2 }} €</td>
+            <td class="text-right">{{ rapport.total_pieces|floatformat:"2g" }} €</td>
         </tr>
         <tr class="total">
             <td colspan="6" class="text-right">{% trans "Main-d'œuvre HTVA" %}</td>
-            <td class="text-right">{{ banc.cout_main_oeuvre|floatformat:2 }} €</td>
+            <td class="text-right">{{ banc.cout_main_oeuvre|floatformat:"2g" }} €</td>
         </tr>
         <tr class="total-general">
             <td colspan="6" class="text-right">{% trans "Total général avec main-d'œuvre HTVA" %}</td>
-            <td class="text-right">{{ banc.total_general_avec_main_oeuvre|floatformat:2 }} €</td>
+            <td class="text-right">{{ banc.total_general_avec_main_oeuvre|floatformat:"2g" }} €</td>
         </tr>
     </tbody>
 </table>
@@ -338,11 +338,11 @@
     <tbody>
         <tr class="total">
             <td class="text-right"><strong>{% trans "Main-d'œuvre HTVA" %}</strong></td>
-            <td class="text-right"><strong>{{ banc.cout_main_oeuvre|floatformat:2 }} €</strong></td>
+            <td class="text-right"><strong>{{ banc.cout_main_oeuvre|floatformat:"2g" }} €</strong></td>
         </tr>
         <tr class="total-general">
             <td class="text-right"><strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong></td>
-            <td class="text-right"><strong>{{ banc.total_general_avec_main_oeuvre|floatformat:2 }} €</strong></td>
+            <td class="text-right"><strong>{{ banc.total_general_avec_main_oeuvre|floatformat:"2g" }} €</strong></td>
         </tr>
     </tbody>
 </table>

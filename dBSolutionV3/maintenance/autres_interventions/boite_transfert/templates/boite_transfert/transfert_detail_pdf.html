@@ -173,8 +173,8 @@
         <div><span class="label">{% trans "Société" %} :</span> {{ transfert.tech_societe|default:"-" }}</div>
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ transfert.voiture_exemplaire }}</div>
         <div><span class="label">{% trans "Immatriculation" %} :</span> {{ transfert.voiture_exemplaire.immatriculation|default:"-" }}</div>
-        <div><span class="label">{% trans "Kilométrage avant contrôle" %} :</span> {{ transfert.kilometres_chassis|default:0 }} km</div>
-        <div><span class="label">{% trans "Kilométrage contrôle" %} :</span> {{ transfert.kilometrage_transfert }} km</div>
+        <div><span class="label">{% trans "Kilométrage avant contrôle" %} :</span> {{ transfert.kilometres_chassis|default:0|milliers }} km</div>
+        <div><span class="label">{% trans "Kilométrage contrôle" %} :</span> {{ transfert.kilometrage_transfert|milliers }} km</div>
         <div><span class="label">{% trans "Système de transmission intégrale" %} :</span> {% if transfert.systeme_transmission != "CHOISIR" %}{{ transfert.get_systeme_transmission_display }}{% else %}-{% endif %}</div>
         <div><span class="label">{% trans "Type de transmission intégrale" %} :</span> {% if transfert.type_transmission != "CHOISIR" %}{{ transfert.get_type_transmission_display }}{% else %}-{% endif %}</div>
         <div><span class="label">{% trans "Référence" %} :</span> {{ transfert.reference_boite_transfert|default:"-" }}</div>
@@ -250,8 +250,8 @@
         <div><span class="label">{% trans "Temps" %} :</span> {{ transfert.temps_main_oeuvre_display }}</div>
 
         {% if transfert.main_oeuvre %}
-            <div><span class="label">{% trans "Taux horaire HTVA" %} :</span> {{ transfert.taux_horaire_main_oeuvre|floatformat:2 }} €</div>
-            <div><span class="label">{% trans "Prix HTVA" %} :</span> {{ transfert.cout_main_oeuvre|floatformat:2 }} €</div>
+            <div><span class="label">{% trans "Taux horaire HTVA" %} :</span> {{ transfert.taux_horaire_main_oeuvre|floatformat:"2g" }} €</div>
+            <div><span class="label">{% trans "Prix HTVA" %} :</span> {{ transfert.cout_main_oeuvre|floatformat:"2g" }} €</div>
             <div><span class="label">{% trans "Descriptif" %} :</span> {{ transfert.main_oeuvre.descriptif|default:"-" }}</div>
         {% else %}
             <div>{% trans "Aucune main d'œuvre liée" %}</div>
@@ -291,23 +291,23 @@
             </td>
             <td>{{ ligne.cote|default:"-" }}</td>
             <td>{{ ligne.fabricant|default:"-" }}</td>
-            <td class="text-right">{{ ligne.quantite|floatformat:0 }}</td>
-            <td class="text-right">{{ ligne.prix|floatformat:2 }} €</td>
-            <td class="text-right">{{ ligne.total|floatformat:2 }} €</td>
+            <td class="text-right">{{ ligne.quantite|floatformat:"0g" }}</td>
+            <td class="text-right">{{ ligne.prix|floatformat:"2g" }} €</td>
+            <td class="text-right">{{ ligne.total|floatformat:"2g" }} €</td>
         </tr>
         {% endfor %}
 
         <tr class="total">
             <td colspan="6" class="text-right">{% trans "Total pièces HTVA" %}</td>
-            <td class="text-right">{{ rapport.total_pieces|floatformat:2 }} €</td>
+            <td class="text-right">{{ rapport.total_pieces|floatformat:"2g" }} €</td>
         </tr>
         <tr class="total">
             <td colspan="6" class="text-right">{% trans "Main-d'œuvre HTVA" %}</td>
-            <td class="text-right">{{ transfert.cout_main_oeuvre|floatformat:2 }} €</td>
+            <td class="text-right">{{ transfert.cout_main_oeuvre|floatformat:"2g" }} €</td>
         </tr>
         <tr class="total-general">
             <td colspan="6" class="text-right">{% trans "Total général avec main-d'œuvre HTVA" %}</td>
-            <td class="text-right">{{ transfert.total_general_avec_main_oeuvre|floatformat:2 }} €</td>
+            <td class="text-right">{{ transfert.total_general_avec_main_oeuvre|floatformat:"2g" }} €</td>
         </tr>
     </tbody>
 </table>
@@ -320,11 +320,11 @@
     <tbody>
         <tr class="total">
             <td class="text-right"><strong>{% trans "Main-d'œuvre HTVA" %}</strong></td>
-            <td class="text-right"><strong>{{ transfert.cout_main_oeuvre|floatformat:2 }} €</strong></td>
+            <td class="text-right"><strong>{{ transfert.cout_main_oeuvre|floatformat:"2g" }} €</strong></td>
         </tr>
         <tr class="total-general">
             <td class="text-right"><strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong></td>
-            <td class="text-right"><strong>{{ transfert.total_general_avec_main_oeuvre|floatformat:2 }} €</strong></td>
+            <td class="text-right"><strong>{{ transfert.total_general_avec_main_oeuvre|floatformat:"2g" }} €</strong></td>
         </tr>
     </tbody>
 </table>

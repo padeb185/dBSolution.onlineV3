@@ -64,24 +64,24 @@
         <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
             <dt class="text-gray-600">{% trans "Montant HTVA" %}</dt>
             <dd class="font-medium">
-                {% if achat.achat_montant_htva is not None %}{{ achat.achat_montant_htva|floatformat:2 }} €{% else %}—{% endif %}
+                {% if achat.achat_montant_htva is not None %}{{ achat.achat_montant_htva|floatformat:"2g" }} €{% else %}—{% endif %}
             </dd>
 
             <dt class="text-gray-600">{% trans "Transport HTVA" %}</dt>
             <dd class="font-medium">
-                {% if achat.transport_montant_htva is not None %}{{ achat.transport_montant_htva|floatformat:2 }} €{% else %}—{% endif %}
+                {% if achat.transport_montant_htva is not None %}{{ achat.transport_montant_htva|floatformat:"2g" }} €{% else %}—{% endif %}
             </dd>
 
             <dt class="text-gray-600">{% trans "Taux de TVA" %}</dt>
             <dd class="font-medium">
-                {% if achat.achat_tva is not None %}{{ achat.achat_tva|floatformat:2 }} %{% else %}—{% endif %}
+                {% if achat.achat_tva is not None %}{{ achat.achat_tva|floatformat:"2g" }} %{% else %}—{% endif %}
             </dd>
 
             <dt class="text-gray-600">{% trans "Montant TVA" %}</dt>
-            <dd class="font-medium">{{ achat.montant_tva|floatformat:2 }} €</dd>
+            <dd class="font-medium">{{ achat.montant_tva|floatformat:"2g" }} €</dd>
 
             <dt class="text-gray-600 font-semibold">{% trans "Total TVAC" %}</dt>
-            <dd class="font-bold">{{ achat.total_tvac|floatformat:2 }} €</dd>
+            <dd class="font-bold">{{ achat.total_tvac|floatformat:"2g" }} €</dd>
         </dl>
     </div>
 

@@ -191,8 +191,8 @@
         <div><span class="label">{% trans "Société" %} :</span> {{ geo.tech_societe|default:"-" }}</div>
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ geo.voiture_exemplaire }}</div>
         <div><span class="label">{% trans "Immatriculation" %} :</span> {{ geo.voiture_exemplaire.immatriculation|default:"-" }}</div>
-        <div><span class="label">{% trans "Kilométrage avant contrôle" %} :</span> {{ geo.kilometres_chassis|default:0 }} km</div>
-        <div><span class="label">{% trans "Kilométrage contrôle" %} :</span> {{ geo.kilometrage_geometrie }} km</div>
+        <div><span class="label">{% trans "Kilométrage avant contrôle" %} :</span> {{ geo.kilometres_chassis|default:0|milliers }} km</div>
+        <div><span class="label">{% trans "Kilométrage contrôle" %} :</span> {{ geo.kilometrage_geometrie|milliers }} km</div>
         <div><span class="label">{% trans "Serrage des roues" %} :</span> {{ geo.get_serrage_roues_display }}</div>
 
         <div>
@@ -308,8 +308,8 @@
         <div><span class="label">{% trans "Temps" %} :</span> {{ geo.temps_main_oeuvre_display }}</div>
 
         {% if geo.main_oeuvre %}
-            <div><span class="label">{% trans "Taux horaire HTVA" %} :</span> {{ geo.taux_horaire_main_oeuvre|floatformat:2 }} €</div>
-            <div><span class="label">{% trans "Prix HTVA" %} :</span> {{ geo.cout_main_oeuvre|floatformat:2 }} €</div>
+            <div><span class="label">{% trans "Taux horaire HTVA" %} :</span> {{ geo.taux_horaire_main_oeuvre|floatformat:"2g" }} €</div>
+            <div><span class="label">{% trans "Prix HTVA" %} :</span> {{ geo.cout_main_oeuvre|floatformat:"2g" }} €</div>
             <div><span class="label">{% trans "Descriptif" %} :</span> {{ geo.main_oeuvre.descriptif|default:"-" }}</div>
         {% else %}
             <div>{% trans "Aucune main d'œuvre liée" %}</div>
@@ -322,7 +322,7 @@
     <tbody>
         <tr class="total-general">
             <td class="text-right"><strong>{% trans "Total main-d'œuvre HTVA" %}</strong></td>
-            <td class="text-right"><strong>{{ geo.cout_main_oeuvre|floatformat:2 }} €</strong></td>
+            <td class="text-right"><strong>{{ geo.cout_main_oeuvre|floatformat:"2g" }} €</strong></td>
         </tr>
     </tbody>
 </table>

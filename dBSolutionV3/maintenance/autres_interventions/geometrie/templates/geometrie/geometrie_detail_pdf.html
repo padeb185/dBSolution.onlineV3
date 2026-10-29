@@ -393,9 +393,9 @@
         </div>
 
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ geometrie.voiture_exemplaire }}</div>
-        <div><span class="label">{% trans "Kilométrage actuel" %} :</span> {{ geometrie.kilometres_chassis }} km</div>
+        <div><span class="label">{% trans "Kilométrage actuel" %} :</span> {{ geometrie.kilometres_chassis|milliers }} km</div>
 
-        <div><span class="label">{% trans "Kilométrage géométrie" %} :</span> {{ geometrie.kilometrage_geometrie }} km</div>
+        <div><span class="label">{% trans "Kilométrage géométrie" %} :</span> {{ geometrie.kilometrage_geometrie|milliers }} km</div>
     </div>
 
 </div>
@@ -479,12 +479,12 @@
         {% if geometrie.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-                {{ geometrie.main_oeuvre.taux_horaire|floatformat:2 }} €
+                {{ geometrie.main_oeuvre.taux_horaire|floatformat:"2g" }} €
             </div>
 
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ geometrie.main_oeuvre.prix_facture|floatformat:2 }} €
+                {{ geometrie.main_oeuvre.prix_facture|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -557,11 +557,11 @@
                     </td>
 
                     <td class="text-right">
-                        {{ ligne.prix|default:0|floatformat:2 }} €
+                        {{ ligne.prix|default:0|floatformat:"2g" }} €
                     </td>
 
                     <td class="text-right">
-                        {{ ligne.total|default:0|floatformat:2 }} €
+                        {{ ligne.total|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
             {% endfor %}
@@ -574,7 +574,7 @@
 
                 <td class="text-right">
                     <strong>
-                        {{ geometrie.total_pieces|default:0|floatformat:2 }} €
+                        {{ geometrie.total_pieces|default:0|floatformat:"2g" }} €
                     </strong>
                 </td>
             </tr>
@@ -587,7 +587,7 @@
 
                 <td class="text-right">
                     <strong>
-                        {{ geometrie.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ geometrie.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </strong>
                 </td>
             </tr>
@@ -600,7 +600,7 @@
 
                 <td class="text-right">
                     <strong>
-                        {{ geometrie.total_general|default:0|floatformat:2 }} €
+                        {{ geometrie.total_general|default:0|floatformat:"2g" }} €
                     </strong>
                 </td>
             </tr>
@@ -627,7 +627,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ geometrie.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ geometrie.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -641,7 +641,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ geometrie.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ geometrie.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

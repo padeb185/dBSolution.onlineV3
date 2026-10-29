@@ -16,7 +16,7 @@
     {% include "partials/messages.html" %}
 
     <p class="mb-6">
-        {% blocktrans with date=cardan.date|date:"d/m/Y H:i" km=cardan.kilometrage_cardan %}Voulez-vous vraiment supprimer le contrôle cardan du {{ date }} ({{ km }} km) pour :{% endblocktrans %}
+        {% blocktrans with date=cardan.date|date:"d/m/Y H:i" km=cardan.kilometrage_cardan %}Voulez-vous vraiment supprimer le contrôle cardan du {{ date }} ({{ km|milliers }} km) pour :{% endblocktrans %}
     </p>
 
     <div class="flex justify-center mb-6">

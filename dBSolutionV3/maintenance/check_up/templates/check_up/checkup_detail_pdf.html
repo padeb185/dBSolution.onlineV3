@@ -407,8 +407,8 @@
         <div><span class="label">{% trans "Rôle" %} :</span> {{ checkup.tech_role_technicien }}</div>
         <div><span class="label">{% trans "Société" %} :</span> {{ checkup.tech_societe }}</div>
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ checkup.voiture_exemplaire }}</div>
-        <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ checkup.kilometres_chassis }} km</div>
-        <div><span class="label">{% trans "Kilométrage check-up" %} :</span> {{ checkup.kilometrage_checkup }} km</div>
+        <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ checkup.kilometres_chassis|milliers }} km</div>
+        <div><span class="label">{% trans "Kilométrage check-up" %} :</span> {{ checkup.kilometrage_checkup|milliers }} km</div>
 
         <div>
             <span class="label">{% trans "Tag" %} :</span>
@@ -826,7 +826,7 @@
     <tr>
         <td>{% trans "Prix d'achat HTVA" %}</td>
         <td>
-            {{ checkup.refroidissement_radiateur_prix|default:0|floatformat:2 }} €
+            {{ checkup.refroidissement_radiateur_prix|default:0|floatformat:"2g" }} €
         </td>
     </tr>
     {% endif %}
@@ -871,7 +871,7 @@
     <tr>
         <td>{% trans "Quantité ajoutée" %}</td>
         <td>
-            {{ checkup.refroidissement_liquide_quantite|default:0|floatformat:1 }} L
+            {{ checkup.refroidissement_liquide_quantite|default:0|floatformat:"1g" }} L
         </td>
     </tr>
     {% endif %}
@@ -894,7 +894,7 @@
     <tr>
         <td>{% trans "Prix d'achat HTVA" %}</td>
         <td>
-            {{ checkup.refroidissement_liquide_prix|default:0|floatformat:2 }} €
+            {{ checkup.refroidissement_liquide_prix|default:0|floatformat:"2g" }} €
         </td>
     </tr>
     {% endif %}
@@ -946,7 +946,7 @@
         <tr>
             <td>{% trans "Épaisseur des disques avant" %}</td>
             <td>
-                {{ checkup.freins_disques_av_epaisseur|default:0|floatformat:2 }} mm
+                {{ checkup.freins_disques_av_epaisseur|default:0|floatformat:"2g" }} mm
             </td>
         </tr>
 
@@ -1041,7 +1041,7 @@
         <tr>
             <td>{% trans "Épaisseur des disques arrière" %}</td>
             <td>
-                {{ checkup.freins_disques_ar_epaisseur|default:0|floatformat:2 }} mm
+                {{ checkup.freins_disques_ar_epaisseur|default:0|floatformat:"2g" }} mm
             </td>
         </tr>
 
@@ -1161,7 +1161,7 @@
         <tr>
             <td>{% trans "Quantité de liquide de frein" %}</td>
             <td>
-                {{ checkup.freins_liquide_quantite|default:0|floatformat:2 }} L
+                {{ checkup.freins_liquide_quantite|default:0|floatformat:"2g" }} L
             </td>
         </tr>
     {% endif %}
@@ -1245,7 +1245,7 @@
         <tr>
             <td>{% trans "Prix d'achat HTVA" %}</td>
             <td>
-                {{ checkup.batterie_prix|default:0|floatformat:2 }} €
+                {{ checkup.batterie_prix|default:0|floatformat:"2g" }} €
             </td>
         </tr>
     {% endif %}
@@ -1326,7 +1326,7 @@
          <tr>
             <td>{% trans "Quantité de liquide de direction" %}</td>
             <td>
-                {{ checkup.direction_liquide_quantite|default:0|floatformat:2 }} L
+                {{ checkup.direction_liquide_quantite|default:0|floatformat:"2g" }} L
             </td>
         </tr>
     {% endif %}
@@ -2883,13 +2883,13 @@
         </div>
          <div>
             <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-            {{ checkup.taux_horaire|floatformat:2 }} €
+            {{ checkup.taux_horaire|floatformat:"2g" }} €
         </div>
 
         {% if checkup.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ checkup.cout_main_oeuvre|floatformat:2 }} €
+                {{ checkup.cout_main_oeuvre|floatformat:"2g" }} €
             </div>
             
             <div>
@@ -2989,18 +2989,18 @@
                             </td>
 
                             <td class="text-right">
-                                {{ ligne.quantite|default:0|floatformat:2 }}
+                                {{ ligne.quantite|default:0|floatformat:"2g" }}
                                 {% if ligne.unite %}
                                     {{ ligne.unite }}
                                 {% endif %}
                             </td>
 
                             <td class="text-right">
-                                {{ ligne.prix|default:0|floatformat:2 }} €
+                                {{ ligne.prix|default:0|floatformat:"2g" }} €
                             </td>
 
                             <td class="text-right">
-                                {{ ligne.total|default:0|floatformat:2 }} €
+                                {{ ligne.total|default:0|floatformat:"2g" }} €
                             </td>
 
                         </tr>
@@ -3017,7 +3017,7 @@
                     </td>
 
                     <td class="total-montant">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
 
                 </tr>
@@ -3030,7 +3030,7 @@
                     </td>
 
                     <td class="total-montant">
-                        {{ checkup.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ checkup.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
 
                 </tr>
@@ -3043,7 +3043,7 @@
                     </td>
 
                     <td class="total-montant">
-                        {{ checkup.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ checkup.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
 
                 </tr>
@@ -3070,7 +3070,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ checkup.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ checkup.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -3084,7 +3084,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ checkup.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ checkup.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

@@ -345,12 +345,12 @@
 
         <div>
             <span class="label">{% trans "Kilométrage véhicule" %} :</span>
-            {{ lubrification.kilometres_chassis }} km
+            {{ lubrification.kilometres_chassis|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage lubrification moteur" %} :</span>
-            {{ lubrification.kilometrage_lubrification }} km
+            {{ lubrification.kilometrage_lubrification|milliers }} km
         </div>
 
 
@@ -760,12 +760,12 @@
         {% if lubrification.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-                {{ lubrification.main_oeuvre.taux_horaire|floatformat:2 }} €
+                {{ lubrification.main_oeuvre.taux_horaire|floatformat:"2g" }} €
             </div>
 
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ lubrification.main_oeuvre.prix_facture|floatformat:2 }} €
+                {{ lubrification.main_oeuvre.prix_facture|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -844,11 +844,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -859,7 +859,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -869,7 +869,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ lubrification.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ lubrification.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -879,7 +879,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ lubrification.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ lubrification.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -904,7 +904,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ lubrification.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ lubrification.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -918,7 +918,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ lubrification.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ lubrification.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

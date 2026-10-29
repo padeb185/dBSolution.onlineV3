@@ -325,12 +325,12 @@
 
         <div>
             <span class="label">{% trans "Kilométrage chassis" %} :</span>
-            {{ bte_auto.kilometres_chassis }} km
+            {{ bte_auto.kilometres_chassis|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage contrôle" %} :</span>
-            {{ bte_auto.kilometrage_controle_boite_auto }} km
+            {{ bte_auto.kilometrage_controle_boite_auto|milliers }} km
         </div>
 
         <div>
@@ -1478,12 +1478,12 @@
         {% if bte_auto.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-                {{ bte_auto.main_oeuvre.taux_horaire|floatformat:2 }} €
+                {{ bte_auto.main_oeuvre.taux_horaire|floatformat:"2g" }} €
             </div>
 
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ bte_auto.main_oeuvre.prix_facture|floatformat:2 }} €
+                {{ bte_auto.main_oeuvre.prix_facture|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -1566,11 +1566,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                     {% endif %}
@@ -1582,7 +1582,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -1592,7 +1592,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ bte_auto.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ bte_auto.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -1602,7 +1602,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ bte_auto.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ bte_auto.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -1627,7 +1627,7 @@
 
                         <td class="text-right">
                             <strong>
-                                {{ bte_auto.cout_main_oeuvre|default:0|floatformat:2 }} €
+                                {{ bte_auto.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                             </strong>
                         </td>
                     </tr>
@@ -1641,7 +1641,7 @@
 
                         <td class="text-right">
                             <strong>
-                                {{ bte_auto.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                                {{ bte_auto.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                             </strong>
                         </td>
                     </tr>

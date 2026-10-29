@@ -50,12 +50,12 @@
         </div>
         <div class="bg-white shadow-md rounded-lg p-4">
             <p class="text-sm text-gray-500">{% trans "Total des salaires nets" %}</p>
-            <p class="text-2xl font-bold">{{ paie.net_total|floatformat:2 }} €</p>
+            <p class="text-2xl font-bold">{{ paie.net_total|floatformat:"2g" }} €</p>
             <p class="text-xs text-gray-500">{% blocktrans with m=paie.annee.net|floatformat:2 a=annee %}{{ m }} € en {{ a }}{% endblocktrans %}</p>
         </div>
         <div class="bg-white shadow-md rounded-lg p-4">
             <p class="text-sm text-gray-500">{% trans "Heures prestées" %}</p>
-            <p class="text-2xl font-bold">{{ paie.heures_total|floatformat:"-2" }} h</p>
+            <p class="text-2xl font-bold">{{ paie.heures_total|floatformat:"-2g" }} h</p>
             <p class="text-xs text-gray-500">{% blocktrans with h=paie.annee.heures|floatformat:"-2" a=annee %}{{ h }} h en {{ a }}{% endblocktrans %}</p>
         </div>
     </div>
@@ -195,7 +195,7 @@
             {% trans "Main-d'œuvre encodée" %} :
             <span class="font-semibold">{{ maint.mo_total_display }}</span>
             ({{ maint.mo_nb }} {% trans "interventions" %}) –
-            {% trans "valeur" %} <span class="font-semibold">{{ maint.mo_cout_total|floatformat:2 }} € {% trans "HTVA" %}</span>
+            {% trans "valeur" %} <span class="font-semibold">{{ maint.mo_cout_total|floatformat:"2g" }} € {% trans "HTVA" %}</span>
         </p>
 
         <!-- Dernières -->
@@ -259,10 +259,10 @@
                         <td class="border px-2 py-1">{{ a.annee }}</td>
                         <td class="border px-2 py-1 text-right">{{ a.nb }}</td>
                         <td class="border px-2 py-1 text-right">{{ a.jours }}</td>
-                        <td class="border px-2 py-1 text-right">{{ a.heures|floatformat:"-2" }} h</td>
-                        <td class="border px-2 py-1 text-right">{{ a.heures_sup|floatformat:"-2" }} h</td>
-                        <td class="border px-2 py-1 text-right">{{ a.brut|floatformat:2 }} €</td>
-                        <td class="border px-2 py-1 text-right font-semibold">{{ a.net|floatformat:2 }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ a.heures|floatformat:"-2g" }} h</td>
+                        <td class="border px-2 py-1 text-right">{{ a.heures_sup|floatformat:"-2g" }} h</td>
+                        <td class="border px-2 py-1 text-right">{{ a.brut|floatformat:"2g" }} €</td>
+                        <td class="border px-2 py-1 text-right font-semibold">{{ a.net|floatformat:"2g" }} €</td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -271,10 +271,10 @@
                         <td class="border px-2 py-1">{% trans "Total" %}</td>
                         <td class="border px-2 py-1 text-right">{{ paie.nb }}</td>
                         <td class="border px-2 py-1 text-right">{{ paie.jours_total }}</td>
-                        <td class="border px-2 py-1 text-right">{{ paie.heures_total|floatformat:"-2" }} h</td>
-                        <td class="border px-2 py-1 text-right">{{ paie.heures_sup_total|floatformat:"-2" }} h</td>
-                        <td class="border px-2 py-1 text-right">{{ paie.brut_total|floatformat:2 }} €</td>
-                        <td class="border px-2 py-1 text-right">{{ paie.net_total|floatformat:2 }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ paie.heures_total|floatformat:"-2g" }} h</td>
+                        <td class="border px-2 py-1 text-right">{{ paie.heures_sup_total|floatformat:"-2g" }} h</td>
+                        <td class="border px-2 py-1 text-right">{{ paie.brut_total|floatformat:"2g" }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ paie.net_total|floatformat:"2g" }} €</td>
                     </tr>
                 </tfoot>
             </table>
@@ -293,8 +293,8 @@
                 {% for p in paie.dernieres %}
                     <tr>
                         <td class="border px-2 py-1">{{ p.mois|stringformat:"02d" }}/{{ p.annee }}</td>
-                        <td class="border px-2 py-1 text-right">{{ p.nombre_heures_preste|floatformat:"-2" }} h</td>
-                        <td class="border px-2 py-1 text-right">{{ p.salaire_net_mois|floatformat:2 }} €</td>
+                        <td class="border px-2 py-1 text-right">{{ p.nombre_heures_preste|floatformat:"-2g" }} h</td>
+                        <td class="border px-2 py-1 text-right">{{ p.salaire_net_mois|floatformat:"2g" }} €</td>
                         <td class="border px-2 py-1">
                             {% if p.est_paye %}<span class="px-2 py-0.5 rounded bg-green-100 text-green-800 text-xs">{% trans "Payé le" %} {{ p.date_paiement|date:"d/m/Y" }}</span>
                             {% else %}<span class="px-2 py-0.5 rounded bg-yellow-100 text-yellow-800 text-xs">{% trans "À payer" %}</span>{% endif %}

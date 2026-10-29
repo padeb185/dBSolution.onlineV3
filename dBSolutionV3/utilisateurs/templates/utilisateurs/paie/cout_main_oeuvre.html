@@ -38,30 +38,30 @@
 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
     <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-blue-600">
         <p class="text-gray-500 text-sm">{% trans "Coût total employeur" %}</p>
-        <p class="text-2xl font-bold">{{ t.cout|floatformat:2 }} €</p>
+        <p class="text-2xl font-bold">{{ t.cout|floatformat:"2g" }} €</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-gray-500">
         <p class="text-gray-500 text-sm">{% trans "Heures prestées" %}</p>
-        <p class="text-2xl font-bold">{{ t.heures|floatformat:2 }} h</p>
+        <p class="text-2xl font-bold">{{ t.heures|floatformat:"2g" }} h</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-purple-600">
         <p class="text-gray-500 text-sm">{% trans "Taux de revient moyen de l'atelier" %}</p>
-        <p class="text-2xl font-bold text-purple-700">{{ t.taux_revient|floatformat:2 }} €/h</p>
+        <p class="text-2xl font-bold text-purple-700">{{ t.taux_revient|floatformat:"2g" }} €/h</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-yellow-500">
         <p class="text-gray-500 text-sm">{% trans "Taux d'occupation" %}</p>
-        <p class="text-2xl font-bold">{{ t.occupation|floatformat:1 }} %</p>
-        <p class="text-gray-500 text-xs">{{ t.heures_imputees|floatformat:2 }} h {% trans "imputées" %}</p>
+        <p class="text-2xl font-bold">{{ t.occupation|floatformat:"1g" }} %</p>
+        <p class="text-gray-500 text-xs">{{ t.heures_imputees|floatformat:"2g" }} h {% trans "imputées" %}</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-red-600">
         <p class="text-gray-500 text-sm">{% trans "Taux de revient productif" %}</p>
-        <p class="text-2xl font-bold text-red-700">{{ t.taux_revient_productif|floatformat:2 }} €/h</p>
+        <p class="text-2xl font-bold text-red-700">{{ t.taux_revient_productif|floatformat:"2g" }} €/h</p>
         <p class="text-gray-500 text-xs">{% trans "Coût total ÷ heures imputées" %}</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-green-600">
         <p class="text-gray-500 text-sm">{% trans "Marge sur main-d'œuvre" %}</p>
-        <p class="text-2xl font-bold {% if t.marge < 0 %}text-red-700{% else %}text-green-700{% endif %}">{{ t.marge|floatformat:2 }} €</p>
-        <p class="text-gray-500 text-xs">{% trans "Facturable" %} : {{ t.facturable|floatformat:2 }} €</p>
+        <p class="text-2xl font-bold {% if t.marge < 0 %}text-red-700{% else %}text-green-700{% endif %}">{{ t.marge|floatformat:"2g" }} €</p>
+        <p class="text-gray-500 text-xs">{% trans "Facturable" %} : {{ t.facturable|floatformat:"2g" }} €</p>
     </div>
 </div>
 {% endwith %}
@@ -96,15 +96,15 @@
                     </a>
                     <span class="text-gray-400 text-xs">({{ l.nb_paies }} {% trans "paie(s)" %})</span>
                 </td>
-                <td class="border px-2 py-1 text-right">{{ l.cout|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ l.heures|floatformat:2 }} h{% if l.heures_estimees %} *{% endif %}</td>
-                <td class="border px-2 py-1 text-right font-semibold text-purple-700">{{ l.taux_revient|floatformat:2 }} €/h</td>
-                <td class="border px-2 py-1 text-right">{{ l.heures_imputees|floatformat:2 }} h</td>
-                <td class="border px-2 py-1 text-right">{{ l.occupation|floatformat:1 }} %</td>
-                <td class="border px-2 py-1 text-right">{{ l.cout_non_impute|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ l.taux_revient_productif|floatformat:2 }} €/h</td>
-                <td class="border px-2 py-1 text-right">{{ l.facturable|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right {% if l.marge < 0 %}text-red-700{% else %}text-green-700{% endif %}">{{ l.marge|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ l.cout|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ l.heures|floatformat:"2g" }} h{% if l.heures_estimees %} *{% endif %}</td>
+                <td class="border px-2 py-1 text-right font-semibold text-purple-700">{{ l.taux_revient|floatformat:"2g" }} €/h</td>
+                <td class="border px-2 py-1 text-right">{{ l.heures_imputees|floatformat:"2g" }} h</td>
+                <td class="border px-2 py-1 text-right">{{ l.occupation|floatformat:"1g" }} %</td>
+                <td class="border px-2 py-1 text-right">{{ l.cout_non_impute|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ l.taux_revient_productif|floatformat:"2g" }} €/h</td>
+                <td class="border px-2 py-1 text-right">{{ l.facturable|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right {% if l.marge < 0 %}text-red-700{% else %}text-green-700{% endif %}">{{ l.marge|floatformat:"2g" }} €</td>
             </tr>
             {% empty %}
             <tr><td colspan="10" class="border px-2 py-1 text-gray-400">{% trans "Aucune paie sur la période." %}</td></tr>
@@ -113,15 +113,15 @@
             {% with s=role.total %}
             <tr class="bg-gray-50 font-semibold">
                 <td class="border px-2 py-1">{% trans "Sous-total" %} – {{ role.libelle }}</td>
-                <td class="border px-2 py-1 text-right">{{ s.cout|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ s.heures|floatformat:2 }} h</td>
-                <td class="border px-2 py-1 text-right text-purple-700">{{ s.taux_revient|floatformat:2 }} €/h</td>
-                <td class="border px-2 py-1 text-right">{{ s.heures_imputees|floatformat:2 }} h</td>
-                <td class="border px-2 py-1 text-right">{{ s.occupation|floatformat:1 }} %</td>
-                <td class="border px-2 py-1 text-right">{{ s.cout_non_impute|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ s.taux_revient_productif|floatformat:2 }} €/h</td>
-                <td class="border px-2 py-1 text-right">{{ s.facturable|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ s.marge|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ s.cout|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ s.heures|floatformat:"2g" }} h</td>
+                <td class="border px-2 py-1 text-right text-purple-700">{{ s.taux_revient|floatformat:"2g" }} €/h</td>
+                <td class="border px-2 py-1 text-right">{{ s.heures_imputees|floatformat:"2g" }} h</td>
+                <td class="border px-2 py-1 text-right">{{ s.occupation|floatformat:"1g" }} %</td>
+                <td class="border px-2 py-1 text-right">{{ s.cout_non_impute|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ s.taux_revient_productif|floatformat:"2g" }} €/h</td>
+                <td class="border px-2 py-1 text-right">{{ s.facturable|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ s.marge|floatformat:"2g" }} €</td>
             </tr>
             {% endwith %}
             {% endif %}
@@ -131,15 +131,15 @@
         <tfoot>
             <tr class="bg-gray-200 font-bold">
                 <td class="border px-2 py-2">{% trans "Total atelier" %}</td>
-                <td class="border px-2 py-2 text-right">{{ t.cout|floatformat:2 }} €</td>
-                <td class="border px-2 py-2 text-right">{{ t.heures|floatformat:2 }} h</td>
-                <td class="border px-2 py-2 text-right text-purple-700">{{ t.taux_revient|floatformat:2 }} €/h</td>
-                <td class="border px-2 py-2 text-right">{{ t.heures_imputees|floatformat:2 }} h</td>
-                <td class="border px-2 py-2 text-right">{{ t.occupation|floatformat:1 }} %</td>
-                <td class="border px-2 py-2 text-right">{{ t.cout_non_impute|floatformat:2 }} €</td>
-                <td class="border px-2 py-2 text-right">{{ t.taux_revient_productif|floatformat:2 }} €/h</td>
-                <td class="border px-2 py-2 text-right">{{ t.facturable|floatformat:2 }} €</td>
-                <td class="border px-2 py-2 text-right">{{ t.marge|floatformat:2 }} €</td>
+                <td class="border px-2 py-2 text-right">{{ t.cout|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-2 text-right">{{ t.heures|floatformat:"2g" }} h</td>
+                <td class="border px-2 py-2 text-right text-purple-700">{{ t.taux_revient|floatformat:"2g" }} €/h</td>
+                <td class="border px-2 py-2 text-right">{{ t.heures_imputees|floatformat:"2g" }} h</td>
+                <td class="border px-2 py-2 text-right">{{ t.occupation|floatformat:"1g" }} %</td>
+                <td class="border px-2 py-2 text-right">{{ t.cout_non_impute|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-2 text-right">{{ t.taux_revient_productif|floatformat:"2g" }} €/h</td>
+                <td class="border px-2 py-2 text-right">{{ t.facturable|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-2 text-right">{{ t.marge|floatformat:"2g" }} €</td>
             </tr>
         </tfoot>
         {% endwith %}

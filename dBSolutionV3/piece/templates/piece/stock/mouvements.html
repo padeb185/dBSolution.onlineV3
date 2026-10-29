@@ -42,15 +42,15 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
     <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-green-600">
         <p class="text-gray-500 text-sm">{% trans "Entrées" %}</p>
-        <p class="text-2xl font-bold text-green-700">+{{ entrees|floatformat:"-2" }}</p>
+        <p class="text-2xl font-bold text-green-700">+{{ entrees|floatformat:"-2g" }}</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-red-600">
         <p class="text-gray-500 text-sm">{% trans "Diminutions de stock" %}</p>
-        <p class="text-2xl font-bold text-red-700">−{{ sorties|floatformat:"-2" }}</p>
+        <p class="text-2xl font-bold text-red-700">−{{ sorties|floatformat:"-2g" }}</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-blue-600">
         <p class="text-gray-500 text-sm">{% trans "Variation nette" %}</p>
-        <p class="text-2xl font-bold">{{ variation|floatformat:"-2" }}</p>
+        <p class="text-2xl font-bold">{{ variation|floatformat:"-2g" }}</p>
     </div>
 </div>
 
@@ -74,9 +74,9 @@
                 <td class="border px-2 py-2 whitespace-nowrap">{{ m.date|date:"d/m/Y H:i" }}</td>
                 <td class="border px-2 py-2"><a class="text-blue-700 hover:underline" href="{% url 'piece:detail' m.piece_id %}">{{ m.piece }}</a></td>
                 <td class="border px-2 py-2">{{ m.get_type_mouvement_display }}</td>
-                <td class="border px-2 py-2 text-right font-bold {% if m.quantite < 0 %}text-red-700{% else %}text-green-700{% endif %}">{% if m.quantite > 0 %}+{% endif %}{{ m.quantite|floatformat:"-2" }}</td>
-                <td class="border px-2 py-2 text-right">{{ m.stock_apres|floatformat:"-2" }}</td>
-                <td class="border px-2 py-2 text-right">{% if m.prix_unitaire is not None %}{{ m.prix_unitaire|floatformat:2 }} €{% endif %}</td>
+                <td class="border px-2 py-2 text-right font-bold {% if m.quantite < 0 %}text-red-700{% else %}text-green-700{% endif %}">{% if m.quantite > 0 %}+{% endif %}{{ m.quantite|floatformat:"-2g" }}</td>
+                <td class="border px-2 py-2 text-right">{{ m.stock_apres|floatformat:"-2g" }}</td>
+                <td class="border px-2 py-2 text-right">{% if m.prix_unitaire is not None %}{{ m.prix_unitaire|floatformat:"2g" }} €{% endif %}</td>
                 <td class="border px-2 py-2">
                     {% if m.maintenance_id %}<a class="text-blue-700 hover:underline" href="{% url 'piece:pieces_maintenance' m.maintenance_id %}">{{ m.maintenance.immatriculation }}</a>{% endif %}
                     {% if m.facture_id %}<a class="text-blue-700 hover:underline" href="{% url 'facture:detail' m.facture_id %}">{{ m.facture.numero }}</a>{% endif %}

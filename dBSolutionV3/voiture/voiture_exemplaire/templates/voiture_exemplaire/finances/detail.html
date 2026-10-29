@@ -30,7 +30,7 @@
         <dt class="text-gray-600">{% trans "Type d'utilisation" %}</dt>
         <dd>{{ exemplaire.get_type_utilisation_display }}</dd>
         <dt class="text-gray-600">{% trans "Kilométrage châssis" %}</dt>
-        <dd>{{ exemplaire.kilometres_chassis|default:0 }} km</dd>
+        <dd>{{ exemplaire.kilometres_chassis|default:0|milliers }} km</dd>
         {% if exemplaire.client %}
         <dt class="text-gray-600">{% trans "Client" %}</dt>
         <dd>{{ exemplaire.client }}</dd>
@@ -60,19 +60,19 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-2">
         <div class="bg-blue-50 rounded p-4">
             <p class="text-gray-600 text-sm">{% trans "Coût d'acquisition" %}</p>
-            <p class="text-xl font-bold">{{ r.acquisition.total|floatformat:2 }} €</p>
+            <p class="text-xl font-bold">{{ r.acquisition.total|floatformat:"2g" }} €</p>
         </div>
         <div class="bg-yellow-50 rounded p-4">
             <p class="text-gray-600 text-sm">{% trans "Coûts d'utilisation" %}</p>
-            <p class="text-xl font-bold">{{ r.utilisation|floatformat:2 }} €</p>
+            <p class="text-xl font-bold">{{ r.utilisation|floatformat:"2g" }} €</p>
         </div>
         <div class="bg-green-50 rounded p-4">
             <p class="text-gray-600 text-sm">{% trans "Revenus des locations (HTVA)" %}</p>
-            <p class="text-xl font-bold text-green-700">{{ r.locations.htva|floatformat:2 }} €</p>
+            <p class="text-xl font-bold text-green-700">{{ r.locations.htva|floatformat:"2g" }} €</p>
         </div>
         <div class="{% if r.resultat < 0 %}bg-red-50{% else %}bg-green-100{% endif %} rounded p-4">
             <p class="text-gray-600 text-sm">{% trans "Résultat net du véhicule" %}</p>
-            <p class="text-xl font-bold {% if r.resultat < 0 %}text-red-700{% else %}text-green-800{% endif %}">{{ r.resultat|floatformat:2 }} €</p>
+            <p class="text-xl font-bold {% if r.resultat < 0 %}text-red-700{% else %}text-green-800{% endif %}">{{ r.resultat|floatformat:"2g" }} €</p>
         </div>
     </div>
     <p class="text-xs text-gray-500 mb-6">{% trans "Montants HTVA (énergie, maintenances, locations). Résultat net = revenus des locations + valeur de revente − coût d'acquisition − coûts d'utilisation." %}</p>
@@ -88,32 +88,32 @@
         </thead>
         <tbody>
             <tr class="bg-blue-50 font-semibold"><td class="border px-2 py-1" colspan="3">{% trans "Acquisition" %}</td></tr>
-            <tr><td class="border px-2 py-1 pl-6">{% trans "Prix d'achat" %}</td><td class="border px-2 py-1 text-right">{{ r.acquisition.prix_achat|floatformat:2 }} €</td><td class="border px-2 py-1"></td></tr>
-            <tr><td class="border px-2 py-1 pl-6">{% trans "Taxe de mise en circulation" %}</td><td class="border px-2 py-1 text-right">{{ r.acquisition.taxe_mise_en_circulation|floatformat:2 }} €</td><td class="border px-2 py-1"></td></tr>
-            <tr><td class="border px-2 py-1 pl-6">{% trans "Autres frais d'achat" %}</td><td class="border px-2 py-1 text-right">{{ r.acquisition.frais_achat|floatformat:2 }} €</td><td class="border px-2 py-1"></td></tr>
-            <tr class="font-semibold"><td class="border px-2 py-1">{% trans "Coût d'acquisition" %}</td><td class="border px-2 py-1 text-right">{{ r.acquisition.total|floatformat:2 }} €</td><td class="border px-2 py-1"></td></tr>
+            <tr><td class="border px-2 py-1 pl-6">{% trans "Prix d'achat" %}</td><td class="border px-2 py-1 text-right">{{ r.acquisition.prix_achat|floatformat:"2g" }} €</td><td class="border px-2 py-1"></td></tr>
+            <tr><td class="border px-2 py-1 pl-6">{% trans "Taxe de mise en circulation" %}</td><td class="border px-2 py-1 text-right">{{ r.acquisition.taxe_mise_en_circulation|floatformat:"2g" }} €</td><td class="border px-2 py-1"></td></tr>
+            <tr><td class="border px-2 py-1 pl-6">{% trans "Autres frais d'achat" %}</td><td class="border px-2 py-1 text-right">{{ r.acquisition.frais_achat|floatformat:"2g" }} €</td><td class="border px-2 py-1"></td></tr>
+            <tr class="font-semibold"><td class="border px-2 py-1">{% trans "Coût d'acquisition" %}</td><td class="border px-2 py-1 text-right">{{ r.acquisition.total|floatformat:"2g" }} €</td><td class="border px-2 py-1"></td></tr>
 
             <tr class="bg-yellow-50 font-semibold"><td class="border px-2 py-1" colspan="3">{% trans "Utilisation" %}</td></tr>
             {% for cle, e in r.energie.items %}
             <tr>
-                <td class="border px-2 py-1 pl-6">{% if e.estimation %}<a href="#carburant-estime" class="hover:underline" style="color:#c2410c">{{ e.label }}</a> <span class="text-gray-400 text-xs">(≈ {{ e.quantite|floatformat:"-2" }} {{ e.unite }})</span>{% else %}{{ e.label }} <span class="text-gray-400 text-xs">({{ e.nb }} – {{ e.quantite|floatformat:"-2" }} {{ e.unite }})</span>{% endif %}</td>
-                <td class="border px-2 py-1 text-right">{{ e.ht|floatformat:2 }} €</td><td class="border px-2 py-1"></td>
+                <td class="border px-2 py-1 pl-6">{% if e.estimation %}<a href="#carburant-estime" class="hover:underline" style="color:#c2410c">{{ e.label }}</a> <span class="text-gray-400 text-xs">(≈ {{ e.quantite|floatformat:"-2g" }} {{ e.unite }})</span>{% else %}{{ e.label }} <span class="text-gray-400 text-xs">({{ e.nb }} – {{ e.quantite|floatformat:"-2g" }} {{ e.unite }})</span>{% endif %}</td>
+                <td class="border px-2 py-1 text-right">{{ e.ht|floatformat:"2g" }} €</td><td class="border px-2 py-1"></td>
             </tr>
             {% endfor %}
-            <tr><td class="border px-2 py-1 pl-6 font-semibold">{% trans "Énergie" %}</td><td class="border px-2 py-1 text-right font-semibold">{{ r.total_energie|floatformat:2 }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.energie is not None %}{{ r.par_km.energie|floatformat:3 }} €{% else %}—{% endif %}</td></tr>
-            <tr><td class="border px-2 py-1 pl-6">{% trans "Maintenances" %} <span class="text-gray-400 text-xs">({% trans "internes" %} {{ r.maintenances.total_internes|floatformat:2 }} € + {% trans "garages" %} {{ r.maintenances.total_externes|floatformat:2 }} €)</span></td><td class="border px-2 py-1 text-right">{{ r.maintenances.total|floatformat:2 }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.maintenances is not None %}{{ r.par_km.maintenances|floatformat:3 }} €{% else %}—{% endif %}</td></tr>
-            <tr><td class="border px-2 py-1 pl-6">{% trans "Assurance, taxes, vignettes…" %}</td><td class="border px-2 py-1 text-right">{{ r.couts_annuels.total|floatformat:2 }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.annuels is not None %}{{ r.par_km.annuels|floatformat:3 }} €{% else %}—{% endif %}</td></tr>
-            <tr class="font-semibold"><td class="border px-2 py-1">{% trans "Coûts d'utilisation" %}</td><td class="border px-2 py-1 text-right">{{ r.utilisation|floatformat:2 }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.utilisation is not None %}{{ r.par_km.utilisation|floatformat:3 }} €{% else %}—{% endif %}</td></tr>
+            <tr><td class="border px-2 py-1 pl-6 font-semibold">{% trans "Énergie" %}</td><td class="border px-2 py-1 text-right font-semibold">{{ r.total_energie|floatformat:"2g" }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.energie is not None %}{{ r.par_km.energie|floatformat:"3g" }} €{% else %}—{% endif %}</td></tr>
+            <tr><td class="border px-2 py-1 pl-6">{% trans "Maintenances" %} <span class="text-gray-400 text-xs">({% trans "internes" %} {{ r.maintenances.total_internes|floatformat:"2g" }} € + {% trans "garages" %} {{ r.maintenances.total_externes|floatformat:"2g" }} €)</span></td><td class="border px-2 py-1 text-right">{{ r.maintenances.total|floatformat:"2g" }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.maintenances is not None %}{{ r.par_km.maintenances|floatformat:"3g" }} €{% else %}—{% endif %}</td></tr>
+            <tr><td class="border px-2 py-1 pl-6">{% trans "Assurance, taxes, vignettes…" %}</td><td class="border px-2 py-1 text-right">{{ r.couts_annuels.total|floatformat:"2g" }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.annuels is not None %}{{ r.par_km.annuels|floatformat:"3g" }} €{% else %}—{% endif %}</td></tr>
+            <tr class="font-semibold"><td class="border px-2 py-1">{% trans "Coûts d'utilisation" %}</td><td class="border px-2 py-1 text-right">{{ r.utilisation|floatformat:"2g" }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.utilisation is not None %}{{ r.par_km.utilisation|floatformat:"3g" }} €{% else %}—{% endif %}</td></tr>
 
-            <tr class="bg-gray-100 font-bold"><td class="border px-2 py-1">{% trans "Coût total (acquisition + utilisation)" %}</td><td class="border px-2 py-1 text-right">{{ r.cout_total|floatformat:2 }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.total is not None %}{{ r.par_km.total|floatformat:3 }} €{% else %}—{% endif %}</td></tr>
-            <tr class="text-green-800"><td class="border px-2 py-1">− {% trans "Valeur de revente" %}</td><td class="border px-2 py-1 text-right">{{ r.valeur_revente|floatformat:2 }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.revente is not None %}{{ r.par_km.revente|floatformat:3 }} €{% else %}—{% endif %}</td></tr>
-            <tr class="font-semibold"><td class="border px-2 py-1">{% trans "Coût net (après revente)" %}</td><td class="border px-2 py-1 text-right">{{ r.cout_net|floatformat:2 }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.cout_net is not None %}{{ r.par_km.cout_net|floatformat:3 }} €{% else %}—{% endif %}</td></tr>
-            <tr class="text-green-800"><td class="border px-2 py-1">− {% trans "Revenus des locations (HTVA)" %} <span class="text-gray-400 text-xs">({{ r.locations.nb }} {% trans "location(s)" %})</span></td><td class="border px-2 py-1 text-right">{{ r.locations.htva|floatformat:2 }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.revenus is not None %}{{ r.par_km.revenus|floatformat:3 }} €{% else %}—{% endif %}</td></tr>
-            <tr class="font-bold {% if r.resultat < 0 %}bg-red-50 text-red-700{% else %}bg-green-100 text-green-800{% endif %}"><td class="border px-2 py-1">{% trans "Résultat net" %}</td><td class="border px-2 py-1 text-right">{{ r.resultat|floatformat:2 }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.net is not None %}{{ r.par_km.net|floatformat:3 }} €{% else %}—{% endif %}</td></tr>
+            <tr class="bg-gray-100 font-bold"><td class="border px-2 py-1">{% trans "Coût total (acquisition + utilisation)" %}</td><td class="border px-2 py-1 text-right">{{ r.cout_total|floatformat:"2g" }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.total is not None %}{{ r.par_km.total|floatformat:"3g" }} €{% else %}—{% endif %}</td></tr>
+            <tr class="text-green-800"><td class="border px-2 py-1">− {% trans "Valeur de revente" %}</td><td class="border px-2 py-1 text-right">{{ r.valeur_revente|floatformat:"2g" }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.revente is not None %}{{ r.par_km.revente|floatformat:"3g" }} €{% else %}—{% endif %}</td></tr>
+            <tr class="font-semibold"><td class="border px-2 py-1">{% trans "Coût net (après revente)" %}</td><td class="border px-2 py-1 text-right">{{ r.cout_net|floatformat:"2g" }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.cout_net is not None %}{{ r.par_km.cout_net|floatformat:"3g" }} €{% else %}—{% endif %}</td></tr>
+            <tr class="text-green-800"><td class="border px-2 py-1">− {% trans "Revenus des locations (HTVA)" %} <span class="text-gray-400 text-xs">({{ r.locations.nb }} {% trans "location(s)" %})</span></td><td class="border px-2 py-1 text-right">{{ r.locations.htva|floatformat:"2g" }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.revenus is not None %}{{ r.par_km.revenus|floatformat:"3g" }} €{% else %}—{% endif %}</td></tr>
+            <tr class="font-bold {% if r.resultat < 0 %}bg-red-50 text-red-700{% else %}bg-green-100 text-green-800{% endif %}"><td class="border px-2 py-1">{% trans "Résultat net" %}</td><td class="border px-2 py-1 text-right">{{ r.resultat|floatformat:"2g" }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.net is not None %}{{ r.par_km.net|floatformat:"3g" }} €{% else %}—{% endif %}</td></tr>
         </tbody>
     </table>
     <p class="text-sm text-gray-600 mb-6">
-        {% trans "Kilomètres parcourus depuis l'achat" %} : <strong>{{ r.km }} km</strong>
+        {% trans "Kilomètres parcourus depuis l'achat" %} : <strong>{{ r.km|milliers }} km</strong>
         ({% trans "km châssis" %} {{ exemplaire.kilometres_chassis|default:0 }} − {% trans "km de départ" %} {{ r.km_depart }}).
         {% if not r.km %}<span class="text-orange-700">{% trans "Coût au kilomètre indisponible : complétez le kilométrage de départ." %}</span>{% endif %}
     </p>
@@ -127,31 +127,31 @@
             <tbody>
                 <tr><td class="border px-3 py-1">{% trans "Kilomètres entre l'achat et la création du véhicule" %}
                         <span class="text-gray-500 text-xs">({% if c.source_km == "creation" %}{% trans "kilométrage à la création" %}{% else %}{% trans "premier kilométrage connu" %}{% endif %})</span></td>
-                    <td class="border px-3 py-1 text-right">{{ c.km_creation }} − {{ c.km_achat }} = <strong>{{ c.km }} km</strong></td></tr>
+                    <td class="border px-3 py-1 text-right">{{ c.km_creation }} − {{ c.km_achat }} = <strong>{{ c.km|milliers }} km</strong></td></tr>
                 <tr><td class="border px-3 py-1">× {% trans "Consommation moyenne" %}
                         <span class="text-gray-500 text-xs">({% if c.source_consommation == "saisie" %}{% trans "saisie" %}{% else %}{% trans "moyenne des pleins encodés" %}{% endif %})</span></td>
-                    <td class="border px-3 py-1 text-right">{{ c.consommation|floatformat:2 }} L/100 km</td></tr>
+                    <td class="border px-3 py-1 text-right">{{ c.consommation|floatformat:"2g" }} L/100 km</td></tr>
                 <tr><td class="border px-3 py-1">{% trans "Litres nécessaires" %} <span class="text-gray-500 text-xs">(km × L/100 ÷ 100)</span></td>
-                    <td class="border px-3 py-1 text-right">{{ c.litres_total|floatformat:2 }} L</td></tr>
+                    <td class="border px-3 py-1 text-right">{{ c.litres_total|floatformat:"2g" }} L</td></tr>
                 {% if c.litres_encodes %}
                 <tr><td class="border px-3 py-1">− {% trans "Litres des pleins encodés sur cette période" %}</td>
-                    <td class="border px-3 py-1 text-right">{{ c.litres_encodes|floatformat:2 }} L</td></tr>
+                    <td class="border px-3 py-1 text-right">{{ c.litres_encodes|floatformat:"2g" }} L</td></tr>
                 {% endif %}
                 <tr class="font-semibold"><td class="border px-3 py-1">= {% trans "Litres non encodés" %}</td>
-                    <td class="border px-3 py-1 text-right">{{ c.litres|floatformat:2 }} L</td></tr>
+                    <td class="border px-3 py-1 text-right">{{ c.litres|floatformat:"2g" }} L</td></tr>
                 <tr><td class="border px-3 py-1">× {% trans "Prix approximatif du carburant" %}
                         <span class="text-gray-500 text-xs">({% if c.source_prix == "saisie" %}{% trans "saisi" %}{% elif c.source_prix == "pleins" %}{% trans "prix moyen des pleins encodés" %}{% else %}{% trans "valeur par défaut" %}{% endif %})</span></td>
-                    <td class="border px-3 py-1 text-right">{{ c.prix|floatformat:3 }} €/L</td></tr>
+                    <td class="border px-3 py-1 text-right">{{ c.prix|floatformat:"3g" }} €/L</td></tr>
                 <tr class="font-bold"><td class="border px-3 py-1">= {% trans "Coût estimé TVAC" %}</td>
-                    <td class="border px-3 py-1 text-right">{{ c.ttc|floatformat:2 }} €</td></tr>
-                <tr><td class="border px-3 py-1">{% trans "Coût estimé HTVA (repris dans la rentabilité)" %} <span class="text-gray-500 text-xs">({% trans "TVA" %} {{ c.taux_tva|floatformat:"-2" }} %)</span></td>
-                    <td class="border px-3 py-1 text-right">{{ c.ht|floatformat:2 }} €</td></tr>
+                    <td class="border px-3 py-1 text-right">{{ c.ttc|floatformat:"2g" }} €</td></tr>
+                <tr><td class="border px-3 py-1">{% trans "Coût estimé HTVA (repris dans la rentabilité)" %} <span class="text-gray-500 text-xs">({% trans "TVA" %} {{ c.taux_tva|floatformat:"-2g" }} %)</span></td>
+                    <td class="border px-3 py-1 text-right">{{ c.ht|floatformat:"2g" }} €</td></tr>
             </tbody>
         </table>
         {% elif c.km_achat is None %}
             <p style="color:#9a3412">{% trans "Complétez le kilométrage de départ (achat) pour estimer le carburant non encodé." %}</p>
         {% elif c.consommation and not c.km %}
-            <p style="color:#9a3412">{% blocktrans with achat=c.km_achat creation=c.km_creation %}Aucun kilomètre entre l'achat ({{ achat }} km) et la création du véhicule ({{ creation }} km).{% endblocktrans %}</p>
+            <p style="color:#9a3412">{% blocktrans with achat=c.km_achat creation=c.km_creation %}Aucun kilomètre entre l'achat ({{ achat|milliers }} km) et la création du véhicule ({{ creation|milliers }} km).{% endblocktrans %}</p>
         {% else %}
             <p style="color:#9a3412">{% trans "Indiquez une consommation moyenne (L/100 km) dans les données financières pour estimer le carburant non encodé." %}</p>
         {% endif %}
@@ -185,7 +185,7 @@
                 <tr class="{% if l.defaut %}text-gray-500 italic{% endif %}">
                     <td class="border px-2 py-1">{{ l.libelle }}</td>
                     <td class="border px-2 py-1">{{ l.detail|default:"" }}</td>
-                    <td class="border px-2 py-1 text-right">{{ l.montant|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ l.montant|floatformat:"2g" }} €</td>
                     <td class="border px-2 py-1">
                         {% if l.defaut %}
                             <form method="post" action="{% url 'voiture_exemplaire:finances_cout_annuel' exemplaire.id %}" class="flex items-center gap-1 justify-end not-italic">
@@ -216,7 +216,7 @@
             {% endfor %}
             </tbody>
             <tfoot>
-                <tr class="font-semibold"><td class="border px-2 py-1" colspan="2">{% trans "Total" %} {{ a.annee }}</td><td class="border px-2 py-1 text-right">{{ a.total|floatformat:2 }} €</td><td class="border px-2 py-1"></td></tr>
+                <tr class="font-semibold"><td class="border px-2 py-1" colspan="2">{% trans "Total" %} {{ a.annee }}</td><td class="border px-2 py-1 text-right">{{ a.total|floatformat:"2g" }} €</td><td class="border px-2 py-1"></td></tr>
             </tfoot>
         </table>
         {% endfor %}
@@ -235,14 +235,14 @@
         {% if police %}
         <p class="text-xs text-gray-600 mt-2">
             {% trans "Police d'assurance active" %} : {{ police.numero_contrat }}
-            {% if police.prime_annuelle is not None %}— {% trans "prime annuelle" %} {{ police.prime_annuelle|floatformat:2 }} €{% endif %}
+            {% if police.prime_annuelle is not None %}— {% trans "prime annuelle" %} {{ police.prime_annuelle|floatformat:"2g" }} €{% endif %}
         </p>
         {% endif %}
     </div>
 
     <!-- ================= MAINTENANCES ================= -->
     <div id="maintenances" class="bg-yellow-50 rounded p-4 mb-6">
-        <h2 class="text-lg font-semibold mb-1">{% trans "Maintenances" %} – {{ r.maintenances.total|floatformat:2 }} €</h2>
+        <h2 class="text-lg font-semibold mb-1">{% trans "Maintenances" %} – {{ r.maintenances.total|floatformat:"2g" }} €</h2>
         <p class="text-xs text-gray-600 mb-2">{% trans "Entretien interne au coût de revient HTVA (pièces au prix d'achat + main-d'œuvre) et factures des garages externes HTVA." %}</p>
         {% if page_mt.object_list %}
         <div class="overflow-x-auto">
@@ -271,9 +271,9 @@
                         {% elif l.origine == "carrosserie" %}{% trans "Carrosserie externe" %} – {{ l.garage }}{% if l.assurance %} <span class="text-gray-400 text-xs">({% trans "reste à charge après assurance" %})</span>{% endif %}
                         {% else %}{{ l.garage|default:_("Garage externe") }}{% endif %}
                     </td>
-                    <td class="border px-2 py-1 text-right whitespace-nowrap">{{ l.pieces|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right whitespace-nowrap">{{ l.main_oeuvre|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right font-semibold whitespace-nowrap">{{ l.total|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right whitespace-nowrap">{{ l.pieces|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right whitespace-nowrap">{{ l.main_oeuvre|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right font-semibold whitespace-nowrap">{{ l.total|floatformat:"2g" }} €</td>
                 </tr>
             {% endfor %}
             </tbody>
@@ -310,23 +310,23 @@
         <div class="mt-4 grid grid-cols-2 md:grid-cols-5 gap-2 text-center text-sm">
             <div class="bg-white rounded border p-2">
                 <span class="block text-xs text-gray-500">{% trans "Entretien interne" %}</span>
-                <span class="block font-bold">{{ r.maintenances.total_factures_internes|floatformat:2 }} €</span>
+                <span class="block font-bold">{{ r.maintenances.total_factures_internes|floatformat:"2g" }} €</span>
             </div>
             <div class="bg-white rounded border p-2">
                 <span class="block text-xs text-gray-500">{% trans "Maintenance interne" %} ({% trans "non facturée" %})</span>
-                <span class="block font-bold">{{ r.maintenances.total_atelier|floatformat:2 }} €</span>
+                <span class="block font-bold">{{ r.maintenances.total_atelier|floatformat:"2g" }} €</span>
             </div>
             <div class="bg-white rounded border p-2">
                 <span class="block text-xs text-gray-500">{% trans "Garages externes" %}</span>
-                <span class="block font-bold">{{ r.maintenances.total_externes|floatformat:2 }} €</span>
+                <span class="block font-bold">{{ r.maintenances.total_externes|floatformat:"2g" }} €</span>
             </div>
             <div class="bg-white rounded border p-2">
                 <span class="block text-xs text-gray-500">{% trans "Pièces HTVA" %} / {% trans "Main-d'œuvre HTVA" %}</span>
-                <span class="block font-bold">{{ r.maintenances.total_pieces|floatformat:2 }} € / {{ r.maintenances.total_main_oeuvre|floatformat:2 }} €</span>
+                <span class="block font-bold">{{ r.maintenances.total_pieces|floatformat:"2g" }} € / {{ r.maintenances.total_main_oeuvre|floatformat:"2g" }} €</span>
             </div>
             <div class="bg-yellow-200 rounded border border-yellow-400 p-2 col-span-2 md:col-span-1">
                 <span class="block text-xs text-gray-700">{% trans "Total maintenances HTVA" %} ({{ r.maintenances.nb }})</span>
-                <span class="block text-lg font-bold">{{ r.maintenances.total|floatformat:2 }} €</span>
+                <span class="block text-lg font-bold">{{ r.maintenances.total|floatformat:"2g" }} €</span>
             </div>
         </div>
         {% else %}
@@ -336,7 +336,7 @@
 
     <!-- ================= LOCATIONS ================= -->
     <div class="bg-green-50 rounded p-4 mb-6">
-        <h2 class="text-lg font-semibold mb-2">{% trans "Locations" %} – {{ r.locations.htva|floatformat:2 }} € {% trans "HTVA" %}</h2>
+        <h2 class="text-lg font-semibold mb-2">{% trans "Locations" %} – {{ r.locations.htva|floatformat:"2g" }} € {% trans "HTVA" %}</h2>
         {% if r.locations.liste %}
         <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm bg-white">
             <thead>
@@ -354,8 +354,8 @@
                     <td class="border px-2 py-1">{{ l.date_debut|date:"d/m/Y" }}</td>
                     <td class="border px-2 py-1">{{ l.lieu|default:"—" }}</td>
                     <td class="border px-2 py-1 text-right">{{ l.kilometrage|default:"—" }}</td>
-                    <td class="border px-2 py-1 text-right">{{ l.prix_htva|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right">{{ l.prix_tvac|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ l.prix_htva|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ l.prix_tvac|floatformat:"2g" }} €</td>
                 </tr>
             {% endfor %}
             </tbody>

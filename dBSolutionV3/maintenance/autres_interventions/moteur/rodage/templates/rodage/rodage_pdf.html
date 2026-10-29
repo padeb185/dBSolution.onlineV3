@@ -358,12 +358,12 @@
 
         <div>
             <span class="label">{% trans "Kilométrage chassis" %} :</span>
-            {{ rodage.kilometres_chassis }} km
+            {{ rodage.kilometres_chassis|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage rodage" %} :</span>
-            {{ rodage.kilometres_rodage }} km
+            {{ rodage.kilometres_rodage|milliers }} km
         </div>
 
         <div>
@@ -545,7 +545,7 @@
         <tr>
             <td>{% trans "Quantité d'huile moteur" %}</td>
             <td>
-                {{ rodage.moteur_ajout_huile_quantite|default:0|floatformat:2 }} L
+                {{ rodage.moteur_ajout_huile_quantite|default:0|floatformat:"2g" }} L
             </td>
         </tr>
     </tbody>
@@ -588,7 +588,7 @@
             </td>
 
             <td>
-                {{ rodage.lave_glace_quantite|default:0|floatformat:2 }} L
+                {{ rodage.lave_glace_quantite|default:0|floatformat:"2g" }} L
             </td>
 
             <td>
@@ -620,7 +620,7 @@
             </td>
 
             <td>
-                {{ rodage.frein_liquide_quantite|default:0|floatformat:2 }} L
+                {{ rodage.frein_liquide_quantite|default:0|floatformat:"2g" }} L
             </td>
 
             <td>
@@ -652,7 +652,7 @@
             </td>
 
             <td>
-                {{ rodage.refroidissement_liquide_quantite|default:0|floatformat:2 }} L
+                {{ rodage.refroidissement_liquide_quantite|default:0|floatformat:"2g" }} L
             </td>
 
             <td>
@@ -683,7 +683,7 @@
             </td>
 
             <td>
-                {{ rodage.liquide_direction_quantite|default:0|floatformat:2 }} L
+                {{ rodage.liquide_direction_quantite|default:0|floatformat:"2g" }} L
             </td>
 
             <td>
@@ -707,22 +707,22 @@
     <tbody>
         <tr>
             <td>{% trans "Avant droit" %}</td>
-            <td>{{ rodage.pneu_pression_bar_avd|default:0|floatformat:2 }} bar</td>
+            <td>{{ rodage.pneu_pression_bar_avd|default:0|floatformat:"2g" }} bar</td>
         </tr>
 
         <tr>
             <td>{% trans "Avant gauche" %}</td>
-            <td>{{ rodage.pneu_pression_bar_avg|default:0|floatformat:2 }} bar</td>
+            <td>{{ rodage.pneu_pression_bar_avg|default:0|floatformat:"2g" }} bar</td>
         </tr>
 
         <tr>
             <td>{% trans "Arrière droit" %}</td>
-            <td>{{ rodage.pneu_pression_bar_ard|default:0|floatformat:2 }} bar</td>
+            <td>{{ rodage.pneu_pression_bar_ard|default:0|floatformat:"2g" }} bar</td>
         </tr>
 
         <tr>
             <td>{% trans "Arrière gauche" %}</td>
-            <td>{{ rodage.pneu_pression_bar_arg|default:0|floatformat:2 }} bar</td>
+            <td>{{ rodage.pneu_pression_bar_arg|default:0|floatformat:"2g" }} bar</td>
         </tr>
     </tbody>
 </table>
@@ -772,7 +772,7 @@
             <span class="label">{% trans "Taux horaire HTVA" %} :</span>
 
             {% if rodage.main_oeuvre %}
-                {{ rodage.main_oeuvre.taux_horaire|default:0|floatformat:2 }} €
+                {{ rodage.main_oeuvre.taux_horaire|default:0|floatformat:"2g" }} €
             {% else %}
                 0,00 €
             {% endif %}
@@ -780,7 +780,7 @@
 
         <div>
             <span class="label">{% trans "Prix HTVA" %} :</span>
-            {{ rodage.cout_main_oeuvre|default:0|floatformat:2 }} €
+            {{ rodage.cout_main_oeuvre|default:0|floatformat:"2g" }} €
         </div>
 
         <div>
@@ -868,15 +868,15 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.quantite|default:0|floatformat:2 }}
+                            {{ ligne.quantite|default:0|floatformat:"2g" }}
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
 
                     </tr>
@@ -893,7 +893,7 @@
                     </td>
 
                     <td class="total-value">
-                        {{ rapport.total_pieces_htva|default:0|floatformat:2 }} €
+                        {{ rapport.total_pieces_htva|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -908,7 +908,7 @@
                     </td>
 
                     <td class="total-value">
-                        {{ rapport.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ rapport.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -923,7 +923,7 @@
                     </td>
 
                     <td class="total-value">
-                        {{ rapport.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ rapport.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -950,7 +950,7 @@
                     </td>
 
                     <td class="total-value">
-                        {{ rapport.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ rapport.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -965,7 +965,7 @@
                     </td>
 
                     <td class="total-value">
-                        {{ rapport.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ rapport.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 

@@ -25,9 +25,9 @@
 </form>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "Total HTVA" %}</p><p class="text-xl font-bold">{{ total_htva|floatformat:2 }} €</p></div>
-    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "Total TVAC" %}</p><p class="text-xl font-bold">{{ total_tvac|floatformat:2 }} €</p></div>
-    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "À payer" %}</p><p class="text-xl font-bold text-red-700">{{ total_a_payer|floatformat:2 }} €</p></div>
+    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "Total HTVA" %}</p><p class="text-xl font-bold">{{ total_htva|floatformat:"2g" }} €</p></div>
+    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "Total TVAC" %}</p><p class="text-xl font-bold">{{ total_tvac|floatformat:"2g" }} €</p></div>
+    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "À payer" %}</p><p class="text-xl font-bold text-red-700">{{ total_a_payer|floatformat:"2g" }} €</p></div>
 </div>
 
 <div class="overflow-x-auto bg-white shadow-md rounded-lg">
@@ -49,8 +49,8 @@
             <td class="border px-4 py-2">{{ f.date_facture|date:"d/m/Y" }}</td>
             <td class="border px-4 py-2">{{ f.instructeur.prenom }} {{ f.instructeur.nom }}</td>
             <td class="border px-4 py-2">{{ f.periode_debut|date:"d/m/Y" }} – {{ f.periode_fin|date:"d/m/Y" }}</td>
-            <td class="border px-4 py-2 text-right">{{ f.montant_htva|floatformat:2 }} €</td>
-            <td class="border px-4 py-2 text-right font-semibold">{{ f.montant_tvac|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ f.montant_htva|floatformat:"2g" }} €</td>
+            <td class="border px-4 py-2 text-right font-semibold">{{ f.montant_tvac|floatformat:"2g" }} €</td>
             <td class="border px-4 py-2">
                 <span class="px-2 py-1 rounded text-sm font-semibold {% if f.statut == 'PAYEE' %}bg-green-100 text-green-800{% elif f.statut == 'EMISE' %}bg-yellow-100 text-yellow-800{% else %}bg-gray-100 text-gray-700{% endif %}">{{ f.get_statut_display }}</span>
             </td>

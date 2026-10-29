@@ -38,10 +38,10 @@
             <h2 class="text-lg font-semibold mb-2">{% trans "Montants" %}</h2>
             <p><strong>{% trans "Date d’émission" %} :</strong> {{ facture.issue_date|date:"d/m/Y" }}</p>
             <p><strong>{% trans "Date d'échéance" %} :</strong> {{ facture.due_date|date:"d/m/Y"|default:"-" }}</p>
-            <p><strong>{% trans "Total HTVA" %} :</strong> {{ facture.total_ht|floatformat:2 }} €</p>
-            <p><strong>{% trans "Total TVA" %} :</strong> {{ facture.total_tva|floatformat:2 }} €</p>
-            <p class="text-lg font-bold text-blue-800">{% trans "Total TVAC" %} : {{ facture.total|floatformat:2 }} €</p>
-            <p class="text-gray-600"><strong>{% trans "Marge totale" %} :</strong> {{ marge_totale|floatformat:2 }} €</p>
+            <p><strong>{% trans "Total HTVA" %} :</strong> {{ facture.total_ht|floatformat:"2g" }} €</p>
+            <p><strong>{% trans "Total TVA" %} :</strong> {{ facture.total_tva|floatformat:"2g" }} €</p>
+            <p class="text-lg font-bold text-blue-800">{% trans "Total TVAC" %} : {{ facture.total|floatformat:"2g" }} €</p>
+            <p class="text-gray-600"><strong>{% trans "Marge totale" %} :</strong> {{ marge_totale|floatformat:"2g" }} €</p>
             {% if facture.autoliquidation %}<p class="font-semibold">{% trans "Autoliquidation TVA" %}</p>{% endif %}
         </div>
     </div>
@@ -69,18 +69,18 @@
             {% blocktrans with numero=facture.facture_origine.numero %}Cette note de crédit est imputée sur la facture {{ numero }} : elle réduit son reste à payer. Si la facture était déjà payée, le trop-perçu est à rembourser au client.{% endblocktrans %}
         </p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4 text-sm">
-            <div class="bg-gray-50 border rounded p-3">{% trans "Total de la note (TVAC)" %}<br><strong class="text-lg">{{ facture.total|floatformat:2 }} €</strong></div>
-            <div class="bg-green-50 border border-green-200 rounded p-3">{% trans "Remboursé au client" %}<br><strong class="text-lg text-green-800">{{ facture.total_rembourse_note|floatformat:2 }} €</strong></div>
-            <div class="bg-red-50 border border-red-200 rounded p-3">{% trans "Reste à rembourser" %}<br><strong class="text-lg text-red-800">{{ facture.reste_a_rembourser|floatformat:2 }} €</strong></div>
+            <div class="bg-gray-50 border rounded p-3">{% trans "Total de la note (TVAC)" %}<br><strong class="text-lg">{{ facture.total|floatformat:"2g" }} €</strong></div>
+            <div class="bg-green-50 border border-green-200 rounded p-3">{% trans "Remboursé au client" %}<br><strong class="text-lg text-green-800">{{ facture.total_rembourse_note|floatformat:"2g" }} €</strong></div>
+            <div class="bg-red-50 border border-red-200 rounded p-3">{% trans "Reste à rembourser" %}<br><strong class="text-lg text-red-800">{{ facture.reste_a_rembourser|floatformat:"2g" }} €</strong></div>
         </div>
         {% else %}
         <div class="grid grid-cols-1 md:grid-cols-{% if facture.total_notes_credit %}4{% else %}3{% endif %} gap-3 mb-4 text-sm">
-            <div class="bg-gray-50 border rounded p-3">{% trans "Total TVAC" %}<br><strong class="text-lg">{{ facture.total|floatformat:2 }} €</strong></div>
+            <div class="bg-gray-50 border rounded p-3">{% trans "Total TVAC" %}<br><strong class="text-lg">{{ facture.total|floatformat:"2g" }} €</strong></div>
             {% if facture.total_notes_credit %}
-            <div class="carte-credit">{% trans "Notes de crédit" %}<br><strong class="text-lg text-orange-800">− {{ facture.total_notes_credit|floatformat:2 }} €</strong></div>
+            <div class="carte-credit">{% trans "Notes de crédit" %}<br><strong class="text-lg text-orange-800">− {{ facture.total_notes_credit|floatformat:"2g" }} €</strong></div>
             {% endif %}
-            <div class="bg-green-50 border border-green-200 rounded p-3">{% trans "Montant payé" %}<br><strong class="text-lg text-green-800">{{ facture.montant_paye|floatformat:2 }} €</strong></div>
-            <div class="bg-red-50 border border-red-200 rounded p-3">{% trans "Reste à payer" %}<br><strong class="text-lg text-red-800">{{ facture.reste_a_payer|floatformat:2 }} €</strong></div>
+            <div class="bg-green-50 border border-green-200 rounded p-3">{% trans "Montant payé" %}<br><strong class="text-lg text-green-800">{{ facture.montant_paye|floatformat:"2g" }} €</strong></div>
+            <div class="bg-red-50 border border-red-200 rounded p-3">{% trans "Reste à payer" %}<br><strong class="text-lg text-red-800">{{ facture.reste_a_payer|floatformat:"2g" }} €</strong></div>
         </div>
         {% if facture.reste_a_rembourser > 0 %}
         <p class="mb-4 alerte-rembourser text-sm font-semibold">
@@ -107,7 +107,7 @@
                 <tr class="text-gray-600">
                     <td class="border px-2 py-1">{{ facture.date_paiement|date:"d/m/Y"|default:"—" }}</td>
                     <td class="border px-2 py-1" colspan="3">{% trans "Paiement antérieur (mode non précisé)" %}</td>
-                    <td class="border px-2 py-1 text-right">{{ facture.montant_non_ventile|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ facture.montant_non_ventile|floatformat:"2g" }} €</td>
                     <td class="border px-2 py-1 text-center">
                         <form method="post" action="{% url 'facture:paiement' facture.pk %}" onsubmit="return confirm('{% trans "Annuler ce paiement ?" %}');">
                             {% csrf_token %}<input type="hidden" name="action" value="annuler_non_ventile">
@@ -124,7 +124,7 @@
                     </td>
                     <td class="border px-2 py-1 font-mono text-xs">{{ p.compte }}</td>
                     <td class="border px-2 py-1">{{ p.reference|default:"—" }}</td>
-                    <td class="border px-2 py-1 text-right font-semibold">{{ p.montant|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right font-semibold">{{ p.montant|floatformat:"2g" }} €</td>
                     <td class="border px-2 py-1 text-center">
                         <form method="post" action="{% url 'facture:paiement' facture.pk %}" onsubmit="return confirm('{% trans "Supprimer ce paiement ?" %}');">
                             {% csrf_token %}<input type="hidden" name="action" value="supprimer"><input type="hidden" name="paiement_id" value="{{ p.pk }}">
@@ -224,12 +224,12 @@
             {% for l in lignes %}
                 <tr>
                     <td class="border px-2 py-1">{{ l.description }}{% if l.reference %} <span class="text-gray-500">({{ l.reference }})</span>{% endif %}</td>
-                    <td class="border px-2 py-1 text-right">{{ l.quantity|floatformat:2 }}</td>
-                    <td class="border px-2 py-1 text-right">{% if l.unit_cost is not None %}{{ l.unit_cost|floatformat:2 }} €{% else %}—{% endif %}</td>
-                    <td class="border px-2 py-1 text-right">{{ l.marge|floatformat:2 }}</td>
-                    <td class="border px-2 py-1 text-right">{{ l.unit_price|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right">{% if facture.autoliquidation %}0,00{% else %}{{ l.vat_rate|floatformat:2 }}{% endif %}</td>
-                    <td class="border px-2 py-1 text-right font-semibold">{{ l.total_ht|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ l.quantity|floatformat:"2g" }}</td>
+                    <td class="border px-2 py-1 text-right">{% if l.unit_cost is not None %}{{ l.unit_cost|floatformat:"2g" }} €{% else %}—{% endif %}</td>
+                    <td class="border px-2 py-1 text-right">{{ l.marge|floatformat:"2g" }}</td>
+                    <td class="border px-2 py-1 text-right">{{ l.unit_price|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right">{% if facture.autoliquidation %}0,00{% else %}{{ l.vat_rate|floatformat:"2g" }}{% endif %}</td>
+                    <td class="border px-2 py-1 text-right font-semibold">{{ l.total_ht|floatformat:"2g" }} €</td>
                 </tr>
             {% endfor %}
             </tbody>
@@ -285,7 +285,7 @@
             {% for l in pus %}
                 <tr>
                     <td class="border px-2 py-1">{{ l.piece }}</td>
-                    <td class="border px-2 py-1 text-right">{{ l.quantite|floatformat:"-2" }}</td>
+                    <td class="border px-2 py-1 text-right">{{ l.quantite|floatformat:"-2g" }}</td>
                     <td class="border px-2 py-1">{% if l.debitee %}<span class="text-green-700 font-semibold">{% trans "Débitée" %}</span>{% else %}<span class="text-yellow-700">{% trans "Débitée à l'émission" %}</span>{% endif %}</td>
                 </tr>
             {% endfor %}

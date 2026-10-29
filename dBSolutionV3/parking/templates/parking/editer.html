@@ -11,7 +11,7 @@
         <img src="{% static 'icons/parking.png' %}" alt="{% trans 'Parking' %}" class="w-12 h-12">
         {% trans "Éditer le plan" %} : {{ parking.nom }}
         <span class="text-base font-normal text-gray-600">
-            {{ parking.largeur_m|floatformat:"-2" }} m × {{ parking.longueur_m|floatformat:"-2" }} m ·
+            {{ parking.largeur_m|floatformat:"-2g" }} m × {{ parking.longueur_m|floatformat:"-2g" }} m ·
             A–{{ parking.lettres|last }} × 1–{{ parking.nombre_emplacements }}
         </span>
     </h1>

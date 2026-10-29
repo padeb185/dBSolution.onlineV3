@@ -373,14 +373,14 @@
 
         <div>
             <span class="label">{% trans "Kilométrage châssis" %} :</span>
-            {{ ref.kilometres_chassis|default:0 }} km
+            {{ ref.kilometres_chassis|default:0|milliers }} km
         </div>
 
         <div>
             <span class="label">
                 {% trans "Kilométrage du contrôle refroidissement" %} :
             </span>
-            {{ ref.kilometrage_refroidissement|default:0 }} km
+            {{ ref.kilometrage_refroidissement|default:0|milliers }} km
         </div>
 
         <div>
@@ -479,7 +479,7 @@
 
             {% if ref.pression_circuit is not None %}
 
-                {{ ref.pression_circuit|floatformat:2 }} bar
+                {{ ref.pression_circuit|floatformat:"2g" }} bar
 
             {% else %}
 
@@ -498,7 +498,7 @@
 
             {% if ref.pression_circuit_constructeur is not None %}
 
-                {{ ref.pression_circuit_constructeur|floatformat:2 }} bar
+                {{ ref.pression_circuit_constructeur|floatformat:"2g" }} bar
 
             {% else %}
 
@@ -517,7 +517,7 @@
 
             {% if ref.temperature_moteur is not None %}
 
-                {{ ref.temperature_moteur|floatformat:1 }} °C
+                {{ ref.temperature_moteur|floatformat:"1g" }} °C
 
             {% else %}
 
@@ -536,7 +536,7 @@
 
             {% if ref.temperature_declenchement_ventilateur is not None %}
 
-                {{ ref.temperature_declenchement_ventilateur|floatformat:1 }} °C
+                {{ ref.temperature_declenchement_ventilateur|floatformat:"1g" }} °C
 
             {% else %}
 
@@ -555,7 +555,7 @@
 
             {% if ref.temperature_sortie_chauffage is not None %}
 
-                {{ ref.temperature_sortie_chauffage|floatformat:1 }} °C
+                {{ ref.temperature_sortie_chauffage|floatformat:"1g" }} °C
 
             {% else %}
 
@@ -751,7 +751,7 @@
 
             {% if ref.liquide_temperature_protection is not None %}
 
-                {{ ref.liquide_temperature_protection|floatformat:1 }} °C
+                {{ ref.liquide_temperature_protection|floatformat:"1g" }} °C
 
             {% else %}
 
@@ -779,7 +779,7 @@
                 {% trans "Quantité utilisée" %} :
             </span>
 
-            {{ ref.liquide_quantite|default:0|floatformat:2 }} L
+            {{ ref.liquide_quantite|default:0|floatformat:"2g" }} L
 
         </div>
 
@@ -790,7 +790,7 @@
                 {% trans "Prix d'achat HTVA" %} :
             </span>
 
-            {{ ref.liquide_prix|default:0|floatformat:2 }} €
+            {{ ref.liquide_prix|default:0|floatformat:"2g" }} €
 
         </div>
 
@@ -1422,7 +1422,7 @@
 
             {% if ref.thermostat_temperature_ouverture is not None %}
 
-                {{ ref.thermostat_temperature_ouverture|floatformat:1 }} °C
+                {{ ref.thermostat_temperature_ouverture|floatformat:"1g" }} °C
 
             {% else %}
 
@@ -1507,7 +1507,7 @@
 
             {% if ref.sonde_t_valeur is not None %}
 
-                {{ ref.sonde_t_valeur|floatformat:1 }} °C
+                {{ ref.sonde_t_valeur|floatformat:"1g" }} °C
 
             {% else %}
 
@@ -1765,7 +1765,7 @@
                     {% trans "Taux horaire HTVA" %} :
                 </span>
 
-                {{ ref.main_oeuvre.taux_horaire|default:0|floatformat:2 }} €
+                {{ ref.main_oeuvre.taux_horaire|default:0|floatformat:"2g" }} €
 
             </div>
 
@@ -1776,7 +1776,7 @@
                     {% trans "Prix HTVA" %} :
                 </span>
 
-                {{ ref.cout_main_oeuvre|default:0|floatformat:2 }} €
+                {{ ref.cout_main_oeuvre|default:0|floatformat:"2g" }} €
 
             </div>
 
@@ -1910,12 +1910,12 @@
 
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
 
                     </tr>
@@ -1930,7 +1930,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
 
                 </tr>
@@ -1943,7 +1943,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ ref.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ ref.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
 
                 </tr>
@@ -1956,7 +1956,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ ref.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ ref.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
 
                 </tr>
@@ -1983,7 +1983,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ ref.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ ref.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -1997,7 +1997,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ ref.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ ref.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

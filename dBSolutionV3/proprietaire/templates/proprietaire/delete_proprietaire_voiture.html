@@ -43,11 +43,11 @@
 
         <dl class="grid grid-cols-2 gap-x-4 gap-y-1 mb-2">
             <dt class="text-gray-600">{% trans "Total des parts avant" %}</dt>
-            <dd class="font-medium">{{ total_avant|floatformat:2 }} %</dd>
+            <dd class="font-medium">{{ total_avant|floatformat:"2g" }} %</dd>
 
             <dt class="text-gray-600">{% trans "Total des parts après" %}</dt>
             <dd class="font-medium {% if total_apres < 100 %}text-orange-600{% endif %}">
-                {{ total_apres|floatformat:2 }} %
+                {{ total_apres|floatformat:"2g" }} %
             </dd>
         </dl>
 
@@ -57,7 +57,7 @@
                 {% for p in autres_parts %}
                     <li>
                         {{ p.nom_proprietaire }}
-                        <span class="text-gray-500">— {{ p.part_proprietaire_pourcent|floatformat:2 }} %</span>
+                        <span class="text-gray-500">— {{ p.part_proprietaire_pourcent|floatformat:"2g" }} %</span>
                     </li>
                 {% endfor %}
             </ul>
@@ -98,7 +98,7 @@
             <dd class="font-medium">{{ part.voiture_exemplaire|default:"—" }}</dd>
 
             <dt class="text-gray-600 font-semibold">{% trans "Part" %}</dt>
-            <dd class="font-bold">{{ part.part_proprietaire_pourcent|floatformat:2 }} %</dd>
+            <dd class="font-bold">{{ part.part_proprietaire_pourcent|floatformat:"2g" }} %</dd>
         </dl>
     </div>
 

@@ -15,26 +15,26 @@
             <tbody>
                 <tr>
                     <td class="border px-2 py-1">{% if libelle_marchandise %}{{ libelle_marchandise }}{% else %}{% trans "Marchandises / pièces" %}{% endif %}</td>
-                    <td class="border px-2 py-1 text-right">{{ achat.achat_montant_htva|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right">{{ achat.achat_tva|floatformat:"-2" }} %</td>
-                    <td class="border px-2 py-1 text-right">{{ achat.montant_tva_achat|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ achat.achat_montant_htva|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ achat.achat_tva|floatformat:"-2g" }} %</td>
+                    <td class="border px-2 py-1 text-right">{{ achat.montant_tva_achat|floatformat:"2g" }} €</td>
                     <td class="border px-2 py-1 text-right"></td>
                 </tr>
                 <tr>
                     <td class="border px-2 py-1">{% trans "Frais de transport" %}</td>
-                    <td class="border px-2 py-1 text-right">{{ achat.transport_montant_htva|default:0|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right">{{ achat.taux_tva_transport|floatformat:"-2" }} %</td>
-                    <td class="border px-2 py-1 text-right">{{ achat.montant_tva_transport|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ achat.transport_montant_htva|default:0|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ achat.taux_tva_transport|floatformat:"-2g" }} %</td>
+                    <td class="border px-2 py-1 text-right">{{ achat.montant_tva_transport|floatformat:"2g" }} €</td>
                     <td class="border px-2 py-1 text-right"></td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr class="bg-gray-100 font-semibold">
                     <td class="border px-2 py-1">{% trans "Total" %}</td>
-                    <td class="border px-2 py-1 text-right">{{ achat.montant_htva_total|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ achat.montant_htva_total|floatformat:"2g" }} €</td>
                     <td class="border px-2 py-1"></td>
-                    <td class="border px-2 py-1 text-right">{{ achat.montant_tva|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right">{{ achat.total_tvac|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ achat.montant_tva|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ achat.total_tvac|floatformat:"2g" }} €</td>
                 </tr>
             </tfoot>
         </table>
@@ -61,8 +61,8 @@
                     <td class="border px-2 py-1">{{ e.date|date:"d/m/Y" }}</td>
                     <td class="border px-2 py-1 font-mono">{{ e.compte }}</td>
                     <td class="border px-2 py-1">{{ e.intitule }}</td>
-                    <td class="border px-2 py-1 text-right">{% if e.debit %}{{ e.debit|floatformat:2 }} €{% endif %}</td>
-                    <td class="border px-2 py-1 text-right">{% if e.credit %}{{ e.credit|floatformat:2 }} €{% endif %}</td>
+                    <td class="border px-2 py-1 text-right">{% if e.debit %}{{ e.debit|floatformat:"2g" }} €{% endif %}</td>
+                    <td class="border px-2 py-1 text-right">{% if e.credit %}{{ e.credit|floatformat:"2g" }} €{% endif %}</td>
                 </tr>
             {% endfor %}
             </tbody>

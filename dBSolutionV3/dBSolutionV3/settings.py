@@ -467,6 +467,8 @@ TEMPLATES = [
         'DIRS': [BASE_DIR / "theme/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
+            # Filtre « milliers » disponible dans tous les gabarits (séparateur des milliers)
+            'builtins': ['templatetags.milliers'],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -557,6 +559,10 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 # ------------------------------------------------------------------------------
 
 LANGUAGE_CODE = 'fr'
+
+# Nombres : séparateur des milliers (filtres floatformat:"2g" et milliers) ;
+# en français, espace fine insécable (dBSolutionV3/formats/fr/formats.py)
+FORMAT_MODULE_PATH = ["dBSolutionV3.formats"]
 
 LANGUAGES = [
     ('fr', 'Français'),

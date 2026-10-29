@@ -354,17 +354,17 @@
 
         <div>
             <span class="label">{% trans "Kilométrage du châssis" %} :</span>
-            {{ remplacement.kilometres_chassis|default:0 }} km
+            {{ remplacement.kilometres_chassis|default:0|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilomètres de la boîte à remplacer" %} :</span>
-            {{ remplacement.kilometres_boite|default:0 }} km
+            {{ remplacement.kilometres_boite|default:0|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage au remplacement de la boîte" %} :</span>
-            {{ remplacement.kilometres_remplacement_boite|default:0 }} km
+            {{ remplacement.kilometres_remplacement_boite|default:0|milliers }} km
         </div>
 
         <div>
@@ -493,7 +493,7 @@
             <tr>
                 <td>{% trans "Prix unitaire de la boîte HTVA" %}</td>
                 <td>
-                    {{ remplacement.remplacement_bte_auto_prix|default:0|floatformat:2 }} €
+                    {{ remplacement.remplacement_bte_auto_prix|default:0|floatformat:"2g" }} €
                 </td>
             </tr>
             {% endif %}
@@ -589,7 +589,7 @@
             <tr>
                 <td>{% trans "Quantité d'huile ajoutée" %}</td>
                 <td>
-                    {{ remplacement.boite_niveau_huile_quantite|default:0|floatformat:1 }} L
+                    {{ remplacement.boite_niveau_huile_quantite|default:0|floatformat:"1g" }} L
                 </td>
             </tr>
             {% endif %}
@@ -598,7 +598,7 @@
             <tr>
                 <td>{% trans "Prix unitaire de l'huile HTVA" %}</td>
                 <td>
-                    {{ remplacement.boite_niveau_huile_prix|default:0|floatformat:2 }} €
+                    {{ remplacement.boite_niveau_huile_prix|default:0|floatformat:"2g" }} €
                 </td>
             </tr>
             {% endif %}
@@ -622,12 +622,12 @@
 
         <div>
             <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-            {{ remplacement.taux_horaire_main_oeuvre|default:0|floatformat:2 }} €
+            {{ remplacement.taux_horaire_main_oeuvre|default:0|floatformat:"2g" }} €
         </div>
 
         <div>
             <span class="label">{% trans "Prix HTVA" %} :</span>
-            {{ remplacement.cout_main_oeuvre|default:0|floatformat:2 }} €
+            {{ remplacement.cout_main_oeuvre|default:0|floatformat:"2g" }} €
         </div>
 
         <div>
@@ -726,11 +726,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -741,7 +741,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -751,7 +751,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ remplacement.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ remplacement.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -761,7 +761,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ remplacement.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ remplacement.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
             </tbody>
@@ -785,7 +785,7 @@
 
                         <td class="text-right">
                             <strong>
-                                {{ remplacement.cout_main_oeuvre|default:0|floatformat:2 }} €
+                                {{ remplacement.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                             </strong>
                         </td>
                     </tr>
@@ -799,7 +799,7 @@
 
                         <td class="text-right">
                             <strong>
-                                {{ remplacement.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                                {{ remplacement.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                             </strong>
                         </td>
                     </tr>

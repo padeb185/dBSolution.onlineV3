@@ -438,8 +438,8 @@
         <div><span class="label">{% trans "Rôle" %} :</span> {{ controle_freins.tech_role_technicien }}</div>
         <div><span class="label">{% trans "Société" %} :</span> {{ controle_freins.tech_societe }}</div>
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ controle_freins.voiture_exemplaire }}</div>
-        <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ controle_freins.kilometres_chassis }} km</div>
-        <div><span class="label">{% trans "Kilométrage contrôle freins" %} :</span> {{ controle_freins.kilometrage_controle_brake }} km</div>
+        <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ controle_freins.kilometres_chassis|milliers }} km</div>
+        <div><span class="label">{% trans "Kilométrage contrôle freins" %} :</span> {{ controle_freins.kilometrage_controle_brake|milliers }} km</div>
 
         <div>
             <span class="label">{% trans "Tag" %} :</span>
@@ -701,14 +701,14 @@
         {% if controle_freins.liquide_frein_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Quantité de liquide de frein" %}</td>
-            <td>{{ controle_freins.liquide_frein_quantite|default:0|floatformat:2 }} L</td>
+            <td>{{ controle_freins.liquide_frein_quantite|default:0|floatformat:"2g" }} L</td>
         </tr>
         {% endif %}
 
         {% if controle_freins.liquide_frein_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Prix d'achat du liquide HTVA" %}</td>
-            <td>{{ controle_freins.liquide_frein_prix|default:0|floatformat:2 }} €</td>
+            <td>{{ controle_freins.liquide_frein_prix|default:0|floatformat:"2g" }} €</td>
         </tr>
         {% endif %}
     </tbody>
@@ -825,13 +825,13 @@
         </div>
          <div>
             <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-            {{ controle_freins.taux_horaire|floatformat:2 }} €
+            {{ controle_freins.taux_horaire|floatformat:"2g" }} €
         </div>
 
         {% if controle_freins.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ controle_freins.cout_main_oeuvre|floatformat:2 }} €
+                {{ controle_freins.cout_main_oeuvre|floatformat:"2g" }} €
             </div>
             
             <div>
@@ -921,11 +921,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -937,7 +937,7 @@
                     </td>
 
                     <td class="total-montant" style="text-align: right;">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -948,7 +948,7 @@
                     </td>
 
                     <td class="total-montant" style="text-align: right;">
-                        {{ controle_freins.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ controle_freins.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -959,7 +959,7 @@
                     </td>
 
                     <td class="total-montant" style="text-align: right;">
-                        {{ controle_freins.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ controle_freins.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -985,7 +985,7 @@
 
                     <td style="text-align: right;">
                         <strong>
-                            {{ controle_freins.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ controle_freins.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -1000,7 +1000,7 @@
 
                     <td style="text-align: right;">
                         <strong>
-                            {{ controle_freins.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ controle_freins.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

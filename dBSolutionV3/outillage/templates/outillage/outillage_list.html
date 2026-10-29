@@ -98,9 +98,9 @@
             <td class="border px-4 py-2">{{ outillage.quantite }}</td>
             <td class="border px-4 py-2">{{ outillage.prix_htva }}</td>
             <td class="border px-4 py-2">{{ outillage.taux_tva }}</td>
-            <td class="border px-4 py-2 text-right">{{ outillage.transport_montant_htva|default:0|floatformat:2 }} €</td>
-            <td class="border px-4 py-2 text-right">{{ outillage.montant_tva|floatformat:2 }} €</td>
-            <td class="border px-4 py-2 text-right font-bold"{% if outillage.est_note_credit %} style="color:#b91c1c"{% endif %}>{{ outillage.total_tvac_signe|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ outillage.transport_montant_htva|default:0|floatformat:"2g" }} €</td>
+            <td class="border px-4 py-2 text-right">{{ outillage.montant_tva|floatformat:"2g" }} €</td>
+            <td class="border px-4 py-2 text-right font-bold"{% if outillage.est_note_credit %} style="color:#b91c1c"{% endif %}>{{ outillage.total_tvac_signe|floatformat:"2g" }} €</td>
             <td class="border px-4 py-2 text-center" data-order="{% if outillage.date_paiement %}1{% else %}0{% endif %}">
                 {% if outillage.imputee_sur_origine %}
                     <span class="px-2 py-1 rounded text-xs font-semibold bg-green-100 text-green-800">{% trans "Imputée" %}</span>

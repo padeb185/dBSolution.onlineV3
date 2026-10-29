@@ -344,12 +344,12 @@
 
         <div>
             <span class="label">{% trans "Kilométrage véhicule" %} :</span>
-            {{ renovation_machoires.kilometres_chassis }} km
+            {{ renovation_machoires.kilometres_chassis|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage rénovation des mâchoires de frein" %} :</span>
-            {{ renovation_machoires.kilometrage_renovation_machoires }} km
+            {{ renovation_machoires.kilometrage_renovation_machoires|milliers }} km
         </div>
 
 
@@ -540,12 +540,12 @@
         {% if renovation_machoires.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-                {{ renovation_machoires.main_oeuvre.taux_horaire|floatformat:2 }} €
+                {{ renovation_machoires.main_oeuvre.taux_horaire|floatformat:"2g" }} €
             </div>
 
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ renovation_machoires.main_oeuvre.prix_facture|floatformat:2 }} €
+                {{ renovation_machoires.main_oeuvre.prix_facture|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -624,11 +624,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -639,7 +639,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -649,7 +649,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ renovation_machoires.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ renovation_machoires.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -659,7 +659,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ renovation_machoires.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ renovation_machoires.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -684,7 +684,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ renovation_machoires.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ renovation_machoires.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -698,7 +698,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ renovation_machoires.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ renovation_machoires.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

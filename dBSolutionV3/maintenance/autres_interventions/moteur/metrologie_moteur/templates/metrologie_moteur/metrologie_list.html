@@ -158,7 +158,7 @@
                 {{ m.main_oeuvre.temps_display|default:"-" }}
             </td>
 
-            <td class="border px-4 py-2 text-right">{{ m.cylindree_cm3|floatformat:1|default:"-" }}</td>
+            <td class="border px-4 py-2 text-right">{{ m.cylindree_cm3|floatformat:"1g"|default:"-" }}</td>
 
             {% with h=m.nombre_hors_tolerance %}
             <td class="border px-4 py-2 text-center font-bold {% if h %}bg-red-100 text-red-800{% else %}text-green-700{% endif %}">{{ h }}</td>

@@ -111,7 +111,7 @@
 
             <dt class="text-gray-600">{% trans "Quantité huile" %}</dt>
             <dd class="font-medium">
-                {% if boite.quantite_huile_l is not None %}{{ boite.quantite_huile_l|floatformat:1 }} L{% else %}—{% endif %}
+                {% if boite.quantite_huile_l is not None %}{{ boite.quantite_huile_l|floatformat:"1g" }} L{% else %}—{% endif %}
             </dd>
         </dl>
     </div>
@@ -124,12 +124,12 @@
         <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
             <dt class="text-gray-600">{% trans "Kilomètres châssis" %}</dt>
             <dd class="font-medium">
-                {% if boite.kilometres_chassis is not None %}{{ boite.kilometres_chassis }} km{% else %}—{% endif %}
+                {% if boite.kilometres_chassis is not None %}{{ boite.kilometres_chassis|milliers }} km{% else %}—{% endif %}
             </dd>
 
             <dt class="text-gray-600">{% trans "Intervalle entretien" %}</dt>
             <dd class="font-medium">
-                {% if boite.intervalle_entretien_km is not None %}{{ boite.intervalle_entretien_km }} km{% else %}—{% endif %}
+                {% if boite.intervalle_entretien_km is not None %}{{ boite.intervalle_entretien_km|milliers }} km{% else %}—{% endif %}
             </dd>
 
             <dt class="text-gray-600">{% trans "Dernier entretien" %}</dt>

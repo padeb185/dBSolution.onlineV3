@@ -381,7 +381,7 @@
 
         <div>
             <span class="label">{% trans "Kilométrage châssis" %} :</span>
-            {{ climatisation.kilometres_chassis|default:0 }} km
+            {{ climatisation.kilometres_chassis|default:0|milliers }} km
         </div>
 
         <div>
@@ -389,7 +389,7 @@
                 {% trans "Kilométrage du contrôle climatisation" %} :
             </span>
 
-            {{ climatisation.kilometrage_climatisation|default:0 }} km
+            {{ climatisation.kilometrage_climatisation|default:0|milliers }} km
         </div>
 
         <div>
@@ -446,22 +446,22 @@
 
         <div>
             <span class="label">{% trans "Poids constructeur" %} :</span>
-            {{ climatisation.poids_gaz_constructeur|default:0|floatformat:2 }} g
+            {{ climatisation.poids_gaz_constructeur|default:0|floatformat:"2g" }} g
         </div>
 
         <div>
             <span class="label">{% trans "Poids récupéré" %} :</span>
-            {{ climatisation.poids_gaz_recupere|default:0|floatformat:2 }} g
+            {{ climatisation.poids_gaz_recupere|default:0|floatformat:"2g" }} g
         </div>
 
         <div>
             <span class="label">{% trans "Poids injecté" %} :</span>
-            {{ climatisation.poids_gaz_injecte|default:0|floatformat:2 }} g
+            {{ climatisation.poids_gaz_injecte|default:0|floatformat:"2g" }} g
         </div>
 
         <div>
             <span class="label">{% trans "Différence de poids" %} :</span>
-            {{ climatisation.difference_poids_gaz|default:0|floatformat:2 }} g
+            {{ climatisation.difference_poids_gaz|default:0|floatformat:"2g" }} g
         </div>
 
         <div>
@@ -471,7 +471,7 @@
 
         <div>
             <span class="label">{% trans "Pureté du gaz" %} :</span>
-            {{ climatisation.pourcentage_purete_gaz|default:0|floatformat:2 }} %
+            {{ climatisation.pourcentage_purete_gaz|default:0|floatformat:"2g" }} %
         </div>
 
     </div>
@@ -510,12 +510,12 @@
 
         <div>
             <span class="label">{% trans "Quantité d'huile ajoutée" %} :</span>
-            {{ climatisation.ajout_huile_quantite|default:0|floatformat:4 }} ml
+            {{ climatisation.ajout_huile_quantite|default:0|floatformat:"4g" }} ml
         </div>
 
         <div>
             <span class="label">{% trans "Prix de l'huile HTVA" %} :</span>
-            {{ climatisation.ajout_huile_prix|default:0|floatformat:2 }} €
+            {{ climatisation.ajout_huile_prix|default:0|floatformat:"2g" }} €
         </div>
 
         <div>
@@ -525,12 +525,12 @@
 
         <div>
             <span class="label">{% trans "Quantité d'huile récupérée" %} :</span>
-            {{ climatisation.ajout_huile_quantite_huile_recuperee|default:0|floatformat:4 }} ml
+            {{ climatisation.ajout_huile_quantite_huile_recuperee|default:0|floatformat:"4g" }} ml
         </div>
 
         <div>
             <span class="label">{% trans "Quantité d'huile injectée" %} :</span>
-            {{ climatisation.quantite_huile_injectee|default:0|floatformat:4 }} ml
+            {{ climatisation.quantite_huile_injectee|default:0|floatformat:"4g" }} ml
         </div>
 
     </div>
@@ -565,7 +565,7 @@
 
         <div>
             <span class="label">{% trans "Quantité de traceur" %} :</span>
-            {{ climatisation.traceur_quantite|default:0|floatformat:4 }} ml
+            {{ climatisation.traceur_quantite|default:0|floatformat:"4g" }} ml
         </div>
 
     </div>
@@ -604,12 +604,12 @@
 
         <div>
             <span class="label">{% trans "Quantité" %} :</span>
-            {{ climatisation.mise_sous_vide_quantite|default:0|floatformat:2 }}
+            {{ climatisation.mise_sous_vide_quantite|default:0|floatformat:"2g" }}
         </div>
 
         <div>
             <span class="label">{% trans "Prix HTVA" %} :</span>
-            {{ climatisation.mise_sous_vide_prix|default:0|floatformat:2 }} €
+            {{ climatisation.mise_sous_vide_prix|default:0|floatformat:"2g" }} €
         </div>
 
         <div>
@@ -620,7 +620,7 @@
 
         <div>
             <span class="label">{% trans "Pression de vide atteinte" %} :</span>
-            {{ climatisation.pression_vide_atteinte|default:0|floatformat:2 }}
+            {{ climatisation.pression_vide_atteinte|default:0|floatformat:"2g" }}
         </div>
 
         <div>
@@ -829,27 +829,27 @@
 
         <div>
             <span class="label">{% trans "Pression basse" %} :</span>
-            {{ climatisation.pression_basse|default:0|floatformat:2 }} bar
+            {{ climatisation.pression_basse|default:0|floatformat:"2g" }} bar
         </div>
 
         <div>
             <span class="label">{% trans "Pression haute" %} :</span>
-            {{ climatisation.pression_haute|default:0|floatformat:2 }} bar
+            {{ climatisation.pression_haute|default:0|floatformat:"2g" }} bar
         </div>
 
         <div>
             <span class="label">{% trans "Température d'entrée" %} :</span>
-            {{ climatisation.temperature_air_entree|default:0|floatformat:2 }} °C
+            {{ climatisation.temperature_air_entree|default:0|floatformat:"2g" }} °C
         </div>
 
         <div>
             <span class="label">{% trans "Température de sortie" %} :</span>
-            {{ climatisation.temperature_air_sortie|default:0|floatformat:2 }} °C
+            {{ climatisation.temperature_air_sortie|default:0|floatformat:"2g" }} °C
         </div>
 
         <div>
             <span class="label">{% trans "Écart de température" %} :</span>
-            {{ climatisation.ecart_temperature|default:0|floatformat:2 }} °C
+            {{ climatisation.ecart_temperature|default:0|floatformat:"2g" }} °C
         </div>
 
     </div>
@@ -872,12 +872,12 @@
         {% if climatisation.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-                {{ climatisation.main_oeuvre.taux_horaire|floatformat:2 }} €
+                {{ climatisation.main_oeuvre.taux_horaire|floatformat:"2g" }} €
             </div>
 
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ climatisation.main_oeuvre.prix_facture|floatformat:2 }} €
+                {{ climatisation.main_oeuvre.prix_facture|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -958,11 +958,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -973,7 +973,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -983,7 +983,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ climatisation.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ climatisation.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -993,7 +993,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ climatisation.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ climatisation.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -1019,7 +1019,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ climatisation.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ climatisation.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -1033,7 +1033,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ climatisation.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ climatisation.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

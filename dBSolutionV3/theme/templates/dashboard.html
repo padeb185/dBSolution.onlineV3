@@ -826,13 +826,13 @@
             <p class="text-gray-600 text-sm">
                 {% trans "Total TVA (année) :" %}
                 <span class="font-bold">
-                    {{ ventes_tva_annee|floatformat:2 }} €
+                    {{ ventes_tva_annee|floatformat:"2g" }} €
                 </span>
             </p>
             <p class="text-gray-600 text-sm">
                 {% trans "Total TVAC (année) :" %}
                 <span class="font-bold">
-                    {{ ventes_tvac_annee|floatformat:2 }} €
+                    {{ ventes_tvac_annee|floatformat:"2g" }} €
                 </span>
             </p>
         </div>
@@ -963,7 +963,7 @@
             <h2 class="text-lg font-semibold mb-1">{% trans "Reversements aux propriétaires" %}</h2>
             <p class="text-gray-600 text-sm">
                 {% trans "À reverser :" %}
-                <span class="font-bold">{{ total_a_reverser|default:0|floatformat:2 }} €</span>
+                <span class="font-bold">{{ total_a_reverser|default:0|floatformat:"2g" }} €</span>
             </p>
         </div>
         <img src="{% static 'icons/proprietaire.png' %}" alt="{% trans 'Reversements aux propriétaires' %}" class="w-[60px] h-[60px]">

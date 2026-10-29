@@ -16,7 +16,7 @@
             <td style="white-space:nowrap">{% include "plan_cablage/_fil.html" %}{{ f.libelle_couleur }}</td>
             <td><span class="pc-fonction pc-f-{{ f.fonction }}">{{ f.get_fonction_display }}</span></td>
             <td>{{ f.description|default:"" }}</td>
-            <td style="text-align:right">{% if f.section_mm2 %}{{ f.section_mm2|floatformat:"-2" }} mm²{% endif %}</td>
+            <td style="text-align:right">{% if f.section_mm2 %}{{ f.section_mm2|floatformat:"-2g" }} mm²{% endif %}</td>
         </tr>
     {% empty %}
         <tr><td colspan="6" class="pc-aide">{% trans "Aucun fil." %}</td></tr>

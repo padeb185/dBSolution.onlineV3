@@ -30,8 +30,8 @@
             <div><dt class="text-sm text-gray-500">{% trans "Référence fabricant" %}</dt><dd class="font-mono">{{ piece.reference_fabricant|default:"—" }}</dd></div>
             <div><dt class="text-sm text-gray-500">{% trans "Emplacement" %}</dt><dd>{{ piece.emplacement_etagere|default:"—" }}</dd></div>
             <div><dt class="text-sm text-gray-500">{% trans "Compatibilité" %}</dt><dd>{{ piece.voiture_marque|default:"" }} {{ piece.modele|default:"" }}</dd></div>
-            <div><dt class="text-sm text-gray-500">{% trans "Prix d'achat HTVA" %}</dt><dd>{{ piece.prix_achat|floatformat:2 }} €</dd></div>
-            <div><dt class="text-sm text-gray-500">{% trans "Prix de vente HTVA" %}</dt><dd>{{ piece.prix_vente|floatformat:2 }} € <span class="text-xs text-gray-500">({% trans "TVA" %} {{ piece.tva|floatformat:"-2" }} %)</span></dd></div>
+            <div><dt class="text-sm text-gray-500">{% trans "Prix d'achat HTVA" %}</dt><dd>{{ piece.prix_achat|floatformat:"2g" }} €</dd></div>
+            <div><dt class="text-sm text-gray-500">{% trans "Prix de vente HTVA" %}</dt><dd>{{ piece.prix_vente|floatformat:"2g" }} € <span class="text-xs text-gray-500">({% trans "TVA" %} {{ piece.tva|floatformat:"-2g" }} %)</span></dd></div>
             {% if piece.est_visserie %}
             <div class="md:col-span-2 rounded border border-blue-200 bg-blue-50 p-3">
                 <dt class="text-sm text-gray-500 mb-1">{% trans "Visserie" %}</dt>
@@ -52,11 +52,11 @@
     <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-3 border-l-4 {% if piece.quantite_stock < 0 %}border-red-600{% elif piece.en_alerte %}border-orange-500{% else %}border-green-600{% endif %}">
         <p class="text-gray-500 text-sm">{% trans "Stock" %}</p>
         <p class="text-4xl font-bold {% if piece.quantite_stock < 0 %}text-red-700{% elif piece.en_alerte %}text-orange-600{% endif %}">
-            {{ piece.quantite_stock|floatformat:"-2" }} <span class="text-lg font-normal">{{ piece.get_unite_display }}</span>
+            {{ piece.quantite_stock|floatformat:"-2g" }} <span class="text-lg font-normal">{{ piece.get_unite_display }}</span>
         </p>
-        {% if piece.en_alerte %}<p class="text-orange-600 font-semibold">{% trans "Sous le stock minimum" %} ({{ piece.quantite_min|floatformat:"-2" }})</p>{% endif %}
-        <p class="text-sm">{% trans "Valeur" %} : <strong>{{ piece.valeur_stock|floatformat:2 }} €</strong></p>
-        <p class="text-sm">{% trans "Quantité utilisée" %} : <strong>{{ piece.quantite_utilisee|floatformat:"-2" }}</strong></p>
+        {% if piece.en_alerte %}<p class="text-orange-600 font-semibold">{% trans "Sous le stock minimum" %} ({{ piece.quantite_min|floatformat:"-2g" }})</p>{% endif %}
+        <p class="text-sm">{% trans "Valeur" %} : <strong>{{ piece.valeur_stock|floatformat:"2g" }} €</strong></p>
+        <p class="text-sm">{% trans "Quantité utilisée" %} : <strong>{{ piece.quantite_utilisee|floatformat:"-2g" }}</strong></p>
 
         {% if peut_gerer %}
         <form method="post" class="flex flex-col gap-2 mt-2 border-t pt-4">
@@ -96,10 +96,10 @@
             <tr>
                 <td class="border px-2 py-2 whitespace-nowrap">{{ m.date|date:"d/m/Y H:i" }}</td>
                 <td class="border px-2 py-2">{{ m.get_type_mouvement_display }}</td>
-                <td class="border px-2 py-2 text-right font-bold {% if m.quantite < 0 %}text-red-700{% else %}text-green-700{% endif %}">{% if m.quantite > 0 %}+{% endif %}{{ m.quantite|floatformat:"-2" }}</td>
-                <td class="border px-2 py-2 text-right">{{ m.stock_avant|floatformat:"-2" }}</td>
-                <td class="border px-2 py-2 text-right">{{ m.stock_apres|floatformat:"-2" }}</td>
-                <td class="border px-2 py-2 text-right">{% if m.prix_unitaire is not None %}{{ m.prix_unitaire|floatformat:2 }} €{% endif %}</td>
+                <td class="border px-2 py-2 text-right font-bold {% if m.quantite < 0 %}text-red-700{% else %}text-green-700{% endif %}">{% if m.quantite > 0 %}+{% endif %}{{ m.quantite|floatformat:"-2g" }}</td>
+                <td class="border px-2 py-2 text-right">{{ m.stock_avant|floatformat:"-2g" }}</td>
+                <td class="border px-2 py-2 text-right">{{ m.stock_apres|floatformat:"-2g" }}</td>
+                <td class="border px-2 py-2 text-right">{% if m.prix_unitaire is not None %}{{ m.prix_unitaire|floatformat:"2g" }} €{% endif %}</td>
                 <td class="border px-2 py-2">
                     {% if m.maintenance_id %}<a class="text-blue-700 hover:underline" href="{% url 'piece:pieces_maintenance' m.maintenance_id %}">{{ m.maintenance.immatriculation }}</a>{% endif %}
                     {% if m.facture_id %}<a class="text-blue-700 hover:underline" href="{% url 'facture:detail' m.facture_id %}">{{ m.facture.numero }}</a>{% endif %}
@@ -131,7 +131,7 @@
             <tr>
                 <td class="border px-2 py-2">{{ u.maintenance.date_intervention|date:"d/m/Y" }}</td>
                 <td class="border px-2 py-2"><a class="text-blue-700 hover:underline" href="{% url 'piece:pieces_maintenance' u.maintenance_id %}">{{ u.maintenance.immatriculation }}</a></td>
-                <td class="border px-2 py-2 text-right">{{ u.quantite|floatformat:"-2" }}</td>
+                <td class="border px-2 py-2 text-right">{{ u.quantite|floatformat:"-2g" }}</td>
                 <td class="border px-2 py-2">{% if u.debitee %}<span class="px-2 py-0.5 rounded bg-green-100 text-green-800 text-xs font-semibold">{% trans "Débitée" %}</span>{% else %}<span class="px-2 py-0.5 rounded bg-yellow-100 text-yellow-800 text-xs font-semibold">{% trans "En attente de facture" %}</span>{% endif %}</td>
             </tr>
         {% endfor %}

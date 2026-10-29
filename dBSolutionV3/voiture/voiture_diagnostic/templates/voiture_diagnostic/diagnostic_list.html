@@ -76,7 +76,7 @@
             </td>
             <td class="border px-4 py-2 whitespace-nowrap" data-order="{{ d.date_diagnostic|date:'Y-m-d' }}">
                 {{ d.date_diagnostic|date:"d/m/Y" }}
-                {% if d.kilometrage is not None %}<br><span class="text-sm text-gray-500">{{ d.kilometrage }} km</span>{% endif %}
+                {% if d.kilometrage is not None %}<br><span class="text-sm text-gray-500">{{ d.kilometrage|milliers }} km</span>{% endif %}
             </td>
             <td class="border px-4 py-2">
                 <ul class="space-y-1">

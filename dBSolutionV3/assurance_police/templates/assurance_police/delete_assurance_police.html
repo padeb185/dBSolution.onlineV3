@@ -33,7 +33,7 @@
                         <li>
                             {{ s.date_sinistre|date:"d/m/Y" }}
                             — {{ s.description|truncatechars:60 }}
-                            {% if s.montant_estime is not None %}({{ s.montant_estime|floatformat:2 }} €){% endif %}
+                            {% if s.montant_estime is not None %}({{ s.montant_estime|floatformat:"2g" }} €){% endif %}
                             {% if s.cloture %}<span class="text-gray-500">· {% trans "clôturé" %}</span>{% endif %}
                         </li>
                     {% endfor %}
@@ -89,17 +89,17 @@
         <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
             <dt class="text-gray-600">{% trans "Prime mensuelle" %}</dt>
             <dd class="font-medium">
-                {% if police.prime_mensuelle is not None %}{{ police.prime_mensuelle|floatformat:2 }} €{% else %}—{% endif %}
+                {% if police.prime_mensuelle is not None %}{{ police.prime_mensuelle|floatformat:"2g" }} €{% else %}—{% endif %}
             </dd>
 
             <dt class="text-gray-600">{% trans "Prime annuelle" %}</dt>
             <dd class="font-medium">
-                {% if police.prime_annuelle is not None %}{{ police.prime_annuelle|floatformat:2 }} €{% else %}—{% endif %}
+                {% if police.prime_annuelle is not None %}{{ police.prime_annuelle|floatformat:"2g" }} €{% else %}—{% endif %}
             </dd>
 
             <dt class="text-gray-600">{% trans "Franchise" %}</dt>
             <dd class="font-medium">
-                {% if police.franchise is not None %}{{ police.franchise|floatformat:2 }} €{% else %}—{% endif %}
+                {% if police.franchise is not None %}{{ police.franchise|floatformat:"2g" }} €{% else %}—{% endif %}
             </dd>
 
             <dt class="text-gray-600">{% trans "Bonus-malus" %}</dt>

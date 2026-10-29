@@ -20,9 +20,9 @@
                 <td>{{ l.piece.designation|default:l.piece }}</td>
                 <td>{{ l.piece.nom_fabricant|default:"-" }}</td>
                 <td>{{ l.piece.oem|default:"" }}{% if not l.piece.oem %}{{ l.piece.eans|first|default:"-" }}{% endif %}</td>
-                <td class="text-right">{{ l.quantite|floatformat:"-2" }}</td>
-                <td class="text-right">{{ l.prix_unitaire|floatformat:2 }} €</td>
-                <td class="text-right">{{ l.total|floatformat:2 }} €</td>
+                <td class="text-right">{{ l.quantite|floatformat:"-2g" }}</td>
+                <td class="text-right">{{ l.prix_unitaire|floatformat:"2g" }} €</td>
+                <td class="text-right">{{ l.total|floatformat:"2g" }} €</td>
             </tr>
         {% endfor %}
         </tbody>

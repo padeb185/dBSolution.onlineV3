@@ -27,9 +27,9 @@
             <div><span>{% trans "Véhicules par Trackday" %}</span><strong>{{ totaux.vehicules_moyen }}</strong></div>
             <div><span>{% trans "Box utilisés" %}</span><strong>{{ totaux.nb_box }}</strong></div>
             <div><span>{% trans "Tours réservés" %}</span><strong>{{ totaux.tours }}</strong></div>
-            <div><span>{% trans "Ventes HTVA" %}</span><strong>{{ totaux.ventes_htva|floatformat:2 }} €</strong></div>
-            <div><span>{% trans "Prix d'achat total HTVA" %}</span><strong>{{ totaux.couts_htva|floatformat:2 }} €</strong></div>
-            <div><span>{% trans "Marge" %}</span><strong class="{% if totaux.marge >= 0 %}td-positif{% else %}td-negatif{% endif %}">{{ totaux.marge|floatformat:2 }} €{% if totaux.marge_pct is not None %} <small>({{ totaux.marge_pct }} %)</small>{% endif %}</strong></div>
+            <div><span>{% trans "Ventes HTVA" %}</span><strong>{{ totaux.ventes_htva|floatformat:"2g" }} €</strong></div>
+            <div><span>{% trans "Prix d'achat total HTVA" %}</span><strong>{{ totaux.couts_htva|floatformat:"2g" }} €</strong></div>
+            <div><span>{% trans "Marge" %}</span><strong class="{% if totaux.marge >= 0 %}td-positif{% else %}td-negatif{% endif %}">{{ totaux.marge|floatformat:"2g" }} €{% if totaux.marge_pct is not None %} <small>({{ totaux.marge_pct }} %)</small>{% endif %}</strong></div>
         </div>
     </div>
 
@@ -47,9 +47,9 @@
                     <td>{{ l.t.get_circuit_display }}{% if l.t.nom %} <small class="text-gray-500">({{ l.t.nom }})</small>{% endif %}</td>
                     <td class="text-right">{{ l.nb_vehicules }}</td>
                     <td class="text-right">{{ l.nb_box }} / {{ l.nombre_box }}</td>
-                    <td class="text-right whitespace-nowrap">{{ l.ventes_htva|floatformat:2 }} €</td>
-                    <td class="text-right whitespace-nowrap">{{ l.couts_htva|floatformat:2 }} €</td>
-                    <td class="text-right whitespace-nowrap font-semibold {% if l.marge >= 0 %}td-positif{% else %}td-negatif{% endif %}">{{ l.marge|floatformat:2 }} €</td>
+                    <td class="text-right whitespace-nowrap">{{ l.ventes_htva|floatformat:"2g" }} €</td>
+                    <td class="text-right whitespace-nowrap">{{ l.couts_htva|floatformat:"2g" }} €</td>
+                    <td class="text-right whitespace-nowrap font-semibold {% if l.marge >= 0 %}td-positif{% else %}td-negatif{% endif %}">{{ l.marge|floatformat:"2g" }} €</td>
                     <td class="text-right">{{ l.marge_pct|default:"-" }}</td>
                 </tr>
             {% empty %}
@@ -67,8 +67,8 @@
                 <tbody>
                 {% for c in par_circuit %}
                     <tr><td>{{ c.circuit }}</td><td class="text-right">{{ c.nb }}</td><td class="text-right">{{ c.nb_vehicules }}</td>
-                        <td class="text-right whitespace-nowrap">{{ c.ventes_htva|floatformat:2 }} €</td>
-                        <td class="text-right whitespace-nowrap font-semibold {% if c.marge >= 0 %}td-positif{% else %}td-negatif{% endif %}">{{ c.marge|floatformat:2 }} €{% if c.marge_pct is not None %} <small>({{ c.marge_pct }} %)</small>{% endif %}</td></tr>
+                        <td class="text-right whitespace-nowrap">{{ c.ventes_htva|floatformat:"2g" }} €</td>
+                        <td class="text-right whitespace-nowrap font-semibold {% if c.marge >= 0 %}td-positif{% else %}td-negatif{% endif %}">{{ c.marge|floatformat:"2g" }} €{% if c.marge_pct is not None %} <small>({{ c.marge_pct }} %)</small>{% endif %}</td></tr>
                 {% empty %}
                     <tr><td colspan="5" class="text-gray-500">-</td></tr>
                 {% endfor %}
@@ -81,7 +81,7 @@
                 <div class="flex items-center gap-3 mb-2 text-sm">
                     <span class="w-24">{{ m.date|date:"F" }}</span>
                     <div class="flex-1 bg-gray-100 rounded"><div class="td-barre" style="width: {{ m.largeur }}%"></div></div>
-                    <span class="w-28 text-right">{{ m.ventes_htva|floatformat:0 }} €</span>
+                    <span class="w-28 text-right">{{ m.ventes_htva|floatformat:"0g" }} €</span>
                     <span class="w-20 text-right text-gray-500">{{ m.nb_vehicules }} {% trans "véh." %}</span>
                 </div>
             {% empty %}

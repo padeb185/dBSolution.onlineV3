@@ -305,12 +305,12 @@
 
         <div>
             <span class="label">{% trans "Kilométrage chassis" %} :</span>
-            {{ nettoyage.kilometres_chassis }} km
+            {{ nettoyage.kilometres_chassis|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage du nettoyage extérieur" %} :</span>
-            {{ nettoyage.kilometrage_net_ext }} km
+            {{ nettoyage.kilometrage_net_ext|milliers }} km
         </div>
 
         <div>
@@ -419,13 +419,13 @@
         </div>
          <div>
             <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-            {{ nettoyage.taux_horaire|floatformat:2 }} €
+            {{ nettoyage.taux_horaire|floatformat:"2g" }} €
         </div>
 
         {% if nettoyage.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ nettoyage.cout_main_oeuvre|floatformat:2 }} €
+                {{ nettoyage.cout_main_oeuvre|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -508,11 +508,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ piece.prix_unitaire|default:0|floatformat:2 }} €
+                            {{ piece.prix_unitaire|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ piece.total|default:0|floatformat:2 }} €
+                            {{ piece.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -523,7 +523,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ rapport_remplacement.total_general|default:0|floatformat:2 }} €
+                        {{ rapport_remplacement.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -533,7 +533,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ nettoyage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ nettoyage.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -543,7 +543,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ nettoyage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ nettoyage.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -568,7 +568,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ nettoyage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ nettoyage.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -582,7 +582,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ nettoyage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ nettoyage.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

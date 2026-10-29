@@ -3,7 +3,7 @@
 {% block content %}
 <div class="max-w-2xl mx-auto mt-10 mb-10 p-6 bg-white rounded shadow">
     <h1 class="text-2xl font-bold mb-4 text-red-700">{% trans "Supprimer la facture d'instructeur" %}</h1>
-    <p class="mb-2"><strong>{{ facture.piece }}</strong> – {{ facture.instructeur.prenom }} {{ facture.instructeur.nom }} – {{ facture.montant_tvac|floatformat:2 }} €</p>
+    <p class="mb-2"><strong>{{ facture.piece }}</strong> – {{ facture.instructeur.prenom }} {{ facture.instructeur.nom }} – {{ facture.montant_tvac|floatformat:"2g" }} €</p>
     <p class="mb-6">{% trans "Les locations reprises redeviendront disponibles pour une autre facture. Cette action est irréversible." %}</p>
     <form method="post" class="flex gap-4">
         {% csrf_token %}

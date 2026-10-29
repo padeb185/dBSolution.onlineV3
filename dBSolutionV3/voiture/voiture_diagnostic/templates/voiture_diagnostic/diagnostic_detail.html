@@ -46,7 +46,7 @@
         <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
             <h2 class="text-lg font-semibold mb-2">{% trans "Diagnostic" %}</h2>
             <p><strong>{% trans "Date du diagnostic" %} :</strong> {{ diagnostic.date_diagnostic|date:"d/m/Y" }}</p>
-            <p><strong>{% trans "Kilométrage" %} :</strong> {% if diagnostic.kilometrage is not None %}{{ diagnostic.kilometrage }} km{% else %}-{% endif %}</p>
+            <p><strong>{% trans "Kilométrage" %} :</strong> {% if diagnostic.kilometrage is not None %}{{ diagnostic.kilometrage|milliers }} km{% else %}-{% endif %}</p>
             <p><strong>{% trans "Codes défaut" %} :</strong> {{ diagnostic.codes.all|length }}</p>
         </div>
 
@@ -112,11 +112,11 @@
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <p><strong>{% trans "Temps de travail" %} :</strong> {{ diagnostic.temps_main_oeuvre_display }}</p>
-            <p><strong>{% trans "Taux horaire HTVA" %} :</strong> {{ diagnostic.taux_horaire|floatformat:2 }} €</p>
+            <p><strong>{% trans "Taux horaire HTVA" %} :</strong> {{ diagnostic.taux_horaire|floatformat:"2g" }} €</p>
             <p><strong>{% trans "Technicien" %} :</strong>
                 {% if diagnostic.main_oeuvre and diagnostic.main_oeuvre.utilisateur %}{{ diagnostic.main_oeuvre.utilisateur }}{% else %}-{% endif %}
             </p>
-            <p class="text-lg"><strong>{% trans "Prix HTVA" %} :</strong> {{ diagnostic.cout_main_oeuvre|floatformat:2 }} €</p>
+            <p class="text-lg"><strong>{% trans "Prix HTVA" %} :</strong> {{ diagnostic.cout_main_oeuvre|floatformat:"2g" }} €</p>
         </div>
 
         {% with factures=diagnostic.factures.all %}

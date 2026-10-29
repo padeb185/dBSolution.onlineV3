@@ -344,12 +344,12 @@
 
         <div>
             <span class="label">{% trans "Kilométrage véhicule" %} :</span>
-            {{ silencieux.kilometres_chassis }} km
+            {{ silencieux.kilometres_chassis|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage de l'intervention" %} :</span>
-            {{ silencieux.kilometrage_silencieux }} km
+            {{ silencieux.kilometrage_silencieux|milliers }} km
         </div>
 
 
@@ -423,12 +423,12 @@
         {% if silencieux.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-                {{ silencieux.main_oeuvre.taux_horaire|floatformat:2 }} €
+                {{ silencieux.main_oeuvre.taux_horaire|floatformat:"2g" }} €
             </div>
 
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ silencieux.main_oeuvre.prix_facture|floatformat:2 }} €
+                {{ silencieux.main_oeuvre.prix_facture|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -507,11 +507,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -522,7 +522,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -532,7 +532,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ silencieux.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ silencieux.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -542,7 +542,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ silencieux.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ silencieux.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -567,7 +567,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ silencieux.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ silencieux.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -581,7 +581,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ silencieux.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ silencieux.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

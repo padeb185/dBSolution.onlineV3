@@ -344,12 +344,12 @@
 
         <div>
             <span class="label">{% trans "Kilométrage véhicule" %} :</span>
-            {{ batterie.kilometres_chassis }} km
+            {{ batterie.kilometres_chassis|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage batterie" %} :</span>
-            {{ batterie.kilometrage_batterie }} km
+            {{ batterie.kilometrage_batterie|milliers }} km
         </div>
 
 
@@ -461,12 +461,12 @@
         {% if batterie.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-                {{ batterie.main_oeuvre.taux_horaire|floatformat:2 }} €
+                {{ batterie.main_oeuvre.taux_horaire|floatformat:"2g" }} €
             </div>
 
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ batterie.main_oeuvre.prix_facture|floatformat:2 }} €
+                {{ batterie.main_oeuvre.prix_facture|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -545,11 +545,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -560,7 +560,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -570,7 +570,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ batterie.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ batterie.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -580,7 +580,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ batterie.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ batterie.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -605,7 +605,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ batterie.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ batterie.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -619,7 +619,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ batterie.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ batterie.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

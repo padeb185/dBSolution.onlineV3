@@ -100,12 +100,12 @@
         <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
             <dt class="text-gray-600">{% trans "Km pneus avant" %}</dt>
             <dd class="font-medium">
-                {% if pneus.kilometre_pneus_av is not None %}{{ pneus.kilometre_pneus_av }} km{% else %}—{% endif %}
+                {% if pneus.kilometre_pneus_av is not None %}{{ pneus.kilometre_pneus_av|milliers }} km{% else %}—{% endif %}
             </dd>
 
             <dt class="text-gray-600">{% trans "Km pneus arrière" %}</dt>
             <dd class="font-medium">
-                {% if pneus.kilometre_pneus_ar is not None %}{{ pneus.kilometre_pneus_ar }} km{% else %}—{% endif %}
+                {% if pneus.kilometre_pneus_ar is not None %}{{ pneus.kilometre_pneus_ar|milliers }} km{% else %}—{% endif %}
             </dd>
 
             <dt class="text-gray-600">{% trans "Date de remplacement" %}</dt>
@@ -113,7 +113,7 @@
 
             <dt class="text-gray-600">{% trans "Km au remplacement" %}</dt>
             <dd class="font-medium">
-                {% if pneus.kilometre_remplacement is not None %}{{ pneus.kilometre_remplacement }} km{% else %}—{% endif %}
+                {% if pneus.kilometre_remplacement is not None %}{{ pneus.kilometre_remplacement|milliers }} km{% else %}—{% endif %}
             </dd>
         </dl>
     </div>

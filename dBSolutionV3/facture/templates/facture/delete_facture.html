@@ -65,7 +65,7 @@
             <dd class="font-medium">{{ lignes|length }}</dd>
 
             <dt class="text-gray-600">{% trans "Total TVAC" %}</dt>
-            <dd class="font-medium">{{ facture.total|floatformat:2 }} €</dd>
+            <dd class="font-medium">{{ facture.total|floatformat:"2g" }} €</dd>
         </dl>
     </div>
 

@@ -304,11 +304,11 @@
         {% if location.type_location == "circuit" %}
             <div><span class="label">{% trans "Circuit" %} :</span> {{ location.get_circuit_display|default:"—" }}</div>
             <div><span class="label">{% trans "Nombre de tours" %} :</span> {{ location.nombre_tours|default:"—" }}</div>
-            {% if location.longueur_circuit_km %}<div><span class="label">{% trans "Longueur du circuit" %} :</span> {{ location.longueur_circuit_km|floatformat:"-3" }} km</div>{% endif %}
+            {% if location.longueur_circuit_km %}<div><span class="label">{% trans "Longueur du circuit" %} :</span> {{ location.longueur_circuit_km|floatformat:"-3g" }} km</div>{% endif %}
         {% else %}
             <div><span class="label">{% trans "Route / itinéraire" %} :</span> {{ location.route|default:"—" }}</div>
         {% endif %}
-        <div><span class="label">{% trans "Kilométrage" %} :</span> {% if location.kilometrage is not None %}{{ location.kilometrage }} km{% else %}—{% endif %}</div>
+        <div><span class="label">{% trans "Kilométrage" %} :</span> {% if location.kilometrage is not None %}{{ location.kilometrage|milliers }} km{% else %}—{% endif %}</div>
     </div>
 </div>
 
@@ -324,7 +324,7 @@
             <tr>
                 <th>{% trans "Description" %}</th>
                 <th class="text-right">{% trans "Prix HTVA" %}</th>
-                <th class="text-right">{% trans "TVA" %} ({{ location.taux_tva|floatformat:"-2" }} %)</th>
+                <th class="text-right">{% trans "TVA" %} ({{ location.taux_tva|floatformat:"-2g" }} %)</th>
                 <th class="text-right">{% trans "Prix TVAC" %}</th>
             </tr>
         </thead>
@@ -333,64 +333,64 @@
             {% if boxes or location.instructeur_id or location.total_deuxieme_pilote_tvac or location.carburant_inclus or location.total_km_supplementaires_tvac %}
             <tr>
                 <td>{{ location.libelle_facture }}</td>
-                <td class="text-right">{{ location.prix_vehicule_htva|floatformat:2 }} €</td>
+                <td class="text-right">{{ location.prix_vehicule_htva|floatformat:"2g" }} €</td>
                 <td class="text-right"></td>
-                <td class="text-right">{{ location.prix_vehicule_tvac|floatformat:2 }} €</td>
+                <td class="text-right">{{ location.prix_vehicule_tvac|floatformat:"2g" }} €</td>
             </tr>
             {% for b in boxes %}
             <tr>
-                <td>{{ b.libelle }} ({{ b.quantite }} × {{ b.prix_unitaire|floatformat:2 }} € {% trans "TVAC" %})</td>
+                <td>{{ b.libelle }} ({{ b.quantite }} × {{ b.prix_unitaire|floatformat:"2g" }} € {% trans "TVAC" %})</td>
                 <td class="text-right"></td>
                 <td class="text-right"></td>
-                <td class="text-right">{{ b.total_tvac|floatformat:2 }} €</td>
+                <td class="text-right">{{ b.total_tvac|floatformat:"2g" }} €</td>
             </tr>
             {% endfor %}
             {% if location.total_deuxieme_pilote_tvac %}
             <tr>
                 <td>{{ location.libelle_deuxieme_pilote }}</td>
-                <td class="text-right">{{ location.total_deuxieme_pilote_htva|floatformat:2 }} €</td>
+                <td class="text-right">{{ location.total_deuxieme_pilote_htva|floatformat:"2g" }} €</td>
                 <td class="text-right"></td>
-                <td class="text-right">{{ location.total_deuxieme_pilote_tvac|floatformat:2 }} €</td>
+                <td class="text-right">{{ location.total_deuxieme_pilote_tvac|floatformat:"2g" }} €</td>
             </tr>
             {% endif %}
             {% if location.carburant_inclus %}
             <tr>
                 <td>{{ location.libelle_carburant }}</td>
-                <td class="text-right">{{ location.total_carburant_htva|floatformat:2 }} €</td>
+                <td class="text-right">{{ location.total_carburant_htva|floatformat:"2g" }} €</td>
                 <td class="text-right"></td>
-                <td class="text-right">{{ location.total_carburant_tvac|floatformat:2 }} €</td>
+                <td class="text-right">{{ location.total_carburant_tvac|floatformat:"2g" }} €</td>
             </tr>
             {% endif %}
             {% if location.total_km_supplementaires_tvac %}
             <tr>
                 <td>{{ location.libelle_km_supplementaires }}</td>
-                <td class="text-right">{{ location.total_km_supplementaires_htva|floatformat:2 }} €</td>
+                <td class="text-right">{{ location.total_km_supplementaires_htva|floatformat:"2g" }} €</td>
                 <td class="text-right"></td>
-                <td class="text-right">{{ location.total_km_supplementaires_tvac|floatformat:2 }} €</td>
+                <td class="text-right">{{ location.total_km_supplementaires_tvac|floatformat:"2g" }} €</td>
             </tr>
             {% endif %}
             {% if location.instructeur_id %}
             <tr>
                 <td>{{ location.libelle_instructeur }}</td>
-                <td class="text-right">{{ location.total_instructeur_htva|floatformat:2 }} €</td>
+                <td class="text-right">{{ location.total_instructeur_htva|floatformat:"2g" }} €</td>
                 <td class="text-right"></td>
-                <td class="text-right">{{ location.total_instructeur_tvac|floatformat:2 }} €</td>
+                <td class="text-right">{{ location.total_instructeur_tvac|floatformat:"2g" }} €</td>
             </tr>
             {% endif %}
             {% else %}
             <tr>
                 <td>{{ location.libelle_facture }}</td>
-                <td class="text-right">{{ location.prix_htva|floatformat:2 }} €</td>
-                <td class="text-right">{{ location.montant_tva|floatformat:2 }} €</td>
-                <td class="text-right">{{ location.prix_tvac|floatformat:2 }} €</td>
+                <td class="text-right">{{ location.prix_htva|floatformat:"2g" }} €</td>
+                <td class="text-right">{{ location.montant_tva|floatformat:"2g" }} €</td>
+                <td class="text-right">{{ location.prix_tvac|floatformat:"2g" }} €</td>
             </tr>
             {% endif %}
             {% endwith %}
             <tr class="total-general">
                 <td>{% trans "Total" %}</td>
-                <td class="text-right">{{ location.prix_htva|floatformat:2 }} €</td>
-                <td class="text-right">{{ location.montant_tva|floatformat:2 }} €</td>
-                <td class="text-right">{{ location.prix_tvac|floatformat:2 }} €</td>
+                <td class="text-right">{{ location.prix_htva|floatformat:"2g" }} €</td>
+                <td class="text-right">{{ location.montant_tva|floatformat:"2g" }} €</td>
+                <td class="text-right">{{ location.prix_tvac|floatformat:"2g" }} €</td>
             </tr>
         </tbody>
     </table>

@@ -457,12 +457,12 @@
 
         <div>
             <span class="label">{% trans "Kilométrage actuel" %} :</span>
-            {{ checkup_track.kilometres_chassis|default:0 }} km
+            {{ checkup_track.kilometres_chassis|default:0|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage checkup piste" %} :</span>
-            {{ checkup_track.kilometrage_checkup_track|default:0 }} km
+            {{ checkup_track.kilometrage_checkup_track|default:0|milliers }} km
         </div>
 
         <div>
@@ -684,7 +684,7 @@
         <tr>
             <td>{% trans "Quantité d'huile ajoutée" %}</td>
             <td>
-                {{ checkup_track.moteur_niveau_huile_quantite|default:0|floatformat:1 }} L
+                {{ checkup_track.moteur_niveau_huile_quantite|default:0|floatformat:"1g" }} L
             </td>
         </tr>
         {% endif %}
@@ -793,7 +793,7 @@
         <tr>
             <td>{% trans "Huile de boîte ajoutée" %}</td>
             <td>
-                {{ checkup_track.boite_niveau_huile_quantite|default:0|floatformat:1 }} L
+                {{ checkup_track.boite_niveau_huile_quantite|default:0|floatformat:"1g" }} L
             </td>
         </tr>
         {% endif %}
@@ -878,7 +878,7 @@
         <tr>
             <td>{% trans "Huile de pont ajoutée" %}</td>
             <td>
-                {{ checkup_track.pont_niveau_huile_quantite|default:0|floatformat:1 }} L
+                {{ checkup_track.pont_niveau_huile_quantite|default:0|floatformat:"1g" }} L
             </td>
         </tr>
         {% endif %}
@@ -968,7 +968,7 @@
         <tr>
             <td>{% trans "Quantité de liquide de refroidissement ajoutée" %}</td>
             <td>
-                {{ checkup_track.refroidissement_liquide_quantite|default:0|floatformat:1 }} L
+                {{ checkup_track.refroidissement_liquide_quantite|default:0|floatformat:"1g" }} L
             </td>
         </tr>
         {% endif %}
@@ -1061,7 +1061,7 @@
         <tr>
             <td>{% trans "Épaisseur des disques avant" %}</td>
             <td>
-                {{ checkup_track.freins_epaisseur_disques_av_usure|default:0|floatformat:2 }} mm
+                {{ checkup_track.freins_epaisseur_disques_av_usure|default:0|floatformat:"2g" }} mm
             </td>
         </tr>
 
@@ -1211,7 +1211,7 @@
         <tr>
             <td>{% trans "Épaisseur des disques arrière" %}</td>
             <td>
-                {{ checkup_track.freins_epaisseur_disques_ar_usure|default:0|floatformat:2 }} mm
+                {{ checkup_track.freins_epaisseur_disques_ar_usure|default:0|floatformat:"2g" }} mm
             </td>
         </tr>
 
@@ -1360,7 +1360,7 @@
         <tr>
             <td>{% trans "Quantité de liquide de frein" %}</td>
             <td>
-                {{ checkup_track.freins_liquide_quantite|default:0|floatformat:1 }} L
+                {{ checkup_track.freins_liquide_quantite|default:0|floatformat:"1g" }} L
             </td>
         </tr>
         {% endif %}
@@ -1435,7 +1435,7 @@
         <tr>
             <td>{% trans "Quantité de liquide de direction ajoutée" %}</td>
             <td>
-                {{ checkup_track.direction_liquide_quantite|default:0|floatformat:1 }} L
+                {{ checkup_track.direction_liquide_quantite|default:0|floatformat:"1g" }} L
             </td>
         </tr>
         {% endif %}
@@ -1743,22 +1743,22 @@
     <tbody>
         <tr>
             <td>{% trans "Épaisseur du pneu avant droit" %}</td>
-            <td>{{ checkup_track.pneu_epaisseur_avd|default:0|floatformat:1 }} mm</td>
+            <td>{{ checkup_track.pneu_epaisseur_avd|default:0|floatformat:"1g" }} mm</td>
         </tr>
 
         <tr>
             <td>{% trans "Épaisseur du pneu avant gauche" %}</td>
-            <td>{{ checkup_track.pneu_epaisseur_avg|default:0|floatformat:1 }} mm</td>
+            <td>{{ checkup_track.pneu_epaisseur_avg|default:0|floatformat:"1g" }} mm</td>
         </tr>
 
         <tr>
             <td>{% trans "Épaisseur du pneu arrière droit" %}</td>
-            <td>{{ checkup_track.pneu_epaisseur_ard|default:0|floatformat:1 }} mm</td>
+            <td>{{ checkup_track.pneu_epaisseur_ard|default:0|floatformat:"1g" }} mm</td>
         </tr>
 
         <tr>
             <td>{% trans "Épaisseur du pneu arrière gauche" %}</td>
-            <td>{{ checkup_track.pneu_epaisseur_arg|default:0|floatformat:1 }} mm</td>
+            <td>{{ checkup_track.pneu_epaisseur_arg|default:0|floatformat:"1g" }} mm</td>
         </tr>
 
         <tr>
@@ -1842,22 +1842,22 @@
 
         <tr>
             <td>{% trans "Pression du pneu avant droit" %}</td>
-            <td>{{ checkup_track.pneu_pression_bar_avd|default:0|floatformat:1 }} bar</td>
+            <td>{{ checkup_track.pneu_pression_bar_avd|default:0|floatformat:"1g" }} bar</td>
         </tr>
 
         <tr>
             <td>{% trans "Pression du pneu avant gauche" %}</td>
-            <td>{{ checkup_track.pneu_pression_bar_avg|default:0|floatformat:1 }} bar</td>
+            <td>{{ checkup_track.pneu_pression_bar_avg|default:0|floatformat:"1g" }} bar</td>
         </tr>
 
         <tr>
             <td>{% trans "Pression du pneu arrière droit" %}</td>
-            <td>{{ checkup_track.pneu_pression_bar_ard|default:0|floatformat:1 }} bar</td>
+            <td>{{ checkup_track.pneu_pression_bar_ard|default:0|floatformat:"1g" }} bar</td>
         </tr>
 
         <tr>
             <td>{% trans "Pression du pneu arrière gauche" %}</td>
-            <td>{{ checkup_track.pneu_pression_bar_arg|default:0|floatformat:1 }} bar</td>
+            <td>{{ checkup_track.pneu_pression_bar_arg|default:0|floatformat:"1g" }} bar</td>
         </tr>
     </tbody>
 </table>
@@ -2481,13 +2481,13 @@
         </div>
          <div>
             <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-            {{ checkup_track.taux_horaire|floatformat:2 }} €
+            {{ checkup_track.taux_horaire|floatformat:"2g" }} €
         </div>
 
         {% if checkup_track.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ checkup_track.cout_main_oeuvre|floatformat:2 }} €
+                {{ checkup_track.cout_main_oeuvre|floatformat:"2g" }} €
             </div>
             
             <div>
@@ -2592,15 +2592,15 @@
                             </td>
 
                             <td class="text-right">
-                                {{ ligne.quantite|default:0|floatformat:2 }}
+                                {{ ligne.quantite|default:0|floatformat:"2g" }}
                             </td>
 
                             <td class="text-right">
-                                {{ ligne.prix|default:0|floatformat:2 }} €
+                                {{ ligne.prix|default:0|floatformat:"2g" }} €
                             </td>
 
                             <td class="text-right">
-                                {{ ligne.total|default:0|floatformat:2 }} €
+                                {{ ligne.total|default:0|floatformat:"2g" }} €
                             </td>
 
                         </tr>
@@ -2617,7 +2617,7 @@
                     </td>
 
                     <td class="total-montant">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
 
                 </tr>
@@ -2630,7 +2630,7 @@
                     </td>
 
                     <td class="total-montant">
-                        {{ checkup_track.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ checkup_track.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
 
                 </tr>
@@ -2643,7 +2643,7 @@
                     </td>
 
                     <td class="total-montant">
-                        {{ checkup_track.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ checkup_track.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
 
                 </tr>
@@ -2670,7 +2670,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ checkup_track.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ checkup_track.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -2684,7 +2684,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ checkup_track.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ checkup_track.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

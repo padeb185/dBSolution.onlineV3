@@ -78,7 +78,7 @@
 
             <dt class="text-gray-600">{% trans "Kilomètres châssis" %}</dt>
             <dd class="font-medium">
-                {% if main_oeuvre.kilometres_chassis is not None %}{{ main_oeuvre.kilometres_chassis }} km{% else %}—{% endif %}
+                {% if main_oeuvre.kilometres_chassis is not None %}{{ main_oeuvre.kilometres_chassis|milliers }} km{% else %}—{% endif %}
             </dd>
         </dl>
     </div>
@@ -93,10 +93,10 @@
             <dd class="font-medium">{{ main_oeuvre.temps_display }}</dd>
 
             <dt class="text-gray-600">{% trans "Taux horaire" %}</dt>
-            <dd class="font-medium">{{ main_oeuvre.taux_horaire|floatformat:2 }} €/h</dd>
+            <dd class="font-medium">{{ main_oeuvre.taux_horaire|floatformat:"2g" }} €/h</dd>
 
             <dt class="text-gray-600 font-semibold">{% trans "Montant facturé" %}</dt>
-            <dd class="font-bold">{{ main_oeuvre.cout_total|floatformat:2 }} €</dd>
+            <dd class="font-bold">{{ main_oeuvre.cout_total|floatformat:"2g" }} €</dd>
         </dl>
     </div>
 

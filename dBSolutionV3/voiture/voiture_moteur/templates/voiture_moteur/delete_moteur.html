@@ -116,7 +116,7 @@
         <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
             <dt class="text-gray-600">{% trans "Cylindrée" %}</dt>
             <dd class="font-medium">
-                {% if moteur.cylindree_l is not None %}{{ moteur.cylindree_l|floatformat:1 }} L{% else %}—{% endif %}
+                {% if moteur.cylindree_l is not None %}{{ moteur.cylindree_l|floatformat:"1g" }} L{% else %}—{% endif %}
             </dd>
 
             <dt class="text-gray-600">{% trans "Nombre de cylindres" %}</dt>
@@ -151,17 +151,17 @@
 
             <dt class="text-gray-600">{% trans "Quantité huile" %}</dt>
             <dd class="font-medium">
-                {% if moteur.quantite_huile_l is not None %}{{ moteur.quantite_huile_l|floatformat:2 }} L{% else %}—{% endif %}
+                {% if moteur.quantite_huile_l is not None %}{{ moteur.quantite_huile_l|floatformat:"2g" }} L{% else %}—{% endif %}
             </dd>
 
             <dt class="text-gray-600">{% trans "Kilomètres châssis" %}</dt>
             <dd class="font-medium">
-                {% if moteur.kilometres_chassis is not None %}{{ moteur.kilometres_chassis }} km{% else %}—{% endif %}
+                {% if moteur.kilometres_chassis is not None %}{{ moteur.kilometres_chassis|milliers }} km{% else %}—{% endif %}
             </dd>
 
             <dt class="text-gray-600">{% trans "Intervalle entretien" %}</dt>
             <dd class="font-medium">
-                {% if moteur.intervalle_km_entretien is not None %}{{ moteur.intervalle_km_entretien }} km{% else %}—{% endif %}
+                {% if moteur.intervalle_km_entretien is not None %}{{ moteur.intervalle_km_entretien|milliers }} km{% else %}—{% endif %}
             </dd>
         </dl>
     </div>

@@ -16,7 +16,7 @@
     {% include "partials/messages.html" %}
 
     <p class="mb-6">
-        {% blocktrans with date=roulement.date|date:"d/m/Y H:i" km=roulement.kilometrage_roulement %}Voulez-vous vraiment supprimer le contrôle des roulements de roue du {{ date }} ({{ km }} km) pour :{% endblocktrans %}
+        {% blocktrans with date=roulement.date|date:"d/m/Y H:i" km=roulement.kilometrage_roulement %}Voulez-vous vraiment supprimer le contrôle des roulements de roue du {{ date }} ({{ km|milliers }} km) pour :{% endblocktrans %}
     </p>
 
     <div class="flex justify-center mb-6">

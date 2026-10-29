@@ -72,23 +72,23 @@
     </div>
     <div class="bg-white shadow-md rounded-lg p-4">
         <h2 class="text-sm font-semibold text-gray-600 mb-1">{% trans "Total HTVA" %}</h2>
-        <p class="text-2xl font-bold">{{ totaux.htva|floatformat:2 }} €</p>
+        <p class="text-2xl font-bold">{{ totaux.htva|floatformat:"2g" }} €</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-4">
         <h2 class="text-sm font-semibold text-gray-600 mb-1">{% trans "Total TVA" %}</h2>
-        <p class="text-2xl font-bold text-red-800">{{ totaux.tva|floatformat:2 }} €</p>
+        <p class="text-2xl font-bold text-red-800">{{ totaux.tva|floatformat:"2g" }} €</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-4">
         <h2 class="text-sm font-semibold text-gray-600 mb-1">{% trans "Total TVAC" %}</h2>
-        <p class="text-2xl font-bold text-green-800">{{ totaux.tvac|floatformat:2 }} €</p>
+        <p class="text-2xl font-bold text-green-800">{{ totaux.tvac|floatformat:"2g" }} €</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-4">
         <h2 class="text-sm font-semibold text-gray-600 mb-1">{% trans "Panier moyen TVAC" %}</h2>
-        <p class="text-2xl font-bold">{{ totaux.panier_moyen|floatformat:2 }} €</p>
+        <p class="text-2xl font-bold">{{ totaux.panier_moyen|floatformat:"2g" }} €</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-4">
         <h2 class="text-sm font-semibold text-gray-600 mb-1">{% trans "Kilomètres vendus" %}</h2>
-        <p class="text-2xl font-bold">{{ totaux.km }} km</p>
+        <p class="text-2xl font-bold">{{ totaux.km|milliers }} km</p>
         <p class="text-xs text-gray-500">{% trans "Facturées" %} {{ totaux.nb_facturees }} / {{ totaux.nb }}</p>
     </div>
 </div>
@@ -102,18 +102,18 @@
     </h2>
     {% if avancement.objectif_htva %}
     <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
-        <span>{% trans "Réalisé HTVA" %} <strong>{{ totaux.htva|floatformat:2 }} €</strong> / {% trans "objectif" %} <strong>{{ avancement.objectif_htva|floatformat:2 }} €</strong></span>
-        <span class="text-2xl font-bold {% if avancement.pct_htva >= 100 %}text-green-700{% elif avancement.pct_htva >= 75 %}text-yellow-600{% else %}text-red-700{% endif %}">{{ avancement.pct_htva|floatformat:1 }} %</span>
+        <span>{% trans "Réalisé HTVA" %} <strong>{{ totaux.htva|floatformat:"2g" }} €</strong> / {% trans "objectif" %} <strong>{{ avancement.objectif_htva|floatformat:"2g" }} €</strong></span>
+        <span class="text-2xl font-bold {% if avancement.pct_htva >= 100 %}text-green-700{% elif avancement.pct_htva >= 75 %}text-yellow-600{% else %}text-red-700{% endif %}">{{ avancement.pct_htva|floatformat:"1g" }} %</span>
     </div>
     <div class="w-full bg-gray-100 rounded h-4 mb-2">
         <div class="h-4 rounded {% if avancement.pct_htva >= 100 %}bg-green-600{% elif avancement.pct_htva >= 75 %}bg-yellow-500{% else %}bg-red-600{% endif %}" style="width: {{ avancement.largeur_htva }}%"></div>
     </div>
     <p class="text-sm text-gray-600">
-        {% if avancement.reste_htva %}{% trans "Reste à vendre" %} : <strong>{{ avancement.reste_htva|floatformat:2 }} € HTVA</strong>{% else %}<strong class="text-green-700">{% trans "Objectif atteint !" %}</strong>{% endif %}
+        {% if avancement.reste_htva %}{% trans "Reste à vendre" %} : <strong>{{ avancement.reste_htva|floatformat:"2g" }} € HTVA</strong>{% else %}<strong class="text-green-700">{% trans "Objectif atteint !" %}</strong>{% endif %}
     </p>
     {% endif %}
     {% if avancement.objectif_nb %}
-    <p class="text-sm text-gray-600 mt-1">{% trans "Nombre de ventes" %} : <strong>{{ totaux.nb }} / {{ avancement.objectif_nb }}</strong> ({{ avancement.pct_nb|floatformat:1 }} %)</p>
+    <p class="text-sm text-gray-600 mt-1">{% trans "Nombre de ventes" %} : <strong>{{ totaux.nb }} / {{ avancement.objectif_nb }}</strong> ({{ avancement.pct_nb|floatformat:"1g" }} %)</p>
     {% endif %}
 </div>
 {% elif peut_objectifs %}
@@ -159,29 +159,29 @@
                 <td class="border px-2 py-1 text-right">{{ v.nb }}</td>
                 <td class="border px-2 py-1 text-right">{{ v.nb_circuit }}</td>
                 <td class="border px-2 py-1 text-right">{{ v.nb_route }}</td>
-                <td class="border px-2 py-1 text-right">{{ v.km }} km</td>
-                <td class="border px-2 py-1 text-right">{{ v.htva|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ v.tva|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right font-semibold">{{ v.tvac|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ v.panier_moyen|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ v.km|milliers }} km</td>
+                <td class="border px-2 py-1 text-right">{{ v.htva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ v.tva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right font-semibold">{{ v.tvac|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ v.panier_moyen|floatformat:"2g" }} €</td>
                 <td class="border px-2 py-1 text-right">{{ v.nb_facturees }} / {{ v.nb }}</td>
                 <td class="border px-2 py-1">
                     <div class="flex items-center gap-2">
                         <div class="flex-1 bg-gray-100 rounded h-3">
                             <div class="bg-green-600 h-3 rounded" style="width: {{ v.part|stringformat:'s' }}%"></div>
                         </div>
-                        <span class="text-xs">{{ v.part|floatformat:1 }} %</span>
+                        <span class="text-xs">{{ v.part|floatformat:"1g" }} %</span>
                     </div>
                 </td>
                 {% if a_objectifs %}
-                <td class="border px-2 py-1 text-right">{% if v.objectif_htva %}{{ v.objectif_htva|floatformat:2 }} €{% else %}—{% endif %}{% if v.objectif_nb %}<span class="block text-xs text-gray-500">{{ v.nb }} / {{ v.objectif_nb }} {% trans "ventes" %}</span>{% endif %}</td>
+                <td class="border px-2 py-1 text-right">{% if v.objectif_htva %}{{ v.objectif_htva|floatformat:"2g" }} €{% else %}—{% endif %}{% if v.objectif_nb %}<span class="block text-xs text-gray-500">{{ v.nb }} / {{ v.objectif_nb }} {% trans "ventes" %}</span>{% endif %}</td>
                 <td class="border px-2 py-1">
                     {% if v.pct_htva is not None %}
                     <div class="flex items-center gap-2">
                         <div class="flex-1 bg-gray-100 rounded h-3">
                             <div class="h-3 rounded {% if v.pct_htva >= 100 %}bg-green-600{% elif v.pct_htva >= 75 %}bg-yellow-500{% else %}bg-red-600{% endif %}" style="width: {{ v.largeur_htva }}%"></div>
                         </div>
-                        <span class="text-xs font-semibold">{{ v.pct_htva|floatformat:1 }} %</span>
+                        <span class="text-xs font-semibold">{{ v.pct_htva|floatformat:"1g" }} %</span>
                     </div>
                     {% else %}—{% endif %}
                 </td>
@@ -198,16 +198,16 @@
                 <td class="border px-2 py-1 text-right">{{ totaux.nb }}</td>
                 <td class="border px-2 py-1 text-right">{{ totaux.nb_circuit }}</td>
                 <td class="border px-2 py-1 text-right">{{ totaux.nb_route }}</td>
-                <td class="border px-2 py-1 text-right">{{ totaux.km }} km</td>
-                <td class="border px-2 py-1 text-right">{{ totaux.htva|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ totaux.tva|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ totaux.tvac|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ totaux.panier_moyen|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.km|milliers }} km</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.htva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.tva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.tvac|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.panier_moyen|floatformat:"2g" }} €</td>
                 <td class="border px-2 py-1 text-right">{{ totaux.nb_facturees }} / {{ totaux.nb }}</td>
                 <td class="border px-2 py-1">100 %</td>
                 {% if a_objectifs %}
-                <td class="border px-2 py-1 text-right">{% if avancement.objectif_htva %}{{ avancement.objectif_htva|floatformat:2 }} €{% else %}—{% endif %}</td>
-                <td class="border px-2 py-1">{% if avancement.pct_htva is not None %}{{ avancement.pct_htva|floatformat:1 }} %{% else %}—{% endif %}</td>
+                <td class="border px-2 py-1 text-right">{% if avancement.objectif_htva %}{{ avancement.objectif_htva|floatformat:"2g" }} €{% else %}—{% endif %}</td>
+                <td class="border px-2 py-1">{% if avancement.pct_htva is not None %}{{ avancement.pct_htva|floatformat:"1g" }} %{% else %}—{% endif %}</td>
                 {% endif %}
             </tr>
         </tfoot>
@@ -237,8 +237,8 @@
                 <tr>
                     <td class="border px-2 py-1">{{ m.date|date:"F Y" }}</td>
                     <td class="border px-2 py-1 text-right">{{ m.nb }}</td>
-                    <td class="border px-2 py-1 text-right">{{ m.tva|floatformat:2 }} €</td>
-                    <td class="border px-2 py-1 text-right">{{ m.tvac|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ m.tva|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ m.tvac|floatformat:"2g" }} €</td>
                     <td class="border px-2 py-1">
                         <div class="bg-gray-100 rounded h-3"><div class="bg-blue-600 h-3 rounded" style="width: {{ m.largeur }}%"></div></div>
                     </td>
@@ -270,8 +270,8 @@
                 <tr>
                     <td class="border px-2 py-1">{{ l.lieu }} <span class="text-xs text-gray-500">({{ l.type }})</span></td>
                     <td class="border px-2 py-1 text-right">{{ l.nb }}</td>
-                    <td class="border px-2 py-1 text-right">{{ l.km }} km</td>
-                    <td class="border px-2 py-1 text-right">{{ l.tvac|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ l.km|milliers }} km</td>
+                    <td class="border px-2 py-1 text-right">{{ l.tvac|floatformat:"2g" }} €</td>
                 </tr>
             {% empty %}
                 <tr><td colspan="4" class="border px-2 py-2 text-gray-500">{% trans "Aucune location sur la période." %}</td></tr>
@@ -298,8 +298,8 @@
             <tr>
                 <td class="border px-2 py-1"><a href="{% url 'voiture_location:trackday_detail' t.trackday.pk %}" class="text-blue-700 underline">{{ t.trackday }}</a></td>
                 <td class="border px-2 py-1 text-right">{{ t.nb }}</td>
-                <td class="border px-2 py-1 text-right">{{ t.htva|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ t.tvac|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ t.htva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ t.tvac|floatformat:"2g" }} €</td>
             </tr>
         {% endfor %}
         </tbody>

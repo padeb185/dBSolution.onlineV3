@@ -26,20 +26,20 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         <div class="bg-white shadow-md rounded-lg p-4">
             <p class="text-gray-500 text-sm">{% trans "Brut" %}</p>
-            <p class="text-xl font-bold">{{ paie.salaire_brut_mensuel|default:0|floatformat:2 }} €</p>
+            <p class="text-xl font-bold">{{ paie.salaire_brut_mensuel|default:0|floatformat:"2g" }} €</p>
         </div>
         <div class="bg-white shadow-md rounded-lg p-4">
             <p class="text-gray-500 text-sm">{% trans "Net à payer" %}</p>
-            <p class="text-xl font-bold text-green-700">{{ paie.salaire_net_mois|default:0|floatformat:2 }} €</p>
+            <p class="text-xl font-bold text-green-700">{{ paie.salaire_net_mois|default:0|floatformat:"2g" }} €</p>
         </div>
         <div class="bg-white shadow-md rounded-lg p-4">
             <p class="text-gray-500 text-sm">{% trans "Précompte professionnel" %}</p>
-            <p class="text-xl font-bold text-red-700">{{ paie.montant_precompte|default:0|floatformat:2 }} €</p>
-            <p class="text-gray-500 text-xs">{% trans "ONSS" %} : {{ paie.montant_onss|default:0|floatformat:2 }} €</p>
+            <p class="text-xl font-bold text-red-700">{{ paie.montant_precompte|default:0|floatformat:"2g" }} €</p>
+            <p class="text-gray-500 text-xs">{% trans "ONSS" %} : {{ paie.montant_onss|default:0|floatformat:"2g" }} €</p>
         </div>
         <div class="bg-white shadow-md rounded-lg p-4">
             <p class="text-gray-500 text-sm">{% trans "Coût employeur" %}</p>
-            <p class="text-xl font-bold text-blue-700">{{ paie.salaire_brut_mensuel_employeur|default:0|floatformat:2 }} €</p>
+            <p class="text-xl font-bold text-blue-700">{{ paie.salaire_brut_mensuel_employeur|default:0|floatformat:"2g" }} €</p>
         </div>
     </div>
 
@@ -48,28 +48,28 @@
         <div class="bg-white shadow-md rounded-lg p-4">
             <p class="text-gray-500 text-sm mb-1">{% trans "Congés payés" %}</p>
             <p>
-                {% trans "Pris ce mois" %} : <strong>{{ paie.conges_jours_pris|default:0|floatformat:"-1" }} {% trans "jours" %}</strong>
+                {% trans "Pris ce mois" %} : <strong>{{ paie.conges_jours_pris|default:0|floatformat:"-1g" }} {% trans "jours" %}</strong>
                 {% if paie.conges_jours_solde is not None %}
-                    · {% trans "Solde" %} : <strong class="{% if paie.conges_jours_solde < 0 %}text-red-700{% else %}text-green-700{% endif %}">{{ paie.conges_jours_solde|floatformat:"-1" }} {% trans "jours" %}</strong>
+                    · {% trans "Solde" %} : <strong class="{% if paie.conges_jours_solde < 0 %}text-red-700{% else %}text-green-700{% endif %}">{{ paie.conges_jours_solde|floatformat:"-1g" }} {% trans "jours" %}</strong>
                 {% endif %}
             </p>
             {% if paie.conges_simple_pecule %}
-                <p class="text-sm text-gray-600">{% trans "Simple pécule des jours pris (compris dans le salaire)" %} : {{ paie.conges_simple_pecule|floatformat:2 }} €</p>
+                <p class="text-sm text-gray-600">{% trans "Simple pécule des jours pris (compris dans le salaire)" %} : {{ paie.conges_simple_pecule|floatformat:"2g" }} €</p>
             {% endif %}
             {% if paie.conges_pecule_ouvrier_annuel %}
-                <p class="text-sm text-gray-600">{% trans "Pécule de vacances ouvrier estimé (annuel, caisse de vacances)" %} : {{ paie.conges_pecule_ouvrier_annuel|floatformat:2 }} €</p>
+                <p class="text-sm text-gray-600">{% trans "Pécule de vacances ouvrier estimé (annuel, caisse de vacances)" %} : {{ paie.conges_pecule_ouvrier_annuel|floatformat:"2g" }} €</p>
             {% endif %}
             {% if paie.double_pecule_net %}
-                <p class="text-sm text-gray-600">{% trans "Double pécule net" %} : {{ paie.double_pecule_net|floatformat:2 }} €</p>
+                <p class="text-sm text-gray-600">{% trans "Double pécule net" %} : {{ paie.double_pecule_net|floatformat:"2g" }} €</p>
             {% endif %}
         </div>
         <div class="bg-white shadow-md rounded-lg p-4">
             <p class="text-gray-500 text-sm mb-1">{% trans "Prime de fin d'année (13e mois)" %}</p>
             {% if paie.treizieme_mois_brut %}
-                <p>{% trans "Brut" %} : <strong>{{ paie.treizieme_mois_brut|floatformat:2 }} €</strong>
+                <p>{% trans "Brut" %} : <strong>{{ paie.treizieme_mois_brut|floatformat:"2g" }} €</strong>
                    ({{ paie.treizieme_mois_mois_prestes }} / 12)
-                   · {% trans "Net" %} : <strong class="text-green-700">{{ paie.treizieme_mois_net|floatformat:2 }} €</strong></p>
-                <p class="text-sm text-gray-600">{% trans "ONSS" %} {{ paie.treizieme_mois_onss|floatformat:2 }} € · {% trans "Précompte" %} {{ paie.treizieme_mois_precompte|floatformat:2 }} €</p>
+                   · {% trans "Net" %} : <strong class="text-green-700">{{ paie.treizieme_mois_net|floatformat:"2g" }} €</strong></p>
+                <p class="text-sm text-gray-600">{% trans "ONSS" %} {{ paie.treizieme_mois_onss|floatformat:"2g" }} € · {% trans "Précompte" %} {{ paie.treizieme_mois_precompte|floatformat:"2g" }} €</p>
             {% else %}
                 <p class="text-gray-500">{% trans "Non payée ce mois." %}</p>
             {% endif %}
@@ -84,7 +84,7 @@
                 <span class="px-2 py-1 rounded bg-green-100 text-green-800 font-semibold">
                     {% trans "Payé le" %} {{ paie.date_paiement|date:"d/m/Y" }}
                 </span>
-                — {{ paie.net_a_payer|floatformat:2 }} €
+                — {{ paie.net_a_payer|floatformat:"2g" }} €
                 {% if paie.utilisateur.numero_compte_bancaire %}· <span class="font-mono">{{ paie.utilisateur.iban_masque }}</span>{% if not paie.utilisateur.iban_valide %} <span class="px-2 py-0.5 rounded bg-red-100 text-red-800 text-xs font-semibold">{% trans "IBAN invalide" %}</span>{% endif %}{% endif %}
             </p>
             <form method="post" action="{% url 'utilisateurs:paie_payer' paie.pk %}">
@@ -96,12 +96,12 @@
             </form>
         {% else %}
             <p class="mb-3">
-                {% trans "Net à payer" %} : <strong>{{ paie.net_a_payer|floatformat:2 }} €</strong>
+                {% trans "Net à payer" %} : <strong>{{ paie.net_a_payer|floatformat:"2g" }} €</strong>
                 {% if paie.double_pecule_net %}
-                    <span class="text-gray-500">({% trans "dont double pécule" %} {{ paie.double_pecule_net|floatformat:2 }} €)</span>
+                    <span class="text-gray-500">({% trans "dont double pécule" %} {{ paie.double_pecule_net|floatformat:"2g" }} €)</span>
                 {% endif %}
                 {% if paie.treizieme_mois_net %}
-                    <span class="text-gray-500">({% trans "dont 13e mois" %} {{ paie.treizieme_mois_net|floatformat:2 }} €)</span>
+                    <span class="text-gray-500">({% trans "dont 13e mois" %} {{ paie.treizieme_mois_net|floatformat:"2g" }} €)</span>
                 {% endif %}
                 {% if paie.utilisateur.numero_compte_bancaire %}· <span class="font-mono">{{ paie.utilisateur.iban_masque }}</span>{% if not paie.utilisateur.iban_valide %} <span class="px-2 py-0.5 rounded bg-red-100 text-red-800 text-xs font-semibold">{% trans "IBAN invalide" %}</span>{% endif %}{% endif %}
             </p>

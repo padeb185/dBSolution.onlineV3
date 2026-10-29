@@ -361,12 +361,12 @@
 
         <div>
             <span class="label">{% trans "Kilométrage châssis" %} :</span>
-            {{ essuyage.kilometres_chassis }} km
+            {{ essuyage.kilometres_chassis|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage essuyage" %} :</span>
-            {{ essuyage.kilometrage_essuyage }} km
+            {{ essuyage.kilometrage_essuyage|milliers }} km
         </div>
 
         <div>
@@ -798,12 +798,12 @@
 
             <div>
                 <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-                {{ essuyage.main_oeuvre.taux_horaire|floatformat:2 }} €
+                {{ essuyage.main_oeuvre.taux_horaire|floatformat:"2g" }} €
             </div>
 
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ essuyage.main_oeuvre.prix_facture|floatformat:2 }} €
+                {{ essuyage.main_oeuvre.prix_facture|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -898,11 +898,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
 
                     </tr>
@@ -921,7 +921,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ rapport.total_general|default:0|floatformat:2 }} €
+                            {{ rapport.total_general|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
 
@@ -939,7 +939,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ essuyage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ essuyage.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
 
@@ -957,7 +957,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ essuyage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ essuyage.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
 
@@ -989,7 +989,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ essuyage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ essuyage.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
 
@@ -1007,7 +1007,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ essuyage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ essuyage.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
 

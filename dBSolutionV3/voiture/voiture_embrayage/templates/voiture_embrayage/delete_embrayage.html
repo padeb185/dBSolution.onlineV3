@@ -50,7 +50,7 @@
 
             <dt class="text-gray-600">{% trans "Kilomètres châssis" %}</dt>
             <dd class="font-medium">
-                {% if embrayage.kilometres_chassis is not None %}{{ embrayage.kilometres_chassis }} km{% else %}—{% endif %}
+                {% if embrayage.kilometres_chassis is not None %}{{ embrayage.kilometres_chassis|milliers }} km{% else %}—{% endif %}
             </dd>
         </dl>
     </div>

@@ -328,8 +328,8 @@
         <div><span class="label">{% trans "Rôle" %} :</span> {{ niveau.tech_role_technicien }}</div>
         <div><span class="label">{% trans "Société" %} :</span> {{ niveau.tech_societe }}</div>
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ niveau.voiture_exemplaire }}</div>
-        <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ niveau.kilometres_chassis }} km</div>
-        <div><span class="label">{% trans "Kilométrage du contrôle niveaux" %} :</span> {{ niveau.kilometrage_niveaux }} km</div>
+        <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ niveau.kilometres_chassis|milliers }} km</div>
+        <div><span class="label">{% trans "Kilométrage du contrôle niveaux" %} :</span> {{ niveau.kilometrage_niveaux|milliers }} km</div>
 
         <div>
             <span class="label">{% trans "Tag" %} :</span>
@@ -476,13 +476,13 @@
         </div>
          <div>
             <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-            {{ niveau.taux_horaire|floatformat:2 }} €
+            {{ niveau.taux_horaire|floatformat:"2g" }} €
         </div>
 
         {% if niveau.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ niveau.cout_main_oeuvre|floatformat:2 }} €
+                {{ niveau.cout_main_oeuvre|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -567,11 +567,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -585,7 +585,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ rapport.total_general|default:0|floatformat:2 }} €
+                            {{ rapport.total_general|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -599,7 +599,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ niveau.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ niveau.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -613,7 +613,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ niveau.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ niveau.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -639,7 +639,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ niveau.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ niveau.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -653,7 +653,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ niveau.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ niveau.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

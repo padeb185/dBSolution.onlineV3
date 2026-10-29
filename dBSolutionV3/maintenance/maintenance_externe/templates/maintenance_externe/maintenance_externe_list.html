@@ -36,11 +36,11 @@
 
 <!-- Totaux -->
 <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
-    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Pièces HTVA" %}</p><p class="text-xl font-bold">{{ totaux.pieces|floatformat:2 }} €</p></div>
-    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Main-d'œuvre HTVA" %}</p><p class="text-xl font-bold">{{ totaux.mo|floatformat:2 }} €</p></div>
-    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Total HTVA" %}</p><p class="text-xl font-bold">{{ totaux.htva|floatformat:2 }} €</p></div>
-    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Total TVA" %}</p><p class="text-xl font-bold">{{ totaux.tva|floatformat:2 }} €</p></div>
-    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Total TVAC" %}</p><p class="text-xl font-bold text-blue-700">{{ totaux.tvac|floatformat:2 }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Pièces HTVA" %}</p><p class="text-xl font-bold">{{ totaux.pieces|floatformat:"2g" }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Main-d'œuvre HTVA" %}</p><p class="text-xl font-bold">{{ totaux.mo|floatformat:"2g" }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Total HTVA" %}</p><p class="text-xl font-bold">{{ totaux.htva|floatformat:"2g" }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Total TVA" %}</p><p class="text-xl font-bold">{{ totaux.tva|floatformat:"2g" }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Total TVAC" %}</p><p class="text-xl font-bold text-blue-700">{{ totaux.tvac|floatformat:"2g" }} €</p></div>
 </div>
 
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
@@ -84,10 +84,10 @@
             <td class="border px-4 py-2">{{ m.get_type_maintenance_display }}</td>
             <td class="border px-4 py-2">{{ m.garage.nom }}{% if m.numero_facture %}<br><span class="text-xs text-gray-500">{% trans "Facture" %} {{ m.numero_facture }}</span>{% endif %}</td>
             <td class="border px-4 py-2" data-order="{{ m.date_facture|date:'Y-m-d' }}">{{ m.date_facture|date:"d/m/Y" }}</td>
-            <td class="border px-4 py-2 text-right" data-order="{{ m.total_pieces_tvac }}">{{ m.total_pieces_tvac|floatformat:2 }} €<br><span class="text-xs text-gray-500">{{ m.pieces_htva|floatformat:2 }} € HTVA</span></td>
-            <td class="border px-4 py-2 text-right" data-order="{{ m.total_main_oeuvre_tvac }}">{{ m.total_main_oeuvre_tvac|floatformat:2 }} €<br><span class="text-xs text-gray-500">{{ m.main_oeuvre_htva|floatformat:2 }} € HTVA</span></td>
-            <td class="border px-4 py-2 text-right" data-order="{{ m.total_tva }}">{{ m.total_tva|floatformat:2 }} €<br><span class="text-xs text-gray-500">{{ m.taux_tva|floatformat:"-2" }} % ({{ m.pays }})</span></td>
-            <td class="border px-4 py-2 text-right font-bold" data-order="{{ m.total_tvac }}">{{ m.total_tvac|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right" data-order="{{ m.total_pieces_tvac }}">{{ m.total_pieces_tvac|floatformat:"2g" }} €<br><span class="text-xs text-gray-500">{{ m.pieces_htva|floatformat:"2g" }} € HTVA</span></td>
+            <td class="border px-4 py-2 text-right" data-order="{{ m.total_main_oeuvre_tvac }}">{{ m.total_main_oeuvre_tvac|floatformat:"2g" }} €<br><span class="text-xs text-gray-500">{{ m.main_oeuvre_htva|floatformat:"2g" }} € HTVA</span></td>
+            <td class="border px-4 py-2 text-right" data-order="{{ m.total_tva }}">{{ m.total_tva|floatformat:"2g" }} €<br><span class="text-xs text-gray-500">{{ m.taux_tva|floatformat:"-2g" }} % ({{ m.pays }})</span></td>
+            <td class="border px-4 py-2 text-right font-bold" data-order="{{ m.total_tvac }}">{{ m.total_tvac|floatformat:"2g" }} €</td>
             <td class="border px-4 py-2 text-center whitespace-nowrap">
                 <a href="{% url 'maintenance_externe:maintenance_externe_modifier' maintenance_id=m.id %}" class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">{% trans "Modifier" %}</a>
 {% if request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.is_superuser %}

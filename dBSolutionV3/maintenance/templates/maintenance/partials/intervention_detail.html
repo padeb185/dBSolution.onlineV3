@@ -60,10 +60,10 @@ Variables attendues (passées par le template de chaque app) :
             </div>
             {% endif %}
 
-            <p><strong>{% trans "Kilométrage avant intervention" %} :</strong> {{ obj.kilometres_chassis|default:"-" }} km</p>
-            <p><strong>{% trans "Kilométrage de l'intervention" %} :</strong> {{ km_controle|default:"-" }} km</p>
+            <p><strong>{% trans "Kilométrage avant intervention" %} :</strong> {{ obj.kilometres_chassis|default:"-"|milliers }} km</p>
+            <p><strong>{% trans "Kilométrage de l'intervention" %} :</strong> {{ km_controle|default:"-"|milliers }} km</p>
             {% if obj.kilometrage_variation or obj.kilometrage_variation == 0 %}
-                <p><strong>{% trans "Variation" %} :</strong> {{ obj.kilometrage_variation }} km</p>
+                <p><strong>{% trans "Variation" %} :</strong> {{ obj.kilometrage_variation|milliers }} km</p>
             {% endif %}
 
             {% if obj.moteur_lie %}
@@ -127,10 +127,10 @@ Variables attendues (passées par le template de chaque app) :
 
             <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ obj.date|date:"d/m/Y H:i" }}</p>
             <p><strong>{% trans "Temps" %} :</strong> {{ obj.temps_main_oeuvre_display|default:"0h00" }}</p>
-            <p><strong>{% trans "Taux horaire" %} :</strong> {{ obj.main_oeuvre.taux_horaire|default:0|floatformat:2 }} €</p>
-            <p><strong>{% trans "Coût main d'œuvre HTVA" %} :</strong> {{ obj.cout_main_oeuvre|default:0|floatformat:2 }} €</p>
-            <p><strong>{% trans "Total pièces HTVA" %} :</strong> {{ rapport|premier:"total_pieces,total_pieces_htva,total_general"|default:0|floatformat:2 }} €</p>
-            <p class="text-lg"><strong>{% trans "Total HTVA" %} :</strong> {{ obj.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €</p>
+            <p><strong>{% trans "Taux horaire" %} :</strong> {{ obj.main_oeuvre.taux_horaire|default:0|floatformat:"2g" }} €</p>
+            <p><strong>{% trans "Coût main d'œuvre HTVA" %} :</strong> {{ obj.cout_main_oeuvre|default:0|floatformat:"2g" }} €</p>
+            <p><strong>{% trans "Total pièces HTVA" %} :</strong> {{ rapport|premier:"total_pieces,total_pieces_htva,total_general"|default:0|floatformat:"2g" }} €</p>
+            <p class="text-lg"><strong>{% trans "Total HTVA" %} :</strong> {{ obj.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €</p>
         </div>
 
         <!-- Boutons -->
@@ -191,9 +191,9 @@ Variables attendues (passées par le template de chaque app) :
                         </td>
                         {% if avec_cote %}<td class="border px-3 py-2">{{ ligne|premier:"cote"|default:"-" }}</td>{% endif %}
                         <td class="border px-3 py-2">{{ ligne|premier:"fabricant_label,fabricant_display,fabricant"|default:"-" }}</td>
-                        <td class="border px-3 py-2 text-right">{{ ligne.quantite|floatformat:"-2" }}</td>
-                        <td class="border px-3 py-2 text-right">{{ ligne|premier:"prix,prix_unitaire"|default:0|floatformat:2 }} €</td>
-                        <td class="border px-3 py-2 text-right">{{ ligne.total|default:0|floatformat:2 }} €</td>
+                        <td class="border px-3 py-2 text-right">{{ ligne.quantite|floatformat:"-2g" }}</td>
+                        <td class="border px-3 py-2 text-right">{{ ligne|premier:"prix,prix_unitaire"|default:0|floatformat:"2g" }} €</td>
+                        <td class="border px-3 py-2 text-right">{{ ligne.total|default:0|floatformat:"2g" }} €</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -229,9 +229,9 @@ Variables attendues (passées par le template de chaque app) :
                     <td class="border px-3 py-2">{{ l.piece.designation|default:l.piece }}</td>
                     <td class="border px-3 py-2">{{ l.piece.nom_fabricant|default:"-" }}</td>
                     <td class="border px-3 py-2 font-mono">{{ l.piece.oem|default:"" }}{% if not l.piece.oem %}{{ l.piece.eans|first|default:"-" }}{% endif %}</td>
-                    <td class="border px-3 py-2 text-right">{{ l.quantite|floatformat:"-2" }}</td>
-                    <td class="border px-3 py-2 text-right">{{ l.prix_unitaire|floatformat:2 }} €</td>
-                    <td class="border px-3 py-2 text-right">{{ l.total|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ l.quantite|floatformat:"-2g" }}</td>
+                    <td class="border px-3 py-2 text-right">{{ l.prix_unitaire|floatformat:"2g" }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ l.total|floatformat:"2g" }} €</td>
                     <td class="border px-3 py-2">{% if l.debitee %}<span class="px-2 py-0.5 rounded bg-green-100 text-green-800 text-xs font-semibold">{% trans "Débitée" %}</span>{% else %}<span class="px-2 py-0.5 rounded bg-yellow-100 text-yellow-800 text-xs font-semibold">{% trans "Débitée à l'émission" %}</span>{% endif %}</td>
                 </tr>
             {% endfor %}

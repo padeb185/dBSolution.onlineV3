@@ -81,7 +81,7 @@
                         -
                     {% endif %}
                 </td>
-                <td class="border px-4 py-2 text-right" data-order="{{ f.total|stringformat:'.2f' }}" data-search="{{ f.total|stringformat:'.2f' }} {{ f.total|floatformat:2 }}">{% if f.est_note_credit %}− {% endif %}{{ f.total|floatformat:2 }} €</td>
+                <td class="border px-4 py-2 text-right" data-order="{{ f.total|stringformat:'.2f' }}" data-search="{{ f.total|stringformat:'.2f' }} {{ f.total|floatformat:2 }}">{% if f.est_note_credit %}− {% endif %}{{ f.total|floatformat:"2g" }} €</td>
                 <td class="border px-4 py-2" data-search="{{ f.get_statut_display }}">
                     <span class="px-2 py-1 rounded text-sm font-semibold {% if f.est_emise %}bg-green-100 text-green-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
                         {{ f.get_statut_display }}

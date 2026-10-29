@@ -16,7 +16,7 @@
     {% include "partials/messages.html" %}
 
     <p class="mb-6">
-        {% blocktrans with date=banc.date|date:"d/m/Y H:i" km=banc.kilometrage_banc %}Voulez-vous vraiment supprimer le passage au banc du {{ date }} ({{ km }} km) pour :{% endblocktrans %}
+        {% blocktrans with date=banc.date|date:"d/m/Y H:i" km=banc.kilometrage_banc %}Voulez-vous vraiment supprimer le passage au banc du {{ date }} ({{ km|milliers }} km) pour :{% endblocktrans %}
     </p>
 
     <div class="flex justify-center mb-6">

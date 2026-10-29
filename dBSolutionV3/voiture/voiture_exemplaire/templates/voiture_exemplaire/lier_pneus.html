@@ -72,7 +72,7 @@
             {{ pneu_actuel.get_manufacturier_display }} {{ pneu_actuel.get_type_pneus_display }} {{ pneu_actuel.nom_type|default:"" }}
             {{ pneu_actuel.taille }}
             <div class="text-sm text-gray-600 mt-1">
-                {% trans "Train n°" %}{{ train.numero }} · {{ train.km_effectues }} km
+                {% trans "Train n°" %}{{ train.numero }} · {{ train.km_effectues|milliers }} km
                 · {% if train.est_monte %}{% trans "monté" %}{% else %}{% trans "non monté" %}{% endif %}
             </div>
         {% else %}

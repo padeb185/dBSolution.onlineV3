@@ -301,12 +301,12 @@
 
         <div>
             <span class="label">{% trans "Kilométrage chassis" %} :</span>
-            {{ carrosserie.kilometres_chassis }} km
+            {{ carrosserie.kilometres_chassis|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage intervention" %} :</span>
-            {{ carrosserie.kilometrage_intervention }} km
+            {{ carrosserie.kilometrage_intervention|milliers }} km
         </div>
 
         <div>
@@ -336,13 +336,13 @@
         </div>
          <div>
             <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-            {{ carrosserie.taux_horaire|floatformat:2 }} €
+            {{ carrosserie.taux_horaire|floatformat:"2g" }} €
         </div>
 
         {% if carrosserie.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ carrosserie.cout_main_oeuvre|floatformat:2 }} €
+                {{ carrosserie.cout_main_oeuvre|floatformat:"2g" }} €
             </div>
             
             <div>
@@ -434,11 +434,11 @@
                             </td>
 
                             <td style="text-align: right;">
-                                {{ ligne.prix|default:0|floatformat:2 }} €
+                                {{ ligne.prix|default:0|floatformat:"2g" }} €
                             </td>
 
                             <td style="text-align: right;">
-                                {{ ligne.total|default:0|floatformat:2 }} €
+                                {{ ligne.total|default:0|floatformat:"2g" }} €
                             </td>
                         </tr>
                     {% endfor %}
@@ -452,7 +452,7 @@
 
                         <td class="text-right">
                             <strong>
-                                {{ rapport.total_general|default:0|floatformat:2 }} €
+                                {{ rapport.total_general|default:0|floatformat:"2g" }} €
                             </strong>
                         </td>
                     </tr>
@@ -466,7 +466,7 @@
 
                         <td class="text-right">
                             <strong>
-                                {{ carrosserie.cout_main_oeuvre|default:0|floatformat:2 }} €
+                                {{ carrosserie.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                             </strong>
                         </td>
                     </tr>
@@ -480,7 +480,7 @@
 
                         <td class="text-right">
                             <strong>
-                                {{ carrosserie.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                                {{ carrosserie.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                             </strong>
                         </td>
                     </tr>
@@ -506,7 +506,7 @@
 
                         <td class="text-right">
                             <strong>
-                                {{ carrosserie.cout_main_oeuvre|default:0|floatformat:2 }} €
+                                {{ carrosserie.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                             </strong>
                         </td>
                     </tr>
@@ -520,7 +520,7 @@
 
                         <td class="text-right">
                             <strong>
-                                {{ carrosserie.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                                {{ carrosserie.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                             </strong>
                         </td>
                     </tr>

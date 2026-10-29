@@ -27,15 +27,15 @@
         <tr>
             <td class="border px-4 py-2 font-semibold">{% if l.profil %}{{ l.profil.nom_affiche }}{% else %}{{ l.utilisateur.prenom }} {{ l.utilisateur.nom }}{% endif %}</td>
             <td class="border px-4 py-2">{% if l.profil %}{{ l.profil.numero_entreprise }}{% else %}<span class="text-red-700 font-semibold">{% trans "Profil à compléter" %}</span>{% endif %}</td>
-            <td class="border px-4 py-2">{% if l.profil %}{{ l.profil.get_regime_tva_display }}{% if l.profil.regime_tva == 'ASSUJETTI' %} ({{ l.profil.taux_tva|floatformat:"-2" }} %){% endif %}{% else %}—{% endif %}</td>
+            <td class="border px-4 py-2">{% if l.profil %}{{ l.profil.get_regime_tva_display }}{% if l.profil.regime_tva == 'ASSUJETTI' %} ({{ l.profil.taux_tva|floatformat:"-2g" }} %){% endif %}{% else %}—{% endif %}</td>
             <td class="border px-4 py-2 text-center">
                 {% if l.profil.autofacturation_possible %}<span class="text-green-700 font-semibold">{% trans "Oui" %}</span>
                 <span class="block text-xs text-gray-500">{% trans "accord du" %} {{ l.profil.date_accord_autofacturation|date:"d/m/Y" }}</span>
                 {% else %}<span class="text-gray-500">{% trans "Non" %}</span>{% endif %}
             </td>
-            <td class="border px-4 py-2 text-right">{{ l.heures_a_facturer|floatformat:"-2" }} h <span class="text-xs text-gray-500">({{ l.nb_a_facturer }})</span></td>
-            <td class="border px-4 py-2 text-right">{{ l.montant_a_facturer|floatformat:2 }} €</td>
-            <td class="border px-4 py-2 text-right {% if l.a_payer %}text-red-700 font-semibold{% endif %}">{{ l.a_payer|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ l.heures_a_facturer|floatformat:"-2g" }} h <span class="text-xs text-gray-500">({{ l.nb_a_facturer }})</span></td>
+            <td class="border px-4 py-2 text-right">{{ l.montant_a_facturer|floatformat:"2g" }} €</td>
+            <td class="border px-4 py-2 text-right {% if l.a_payer %}text-red-700 font-semibold{% endif %}">{{ l.a_payer|floatformat:"2g" }} €</td>
             <td class="border px-4 py-2 text-center whitespace-nowrap">
                 <a href="{% url 'compta:profil_instructeur' l.utilisateur.pk %}" class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">{% trans "Profil" %}</a>
                 {% if l.profil %}

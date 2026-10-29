@@ -60,15 +60,15 @@
 <div class="sous-titre">
     {% trans "Période" %} : <strong>{{ periode.libelle }}</strong>
     ({{ periode.debut|date:"d/m/Y" }} – {{ periode.fin|date:"d/m/Y" }})
-    · {% trans "Déduction TVA belge" %} : {{ deduction|floatformat:0 }} %
+    · {% trans "Déduction TVA belge" %} : {{ deduction|floatformat:"0g" }} %
 </div>
 
 <div class="cartes">
-    <div class="carte"><div class="l">{% trans "Total TTC" %}</div><div class="v">{{ total.ttc|floatformat:2 }} €</div>
-        <div class="l">{% trans "HT" %} {{ total.ht|floatformat:2 }} € · {% trans "TVA" %} {{ total.tva|floatformat:2 }} €</div></div>
+    <div class="carte"><div class="l">{% trans "Total TTC" %}</div><div class="v">{{ total.ttc|floatformat:"2g" }} €</div>
+        <div class="l">{% trans "HT" %} {{ total.ht|floatformat:"2g" }} € · {% trans "TVA" %} {{ total.tva|floatformat:"2g" }} €</div></div>
     {% for f in par_famille %}
-    <div class="carte"><div class="l">{{ f.label }} ({{ f.nb }})</div><div class="v">{{ f.ttc|floatformat:2 }} €</div>
-        <div class="l">{{ f.quantite|floatformat:2 }} {{ f.unite|default:"" }} · {% trans "TVA" %} {{ f.tva|floatformat:2 }} €</div></div>
+    <div class="carte"><div class="l">{{ f.label }} ({{ f.nb }})</div><div class="v">{{ f.ttc|floatformat:"2g" }} €</div>
+        <div class="l">{{ f.quantite|floatformat:"2g" }} {{ f.unite|default:"" }} · {% trans "TVA" %} {{ f.tva|floatformat:"2g" }} €</div></div>
     {% endfor %}
 </div>
 
@@ -87,14 +87,14 @@
     <tbody>
     {% for c in par_categorie %}
         <tr><td>{{ c.famille }}</td><td>{{ c.label }}</td><td class="r">{{ c.nb }}</td>
-            <td class="r">{{ c.quantite|floatformat:2 }} {{ c.unite }}</td>
-            <td class="r">{% if c.prix_moyen %}{{ c.prix_moyen|floatformat:3 }} €/{{ c.unite }}{% else %}—{% endif %}</td>
-            <td class="r">{{ c.ht|floatformat:2 }} €</td><td class="r">{{ c.tva|floatformat:2 }} €</td>
-            <td class="r"><strong>{{ c.ttc|floatformat:2 }} €</strong></td></tr>
+            <td class="r">{{ c.quantite|floatformat:"2g" }} {{ c.unite }}</td>
+            <td class="r">{% if c.prix_moyen %}{{ c.prix_moyen|floatformat:"3g" }} €/{{ c.unite }}{% else %}—{% endif %}</td>
+            <td class="r">{{ c.ht|floatformat:"2g" }} €</td><td class="r">{{ c.tva|floatformat:"2g" }} €</td>
+            <td class="r"><strong>{{ c.ttc|floatformat:"2g" }} €</strong></td></tr>
     {% endfor %}
         <tr class="total"><td colspan="2">{% trans "Total" %}</td><td class="r">{{ total.nb }}</td><td></td><td></td>
-            <td class="r">{{ total.ht|floatformat:2 }} €</td><td class="r">{{ total.tva|floatformat:2 }} €</td>
-            <td class="r">{{ total.ttc|floatformat:2 }} €</td></tr>
+            <td class="r">{{ total.ht|floatformat:"2g" }} €</td><td class="r">{{ total.tva|floatformat:"2g" }} €</td>
+            <td class="r">{{ total.ttc|floatformat:"2g" }} €</td></tr>
     </tbody>
 </table>
 </div>
@@ -110,32 +110,32 @@
     <tbody>
     {% for p in par_pays %}
         <tr class="pays"><td>{{ p.nom }} ({{ p.code }})</td><td>{% trans "Total pays" %}</td>
-            <td class="r">{{ p.taux|floatformat:"-1" }} %</td><td class="r">{{ p.nb }}</td>
-            <td class="r">{{ p.ht|floatformat:2 }} €</td><td class="r">{{ p.tva|floatformat:2 }} €</td>
-            <td class="r">{{ p.ttc|floatformat:2 }} €</td><td>{{ p.regime_label }}</td></tr>
+            <td class="r">{{ p.taux|floatformat:"-1g" }} %</td><td class="r">{{ p.nb }}</td>
+            <td class="r">{{ p.ht|floatformat:"2g" }} €</td><td class="r">{{ p.tva|floatformat:"2g" }} €</td>
+            <td class="r">{{ p.ttc|floatformat:"2g" }} €</td><td>{{ p.regime_label }}</td></tr>
         {% for f in p.familles_liste %}
         <tr class="detail"><td></td><td>{{ f.label }}</td><td></td><td class="r">{{ f.nb }}</td>
-            <td class="r">{{ f.ht|floatformat:2 }} €</td><td class="r">{{ f.tva|floatformat:2 }} €</td>
-            <td class="r">{{ f.ttc|floatformat:2 }} €</td><td></td></tr>
+            <td class="r">{{ f.ht|floatformat:"2g" }} €</td><td class="r">{{ f.tva|floatformat:"2g" }} €</td>
+            <td class="r">{{ f.ttc|floatformat:"2g" }} €</td><td></td></tr>
         {% endfor %}
     {% endfor %}
         <tr class="total"><td colspan="3">{% trans "Total" %}</td><td class="r">{{ total.nb }}</td>
-            <td class="r">{{ total.ht|floatformat:2 }} €</td><td class="r">{{ total.tva|floatformat:2 }} €</td>
-            <td class="r">{{ total.ttc|floatformat:2 }} €</td><td></td></tr>
+            <td class="r">{{ total.ht|floatformat:"2g" }} €</td><td class="r">{{ total.tva|floatformat:"2g" }} €</td>
+            <td class="r">{{ total.ttc|floatformat:"2g" }} €</td><td></td></tr>
     </tbody>
 </table>
 
 <table style="width:60%; margin-top:10px;">
     <thead><tr><th>{% trans "Synthèse par régime" %}</th><th class="r">{% trans "HT" %}</th><th class="r">{% trans "TVA" %}</th></tr></thead>
     <tbody>{% for r in regimes %}
-        <tr><td>{{ r.label }}</td><td class="r">{{ r.ht|floatformat:2 }} €</td><td class="r"><strong>{{ r.tva|floatformat:2 }} €</strong></td></tr>
+        <tr><td>{{ r.label }}</td><td class="r">{{ r.ht|floatformat:"2g" }} €</td><td class="r"><strong>{{ r.tva|floatformat:"2g" }} €</strong></td></tr>
     {% endfor %}</tbody>
 </table>
 <div class="note">
     <strong>{% trans "Déclaration TVA belge" %}</strong> –
-    {% trans "Grille 82 (base HT)" %} : {{ declaration_be.grille_82|floatformat:2 }} € ·
-    {% trans "Grille 59 (TVA déductible)" %} : {{ declaration_be.grille_59|floatformat:2 }} € ·
-    {% trans "TVA non déductible" %} : {{ declaration_be.tva_non_deductible|floatformat:2 }} €
+    {% trans "Grille 82 (base HT)" %} : {{ declaration_be.grille_82|floatformat:"2g" }} € ·
+    {% trans "Grille 59 (TVA déductible)" %} : {{ declaration_be.grille_59|floatformat:"2g" }} € ·
+    {% trans "TVA non déductible" %} : {{ declaration_be.tva_non_deductible|floatformat:"2g" }} €
     {% for r in regimes %}{% if r.code == "remboursement_ue" %}<br>
     {% blocktrans with d=echeance_remboursement_ue|date:"d/m/Y" %}Demande de remboursement de la TVA étrangère via Intervat (procédure UE) au plus tard le {{ d }}.{% endblocktrans %}
     {% endif %}{% endfor %}
@@ -148,7 +148,7 @@
 <table>
     <thead><tr><th>{% trans "Trimestre" %}</th><th class="r">{% trans "Nombre" %}</th><th class="r">{% trans "HT" %}</th><th class="r">{% trans "TVA" %}</th><th class="r">{% trans "TTC" %}</th></tr></thead>
     <tbody>{% for t in par_trimestre %}
-        <tr><td>{{ t.label }}</td><td class="r">{{ t.nb }}</td><td class="r">{{ t.ht|floatformat:2 }} €</td><td class="r">{{ t.tva|floatformat:2 }} €</td><td class="r"><strong>{{ t.ttc|floatformat:2 }} €</strong></td></tr>
+        <tr><td>{{ t.label }}</td><td class="r">{{ t.nb }}</td><td class="r">{{ t.ht|floatformat:"2g" }} €</td><td class="r">{{ t.tva|floatformat:"2g" }} €</td><td class="r"><strong>{{ t.ttc|floatformat:"2g" }} €</strong></td></tr>
     {% endfor %}</tbody>
 </table>
 </div>
@@ -160,7 +160,7 @@
 <table>
     <thead><tr><th>{% trans "Mois" %}</th><th class="r">{% trans "Nombre" %}</th><th class="r">{% trans "HT" %}</th><th class="r">{% trans "TVA" %}</th><th class="r">{% trans "TTC" %}</th></tr></thead>
     <tbody>{% for m in par_mois %}
-        <tr><td>{{ m.label }}</td><td class="r">{{ m.nb }}</td><td class="r">{{ m.ht|floatformat:2 }} €</td><td class="r">{{ m.tva|floatformat:2 }} €</td><td class="r"><strong>{{ m.ttc|floatformat:2 }} €</strong></td></tr>
+        <tr><td>{{ m.label }}</td><td class="r">{{ m.nb }}</td><td class="r">{{ m.ht|floatformat:"2g" }} €</td><td class="r">{{ m.tva|floatformat:"2g" }} €</td><td class="r"><strong>{{ m.ttc|floatformat:"2g" }} €</strong></td></tr>
     {% endfor %}</tbody>
 </table>
 </div>
@@ -174,8 +174,8 @@
         <th class="r">{% trans "TVA" %}</th><th class="r">{% trans "TTC" %}</th></tr></thead>
     <tbody>{% for v in par_vehicule %}
         <tr><td>{{ v.vehicule }}</td><td>{{ v.immatriculation }}</td>
-            {% for code, montant in v.familles.items %}<td class="r">{% if montant %}{{ montant|floatformat:2 }} €{% else %}—{% endif %}</td>{% endfor %}
-            <td class="r">{{ v.tva|floatformat:2 }} €</td><td class="r"><strong>{{ v.ttc|floatformat:2 }} €</strong></td></tr>
+            {% for code, montant in v.familles.items %}<td class="r">{% if montant %}{{ montant|floatformat:"2g" }} €{% else %}—{% endif %}</td>{% endfor %}
+            <td class="r">{{ v.tva|floatformat:"2g" }} €</td><td class="r"><strong>{{ v.ttc|floatformat:"2g" }} €</strong></td></tr>
     {% endfor %}</tbody>
 </table>
 </div>
@@ -186,9 +186,9 @@
     <thead><tr><th>{% trans "Compte" %}</th><th>{% trans "Intitulé" %}</th><th class="r">{% trans "Débit" %}</th><th class="r">{% trans "Crédit" %}</th><th class="r">{% trans "Solde" %}</th></tr></thead>
     <tbody>
     {% for b in compta.balance %}
-        <tr><td class="mono">{{ b.compte }}</td><td>{{ b.intitule }}</td><td class="r">{{ b.debit|floatformat:2 }}</td><td class="r">{{ b.credit|floatformat:2 }}</td><td class="r"><strong>{{ b.solde|floatformat:2 }}</strong></td></tr>
+        <tr><td class="mono">{{ b.compte }}</td><td>{{ b.intitule }}</td><td class="r">{{ b.debit|floatformat:"2g" }}</td><td class="r">{{ b.credit|floatformat:"2g" }}</td><td class="r"><strong>{{ b.solde|floatformat:"2g" }}</strong></td></tr>
     {% endfor %}
-        <tr class="total"><td colspan="2">{% trans "Total" %}</td><td class="r">{{ compta.total_debit|floatformat:2 }}</td><td class="r">{{ compta.total_credit|floatformat:2 }}</td><td></td></tr>
+        <tr class="total"><td colspan="2">{% trans "Total" %}</td><td class="r">{{ compta.total_debit|floatformat:"2g" }}</td><td class="r">{{ compta.total_credit|floatformat:"2g" }}</td><td></td></tr>
     </tbody>
 </table>
 </div>
@@ -201,12 +201,12 @@
         <th class="r">{% trans "HT" %}</th><th class="r">{% trans "TVA" %}</th><th class="r">{% trans "TTC" %}</th></tr></thead>
     <tbody>{% for o in operations %}
         <tr><td>{{ o.date|date:"d/m/Y" }}</td><td class="mono">{{ o.piece }}</td><td>{{ o.categorie_label }}</td>
-            <td>{{ o.immatriculation }}</td><td>{{ o.pays }}</td><td class="r">{{ o.quantite|floatformat:2 }} {{ o.unite }}</td>
-            <td class="r">{{ o.taux|floatformat:"-1" }} %</td><td class="r">{{ o.ht|floatformat:2 }}</td>
-            <td class="r">{{ o.tva|floatformat:2 }}</td><td class="r">{{ o.ttc|floatformat:2 }}</td></tr>
+            <td>{{ o.immatriculation }}</td><td>{{ o.pays }}</td><td class="r">{{ o.quantite|floatformat:"2g" }} {{ o.unite }}</td>
+            <td class="r">{{ o.taux|floatformat:"-1g" }} %</td><td class="r">{{ o.ht|floatformat:"2g" }}</td>
+            <td class="r">{{ o.tva|floatformat:"2g" }}</td><td class="r">{{ o.ttc|floatformat:"2g" }}</td></tr>
     {% endfor %}
-        <tr class="total"><td colspan="7">{% trans "Total" %}</td><td class="r">{{ total.ht|floatformat:2 }}</td>
-            <td class="r">{{ total.tva|floatformat:2 }}</td><td class="r">{{ total.ttc|floatformat:2 }}</td></tr>
+        <tr class="total"><td colspan="7">{% trans "Total" %}</td><td class="r">{{ total.ht|floatformat:"2g" }}</td>
+            <td class="r">{{ total.tva|floatformat:"2g" }}</td><td class="r">{{ total.ttc|floatformat:"2g" }}</td></tr>
     </tbody>
 </table>
 {% endif %}
@@ -219,10 +219,10 @@
         <tr><td>{% if forloop.first %}{{ e.op.date|date:"d/m/Y" }}{% endif %}</td>
             <td class="mono">{% if forloop.first %}{{ e.op.piece }}{% endif %}</td>
             <td class="mono">{{ l.compte }}</td><td>{{ l.libelle }}</td>
-            <td class="r">{% if l.debit %}{{ l.debit|floatformat:2 }}{% endif %}</td>
-            <td class="r">{% if l.credit %}{{ l.credit|floatformat:2 }}{% endif %}</td></tr>
+            <td class="r">{% if l.debit %}{{ l.debit|floatformat:"2g" }}{% endif %}</td>
+            <td class="r">{% if l.credit %}{{ l.credit|floatformat:"2g" }}{% endif %}</td></tr>
     {% endfor %}{% endfor %}
-        <tr class="total"><td colspan="4">{% trans "Total" %}</td><td class="r">{{ compta.total_debit|floatformat:2 }}</td><td class="r">{{ compta.total_credit|floatformat:2 }}</td></tr>
+        <tr class="total"><td colspan="4">{% trans "Total" %}</td><td class="r">{{ compta.total_debit|floatformat:"2g" }}</td><td class="r">{{ compta.total_credit|floatformat:"2g" }}</td></tr>
     </tbody>
 </table>
 {% endif %}

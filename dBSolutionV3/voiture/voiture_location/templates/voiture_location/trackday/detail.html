@@ -11,7 +11,7 @@
     <p class="text-gray-600 mb-4">
         {{ trackday.periode_affichage }}
         {% if trackday.organisateur %} · {% trans "Organisateur" %} : {{ trackday.organisateur }}{% endif %}
-        {% if trackday.longueur_circuit_km %} · {% trans "Longueur du circuit" %} : {{ trackday.longueur_circuit_km }} km{% endif %}
+        {% if trackday.longueur_circuit_km %} · {% trans "Longueur du circuit" %} : {{ trackday.longueur_circuit_km|milliers }} km{% endif %}
     </p>
     {% include "voiture_location/_messages.html" %}
 
@@ -30,14 +30,14 @@
             <div><span>{% trans "Véhicules" %}</span><strong>{{ r.nb_vehicules }}{% if trackday.places_vehicules %} / {{ trackday.places_vehicules }}{% endif %}</strong></div>
             <div><span>{% trans "Box utilisés" %}</span><strong>{{ r.nb_box }} / {{ r.nombre_box }}</strong></div>
             <div><span>{% trans "Tours réservés" %}</span><strong>{{ r.tours }}</strong></div>
-            <div><span>{% trans "Kilomètres réservés" %}</span><strong>{{ r.km }} km</strong></div>
+            <div><span>{% trans "Kilomètres réservés" %}</span><strong>{{ r.km|milliers }} km</strong></div>
             {% if voit_rentabilite %}
-            <div><span>{% trans "Ventes HTVA" %}</span><strong>{{ r.ventes_htva|floatformat:2 }} €</strong></div>
-            <div><span>{% trans "Ventes TVAC" %}</span><strong>{{ r.ventes_tvac|floatformat:2 }} €</strong></div>
-            <div><span>{% trans "Prix d'achat total HTVA" %}</span><strong>{{ r.couts_htva|floatformat:2 }} €</strong></div>
-            <div><span>{% trans "Marge" %}</span><strong class="{% if r.marge >= 0 %}td-positif{% else %}td-negatif{% endif %}">{{ r.marge|floatformat:2 }} €{% if r.marge_pct is not None %} <small>({{ r.marge_pct }} %)</small>{% endif %}</strong></div>
-            <div><span>{% trans "Panier moyen HTVA" %}</span><strong>{{ r.panier_moyen_htva|floatformat:2 }} €</strong></div>
-            <div><span>{% trans "Coût par véhicule" %}</span><strong>{{ r.cout_par_vehicule|floatformat:2 }} €</strong></div>
+            <div><span>{% trans "Ventes HTVA" %}</span><strong>{{ r.ventes_htva|floatformat:"2g" }} €</strong></div>
+            <div><span>{% trans "Ventes TVAC" %}</span><strong>{{ r.ventes_tvac|floatformat:"2g" }} €</strong></div>
+            <div><span>{% trans "Prix d'achat total HTVA" %}</span><strong>{{ r.couts_htva|floatformat:"2g" }} €</strong></div>
+            <div><span>{% trans "Marge" %}</span><strong class="{% if r.marge >= 0 %}td-positif{% else %}td-negatif{% endif %}">{{ r.marge|floatformat:"2g" }} €{% if r.marge_pct is not None %} <small>({{ r.marge_pct }} %)</small>{% endif %}</strong></div>
+            <div><span>{% trans "Panier moyen HTVA" %}</span><strong>{{ r.panier_moyen_htva|floatformat:"2g" }} €</strong></div>
+            <div><span>{% trans "Coût par véhicule" %}</span><strong>{{ r.cout_par_vehicule|floatformat:"2g" }} €</strong></div>
             {% if r.seuil_vehicules %}<div><span>{% trans "Seuil de rentabilité" %}</span><strong>{{ r.seuil_vehicules }} {% trans "véhicules" %}</strong></div>{% endif %}
             {% endif %}
         </div>
@@ -69,10 +69,10 @@
                     <td>{{ l.pilote1|default:"-" }}</td>
                     <td>{{ l.pilote2|default:"-" }}</td>
                     <td class="whitespace-nowrap">{% for b in l.boxes %}{{ b.numero }}{% if b.pit_lane != 1 %} <small>(PL{{ b.pit_lane }})</small>{% endif %}{% if not forloop.last %}, {% endif %}{% empty %}-{% endfor %}</td>
-                    <td class="text-right whitespace-nowrap">{% if l.km_depart is not None %}{{ l.km_depart }} km{% else %}<span class="text-gray-400" title="{% trans 'Kilométrage actuel du véhicule (sortie non encore validée)' %}">{{ l.km_actuel|default:"-" }} km*</span>{% endif %}</td>
+                    <td class="text-right whitespace-nowrap">{% if l.km_depart is not None %}{{ l.km_depart|milliers }} km{% else %}<span class="text-gray-400" title="{% trans 'Kilométrage actuel du véhicule (sortie non encore validée)' %}">{{ l.km_actuel|default:"-"|milliers }} km*</span>{% endif %}</td>
                     <td class="text-right whitespace-nowrap">{{ l.loc.distance_affichage|default:"-" }}</td>
                     <td>{% if l.loc.vendeur %}{{ l.loc.vendeur.prenom }} {{ l.loc.vendeur.nom }}{% else %}-{% endif %}</td>
-                    <td class="text-right whitespace-nowrap">{% if voit_rentabilite or l.loc.vendeur_id == request.user.pk %}{{ l.loc.prix_tvac|floatformat:2 }} €{% else %}<span class="text-gray-400">—</span>{% endif %}</td>
+                    <td class="text-right whitespace-nowrap">{% if voit_rentabilite or l.loc.vendeur_id == request.user.pk %}{{ l.loc.prix_tvac|floatformat:"2g" }} €{% else %}<span class="text-gray-400">—</span>{% endif %}</td>
                     <td class="whitespace-nowrap">
                         {% if l.retour %}<span class="td-badge td-badge-ok">{% trans "Rentré" %}</span>
                         {% elif l.sortie %}<span class="td-badge td-badge-att">{% trans "En piste" %}</span>
@@ -119,7 +119,7 @@
                 <tbody>
                 {% for v in vendeurs %}
                     <tr><td>{% if v.vendeur %}{{ v.vendeur.prenom }} {{ v.vendeur.nom }}{% else %}{% trans "Non attribué" %}{% endif %}</td>
-                        <td class="text-right">{{ v.nb }}</td><td class="text-right">{{ v.htva|floatformat:2 }} €</td><td class="text-right">{{ v.tvac|floatformat:2 }} €</td></tr>
+                        <td class="text-right">{{ v.nb }}</td><td class="text-right">{{ v.htva|floatformat:"2g" }} €</td><td class="text-right">{{ v.tvac|floatformat:"2g" }} €</td></tr>
                 {% empty %}
                     <tr><td colspan="4" class="text-gray-500">{% trans "Aucune vente." %}</td></tr>
                 {% endfor %}
@@ -132,11 +132,11 @@
                 <tbody>
                 {% for c in trackday.couts.all %}
                     <tr><td>{{ c.get_categorie_display }}{% if c.libelle %} – {{ c.libelle }}{% endif %}{% if c.fournisseur %} <small class="text-gray-500">({{ c.fournisseur }})</small>{% endif %}</td>
-                        <td class="text-right whitespace-nowrap">{{ c.montant_htva|floatformat:2 }} €</td></tr>
+                        <td class="text-right whitespace-nowrap">{{ c.montant_htva|floatformat:"2g" }} €</td></tr>
                 {% empty %}
                     <tr><td colspan="2" class="text-gray-500">{% trans "Aucun coût saisi." %} <a href="{% url 'voiture_location:trackday_modifier' trackday.pk %}" class="underline">{% trans "Ajouter" %}</a></td></tr>
                 {% endfor %}
-                <tr class="font-bold"><td>{% trans "Prix d'achat total HTVA" %}</td><td class="text-right">{{ r.couts_htva|floatformat:2 }} €</td></tr>
+                <tr class="font-bold"><td>{% trans "Prix d'achat total HTVA" %}</td><td class="text-right">{{ r.couts_htva|floatformat:"2g" }} €</td></tr>
                 </tbody>
             </table>
             {% endif %}

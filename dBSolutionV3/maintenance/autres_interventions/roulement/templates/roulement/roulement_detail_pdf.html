@@ -173,8 +173,8 @@
         <div><span class="label">{% trans "Société" %} :</span> {{ roulement.tech_societe|default:"-" }}</div>
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ roulement.voiture_exemplaire }}</div>
         <div><span class="label">{% trans "Immatriculation" %} :</span> {{ roulement.voiture_exemplaire.immatriculation|default:"-" }}</div>
-        <div><span class="label">{% trans "Kilométrage avant contrôle" %} :</span> {{ roulement.kilometres_chassis|default:0 }} km</div>
-        <div><span class="label">{% trans "Kilométrage contrôle" %} :</span> {{ roulement.kilometrage_roulement }} km</div>
+        <div><span class="label">{% trans "Kilométrage avant contrôle" %} :</span> {{ roulement.kilometres_chassis|default:0|milliers }} km</div>
+        <div><span class="label">{% trans "Kilométrage contrôle" %} :</span> {{ roulement.kilometrage_roulement|milliers }} km</div>
         <div><span class="label">{% trans "Serrage des roues" %} :</span> {{ roulement.get_serrage_roues_display }}</div>
 
         <div>
@@ -261,8 +261,8 @@
         <div><span class="label">{% trans "Temps" %} :</span> {{ roulement.temps_main_oeuvre_display }}</div>
 
         {% if roulement.main_oeuvre %}
-            <div><span class="label">{% trans "Taux horaire HTVA" %} :</span> {{ roulement.taux_horaire_main_oeuvre|floatformat:2 }} €</div>
-            <div><span class="label">{% trans "Prix HTVA" %} :</span> {{ roulement.cout_main_oeuvre|floatformat:2 }} €</div>
+            <div><span class="label">{% trans "Taux horaire HTVA" %} :</span> {{ roulement.taux_horaire_main_oeuvre|floatformat:"2g" }} €</div>
+            <div><span class="label">{% trans "Prix HTVA" %} :</span> {{ roulement.cout_main_oeuvre|floatformat:"2g" }} €</div>
             <div><span class="label">{% trans "Descriptif" %} :</span> {{ roulement.main_oeuvre.descriptif|default:"-" }}</div>
         {% else %}
             <div>{% trans "Aucune main d'œuvre liée" %}</div>
@@ -302,23 +302,23 @@
             </td>
             <td>{{ ligne.cote|default:"-" }}</td>
             <td>{{ ligne.fabricant|default:"-" }}</td>
-            <td class="text-right">{{ ligne.quantite|floatformat:0 }}</td>
-            <td class="text-right">{{ ligne.prix|floatformat:2 }} €</td>
-            <td class="text-right">{{ ligne.total|floatformat:2 }} €</td>
+            <td class="text-right">{{ ligne.quantite|floatformat:"0g" }}</td>
+            <td class="text-right">{{ ligne.prix|floatformat:"2g" }} €</td>
+            <td class="text-right">{{ ligne.total|floatformat:"2g" }} €</td>
         </tr>
         {% endfor %}
 
         <tr class="total">
             <td colspan="6" class="text-right">{% trans "Total pièces HTVA" %}</td>
-            <td class="text-right">{{ rapport.total_pieces|floatformat:2 }} €</td>
+            <td class="text-right">{{ rapport.total_pieces|floatformat:"2g" }} €</td>
         </tr>
         <tr class="total">
             <td colspan="6" class="text-right">{% trans "Main-d'œuvre HTVA" %}</td>
-            <td class="text-right">{{ roulement.cout_main_oeuvre|floatformat:2 }} €</td>
+            <td class="text-right">{{ roulement.cout_main_oeuvre|floatformat:"2g" }} €</td>
         </tr>
         <tr class="total-general">
             <td colspan="6" class="text-right">{% trans "Total général avec main-d'œuvre HTVA" %}</td>
-            <td class="text-right">{{ roulement.total_general_avec_main_oeuvre|floatformat:2 }} €</td>
+            <td class="text-right">{{ roulement.total_general_avec_main_oeuvre|floatformat:"2g" }} €</td>
         </tr>
     </tbody>
 </table>
@@ -331,11 +331,11 @@
     <tbody>
         <tr class="total">
             <td class="text-right"><strong>{% trans "Main-d'œuvre HTVA" %}</strong></td>
-            <td class="text-right"><strong>{{ roulement.cout_main_oeuvre|floatformat:2 }} €</strong></td>
+            <td class="text-right"><strong>{{ roulement.cout_main_oeuvre|floatformat:"2g" }} €</strong></td>
         </tr>
         <tr class="total-general">
             <td class="text-right"><strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong></td>
-            <td class="text-right"><strong>{{ roulement.total_general_avec_main_oeuvre|floatformat:2 }} €</strong></td>
+            <td class="text-right"><strong>{{ roulement.total_general_avec_main_oeuvre|floatformat:"2g" }} €</strong></td>
         </tr>
     </tbody>
 </table>

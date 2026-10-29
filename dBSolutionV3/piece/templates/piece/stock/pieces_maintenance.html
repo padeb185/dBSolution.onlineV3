@@ -24,7 +24,7 @@
             {% if exemplaire %}{% include "maintenance/partials/plaque.html" with immat_plaque=maintenance.immatriculation %}{% else %}<strong>{{ maintenance.immatriculation }}</strong>{% endif %}
         </div>
         <div><p class="text-sm text-gray-500">{% trans "Date d'intervention" %}</p><p class="font-semibold">{{ maintenance.date_intervention|date:"d/m/Y" }}</p></div>
-        <div><p class="text-sm text-gray-500">{% trans "Kilométrage" %}</p><p class="font-semibold">{{ maintenance.kilometres_total }} km</p></div>
+        <div><p class="text-sm text-gray-500">{% trans "Kilométrage" %}</p><p class="font-semibold">{{ maintenance.kilometres_total|milliers }} km</p></div>
         <div>
             <p class="text-sm text-gray-500">{% trans "Facture" %}</p>
             {% for f in factures %}
@@ -105,16 +105,16 @@
                     <td class="border px-2 py-2">{{ l.piece.nom_fabricant|default:"—" }}</td>
                     <td class="border px-2 py-2 font-mono">{{ l.piece.oem|default:"—" }}</td>
                     <td class="border px-2 py-2 font-mono text-xs">{{ l.piece.eans|join:", "|default:"—" }}</td>
-                    <td class="border px-2 py-2 text-right">{{ l.quantite|floatformat:"-2" }} <span class="text-xs text-gray-500">{{ l.piece.get_unite_display }}</span></td>
-                    <td class="border px-2 py-2 text-right">{{ l.prix_unitaire|floatformat:2 }} €</td>
-                    <td class="border px-2 py-2 text-right font-semibold">{{ l.total|floatformat:2 }} €</td>
+                    <td class="border px-2 py-2 text-right">{{ l.quantite|floatformat:"-2g" }} <span class="text-xs text-gray-500">{{ l.piece.get_unite_display }}</span></td>
+                    <td class="border px-2 py-2 text-right">{{ l.prix_unitaire|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-2 text-right font-semibold">{{ l.total|floatformat:"2g" }} €</td>
                     <td class="border px-2 py-2">
                         {% if l.debitee %}
                             <span class="px-2 py-0.5 rounded bg-green-100 text-green-800 text-xs font-semibold">{% trans "Débitée" %}</span>
                             {% if l.facture_id %}<a class="text-xs text-blue-700 hover:underline" href="{% url 'facture:detail' l.facture_id %}">{{ l.facture.numero }}</a>{% endif %}
                         {% else %}
                             <span class="px-2 py-0.5 rounded bg-yellow-100 text-yellow-800 text-xs font-semibold">{% trans "En attente de facture" %}</span>
-                            <span class="text-xs text-gray-500">({% trans "stock" %} {{ l.piece.quantite_stock|floatformat:"-2" }})</span>
+                            <span class="text-xs text-gray-500">({% trans "stock" %} {{ l.piece.quantite_stock|floatformat:"-2g" }})</span>
                         {% endif %}
                     </td>
                     <td class="border px-2 py-2 whitespace-nowrap">
@@ -133,7 +133,7 @@
             </tbody>
             <tfoot><tr class="bg-gray-50 font-bold">
                 <td colspan="6" class="border px-2 py-2 text-right">{% trans "Total pièces HTVA" %}</td>
-                <td class="border px-2 py-2 text-right">{{ total|floatformat:2 }} €</td>
+                <td class="border px-2 py-2 text-right">{{ total|floatformat:"2g" }} €</td>
                 <td colspan="2" class="border"></td>
             </tr></tfoot>
         </table>

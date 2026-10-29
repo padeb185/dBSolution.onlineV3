@@ -159,11 +159,11 @@
                     <div><span class="label">{% trans "Véhicule" %} :</span> {{ v.voiture_marque.nom_marque }} {{ v.voiture_modele.nom_modele }}</div>
                     <div><span class="label">{% trans "Immatriculation" %} :</span> {{ v.immatriculation|default:"-" }}</div>
                     {% if v.numero_vin %}<div><span class="label">{% trans "VIN" %} :</span> {{ v.numero_vin }}</div>{% endif %}
-                    <div><span class="label">{% trans "Kilométrage" %} :</span> {{ v.kilometres_chassis|default:0 }} km</div>
+                    <div><span class="label">{% trans "Kilométrage" %} :</span> {{ v.kilometres_chassis|default:0|milliers }} km</div>
                 {% endif %}
             {% endwith %}
             {% if facture.est_quote_part %}
-                <div><span class="label">{% trans "Quote-part facturée" %} :</span> {{ facture.part_pourcent|floatformat:2 }} % {% trans "du véhicule (copropriété)" %}</div>
+                <div><span class="label">{% trans "Quote-part facturée" %} :</span> {{ facture.part_pourcent|floatformat:"2g" }} % {% trans "du véhicule (copropriété)" %}</div>
             {% endif %}
         </div>
     </div>
@@ -234,11 +234,11 @@
                     {% if l.reference %}<br><small>{% trans "Réf." %} {{ l.reference }}</small>{% endif %}
                 </td>
                 <td class="text-right">
-                    {{ l.quantity|floatformat:2 }}{% if l.type_ligne == "MAIN_OEUVRE" %} h{% endif %}
+                    {{ l.quantity|floatformat:"2g" }}{% if l.type_ligne == "MAIN_OEUVRE" %} h{% endif %}
                 </td>
-                <td class="text-right">{{ l.unit_price|floatformat:2 }} €</td>
-                <td class="text-right">{% if facture.autoliquidation %}0{% else %}{{ l.vat_rate|floatformat:"-2" }}{% endif %} %</td>
-                <td class="text-right">{{ l.total_ht|floatformat:2 }} €</td>
+                <td class="text-right">{{ l.unit_price|floatformat:"2g" }} €</td>
+                <td class="text-right">{% if facture.autoliquidation %}0{% else %}{{ l.vat_rate|floatformat:"-2g" }}{% endif %} %</td>
+                <td class="text-right">{{ l.total_ht|floatformat:"2g" }} €</td>
             </tr>
         {% empty %}
             <tr><td colspan="5">{% trans "Aucune ligne." %}</td></tr>
@@ -253,25 +253,25 @@
     <tbody>
         {% for taux, g in groupes_tva.items %}
             <tr>
-                <td>{% trans "Base HTVA" %} {{ taux|floatformat:"-2" }} %</td>
-                <td class="text-right">{{ g.base|floatformat:2 }} €</td>
+                <td>{% trans "Base HTVA" %} {{ taux|floatformat:"-2g" }} %</td>
+                <td class="text-right">{{ g.base|floatformat:"2g" }} €</td>
             </tr>
             <tr>
-                <td>{% trans "TVA" %} {{ taux|floatformat:"-2" }} %</td>
-                <td class="text-right">{{ g.tva|floatformat:2 }} €</td>
+                <td>{% trans "TVA" %} {{ taux|floatformat:"-2g" }} %</td>
+                <td class="text-right">{{ g.tva|floatformat:"2g" }} €</td>
             </tr>
         {% endfor %}
         <tr class="total">
             <td>{% trans "Total HTVA" %}</td>
-            <td class="text-right">{{ facture.total_ht|floatformat:2 }} €</td>
+            <td class="text-right">{{ facture.total_ht|floatformat:"2g" }} €</td>
         </tr>
         <tr class="total">
             <td>{% trans "Total TVA" %}</td>
-            <td class="text-right">{{ facture.total_tva|floatformat:2 }} €</td>
+            <td class="text-right">{{ facture.total_tva|floatformat:"2g" }} €</td>
         </tr>
         <tr class="total-general">
             <td>{% if facture.est_note_credit %}{% trans "Total TVAC en votre faveur" %}{% else %}{% trans "Total TVAC" %}{% endif %}</td>
-            <td class="text-right">{{ facture.total|floatformat:2 }} €</td>
+            <td class="text-right">{{ facture.total|floatformat:"2g" }} €</td>
         </tr>
     </tbody>
 </table>

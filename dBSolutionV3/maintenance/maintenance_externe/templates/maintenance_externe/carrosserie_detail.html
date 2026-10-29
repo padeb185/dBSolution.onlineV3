@@ -19,7 +19,7 @@
     <p><strong>{% trans "Véhicule" %} :</strong> {{ carrosserie.voiture_exemplaire }}</p>
     <p><strong>{% trans "Carrossier" %} :</strong>
         {% if carrosserie.carrossier %}<a href="{% url 'carrosserie:carrosserie_detail' carrosserie.carrossier.pk %}" class="text-blue-700 hover:underline">{{ carrosserie.carrossier }}</a>{% else %}—{% endif %}</p>
-    {% if carrosserie.kilometrage %}<p><strong>{% trans "Kilométrage" %} :</strong> {{ carrosserie.kilometrage }} km</p>{% endif %}
+    {% if carrosserie.kilometrage %}<p><strong>{% trans "Kilométrage" %} :</strong> {{ carrosserie.kilometrage|milliers }} km</p>{% endif %}
     {% if carrosserie.description %}<div class="md:col-span-2"><strong>{% trans "Dommages / travaux" %} :</strong>{{ carrosserie.description|linebreaks }}</div>{% endif %}
 </div>
 
@@ -29,7 +29,7 @@
         <h2 class="text-lg font-semibold mb-3">{% trans "Devis" %}</h2>
         <p><strong>{% trans "Numéro" %} :</strong> {{ carrosserie.devis_numero|default:"—" }}</p>
         <p><strong>{% trans "Date" %} :</strong> {{ carrosserie.devis_date|date:"d/m/Y"|default:"—" }}</p>
-        <p><strong>{% trans "Montant HTVA" %} :</strong> {{ carrosserie.devis_htva|floatformat:2 }} € <span class="text-gray-500 text-sm">({{ carrosserie.devis_tvac|floatformat:2 }} € {% trans "TVAC" %})</span></p>
+        <p><strong>{% trans "Montant HTVA" %} :</strong> {{ carrosserie.devis_htva|floatformat:"2g" }} € <span class="text-gray-500 text-sm">({{ carrosserie.devis_tvac|floatformat:"2g" }} € {% trans "TVAC" %})</span></p>
         {% if carrosserie.devis_pdf %}<p class="mt-2"><a href="{% url 'maintenance_externe:carrosserie_document' carrosserie.pk 'devis' %}" target="_blank" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">📄 {% trans "Ouvrir le devis" %}</a></p>{% endif %}
     </div>
     <!-- Facture -->
@@ -37,11 +37,11 @@
         <h2 class="text-lg font-semibold mb-3">{% trans "Facture" %}</h2>
         {% if carrosserie.est_facturee %}
             <p><strong>{% trans "Numéro" %} :</strong> {{ carrosserie.facture_numero|default:"—" }} · {{ carrosserie.facture_date|date:"d/m/Y" }}</p>
-            <p>{% trans "Pièces HTVA" %} : {{ carrosserie.pieces_htva|floatformat:2 }} € · {% trans "Peinture" %} : {{ carrosserie.peinture_htva|floatformat:2 }} € · {% trans "Main-d'œuvre" %} : {{ carrosserie.main_oeuvre_htva|floatformat:2 }} €</p>
-            <p><strong>{% trans "Total HTVA" %} :</strong> {{ carrosserie.total_htva|floatformat:2 }} € · {% trans "TVA" %} {{ carrosserie.taux_tva|floatformat:"-2" }} % : {{ carrosserie.total_tva|floatformat:2 }} €</p>
-            <p class="text-lg"><strong>{% trans "Total TVAC" %} : {{ carrosserie.total_tvac|floatformat:2 }} €</strong></p>
+            <p>{% trans "Pièces HTVA" %} : {{ carrosserie.pieces_htva|floatformat:"2g" }} € · {% trans "Peinture" %} : {{ carrosserie.peinture_htva|floatformat:"2g" }} € · {% trans "Main-d'œuvre" %} : {{ carrosserie.main_oeuvre_htva|floatformat:"2g" }} €</p>
+            <p><strong>{% trans "Total HTVA" %} :</strong> {{ carrosserie.total_htva|floatformat:"2g" }} € · {% trans "TVA" %} {{ carrosserie.taux_tva|floatformat:"-2g" }} % : {{ carrosserie.total_tva|floatformat:"2g" }} €</p>
+            <p class="text-lg"><strong>{% trans "Total TVAC" %} : {{ carrosserie.total_tvac|floatformat:"2g" }} €</strong></p>
             {% if carrosserie.ecart_devis_htva is not None %}
-            <p class="text-sm font-semibold {% if carrosserie.ecart_devis_htva > 0 %}text-red-600{% else %}text-green-700{% endif %}">{% trans "Écart facture − devis (HTVA)" %} : {{ carrosserie.ecart_devis_htva|floatformat:2 }} €</p>
+            <p class="text-sm font-semibold {% if carrosserie.ecart_devis_htva > 0 %}text-red-600{% else %}text-green-700{% endif %}">{% trans "Écart facture − devis (HTVA)" %} : {{ carrosserie.ecart_devis_htva|floatformat:"2g" }} €</p>
             {% endif %}
             {% if carrosserie.facture_pdf %}<p class="mt-2"><a href="{% url 'maintenance_externe:carrosserie_document' carrosserie.pk 'facture' %}" target="_blank" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">📄 {% trans "Ouvrir la facture" %}</a></p>{% endif %}
         {% else %}
@@ -54,15 +54,15 @@
 <div class="bg-white shadow-md rounded-lg p-6 mb-6 grid grid-cols-1 md:grid-cols-2 gap-3">
     {% if carrosserie.prise_en_charge_assurance %}
         <p><strong>{% trans "Sinistre" %} :</strong> {{ carrosserie.sinistre|default:"—" }}{% if carrosserie.numero_sinistre %} · {% trans "n°" %} {{ carrosserie.numero_sinistre }}{% endif %}</p>
-        <p><strong>{% trans "Franchise" %} :</strong> {{ carrosserie.franchise|floatformat:2 }} €</p>
-        <p><strong>{% trans "Pris en charge par l'assurance" %} :</strong> <span class="text-green-700">{{ carrosserie.montant_assurance|floatformat:2 }} €</span></p>
+        <p><strong>{% trans "Franchise" %} :</strong> {{ carrosserie.franchise|floatformat:"2g" }} €</p>
+        <p><strong>{% trans "Pris en charge par l'assurance" %} :</strong> <span class="text-green-700">{{ carrosserie.montant_assurance|floatformat:"2g" }} €</span></p>
         <p><strong>{% trans "L'assurance paie directement le carrossier" %} :</strong> {{ carrosserie.assurance_paie_carrossier|yesno:_("Oui,Non") }}</p>
     {% else %}
         <p><strong>{% trans "Assurance" %} :</strong> {% trans "Pas de prise en charge" %}</p>
     {% endif %}
-    <p><strong>{% trans "Reste à charge TVAC" %} :</strong> <span class="font-bold text-blue-700">{{ carrosserie.reste_a_charge_tvac|floatformat:2 }} €</span></p>
+    <p><strong>{% trans "Reste à charge TVAC" %} :</strong> <span class="font-bold text-blue-700">{{ carrosserie.reste_a_charge_tvac|floatformat:"2g" }} €</span></p>
     {% if carrosserie.est_facturee %}
-    <p><strong>{% trans "À payer au carrossier" %} :</strong> {{ carrosserie.montant_a_payer|floatformat:2 }} € —
+    <p><strong>{% trans "À payer au carrossier" %} :</strong> {{ carrosserie.montant_a_payer|floatformat:"2g" }} € —
         {% if carrosserie.date_paiement %}<span class="text-green-700">{% trans "payé le" %} {{ carrosserie.date_paiement|date:"d/m/Y" }}</span>{% else %}<span class="text-red-600">{% trans "non payé" %}</span>{% endif %}</p>
     {% endif %}
 </div>

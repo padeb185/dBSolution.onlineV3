@@ -40,7 +40,7 @@
             <td class="border px-3 py-2 text-right">{{ suivi.kilometrage_avant|default_if_none:"—" }}</td>
             <td class="border px-3 py-2 text-right">
                 {{ suivi.kilometrage_apres|default_if_none:"—" }}
-                {% if suivi.km_parcourus is not None %}<br><span class="text-xs text-gray-500">+{{ suivi.km_parcourus }} km</span>{% endif %}
+                {% if suivi.km_parcourus is not None %}<br><span class="text-xs text-gray-500">+{{ suivi.km_parcourus|milliers }} km</span>{% endif %}
             </td>
             <td class="border px-3 py-2 text-sm">
                 {% if suivi.retour_effectue %}

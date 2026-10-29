@@ -16,7 +16,7 @@
     {% include "partials/messages.html" %}
 
     <p class="mb-6">
-        {% blocktrans with date=transfert.date|date:"d/m/Y H:i" km=transfert.kilometrage_transfert %}Voulez-vous vraiment supprimer le contrôle boîte de transfert du {{ date }} ({{ km }} km) pour :{% endblocktrans %}
+        {% blocktrans with date=transfert.date|date:"d/m/Y H:i" km=transfert.kilometrage_transfert %}Voulez-vous vraiment supprimer le contrôle boîte de transfert du {{ date }} ({{ km|milliers }} km) pour :{% endblocktrans %}
     </p>
 
     <div class="flex justify-center mb-6">

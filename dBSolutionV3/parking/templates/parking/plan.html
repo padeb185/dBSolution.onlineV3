@@ -11,7 +11,7 @@
         <h1 class="text-2xl font-bold flex items-center gap-3">
             <img src="{% static 'icons/parking.png' %}" alt="{% trans 'Parking' %}" class="w-12 h-12">
             {{ parking.nom }}
-            <span class="text-base font-normal text-gray-600">{{ parking.largeur_m|floatformat:"-2" }} m × {{ parking.longueur_m|floatformat:"-2" }} m</span>
+            <span class="text-base font-normal text-gray-600">{{ parking.largeur_m|floatformat:"-2g" }} m × {{ parking.longueur_m|floatformat:"-2g" }} m</span>
         </h1>
         <div class="pk-stats">
             <div class="pk-stat">{% trans "Box" %}<b>{{ parking.nombre_box }}</b></div>

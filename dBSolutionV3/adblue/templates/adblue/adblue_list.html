@@ -147,13 +147,13 @@
             <!-- 6 Prix total -->
             <td class="border px-4 py-2"
                 data-order="{{ adblue.prix_adblue|default:0 }}">
-                {{ adblue.prix_adblue|floatformat:2 }} €
+                {{ adblue.prix_adblue|floatformat:"2g" }} €
             </td>
 
             <!-- 7 Prix au litre -->
             <td class="border px-4 py-2"
                 data-order="{{ adblue.prix_litre|default:0 }}">
-                {{ adblue.prix_litre|floatformat:3 }} €
+                {{ adblue.prix_litre|floatformat:"3g" }} €
             </td>
 
             <!-- 9 Date -->

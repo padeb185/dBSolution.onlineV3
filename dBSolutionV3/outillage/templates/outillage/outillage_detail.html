@@ -55,11 +55,11 @@
             </p>
              <p>
                 <strong>{% trans "Quantité" %} :</strong>
-                {{ outillage.quantite }} × {{ outillage.prix_htva|floatformat:2 }} € {% trans "HTVA" %}
+                {{ outillage.quantite }} × {{ outillage.prix_htva|floatformat:"2g" }} € {% trans "HTVA" %}
             </p>
              <p>
                 <strong>{% trans "Prix TVAC" %} :</strong>
-                {{ outillage.total_tvac|floatformat:2 }} €
+                {{ outillage.total_tvac|floatformat:"2g" }} €
             </p>
              <p>
                 <strong>{% trans "Paiement" %} :</strong>

@@ -345,21 +345,21 @@
 
         <div>
             <span class="label">{% trans "Kilométrage du châssis" %} :</span>
-            {{ remplacement.kilometres_chassis|default:0 }} km
+            {{ remplacement.kilometres_chassis|default:0|milliers }} km
         </div>
 
         <div>
             <span class="label">
                 {% trans "Kilomètres du moteur à remplacer" %} :
             </span>
-            {{ remplacement.kilometres_moteur|default:0 }} km
+            {{ remplacement.kilometres_moteur|default:0|milliers }} km
         </div>
 
         <div>
             <span class="label">
                 {% trans "Kilomètres au remplacement moteur" %} :
             </span>
-            {{ remplacement.kilometres_remplacement_moteur|default:0 }} km
+            {{ remplacement.kilometres_remplacement_moteur|default:0|milliers }} km
         </div>
 
         <div>
@@ -439,7 +439,7 @@
             <tr>
                 <td>{% trans "Prix du moteur HTVA" %}</td>
                 <td>
-                    {{ remplacement.moteurs_prix|default:0|floatformat:2 }} €
+                    {{ remplacement.moteurs_prix|default:0|floatformat:"2g" }} €
                 </td>
             </tr>
 
@@ -453,7 +453,7 @@
             <tr>
                 <td>{% trans "TVA" %}</td>
                 <td>
-                    {{ remplacement.taux_tva|default:0|floatformat:2 }} %
+                    {{ remplacement.taux_tva|default:0|floatformat:"2g" }} %
                 </td>
             </tr>
 
@@ -527,7 +527,7 @@
             <tr>
                 <td>{% trans "Quantité d'huile ajoutée" %}</td>
                 <td>
-                    {{ remplacement.niveau_huile_quantite|default:0|floatformat:1 }} L
+                    {{ remplacement.niveau_huile_quantite|default:0|floatformat:"1g" }} L
                 </td>
             </tr>
 
@@ -541,7 +541,7 @@
             <tr>
                 <td>{% trans "Prix unitaire de l'huile HTVA" %}</td>
                 <td>
-                    {{ remplacement.niveau_huile_prix|default:0|floatformat:2 }} €
+                    {{ remplacement.niveau_huile_prix|default:0|floatformat:"2g" }} €
                 </td>
             </tr>
         </tbody>
@@ -602,7 +602,7 @@
                     {% trans "Quantité de liquide de refroidissement ajoutée" %}
                 </td>
                 <td>
-                    {{ remplacement.refroidissement_quantite|default:0|floatformat:1 }} L
+                    {{ remplacement.refroidissement_quantite|default:0|floatformat:"1g" }} L
                 </td>
             </tr>
 
@@ -616,7 +616,7 @@
             <tr>
                 <td>{% trans "Prix unitaire du liquide de refroidissement HTVA" %}</td>
                 <td>
-                    {{ remplacement.refroidissement_prix|default:0|floatformat:2 }} €
+                    {{ remplacement.refroidissement_prix|default:0|floatformat:"2g" }} €
                 </td>
             </tr>
         </tbody>
@@ -678,7 +678,7 @@
                     {% trans "Quantité de liquide de frein ajoutée" %}
                 </td>
                 <td>
-                    {{ remplacement.frein_liquide_quantite|default:0|floatformat:1 }} L
+                    {{ remplacement.frein_liquide_quantite|default:0|floatformat:"1g" }} L
                 </td>
             </tr>
 
@@ -692,7 +692,7 @@
             <tr>
                 <td>{% trans "Prix unitaire du liquide de frein HTVA" %}</td>
                 <td>
-                    {{ remplacement.frein_liquide_prix|default:0|floatformat:2 }} €
+                    {{ remplacement.frein_liquide_prix|default:0|floatformat:"2g" }} €
                 </td>
             </tr>
         </tbody>
@@ -719,12 +719,12 @@
         {% if remplacement.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-                {{ remplacement.main_oeuvre.taux_horaire|floatformat:2 }} €
+                {{ remplacement.main_oeuvre.taux_horaire|floatformat:"2g" }} €
             </div>
 
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ remplacement.main_oeuvre.prix_facture|floatformat:2 }} €
+                {{ remplacement.main_oeuvre.prix_facture|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -805,11 +805,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -820,7 +820,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -830,7 +830,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ remplacement.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ remplacement.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -840,7 +840,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ remplacement.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ remplacement.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -865,7 +865,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ remplacement.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ remplacement.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -879,7 +879,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ remplacement.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ remplacement.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

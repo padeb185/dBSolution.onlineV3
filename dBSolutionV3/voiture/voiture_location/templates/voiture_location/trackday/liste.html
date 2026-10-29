@@ -44,9 +44,9 @@
                 <td class="text-right">{{ l.nb_vehicules }}{% if l.t.places_vehicules %} / {{ l.t.places_vehicules }}{% endif %}</td>
                 <td class="text-right">{{ l.nb_box }} / {{ l.nombre_box }}</td>
                 {% if voit_rentabilite %}
-                <td class="text-right whitespace-nowrap">{{ l.ventes_htva|floatformat:2 }} €</td>
-                <td class="text-right whitespace-nowrap">{{ l.couts_htva|floatformat:2 }} €</td>
-                <td class="text-right whitespace-nowrap font-semibold {% if l.marge >= 0 %}td-positif{% else %}td-negatif{% endif %}">{{ l.marge|floatformat:2 }} €{% if l.marge_pct is not None %} <span class="text-xs">({{ l.marge_pct }} %)</span>{% endif %}</td>
+                <td class="text-right whitespace-nowrap">{{ l.ventes_htva|floatformat:"2g" }} €</td>
+                <td class="text-right whitespace-nowrap">{{ l.couts_htva|floatformat:"2g" }} €</td>
+                <td class="text-right whitespace-nowrap font-semibold {% if l.marge >= 0 %}td-positif{% else %}td-negatif{% endif %}">{{ l.marge|floatformat:"2g" }} €{% if l.marge_pct is not None %} <span class="text-xs">({{ l.marge_pct }} %)</span>{% endif %}</td>
                 {% endif %}
                 <td class="text-right"><a href="{% url 'voiture_location:trackday_detail' l.t.pk %}" class="td-btn" style="padding:4px 14px">{% trans "Infos" %}</a></td>
             </tr>

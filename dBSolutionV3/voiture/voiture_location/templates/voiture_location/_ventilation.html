@@ -10,6 +10,7 @@
                 {% csrf_token %}
                 <button type="submit" name="action" value="recalculer" class="rv-btn bleu">{% trans "Recalculer" %}</button>
             </form>
+            <a href="{% url 'proprietaire:parts_vehicule' exemplaire_id=location.voiture_exemplaire_id %}" class="rv-btn gris">{% trans "Modifier les parts et commissions" %}</a>
             <a href="{% url 'voiture_location:reversements_liste' %}" class="rv-btn gris">{% trans "Tous les reversements" %}</a>
         </div>
     </div>
@@ -30,21 +31,21 @@
         {% for l in ventilation.lignes %}
             <tr>
                 <td>{{ l.nom }}</td>
-                <td class="num">{{ l.calcul.part_pourcent|floatformat:"-2" }} %</td>
-                <td class="num">{{ l.calcul.montant_part_htva|floatformat:2 }} €</td>
-                <td class="num">{{ l.calcul.commission_htva|floatformat:2 }} €{% if l.calcul.commission_pourcent %} <span class="rv-aide">({{ l.calcul.commission_pourcent|floatformat:"-2" }} %)</span>{% endif %}</td>
-                <td class="num font-semibold">{{ l.calcul.montant_du|floatformat:2 }} €</td>
-                <td class="num">{{ l.reverse|floatformat:2 }} €</td>
+                <td class="num">{{ l.calcul.part_pourcent|floatformat:"-2g" }} %</td>
+                <td class="num">{{ l.calcul.montant_part_htva|floatformat:"2g" }} €</td>
+                <td class="num">{{ l.calcul.commission_htva|floatformat:"2g" }} €{% if l.calcul.commission_pourcent %} <span class="rv-aide">({{ l.calcul.commission_pourcent|floatformat:"-2g" }} %)</span>{% endif %}</td>
+                <td class="num font-semibold">{{ l.calcul.montant_du|floatformat:"2g" }} €</td>
+                <td class="num">{{ l.reverse|floatformat:"2g" }} €</td>
             </tr>
         {% endfor %}
         </tbody>
         <tfoot>
             <tr class="font-semibold">
                 <td colspan="4">{% trans "Notre part (commissions comprises)" %}</td>
-                <td class="num">{{ ventilation.notre_part|floatformat:2 }} €</td>
+                <td class="num">{{ ventilation.notre_part|floatformat:"2g" }} €</td>
                 <td></td>
             </tr>
-            <tr><td colspan="4">{% trans "Location HTVA" %}</td><td class="num">{{ ventilation.base_htva|floatformat:2 }} €</td><td></td></tr>
+            <tr><td colspan="4">{% trans "Location HTVA" %}</td><td class="num">{{ ventilation.base_htva|floatformat:"2g" }} €</td><td></td></tr>
         </tfoot>
     </table>
 
@@ -59,7 +60,7 @@
             <tr>
                 <td>{{ r.date|date:"d/m/Y" }}</td>
                 <td>{{ r.beneficiaire }}</td>
-                <td class="num">{{ r.montant_du|floatformat:2 }} €</td>
+                <td class="num">{{ r.montant_du|floatformat:"2g" }} €</td>
                 <td><span class="rv-badge {{ r.statut }}">{{ r.get_statut_display }}</span></td>
                 <td>{% include "voiture_location/_form_reversement.html" %}</td>
             </tr>

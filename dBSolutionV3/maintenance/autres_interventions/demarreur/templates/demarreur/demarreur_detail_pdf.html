@@ -344,12 +344,12 @@
 
         <div>
             <span class="label">{% trans "Kilométrage véhicule" %} :</span>
-            {{ demarreur.kilometres_chassis }} km
+            {{ demarreur.kilometres_chassis|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage de l'intervention" %} :</span>
-            {{ demarreur.kilometrage_demarreur }} km
+            {{ demarreur.kilometrage_demarreur|milliers }} km
         </div>
 
 
@@ -605,12 +605,12 @@
         {% if demarreur.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-                {{ demarreur.main_oeuvre.taux_horaire|floatformat:2 }} €
+                {{ demarreur.main_oeuvre.taux_horaire|floatformat:"2g" }} €
             </div>
 
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ demarreur.main_oeuvre.prix_facture|floatformat:2 }} €
+                {{ demarreur.main_oeuvre.prix_facture|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -689,11 +689,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -704,7 +704,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -714,7 +714,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ demarreur.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ demarreur.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -724,7 +724,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ demarreur.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ demarreur.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -749,7 +749,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ demarreur.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ demarreur.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -763,7 +763,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ demarreur.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ demarreur.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

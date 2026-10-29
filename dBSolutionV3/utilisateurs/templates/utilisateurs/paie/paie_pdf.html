@@ -85,7 +85,7 @@
             <dt>{% trans "Commission paritaire" %}</dt><dd>{{ paie.get_commission_paritaire_display }}</dd>
             {% if paie.categorie_cp %}<dt>{% trans "Catégorie" %}</dt><dd>{{ paie.get_categorie_cp_display }}</dd>{% endif %}
             {% if paie.classe_cp200 %}<dt>{% trans "Classe de fonction" %}</dt><dd>{{ paie.get_classe_cp200_display }} – {{ paie.annees_experience }} {% trans "an(s) d'expérience" %}</dd>{% endif %}
-            <dt>{% trans "Régime de travail" %}</dt><dd>{{ paie.regime_travail|floatformat:"-2" }} %</dd>
+            <dt>{% trans "Régime de travail" %}</dt><dd>{{ paie.regime_travail|floatformat:"-2g" }} %</dd>
             <dt>{% trans "Situation familiale" %}</dt><dd>{{ paie.get_situation_familiale_display }}</dd>
             <dt>{% trans "Enfants à charge" %}</dt><dd>{{ paie.nombre_enfants_charge }}{% if paie.nombre_enfants_handicapes %} ({% trans "dont handicapés" %} : {{ paie.nombre_enfants_handicapes }}){% endif %}</dd>
             {% if paie.parent_isole %}<dt>{% trans "Parent isolé" %}</dt><dd>{% trans "Oui" %}</dd>{% endif %}
@@ -106,8 +106,8 @@
     </div>
     <div>
         <dl>
-            <dt>{% trans "Taux horaire brut" %}</dt><dd>{{ paie.salaire_brut_heure|default:0|floatformat:2 }} €/h</dd>
-            <dt>{% trans "Heures supplémentaires" %}</dt><dd>{{ paie.heures_supplementaires|floatformat:"-2" }} h{% if paie.heures_supplementaires %} (+{{ paie.majoration_heures_sup }} %){% endif %}</dd>
+            <dt>{% trans "Taux horaire brut" %}</dt><dd>{{ paie.salaire_brut_heure|default:0|floatformat:"2g" }} €/h</dd>
+            <dt>{% trans "Heures supplémentaires" %}</dt><dd>{{ paie.heures_supplementaires|floatformat:"-2g" }} h{% if paie.heures_supplementaires %} (+{{ paie.majoration_heures_sup }} %){% endif %}</dd>
         </dl>
     </div>
 </div>
@@ -128,10 +128,10 @@
     {% for l in fiche.lignes %}
         <tr class="{{ l.style }}">
             <td>{{ l.libelle }}</td>
-            <td class="n">{% if l.base is not None %}{{ l.base|floatformat:2 }}{% endif %}</td>
-            <td class="n">{% if l.taux is not None %}{{ l.taux|floatformat:2 }} {{ l.unite_taux }}{% endif %}</td>
+            <td class="n">{% if l.base is not None %}{{ l.base|floatformat:"2g" }}{% endif %}</td>
+            <td class="n">{% if l.taux is not None %}{{ l.taux|floatformat:"2g" }} {{ l.unite_taux }}{% endif %}</td>
             <td class="n {% if l.signe == '-' %}moins{% elif l.signe == '+' %}plus{% endif %}">
-                {% if l.montant is not None %}{% if l.signe == '-' %}− {% elif l.signe == '+' %}+ {% endif %}{% if l.unite == "j" %}{{ l.montant|floatformat:"-1" }} {% trans "jours" %}{% else %}{{ l.montant|floatformat:2 }} €{% endif %}{% endif %}
+                {% if l.montant is not None %}{% if l.signe == '-' %}− {% elif l.signe == '+' %}+ {% endif %}{% if l.unite == "j" %}{{ l.montant|floatformat:"-1g" }} {% trans "jours" %}{% else %}{{ l.montant|floatformat:"2g" }} €{% endif %}{% endif %}
             </td>
         </tr>
     {% endfor %}
@@ -140,7 +140,7 @@
 
 <div class="net">
     <span>{% trans "Net à payer" %}</span>
-    <span>{{ fiche.net|floatformat:2 }} €</span>
+    <span>{{ fiche.net|floatformat:"2g" }} €</span>
 </div>
 {% if travailleur.numero_compte_bancaire %}
     <p class="paiement">{% trans "Versé sur le compte" %} {{ travailleur.numero_compte_bancaire|format_iban }}{% if paie.date_paiement %} {% trans "le" %} {{ paie.date_paiement|date:"d/m/Y" }}{% endif %}.</p>

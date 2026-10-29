@@ -327,9 +327,9 @@
                             <span class="etat-bleu">{% trans "Marchandises" %}</span>
                         {% endif %}
                     </td>
-                    <td class="text-right nowrap">{{ f.htva|floatformat:2 }} €</td>
-                    <td class="text-right nowrap">{{ f.tva|floatformat:2 }} €</td>
-                    <td class="text-right nowrap">{{ f.tvac|floatformat:2 }} €</td>
+                    <td class="text-right nowrap">{{ f.htva|floatformat:"2g" }} €</td>
+                    <td class="text-right nowrap">{{ f.tva|floatformat:"2g" }} €</td>
+                    <td class="text-right nowrap">{{ f.tvac|floatformat:"2g" }} €</td>
                 </tr>
             {% endfor %}
 
@@ -339,7 +339,7 @@
                     {% trans "Total HTVA" %}
                 </td>
                 <td class="text-right nowrap">
-                    {{ total_htva|floatformat:2 }} €
+                    {{ total_htva|floatformat:"2g" }} €
                 </td>
             </tr>
 
@@ -348,7 +348,7 @@
                     {% trans "Total TVA" %}
                 </td>
                 <td class="text-right nowrap">
-                    {{ total_tva|floatformat:2 }} €
+                    {{ total_tva|floatformat:"2g" }} €
                 </td>
             </tr>
 
@@ -357,7 +357,7 @@
                     {% trans "Total général TVAC" %}
                 </td>
                 <td class="text-right nowrap">
-                    {{ total_tvac|floatformat:2 }} €
+                    {{ total_tvac|floatformat:"2g" }} €
                 </td>
             </tr>
         </tbody>

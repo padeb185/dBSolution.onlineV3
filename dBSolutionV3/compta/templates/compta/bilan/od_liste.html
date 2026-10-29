@@ -23,10 +23,10 @@
     <table class="min-w-full text-sm">
         {% for l in od.lignes.all %}
         <tr class="border-b"><td class="px-3 py-1 font-mono w-28">{{ l.compte }}</td><td class="px-3 py-1">{{ l.libelle|default:od.libelle }}</td>
-            <td class="px-3 py-1 text-right w-32">{% if l.debit %}{{ l.debit|floatformat:2 }}{% endif %}</td><td class="px-3 py-1 text-right w-32">{% if l.credit %}{{ l.credit|floatformat:2 }}{% endif %}</td></tr>
+            <td class="px-3 py-1 text-right w-32">{% if l.debit %}{{ l.debit|floatformat:"2g" }}{% endif %}</td><td class="px-3 py-1 text-right w-32">{% if l.credit %}{{ l.credit|floatformat:"2g" }}{% endif %}</td></tr>
         {% endfor %}
         <tr class="font-semibold bg-gray-50"><td></td><td class="px-3 py-1">{% trans "Total" %}{% if not od.equilibree %} <span class="text-red-700">({% trans "déséquilibrée" %})</span>{% endif %}</td>
-            <td class="px-3 py-1 text-right">{{ od.total_debit|floatformat:2 }}</td><td class="px-3 py-1 text-right">{{ od.total_credit|floatformat:2 }}</td></tr>
+            <td class="px-3 py-1 text-right">{{ od.total_debit|floatformat:"2g" }}</td><td class="px-3 py-1 text-right">{{ od.total_credit|floatformat:"2g" }}</td></tr>
     </table>
 </div>
 {% empty %}

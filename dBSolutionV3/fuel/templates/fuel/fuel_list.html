@@ -147,13 +147,13 @@
             <!-- 6 Prix total -->
             <td class="border px-4 py-2"
                 data-order="{{ fuel.prix_refuelling|default:0 }}">
-                {{ fuel.prix_refuelling|floatformat:2 }} €
+                {{ fuel.prix_refuelling|floatformat:"2g" }} €
             </td>
 
             <!-- 7 Prix au litre -->
             <td class="border px-4 py-2"
                 data-order="{{ fuel.prix_litre|default:0 }}">
-                {{ fuel.prix_litre|floatformat:3 }} €
+                {{ fuel.prix_litre|floatformat:"3g" }} €
             </td>
 
             <!-- 9 Date -->

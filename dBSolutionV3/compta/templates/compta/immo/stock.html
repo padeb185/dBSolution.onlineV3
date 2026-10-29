@@ -7,9 +7,9 @@
 {% include "compta/immo/_nav.html" with icone="icons/stock_compta.png" %}
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "Valeur actuelle du stock de pièces" %}</p><p class="text-2xl font-bold">{{ valeur_actuelle|floatformat:2 }} €</p><p class="text-xs text-gray-500">{% trans "quantité en stock × prix d'achat HTVA" %}</p></div>
-    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "Dernier inventaire comptabilisé" %}</p><p class="text-2xl font-bold">{% if derniere %}{{ derniere.total|floatformat:2 }} €{% else %}—{% endif %}</p><p class="text-xs text-gray-500">{% if derniere %}{{ derniere.date|date:"d/m/Y" }}{% endif %}</p></div>
-    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "Pièces au dernier inventaire" %}</p><p class="text-2xl font-bold">{% if derniere %}{{ derniere.valeur_pieces|floatformat:2 }} €{% else %}—{% endif %}</p></div>
+    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "Valeur actuelle du stock de pièces" %}</p><p class="text-2xl font-bold">{{ valeur_actuelle|floatformat:"2g" }} €</p><p class="text-xs text-gray-500">{% trans "quantité en stock × prix d'achat HTVA" %}</p></div>
+    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "Dernier inventaire comptabilisé" %}</p><p class="text-2xl font-bold">{% if derniere %}{{ derniere.total|floatformat:"2g" }} €{% else %}—{% endif %}</p><p class="text-xs text-gray-500">{% if derniere %}{{ derniere.date|date:"d/m/Y" }}{% endif %}</p></div>
+    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "Pièces au dernier inventaire" %}</p><p class="text-2xl font-bold">{% if derniere %}{{ derniere.valeur_pieces|floatformat:"2g" }} €{% else %}—{% endif %}</p></div>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -37,10 +37,10 @@
             {% for v in valorisations %}
                 <tr>
                     <td class="border px-3 py-2">{{ v.date|date:"d/m/Y" }}</td>
-                    <td class="border px-3 py-2 text-right">{{ v.valeur_pieces|floatformat:2 }} €</td>
-                    <td class="border px-3 py-2 text-right">{{ v.valeur_autres|floatformat:2 }} €</td>
-                    <td class="border px-3 py-2 text-right font-semibold">{{ v.total|floatformat:2 }} €</td>
-                    <td class="border px-3 py-2 text-right {% if v.variation < 0 %}text-red-700{% else %}text-green-700{% endif %}">{{ v.variation|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ v.valeur_pieces|floatformat:"2g" }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ v.valeur_autres|floatformat:"2g" }} €</td>
+                    <td class="border px-3 py-2 text-right font-semibold">{{ v.total|floatformat:"2g" }} €</td>
+                    <td class="border px-3 py-2 text-right {% if v.variation < 0 %}text-red-700{% else %}text-green-700{% endif %}">{{ v.variation|floatformat:"2g" }} €</td>
                     <td class="border px-3 py-2 text-center"><a href="{% url 'compta:stock_supprimer' v.pk %}" class="text-red-700 hover:underline text-sm">{% trans "Supprimer" %}</a></td>
                 </tr>
             {% empty %}

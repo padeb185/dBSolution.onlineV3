@@ -344,12 +344,12 @@
 
         <div>
             <span class="label">{% trans "Kilométrage véhicule" %} :</span>
-            {{ frein_main_hydraulique.kilometres_chassis }} km
+            {{ frein_main_hydraulique.kilometres_chassis|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage frein à main hydraulique" %} :</span>
-            {{ frein_main_hydraulique.kilometrage_frein_main_hydraulique }} km
+            {{ frein_main_hydraulique.kilometrage_frein_main_hydraulique|milliers }} km
         </div>
 
 
@@ -532,12 +532,12 @@
         {% if frein_main_hydraulique.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-                {{ frein_main_hydraulique.main_oeuvre.taux_horaire|floatformat:2 }} €
+                {{ frein_main_hydraulique.main_oeuvre.taux_horaire|floatformat:"2g" }} €
             </div>
 
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ frein_main_hydraulique.main_oeuvre.prix_facture|floatformat:2 }} €
+                {{ frein_main_hydraulique.main_oeuvre.prix_facture|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -616,11 +616,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -631,7 +631,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -641,7 +641,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ frein_main_hydraulique.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ frein_main_hydraulique.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -651,7 +651,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ frein_main_hydraulique.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ frein_main_hydraulique.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -676,7 +676,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ frein_main_hydraulique.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ frein_main_hydraulique.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -690,7 +690,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ frein_main_hydraulique.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ frein_main_hydraulique.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

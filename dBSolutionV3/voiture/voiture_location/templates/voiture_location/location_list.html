@@ -115,8 +115,8 @@
             <td class="border px-4 py-2">{{ loc.locataire|default:"—" }}</td>
             <td class="border px-4 py-2" data-order="{{ loc.kilometrage|default:0 }}">{{ loc.distance_affichage|default:"—" }}</td>
             <td class="border px-4 py-2" data-order="{{ loc.prix_tvac|stringformat:'s' }}">
-                {{ loc.prix_tvac|floatformat:2 }} €
-                <div class="text-xs text-gray-500">{% trans "HTVA" %} {{ loc.prix_htva|floatformat:2 }} € · {% trans "TVA" %} {{ loc.montant_tva|floatformat:2 }} €</div>
+                {{ loc.prix_tvac|floatformat:"2g" }} €
+                <div class="text-xs text-gray-500">{% trans "HTVA" %} {{ loc.prix_htva|floatformat:"2g" }} € · {% trans "TVA" %} {{ loc.montant_tva|floatformat:"2g" }} €</div>
             </td>
             <td class="border px-4 py-2" data-order="{{ loc.date_debut|date:'Y-m-d' }}">
                 {{ loc.date_debut|date:"d/m/Y" }}{% if loc.date_fin and loc.date_fin != loc.date_debut %} → {{ loc.date_fin|date:"d/m/Y" }}{% endif %}

@@ -367,12 +367,12 @@
 
         <div>
             <span class="label">{% trans "Kilométrage du châssis" %} :</span>
-            {{ allumage.kilometres_chassis|default:0 }} km
+            {{ allumage.kilometres_chassis|default:0|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage allumage" %} :</span>
-            {{ allumage.kilometrage_allumage|default:0 }} km
+            {{ allumage.kilometrage_allumage|default:0|milliers }} km
         </div>
 
     </div>
@@ -699,7 +699,7 @@
             <span class="label">{% trans "Taux horaire HTVA" %} :</span>
 
             {% if allumage.main_oeuvre %}
-                {{ allumage.main_oeuvre.taux_horaire|default:0|floatformat:2 }} €
+                {{ allumage.main_oeuvre.taux_horaire|default:0|floatformat:"2g" }} €
             {% else %}
                 0,00 €
             {% endif %}
@@ -707,7 +707,7 @@
 
         <div>
             <span class="label">{% trans "Prix HTVA" %} :</span>
-            {{ allumage.cout_main_oeuvre|default:0|floatformat:2 }} €
+            {{ allumage.cout_main_oeuvre|default:0|floatformat:"2g" }} €
         </div>
 
         <div>
@@ -798,11 +798,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -813,7 +813,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -823,7 +823,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ allumage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ allumage.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -833,7 +833,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ allumage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ allumage.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -855,7 +855,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ allumage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ allumage.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -865,7 +865,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ allumage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ allumage.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 

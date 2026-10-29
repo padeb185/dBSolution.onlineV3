@@ -41,18 +41,18 @@
             <tr>
                 <td class="border px-3 py-2">{{ l.date|date:"d/m/Y"|default:"—" }}</td>
                 <td class="border px-3 py-2">{{ l.description }}{% if l.location %} <a href="{% url 'voiture_location:location_detail' l.location.pk %}" class="text-blue-700 hover:underline text-sm">({% trans "voir la location" %})</a>{% endif %}</td>
-                <td class="border px-3 py-2 text-right">{{ l.heures|floatformat:"-2" }}</td>
-                <td class="border px-3 py-2 text-right">{{ l.prix_heure_htva|floatformat:2 }} €</td>
-                <td class="border px-3 py-2 text-right">{{ l.montant_htva|floatformat:2 }} €</td>
+                <td class="border px-3 py-2 text-right">{{ l.heures|floatformat:"-2g" }}</td>
+                <td class="border px-3 py-2 text-right">{{ l.prix_heure_htva|floatformat:"2g" }} €</td>
+                <td class="border px-3 py-2 text-right">{{ l.montant_htva|floatformat:"2g" }} €</td>
             </tr>
         {% empty %}
             <tr><td colspan="5" class="text-center py-4 text-gray-500">{% trans "Aucune prestation." %}</td></tr>
         {% endfor %}
         </tbody>
         <tfoot class="font-semibold">
-            <tr><td colspan="4" class="border px-3 py-2 text-right">{% trans "Total HTVA" %}</td><td class="border px-3 py-2 text-right">{{ facture.montant_htva|floatformat:2 }} €</td></tr>
-            <tr><td colspan="4" class="border px-3 py-2 text-right">{% trans "TVA" %} ({% if facture.regime_tva == 'ASSUJETTI' %}{{ facture.taux_tva|floatformat:"-2" }} %{% else %}{{ facture.mention_tva }}{% endif %})</td><td class="border px-3 py-2 text-right">{{ facture.montant_tva|floatformat:2 }} €</td></tr>
-            <tr class="bg-gray-50 text-lg"><td colspan="4" class="border px-3 py-2 text-right">{% trans "Total TVAC" %}</td><td class="border px-3 py-2 text-right">{{ facture.montant_tvac|floatformat:2 }} €</td></tr>
+            <tr><td colspan="4" class="border px-3 py-2 text-right">{% trans "Total HTVA" %}</td><td class="border px-3 py-2 text-right">{{ facture.montant_htva|floatformat:"2g" }} €</td></tr>
+            <tr><td colspan="4" class="border px-3 py-2 text-right">{% trans "TVA" %} ({% if facture.regime_tva == 'ASSUJETTI' %}{{ facture.taux_tva|floatformat:"-2g" }} %{% else %}{{ facture.mention_tva }}{% endif %})</td><td class="border px-3 py-2 text-right">{{ facture.montant_tva|floatformat:"2g" }} €</td></tr>
+            <tr class="bg-gray-50 text-lg"><td colspan="4" class="border px-3 py-2 text-right">{% trans "Total TVAC" %}</td><td class="border px-3 py-2 text-right">{{ facture.montant_tvac|floatformat:"2g" }} €</td></tr>
         </tfoot>
     </table>
     </div>
@@ -114,8 +114,8 @@
                 <td class="border px-3 py-2">{{ e.date|date:"d/m/Y" }}</td>
                 <td class="border px-3 py-2 font-mono">{{ e.compte }}</td>
                 <td class="border px-3 py-2">{{ e.intitule }}</td>
-                <td class="border px-3 py-2 text-right">{% if e.debit %}{{ e.debit|floatformat:2 }}{% endif %}</td>
-                <td class="border px-3 py-2 text-right">{% if e.credit %}{{ e.credit|floatformat:2 }}{% endif %}</td>
+                <td class="border px-3 py-2 text-right">{% if e.debit %}{{ e.debit|floatformat:"2g" }}{% endif %}</td>
+                <td class="border px-3 py-2 text-right">{% if e.credit %}{{ e.credit|floatformat:"2g" }}{% endif %}</td>
             </tr>
         {% endfor %}
         </tbody>

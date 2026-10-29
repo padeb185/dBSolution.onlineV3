@@ -48,7 +48,7 @@
                     {% for p in parts %}
                         <li>
                             {{ p.voiture_exemplaire }}
-                            <span class="text-gray-500">— {{ p.part_proprietaire_pourcent|floatformat:2 }} %</span>
+                            <span class="text-gray-500">— {{ p.part_proprietaire_pourcent|floatformat:"2g" }} %</span>
                         </li>
                     {% endfor %}
                 </ul>

@@ -47,14 +47,14 @@
             <p><strong>{% trans "Numéro Vin" %}:</strong> {{ exemplaire.numero_vin }} </p>
             <p><strong>{% trans "Vin simplifié" %}:</strong> {{ exemplaire.vin_simplifie }}</p>
             <br>
-            <p><strong>{% trans "Kilométrage du châssis" %}          :</strong> {{ exemplaire.kilometres_chassis }} km</p>
-            <p {% if exemplaire.alerte_entretien %}class="text-red-600 font-bold"{% endif %}><strong>{% trans "Kilométrage du moteur" %}           :</strong> {{ exemplaire.kilometres_moteur }} km</p>
-            <p><strong>{% trans "Kilométrage de la boite" %}         :</strong> {{ exemplaire.kilometres_boite }} km</p>
-            <p><strong>{% trans "Kilométrage de l'embrayage" %}      :</strong> {{ exemplaire.kilometres_embrayage }} km</p>
-            <p><strong>{% trans "Kilométrage du dernier entretien" %}:</strong> {{ exemplaire.kilometres_dernier_entretien }} km</p>
-            <p><strong>{% trans "Intervalle d'entretien" %}:</strong> {{ exemplaire.intervalle_entretien }} km · <strong>{% trans "Kilométrage de rodage" %}:</strong> {{ exemplaire.kilometres_rodage }} km</p>
-            <p><strong>{% trans "Rodage effectué à" %}:</strong> {% if exemplaire.km_rodage_effectue is not None %}{{ exemplaire.km_rodage_effectue }} km{% else %}—{% endif %}
-               · <strong>{% trans "Prochain entretien à" %}:</strong> {% if exemplaire.prochain_entretien_km %}{{ exemplaire.prochain_entretien_km }} km{% else %}—{% endif %}</p>
+            <p><strong>{% trans "Kilométrage du châssis" %}          :</strong> {{ exemplaire.kilometres_chassis|milliers }} km</p>
+            <p {% if exemplaire.alerte_entretien %}class="text-red-600 font-bold"{% endif %}><strong>{% trans "Kilométrage du moteur" %}           :</strong> {{ exemplaire.kilometres_moteur|milliers }} km</p>
+            <p><strong>{% trans "Kilométrage de la boite" %}         :</strong> {{ exemplaire.kilometres_boite|milliers }} km</p>
+            <p><strong>{% trans "Kilométrage de l'embrayage" %}      :</strong> {{ exemplaire.kilometres_embrayage|milliers }} km</p>
+            <p><strong>{% trans "Kilométrage du dernier entretien" %}:</strong> {{ exemplaire.kilometres_dernier_entretien|milliers }} km</p>
+            <p><strong>{% trans "Intervalle d'entretien" %}:</strong> {{ exemplaire.intervalle_entretien|milliers }} km · <strong>{% trans "Kilométrage de rodage" %}:</strong> {{ exemplaire.kilometres_rodage|milliers }} km</p>
+            <p><strong>{% trans "Rodage effectué à" %}:</strong> {% if exemplaire.km_rodage_effectue is not None %}{{ exemplaire.km_rodage_effectue|milliers }} km{% else %}—{% endif %}
+               · <strong>{% trans "Prochain entretien à" %}:</strong> {% if exemplaire.prochain_entretien_km %}{{ exemplaire.prochain_entretien_km|milliers }} km{% else %}—{% endif %}</p>
             {% include "voiture_exemplaire/partials/alertes_km.html" with ex=exemplaire %}
             <br>
             <p><strong>{% trans "Coté conducteur" %}:</strong> {{ exemplaire.get_cote_conduite_display }}</p>
@@ -236,7 +236,7 @@
                 {{ essieu.label }}
                 <span class="ml-2 text-sm font-normal text-gray-600">
                     {{ essieu.nombre_trains }} {% if essieu.nombre_trains > 1 %}{% trans "trains" %}{% else %}{% trans "train" %}{% endif %}
-                    · {{ essieu.km_total }} km {% trans "au total" %}
+                    · {{ essieu.km_total|milliers }} km {% trans "au total" %}
                 </span>
             </span>
             <span class="flex gap-4 whitespace-nowrap">
@@ -254,7 +254,7 @@
                 · {{ t.get_monte_display }}
                 {% if t.type_pneus %}· {{ t.get_type_pneus_display }}{% endif %}
                 · <span>{{ t.libelle }}</span>
-                <span class="float-right font-semibold">{{ t.km_effectues }} km</span>
+                <span class="float-right font-semibold">{{ t.km_effectues|milliers }} km</span>
             </div>
         {% else %}
             <span class="text-gray-500">{% trans "Aucun pneu enregistré" %}</span>
@@ -267,7 +267,7 @@
                 · {{ t.get_monte_display }} ({% trans "non monté" %})
                 {% if t.type_pneus %}· {{ t.get_type_pneus_display }}{% endif %}
                 · <span>{{ t.libelle }}</span>
-                <span class="float-right">{{ t.km_effectues }} km</span>
+                <span class="float-right">{{ t.km_effectues|milliers }} km</span>
             </div>
         {% endfor %}
 
@@ -297,7 +297,7 @@
                             <td>{{ h.libelle|default:"—" }}</td>
                             <td>{{ h.date_montage|date:"d/m/Y" }}</td>
                             <td>{{ h.date_remplacement|date:"d/m/Y"|default:"—" }}</td>
-                            <td class="text-right font-medium">{{ h.km_effectues }} km</td>
+                            <td class="text-right font-medium">{{ h.km_effectues|milliers }} km</td>
                         </tr>
                         {% endfor %}
                     </tbody>

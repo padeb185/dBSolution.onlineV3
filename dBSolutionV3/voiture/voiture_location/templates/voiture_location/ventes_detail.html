@@ -62,20 +62,20 @@
     <div class="bg-white shadow-md rounded-lg p-6">
         <h2 class="text-lg font-semibold mb-2">{% trans "Nombre de locations" %}</h2>
         <p class="text-2xl font-bold">{{ totaux.nb }}</p>
-        <p class="text-sm text-gray-600">{{ totaux.km }} km</p>
+        <p class="text-sm text-gray-600">{{ totaux.km|milliers }} km</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-6">
         <h2 class="text-lg font-semibold mb-2">{% trans "Total HTVA" %}</h2>
-        <p class="text-2xl font-bold">{{ totaux.htva|floatformat:2 }} €</p>
+        <p class="text-2xl font-bold">{{ totaux.htva|floatformat:"2g" }} €</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-6">
         <h2 class="text-lg font-semibold mb-2">{% trans "Total TVA" %}</h2>
-        <p class="text-2xl font-bold text-red-800">{{ totaux.tva|floatformat:2 }} €</p>
+        <p class="text-2xl font-bold text-red-800">{{ totaux.tva|floatformat:"2g" }} €</p>
         <p class="text-sm text-gray-600">{% trans "TVA à payer à l'État" %}</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-6">
         <h2 class="text-lg font-semibold mb-2">{% trans "Total TVAC" %}</h2>
-        <p class="text-2xl font-bold text-green-800">{{ totaux.tvac|floatformat:2 }} €</p>
+        <p class="text-2xl font-bold text-green-800">{{ totaux.tvac|floatformat:"2g" }} €</p>
     </div>
 </div>
 
@@ -95,37 +95,37 @@
             <tr>
                 <td class="border px-2 py-1">{% trans "Circuit" %}</td>
                 <td class="border px-2 py-1 text-right">{{ totaux_circuit.nb }}</td>
-                <td class="border px-2 py-1 text-right">{{ totaux_circuit.htva|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ totaux_circuit.tva|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ totaux_circuit.tvac|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_circuit.htva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_circuit.tva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_circuit.tvac|floatformat:"2g" }} €</td>
             </tr>
             <tr>
                 <td class="border px-2 py-1">{% trans "Route" %}</td>
                 <td class="border px-2 py-1 text-right">{{ totaux_route.nb }}</td>
-                <td class="border px-2 py-1 text-right">{{ totaux_route.htva|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ totaux_route.tva|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ totaux_route.tvac|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_route.htva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_route.tva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_route.tvac|floatformat:"2g" }} €</td>
             </tr>
             <tr>
                 <td class="border px-2 py-1">{% trans "Facturées" %}</td>
                 <td class="border px-2 py-1 text-right">{{ totaux_facturees.nb }}</td>
-                <td class="border px-2 py-1 text-right">{{ totaux_facturees.htva|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ totaux_facturees.tva|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ totaux_facturees.tvac|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_facturees.htva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_facturees.tva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_facturees.tvac|floatformat:"2g" }} €</td>
             </tr>
             <tr>
                 <td class="border px-2 py-1">{% trans "Non facturées" %}</td>
                 <td class="border px-2 py-1 text-right">{{ totaux_non_facturees.nb }}</td>
-                <td class="border px-2 py-1 text-right">{{ totaux_non_facturees.htva|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ totaux_non_facturees.tva|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ totaux_non_facturees.tvac|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_non_facturees.htva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_non_facturees.tva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_non_facturees.tvac|floatformat:"2g" }} €</td>
             </tr>
             <tr class="bg-gray-100 font-semibold">
                 <td class="border px-2 py-1">{% trans "Total" %}</td>
                 <td class="border px-2 py-1 text-right">{{ totaux.nb }}</td>
-                <td class="border px-2 py-1 text-right">{{ totaux.htva|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ totaux.tva|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ totaux.tvac|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.htva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.tva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.tvac|floatformat:"2g" }} €</td>
             </tr>
         </tbody>
     </table>
@@ -172,7 +172,7 @@
             <td class="border px-4 py-2">{% if loc.vendeur %}{{ loc.vendeur.prenom }} {{ loc.vendeur.nom }}{% else %}—{% endif %}</td>
             <td class="border px-4 py-2">{{ loc.lieu|default:"—" }}</td>
             <td class="border px-4 py-2" data-order="{{ loc.kilometrage|default:0 }}">{{ loc.distance_affichage|default:"—" }}</td>
-            <td class="border px-4 py-2 text-right font-semibold" data-order="{{ loc.prix_tvac }}">{{ loc.prix_tvac|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right font-semibold" data-order="{{ loc.prix_tvac }}">{{ loc.prix_tvac|floatformat:"2g" }} €</td>
             <td class="border px-4 py-2 text-center whitespace-nowrap">{% include "voiture_location/_facture_location.html" %}</td>
             <td class="border px-4 py-2 text-center whitespace-nowrap">{% include "voiture_location/_paiement_location.html" %}</td>
         </tr>
@@ -181,7 +181,7 @@
     <tfoot>
         <tr class="bg-gray-100 font-semibold">
             <td class="border px-4 py-2" colspan="7">{% trans "Total" %}</td>
-            <td class="border px-4 py-2 text-right">{{ totaux.tvac|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ totaux.tvac|floatformat:"2g" }} €</td>
             <td class="border px-4 py-2"></td>
             <td class="border px-4 py-2"></td>
         </tr>

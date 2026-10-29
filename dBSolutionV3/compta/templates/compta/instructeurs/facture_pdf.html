@@ -90,18 +90,18 @@
         <tr>
             <td>{{ l.date|date:"d/m/Y"|default:"" }}</td>
             <td>{{ l.description }}</td>
-            <td class="n">{{ l.heures|floatformat:"-2" }}</td>
-            <td class="n">{{ l.prix_heure_htva|floatformat:2 }} €</td>
-            <td class="n">{{ l.montant_htva|floatformat:2 }} €</td>
+            <td class="n">{{ l.heures|floatformat:"-2g" }}</td>
+            <td class="n">{{ l.prix_heure_htva|floatformat:"2g" }} €</td>
+            <td class="n">{{ l.montant_htva|floatformat:"2g" }} €</td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
 
 <table class="totaux">
-    <tr><td>{% trans "Total HTVA" %}</td><td class="n">{{ facture.montant_htva|floatformat:2 }} €</td></tr>
-    <tr><td>{% trans "TVA" %}{% if facture.regime_tva == 'ASSUJETTI' %} {{ facture.taux_tva|floatformat:"-2" }} %{% endif %}</td><td class="n">{{ facture.montant_tva|floatformat:2 }} €</td></tr>
-    <tr class="tvac"><td>{% trans "Total à payer" %}</td><td class="n">{{ facture.montant_tvac|floatformat:2 }} €</td></tr>
+    <tr><td>{% trans "Total HTVA" %}</td><td class="n">{{ facture.montant_htva|floatformat:"2g" }} €</td></tr>
+    <tr><td>{% trans "TVA" %}{% if facture.regime_tva == 'ASSUJETTI' %} {{ facture.taux_tva|floatformat:"-2g" }} %{% endif %}</td><td class="n">{{ facture.montant_tva|floatformat:"2g" }} €</td></tr>
+    <tr class="tvac"><td>{% trans "Total à payer" %}</td><td class="n">{{ facture.montant_tvac|floatformat:"2g" }} €</td></tr>
 </table>
 
 {% if facture.mention_tva %}<p class="tva">{{ facture.mention_tva }}</p>{% endif %}

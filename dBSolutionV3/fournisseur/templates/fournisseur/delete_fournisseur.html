@@ -67,7 +67,7 @@
 
             <dt class="text-gray-600">{% trans "Taux de TVA" %}</dt>
             <dd class="font-medium">
-                {% if fournisseur.taux_tva is not None %}{{ fournisseur.taux_tva|floatformat:2 }} %{% else %}—{% endif %}
+                {% if fournisseur.taux_tva is not None %}{{ fournisseur.taux_tva|floatformat:"2g" }} %{% else %}—{% endif %}
             </dd>
 
             <dt class="text-gray-600">{% trans "Identifiant Peppol" %}</dt>

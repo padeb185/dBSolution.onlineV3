@@ -348,12 +348,12 @@
 
         <div>
             <span class="label">{% trans "Kilométrage chassis" %} :</span>
-            {{ boite.kilometres_chassis|default:0 }} km
+            {{ boite.kilometres_chassis|default:0|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage boîte" %} :</span>
-            {{ boite.kilometrage_controle_boite|default:0 }} km
+            {{ boite.kilometrage_controle_boite|default:0|milliers }} km
         </div>
 
         <div>
@@ -363,12 +363,12 @@
 
         <div>
             <span class="label">{% trans "Quantité d'huile ajoutée" %} :</span>
-            {{ boite.man_huile_manuelle_quantite|default:0|floatformat:1 }} L
+            {{ boite.man_huile_manuelle_quantite|default:0|floatformat:"1g" }} L
         </div>
 
         <div>
             <span class="label">{% trans "Prix d'achat HTVA de l'huile" %} :</span>
-            {{ boite.man_huile_manuelle_prix|default:0|floatformat:2 }} €
+            {{ boite.man_huile_manuelle_prix|default:0|floatformat:"2g" }} €
         </div>
 
         <div>
@@ -734,12 +734,12 @@
         {% if boite.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-                {{ boite.main_oeuvre.taux_horaire|floatformat:2 }} €
+                {{ boite.main_oeuvre.taux_horaire|floatformat:"2g" }} €
             </div>
 
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ boite.main_oeuvre.prix_facture|floatformat:2 }} €
+                {{ boite.main_oeuvre.prix_facture|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -820,11 +820,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -835,7 +835,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -845,7 +845,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ boite.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ boite.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -855,7 +855,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ boite.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ boite.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -883,7 +883,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ boite.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ boite.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
 
@@ -901,7 +901,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ boite.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ boite.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
 

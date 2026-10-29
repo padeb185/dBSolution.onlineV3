@@ -344,12 +344,12 @@
 
         <div>
             <span class="label">{% trans "Kilométrage véhicule" %} :</span>
-            {{ pc_moteur.kilometres_chassis }} km
+            {{ pc_moteur.kilometres_chassis|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage de l'intervention" %} :</span>
-            {{ pc_moteur.kilometrage_pc_moteur }} km
+            {{ pc_moteur.kilometrage_pc_moteur|milliers }} km
         </div>
 
 
@@ -624,12 +624,12 @@
         {% if pc_moteur.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-                {{ pc_moteur.main_oeuvre.taux_horaire|floatformat:2 }} €
+                {{ pc_moteur.main_oeuvre.taux_horaire|floatformat:"2g" }} €
             </div>
 
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ pc_moteur.main_oeuvre.prix_facture|floatformat:2 }} €
+                {{ pc_moteur.main_oeuvre.prix_facture|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -708,11 +708,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -723,7 +723,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -733,7 +733,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ pc_moteur.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ pc_moteur.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -743,7 +743,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ pc_moteur.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ pc_moteur.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -768,7 +768,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ pc_moteur.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ pc_moteur.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>
@@ -782,7 +782,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ pc_moteur.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ pc_moteur.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
                 </tr>

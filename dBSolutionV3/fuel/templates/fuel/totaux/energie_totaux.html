@@ -62,14 +62,14 @@
 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
     <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-blue-800">
         <p class="text-gray-500 text-sm">{% trans "Total TTC" %}</p>
-        <p class="text-2xl font-bold text-blue-800">{{ total.ttc|floatformat:2 }} €</p>
-        <p class="text-gray-500 text-xs">{% trans "HT" %} {{ total.ht|floatformat:2 }} € · {% trans "TVA" %} {{ total.tva|floatformat:2 }} €</p>
+        <p class="text-2xl font-bold text-blue-800">{{ total.ttc|floatformat:"2g" }} €</p>
+        <p class="text-gray-500 text-xs">{% trans "HT" %} {{ total.ht|floatformat:"2g" }} € · {% trans "TVA" %} {{ total.tva|floatformat:"2g" }} €</p>
     </div>
     {% for f in par_famille %}
     <div class="bg-white shadow-md rounded-lg p-5 border-l-4 {% if f.code == 'carburant' %}border-orange-500{% elif f.code == 'electricite' %}border-green-600{% else %}border-sky-500{% endif %}">
         <p class="text-gray-500 text-sm">{{ f.label }} ({{ f.nb }})</p>
-        <p class="text-2xl font-bold">{{ f.ttc|floatformat:2 }} €</p>
-        <p class="text-gray-500 text-xs">{{ f.quantite|floatformat:2 }} {{ f.unite|default:"" }} · {% trans "TVA" %} {{ f.tva|floatformat:2 }} €</p>
+        <p class="text-2xl font-bold">{{ f.ttc|floatformat:"2g" }} €</p>
+        <p class="text-gray-500 text-xs">{{ f.quantite|floatformat:"2g" }} {{ f.unite|default:"" }} · {% trans "TVA" %} {{ f.tva|floatformat:"2g" }} €</p>
     </div>
     {% endfor %}
 </div>
@@ -99,20 +99,20 @@
                 <td class="border px-3 py-2">{{ c.famille }}</td>
                 <td class="border px-3 py-2">{{ c.label }}</td>
                 <td class="border px-3 py-2 text-right">{{ c.nb }}</td>
-                <td class="border px-3 py-2 text-right">{{ c.quantite|floatformat:2 }} {{ c.unite }}</td>
-                <td class="border px-3 py-2 text-right">{% if c.prix_moyen %}{{ c.prix_moyen|floatformat:3 }} €/{{ c.unite }}{% else %}—{% endif %}</td>
-                <td class="border px-3 py-2 text-right">{{ c.ht|floatformat:2 }} €</td>
-                <td class="border px-3 py-2 text-right">{{ c.tva|floatformat:2 }} €</td>
-                <td class="border px-3 py-2 text-right font-semibold">{{ c.ttc|floatformat:2 }} €</td>
+                <td class="border px-3 py-2 text-right">{{ c.quantite|floatformat:"2g" }} {{ c.unite }}</td>
+                <td class="border px-3 py-2 text-right">{% if c.prix_moyen %}{{ c.prix_moyen|floatformat:"3g" }} €/{{ c.unite }}{% else %}—{% endif %}</td>
+                <td class="border px-3 py-2 text-right">{{ c.ht|floatformat:"2g" }} €</td>
+                <td class="border px-3 py-2 text-right">{{ c.tva|floatformat:"2g" }} €</td>
+                <td class="border px-3 py-2 text-right font-semibold">{{ c.ttc|floatformat:"2g" }} €</td>
             </tr>
         {% endfor %}
             <tr class="bg-blue-50 font-bold">
                 <td class="border px-3 py-2" colspan="2">{% trans "Total" %}</td>
                 <td class="border px-3 py-2 text-right">{{ total.nb }}</td>
                 <td class="border px-3 py-2"></td><td class="border px-3 py-2"></td>
-                <td class="border px-3 py-2 text-right">{{ total.ht|floatformat:2 }} €</td>
-                <td class="border px-3 py-2 text-right">{{ total.tva|floatformat:2 }} €</td>
-                <td class="border px-3 py-2 text-right">{{ total.ttc|floatformat:2 }} €</td>
+                <td class="border px-3 py-2 text-right">{{ total.ht|floatformat:"2g" }} €</td>
+                <td class="border px-3 py-2 text-right">{{ total.tva|floatformat:"2g" }} €</td>
+                <td class="border px-3 py-2 text-right">{{ total.ttc|floatformat:"2g" }} €</td>
             </tr>
         </tbody>
     </table>
@@ -139,11 +139,11 @@
             <tr class="bg-gray-50 font-semibold">
                 <td class="border px-3 py-2">{{ p.nom }} ({{ p.code }})</td>
                 <td class="border px-3 py-2">{% trans "Total pays" %}</td>
-                <td class="border px-3 py-2 text-right">{{ p.taux|floatformat:"-1" }} %</td>
+                <td class="border px-3 py-2 text-right">{{ p.taux|floatformat:"-1g" }} %</td>
                 <td class="border px-3 py-2 text-right">{{ p.nb }}</td>
-                <td class="border px-3 py-2 text-right">{{ p.ht|floatformat:2 }} €</td>
-                <td class="border px-3 py-2 text-right text-red-700">{{ p.tva|floatformat:2 }} €</td>
-                <td class="border px-3 py-2 text-right">{{ p.ttc|floatformat:2 }} €</td>
+                <td class="border px-3 py-2 text-right">{{ p.ht|floatformat:"2g" }} €</td>
+                <td class="border px-3 py-2 text-right text-red-700">{{ p.tva|floatformat:"2g" }} €</td>
+                <td class="border px-3 py-2 text-right">{{ p.ttc|floatformat:"2g" }} €</td>
                 <td class="border px-3 py-2 text-sm">{{ p.regime_label }}</td>
             </tr>
             {% for f in p.familles_liste %}
@@ -152,9 +152,9 @@
                 <td class="border px-3 py-1">{{ f.label }}</td>
                 <td class="border px-3 py-1"></td>
                 <td class="border px-3 py-1 text-right">{{ f.nb }}</td>
-                <td class="border px-3 py-1 text-right">{{ f.ht|floatformat:2 }} €</td>
-                <td class="border px-3 py-1 text-right">{{ f.tva|floatformat:2 }} €</td>
-                <td class="border px-3 py-1 text-right">{{ f.ttc|floatformat:2 }} €</td>
+                <td class="border px-3 py-1 text-right">{{ f.ht|floatformat:"2g" }} €</td>
+                <td class="border px-3 py-1 text-right">{{ f.tva|floatformat:"2g" }} €</td>
+                <td class="border px-3 py-1 text-right">{{ f.ttc|floatformat:"2g" }} €</td>
                 <td class="border px-3 py-1"></td>
             </tr>
             {% endfor %}
@@ -170,8 +170,8 @@
                 {% for r in regimes %}
                 <tr>
                     <td class="border px-3 py-2">{{ r.label }}</td>
-                    <td class="border px-3 py-2 text-right">{% trans "HT" %} {{ r.ht|floatformat:2 }} €</td>
-                    <td class="border px-3 py-2 text-right font-semibold">{% trans "TVA" %} {{ r.tva|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right">{% trans "HT" %} {{ r.ht|floatformat:"2g" }} €</td>
+                    <td class="border px-3 py-2 text-right font-semibold">{% trans "TVA" %} {{ r.tva|floatformat:"2g" }} €</td>
                 </tr>
                 {% endfor %}
             </table>
@@ -182,9 +182,9 @@
         <div>
             <h3 class="font-semibold mb-2">{% trans "Déclaration TVA belge (achats en Belgique)" %}</h3>
             <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
-                <tr><td class="border px-3 py-2">{% trans "Grille 82 – base HT" %}</td><td class="border px-3 py-2 text-right">{{ declaration_be.grille_82|floatformat:2 }} €</td></tr>
-                <tr><td class="border px-3 py-2">{% trans "Grille 59 – TVA déductible" %} ({{ deduction|floatformat:0 }} %)</td><td class="border px-3 py-2 text-right font-semibold">{{ declaration_be.grille_59|floatformat:2 }} €</td></tr>
-                <tr><td class="border px-3 py-2">{% trans "TVA non déductible (en charge)" %}</td><td class="border px-3 py-2 text-right">{{ declaration_be.tva_non_deductible|floatformat:2 }} €</td></tr>
+                <tr><td class="border px-3 py-2">{% trans "Grille 82 – base HT" %}</td><td class="border px-3 py-2 text-right">{{ declaration_be.grille_82|floatformat:"2g" }} €</td></tr>
+                <tr><td class="border px-3 py-2">{% trans "Grille 59 – TVA déductible" %} ({{ deduction|floatformat:"0g" }} %)</td><td class="border px-3 py-2 text-right font-semibold">{{ declaration_be.grille_59|floatformat:"2g" }} €</td></tr>
+                <tr><td class="border px-3 py-2">{% trans "TVA non déductible (en charge)" %}</td><td class="border px-3 py-2 text-right">{{ declaration_be.tva_non_deductible|floatformat:"2g" }} €</td></tr>
             </table>
         </div>
     </div>
@@ -205,9 +205,9 @@
             </tr></thead>
             <tbody>{% for t in par_trimestre %}
                 <tr><td class="border px-3 py-2">{{ t.label }}</td>
-                    <td class="border px-3 py-2 text-right">{{ t.ht|floatformat:2 }} €</td>
-                    <td class="border px-3 py-2 text-right">{{ t.tva|floatformat:2 }} €</td>
-                    <td class="border px-3 py-2 text-right font-semibold">{{ t.ttc|floatformat:2 }} €</td></tr>
+                    <td class="border px-3 py-2 text-right">{{ t.ht|floatformat:"2g" }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ t.tva|floatformat:"2g" }} €</td>
+                    <td class="border px-3 py-2 text-right font-semibold">{{ t.ttc|floatformat:"2g" }} €</td></tr>
             {% endfor %}</tbody>
         </table>
     </div>
@@ -225,9 +225,9 @@
             <tbody>{% for m in par_mois %}
                 <tr><td class="border px-3 py-2">{{ m.label }}</td>
                     <td class="border px-3 py-2 text-right">{{ m.nb }}</td>
-                    <td class="border px-3 py-2 text-right">{{ m.ht|floatformat:2 }} €</td>
-                    <td class="border px-3 py-2 text-right">{{ m.tva|floatformat:2 }} €</td>
-                    <td class="border px-3 py-2 text-right font-semibold">{{ m.ttc|floatformat:2 }} €</td></tr>
+                    <td class="border px-3 py-2 text-right">{{ m.ht|floatformat:"2g" }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ m.tva|floatformat:"2g" }} €</td>
+                    <td class="border px-3 py-2 text-right font-semibold">{{ m.ttc|floatformat:"2g" }} €</td></tr>
             {% endfor %}</tbody>
         </table>
     </div>
@@ -261,9 +261,9 @@
                 <td class="border px-3 py-2">
                     {% if v.immatriculation and v.immatriculation != "—" %}{% include "maintenance/partials/plaque.html" with pays_plaque=v.pays_vehicule immat_plaque=v.immatriculation taille="petite" %}{% else %}—{% endif %}
                 </td>
-                {% for code, montant in v.familles.items %}<td class="border px-3 py-2 text-right">{% if montant %}{{ montant|floatformat:2 }} €{% else %}—{% endif %}</td>{% endfor %}
-                <td class="border px-3 py-2 text-right">{{ v.tva|floatformat:2 }} €</td>
-                <td class="border px-3 py-2 text-right font-semibold">{{ v.ttc|floatformat:2 }} €</td>
+                {% for code, montant in v.familles.items %}<td class="border px-3 py-2 text-right">{% if montant %}{{ montant|floatformat:"2g" }} €{% else %}—{% endif %}</td>{% endfor %}
+                <td class="border px-3 py-2 text-right">{{ v.tva|floatformat:"2g" }} €</td>
+                <td class="border px-3 py-2 text-right font-semibold">{{ v.ttc|floatformat:"2g" }} €</td>
             </tr>
         {% endfor %}</tbody>
     </table>
@@ -287,15 +287,15 @@
             <tr>
                 <td class="border px-3 py-2 font-mono">{{ b.compte }}</td>
                 <td class="border px-3 py-2">{{ b.intitule }}</td>
-                <td class="border px-3 py-2 text-right">{{ b.debit|floatformat:2 }}</td>
-                <td class="border px-3 py-2 text-right">{{ b.credit|floatformat:2 }}</td>
-                <td class="border px-3 py-2 text-right font-semibold">{{ b.solde|floatformat:2 }}</td>
+                <td class="border px-3 py-2 text-right">{{ b.debit|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right">{{ b.credit|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right font-semibold">{{ b.solde|floatformat:"2g" }}</td>
             </tr>
         {% endfor %}
             <tr class="bg-blue-50 font-bold">
                 <td class="border px-3 py-2" colspan="2">{% trans "Total" %}</td>
-                <td class="border px-3 py-2 text-right">{{ compta.total_debit|floatformat:2 }}</td>
-                <td class="border px-3 py-2 text-right">{{ compta.total_credit|floatformat:2 }}</td>
+                <td class="border px-3 py-2 text-right">{{ compta.total_debit|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right">{{ compta.total_credit|floatformat:"2g" }}</td>
                 <td class="border px-3 py-2"></td>
             </tr>
         </tbody>
@@ -321,8 +321,8 @@
                     <td class="border px-2 py-1">{% if forloop.first %}{{ e.op.piece }}{% endif %}</td>
                     <td class="border px-2 py-1 font-mono">{{ l.compte }}</td>
                     <td class="border px-2 py-1">{{ l.libelle }}</td>
-                    <td class="border px-2 py-1 text-right">{% if l.debit %}{{ l.debit|floatformat:2 }}{% endif %}</td>
-                    <td class="border px-2 py-1 text-right">{% if l.credit %}{{ l.credit|floatformat:2 }}{% endif %}</td>
+                    <td class="border px-2 py-1 text-right">{% if l.debit %}{{ l.debit|floatformat:"2g" }}{% endif %}</td>
+                    <td class="border px-2 py-1 text-right">{% if l.credit %}{{ l.credit|floatformat:"2g" }}{% endif %}</td>
                 </tr>
                 {% endfor %}
             {% endfor %}

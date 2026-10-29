@@ -20,17 +20,17 @@
 
     <div class="bg-gray-100 p-2 rounded w-32">
         <div class="text-xs text-gray-500">{% trans "Litres totaux" %}</div>
-        <div class="text-lg font-bold">{{ global.total_litres|floatformat:2 }}</div>
+        <div class="text-lg font-bold">{{ global.total_litres|floatformat:"2g" }}</div>
     </div>
 
     <div class="bg-gray-100 p-2 rounded w-32">
         <div class="text-xs text-gray-500">{% trans "Coût total" %}</div>
-        <div class="text-lg font-bold">{{ global.total_cout|floatformat:2 }} €</div>
+        <div class="text-lg font-bold">{{ global.total_cout|floatformat:"2g" }} €</div>
     </div>
 
     <div class="bg-gray-100 p-2 rounded w-32">
         <div class="text-xs text-gray-500">{% trans "Prix moyen / L" %}</div>
-        <div class="text-lg font-bold">{{ global.prix_moyen_litre|floatformat:3 }} €</div>
+        <div class="text-lg font-bold">{{ global.prix_moyen_litre|floatformat:"3g" }} €</div>
     </div>
 
     <!-- TVA par pays -->
@@ -41,7 +41,7 @@
             </div>
 
             <div class="text-lg font-bold">
-                {{ pays.tva|floatformat:2 }} €
+                {{ pays.tva|floatformat:"2g" }} €
             </div>
         </div>
     {% empty %}
@@ -55,7 +55,7 @@
     <!-- Total global TVA -->
     <div class="bg-blue-100 p-2 rounded w-32">
         <div class="text-xs text-gray-500">{% trans "TVA totale globale" %}</div>
-        <div class="text-lg font-bold text-blue-800">{{ total_global|floatformat:2 }} €</div>
+        <div class="text-lg font-bold text-blue-800">{{ total_global|floatformat:"2g" }} €</div>
     </div>
 
 </div>
@@ -190,19 +190,19 @@
             <!-- Litres -->
             <td class="border px-4 py-2 text-center"
                 data-value="{{ v.total_litres }}">
-                {{ v.total_litres|floatformat:2 }}
+                {{ v.total_litres|floatformat:"2g" }}
             </td>
 
             <!-- Coût -->
             <td class="border px-4 py-2 text-center"
                 data-value="{{ v.total_cout }}">
-                {{ v.total_cout|floatformat:2 }} €
+                {{ v.total_cout|floatformat:"2g" }} €
             </td>
 
             <!-- Prix moyen -->
             <td class="border px-4 py-2 text-center"
                 data-value="{{ v.prix_moyen_litre }}">
-                {{ v.prix_moyen_litre|floatformat:3 }} €
+                {{ v.prix_moyen_litre|floatformat:"3g" }} €
             </td>
 
         </tr>
@@ -238,8 +238,8 @@
         <tr>
             <td class="border px-4 py-2">{{ m.mois|date:"F Y" }}</td>
             <td class="border px-4 py-2 text-center">{{ m.nb_pleins }}</td>
-            <td class="border px-4 py-2 text-center">{{ m.total_litres|floatformat:2 }}</td>
-            <td class="border px-4 py-2 text-center">{{ m.total_cout|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-center">{{ m.total_litres|floatformat:"2g" }}</td>
+            <td class="border px-4 py-2 text-center">{{ m.total_cout|floatformat:"2g" }} €</td>
         </tr>
         {% empty %}
         <tr>
@@ -265,8 +265,8 @@
         <tr>
             <td class="border px-4 py-2">{{ a.an|date:"Y" }}</td>
             <td class="border px-4 py-2 text-center">{{ a.nb_pleins }}</td>
-            <td class="border px-4 py-2 text-center">{{ a.total_litres|floatformat:2 }}</td>
-            <td class="border px-4 py-2 text-center">{{ a.total_cout|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-center">{{ a.total_litres|floatformat:"2g" }}</td>
+            <td class="border px-4 py-2 text-center">{{ a.total_cout|floatformat:"2g" }} €</td>
         </tr>
         {% empty %}
         <tr>
@@ -283,14 +283,14 @@
     <!-- Globale -->
     <div class="bg-green-100 p-2 rounded w-48">
         <div class="text-xs text-gray-500">{% trans "Globale (L/100 km)" %}</div>
-        <div class="text-lg font-bold">{{ conso_moyenne|floatformat:2 }}</div>
+        <div class="text-lg font-bold">{{ conso_moyenne|floatformat:"2g" }}</div>
     </div>
 
     <!-- Par mois -->
     {% for mois, conso in conso_moyenne_mois.items %}
         <div class="bg-green-50 p-2 rounded w-48">
             <div class="text-xs text-gray-500">{% trans "Mois" %} {{ mois|date:"F Y" }}</div>
-            <div class="text-lg font-bold">{{ conso|floatformat:2 }}</div>
+            <div class="text-lg font-bold">{{ conso|floatformat:"2g" }}</div>
         </div>
     {% endfor %}
 
@@ -298,7 +298,7 @@
     {% for an, conso in conso_moyenne_an.items %}
         <div class="bg-green-200 p-2 rounded w-48">
             <div class="text-xs text-gray-500">{% trans "Année" %} {{ an }}</div>
-            <div class="text-lg font-bold">{{ conso|floatformat:2 }}</div>
+            <div class="text-lg font-bold">{{ conso|floatformat:"2g" }}</div>
         </div>
     {% endfor %}
 </div>

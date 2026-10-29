@@ -7,7 +7,7 @@
         {% if o %}
             <p>{% trans "Facture d'origine" %} :
                 <a href="{% if o.est_brouillon %}{% url 'facture:modifier' o.pk %}{% else %}{% url 'facture:detail' o.pk %}{% endif %}" class="text-blue-700 font-semibold hover:underline">{{ o.numero|default:_("brouillon") }}</a>
-                {% trans "du" %} {{ o.issue_date|date:"d/m/Y" }} – {{ o.total|floatformat:2 }} € {% trans "TVAC" %}
+                {% trans "du" %} {{ o.issue_date|date:"d/m/Y" }} – {{ o.total|floatformat:"2g" }} € {% trans "TVAC" %}
             </p>
         {% endif %}
     {% endwith %}
@@ -45,7 +45,7 @@
                     </td>
                     <td class="border px-2 py-1">{{ n.issue_date|date:"d/m/Y" }}</td>
                     <td class="border px-2 py-1">{{ n.motif|default:"—"|truncatechars:80 }}</td>
-                    <td class="border px-2 py-1 text-right font-semibold">{% if n.est_note_credit %}− {% endif %}{{ n.total|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right font-semibold">{% if n.est_note_credit %}− {% endif %}{{ n.total|floatformat:"2g" }} €</td>
                 </tr>
             {% endfor %}
             </tbody>

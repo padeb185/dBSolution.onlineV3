@@ -329,7 +329,7 @@
         <div><span class="label">{% trans "Société" %} :</span> {{ accident.tech_societe }}</div>
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ accident.voiture_exemplaire }}</div>
         <div><span class="label">{% trans "Immatriculation" %} :</span> {{ accident.voiture_exemplaire.immatriculation|default:"-" }}</div>
-        <div><span class="label">{% trans "Kilométrage de l'intervention" %} :</span> {{ accident.kilometrage_accident }} km</div>
+        <div><span class="label">{% trans "Kilométrage de l'intervention" %} :</span> {{ accident.kilometrage_accident|milliers }} km</div>
         <div><span class="label">{% trans "Tag" %} :</span>
             <span class="tag {% if accident.tag == 'VERT' %}tag-vert{% elif accident.tag == 'JAUNE' %}tag-jaune{% else %}tag-rouge{% endif %}">{{ accident.get_tag_display }}</span></div>
     </div>
@@ -376,7 +376,7 @@
             <td>{{ p.get_decision_display }}</td>
             <td>{% if p.fabricant and p.fabricant != "CHOISIR" %}{{ p.get_fabricant_display }}{% else %}-{% endif %}</td>
             <td class="text-right">{{ p.quantite }}</td>
-            <td class="text-right">{{ p.total|floatformat:2 }} €</td>
+            <td class="text-right">{{ p.total|floatformat:"2g" }} €</td>
         </tr>{% endfor %}
     </tbody>
 </table>
@@ -395,10 +395,10 @@
 <h2>{% trans "Chiffrage" %}</h2>
 <div class="box">
     <table class="table-2-cols">
-        <tr><td class="text-right">{% trans "Total pièces HTVA" %}</td><td class="text-right">{{ rapport.total_general|default:0|floatformat:2 }} €</td></tr>
+        <tr><td class="text-right">{% trans "Total pièces HTVA" %}</td><td class="text-right">{{ rapport.total_general|default:0|floatformat:"2g" }} €</td></tr>
         <tr><td class="text-right">{% trans "Temps" %}</td><td class="text-right">{{ accident.temps_main_oeuvre_display }}</td></tr>
-        <tr class="total"><td class="text-right"><strong>{% trans "Main-d'œuvre HTVA" %}</strong></td><td class="text-right"><strong>{{ accident.cout_main_oeuvre|default:0|floatformat:2 }} €</strong></td></tr>
-        <tr class="total-general"><td class="text-right"><strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong></td><td class="text-right"><strong>{{ accident.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €</strong></td></tr>
+        <tr class="total"><td class="text-right"><strong>{% trans "Main-d'œuvre HTVA" %}</strong></td><td class="text-right"><strong>{{ accident.cout_main_oeuvre|default:0|floatformat:"2g" }} €</strong></td></tr>
+        <tr class="total-general"><td class="text-right"><strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong></td><td class="text-right"><strong>{{ accident.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €</strong></td></tr>
     </table>
 </div>
 

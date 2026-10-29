@@ -22,17 +22,17 @@
 
     <div class="bg-gray-100 p-2 rounded w-32">
         <div class="text-xs text-gray-500">{% trans "kW totaux" %}</div>
-        <div class="text-lg font-bold">{{ global.total_kW|floatformat:2 }}</div>
+        <div class="text-lg font-bold">{{ global.total_kW|floatformat:"2g" }}</div>
     </div>
 
     <div class="bg-gray-100 p-2 rounded w-32">
         <div class="text-xs text-gray-500">{% trans "Coût total" %}</div>
-        <div class="text-lg font-bold">{{ global.total_cout|floatformat:2 }} €</div>
+        <div class="text-lg font-bold">{{ global.total_cout|floatformat:"2g" }} €</div>
     </div>
 
     <div class="bg-gray-100 p-2 rounded w-32">
         <div class="text-xs text-gray-500">{% trans "Prix moyen / kW" %}</div>
-        <div class="text-lg font-bold">{{ global.prix_moyen_kW|floatformat:3 }} €</div>
+        <div class="text-lg font-bold">{{ global.prix_moyen_kW|floatformat:"3g" }} €</div>
     </div>
 
     <!-- TVA par pays -->
@@ -43,7 +43,7 @@
             </div>
 
             <div class="text-lg font-bold">
-                {{ pays.tva|floatformat:2 }} €
+                {{ pays.tva|floatformat:"2g" }} €
             </div>
         </div>
     {% empty %}
@@ -55,7 +55,7 @@
     <!-- Total global TVA -->
     <div class="bg-blue-100 p-2 rounded w-32">
         <div class="text-xs text-gray-500">{% trans "TVA totale globale" %}</div>
-        <div class="text-lg font-bold text-blue-800">{{ total_global|floatformat:2 }} €</div>
+        <div class="text-lg font-bold text-blue-800">{{ total_global|floatformat:"2g" }} €</div>
     </div>
 
 </div>
@@ -90,9 +90,9 @@
                 {% endwith %}
             </td>
             <td class="border px-4 py-2 text-center">{{ v.nb_recharges }}</td>
-            <td class="border px-4 py-2 text-center">{{ v.total_kW|floatformat:2 }}</td>
-            <td class="border px-4 py-2 text-center">{{ v.total_cout|floatformat:2 }} €</td>
-            <td class="border px-4 py-2 text-center">{{ v.prix_moyen_kW|floatformat:3 }} €</td>
+            <td class="border px-4 py-2 text-center">{{ v.total_kW|floatformat:"2g" }}</td>
+            <td class="border px-4 py-2 text-center">{{ v.total_cout|floatformat:"2g" }} €</td>
+            <td class="border px-4 py-2 text-center">{{ v.prix_moyen_kW|floatformat:"3g" }} €</td>
         </tr>
         {% empty %}
         <tr>
@@ -119,8 +119,8 @@
         <tr>
             <td class="border px-4 py-2">{{ m.mois|date:"F Y" }}</td>
             <td class="border px-4 py-2 text-center">{{ m.nb_recharges }}</td>
-            <td class="border px-4 py-2 text-center">{{ m.total_kW|floatformat:2 }}</td>
-            <td class="border px-4 py-2 text-center">{{ m.total_cout|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-center">{{ m.total_kW|floatformat:"2g" }}</td>
+            <td class="border px-4 py-2 text-center">{{ m.total_cout|floatformat:"2g" }} €</td>
         </tr>
         {% empty %}
         <tr>
@@ -146,8 +146,8 @@
         <tr>
             <td class="border px-4 py-2">{{ a.an|date:"Y" }}</td>
             <td class="border px-4 py-2 text-center">{{ a.nb_recharges}}</td>
-            <td class="border px-4 py-2 text-center">{{ a.total_kW|floatformat:2 }}</td>
-            <td class="border px-4 py-2 text-center">{{ a.total_cout|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-center">{{ a.total_kW|floatformat:"2g" }}</td>
+            <td class="border px-4 py-2 text-center">{{ a.total_cout|floatformat:"2g" }} €</td>
         </tr>
         {% empty %}
         <tr>
@@ -172,7 +172,7 @@
             {% trans "Globale (kWh/100 km)" %}
         </div>
         <div class="text-lg font-bold">
-            {{ conso_moyenne|floatformat:2 }}
+            {{ conso_moyenne|floatformat:"2g" }}
         </div>
     </div>
 
@@ -183,7 +183,7 @@
             {% trans "Mois" %} {{ stats.mois|date:"F Y" }}
         </div>
         <div class="text-lg font-bold">
-            {{ stats.conso_moyenne|floatformat:2 }}
+            {{ stats.conso_moyenne|floatformat:"2g" }}
         </div>
     </div>
     {% endfor %}
@@ -195,7 +195,7 @@
             {% trans "Année" %} {{ stats.an|date:"Y" }}
         </div>
         <div class="text-lg font-bold">
-            {{ stats.conso_moyenne|floatformat:2 }}
+            {{ stats.conso_moyenne|floatformat:"2g" }}
         </div>
     </div>
     {% endfor %}

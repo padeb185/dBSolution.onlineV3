@@ -66,19 +66,19 @@
                     </p>
 
                     <p class="text-gray-500 text-sm">
-                        {% trans "Kilométrage" %}: {{ ex.kilometres_chassis }} km
+                        {% trans "Kilométrage" %}: {{ ex.kilometres_chassis|milliers }} km
                     </p>
                      <p class="text-sm {% if ex.alerte_entretien %}text-red-600 font-bold{% else %}text-gray-500{% endif %}">
-                         {% trans "Kilométrage du moteur" %}: {{ ex.kilometres_moteur }} km
+                         {% trans "Kilométrage du moteur" %}: {{ ex.kilometres_moteur|milliers }} km
                      </p>
                      <p class="text-gray-500 text-sm">
-                        {% trans "Kilométrage de la boîte de vitesse" %}: {{ ex.kilometres_boite }} km
+                        {% trans "Kilométrage de la boîte de vitesse" %}: {{ ex.kilometres_boite|milliers }} km
                     </p>
                     <p class="text-gray-500 text-sm">
-                        {% trans "Kilométrage de l'embrayage" %}: {{ ex.kilometres_embrayage }} km
+                        {% trans "Kilométrage de l'embrayage" %}: {{ ex.kilometres_embrayage|milliers }} km
                     </p>
                     <p class="text-gray-500 text-sm">
-                        {% trans "Kilométrage du dernier entretien" %}: {{ ex.kilometres_dernier_entretien }} km
+                        {% trans "Kilométrage du dernier entretien" %}: {{ ex.kilometres_dernier_entretien|milliers }} km
                     </p>
                     {% include "voiture_exemplaire/partials/alertes_km.html" with ex=ex %}
 

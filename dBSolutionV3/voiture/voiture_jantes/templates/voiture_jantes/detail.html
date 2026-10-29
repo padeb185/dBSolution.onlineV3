@@ -48,7 +48,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <div class="carte-jante">
             <h2 class="titre-section-jante">{% trans "Achat" %}</h2>
-            <div class="ligne-info"><span>{% trans "Prix d'achat HTVA (jeu)" %}</span><span>{{ jante.prix_achat|floatformat:2 }} €</span></div>
+            <div class="ligne-info"><span>{% trans "Prix d'achat HTVA (jeu)" %}</span><span>{{ jante.prix_achat|floatformat:"2g" }} €</span></div>
             <div class="ligne-info"><span>{% trans "Date d'achat" %}</span><span>{{ jante.date_achat|date:"d/m/Y"|default:"-" }}</span></div>
             {% if jante.remarques %}<p class="mt-3 text-gray-700 whitespace-pre-line">{{ jante.remarques }}</p>{% endif %}
         </div>

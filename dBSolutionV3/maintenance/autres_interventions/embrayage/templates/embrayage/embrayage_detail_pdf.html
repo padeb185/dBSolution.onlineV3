@@ -371,12 +371,12 @@
 
         <div>
             <span class="label">{% trans "Kilométrage chassis" %} :</span>
-            {{ embrayage.kilometres_chassis }} km
+            {{ embrayage.kilometres_chassis|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage embrayage" %} :</span>
-            {{ embrayage.kilometrage_embrayage }} km
+            {{ embrayage.kilometrage_embrayage|milliers }} km
         </div>
 
         <div>
@@ -630,12 +630,12 @@
         {% if embrayage.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-                {{ embrayage.main_oeuvre.taux_horaire|floatformat:2 }} €
+                {{ embrayage.main_oeuvre.taux_horaire|floatformat:"2g" }} €
             </div>
 
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ embrayage.main_oeuvre.prix_facture|floatformat:2 }} €
+                {{ embrayage.main_oeuvre.prix_facture|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -717,11 +717,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -732,7 +732,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -742,7 +742,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ embrayage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ embrayage.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -752,7 +752,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ embrayage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ embrayage.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -779,7 +779,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ embrayage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ embrayage.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
 
@@ -796,7 +796,7 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ embrayage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ embrayage.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                         </strong>
                     </td>
 

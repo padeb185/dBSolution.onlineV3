@@ -28,16 +28,16 @@
     {% if suivi.sortie_effectuee %}
     <p><strong>{% trans "Sortie" %} :</strong> {{ suivi.sortie_le|date:"d/m/Y H:i" }}
         {% if suivi.sortie_par %}– {{ suivi.sortie_par.prenom }} {{ suivi.sortie_par.nom }}{% endif %}
-        · {{ suivi.kilometrage_avant|default_if_none:"—" }} km
+        · {{ suivi.kilometrage_avant|default_if_none:"—"|milliers }} km
         {% if suivi.niveau_essence_depart %}· {% trans "Essence" %} {{ suivi.get_niveau_essence_depart_display }}{% endif %}</p>
     {% endif %}
     {% if suivi.retour_effectue %}
     <p><strong>{% trans "Retour" %} :</strong> {{ suivi.retour_le|date:"d/m/Y H:i" }}
         {% if suivi.retour_par %}– {{ suivi.retour_par.prenom }} {{ suivi.retour_par.nom }}{% endif %}
-        · {{ suivi.kilometrage_apres|default_if_none:"—" }} km (+{{ suivi.km_parcourus|default_if_none:"—" }} km)</p>
+        · {{ suivi.kilometrage_apres|default_if_none:"—"|milliers }} km (+{{ suivi.km_parcourus|default_if_none:"—"|milliers }} km)</p>
     {% if location.km_supplementaires %}
-    <p><strong>{% trans "Kilomètres supplémentaires" %} :</strong> {{ location.km_supplementaires }} km
-        {% if location.facturer_km_supplementaires and location.prix_km_supplementaire %}× {{ location.prix_km_supplementaire|floatformat:2 }} € = <strong>{{ location.total_km_supplementaires_tvac|floatformat:2 }} € {% trans "TVAC" %}</strong>
+    <p><strong>{% trans "Kilomètres supplémentaires" %} :</strong> {{ location.km_supplementaires|milliers }} km
+        {% if location.facturer_km_supplementaires and location.prix_km_supplementaire %}× {{ location.prix_km_supplementaire|floatformat:"2g" }} € = <strong>{{ location.total_km_supplementaires_tvac|floatformat:"2g" }} € {% trans "TVAC" %}</strong>
         {% else %}<span class="text-gray-500">({% trans "non facturés" %})</span>{% endif %}</p>
     {% endif %}
     {% endif %}
@@ -138,7 +138,7 @@
                 <div class="bg-white rounded-lg border border-gray-200 p-2">
                     <span class="block text-xs uppercase tracking-wide text-gray-500">{% trans "Prévu" %}</span>
                     <span class="block text-xl font-bold tabular-nums">{{ location.kilometrage|default_if_none:"—" }} <small class="text-gray-400">km</small></span>
-                    {% if location.nombre_tours %}<span class="block text-xs text-gray-500">{{ location.nombre_tours }} {% trans "tours" %}{% if calcul_km.longueur %} × {{ calcul_km.longueur }} km{% endif %}</span>{% endif %}
+                    {% if location.nombre_tours %}<span class="block text-xs text-gray-500">{{ location.nombre_tours }} {% trans "tours" %}{% if calcul_km.longueur %} × {{ calcul_km.longueur|milliers }} km{% endif %}</span>{% endif %}
                 </div>
                 <div class="bg-white rounded-lg border border-gray-200 p-2">
                     <span class="block text-xs uppercase tracking-wide text-gray-500">{% trans "Km parcourus" %}</span>

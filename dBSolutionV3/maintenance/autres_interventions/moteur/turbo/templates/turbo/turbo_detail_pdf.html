@@ -361,12 +361,12 @@
 
         <div>
             <span class="label">{% trans "Kilométrage chassis" %} :</span>
-            {{ turbo.kilometres_chassis }} km
+            {{ turbo.kilometres_chassis|milliers }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage contrôle turbo" %} :</span>
-            {{ turbo.kilometres_turbo }} km
+            {{ turbo.kilometres_turbo|milliers }} km
         </div>
 
         <div>
@@ -602,12 +602,12 @@
         {% if turbo.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire HTVA" %} :</span>
-                {{ turbo.main_oeuvre.taux_horaire|floatformat:2 }} €
+                {{ turbo.main_oeuvre.taux_horaire|floatformat:"2g" }} €
             </div>
 
             <div>
                 <span class="label">{% trans "Prix HTVA" %} :</span>
-                {{ turbo.main_oeuvre.prix_facture|floatformat:2 }} €
+                {{ turbo.main_oeuvre.prix_facture|floatformat:"2g" }} €
             </div>
 
             <div>
@@ -696,11 +696,11 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
                         </td>
                     </tr>
                 {% endfor %}
@@ -711,7 +711,7 @@
                     </td>
 
                     <td class="total-value">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -721,7 +721,7 @@
                     </td>
 
                     <td class="total-value">
-                        {{ turbo.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ turbo.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -731,7 +731,7 @@
                     </td>
 
                     <td class="total-value">
-                        {{ turbo.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ turbo.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
             </tbody>
@@ -751,7 +751,7 @@
                     </td>
 
                     <td class="total-value">
-                        {{ turbo.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ turbo.cout_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
 
@@ -761,7 +761,7 @@
                     </td>
 
                     <td class="total-value">
-                        {{ turbo.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ turbo.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
                     </td>
                 </tr>
             </tbody>
