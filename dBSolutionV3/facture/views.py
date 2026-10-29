@@ -8,6 +8,7 @@ import logging
 from django.db import transaction
 from django.db.models import Max, Prefetch
 from django.http import HttpResponse
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -82,7 +83,36 @@ def _factures(request):
     return Facture.objects.filter(societe=request.user.societe)
 
 
+class FactureIntrouvable(Http404):
+    """Facture supprimée (brouillon) ou d'une autre société."""
+
+
+def facture_existante(vue):
+    """
+    Facture introuvable (brouillon supprimé, retour arrière du navigateur, ancien lien) :
+    message clair et retour à la liste des factures au lieu d'une page 404.
+    """
+    from functools import wraps
+
+    @wraps(vue)
+    def enveloppe(request, *args, **kwargs):
+        try:
+            return vue(request, *args, **kwargs)
+        except FactureIntrouvable:
+            messages.warning(request, _("Cette facture n'existe plus : le brouillon a été supprimé "
+                                        "(ou remplacé). Retour à la liste des factures."))
+            return redirect("facture:liste")
+    return enveloppe
+
+
 def _get_facture(request, pk):
+    try:
+        return _get_facture_ou_404(request, pk)
+    except Http404:
+        raise FactureIntrouvable
+
+
+def _get_facture_ou_404(request, pk):
     return get_object_or_404(
         _factures(request).select_related(
             "societe", "societe__adresse", "client_particulier", "client_particulier__adresse",
@@ -314,6 +344,7 @@ def facture_list_view(request):
 # -----------------------------
 @never_cache
 @login_required
+@facture_existante
 def facture_modifier_view(request, pk):
     if not (_peut(request.user, ROLES_FACTURATION) or _vendeur_locations(request.user)):
         return _refuser(request)
@@ -427,6 +458,7 @@ def facture_modifier_view(request, pk):
 # -----------------------------
 @login_required
 @require_POST
+@facture_existante
 def creer_note_view(request, pk):
     if not _peut(request.user, ROLES_FACTURATION):
         return _refuser(request)
@@ -453,6 +485,7 @@ def creer_note_view(request, pk):
 # -----------------------------
 @login_required
 @require_POST
+@facture_existante
 def emettre_repartition_view(request, pk):
     if not _peut(request.user, ROLES_FACTURATION):
         return _refuser(request)
@@ -488,6 +521,7 @@ def emettre_repartition_view(request, pk):
 # -----------------------------
 @never_cache
 @login_required
+@facture_existante
 def facture_detail_view(request, pk):
     if not (_peut(request.user, ROLES_FACTURATION) or _vendeur_locations(request.user)):
         return _refuser(request)
@@ -532,6 +566,7 @@ def _contexte_paiement(facture):
 # PDF (sur le modèle des PDF de maintenance)
 # -----------------------------
 @login_required
+@facture_existante
 def facture_pdf_view(request, pk):
     if not (_peut(request.user, ROLES_FACTURATION) or _vendeur_locations(request.user)):
         return _refuser(request)
@@ -563,6 +598,7 @@ def facture_pdf_view(request, pk):
 # XML UBL / Peppol (factures pro)
 # -----------------------------
 @login_required
+@facture_existante
 def facture_xml_view(request, pk):
     if not (_peut(request.user, ROLES_FACTURATION) or _vendeur_locations(request.user)):
         return _refuser(request)
@@ -620,6 +656,7 @@ def _envoyer_peppol(request, facture, parametres):
 
 @login_required
 @require_POST
+@facture_existante
 def facture_envoyer_peppol_view(request, pk):
     if not (_peut(request.user, ROLES_FACTURATION) or _vendeur_locations(request.user)):
         return _refuser(request)
@@ -726,6 +763,7 @@ def _tester_serveur(request, parametres, action):
 # -----------------------------
 @never_cache
 @login_required
+@facture_existante
 def delete_facture_view(request, pk):
     facture = _get_facture(request, pk)
 
@@ -984,6 +1022,7 @@ def _synchroniser_locations(facture):
 
 @login_required
 @require_POST
+@facture_existante
 def facture_paiement_view(request, pk):
     from .models import PaiementFacture
     from .paiements import depasse_plafond, plafond_especes

@@ -14,7 +14,7 @@ from utilisateurs.models import UserLog
 from utils.securite import ROLES_ATELIER, peut_supprimer, refuser_suppression, roles_requis
 
 from .forms import ParkingForm
-from .models import (LETTRES, PAYS_DEFAUT, STYLES_PLAQUE, OccupationBox, Parking, TypeCase, cle_plaque,
+from .models import (LETTRES, PAYS_DEFAUT, STYLES_PLAQUE, OccupationBox, Parking, TypeCase, cle_plaque, style_plaque,
                      normaliser_immatriculation)
 
 # Consultation et placement des véhicules : atelier (+ vendeur) ; plan et paramètres : direction / chef mécanicien
@@ -44,6 +44,15 @@ def _vehicules(request):
             .exclude(immatriculation__isnull=True).exclude(immatriculation="")
             .select_related("voiture_marque", "voiture_modele")
             .order_by("immatriculation"))
+
+
+def _vehicules_plaques(request):
+    """Véhicules avec la mise en forme de leur plaque (pays de la fiche), pour le choix dans un box."""
+    vehicules = list(_vehicules(request))
+    for v in vehicules:
+        v.pays_plaque = getattr(v, "pays", None) or PAYS_DEFAUT
+        v.plaque = style_plaque(v.pays_plaque)
+    return vehicules
 
 
 def _log(user, action, parking, detail=""):
@@ -110,7 +119,7 @@ def parking_plan(request, pk):
     return render(request, "parking/plan.html", {
         "parking": parking,
         "dessin": parking.dessin(),
-        "vehicules": _vehicules(request),
+        "vehicules": _vehicules_plaques(request),
         "pays_plaques": list(STYLES_PLAQUE),
         "pays_defaut": PAYS_DEFAUT,
         "peut_editer": _peut_editer(request.user),

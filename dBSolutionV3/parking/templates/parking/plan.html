@@ -58,13 +58,25 @@
             {% csrf_token %}
             <input type="hidden" name="code" id="pk-code">
             <div>
-                <label class="block font-semibold mb-1" for="pk-vehicule">{% trans "Véhicule enregistré" %}</label>
-                <select name="vehicule" id="pk-vehicule" class="input">
-                    <option value="">---------</option>
+                <label class="block font-semibold mb-1" for="pk-cherche-vehicule">{% trans "Véhicule enregistré" %}</label>
+                <input type="hidden" name="vehicule" id="pk-vehicule">
+                <input type="search" id="pk-cherche-vehicule" class="input" autocomplete="off"
+                       placeholder="{% trans 'Rechercher : plaque, marque, modèle' %}">
+                <div id="pk-choix" class="pk-choix">
+                    <button type="button" class="pk-choix-ligne" data-id="" data-plaque="" data-recherche="">
+                        <span class="pk-choix-aucun">{% trans "Aucun (saisir l'immatriculation)" %}</span>
+                    </button>
                     {% for v in vehicules %}
-                        <option value="{{ v.pk }}" data-plaque="{{ v.immatriculation }}">{{ v.immatriculation }} – {{ v.voiture_marque.nom_marque }} {{ v.voiture_modele.nom_modele }}</option>
+                    <button type="button" class="pk-choix-ligne" data-id="{{ v.pk }}" data-plaque="{{ v.immatriculation }}"
+                            data-pays="{{ v.pays_plaque }}"
+                            data-recherche="{{ v.immatriculation }} {{ v.voiture_marque.nom_marque }} {{ v.voiture_modele.nom_modele }}">
+                        {% include "parking/_plaque.html" with o=v %}
+                        <span class="pk-choix-texte">{{ v.voiture_marque.nom_marque }} {{ v.voiture_modele.nom_modele }}</span>
+                    </button>
+                    {% empty %}
+                    <p class="text-sm text-gray-500 p-2">{% trans "Aucun véhicule avec immatriculation." %}</p>
                     {% endfor %}
-                </select>
+                </div>
             </div>
             <div>
                 <label class="block font-semibold mb-1" for="pk-immatriculation">{% trans "ou immatriculation" %}</label>
@@ -94,7 +106,16 @@
 <style>
 .pk-modale { position:fixed; inset:0; background:rgba(0,0,0,.45); display:flex; align-items:center; justify-content:center; z-index:1000; }
 .pk-modale[hidden] { display:none; }
-.pk-modale-boite { background:#fff; border-radius:10px; padding:24px; width:min(480px, 92vw); box-shadow:0 10px 30px rgba(0,0,0,.3); }
+.pk-modale-boite { background:#fff; border-radius:10px; padding:24px; width:min(520px, 94vw); max-height:94vh; overflow-y:auto; box-shadow:0 10px 30px rgba(0,0,0,.3); }
+/* Choix du véhicule : plaque mise en forme (pays de la fiche) + marque / modèle */
+.pk-choix { --m:40px; --w:3.4; --h:5; margin-top:6px; max-height:260px; overflow-y:auto; border:1px solid #d1d5db; border-radius:6px; }
+.pk-choix-ligne { display:flex; align-items:center; gap:12px; width:100%; padding:6px 10px; text-align:left;
+                  background:#fff; border:0; border-bottom:1px solid #f3f4f6; cursor:pointer; }
+.pk-choix-ligne:hover { background:#eff6ff; }
+.pk-choix-ligne.choisi { background:#dbeafe; box-shadow:inset 4px 0 0 #1d4ed8; }
+.pk-choix-ligne .pk-plaque { margin-top:0; flex-shrink:0; }
+.pk-choix-texte { font-weight:600; color:#374151; }
+.pk-choix-aucun { color:#6b7280; font-style:italic; padding:6px 0; }
 </style>
 
 <script>
@@ -121,16 +142,49 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!c) return;
         document.getElementById("pk-modale-code").textContent = c.dataset.code;
         document.getElementById("pk-code").value = c.dataset.code;
-        document.getElementById("pk-vehicule").value = c.dataset.vehicule || "";
+        choisirVehicule(c.dataset.vehicule || "", false);
+        document.getElementById("pk-cherche-vehicule").value = "";
+        filtrerVehicules();
         document.getElementById("pk-immatriculation").value = c.dataset.plaque || "";
         document.getElementById("pk-remarque").value = c.dataset.remarque || "";
         document.getElementById("pk-pays").value = c.dataset.pays || "{{ pays_defaut|escapejs }}";
         document.getElementById("pk-liberer").style.display = c.dataset.plaque ? "" : "none";
         modale.hidden = false;
     });
-    document.getElementById("pk-vehicule").addEventListener("change", function () {
-        const o = this.selectedOptions[0];
-        if (o && o.dataset.plaque) document.getElementById("pk-immatriculation").value = o.dataset.plaque;
+    // Choix du véhicule (liste avec plaques mises en forme)
+    const listeVehicules = document.getElementById("pk-choix");
+    function choisirVehicule(id, remplir) {
+        document.getElementById("pk-vehicule").value = id || "";
+        let choisie = null;
+        listeVehicules.querySelectorAll(".pk-choix-ligne").forEach(function (b) {
+            const ok = (b.dataset.id || "") === (id || "");
+            b.classList.toggle("choisi", ok);
+            if (ok) choisie = b;
+        });
+        if (remplir && choisie && choisie.dataset.plaque) {
+            document.getElementById("pk-immatriculation").value = choisie.dataset.plaque;
+            if (choisie.dataset.pays) document.getElementById("pk-pays").value = choisie.dataset.pays;
+        }
+        if (choisie && id) choisie.scrollIntoView({block: "nearest"});
+    }
+    function filtrerVehicules() {
+        const q = cle(document.getElementById("pk-cherche-vehicule").value);
+        listeVehicules.querySelectorAll(".pk-choix-ligne").forEach(function (b) {
+            b.hidden = !!q && !!b.dataset.id && !cle(b.dataset.recherche).includes(q);
+        });
+    }
+    listeVehicules.addEventListener("click", function (e) {
+        const b = e.target.closest(".pk-choix-ligne");
+        if (!b) return;
+        choisirVehicule(b.dataset.id, true);
+        if (!b.dataset.id) document.getElementById("pk-immatriculation").focus();
+    });
+    document.getElementById("pk-cherche-vehicule").addEventListener("input", filtrerVehicules);
+    // Saisie manuelle de la plaque : le véhicule choisi n'est plus pris en compte
+    document.getElementById("pk-immatriculation").addEventListener("input", function () {
+        const id = document.getElementById("pk-vehicule").value;
+        const b = id && listeVehicules.querySelector('.pk-choix-ligne[data-id="' + id + '"]');
+        if (b && cle(b.dataset.plaque) !== cle(this.value)) choisirVehicule("", false);
     });
     document.getElementById("pk-fermer").addEventListener("click", () => { modale.hidden = true; });
     modale.addEventListener("click", e => { if (e.target === modale) modale.hidden = true; });
