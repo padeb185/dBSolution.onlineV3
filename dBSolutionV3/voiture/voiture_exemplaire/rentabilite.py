@@ -3,7 +3,8 @@ Rentabilité d'un véhicule (Données financières).
 
     coût d'acquisition  = prix d'achat + taxe de mise en circulation + autres frais d'achat
   + coûts d'utilisation = carburant + recharges + AdBlue (HTVA)
-                        + carburant non encodé (estimation : km × consommation × prix approximatif)
+                        + carburant non encodé (estimation statique entre l'achat et la création du véhicule :
+                          (km à la création − km d'achat) × consommation × prix approximatif)
                         + maintenances (internes au coût de revient – factures internes émises
                           et maintenances d'atelier non facturées – + garages externes HTVA)
                         + coûts annuels (assurance, taxe de circulation, vignettes, contrôle technique…)
@@ -86,19 +87,52 @@ def energie(ex):
 PRIX_CARBURANT_DEFAUT = Decimal("1.850")
 
 
-def carburant_estime(ex, en, km):
+def km_reference_carburant(ex):
     """
-    Carburant non encodé (estimation) :
-        litres nécessaires = km parcourus depuis l'achat × consommation moyenne ÷ 100
-        litres non encodés = litres nécessaires − litres des pleins encodés
-        coût TVAC = litres non encodés × prix approximatif ; HTVA = TVAC ÷ (1 + TVA carburant)
+    Premier kilométrage introduit pour le véhicule (départ de l'estimation du carburant) :
+    kilométrage à la création de la fiche ; pour une fiche plus ancienne (non mémorisé),
+    premier kilométrage connu (pleins, maintenances, compteur actuel).
+    Retourne (km, source) : source = "creation" ou "historique".
+    """
+    if ex.kilometrage_creation is not None:
+        return int(ex.kilometrage_creation), "creation"
+    from django.db.models import Min
+    from fuel.models import Fuel
+    from maintenance.models import Maintenance
+    candidats = [int(ex.kilometres_chassis or 0)]
+    m = Fuel.objects.filter(voiture_exemplaire=ex, kilometrage_fuel__gt=0).aggregate(m=Min("kilometrage_fuel"))["m"]
+    if m:
+        candidats.append(int(m))
+    m = Maintenance.objects.filter(voiture_exemplaire=ex, kilometres_chassis__gt=0).aggregate(m=Min("kilometres_chassis"))["m"]
+    if m:
+        candidats.append(int(m))
+    km = min(candidats)
+    if ex.kilometrage_achat is not None:
+        km = max(km, int(ex.kilometrage_achat))
+    return km, "historique"
+
+
+def carburant_estime(ex, en, km=None):
+    """
+    Carburant non encodé (estimation statique) : période entre l'achat et la création du véhicule
+    dans l'application, pendant laquelle aucun plein n'a été encodé.
+        km = kilométrage à la création du véhicule − kilométrage d'achat
+             (ex. créé à 192 000 km, acheté à 75 000 km → 117 000 km)
+        litres = km × consommation moyenne ÷ 100 (moins les pleins éventuellement encodés sur cette période)
+        coût TVAC = litres × prix approximatif ; HTVA = TVAC ÷ (1 + TVA carburant)
+    Calcul figé : il ne dépend pas du kilométrage actuel.
     Consommation : saisie dans les données financières, sinon moyenne des pleins encodés.
     Prix : saisi, sinon prix moyen des pleins encodés, sinon 1,850 €/L.
     """
+    from django.db.models import Sum
     from fuel.models import Fuel
     from fuel.totaux_energie import PAYS_SOCIETE
 
     carburant = en["carburant"]
+    km_fin, source_km = km_reference_carburant(ex)
+    km_achat = ex.kilometrage_achat
+    km = max(km_fin - int(km_achat), 0) if km_achat is not None else 0
+
     conso, source_conso = ex.consommation_estimee, "saisie"
     if not conso:
         moyenne = Fuel.consommation_moyenne_all(ex)
@@ -111,18 +145,23 @@ def carburant_estime(ex, en, km):
         else:
             prix, source_prix = PRIX_CARBURANT_DEFAUT, "defaut"
 
-    res = {"km": km, "consommation": conso, "source_consommation": source_conso,
-           "prix": prix, "source_prix": source_prix, "litres_encodes": r2(carburant["quantite"]),
+    res = {"km": km, "km_achat": km_achat, "km_creation": km_fin, "source_km": source_km,
+           "consommation": conso, "source_consommation": source_conso,
+           "prix": prix, "source_prix": source_prix, "litres_encodes": ZERO,
            "litres_total": ZERO, "litres": ZERO, "ttc": ZERO, "ht": ZERO, "taux_tva": None, "calculable": False}
-    # Sans kilométrage de départ, les km parcourus depuis l'achat sont inconnus
-    if ex.kilometrage_achat is None or not conso or not km:
+    if km_achat is None or not conso or not km:
         return res
+
+    # Pleins éventuellement encodés sur la période achat → création (évite de les compter deux fois)
+    encodes = Fuel.objects.filter(voiture_exemplaire=ex, kilometrage_fuel__gt=int(km_achat),
+                                  kilometrage_fuel__lte=km_fin).aggregate(t=Sum("litres"))["t"] or ZERO
     taux = Decimal(str(Fuel.TVA_CARBURANT.get(PAYS_SOCIETE, 21)))
     litres_total = r2(Decimal(km) * Decimal(conso) / Decimal("100"))
-    litres = max(r2(litres_total - carburant["quantite"]), ZERO)
+    litres = max(r2(litres_total - Decimal(encodes)), ZERO)
     ttc = r2(litres * Decimal(prix))
     ht = r2(ttc * Decimal("100") / (Decimal("100") + taux))
-    res.update({"litres_total": litres_total, "litres": litres, "ttc": ttc, "ht": ht, "taux_tva": taux, "calculable": True})
+    res.update({"litres_encodes": r2(encodes), "litres_total": litres_total, "litres": litres,
+                "ttc": ttc, "ht": ht, "taux_tva": taux, "calculable": True})
     return res
 
 
@@ -285,7 +324,7 @@ def rentabilite(ex):
 
     en = energie(ex)
     # Carburant non encodé : estimation ajoutée aux coûts d'énergie (HTVA)
-    estimation = carburant_estime(ex, en, km)
+    estimation = carburant_estime(ex, en)
     if estimation["ht"] > 0:
         en["carburant_estime"] = {"label": _("Carburant non encodé (estimation)"), "quantite": estimation["litres"],
                                   "unite": "L", "ht": estimation["ht"], "ttc": estimation["ttc"], "nb": 0,

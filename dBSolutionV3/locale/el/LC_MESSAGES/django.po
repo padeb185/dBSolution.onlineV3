@@ -68138,3 +68138,48 @@ msgstr "Προσέγγιση: η κατανάλωση και η τιμή τρο�
 
 msgid "(km actuels − km de départ) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
 msgstr "(τρέχοντα km − αρχικά km) × κατανάλωση ÷ 100 = λίτρα· μείον τα λίτρα των καταχωρημένων ανεφοδιασμών· × κατά προσέγγιση τιμή."
+
+msgid "Kilométrage à la création du véhicule (km)"
+msgstr "Χιλιόμετρα κατά τη δημιουργία του οχήματος (km)"
+
+msgid "Premier kilométrage introduit pour le véhicule : départ de l'estimation du carburant non encodé. Vide : premier kilométrage connu (pleins, maintenances)."
+msgstr "Πρώτα καταχωρημένα χιλιόμετρα του οχήματος: αφετηρία της εκτίμησης του μη καταχωρημένου καυσίμου. Κενό: πρώτα γνωστά χιλιόμετρα (ανεφοδιασμοί, συντηρήσεις)."
+
+msgid "Le kilométrage à la création ne peut pas dépasser le kilométrage actuel (%(km)s km)."
+msgstr "Τα χιλιόμετρα κατά τη δημιουργία δεν μπορούν να υπερβαίνουν τα τρέχοντα (%(km)s km)."
+
+msgid "Kilométrage à la création du véhicule"
+msgstr "Χιλιόμετρα κατά τη δημιουργία του οχήματος"
+
+msgid "Kilomètres parcourus depuis la création du véhicule"
+msgstr "Χιλιόμετρα από τη δημιουργία του οχήματος"
+
+msgid "kilométrage à la création"
+msgstr "χιλιόμετρα κατά τη δημιουργία"
+
+msgid "premier kilométrage connu"
+msgstr "πρώτα γνωστά χιλιόμετρα"
+
+msgid "(km actuels − km à la création du véhicule) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
+msgstr "(τρέχοντα km − km κατά τη δημιουργία) × κατανάλωση ÷ 100 = λίτρα· μείον τα λίτρα των καταχωρημένων ανεφοδιασμών· × κατά προσέγγιση τιμή."
+
+msgid "Aucun kilomètre parcouru depuis la création du véhicule (%(km)s km)."
+msgstr "Κανένα χιλιόμετρο από τη δημιουργία του οχήματος (%(km)s km)."
+
+msgid "Premier kilométrage introduit pour le véhicule : fin de la période sans pleins encodés (depuis l'achat). Vide : premier kilométrage connu (pleins, maintenances)."
+msgstr "Πρώτα καταχωρημένα χιλιόμετρα του οχήματος: τέλος της περιόδου χωρίς καταχωρημένους ανεφοδιασμούς (από την αγορά). Κενό: πρώτα γνωστά χιλιόμετρα (ανεφοδιασμοί, συντηρήσεις)."
+
+msgid "Kilomètres entre l'achat et la création du véhicule"
+msgstr "Χιλιόμετρα μεταξύ αγοράς και δημιουργίας του οχήματος"
+
+msgid "Litres des pleins encodés sur cette période"
+msgstr "Λίτρα ανεφοδιασμών που καταχωρήθηκαν σε αυτή την περίοδο"
+
+msgid "Complétez le kilométrage de départ (achat) pour estimer le carburant non encodé."
+msgstr "Συμπληρώστε τα αρχικά χιλιόμετρα (αγορά) για εκτίμηση του μη καταχωρημένου καυσίμου."
+
+msgid "Calcul statique : (km à la création du véhicule − km d'achat) × consommation ÷ 100 = litres × prix approximatif."
+msgstr "Στατικός υπολογισμός: (km κατά τη δημιουργία − km αγοράς) × κατανάλωση ÷ 100 = λίτρα × κατά προσέγγιση τιμή."
+
+msgid "Aucun kilomètre entre l'achat (%(achat)s km) et la création du véhicule (%(creation)s km)."
+msgstr "Κανένα χιλιόμετρο μεταξύ αγοράς (%(achat)s km) και δημιουργίας του οχήματος (%(creation)s km)."

@@ -68081,3 +68081,48 @@ msgstr "Approssimazione: consumo e prezzo modificabili nei dati finanziari."
 
 msgid "(km actuels − km de départ) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
 msgstr "(km attuali − km iniziali) × consumo ÷ 100 = litri; meno i litri dei rifornimenti registrati; × prezzo approssimativo."
+
+msgid "Kilométrage à la création du véhicule (km)"
+msgstr "Chilometraggio alla creazione del veicolo (km)"
+
+msgid "Premier kilométrage introduit pour le véhicule : départ de l'estimation du carburant non encodé. Vide : premier kilométrage connu (pleins, maintenances)."
+msgstr "Primo chilometraggio inserito per il veicolo: punto di partenza della stima del carburante non registrato. Vuoto: primo chilometraggio noto (rifornimenti, manutenzioni)."
+
+msgid "Le kilométrage à la création ne peut pas dépasser le kilométrage actuel (%(km)s km)."
+msgstr "Il chilometraggio alla creazione non può superare quello attuale (%(km)s km)."
+
+msgid "Kilométrage à la création du véhicule"
+msgstr "Chilometraggio alla creazione del veicolo"
+
+msgid "Kilomètres parcourus depuis la création du véhicule"
+msgstr "Chilometri percorsi dalla creazione del veicolo"
+
+msgid "kilométrage à la création"
+msgstr "chilometraggio alla creazione"
+
+msgid "premier kilométrage connu"
+msgstr "primo chilometraggio noto"
+
+msgid "(km actuels − km à la création du véhicule) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
+msgstr "(km attuali − km alla creazione del veicolo) × consumo ÷ 100 = litri; meno i litri dei rifornimenti registrati; × prezzo approssimativo."
+
+msgid "Aucun kilomètre parcouru depuis la création du véhicule (%(km)s km)."
+msgstr "Nessun chilometro percorso dalla creazione del veicolo (%(km)s km)."
+
+msgid "Premier kilométrage introduit pour le véhicule : fin de la période sans pleins encodés (depuis l'achat). Vide : premier kilométrage connu (pleins, maintenances)."
+msgstr "Primo chilometraggio inserito per il veicolo: fine del periodo senza rifornimenti registrati (dall'acquisto). Vuoto: primo chilometraggio noto (rifornimenti, manutenzioni)."
+
+msgid "Kilomètres entre l'achat et la création du véhicule"
+msgstr "Chilometri tra l'acquisto e la creazione del veicolo"
+
+msgid "Litres des pleins encodés sur cette période"
+msgstr "Litri dei rifornimenti registrati in questo periodo"
+
+msgid "Complétez le kilométrage de départ (achat) pour estimer le carburant non encodé."
+msgstr "Completa il chilometraggio iniziale (acquisto) per stimare il carburante non registrato."
+
+msgid "Calcul statique : (km à la création du véhicule − km d'achat) × consommation ÷ 100 = litres × prix approximatif."
+msgstr "Calcolo statico: (km alla creazione del veicolo − km d'acquisto) × consumo ÷ 100 = litri × prezzo approssimativo."
+
+msgid "Aucun kilomètre entre l'achat (%(achat)s km) et la création du véhicule (%(creation)s km)."
+msgstr "Nessun chilometro tra l'acquisto (%(achat)s km) e la creazione del veicolo (%(creation)s km)."

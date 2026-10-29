@@ -227,6 +227,7 @@ FINANCE_FIELDS = (
 FINANCE_FIELDS_OPTIONNELS = (
     "frais_achat",
     "valeur_revente",
+    "kilometrage_creation",
     "consommation_estimee",
     "prix_carburant_estime",
 )
@@ -257,10 +258,12 @@ class VoitureExemplaireFinanceForm(forms.ModelForm):
             "valeur_revente": _("Valeur de revente (€)"),
             "nombre_proprietaires": _("Nombre de propriétaires"),
             "part_proprietaires_pourcent": _("Part des propriétaires (%)"),
+            "kilometrage_creation": _("Kilométrage à la création du véhicule (km)"),
             "consommation_estimee": _("Consommation moyenne (L/100 km)"),
             "prix_carburant_estime": _("Prix approximatif du carburant (€/L TVAC)"),
         }
         help_texts = {
+            "kilometrage_creation": _("Premier kilométrage introduit pour le véhicule : fin de la période sans pleins encodés (depuis l'achat). Vide : premier kilométrage connu (pleins, maintenances)."),
             "consommation_estimee": _("Pour estimer le carburant non encodé. Vide : moyenne calculée sur les pleins encodés."),
             "prix_carburant_estime": _("Pour estimer le carburant non encodé. Vide : prix moyen des pleins encodés, sinon 1,850 €/L."),
             "kilometrage_achat": _("Neuf : 0 km. Occasion : kilométrage du véhicule au moment de l'achat."),
@@ -277,6 +280,7 @@ class VoitureExemplaireFinanceForm(forms.ModelForm):
             "valeur_revente": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
             "nombre_proprietaires": forms.NumberInput(attrs={"min": "1", "max": "10"}),
             "part_proprietaires_pourcent": forms.NumberInput(attrs={"step": "0.01", "min": "0", "max": "100"}),
+            "kilometrage_creation": forms.NumberInput(attrs={"min": "0"}),
             "consommation_estimee": forms.NumberInput(attrs={"step": "0.01", "min": "0", "placeholder": "8.24"}),
             "prix_carburant_estime": forms.NumberInput(attrs={"step": "0.001", "min": "0", "placeholder": "1.850"}),
         }
@@ -291,6 +295,10 @@ class VoitureExemplaireFinanceForm(forms.ModelForm):
 
         # Kilométrage de départ : 0 pour un neuf, obligatoire pour une occasion
         valider_kilometrage_achat(self, cleaned_data)
+        km_creation = cleaned_data.get("kilometrage_creation")
+        if km_creation is not None and km_creation > (self.instance.kilometres_chassis or 0):
+            self.add_error("kilometrage_creation", _("Le kilométrage à la création ne peut pas dépasser le kilométrage actuel (%(km)s km).")
+                           % {"km": self.instance.kilometres_chassis or 0})
         # Champ vidé : revient à la valeur par défaut 0
         if cleaned_data.get("valeur_revente") is None:
             cleaned_data["valeur_revente"] = 0

@@ -68110,3 +68110,48 @@ msgstr "Benadering: verbruik en prijs aanpasbaar in de financiële gegevens."
 
 msgid "(km actuels − km de départ) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
 msgstr "(huidige km − begin-km) × verbruik ÷ 100 = liters; min de liters van de ingevoerde tankbeurten; × geschatte prijs."
+
+msgid "Kilométrage à la création du véhicule (km)"
+msgstr "Kilometerstand bij aanmaak van het voertuig (km)"
+
+msgid "Premier kilométrage introduit pour le véhicule : départ de l'estimation du carburant non encodé. Vide : premier kilométrage connu (pleins, maintenances)."
+msgstr "Eerste ingevoerde kilometerstand van het voertuig: vertrekpunt van de schatting van de niet ingevoerde brandstof. Leeg: eerste gekende kilometerstand (tankbeurten, onderhoud)."
+
+msgid "Le kilométrage à la création ne peut pas dépasser le kilométrage actuel (%(km)s km)."
+msgstr "De kilometerstand bij aanmaak mag de huidige kilometerstand (%(km)s km) niet overschrijden."
+
+msgid "Kilométrage à la création du véhicule"
+msgstr "Kilometerstand bij aanmaak van het voertuig"
+
+msgid "Kilomètres parcourus depuis la création du véhicule"
+msgstr "Gereden kilometers sinds de aanmaak van het voertuig"
+
+msgid "kilométrage à la création"
+msgstr "kilometerstand bij aanmaak"
+
+msgid "premier kilométrage connu"
+msgstr "eerste gekende kilometerstand"
+
+msgid "(km actuels − km à la création du véhicule) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
+msgstr "(huidige km − km bij aanmaak van het voertuig) × verbruik ÷ 100 = liters; min de liters van de ingevoerde tankbeurten; × geschatte prijs."
+
+msgid "Aucun kilomètre parcouru depuis la création du véhicule (%(km)s km)."
+msgstr "Geen kilometers gereden sinds de aanmaak van het voertuig (%(km)s km)."
+
+msgid "Premier kilométrage introduit pour le véhicule : fin de la période sans pleins encodés (depuis l'achat). Vide : premier kilométrage connu (pleins, maintenances)."
+msgstr "Eerste ingevoerde kilometerstand van het voertuig: einde van de periode zonder ingevoerde tankbeurten (sinds de aankoop). Leeg: eerste gekende kilometerstand (tankbeurten, onderhoud)."
+
+msgid "Kilomètres entre l'achat et la création du véhicule"
+msgstr "Kilometers tussen de aankoop en de aanmaak van het voertuig"
+
+msgid "Litres des pleins encodés sur cette période"
+msgstr "Liters van de ingevoerde tankbeurten in deze periode"
+
+msgid "Complétez le kilométrage de départ (achat) pour estimer le carburant non encodé."
+msgstr "Vul de beginkilometerstand (aankoop) in om de niet ingevoerde brandstof te schatten."
+
+msgid "Calcul statique : (km à la création du véhicule − km d'achat) × consommation ÷ 100 = litres × prix approximatif."
+msgstr "Vaste berekening: (km bij aanmaak van het voertuig − aankoop-km) × verbruik ÷ 100 = liters × geschatte prijs."
+
+msgid "Aucun kilomètre entre l'achat (%(achat)s km) et la création du véhicule (%(creation)s km)."
+msgstr "Geen kilometers tussen de aankoop (%(achat)s km) en de aanmaak van het voertuig (%(creation)s km)."

@@ -341,7 +341,15 @@ class VoitureExemplaire(models.Model):
         verbose_name=_("Valeur de revente"),
     )
 
-    # Estimation du carburant non encodé (pleins manquants depuis l'achat)
+    # Premier kilométrage introduit (compteur châssis à la création de la fiche) :
+    # point de départ de l'estimation du carburant non encodé
+    kilometrage_creation = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        verbose_name=_("Kilométrage à la création du véhicule"),
+    )
+
+    # Estimation du carburant non encodé (pleins manquants depuis la création du véhicule)
     consommation_estimee = models.DecimalField(
         max_digits=5,
         decimal_places=2,
@@ -482,6 +490,9 @@ class VoitureExemplaire(models.Model):
         # Kilométrages
         # ---------------------------------------------------------
         self.update_kilometres()
+        # Premier kilométrage introduit : mémorisé à la création de la fiche
+        if self._state.adding and self.kilometrage_creation is None:
+            self.kilometrage_creation = self.kilometres_chassis or 0
 
         super().save(*args, **kwargs)
 

@@ -68132,3 +68132,48 @@ msgstr "Näherung: Verbrauch und Preis sind in den Finanzdaten änderbar."
 
 msgid "(km actuels − km de départ) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
 msgstr "(aktuelle km − Anfangs-km) × Verbrauch ÷ 100 = Liter; abzüglich der Liter der erfassten Tankfüllungen; × ungefährer Preis."
+
+msgid "Kilométrage à la création du véhicule (km)"
+msgstr "Kilometerstand bei Anlage des Fahrzeugs (km)"
+
+msgid "Premier kilométrage introduit pour le véhicule : départ de l'estimation du carburant non encodé. Vide : premier kilométrage connu (pleins, maintenances)."
+msgstr "Erster erfasster Kilometerstand des Fahrzeugs: Ausgangspunkt der Schätzung des nicht erfassten Kraftstoffs. Leer: erster bekannter Kilometerstand (Tankfüllungen, Wartungen)."
+
+msgid "Le kilométrage à la création ne peut pas dépasser le kilométrage actuel (%(km)s km)."
+msgstr "Der Kilometerstand bei Anlage darf den aktuellen Kilometerstand (%(km)s km) nicht überschreiten."
+
+msgid "Kilométrage à la création du véhicule"
+msgstr "Kilometerstand bei Anlage des Fahrzeugs"
+
+msgid "Kilomètres parcourus depuis la création du véhicule"
+msgstr "Gefahrene Kilometer seit Anlage des Fahrzeugs"
+
+msgid "kilométrage à la création"
+msgstr "Kilometerstand bei Anlage"
+
+msgid "premier kilométrage connu"
+msgstr "erster bekannter Kilometerstand"
+
+msgid "(km actuels − km à la création du véhicule) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
+msgstr "(aktuelle km − km bei Anlage des Fahrzeugs) × Verbrauch ÷ 100 = Liter; abzüglich der Liter der erfassten Tankfüllungen; × ungefährer Preis."
+
+msgid "Aucun kilomètre parcouru depuis la création du véhicule (%(km)s km)."
+msgstr "Keine Kilometer seit Anlage des Fahrzeugs gefahren (%(km)s km)."
+
+msgid "Premier kilométrage introduit pour le véhicule : fin de la période sans pleins encodés (depuis l'achat). Vide : premier kilométrage connu (pleins, maintenances)."
+msgstr "Erster erfasster Kilometerstand des Fahrzeugs: Ende des Zeitraums ohne erfasste Tankfüllungen (seit dem Kauf). Leer: erster bekannter Kilometerstand (Tankfüllungen, Wartungen)."
+
+msgid "Kilomètres entre l'achat et la création du véhicule"
+msgstr "Kilometer zwischen Kauf und Anlage des Fahrzeugs"
+
+msgid "Litres des pleins encodés sur cette période"
+msgstr "Liter der in diesem Zeitraum erfassten Tankfüllungen"
+
+msgid "Complétez le kilométrage de départ (achat) pour estimer le carburant non encodé."
+msgstr "Geben Sie den Anfangskilometerstand (Kauf) ein, um den nicht erfassten Kraftstoff zu schätzen."
+
+msgid "Calcul statique : (km à la création du véhicule − km d'achat) × consommation ÷ 100 = litres × prix approximatif."
+msgstr "Statische Berechnung: (km bei Anlage des Fahrzeugs − Kauf-km) × Verbrauch ÷ 100 = Liter × ungefährer Preis."
+
+msgid "Aucun kilomètre entre l'achat (%(achat)s km) et la création du véhicule (%(creation)s km)."
+msgstr "Keine Kilometer zwischen Kauf (%(achat)s km) und Anlage des Fahrzeugs (%(creation)s km)."

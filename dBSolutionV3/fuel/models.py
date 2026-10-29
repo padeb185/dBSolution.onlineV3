@@ -425,7 +425,7 @@ class Fuel(models.Model):
             return Decimal('0.0')
 
         total_distance = qs.last().kilometrage_fuel - qs.first().kilometrage_fuel
-        total_litres = sum(f.litres for f in qs[:-1])
+        total_litres = sum(f.litres for f in list(qs)[:-1])
 
         if total_distance == 0:
             return Decimal('0.0')
@@ -442,7 +442,7 @@ class Fuel(models.Model):
             return Decimal('0.0')  # pas assez de données
 
         total_distance = qs.last().kilometrage_fuel - qs.first().kilometrage_fuel
-        total_litres = sum(f.litres for f in qs[:-1])  # on ignore le dernier plein
+        total_litres = sum(f.litres for f in list(qs)[:-1])  # on ignore le dernier plein
         if total_distance == 0:
             return Decimal('0.0')
 
@@ -457,7 +457,7 @@ class Fuel(models.Model):
             return Decimal('0.0')  # pas assez de données
 
         total_distance = qs.last().kilometrage_fuel - qs.first().kilometrage_fuel
-        total_litres = sum(f.litres for f in qs[:-1])  # on ignore le dernier plein
+        total_litres = sum(f.litres for f in list(qs)[:-1])  # on ignore le dernier plein
         if total_distance == 0:
             return Decimal('0.0')
 

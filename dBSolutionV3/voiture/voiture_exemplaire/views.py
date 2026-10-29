@@ -809,6 +809,9 @@ def finances_detail(request, exemplaire_id):
     if exemplaire.frais_achat is not None:
         champs.append({"nom": "frais_achat", "label": labels["frais_achat"].label, "valeur": exemplaire.frais_achat})
     champs.append({"nom": "valeur_revente", "label": labels["valeur_revente"].label, "valeur": exemplaire.valeur_revente or 0})
+    if exemplaire.kilometrage_creation is not None:
+        champs.append({"nom": "kilometrage_creation", "label": labels["kilometrage_creation"].label,
+                       "valeur": f"{exemplaire.kilometrage_creation} km"})
     if exemplaire.consommation_estimee is not None:
         champs.append({"nom": "consommation_estimee", "label": labels["consommation_estimee"].label,
                        "valeur": f"{exemplaire.consommation_estimee} L/100 km"})

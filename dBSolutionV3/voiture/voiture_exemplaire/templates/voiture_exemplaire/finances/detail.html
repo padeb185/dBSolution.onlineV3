@@ -125,15 +125,18 @@
         {% if c.calculable %}
         <table class="table-auto border-collapse text-sm mb-2 bg-white">
             <tbody>
-                <tr><td class="border px-3 py-1">{% trans "Kilomètres parcourus depuis l'achat" %}</td>
-                    <td class="border px-3 py-1 text-right">{{ exemplaire.kilometres_chassis|default:0 }} − {{ r.km_depart }} = <strong>{{ c.km }} km</strong></td></tr>
-                <tr><td class="border px-3 py-1">{% trans "Consommation moyenne" %}
+                <tr><td class="border px-3 py-1">{% trans "Kilomètres entre l'achat et la création du véhicule" %}
+                        <span class="text-gray-500 text-xs">({% if c.source_km == "creation" %}{% trans "kilométrage à la création" %}{% else %}{% trans "premier kilométrage connu" %}{% endif %})</span></td>
+                    <td class="border px-3 py-1 text-right">{{ c.km_creation }} − {{ c.km_achat }} = <strong>{{ c.km }} km</strong></td></tr>
+                <tr><td class="border px-3 py-1">× {% trans "Consommation moyenne" %}
                         <span class="text-gray-500 text-xs">({% if c.source_consommation == "saisie" %}{% trans "saisie" %}{% else %}{% trans "moyenne des pleins encodés" %}{% endif %})</span></td>
                     <td class="border px-3 py-1 text-right">{{ c.consommation|floatformat:2 }} L/100 km</td></tr>
                 <tr><td class="border px-3 py-1">{% trans "Litres nécessaires" %} <span class="text-gray-500 text-xs">(km × L/100 ÷ 100)</span></td>
                     <td class="border px-3 py-1 text-right">{{ c.litres_total|floatformat:2 }} L</td></tr>
-                <tr><td class="border px-3 py-1">− {% trans "Litres des pleins encodés" %}</td>
+                {% if c.litres_encodes %}
+                <tr><td class="border px-3 py-1">− {% trans "Litres des pleins encodés sur cette période" %}</td>
                     <td class="border px-3 py-1 text-right">{{ c.litres_encodes|floatformat:2 }} L</td></tr>
+                {% endif %}
                 <tr class="font-semibold"><td class="border px-3 py-1">= {% trans "Litres non encodés" %}</td>
                     <td class="border px-3 py-1 text-right">{{ c.litres|floatformat:2 }} L</td></tr>
                 <tr><td class="border px-3 py-1">× {% trans "Prix approximatif du carburant" %}
@@ -145,8 +148,10 @@
                     <td class="border px-3 py-1 text-right">{{ c.ht|floatformat:2 }} €</td></tr>
             </tbody>
         </table>
-        {% elif not r.km_depart and exemplaire.kilometrage_achat is None %}
-            <p style="color:#9a3412">{% trans "Complétez le kilométrage de départ pour estimer le carburant non encodé." %}</p>
+        {% elif c.km_achat is None %}
+            <p style="color:#9a3412">{% trans "Complétez le kilométrage de départ (achat) pour estimer le carburant non encodé." %}</p>
+        {% elif c.consommation and not c.km %}
+            <p style="color:#9a3412">{% blocktrans with achat=c.km_achat creation=c.km_creation %}Aucun kilomètre entre l'achat ({{ achat }} km) et la création du véhicule ({{ creation }} km).{% endblocktrans %}</p>
         {% else %}
             <p style="color:#9a3412">{% trans "Indiquez une consommation moyenne (L/100 km) dans les données financières pour estimer le carburant non encodé." %}</p>
         {% endif %}

@@ -128,7 +128,8 @@
             <img src="{% static 'icons/pompe-a-essence.png' %}" alt="{% trans 'Carburant' %}" class="w-20 h-20">
             {% trans "Carburant non encodé (estimation)" %}
         </h2>
-        <p class="text-sm text-gray-500">{% trans "(km actuels − km de départ) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif." %}</p>
+        <p class="text-sm text-gray-500">{% trans "Calcul statique : (km à la création du véhicule − km d'achat) × consommation ÷ 100 = litres × prix approximatif." %}</p>
+        {% include "voiture_exemplaire/finances/_champ.html" with field=form.kilometrage_creation manquant_label="" %}
         {% include "voiture_exemplaire/finances/_champ.html" with field=form.consommation_estimee manquant_label="" %}
         {% include "voiture_exemplaire/finances/_champ.html" with field=form.prix_carburant_estime manquant_label="" %}
 

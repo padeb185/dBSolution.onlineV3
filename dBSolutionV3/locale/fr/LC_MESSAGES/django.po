@@ -67361,3 +67361,48 @@ msgstr "Approximation : consommation et prix modifiables dans les données finan
 
 msgid "(km actuels − km de départ) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
 msgstr "(km actuels − km de départ) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
+
+msgid "Kilométrage à la création du véhicule (km)"
+msgstr "Kilométrage à la création du véhicule (km)"
+
+msgid "Premier kilométrage introduit pour le véhicule : départ de l'estimation du carburant non encodé. Vide : premier kilométrage connu (pleins, maintenances)."
+msgstr "Premier kilométrage introduit pour le véhicule : départ de l'estimation du carburant non encodé. Vide : premier kilométrage connu (pleins, maintenances)."
+
+msgid "Le kilométrage à la création ne peut pas dépasser le kilométrage actuel (%(km)s km)."
+msgstr "Le kilométrage à la création ne peut pas dépasser le kilométrage actuel (%(km)s km)."
+
+msgid "Kilométrage à la création du véhicule"
+msgstr "Kilométrage à la création du véhicule"
+
+msgid "Kilomètres parcourus depuis la création du véhicule"
+msgstr "Kilomètres parcourus depuis la création du véhicule"
+
+msgid "kilométrage à la création"
+msgstr "kilométrage à la création"
+
+msgid "premier kilométrage connu"
+msgstr "premier kilométrage connu"
+
+msgid "(km actuels − km à la création du véhicule) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
+msgstr "(km actuels − km à la création du véhicule) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
+
+msgid "Aucun kilomètre parcouru depuis la création du véhicule (%(km)s km)."
+msgstr "Aucun kilomètre parcouru depuis la création du véhicule (%(km)s km)."
+
+msgid "Premier kilométrage introduit pour le véhicule : fin de la période sans pleins encodés (depuis l'achat). Vide : premier kilométrage connu (pleins, maintenances)."
+msgstr "Premier kilométrage introduit pour le véhicule : fin de la période sans pleins encodés (depuis l'achat). Vide : premier kilométrage connu (pleins, maintenances)."
+
+msgid "Kilomètres entre l'achat et la création du véhicule"
+msgstr "Kilomètres entre l'achat et la création du véhicule"
+
+msgid "Litres des pleins encodés sur cette période"
+msgstr "Litres des pleins encodés sur cette période"
+
+msgid "Complétez le kilométrage de départ (achat) pour estimer le carburant non encodé."
+msgstr "Complétez le kilométrage de départ (achat) pour estimer le carburant non encodé."
+
+msgid "Calcul statique : (km à la création du véhicule − km d'achat) × consommation ÷ 100 = litres × prix approximatif."
+msgstr "Calcul statique : (km à la création du véhicule − km d'achat) × consommation ÷ 100 = litres × prix approximatif."
+
+msgid "Aucun kilomètre entre l'achat (%(achat)s km) et la création du véhicule (%(creation)s km)."
+msgstr "Aucun kilomètre entre l'achat (%(achat)s km) et la création du véhicule (%(creation)s km)."

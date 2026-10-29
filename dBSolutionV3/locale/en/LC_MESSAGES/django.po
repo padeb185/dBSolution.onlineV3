@@ -67782,3 +67782,48 @@ msgstr "Approximation: consumption and price can be changed in the financial dat
 
 msgid "(km actuels − km de départ) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
 msgstr "(current km − starting km) × consumption ÷ 100 = litres; minus the litres of recorded fill-ups; × approximate price."
+
+msgid "Kilométrage à la création du véhicule (km)"
+msgstr "Mileage when the vehicle was created (km)"
+
+msgid "Premier kilométrage introduit pour le véhicule : départ de l'estimation du carburant non encodé. Vide : premier kilométrage connu (pleins, maintenances)."
+msgstr "First mileage entered for the vehicle: starting point of the unrecorded fuel estimate. Empty: first known mileage (fill-ups, maintenance)."
+
+msgid "Le kilométrage à la création ne peut pas dépasser le kilométrage actuel (%(km)s km)."
+msgstr "The mileage at creation cannot exceed the current mileage (%(km)s km)."
+
+msgid "Kilométrage à la création du véhicule"
+msgstr "Mileage when the vehicle was created"
+
+msgid "Kilomètres parcourus depuis la création du véhicule"
+msgstr "Kilometres driven since the vehicle was created"
+
+msgid "kilométrage à la création"
+msgstr "mileage at creation"
+
+msgid "premier kilométrage connu"
+msgstr "first known mileage"
+
+msgid "(km actuels − km à la création du véhicule) × consommation ÷ 100 = litres ; moins les litres des pleins encodés ; × prix approximatif."
+msgstr "(current km − km at vehicle creation) × consumption ÷ 100 = litres; minus the litres of recorded fill-ups; × approximate price."
+
+msgid "Aucun kilomètre parcouru depuis la création du véhicule (%(km)s km)."
+msgstr "No kilometres driven since the vehicle was created (%(km)s km)."
+
+msgid "Premier kilométrage introduit pour le véhicule : fin de la période sans pleins encodés (depuis l'achat). Vide : premier kilométrage connu (pleins, maintenances)."
+msgstr "First mileage entered for the vehicle: end of the period without recorded fill-ups (since purchase). Empty: first known mileage (fill-ups, maintenance)."
+
+msgid "Kilomètres entre l'achat et la création du véhicule"
+msgstr "Kilometres between purchase and vehicle creation"
+
+msgid "Litres des pleins encodés sur cette période"
+msgstr "Litres of fill-ups recorded in this period"
+
+msgid "Complétez le kilométrage de départ (achat) pour estimer le carburant non encodé."
+msgstr "Fill in the starting (purchase) mileage to estimate unrecorded fuel."
+
+msgid "Calcul statique : (km à la création du véhicule − km d'achat) × consommation ÷ 100 = litres × prix approximatif."
+msgstr "Static calculation: (km at vehicle creation − purchase km) × consumption ÷ 100 = litres × approximate price."
+
+msgid "Aucun kilomètre entre l'achat (%(achat)s km) et la création du véhicule (%(creation)s km)."
+msgstr "No kilometres between purchase (%(achat)s km) and vehicle creation (%(creation)s km)."
