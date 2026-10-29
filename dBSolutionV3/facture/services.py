@@ -1050,21 +1050,9 @@ def emettre_facture(facture):
     from piece.stock import debiter_facture
     debiter_facture(facture)
 
-    # Location(s) facturée(s) : l'acompte déjà versé est repris sur la facture
-    acomptes = sum(
-        (l.montant_paye for l in facture.locations.all()),
-        Decimal("0.00"),
-    )
-    if acomptes > 0:
-        try:
-            statut = (
-                Facture.StatutPaiement.PAYE if acomptes >= facture.total
-                else Facture.StatutPaiement.ACOMPTE
-            )
-            facture.appliquer_paiement(statut, acomptes)
-            facture.save(update_fields=["statut_paiement", "montant_paye", "date_paiement", "updated_at"])
-        except ValueError:
-            pass
+    # Location(s) facturée(s) : l'acompte déjà versé est repris sur la facture comme paiement détaillé
+    # (même mode et même date : espèces = caisse, autres modes = banque)
+    reprendre_acomptes_locations(facture)
 
     return facture
 
@@ -1155,3 +1143,36 @@ def creer_note(facture, type_document, user):
         # Montant déjà crédité par d'autres notes : la nouvelle note ne peut porter que sur le solde
         note.recalculer_totaux()
     return note
+
+
+def reprendre_acomptes_locations(facture):
+    """
+    Acomptes des locations de la facture → paiements de la facture (PaiementFacture liés à la location).
+    Idempotent : une location n'est reprise qu'une fois. Les factures complémentaires (km supp.) sont ignorées.
+    """
+    from django.utils.translation import gettext
+    from .models import PaiementFacture
+
+    if not facture.est_emise or facture.client_est_societe or facture.est_note:
+        return False
+    non_ventile = facture.montant_non_ventile
+    reste = max(Decimal(facture.total or 0) - facture.total_paiements_detailles - non_ventile, Decimal("0.00"))
+    crees = False
+    for location in facture.locations.all():
+        if location._est_facture_complementaire(facture):
+            continue
+        if not (location.acompte and location.montant_acompte) or reste <= 0:
+            continue
+        if PaiementFacture.objects.filter(location=location).exists():
+            continue
+        montant = min(Decimal(location.montant_acompte).quantize(Decimal("0.01")), reste)
+        PaiementFacture.objects.create(
+            facture=facture, location=location, montant=montant, mode=location.mode_acompte,
+            date=location.date_acompte or timezone.localdate(), reference=gettext("Acompte location"),
+        )
+        reste -= montant
+        crees = True
+    if crees:
+        facture.recalculer_paiement(non_ventile)
+        facture.save(update_fields=["statut_paiement", "montant_paye", "date_paiement", "updated_at"])
+    return crees

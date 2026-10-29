@@ -9,7 +9,7 @@ from client_particulier.models import ClientParticulier
 from client_pilotage.models import ClientPilotage
 from societe_cliente.models import SocieteCliente
 
-# Rôles pouvant être indiqués comme vendeur d'une location
+# Rôles des vendeurs (statistiques et objectifs de ventes)
 ROLES_VENDEUR = ("vendeur", "direction", "chef_mecanicien")
 
 # Rôles pouvant être choisis comme instructeur
@@ -98,6 +98,7 @@ class LocationForm(forms.ModelForm):
             "acompte",
             "montant_acompte",
             "date_acompte",
+            "mode_acompte",
             "payee",
             "remarques",
             "instructeur",
@@ -186,20 +187,8 @@ class LocationForm(forms.ModelForm):
         elif inst.client_id:
             self.initial["locataire"] = f"client:{inst.client_id}"
 
-        # Vendeur : choisi par la direction / le super admin, sinon l'utilisateur connecté
-        if self.user is not None and (self.user.is_superuser or getattr(self.user, "role", None) == "direction"):
-            vendeurs = Utilisateur.objects.filter(is_active=True, role__in=ROLES_VENDEUR)
-            if societe is not None:
-                vendeurs = vendeurs.filter(societe=societe)
-            self.fields["vendeur"] = forms.ModelChoiceField(
-                queryset=vendeurs.order_by("nom", "prenom"),
-                required=False,
-                label=_("Vendeur"),
-                initial=self.instance.vendeur_id if self.instance.pk else self.user.pk,
-                help_text=_("Utilisé pour les statistiques de ventes."),
-            )
-            if self.instance.pk:
-                self.initial["vendeur"] = self.instance.vendeur_id
+        # Vendeur : pas de choix dans le formulaire, c'est l'utilisateur connecté
+        # (vendeur, direction…) qui est passé en paramètre (voir save)
 
         # Paiement : « Payée » seulement si la facture de la location est émise
         self.facture_emise = None if self.instance._state.adding else self.instance.facture_emise
@@ -303,10 +292,8 @@ class LocationForm(forms.ModelForm):
         instance = super().save(commit=False)
         if self.user is not None and not instance.societe_id:
             instance.societe = self.user.societe
-        if "vendeur" in self.fields:
-            instance.vendeur = self.cleaned_data.get("vendeur")
-        elif self.user is not None and not instance.vendeur_id:
-            # Nouvelle location : le vendeur est l'utilisateur connecté
+        if self.user is not None and not instance.vendeur_id:
+            # Le vendeur est l'utilisateur connecté (une location existante garde son vendeur)
             instance.vendeur = self.user
         if commit:
             instance.save()

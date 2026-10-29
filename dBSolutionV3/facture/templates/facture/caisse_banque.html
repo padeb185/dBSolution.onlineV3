@@ -48,7 +48,7 @@
 <!-- Journal -->
 <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
     <h2 class="text-lg font-semibold mb-1">{% trans "Journal des encaissements" %}</h2>
-    <p class="text-gray-500 text-sm mb-4">{% trans "Espèces : journal de caisse (CAI). Virement, carte, chèque : journal de banque (BQE). Contrepartie : 400000 Clients." %}</p>
+    <p class="text-gray-500 text-sm mb-4">{% trans "Espèces : journal de caisse (CAI). Virement, carte, chèque : journal de banque (BQE). Contrepartie : 400000 Clients." %} {% trans "Acompte de location pas encore facturé : contrepartie 460000 Acomptes reçus ; à l'émission de la facture, il devient un paiement de la facture." %}</p>
     <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
         <thead>
             <tr class="bg-gray-100">
@@ -68,7 +68,7 @@
             <tr class="{% if forloop.first %}border-t-2 border-gray-400{% endif %}">
                 <td class="border px-2 py-1">{% if forloop.first %}{{ e.paiement.date|date:"d/m/Y" }}{% endif %}</td>
                 <td class="border px-2 py-1">{% if forloop.first %}<span class="px-2 py-0.5 rounded text-xs font-semibold {% if e.journal == 'CAI' %}bg-yellow-100 text-yellow-800{% else %}bg-blue-100 text-blue-800{% endif %}">{{ e.journal }}</span>{% endif %}</td>
-                <td class="border px-2 py-1">{% if forloop.first %}<a href="{% url 'facture:detail' e.paiement.facture.pk %}" class="text-blue-700 hover:underline">{{ e.paiement.facture.numero }}</a>{% endif %}</td>
+                <td class="border px-2 py-1">{% if forloop.first %}{% if e.paiement.facture %}<a href="{% url 'facture:detail' e.paiement.facture.pk %}" class="text-blue-700 hover:underline">{{ e.paiement.facture.numero }}</a>{% else %}<a href="{% url 'voiture_location:location_detail' location_id=e.paiement.location.id %}" class="text-blue-700 hover:underline">{% trans "Acompte location" %}</a> <span class="text-xs text-gray-500">({% trans "pas encore facturé" %})</span>{% endif %}{% endif %}</td>
                 <td class="border px-2 py-1 font-mono">{{ l.compte }} <span class="text-gray-500">{{ l.intitule }}</span></td>
                 <td class="border px-2 py-1">{{ l.libelle }}</td>
                 <td class="border px-2 py-1">{% if forloop.first %}{{ e.paiement.get_mode_display }}{% if e.paiement.reference %} <span class="text-gray-500">– {{ e.paiement.reference }}</span>{% endif %}{% endif %}</td>

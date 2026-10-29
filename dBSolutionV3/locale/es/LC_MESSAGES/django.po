@@ -67993,3 +67993,33 @@ msgstr "Nota de débito sobre la factura %(ref)s: introduzca el suplemento factu
 
 msgid "À recevoir"
 msgstr "A recibir"
+
+msgid "Utilisateur connecté"
+msgstr "Usuario conectado"
+
+msgid "Vente réalisée par"
+msgstr "Venta realizada por"
+
+msgid "La vente sera attribuée à l'utilisateur connecté."
+msgstr "La venta se asignará al usuario conectado."
+
+msgid "Acomptes reçus sur commandes"
+msgstr "Anticipos recibidos sobre pedidos"
+
+msgid "Location (acompte)"
+msgstr "Alquiler (anticipo)"
+
+msgid "Mode de paiement de l'acompte"
+msgstr "Forma de pago del anticipo"
+
+msgid "Espèces : crédité en caisse ; virement, carte, chèque : crédité en banque."
+msgstr "Efectivo: abonado en caja; transferencia, tarjeta, cheque: abonado en banco."
+
+msgid "Acompte en espèces refusé : %(montant)s € dépasse le plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une carte."
+msgstr "Anticipo en efectivo rechazado: %(montant)s € supera el límite autorizado en %(pays)s (%(plafond)s €). Utilice una transferencia o una tarjeta."
+
+msgid "Acompte de location pas encore facturé : contrepartie 460000 Acomptes reçus ; à l'émission de la facture, il devient un paiement de la facture."
+msgstr "Anticipo de alquiler aún no facturado: contrapartida 460000 Anticipos recibidos; al emitir la factura, se convierte en un pago de la factura."
+
+msgid "pas encore facturé"
+msgstr "aún no facturado"

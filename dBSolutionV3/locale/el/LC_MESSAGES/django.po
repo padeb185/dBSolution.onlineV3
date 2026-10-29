@@ -68048,3 +68048,33 @@ msgstr "Χρεωστικό στο τιμολόγιο %(ref)s: καταχωρίσ
 
 msgid "À recevoir"
 msgstr "Προς είσπραξη"
+
+msgid "Utilisateur connecté"
+msgstr "Συνδεδεμένος χρήστης"
+
+msgid "Vente réalisée par"
+msgstr "Η πώληση έγινε από"
+
+msgid "La vente sera attribuée à l'utilisateur connecté."
+msgstr "Η πώληση θα αποδοθεί στον συνδεδεμένο χρήστη."
+
+msgid "Acomptes reçus sur commandes"
+msgstr "Προκαταβολές πελατών επί παραγγελιών"
+
+msgid "Location (acompte)"
+msgstr "Ενοικίαση (προκαταβολή)"
+
+msgid "Mode de paiement de l'acompte"
+msgstr "Τρόπος πληρωμής προκαταβολής"
+
+msgid "Espèces : crédité en caisse ; virement, carte, chèque : crédité en banque."
+msgstr "Μετρητά: πιστώνεται στο ταμείο· μεταφορά, κάρτα, επιταγή: πιστώνεται στην τράπεζα."
+
+msgid "Acompte en espèces refusé : %(montant)s € dépasse le plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une carte."
+msgstr "Η προκαταβολή σε μετρητά απορρίφθηκε: %(montant)s € υπερβαίνει το επιτρεπόμενο όριο σε %(pays)s (%(plafond)s €). Χρησιμοποιήστε μεταφορά ή κάρτα."
+
+msgid "Acompte de location pas encore facturé : contrepartie 460000 Acomptes reçus ; à l'émission de la facture, il devient un paiement de la facture."
+msgstr "Προκαταβολή ενοικίασης που δεν έχει τιμολογηθεί: αντίθετος λογαριασμός 460000 Προκαταβολές· με την έκδοση του τιμολογίου γίνεται πληρωμή του τιμολογίου."
+
+msgid "pas encore facturé"
+msgstr "δεν έχει τιμολογηθεί"

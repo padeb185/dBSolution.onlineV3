@@ -67991,3 +67991,33 @@ msgstr "Nota di debito sulla fattura %(ref)s: inserisci il supplemento fatturato
 
 msgid "À recevoir"
 msgstr "Da ricevere"
+
+msgid "Utilisateur connecté"
+msgstr "Utente connesso"
+
+msgid "Vente réalisée par"
+msgstr "Vendita effettuata da"
+
+msgid "La vente sera attribuée à l'utilisateur connecté."
+msgstr "La vendita sarà attribuita all'utente connesso."
+
+msgid "Acomptes reçus sur commandes"
+msgstr "Acconti ricevuti su ordini"
+
+msgid "Location (acompte)"
+msgstr "Noleggio (acconto)"
+
+msgid "Mode de paiement de l'acompte"
+msgstr "Modalità di pagamento dell'acconto"
+
+msgid "Espèces : crédité en caisse ; virement, carte, chèque : crédité en banque."
+msgstr "Contanti: accreditato in cassa; bonifico, carta, assegno: accreditato in banca."
+
+msgid "Acompte en espèces refusé : %(montant)s € dépasse le plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une carte."
+msgstr "Acconto in contanti rifiutato: %(montant)s € supera il limite consentito in %(pays)s (%(plafond)s €). Usa un bonifico o una carta."
+
+msgid "Acompte de location pas encore facturé : contrepartie 460000 Acomptes reçus ; à l'émission de la facture, il devient un paiement de la facture."
+msgstr "Acconto di noleggio non ancora fatturato: contropartita 460000 Acconti ricevuti; all'emissione della fattura diventa un pagamento della fattura."
+
+msgid "pas encore facturé"
+msgstr "non ancora fatturato"

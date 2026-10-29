@@ -959,7 +959,14 @@ def _synchroniser_locations(facture):
     """Locations liées : même statut de paiement que la facture."""
     for location in facture.locations.all():
         location.payee = facture.est_payee
-        if facture.statut_paiement == Facture.StatutPaiement.ACOMPTE:
+        # Acompte de la location repris comme paiement de la facture : il reste l'acompte de la location
+        lie = facture.paiements.filter(location=location).first()
+        if lie is not None:
+            location.acompte = True
+            location.montant_acompte = lie.montant
+            location.date_acompte = lie.date
+            location.mode_acompte = lie.mode
+        elif facture.statut_paiement == Facture.StatutPaiement.ACOMPTE:
             location.acompte = True
             location.montant_acompte = facture.montant_paye
             location.date_acompte = location.date_acompte or facture.date_paiement
@@ -968,7 +975,7 @@ def _synchroniser_locations(facture):
             location.montant_acompte = None
             location.date_acompte = None
         # Payé : l'acompte éventuel est conservé (TVA déjà due à sa réception)
-        location.save(update_fields=["payee", "acompte", "montant_acompte", "date_acompte", "updated_at"])
+        location.save(update_fields=["payee", "acompte", "montant_acompte", "date_acompte", "mode_acompte", "updated_at"])
 
 
 @login_required
@@ -1069,7 +1076,7 @@ def facture_paiement_view(request, pk):
 @login_required
 def caisse_banque_view(request):
     from .models import PaiementFacture
-    from .paiements import COMPTE_BANQUE, COMPTE_CAISSE, COMPTES, ecritures_paiement
+    from .paiements import COMPTE_BANQUE, COMPTE_CAISSE, COMPTES, acomptes_locations_encaisses, ecritures_paiement
 
     if not _peut(request.user, ROLES_FACTURATION):
         return _refuser(request)
@@ -1092,6 +1099,9 @@ def caisse_banque_view(request):
     if 1 <= mois <= 12:
         paiements = paiements.filter(date__month=mois)
     paiements = list(paiements)
+    # Acomptes de location reçus (caisse / banque) pas encore repris sur une facture émise
+    paiements += acomptes_locations_encaisses(request.user.societe, annee=annee, mois=mois if 1 <= mois <= 12 else None)
+    paiements.sort(key=lambda p: p.date)
 
     zero = Decimal("0.00")
     caisse = [p for p in paiements if p.est_especes]
@@ -1117,7 +1127,8 @@ def caisse_banque_view(request):
         for e in journal:
             p = e["paiement"]
             for l in e["lignes"]:
-                w.writerow([p.date.strftime("%d/%m/%Y"), e["journal"], p.facture.numero or "", l["compte"], l["intitule"],
+                piece = (p.facture.numero if p.facture else "") or str(_("Acompte location"))
+                w.writerow([p.date.strftime("%d/%m/%Y"), e["journal"], piece, l["compte"], l["intitule"],
                             l["libelle"], p.get_mode_display(), fmt(l["debit"]), fmt(l["credit"])])
         return response
 

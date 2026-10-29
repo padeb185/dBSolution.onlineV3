@@ -68020,3 +68020,33 @@ msgstr "Debetnota op factuur %(ref)s: voer het door de leverancier aangerekende 
 
 msgid "À recevoir"
 msgstr "Te ontvangen"
+
+msgid "Utilisateur connecté"
+msgstr "Aangemelde gebruiker"
+
+msgid "Vente réalisée par"
+msgstr "Verkoop uitgevoerd door"
+
+msgid "La vente sera attribuée à l'utilisateur connecté."
+msgstr "De verkoop wordt toegewezen aan de aangemelde gebruiker."
+
+msgid "Acomptes reçus sur commandes"
+msgstr "Ontvangen vooruitbetalingen op bestellingen"
+
+msgid "Location (acompte)"
+msgstr "Verhuur (voorschot)"
+
+msgid "Mode de paiement de l'acompte"
+msgstr "Betaalwijze van het voorschot"
+
+msgid "Espèces : crédité en caisse ; virement, carte, chèque : crédité en banque."
+msgstr "Contant: geboekt in de kas; overschrijving, kaart, cheque: geboekt op de bank."
+
+msgid "Acompte en espèces refusé : %(montant)s € dépasse le plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une carte."
+msgstr "Contant voorschot geweigerd: %(montant)s € overschrijdt het toegestane plafond in %(pays)s (%(plafond)s €). Gebruik een overschrijving of een kaart."
+
+msgid "Acompte de location pas encore facturé : contrepartie 460000 Acomptes reçus ; à l'émission de la facture, il devient un paiement de la facture."
+msgstr "Voorschot op verhuur nog niet gefactureerd: tegenrekening 460000 Ontvangen vooruitbetalingen; bij uitgifte van de factuur wordt het een betaling van de factuur."
+
+msgid "pas encore facturé"
+msgstr "nog niet gefactureerd"

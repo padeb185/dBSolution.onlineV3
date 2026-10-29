@@ -81,6 +81,12 @@ def ecritures_societe(societe, debut=None, fin=None, sources=None):
                 journal = "CAI" if p.est_especes else "BQ"
                 for l in ecritures_paiement(p):
                     E.append(_norm(l, "encaissement", p.facture.numero or "", journal, p.date))
+            # Acomptes de location reçus, pas encore repris comme paiement d'une facture
+            from facture.paiements import acomptes_locations_encaisses
+            for p in acomptes_locations_encaisses(societe, debut=debut, fin=fin):
+                journal = "CAI" if p.est_especes else "BQ"
+                for l in ecritures_paiement(p):
+                    E.append(_norm(l, "encaissement", p.piece, journal, p.date))
     except Exception:
         pass
 

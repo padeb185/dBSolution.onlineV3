@@ -342,6 +342,21 @@ class Location(models.Model):
         verbose_name=_("Date de l'acompte"),
         help_text=_("Date de réception : la TVA sur l'acompte est due à cette date."),
     )
+    # Mode de réception de l'acompte : espèces = caisse (570000), autres modes = banque (550000)
+    # (mêmes valeurs que facture.PaiementFacture.Mode)
+    mode_acompte = models.CharField(
+        max_length=10,
+        choices=[
+            ("ESPECES", _("Espèces (caisse)")),
+            ("VIREMENT", _("Virement bancaire")),
+            ("CARTE", _("Carte bancaire / Bancontact")),
+            ("CHEQUE", _("Chèque")),
+            ("AUTRE", _("Autre (banque)")),
+        ],
+        default="VIREMENT",
+        verbose_name=_("Mode de paiement de l'acompte"),
+        help_text=_("Espèces : crédité en caisse ; virement, carte, chèque : crédité en banque."),
+    )
     payee = models.BooleanField(default=False, verbose_name=_("Payée"))
 
     remarques = models.TextField(null=True, blank=True, verbose_name=_("Remarques"))
@@ -675,19 +690,47 @@ class Location(models.Model):
         return evenements
 
     def synchroniser_paiement_facture(self):
-        """Recopie le paiement de la location sur sa facture émise."""
+        """
+        Recopie le paiement de la location sur sa facture émise.
+        L'acompte est un paiement détaillé de la facture (espèces = caisse, sinon banque),
+        lié à la location ; « Payée » solde la facture.
+        """
         facture = self.facture_emise
         if facture is None:
             return
-        statut = self.statut_paiement
-        montant = self.montant_paye
-        # Facture avec d'autres lignes : l'acompte reste celui saisi, plafonné au total
-        if statut == "ACOMPTE" and montant >= Decimal(facture.total or 0):
-            statut = "PAYE"
-        try:
-            facture.appliquer_paiement(statut, montant)
-        except ValueError:
-            return
+        from django.utils import timezone
+        from django.utils.translation import gettext
+        from facture.models import PaiementFacture
+
+        non_ventile = facture.montant_non_ventile
+        paiement = PaiementFacture.objects.filter(facture=facture, location=self).first()
+        if self.acompte and self.montant_acompte:
+            montant = min(Decimal(self.montant_acompte).quantize(DEUX_DECIMALES), Decimal(facture.total or 0))
+            if paiement is None:
+                PaiementFacture.objects.create(
+                    facture=facture, location=self, montant=montant, mode=self.mode_acompte,
+                    date=self.date_acompte or timezone.localdate(), reference=gettext("Acompte location"),
+                )
+                # Facture plus ancienne : l'acompte était enregistré sans mode (non ventilé)
+                non_ventile = max(non_ventile - montant, Decimal("0.00"))
+            else:
+                paiement.montant = montant
+                paiement.mode = self.mode_acompte
+                paiement.date = self.date_acompte or paiement.date
+                paiement.save(update_fields=["montant", "mode", "date"])
+        elif paiement is not None:
+            paiement.delete()
+
+        if self.payee:
+            try:
+                facture.appliquer_paiement("PAYE", None)
+            except ValueError:
+                return
+        else:
+            if facture.est_payee and non_ventile > 0:
+                # « Payée » décochée sur la location : le solde sans mode est annulé
+                non_ventile = Decimal("0.00")
+            facture.recalculer_paiement(non_ventile)
         facture.save(update_fields=["statut_paiement", "montant_paye", "date_paiement", "updated_at"])
 
     @property
@@ -802,6 +845,17 @@ class Location(models.Model):
             if not self.date_acompte:
                 from django.utils import timezone
                 self.date_acompte = timezone.localdate()
+            # Espèces : plafond légal des paiements en espèces (pays de la société)
+            if self.mode_acompte == "ESPECES" and self.montant_acompte and "montant_acompte" not in errors:
+                from facture.paiements import depasse_plafond, plafond_especes
+                adresse = getattr(self.societe, "adresse", None) if self.societe_id else None
+                pays = ((getattr(adresse, "code_pays", "") or "BE")[:2]).upper()
+                plafond = plafond_especes(pays, self.date_acompte)
+                if depasse_plafond(Decimal(self.montant_acompte), plafond):
+                    errors["mode_acompte"] = _(
+                        "Acompte en espèces refusé : %(montant)s € dépasse le plafond autorisé en %(pays)s "
+                        "(%(plafond)s €). Utilisez un virement ou une carte."
+                    ) % {"montant": self.montant_acompte, "pays": pays, "plafond": plafond["montant"]}
         else:
             self.montant_acompte = None
             self.date_acompte = None

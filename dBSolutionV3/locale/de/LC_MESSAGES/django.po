@@ -68042,3 +68042,33 @@ msgstr "Lastschrift zur Rechnung %(ref)s: Erfassen Sie den vom Lieferanten berec
 
 msgid "À recevoir"
 msgstr "Zu erhalten"
+
+msgid "Utilisateur connecté"
+msgstr "Angemeldeter Benutzer"
+
+msgid "Vente réalisée par"
+msgstr "Verkauf durchgeführt von"
+
+msgid "La vente sera attribuée à l'utilisateur connecté."
+msgstr "Der Verkauf wird dem angemeldeten Benutzer zugeordnet."
+
+msgid "Acomptes reçus sur commandes"
+msgstr "Erhaltene Anzahlungen auf Bestellungen"
+
+msgid "Location (acompte)"
+msgstr "Vermietung (Anzahlung)"
+
+msgid "Mode de paiement de l'acompte"
+msgstr "Zahlungsart der Anzahlung"
+
+msgid "Espèces : crédité en caisse ; virement, carte, chèque : crédité en banque."
+msgstr "Bar: in der Kasse gebucht; Überweisung, Karte, Scheck: auf der Bank gebucht."
+
+msgid "Acompte en espèces refusé : %(montant)s € dépasse le plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une carte."
+msgstr "Barzahlung der Anzahlung abgelehnt: %(montant)s € überschreitet die in %(pays)s erlaubte Grenze (%(plafond)s €). Verwenden Sie eine Überweisung oder eine Karte."
+
+msgid "Acompte de location pas encore facturé : contrepartie 460000 Acomptes reçus ; à l'émission de la facture, il devient un paiement de la facture."
+msgstr "Noch nicht fakturierte Mietanzahlung: Gegenkonto 460000 Erhaltene Anzahlungen; bei Ausstellung der Rechnung wird sie eine Zahlung der Rechnung."
+
+msgid "pas encore facturé"
+msgstr "noch nicht fakturiert"

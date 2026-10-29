@@ -67271,3 +67271,33 @@ msgstr "Note de débit sur la facture %(ref)s : encodez le supplément facturé 
 
 msgid "À recevoir"
 msgstr "À recevoir"
+
+msgid "Utilisateur connecté"
+msgstr "Utilisateur connecté"
+
+msgid "Vente réalisée par"
+msgstr "Vente réalisée par"
+
+msgid "La vente sera attribuée à l'utilisateur connecté."
+msgstr "La vente sera attribuée à l'utilisateur connecté."
+
+msgid "Acomptes reçus sur commandes"
+msgstr "Acomptes reçus sur commandes"
+
+msgid "Location (acompte)"
+msgstr "Location (acompte)"
+
+msgid "Mode de paiement de l'acompte"
+msgstr "Mode de paiement de l'acompte"
+
+msgid "Espèces : crédité en caisse ; virement, carte, chèque : crédité en banque."
+msgstr "Espèces : crédité en caisse ; virement, carte, chèque : crédité en banque."
+
+msgid "Acompte en espèces refusé : %(montant)s € dépasse le plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une carte."
+msgstr "Acompte en espèces refusé : %(montant)s € dépasse le plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une carte."
+
+msgid "Acompte de location pas encore facturé : contrepartie 460000 Acomptes reçus ; à l'émission de la facture, il devient un paiement de la facture."
+msgstr "Acompte de location pas encore facturé : contrepartie 460000 Acomptes reçus ; à l'émission de la facture, il devient un paiement de la facture."
+
+msgid "pas encore facturé"
+msgstr "pas encore facturé"

@@ -84,7 +84,6 @@
 
         {% include "voiture_location/_champ.html" with field=form.locataire %}
         {% include "voiture_location/_deuxieme_pilote_form.html" %}
-        {% if form.vendeur %}{% include "voiture_location/_champ.html" with field=form.vendeur %}{% endif %}
 
         <br>
 
@@ -174,7 +173,6 @@
         </h2>
         {% include "voiture_location/_champ.html" with field=form.locataire %}
         {% include "voiture_location/_deuxieme_pilote_form.html" %}
-        {% if form.vendeur %}{% include "voiture_location/_champ.html" with field=form.vendeur %}{% endif %}
         {% include "voiture_location/_champ.html" with field=form.remarques %}
 
         <br>
@@ -240,6 +238,7 @@
         </div>
         {% include "voiture_location/_champ.html" with field=form.montant_acompte %}
         {% include "voiture_location/_champ.html" with field=form.date_acompte %}
+        {% include "voiture_location/_champ.html" with field=form.mode_acompte %}
         <div class="mb-4" id="bloc-payee">
             <label class="inline-flex items-center gap-2 {% if form.payee.field.disabled %}opacity-50{% endif %}">
                 {{ form.payee|add_class:"form-checkbox h-5 w-5 text-green-600" }}
@@ -248,6 +247,8 @@
             {% if form.payee.help_text %}<p class="text-gray-500 text-sm mt-1 ml-7">{{ form.payee.help_text }}</p>{% endif %}
             {% if form.payee.errors %}<p class="text-red-600 text-sm mt-1 ml-7">{{ form.payee.errors|striptags }}</p>{% endif %}
         </div>
+
+        {% include "voiture_location/_vendeur_form.html" %}
 
         <!-- Boutons -->
         <div class="flex gap-3 mt-6">
@@ -308,16 +309,18 @@
     majAffichage();
 })();
 
-// Paiement : montant et date de l'acompte visibles seulement si « Acompte » est coché
+// Paiement : montant, date et mode (caisse / banque) de l'acompte visibles seulement si « Acompte » est coché
 (function () {
     const acompte = document.getElementById("id_acompte");
     const montant = document.getElementById("bloc-montant_acompte");
     const date = document.getElementById("bloc-date_acompte");
+    const mode = document.getElementById("bloc-mode_acompte");
     if (!acompte || !montant) return;
     function maj() {
         const v = acompte.checked ? "" : "none";
         montant.style.display = v;
         if (date) date.style.display = v;
+        if (mode) mode.style.display = v;
     }
     acompte.addEventListener("change", maj);
     maj();

@@ -1012,6 +1012,15 @@ class PaiementFacture(models.Model):
     montant = models.DecimalField(_("Montant"), max_digits=12, decimal_places=2)
     mode = models.CharField(_("Mode de paiement"), max_length=10, choices=Mode.choices, default=Mode.VIREMENT)
     reference = models.CharField(_("Référence"), max_length=100, blank=True)
+    # Acompte d'une location repris sur sa facture (même mode et même date que l'acompte)
+    location = models.ForeignKey(
+        "voiture_location.Location",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="paiements_acompte",
+        verbose_name=_("Location (acompte)"),
+    )
     cree_par = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,

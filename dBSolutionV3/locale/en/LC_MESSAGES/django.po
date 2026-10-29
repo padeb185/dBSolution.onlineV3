@@ -67692,3 +67692,33 @@ msgstr "Debit note on invoice %(ref)s: enter the extra amount charged by the sup
 
 msgid "À recevoir"
 msgstr "To receive"
+
+msgid "Utilisateur connecté"
+msgstr "Logged-in user"
+
+msgid "Vente réalisée par"
+msgstr "Sale made by"
+
+msgid "La vente sera attribuée à l'utilisateur connecté."
+msgstr "The sale will be assigned to the logged-in user."
+
+msgid "Acomptes reçus sur commandes"
+msgstr "Advances received on orders"
+
+msgid "Location (acompte)"
+msgstr "Rental (deposit)"
+
+msgid "Mode de paiement de l'acompte"
+msgstr "Deposit payment method"
+
+msgid "Espèces : crédité en caisse ; virement, carte, chèque : crédité en banque."
+msgstr "Cash: credited to the cash register; transfer, card, cheque: credited to the bank."
+
+msgid "Acompte en espèces refusé : %(montant)s € dépasse le plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une carte."
+msgstr "Cash deposit refused: %(montant)s € exceeds the limit allowed in %(pays)s (%(plafond)s €). Use a transfer or a card."
+
+msgid "Acompte de location pas encore facturé : contrepartie 460000 Acomptes reçus ; à l'émission de la facture, il devient un paiement de la facture."
+msgstr "Rental deposit not yet invoiced: offset 460000 Advances received; when the invoice is issued, it becomes a payment of the invoice."
+
+msgid "pas encore facturé"
+msgstr "not yet invoiced"

@@ -1,0 +1,31 @@
+{% load i18n static %}
+<!-- ================= VENDEUR (fin de formulaire) =================
+     Pas de choix : le vendeur est l'utilisateur connecté (vendeur, direction…) -->
+<h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+    <img src="{% static 'icons/vendeur.png' %}" alt="{% trans 'Vendeur' %}" class="w-20 h-20">
+    {% trans "Vendeur" %}
+</h2>
+{% if location and location.vendeur %}{% with v=location.vendeur %}
+<div class="bg-gray-50 border rounded p-4 mb-4 text-sm space-y-2">
+    <div class="flex flex-wrap justify-between gap-2">
+        <span class="text-gray-600">{% trans "Vente réalisée par" %}</span>
+        <span>
+            <strong>{{ v.nom|upper }} {{ v.prenom }}</strong>
+            <span class="ml-2 px-2 py-0.5 rounded text-xs font-semibold {% if v.role == 'direction' %}bg-blue-100 text-blue-800{% else %}bg-green-100 text-green-800{% endif %}">{{ v.get_role_display }}</span>
+        </span>
+    </div>
+</div>
+{% endwith %}{% else %}
+<div class="bg-gray-50 border rounded p-4 mb-4 text-sm space-y-2">
+    <div class="flex flex-wrap justify-between gap-2">
+        <span class="text-gray-600">{% trans "Vente réalisée par" %}</span>
+        <span>
+            <strong>{{ request.user.nom|upper }} {{ request.user.prenom }}</strong>
+            {% if request.user.role %}
+                <span class="ml-2 px-2 py-0.5 rounded text-xs font-semibold {% if request.user.role == 'direction' %}bg-blue-100 text-blue-800{% else %}bg-green-100 text-green-800{% endif %}">{{ request.user.get_role_display }}</span>
+            {% endif %}
+        </span>
+    </div>
+    <p class="text-gray-500">{% trans "La vente sera attribuée à l'utilisateur connecté." %}</p>
+</div>
+{% endif %}
