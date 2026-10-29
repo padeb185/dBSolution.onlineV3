@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Tuyaux AdBlue" %}{% endblock %}
+
+{% block content %}
+    {% url 'tuyaux_adblue:modifier_tuyaux_adblue' tuyaux_adblue.pk as url_modifier %}
+    {% url 'tuyaux_adblue:tuyaux_adblue_detail_pdf' tuyaux_adblue.pk as url_pdf %}
+    {% url 'tuyaux_adblue:delete_tuyaux_adblue' tuyaux_adblue.pk as url_delete %}
+    {% if exemplaire %}{% url 'tuyaux_adblue:tuyaux_adblue_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Tuyaux AdBlue" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=tuyaux_adblue km_controle=tuyaux_adblue.kilometrage_tuyaux_adblue icone="tuyau-flexible.png" %}
+{% endblock %}

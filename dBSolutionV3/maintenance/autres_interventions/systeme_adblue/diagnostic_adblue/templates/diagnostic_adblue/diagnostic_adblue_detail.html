@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Diagnostic AdBlue" %}{% endblock %}
+
+{% block content %}
+    {% url 'diagnostic_adblue:modifier_diagnostic_adblue' diagnostic_adblue.pk as url_modifier %}
+    {% url 'diagnostic_adblue:diagnostic_adblue_detail_pdf' diagnostic_adblue.pk as url_pdf %}
+    {% url 'diagnostic_adblue:delete_diagnostic_adblue' diagnostic_adblue.pk as url_delete %}
+    {% if exemplaire %}{% url 'diagnostic_adblue:diagnostic_adblue_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Diagnostic AdBlue" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=diagnostic_adblue km_controle=diagnostic_adblue.kilometrage_diagnostic_adblue icone="diagnostic.png" infos_template="diagnostic_adblue/_diagnostic_infos.html" %}
+{% endblock %}

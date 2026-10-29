@@ -1,0 +1,1056 @@
+from datetime import datetime
+from django.core.exceptions import ValidationError
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
+from django.urls import reverse
+from django.utils import timezone
+from django.contrib import messages
+from django.db import transaction, models
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.generic import ListView
+from maindoeuvre.models import MainDoeuvre
+from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
+from voiture.voiture_exemplaire.models import VoitureExemplaire
+from django.db.models import Q
+from django.utils.translation import gettext_lazy as _, gettext_noop
+from maintenance.autres_interventions.systeme_adblue.ajout_adblue.models import AjoutAdblue
+from maintenance.autres_interventions.systeme_adblue.ajout_adblue.forms import AjoutAdblueForm
+from weasyprint import HTML
+from utils.securite import atelier_requis, q_intervention_tenant
+
+
+
+
+
+
+
+@method_decorator([login_required, never_cache], name='dispatch')
+class AjoutAdblueListView(ListView):
+    model = AjoutAdblue
+    template_name = "ajout_adblue/ajout_adblue_list.html"
+    context_object_name = "ajout_adblues"
+    ordering = ["-id"]
+
+    def get_queryset(self):
+        queryset = AjoutAdblue.objects.select_related(
+            "voiture_exemplaire", "maintenance", "tech_societe"
+        )
+
+        societe = getattr(self.request.user, "societe", None)
+        if societe:
+            queryset = queryset.filter(
+                models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
+            )
+
+        return queryset.order_by("-id")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        exemplaire_id = self.kwargs.get("exemplaire_id")
+        if exemplaire_id:
+            context["exemplaire"] = VoitureExemplaire.objects.get(id=exemplaire_id)
+
+        roles_autorises = [
+            "mecanicien",
+            "apprenti", "apprentis",
+            "magasinier",
+            "chef_mecanicien",
+            "direction",
+        ]
+
+        context["is_checkup_allowed"] = self.request.user.role in roles_autorises
+
+        return context
+
+
+
+
+
+@never_cache
+@login_required
+def ajout_adblue_form_view(request, exemplaire_id):
+    tenant = request.user.societe
+    role = request.user.role
+
+    maintenance = None
+
+
+
+    # 🔎 Récupération exemplaire
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id
+    )
+
+    # 🔐 rôles autorisés
+    roles_autorises = [
+        "mecanicien",
+        "apprenti", "apprentis",
+        "magasinier",
+        "chef_mecanicien",
+        "direction"
+    ]
+
+    if role not in roles_autorises:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # =========================
+    # POST
+    # =========================
+    if request.method == "POST":
+
+        form = AjoutAdblueForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+        if form.is_valid():
+
+            try:
+
+                # ==================================================
+                # KILOMÉTRAGE
+                # ==================================================
+                ancien_kilometrage = (
+                        exemplaire.kilometres_chassis or 0
+                )
+
+                ancien_kilometrage_boite = (
+                        exemplaire.kilometres_boite or 0
+                )
+
+                ancien_kilometrage_moteur = (
+                        exemplaire.kilometres_moteur or 0
+                )
+
+                ancien_kilometrage_embrayage = (
+                        exemplaire.kilometres_embrayage or 0
+                )
+
+                km = form.cleaned_data.get("kilometrage_ajout_adblue")
+
+
+                if km is None:
+                    form.add_error(
+                        "kilometrage_ajout_adblue",
+                        _("Le kilométrage est obligatoire."),
+                    )
+
+                else:
+                    km = int(km)
+
+                    if km < ancien_kilometrage:
+                        form.add_error(
+                            "kilometrage_ajout_adblue",
+                            _(
+                                "Le kilométrage du contrôle "
+                                "ne peut pas être inférieur au "
+                                "kilométrage actuel du véhicule."
+                            ),
+                        )
+
+                    else:
+                        kilometrage_variation = (
+                                km - ancien_kilometrage
+                        )
+
+
+
+                        # ==================================================
+                        # TRANSACTION
+                        # ==================================================
+                        with transaction.atomic():
+
+                            # =============================================
+                            # ROLLBACK VÉHICULE
+                            # =============================================
+                            exemplaire.kilometres_rollback = (
+                                ancien_kilometrage
+                            )
+
+                            exemplaire.kilometres_boite_rollback = (
+                                ancien_kilometrage_boite
+                            )
+
+                            exemplaire.kilometres_moteur_rollback = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            exemplaire.kilometres_embrayage_rollback = (
+                                ancien_kilometrage_embrayage
+                            )
+
+                            # =============================================
+                            # DATE INTERVENTION
+                            # =============================================
+                            exemplaire.date_derniere_intervention = (
+                                timezone.localtime(
+                                    timezone.now()
+                                ).date()
+                            )
+
+                            # =============================================
+                            # NOUVEAU KILOMÉTRAGE
+                            # =============================================
+                            exemplaire.kilometres_chassis = km
+
+                            # Recalcule :
+                            # - kilometres_moteur
+                            # - kilometres_boite
+                            # - variation_kilometres
+                            exemplaire.update_kilometres()
+
+                            # =============================================
+                            # SAUVEGARDE VÉHICULE
+                            # =============================================
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                    "date_derniere_intervention",
+
+                                    # Rollback
+                                    "kilometres_rollback",
+                                    "kilometres_boite_rollback",
+                                    "kilometres_moteur_rollback",
+                                    "kilometres_embrayage_rollback",
+
+                                    # Valeurs recalculées
+                                    "kilometres_moteur",
+                                    "kilometres_boite",
+                                    "kilometres_embrayage",
+                                    "variation_kilometres",
+                                ]
+                            )
+
+                            # 🔴 maintenance unique
+                            maintenance = Maintenance.objects.create(
+                                societe=request.user.societe,
+                                voiture_exemplaire=exemplaire,
+                                immatriculation=exemplaire.immatriculation,
+                                date_intervention=timezone.now().date(),
+                                kilometres_chassis=exemplaire.kilometres_chassis,
+                                kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                                type_maintenance=Maintenance.TypeMaintenance.ADBLUE_AJOUT,
+                                tag=Maintenance.Tag.JAUNE,
+                            )
+
+                            # 🔧 rôle
+                            if role == "mecanicien":
+                                maintenance.mecanicien = request.user
+                            elif role == "chef_mecanicien":
+                                maintenance.chef_mecanicien = request.user
+                            elif role == "apprenti":
+                                maintenance.apprentis.add(request.user)
+                            elif role == "magasinier":
+                                maintenance.magasinier = request.user
+                            elif role == "direction":
+                                maintenance.direction = request.user
+
+                            maintenance.save()
+
+                            # ==================================================
+                            # CONTRÔLE ADBLUE_AJOUT
+                            # ==================================================
+                            ajout_adblue_obj = form.save(commit=False)
+
+
+                            ajout_adblue_obj.voiture_exemplaire = (
+                                exemplaire
+                            )
+
+                            ajout_adblue_obj.maintenance = (
+                                maintenance
+                            )
+
+                            # ---------------------------------------------
+                            # Kilométrage AVANT intervention
+                            # ---------------------------------------------
+                            ajout_adblue_obj.kilometres_chassis = (
+                                ancien_kilometrage
+                            )
+
+                            ajout_adblue_obj.kilometres_boite = (
+                                ancien_kilometrage_boite
+                            )
+
+                            ajout_adblue_obj.kilometres_moteur = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            ajout_adblue_obj.kilometres_embrayage = (
+                                ancien_kilometrage_embrayage
+                            )
+
+
+                            # ---------------------------------------------
+                            # Kilométrage ajout_adblue
+                            # ---------------------------------------------
+                            ajout_adblue_obj.kilometrage_ajout_adblue = km
+
+                            # ---------------------------------------------
+                            # Variation kilométrique
+                            # ---------------------------------------------
+                            ajout_adblue_obj.kilometrage_variation = (
+                                kilometrage_variation
+                            )
+
+                            # =============================================
+                            # TECHNICIEN
+                            # =============================================
+                            ajout_adblue_obj.assign_technicien(
+                                request.user
+                            )
+
+                            ajout_adblue_obj.tech_last_maintained_by = (
+                                request.user
+                            )
+
+                            # ==================================================
+                            # MAIN-D'ŒUVRE
+                            # ==================================================
+                            heures = (
+                                    form.cleaned_data.get("temps_heures")
+                                    or 0
+                            )
+
+                            minutes = (
+                                    form.cleaned_data.get("temps_minutes")
+                                    or 0
+                            )
+
+                            total_minutes = (
+                                    heures * 60 + minutes
+                            )
+
+                            taux_horaire = (
+                                    form.cleaned_data.get("taux_horaire")
+                                    or 0
+                            )
+
+                            # --------------------------------------------------
+                            # Mise à jour main-d'œuvre existante
+                            # --------------------------------------------------
+                            if ajout_adblue_obj.main_oeuvre_id:
+
+                                main_oeuvre = (
+                                    ajout_adblue_obj.main_oeuvre
+                                )
+
+                                main_oeuvre.temps_minutes = (
+                                    total_minutes
+                                )
+
+                                main_oeuvre.taux_horaire = (
+                                    taux_horaire
+                                )
+
+                                main_oeuvre.save(
+                                    update_fields=[
+                                        "temps_minutes",
+                                        "taux_horaire",
+                                    ]
+                                )
+
+                            # --------------------------------------------------
+                            # Création main-d'œuvre
+                            # --------------------------------------------------
+                            else:
+
+                                main_oeuvre = (
+                                    MainDoeuvre.objects.create(
+                                        utilisateur=request.user,
+                                        temps_minutes=total_minutes,
+                                        taux_horaire=taux_horaire,
+                                    )
+                                )
+
+                                ajout_adblue_obj.main_oeuvre = (
+                                    main_oeuvre
+                                )
+
+                            # ==================================================
+                            # SAUVEGARDE ajout_adblue_obj
+                            # IMPORTANT :
+                            # EN DEHORS DU IF/ELSE MAIN-D'ŒUVRE
+                            # ==================================================
+                            ajout_adblue_obj.save()
+
+                            form.save_m2m()
+
+                            # ==================================================
+                            # MISE À JOUR DU VÉHICULE
+                            # ==================================================
+                            exemplaire.kilometres_chassis = km
+
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                    "kilometres_boite",
+                                    "kilometres_moteur"
+                                ]
+                            )
+
+
+
+                        ACTION_ADBLUE_AJOUTBUTION = gettext_noop(
+                            "Intervention échappement"
+                        )
+
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=f"{ACTION_ADBLUE_AJOUTBUTION} - {exemplaire.immatriculation}"
+                        )
+
+                        messages.success(request, _("Intervention enregistrée avec succès."))
+
+
+                        return redirect(
+                            f"{reverse('ajout_adblue:ajout_adblue_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
+                        )
+
+
+            except Exception as e:
+                messages.error(request, _("Erreur lors de l'enregistrement : %(erreur)s") % {"erreur": str(e)})
+
+        else:
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
+    else:
+        ajout_adblue_nouveau = AjoutAdblue(
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
+            kilometres_embrayage=(
+                    exemplaire.kilometres_embrayage or 0
+            ),
+        )
+        ajout_adblue_nouveau.assign_technicien(request.user)
+
+        form = AjoutAdblueForm(
+            instance=ajout_adblue_nouveau,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+    # --- Génération des champs par section ---
+    sections = [
+        {
+            "title": _("Kilométrage"),
+            "icon": "icons/compteur.png",
+            "fields": [form[f.name] for f in form if "kilo" in f.name],
+        },
+        {
+            "title": _("Ajout d'AdBlue"),
+            "icon": "icons/adblue.png",
+            "fields": [form[f.name] for f in form if f.name == "ajout_adblue" or f.name.startswith("ajout_adblue_")],
+        },
+        {
+            "title": _("Etiquette"),
+            "icon": "icons/tag.png",
+            "fields": [form[f.name] for f in form if "tag" in f.name],
+        },
+        {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [form[f.name] for f in form if "pays" in f.name],
+        },
+        {
+            "title": _("Remarques"),
+            "icon": "icons/notes.png",
+            "fields": [form[f.name] for f in form if "remarques" in f.name],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
+        },
+        {
+            "title": _("Technicien"),
+            "icon": "icons/mecanicien.png",
+            "fields": [form[f.name] for f in form if "tech" in f.name],
+        },
+        {
+            "title": _("Main-d'œuvre"),
+            "icon": "icons/taux.png",
+            "fields": [
+                field
+                for field in form
+                if field.name in {
+                    "taux_horaire",
+                }
+            ],
+        },
+
+    ]
+
+    return render(request, 'ajout_adblue/ajout_adblue_form.html', {
+        "exemplaire": exemplaire,
+        "immatriculation": exemplaire.immatriculation,
+        "maintenance": maintenance,
+        "form": form,
+        "sections": sections,
+        "now": timezone.now(),
+    })
+
+
+
+
+
+
+# ------------
+# Vue détail ajout_adblue
+# -----------------------------
+
+@never_cache
+@login_required
+def ajout_adblue_detail_view(request, ajout_adblue_id):
+    ajout_adblue = get_object_or_404(
+        AjoutAdblue.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
+        id=ajout_adblue_id
+    )
+
+    context = {
+        "ajout_adblue": ajout_adblue,
+        "exemplaire": ajout_adblue.voiture_exemplaire,
+    }
+    return render(request, "ajout_adblue/ajout_adblue_detail.html", context)
+
+
+
+
+
+
+
+@login_required
+@atelier_requis
+def modifier_ajout_adblue_view(request, ajout_adblue_id):
+    tenant = request.user.societe
+
+    ajout_adblue = get_object_or_404(
+        AjoutAdblue.objects.select_related("voiture_exemplaire"),
+        id=ajout_adblue_id
+    )
+    exemplaire = ajout_adblue.voiture_exemplaire
+    # -------------------------
+    # POST
+    # -------------------------
+    if request.method == "POST":
+        form = AjoutAdblueForm(
+            request.POST,
+            instance=ajout_adblue,
+            user=request.user,
+            exemplaire=ajout_adblue.voiture_exemplaire
+        )
+
+        if form.is_valid():
+
+            try:
+                with transaction.atomic():
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get(
+                        "kilometrage_ajout_adblue"
+                    )
+
+                    if km is not None:
+                        km = int(km)
+
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    rollback_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
+
+                    rollback_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    rollback_embrayage = (
+                            exemplaire.kilometres_embrayage or 0
+                    )
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
+                                )
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # ÉCHAPPEMENT
+                    # ==================================================
+                    ajout_adblue_obj = form.save(
+                        commit=False
+                    )
+
+                    ajout_adblue_obj.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    ajout_adblue_obj.kilometres_chassis = (
+                        rollback_chassis
+                    )
+
+                    ajout_adblue_obj.kilometres_moteur = (
+                        rollback_moteur
+                    )
+
+                    ajout_adblue_obj.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    ajout_adblue_obj.kilometres_embrayage = (
+                        rollback_embrayage
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    ajout_adblue_obj.kilometrage_ajout_adblue = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        ajout_adblue_obj.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        ajout_adblue_obj.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    ajout_adblue_obj.assign_technicien(
+                        request.user
+                    )
+
+                    ajout_adblue_obj.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE ÉCHAPPEMENT
+                    # ==================================================
+                    ajout_adblue_obj.save()
+
+                    form.save_m2m()
+
+
+
+                    ACTION_MODIFICATION_ADBLUE_AJOUTBUTION = gettext_noop(
+                        "Modification intervention échappement"
+                    )
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=f"{ACTION_MODIFICATION_ADBLUE_AJOUTBUTION} - {exemplaire.immatriculation}"
+                    )
+
+                    messages.success(
+                        request,
+                        _("Intervention modifiée avec succès !")
+                    )
+
+                    return redirect(
+                        f"{reverse('ajout_adblue:ajout_adblue_detail', kwargs={'ajout_adblue_id': ajout_adblue.id})}?saved=1"
+                    )
+
+            except ValidationError as e:
+                form.add_error(None, e)
+                messages.error(request, _("Kilométrage invalide"))
+
+        else:
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
+
+    # -------------------------
+    # GET
+    # -------------------------
+    else:
+        form = AjoutAdblueForm(
+            instance=ajout_adblue,
+            user=request.user,
+            exemplaire=ajout_adblue.voiture_exemplaire
+        )
+
+    # -------------------------
+    # Sections pour le template
+    # -------------------------
+    sections = [
+        {
+            "title": _("Kilométrage"),
+            "icon": "icons/compteur.png",
+            "fields": [form[f.name] for f in form if "kilo" in f.name],
+        },
+        {
+            "title": _("Ajout d'AdBlue"),
+            "icon": "icons/adblue.png",
+            "fields": [form[f.name] for f in form if f.name == "ajout_adblue" or f.name.startswith("ajout_adblue_")],
+        },
+        {
+            "title": _("Etiquette"),
+            "icon": "icons/tag.png",
+            "fields": [form[f.name] for f in form if "tag" in f.name],
+        },
+        {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [form[f.name] for f in form if "pays" in f.name],
+        },
+
+        {
+            "title": _("Remarques"),
+            "icon": "icons/notes.png",
+            "fields": [form[f.name] for f in form if "remarques" in f.name],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
+        },
+        {
+            "title": _("Technicien"),
+            "icon": "icons/mecanicien.png",
+            "fields": [form[f.name] for f in form if "tech" in f.name],
+        },
+        {
+            "title": _("Main-d'œuvre"),
+            "icon": "icons/taux.png",
+            "fields": [
+                field
+                for field in form
+                if field.name in {
+                    "taux_horaire",
+                }
+            ],
+        },
+
+    ]
+
+    return render(
+        request,
+        "ajout_adblue/modifier_ajout_adblue.html",
+        {
+            "form": form,
+            "ajout_adblue": ajout_adblue,
+            "sections": sections,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
+
+
+@never_cache
+@login_required
+def delete_ajout_adblue_view(request, ajout_adblue_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    ajout_adblue = get_object_or_404(
+        AjoutAdblue.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+        ),
+        id=ajout_adblue_id,
+    )
+
+    exemplaire = ajout_adblue.voiture_exemplaire
+    maintenance = ajout_adblue.maintenance
+
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        try:
+            with transaction.atomic():
+
+                immatriculation = exemplaire.immatriculation
+
+
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
+                kilometrage_rollback = (
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
+                )
+                kilometrage_rollback_embrayage = (
+                        exemplaire.kilometres_embrayage_rollback or 0
+                )
+
+                exemplaire.kilometres_chassis = (
+                    kilometrage_rollback
+                )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
+                exemplaire.kilometres_embrayage = (
+                    kilometrage_rollback_embrayage
+                )
+
+
+                exemplaire.save(
+                    update_fields=[
+                        "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur",
+                        "kilometres_embrayage"
+                    ]
+                )
+
+
+
+                # ==================================================
+                # SUPPRESSION CHECKUP
+                # ==================================================
+                ajout_adblue.delete()
+
+                # ==================================================
+                # SUPPRESSION MAINTENANCE ASSOCIÉE
+                # ==================================================
+                if maintenance:
+                    maintenance.delete()
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_ATERNATEUR = gettext_noop(
+                    "Suppression de l'intervention échappement"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_ATERNATEUR} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Intervention supprimée avec succès.")
+            )
+
+            return redirect(
+                f"{reverse('ajout_adblue:ajout_adblue_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
+            )
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "ajout_adblue/delete_ajout_adblue.html",
+        {
+            "ajout_adblue": ajout_adblue,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
+
+
+
+
+
+
+@login_required
+def ajout_adblue_detail_pdf_view(request, pk):
+    ajout_adblue = get_object_or_404(AjoutAdblue, pk=pk)
+
+    rapport = ajout_adblue.generer_rapport_remplacement()
+
+    html_string = render_to_string(
+        "ajout_adblue/ajout_adblue_detail_pdf.html",
+        {
+            "ajout_adblue": ajout_adblue,
+            "rapport": rapport,
+            "date_export": datetime.now(),
+            "societe": request.user.societe,
+        }
+    )
+
+    pdf = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri()
+    ).write_pdf()
+
+    # =========================================================
+    # IMMATRICULATION
+    # =========================================================
+
+    immatriculation = (
+        ajout_adblue.voiture_exemplaire.immatriculation
+        if ajout_adblue.voiture_exemplaire
+        else "sans_immatriculation"
+    )
+
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
+
+    technicien = (
+            ajout_adblue.tech_nom_technicien
+            or "technicien_inconnu"
+    )
+
+    # Nettoyage pour le nom du fichier
+    technicien = str(technicien).replace(" ", "_")
+    immatriculation = str(immatriculation).replace(" ", "_")
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+        ajout_adblue.date.strftime("%Y-%m-%d")
+        if ajout_adblue.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # TITRE / NOM DU PDF
+    # =========================================================
+
+    titre_pdf = str(_("Ajout d'AdBlue")).replace(" ", "_").replace("'", "")
+    nom_fichier = (
+        f"{titre_pdf}_{technicien}_{immatriculation}_{date_pdf}.pdf"
+    )
+
+    response = HttpResponse(
+        pdf,
+        content_type="application/pdf",
+    )
+
+    response["Content-Disposition"] = (
+        f'inline; filename="{nom_fichier}"'
+    )
+
+    return response

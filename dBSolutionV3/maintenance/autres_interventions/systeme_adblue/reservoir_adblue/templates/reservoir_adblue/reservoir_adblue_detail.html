@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Réservoir AdBlue" %}{% endblock %}
+
+{% block content %}
+    {% url 'reservoir_adblue:modifier_reservoir_adblue' reservoir_adblue.pk as url_modifier %}
+    {% url 'reservoir_adblue:reservoir_adblue_detail_pdf' reservoir_adblue.pk as url_pdf %}
+    {% url 'reservoir_adblue:delete_reservoir_adblue' reservoir_adblue.pk as url_delete %}
+    {% if exemplaire %}{% url 'reservoir_adblue:reservoir_adblue_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Réservoir AdBlue" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=reservoir_adblue km_controle=reservoir_adblue.kilometrage_reservoir_adblue icone="fmh_reservoir.png" %}
+{% endblock %}

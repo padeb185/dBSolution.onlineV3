@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Pompe AdBlue" %}{% endblock %}
+
+{% block content %}
+    {% url 'pompe_adblue:modifier_pompe_adblue' pompe_adblue.pk as url_modifier %}
+    {% url 'pompe_adblue:pompe_adblue_detail_pdf' pompe_adblue.pk as url_pdf %}
+    {% url 'pompe_adblue:delete_pompe_adblue' pompe_adblue.pk as url_delete %}
+    {% if exemplaire %}{% url 'pompe_adblue:pompe_adblue_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Pompe AdBlue" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=pompe_adblue km_controle=pompe_adblue.kilometrage_pompe_adblue icone="pompe.png" %}
+{% endblock %}

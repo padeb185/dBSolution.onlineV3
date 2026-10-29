@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Ajout d'AdBlue" %}{% endblock %}
+
+{% block content %}
+    {% url 'ajout_adblue:modifier_ajout_adblue' ajout_adblue.pk as url_modifier %}
+    {% url 'ajout_adblue:ajout_adblue_detail_pdf' ajout_adblue.pk as url_pdf %}
+    {% url 'ajout_adblue:delete_ajout_adblue' ajout_adblue.pk as url_delete %}
+    {% if exemplaire %}{% url 'ajout_adblue:ajout_adblue_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Ajout d'AdBlue" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=ajout_adblue km_controle=ajout_adblue.kilometrage_ajout_adblue icone="adblue.png" %}
+{% endblock %}
