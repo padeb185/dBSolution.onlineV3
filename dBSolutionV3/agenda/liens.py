@@ -105,6 +105,11 @@ URLS_MAINTENANCE = {
     "ECH_INJECTEUR_ADBLUE": ["injecteur_adblue:injecteur_adblue_form"],
     "ECH_VALVES_ECHAPPEMENT": ["valves_echappement:valves_echappement_form"],
     "ECH_SILENT_BLOCS_ECHAPPEMENT": ["silent_blocs_echappement:silent_blocs_echappement_form"],
+    "ADBLUE_RESERVOIR": ["reservoir_adblue:reservoir_adblue_form", "autres_interventions:dashboard_adblue"],
+    "ADBLUE_POMPE": ["pompe_adblue:pompe_adblue_form", "autres_interventions:dashboard_adblue"],
+    "ADBLUE_TUYAUX": ["tuyaux_adblue:tuyaux_adblue_form", "autres_interventions:dashboard_adblue"],
+    "ADBLUE_AJOUT": ["ajout_adblue:ajout_adblue_form", "autres_interventions:dashboard_adblue"],
+    "ADBLUE_DIAGNOSTIC": ["diagnostic_adblue:diagnostic_adblue_form", "autres_interventions:dashboard_adblue"],
 }
 
 

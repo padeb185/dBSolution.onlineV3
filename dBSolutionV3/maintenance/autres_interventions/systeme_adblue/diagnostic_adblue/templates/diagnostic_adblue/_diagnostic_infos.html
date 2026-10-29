@@ -1,0 +1,5 @@
+{% load i18n %}
+<h3 class="font-semibold mt-3 mb-1">{% trans "Diagnostic AdBlue" %}</h3>
+<p><strong>{% trans "Résultat du diagnostic" %} :</strong>
+    <span style="font-weight:600;color:{% if obj.diagnostic_adblue == 'OK' %}#15803d{% elif obj.diagnostic_adblue == 'DEFAUT' %}#b91c1c{% else %}#b45309{% endif %}">{{ obj.get_diagnostic_adblue_display }}</span></p>
+<table class="text-sm mt-1" style="border-collapse:separate;border-spacing:10px 3px;margin-left:-10px">{% include "diagnostic_adblue/_diagnostic_lignes.html" with d=obj %}</table>

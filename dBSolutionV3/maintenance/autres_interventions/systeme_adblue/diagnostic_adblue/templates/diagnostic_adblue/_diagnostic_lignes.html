@@ -1,0 +1,11 @@
+{% load i18n %}
+<tr><td>{% trans "Voyant AdBlue / SCR allumé" %}</td><td>{% if d.diagnostic_adblue_voyant %}{% trans "Oui" %}{% else %}{% trans "Non" %}{% endif %}</td></tr>
+{% if d.diagnostic_adblue_codes_defaut %}<tr><td>{% trans "Codes défaut relevés" %}</td><td>{{ d.diagnostic_adblue_codes_defaut|linebreaksbr }}</td></tr>{% endif %}
+{% if d.diagnostic_adblue_autonomie_km is not None %}<tr><td>{% trans "Autonomie restante affichée (km)" %}</td><td>{{ d.diagnostic_adblue_autonomie_km|milliers }} km</td></tr>{% endif %}
+{% if d.diagnostic_adblue_niveau %}<tr><td>{% trans "Niveau du réservoir" %}</td><td>{{ d.get_diagnostic_adblue_niveau_display }}</td></tr>{% endif %}
+{% if d.diagnostic_adblue_concentration is not None %}<tr><td>{% trans "Concentration en urée (%)" %}</td><td>{{ d.diagnostic_adblue_concentration|floatformat:"1g" }} %{% if d.diagnostic_adblue_concentration < 31.8 or d.diagnostic_adblue_concentration > 33.2 %} — <strong style="color:#b91c1c">{% trans "hors norme" %}</strong>{% endif %}</td></tr>{% endif %}
+<tr><td>{% trans "Cristallisation constatée" %}</td><td>{% if d.diagnostic_adblue_cristallisation %}{% trans "Oui" %}{% else %}{% trans "Non" %}{% endif %}</td></tr>
+{% if d.diagnostic_adblue_nox_amont is not None or d.diagnostic_adblue_nox_aval is not None %}<tr><td>{% trans "NOx amont / aval (ppm)" %}</td><td>{{ d.diagnostic_adblue_nox_amont|default:"—" }} / {{ d.diagnostic_adblue_nox_aval|default:"—" }}</td></tr>{% endif %}
+<tr><td>{% trans "Test de dosage / débit" %}</td><td>{{ d.get_diagnostic_adblue_test_dosage_display }}</td></tr>
+<tr><td>{% trans "Test du chauffage du circuit" %}</td><td>{{ d.get_diagnostic_adblue_test_chauffage_display }}</td></tr>
+{% if d.diagnostic_adblue_conclusion %}<tr><td>{% trans "Conclusion / pièces à remplacer" %}</td><td>{{ d.diagnostic_adblue_conclusion|linebreaksbr }}</td></tr>{% endif %}

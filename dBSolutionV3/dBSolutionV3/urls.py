@@ -296,6 +296,11 @@ urlpatterns += i18n_patterns(
     path("echappement/injecteur_adblue/", include(("maintenance.autres_interventions.echappement.injecteur_adblue.urls", "injecteur_adblue"), namespace="injecteur_adblue")),
     path("echappement/valves_echappement/", include(("maintenance.autres_interventions.echappement.valves_echappement.urls", "valves_echappement"), namespace="valves_echappement")),
     path("echappement/silent_blocs_echappement/", include(("maintenance.autres_interventions.echappement.silent_blocs_echappement.urls", "silent_blocs_echappement"), namespace="silent_blocs_echappement")),
+    path("adblue-systeme/reservoir_adblue/", include(("maintenance.autres_interventions.systeme_adblue.reservoir_adblue.urls", "reservoir_adblue"), namespace="reservoir_adblue")),
+    path("adblue-systeme/pompe_adblue/", include(("maintenance.autres_interventions.systeme_adblue.pompe_adblue.urls", "pompe_adblue"), namespace="pompe_adblue")),
+    path("adblue-systeme/tuyaux_adblue/", include(("maintenance.autres_interventions.systeme_adblue.tuyaux_adblue.urls", "tuyaux_adblue"), namespace="tuyaux_adblue")),
+    path("adblue-systeme/ajout_adblue/", include(("maintenance.autres_interventions.systeme_adblue.ajout_adblue.urls", "ajout_adblue"), namespace="ajout_adblue")),
+    path("adblue-systeme/diagnostic_adblue/", include(("maintenance.autres_interventions.systeme_adblue.diagnostic_adblue.urls", "diagnostic_adblue"), namespace="diagnostic_adblue")),
     path("echappement/",include(("maintenance.autres_interventions.echappement.urls", "dashboard_echappement"),namespace="dashboard_echappement")),
     path("batterie/", include(("maintenance.autres_interventions.batterie.urls", "batterie"), namespace="batterie")),
 

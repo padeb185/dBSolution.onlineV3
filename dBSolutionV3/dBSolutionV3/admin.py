@@ -69,6 +69,11 @@ from maintenance.autres_interventions.echappement.capteur_fap.models import Capt
 from maintenance.autres_interventions.echappement.tuyaux_fap.models import TuyauxFap
 from maintenance.autres_interventions.echappement.regeneration_fap.models import RegenerationFap
 from maintenance.autres_interventions.echappement.injecteur_adblue.models import InjecteurAdblue
+from maintenance.autres_interventions.systeme_adblue.reservoir_adblue.models import ReservoirAdblue
+from maintenance.autres_interventions.systeme_adblue.pompe_adblue.models import PompeAdblue
+from maintenance.autres_interventions.systeme_adblue.tuyaux_adblue.models import TuyauxAdblue
+from maintenance.autres_interventions.systeme_adblue.ajout_adblue.models import AjoutAdblue
+from maintenance.autres_interventions.systeme_adblue.diagnostic_adblue.models import DiagnosticAdblue
 from maintenance.autres_interventions.echappement.valves_echappement.models import ValvesEchappement
 from maintenance.autres_interventions.echappement.silent_blocs_echappement.models import SilentBlocsEchappement
 from maintenance.autres_interventions.batterie.models import Batterie
@@ -166,6 +171,11 @@ admin.site.register(CapteurFap)
 admin.site.register(TuyauxFap)
 admin.site.register(RegenerationFap)
 admin.site.register(InjecteurAdblue)
+admin.site.register(ReservoirAdblue)
+admin.site.register(PompeAdblue)
+admin.site.register(TuyauxAdblue)
+admin.site.register(AjoutAdblue)
+admin.site.register(DiagnosticAdblue)
 admin.site.register(ValvesEchappement)
 admin.site.register(SilentBlocsEchappement)
 admin.site.register(Batterie)

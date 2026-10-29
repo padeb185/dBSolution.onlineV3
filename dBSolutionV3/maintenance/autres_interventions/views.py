@@ -421,6 +421,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_echappement": total_echappement,
         "total_batterie": total_batterie,
         "total_transmission": total_cardan + total_arbre_transmission + total_roulement,
+        "total_adblue": sum(r["total"] for r in _rubriques_adblue(exemplaire)),
         "total_aide_conduite": total_abs + total_esp + total_aide_stationnement,
         "total_geometrie_groupe": total_geometrie + total_geometrie_course,
         "total_electricite": total_batterie + total_fusibles + total_plans_cablage,
@@ -760,4 +761,56 @@ def dashboard_transmission_view(request, exemplaire_id):
         "rubriques": rubriques,
         "titre": _("Transmission"),
         "icone": "icons/arbre-transmission.png",
+    })
+
+
+# ======================================================
+# ADBLUE / SCR : injecteur, réservoir, pompe, ajout, tuyaux, diagnostic, pot DeNOx
+# ======================================================
+def _rubriques_adblue(exemplaire):
+    from django.urls import reverse
+    from django.utils.translation import gettext as _
+    from maintenance.autres_interventions.echappement.injecteur_adblue.models import InjecteurAdblue
+    from maintenance.autres_interventions.echappement.pot_denox.models import PotDenox
+    from maintenance.autres_interventions.systeme_adblue.reservoir_adblue.models import ReservoirAdblue
+    from maintenance.autres_interventions.systeme_adblue.pompe_adblue.models import PompeAdblue
+    from maintenance.autres_interventions.systeme_adblue.tuyaux_adblue.models import TuyauxAdblue
+    from maintenance.autres_interventions.systeme_adblue.ajout_adblue.models import AjoutAdblue
+    from maintenance.autres_interventions.systeme_adblue.diagnostic_adblue.models import DiagnosticAdblue
+
+    elements = [
+        (_("Injecteur AdBlue"), "injecteur_adblue", InjecteurAdblue, "icons/ech_injecteur_adblue.png"),
+        (_("Réservoir AdBlue"), "reservoir_adblue", ReservoirAdblue, "icons/fmh_reservoir.png"),
+        (_("Pompe AdBlue"), "pompe_adblue", PompeAdblue, "icons/pompe.png"),
+        (_("Ajout d'AdBlue"), "ajout_adblue", AjoutAdblue, "icons/adblue.png"),
+        (_("Tuyaux AdBlue"), "tuyaux_adblue", TuyauxAdblue, "icons/tuyau-flexible.png"),
+        (_("Diagnostic AdBlue"), "diagnostic_adblue", DiagnosticAdblue, "icons/diagnostic.png"),
+        (_("Pot DeNOx (SCR)"), "pot_denox", PotDenox, "icons/ech_pot_denox.png"),
+    ]
+    return [
+        {"label": label, "detail": "",
+         "url": reverse(f"{code}:{code}_list", kwargs={"exemplaire_id": exemplaire.id}),
+         "icone": icone,
+         "total": modele.objects.filter(voiture_exemplaire=exemplaire).count()}
+        for label, code, modele, icone in elements
+    ]
+
+
+@login_required
+@never_cache
+def dashboard_adblue_view(request, exemplaire_id):
+    from django.utils.translation import gettext as _
+
+    tenant = request.user.societe
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id,
+    )
+    return render(request, "autres_interventions/dashboard_groupe.html", {
+        "exemplaire": exemplaire,
+        "rubriques": _rubriques_adblue(exemplaire),
+        "titre": _("AdBlue"),
+        "icone": "icons/adblue.png",
     })
