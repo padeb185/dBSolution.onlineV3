@@ -620,17 +620,9 @@ def _statistiques(request, voit_tout):
         }
     avancement_global = _avancement(totaux, objectif_global)
 
-    # --- Par mois ---
-    mois = {}
-    for l in locations:
-        mois.setdefault((l.date_debut.year, l.date_debut.month), []).append(l)
-    par_mois = [
-        {"annee": a, "mois": m, "date": l_[0].date_debut.replace(day=1), **_cumul_ventes(l_)}
-        for (a, m), l_ in sorted(mois.items())
-    ]
-    max_mois = max((m["tvac"] for m in par_mois), default=Decimal("0"))
-    for m in par_mois:
-        m["largeur"] = int(m["tvac"] * 100 / max_mois) if max_mois else 0
+    # --- Séries par mois, trimestre et année (tous les mois, même sans vente) ---
+    series = _series_ventes(request, periode, voit_tout)
+    par_mois = series["par_mois"]
 
     # --- Circuits / routes les plus vendus ---
     lieux = {}
@@ -652,8 +644,14 @@ def _statistiques(request, voit_tout):
         key=lambda s: s["trackday"].date_debut, reverse=True,
     )
 
+    graphiques = _graphiques_ventes(series, par_vendeur, top_lieux, totaux)
+
     return render(request, "voiture_location/statistiques_ventes.html", {
         **periode,
+        "par_trimestre": series["par_trimestre"],
+        "par_annee": series["par_annee"],
+        "annee_serie": series["annee_serie"], "total_mois": series["total_mois"],
+        "graphiques": graphiques,
         "par_trackday": par_trackday,
         "voit_tout": voit_tout,
         "vendeur_connecte": request.user,
@@ -665,6 +663,127 @@ def _statistiques(request, voit_tout):
         "a_objectifs": bool(objectifs),
         "peut_objectifs": _voit_tout(request.user),
     })
+
+
+def _series_ventes(request, periode, voit_tout):
+    """
+    Séries complètes pour les tableaux et graphiques :
+      - par mois : les 12 mois de l'année de la période (tous les mois depuis la première vente pour « tout »),
+        avec l'année précédente pour comparaison ; les mois de la période choisie sont marqués ;
+      - par trimestre : les 4 trimestres de l'année ;
+      - par année : les 6 dernières années (toutes pour « tout »).
+    """
+    from datetime import date as _date
+
+    base = _queryset(request)
+    if not voit_tout:
+        base = base.filter(vendeur=request.user)
+    toutes = list(base.order_by("date_debut"))
+    par_cle = {}
+    for l in toutes:
+        par_cle.setdefault((l.date_debut.year, l.date_debut.month), []).append(l)
+
+    def cumul(cles):
+        liste = [l for c in cles for l in par_cle.get(c, [])]
+        return _cumul_ventes(liste)
+
+    aujourdhui = timezone.localdate()
+    annee = periode["annee"] if periode["type_periode"] != "tout" else aujourdhui.year
+    debut_p, fin_p = periode["debut"], periode["fin"]
+
+    # Mois
+    if periode["type_periode"] == "tout" and toutes:
+        premier = toutes[0].date_debut
+        mois_cles = []
+        a, m = premier.year, premier.month
+        while (a, m) <= (aujourdhui.year, aujourdhui.month):
+            mois_cles.append((a, m))
+            a, m = (a + 1, 1) if m == 12 else (a, m + 1)
+    else:
+        mois_cles = [(annee, m) for m in range(1, 13)]
+    par_mois = []
+    for a, m in mois_cles:
+        jour = _date(a, m, 1)
+        par_mois.append({
+            "annee": a, "mois": m, "date": jour, **cumul([(a, m)]),
+            "precedent": cumul([(a - 1, m)])["htva"],
+            "dans_periode": debut_p is None or (debut_p.replace(day=1) <= jour <= fin_p),
+            "futur": jour > aujourdhui,
+        })
+    max_mois = max((m["tvac"] for m in par_mois), default=Decimal("0"))
+    for m in par_mois:
+        m["largeur"] = int(m["tvac"] * 100 / max_mois) if max_mois else 0
+
+    # Trimestres de l'année
+    par_trimestre = []
+    for t in range(1, 5):
+        c = cumul([(annee, m) for m in range(3 * t - 2, 3 * t + 1)])
+        c.update({"trimestre": t, "futur": _date(annee, 3 * t - 2, 1) > aujourdhui, "precedent": cumul([(annee - 1, m) for m in range(3 * t - 2, 3 * t + 1)])["htva"],
+                  "dans_periode": periode["type_periode"] in ("annee", "tout")
+                  or (periode["type_periode"] == "trimestre" and periode["numero"] == t)
+                  or (periode["type_periode"] == "mois" and (periode["numero"] - 1) // 3 + 1 == t)})
+        par_trimestre.append(c)
+
+    # Années
+    premiere = toutes[0].date_debut.year if toutes else aujourdhui.year
+    debut_annees = premiere if periode["type_periode"] == "tout" else max(premiere, annee - 5)
+    par_annee = []
+    for a in range(min(debut_annees, annee), max(annee, aujourdhui.year if periode["type_periode"] == "tout" else annee) + 1):
+        c = cumul([(a, m) for m in range(1, 13)])
+        c.update({"annee": a, "dans_periode": periode["type_periode"] == "tout" or a == annee})
+        par_annee.append(c)
+    def evolution(actuel, precedent):
+        return ((actuel - precedent) * 100 / precedent).quantize(Decimal("0.1")) if precedent else None
+
+    for ligne in par_mois + par_trimestre:
+        # Mois / trimestre pas encore commencé : pas d'évolution (sinon -100 %)
+        ligne["evolution"] = None if ligne["futur"] else evolution(ligne["htva"], ligne["precedent"])
+    for i, ligne in enumerate(par_annee):
+        ligne["precedent"] = par_annee[i - 1]["htva"] if i else cumul([(ligne["annee"] - 1, m) for m in range(1, 13)])["htva"]
+        ligne["evolution"] = evolution(ligne["htva"], ligne["precedent"])
+    total_mois = _cumul_ventes([l for a, m in mois_cles for l in par_cle.get((a, m), [])])
+    # N-1 sur les mêmes mois (déjà commencés) pour une comparaison équitable
+    total_mois["precedent"] = sum((m["precedent"] for m in par_mois if not m["futur"]), Decimal("0.00"))
+    total_mois["evolution"] = evolution(total_mois["htva"], total_mois["precedent"])
+    return {"par_mois": par_mois, "par_trimestre": par_trimestre, "par_annee": par_annee,
+            "annee_serie": annee, "total_mois": total_mois}
+
+
+def _graphiques_ventes(series, par_vendeur, top_lieux, totaux):
+    """Données JSON pour les graphiques (Chart.js) de la page des statistiques de ventes."""
+    from django.utils.formats import date_format
+
+    f = lambda d: float(d or 0)
+    multi_annees = len({m["annee"] for m in series["par_mois"]}) > 1
+    return {
+        "mois": {
+            "labels": [date_format(m["date"], "M Y" if multi_annees else "F") for m in series["par_mois"]],
+            "htva": [None if m["futur"] else f(m["htva"]) for m in series["par_mois"]],
+            "precedent": [f(m["precedent"]) for m in series["par_mois"]],
+            "nb": [None if m["futur"] else m["nb"] for m in series["par_mois"]],
+            "periode": [m["dans_periode"] for m in series["par_mois"]],
+            "comparaison": not multi_annees,
+        },
+        "trimestres": {
+            "labels": [f"T{t['trimestre']}" for t in series["par_trimestre"]],
+            "htva": [None if t["futur"] else f(t["htva"]) for t in series["par_trimestre"]],
+            "precedent": [f(t["precedent"]) for t in series["par_trimestre"]],
+        },
+        "annees": {
+            "labels": [str(a["annee"]) for a in series["par_annee"]],
+            "htva": [f(a["htva"]) for a in series["par_annee"]],
+            "nb": [a["nb"] for a in series["par_annee"]],
+        },
+        "vendeurs": {
+            "labels": [v["nom"] for v in par_vendeur if v["tvac"]],
+            "htva": [f(v["htva"]) for v in par_vendeur if v["tvac"]],
+        },
+        "lieux": {
+            "labels": [str(l["lieu"]) for l in top_lieux],
+            "htva": [f(l["htva"]) for l in top_lieux],
+        },
+        "types": {"circuit": totaux["nb_circuit"], "route": totaux["nb_route"]},
+    }
 
 
 # ======================================================

@@ -215,41 +215,177 @@
     </table>
 </div>
 
+<!-- ===== Évolution des ventes : graphiques ===== -->
+<style>
+    .sv-carte { background:#fff; border-radius:.5rem; box-shadow:0 4px 6px -1px rgba(0,0,0,.1); padding:1.25rem; }
+    .sv-graph { position:relative; height:300px; }
+    .sv-graph-petit { position:relative; height:260px; }
+    .sv-hors-periode td { color:#9ca3af; }
+    .sv-periode td { background:#eff6ff; }
+    .sv-hausse { color:#15803d; font-weight:600; }
+    .sv-baisse { color:#b91c1c; font-weight:600; }
+    .sv-legende { display:inline-block; width:12px; height:12px; border-radius:2px; margin-right:4px; vertical-align:middle; }
+</style>
+
+<div class="sv-carte mb-6">
+    <h2 class="text-lg font-semibold mb-1 flex items-center gap-2">
+        <img src="{% static 'icons/location_periode_prix.png' %}" alt="" class="w-8 h-8">
+        {% if type_periode == "tout" %}{% trans "Ventes par mois (toutes les ventes)" %}{% else %}{% blocktrans with annee=annee_serie %}Ventes par mois – {{ annee }}{% endblocktrans %}{% endif %}
+    </h2>
+    <p class="text-xs text-gray-500 mb-3">
+        <span class="sv-legende" style="background:#2563eb"></span>{% trans "HTVA" %}
+        {% if graphiques.mois.comparaison %}&nbsp;&nbsp;<span class="sv-legende" style="background:#9ca3af"></span>{% trans "HTVA année précédente" %}{% endif %}
+        &nbsp;&nbsp;<span class="sv-legende" style="background:#f59e0b"></span>{% trans "Nombre de ventes" %}
+        {% if type_periode == "mois" or type_periode == "trimestre" %}&nbsp;&nbsp;— {% trans "les mois hors de la période choisie sont plus clairs" %}{% endif %}
+    </p>
+    <div class="sv-graph"><canvas id="graph-mois"></canvas></div>
+</div>
+
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-    <!-- Par mois -->
-    <div class="bg-white shadow-md rounded-lg p-6 overflow-x-auto">
-        <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
-            <img src="{% static 'icons/location_periode_prix.png' %}" alt="" class="w-8 h-8">
-            {% trans "Par mois" %}
-        </h2>
+    <div class="sv-carte">
+        <h2 class="text-lg font-semibold mb-3">{% blocktrans with annee=annee_serie %}Par trimestre – {{ annee }}{% endblocktrans %}</h2>
+        <div class="sv-graph-petit"><canvas id="graph-trimestres"></canvas></div>
+    </div>
+    <div class="sv-carte">
+        <h2 class="text-lg font-semibold mb-3">{% trans "Par année" %}</h2>
+        <div class="sv-graph-petit"><canvas id="graph-annees"></canvas></div>
+    </div>
+</div>
+
+<!-- Par mois : tous les mois -->
+<div class="sv-carte mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Détail par mois" %}</h2>
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border px-2 py-2 text-left">{% trans "Mois" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Ventes" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Circuit" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Route" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "HTVA" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "TVA" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "TVAC" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Panier moyen" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "HTVA N-1" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Évolution" %}</th>
+                <th class="border px-2 py-2 text-left" style="min-width:120px"></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for m in par_mois %}
+            <tr class="{% if type_periode == 'mois' or type_periode == 'trimestre' %}{% if m.dans_periode %}sv-periode{% else %}sv-hors-periode{% endif %}{% endif %}">
+                <td class="border px-2 py-1">{{ m.date|date:"F Y"|capfirst }}</td>
+                <td class="border px-2 py-1 text-right">{{ m.nb }}</td>
+                <td class="border px-2 py-1 text-right">{{ m.nb_circuit }}</td>
+                <td class="border px-2 py-1 text-right">{{ m.nb_route }}</td>
+                <td class="border px-2 py-1 text-right">{{ m.htva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ m.tva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ m.tvac|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ m.panier_moyen|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ m.precedent|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{% if m.evolution is not None %}<span class="{% if m.evolution >= 0 %}sv-hausse{% else %}sv-baisse{% endif %}">{% if m.evolution > 0 %}+{% endif %}{{ m.evolution|floatformat:"1g" }} %</span>{% else %}—{% endif %}</td>
+                <td class="border px-2 py-1">
+                    <div class="bg-gray-100 rounded h-3"><div class="h-3 rounded" style="background:#2563eb; width: {{ m.largeur }}%"></div></div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr class="bg-gray-100 font-semibold">
+                <td class="border px-2 py-1">{% trans "Total" %}</td>
+                <td class="border px-2 py-1 text-right">{{ total_mois.nb }}</td>
+                <td class="border px-2 py-1 text-right">{{ total_mois.nb_circuit }}</td>
+                <td class="border px-2 py-1 text-right">{{ total_mois.nb_route }}</td>
+                <td class="border px-2 py-1 text-right">{{ total_mois.htva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ total_mois.tva|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ total_mois.tvac|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ total_mois.panier_moyen|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{{ total_mois.precedent|floatformat:"2g" }} €</td>
+                <td class="border px-2 py-1 text-right">{% if total_mois.evolution is not None %}<span class="{% if total_mois.evolution >= 0 %}sv-hausse{% else %}sv-baisse{% endif %}">{% if total_mois.evolution > 0 %}+{% endif %}{{ total_mois.evolution|floatformat:"1g" }} %</span>{% else %}—{% endif %}</td>
+                <td class="border px-2 py-1"></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+    <!-- Par trimestre -->
+    <div class="sv-carte overflow-x-auto">
+        <h2 class="text-lg font-semibold mb-4">{% blocktrans with annee=annee_serie %}Détail par trimestre – {{ annee }}{% endblocktrans %}</h2>
         <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
             <thead>
                 <tr class="bg-gray-100">
-                    <th class="border px-2 py-2 text-left">{% trans "Mois" %}</th>
+                    <th class="border px-2 py-2 text-left">{% trans "Trimestre" %}</th>
                     <th class="border px-2 py-2 text-right">{% trans "Ventes" %}</th>
-                    <th class="border px-2 py-2 text-right">{% trans "TVA" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "HTVA" %}</th>
                     <th class="border px-2 py-2 text-right">{% trans "TVAC" %}</th>
-                    <th class="border px-2 py-2 text-left" style="min-width:120px"></th>
+                    <th class="border px-2 py-2 text-right">{% trans "HTVA N-1" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Évolution" %}</th>
                 </tr>
             </thead>
             <tbody>
-            {% for m in par_mois %}
-                <tr>
-                    <td class="border px-2 py-1">{{ m.date|date:"F Y" }}</td>
-                    <td class="border px-2 py-1 text-right">{{ m.nb }}</td>
-                    <td class="border px-2 py-1 text-right">{{ m.tva|floatformat:"2g" }} €</td>
-                    <td class="border px-2 py-1 text-right">{{ m.tvac|floatformat:"2g" }} €</td>
-                    <td class="border px-2 py-1">
-                        <div class="bg-gray-100 rounded h-3"><div class="bg-blue-600 h-3 rounded" style="width: {{ m.largeur }}%"></div></div>
-                    </td>
+            {% for t in par_trimestre %}
+                <tr class="{% if type_periode == 'mois' or type_periode == 'trimestre' %}{% if t.dans_periode %}sv-periode{% else %}sv-hors-periode{% endif %}{% endif %}">
+                    <td class="border px-2 py-1">T{{ t.trimestre }}</td>
+                    <td class="border px-2 py-1 text-right">{{ t.nb }}</td>
+                    <td class="border px-2 py-1 text-right">{{ t.htva|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ t.tvac|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ t.precedent|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right">{% if t.evolution is not None %}<span class="{% if t.evolution >= 0 %}sv-hausse{% else %}sv-baisse{% endif %}">{% if t.evolution > 0 %}+{% endif %}{{ t.evolution|floatformat:"1g" }} %</span>{% else %}—{% endif %}</td>
                 </tr>
-            {% empty %}
-                <tr><td colspan="5" class="border px-2 py-2 text-gray-500">{% trans "Aucune location sur la période." %}</td></tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
 
+    <!-- Par année -->
+    <div class="sv-carte overflow-x-auto">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Détail par année" %}</h2>
+        <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-2 py-2 text-left">{% trans "Année" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Ventes" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "HTVA" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "TVAC" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Panier moyen" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Évolution" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for a in par_annee %}
+                <tr class="{% if a.dans_periode and type_periode != 'tout' %}sv-periode{% endif %}">
+                    <td class="border px-2 py-1">{{ a.annee }}</td>
+                    <td class="border px-2 py-1 text-right">{{ a.nb }}</td>
+                    <td class="border px-2 py-1 text-right">{{ a.htva|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ a.tvac|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ a.panier_moyen|floatformat:"2g" }} €</td>
+                    <td class="border px-2 py-1 text-right">{% if a.evolution is not None %}<span class="{% if a.evolution >= 0 %}sv-hausse{% else %}sv-baisse{% endif %}">{% if a.evolution > 0 %}+{% endif %}{{ a.evolution|floatformat:"1g" }} %</span>{% else %}—{% endif %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-{% if voit_tout %}3{% else %}2{% endif %} gap-6 mb-6">
+    {% if voit_tout %}
+    <div class="sv-carte">
+        <h2 class="text-lg font-semibold mb-3">{% trans "Répartition par vendeur (HTVA)" %}</h2>
+        <div class="sv-graph-petit"><canvas id="graph-vendeurs"></canvas></div>
+    </div>
+    {% endif %}
+    <div class="sv-carte">
+        <h2 class="text-lg font-semibold mb-3">{% trans "Circuit / route (nombre de ventes)" %}</h2>
+        <div class="sv-graph-petit"><canvas id="graph-types"></canvas></div>
+    </div>
+    <div class="sv-carte">
+        <h2 class="text-lg font-semibold mb-3">{% trans "Top circuits et routes (HTVA)" %}</h2>
+        <div class="sv-graph-petit"><canvas id="graph-lieux"></canvas></div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 gap-6 mb-6">
     <!-- Circuits / routes -->
     <div class="bg-white shadow-md rounded-lg p-6 overflow-x-auto">
         <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -331,4 +467,113 @@
     </a>
 </div>
 <br><br>
+{{ graphiques|json_script:"graphiques-ventes" }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+(function () {
+    if (typeof Chart === "undefined") { return; }
+    const G = JSON.parse(document.getElementById("graphiques-ventes").textContent);
+    const langue = document.documentElement.lang || "fr-BE";
+    const euros = v => Number(v).toLocaleString(langue, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + " €";
+    const eurosPrecis = v => Number(v).toLocaleString(langue, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " €";
+    const BLEU = "#2563eb", BLEU_CLAIR = "rgba(37,99,235,.35)", GRIS = "#9ca3af", ORANGE = "#f59e0b";
+    const PALETTE = ["#2563eb", "#16a34a", "#f59e0b", "#dc2626", "#7c3aed", "#0891b2", "#db2777", "#65a30d", "#ea580c", "#475569"];
+    const T = {
+        htva: "{% trans 'HTVA' %}", n1: "{% trans 'HTVA année précédente' %}",
+        nb: "{% trans 'Nombre de ventes' %}", circuit: "{% trans 'Circuit' %}", route: "{% trans 'Route' %}",
+        vide: "{% trans 'Aucune location sur la période.' %}"
+    };
+    Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+    const tooltipEuros = {callbacks: {label: c => c.dataset.label + " : " + (c.dataset.yAxisID === "nb" ? c.parsed.y : eurosPrecis(c.parsed.y !== undefined && c.parsed.y !== null ? c.parsed.y : c.parsed))}};
+    const axeEuros = {beginAtZero: true, ticks: {callback: v => euros(v)}};
+
+    function vide(id) {
+        const c = document.getElementById(id);
+        if (!c) { return true; }
+        const p = document.createElement("p");
+        p.className = "text-gray-500 text-sm";
+        p.textContent = T.vide;
+        c.parentNode.replaceWith(p);
+        return true;
+    }
+
+    // Mois : barres HTVA (+ N-1) et nombre de ventes
+    const M = G.mois;
+    const jeux = [{
+        type: "bar", label: T.htva, data: M.htva, yAxisID: "y", order: 2,
+        backgroundColor: M.periode.map(p => p ? BLEU : BLEU_CLAIR), borderRadius: 3
+    }];
+    if (M.comparaison) {
+        jeux.push({type: "line", label: T.n1, data: M.precedent, yAxisID: "y", order: 1,
+                   borderColor: GRIS, backgroundColor: GRIS, borderDash: [6, 4], pointRadius: 3, tension: .25});
+    }
+    jeux.push({type: "line", label: T.nb, data: M.nb, yAxisID: "nb", order: 0,
+               borderColor: ORANGE, backgroundColor: ORANGE, pointRadius: 3, tension: .25});
+    new Chart(document.getElementById("graph-mois"), {
+        data: {labels: M.labels, datasets: jeux},
+        options: {
+            maintainAspectRatio: false, interaction: {mode: "index", intersect: false},
+            plugins: {legend: {display: false}, tooltip: tooltipEuros},
+            scales: {
+                y: axeEuros,
+                nb: {position: "right", beginAtZero: true, grid: {drawOnChartArea: false}, ticks: {precision: 0}}
+            }
+        }
+    });
+
+    // Trimestres
+    new Chart(document.getElementById("graph-trimestres"), {
+        type: "bar",
+        data: {labels: G.trimestres.labels, datasets: [
+            {label: T.htva, data: G.trimestres.htva, backgroundColor: BLEU, borderRadius: 3},
+            {label: T.n1, data: G.trimestres.precedent, backgroundColor: GRIS, borderRadius: 3}
+        ]},
+        options: {maintainAspectRatio: false, plugins: {tooltip: tooltipEuros, legend: {position: "bottom"}}, scales: {y: axeEuros}}
+    });
+
+    // Années
+    new Chart(document.getElementById("graph-annees"), {
+        data: {labels: G.annees.labels, datasets: [
+            {type: "bar", label: T.htva, data: G.annees.htva, yAxisID: "y", backgroundColor: BLEU, borderRadius: 3, order: 1},
+            {type: "line", label: T.nb, data: G.annees.nb, yAxisID: "nb", borderColor: ORANGE, backgroundColor: ORANGE, tension: .25, order: 0}
+        ]},
+        options: {
+            maintainAspectRatio: false, plugins: {tooltip: tooltipEuros, legend: {position: "bottom"}},
+            scales: {y: axeEuros, nb: {position: "right", beginAtZero: true, grid: {drawOnChartArea: false}, ticks: {precision: 0}}}
+        }
+    });
+
+    // Vendeurs
+    if (document.getElementById("graph-vendeurs")) {
+        if (!G.vendeurs.labels.length) { vide("graph-vendeurs"); } else {
+            new Chart(document.getElementById("graph-vendeurs"), {
+                type: "doughnut",
+                data: {labels: G.vendeurs.labels, datasets: [{data: G.vendeurs.htva, backgroundColor: PALETTE}]},
+                options: {maintainAspectRatio: false, plugins: {legend: {position: "bottom"},
+                          tooltip: {callbacks: {label: c => c.label + " : " + eurosPrecis(c.parsed)}}}}
+            });
+        }
+    }
+
+    // Circuit / route
+    if (!(G.types.circuit + G.types.route)) { vide("graph-types"); } else {
+        new Chart(document.getElementById("graph-types"), {
+            type: "doughnut",
+            data: {labels: [T.circuit, T.route], datasets: [{data: [G.types.circuit, G.types.route], backgroundColor: [BLEU, "#16a34a"]}]},
+            options: {maintainAspectRatio: false, plugins: {legend: {position: "bottom"}}}
+        });
+    }
+
+    // Top lieux
+    if (!G.lieux.labels.length) { vide("graph-lieux"); } else {
+        new Chart(document.getElementById("graph-lieux"), {
+            type: "bar",
+            data: {labels: G.lieux.labels, datasets: [{label: T.htva, data: G.lieux.htva, backgroundColor: PALETTE}]},
+            options: {indexAxis: "y", maintainAspectRatio: false, plugins: {legend: {display: false},
+                      tooltip: {callbacks: {label: c => eurosPrecis(c.parsed.x)}}},
+                      scales: {x: {beginAtZero: true, ticks: {callback: v => euros(v)}}}}
+        });
+    }
+})();
+</script>
 {% endblock %}
