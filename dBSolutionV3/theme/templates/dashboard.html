@@ -158,12 +158,13 @@
 
                         <td class="border border-gray-200 px-4 py-2">
                             {% if log.immat_plaque %}
-                                <div class="flex items-center justify-between gap-3">
-                                    <span class="min-w-0">
+                                {# Texte à gauche, plaque toujours collée à droite de la cellule #}
+                                <div style="display:flex;flex-wrap:nowrap;align-items:center;justify-content:space-between;gap:12px;width:100%">
+                                    <span style="min-width:0;flex:1 1 auto">
                                         {% if log.avant %}{{ log.avant }}{% endif %}
                                         {% if log.apres %}<span class="text-gray-600">{{ log.apres }}</span>{% endif %}
                                     </span>
-                                    <span class="ml-auto shrink-0" style="margin-left:auto">
+                                    <span style="display:flex;flex:0 0 auto;margin-left:auto;line-height:1">
                                         {% include "maintenance/partials/plaque.html" with immat_plaque=log.immat_plaque pays_plaque=log.pays_plaque taille="petite" %}
                                     </span>
                                 </div>

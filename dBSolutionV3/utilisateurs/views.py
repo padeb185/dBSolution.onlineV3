@@ -77,25 +77,39 @@ def _activites_avec_plaques(logs):
     from utilisateurs.templatetags.db_translate import db_trans
     from voiture.voiture_exemplaire.models import VoitureExemplaire
 
+    import re
     logs = list(logs)
+    # Clé de comparaison : lettres et chiffres seulement (« 1-ABC-123 », « 1 ABC 123 » et « 1abc123 » sont identiques)
+    cle = lambda t: re.sub(r"[^A-Z0-9]", "", (t or "").upper())
     immats = {}
     for immat, pays in VoitureExemplaire.objects.exclude(immatriculation__isnull=True).exclude(
             immatriculation="").values_list("immatriculation", "pays"):
-        immats[immat.strip()] = pays
-    # Les plus longues d'abord (« 1-ABC-321 » avant « ABC-321 »)
-    candidates = sorted(immats, key=len, reverse=True)
+        k = cle(immat)
+        if len(k) >= 4:
+            immats.setdefault(k, (immat.strip(), pays))
+    # Les plus longues d'abord (« 1ABC321 » avant « ABC321 »)
+    cles = sorted(immats, key=len, reverse=True)
     for log in logs:
         texte = log.action or ""
         log.immat_plaque = log.pays_plaque = None
         log.avant, log.apres = db_trans(texte), ""
-        for immat in candidates:
-            pos = texte.find(immat)
-            if pos < 0:
+        # Texte réduit aux lettres / chiffres, avec la position de chaque caractère dans le texte d'origine
+        positions = [i for i, ch in enumerate(texte) if ch.isalnum()]
+        reduit = "".join(texte[i] for i in positions).upper()
+        for k in cles:
+            debut = reduit.find(k)
+            while debut >= 0:
+                d, f = positions[debut], positions[debut + len(k) - 1] + 1
+                # Plaque entière (pas un morceau d'un mot ou d'un autre numéro)
+                if (d == 0 or not texte[d - 1].isalnum()) and (f == len(texte) or not texte[f].isalnum()):
+                    break
+                debut = reduit.find(k, debut + 1)
+            if debut < 0:
                 continue
-            avant, apres = texte[:pos], texte[pos + len(immat):]
+            avant, apres = texte[:d], texte[f:]
             log.avant = (db_trans(avant) if avant.strip() else "").rstrip(" -–:")
             log.apres = apres.strip().lstrip("–-").strip()
-            log.immat_plaque, log.pays_plaque = immat, immats[immat]
+            log.immat_plaque, log.pays_plaque = immats[k]
             break
     return logs
 
