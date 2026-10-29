@@ -5,6 +5,9 @@
     <span class="px-2 py-1 rounded text-xs font-semibold bg-yellow-100 text-yellow-800">{% trans "Acompte" %} {{ loc.montant_paye|floatformat:2 }} €</span>
     <div class="text-xs text-gray-500 mt-1">{{ loc.get_mode_acompte_display }}{% if loc.date_acompte %} – {{ loc.date_acompte|date:"d/m/Y" }}{% endif %}</div>
     <div class="text-xs text-gray-500 mt-1">{% trans "Reste" %} {{ loc.reste_a_payer|floatformat:2 }} €</div>
+{% elif loc.statut_paiement == "KM_A_PAYER" %}
+    <span class="px-2 py-1 rounded text-xs font-semibold" style="background:#ffedd5;color:#9a3412">{% trans "Km supplémentaires à payer" %}</span>
+    <div class="text-xs text-gray-500 mt-1">{% trans "Reste" %} {{ loc.reste_km_supplementaires|floatformat:2 }} €</div>
 {% else %}
     <span class="px-2 py-1 rounded text-xs font-semibold bg-red-100 text-red-800">{% trans "À payer" %}</span>
 {% endif %}

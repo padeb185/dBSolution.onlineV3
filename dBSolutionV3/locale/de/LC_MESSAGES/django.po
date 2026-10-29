@@ -68459,3 +68459,21 @@ msgid "%(n)s connecteur"
 msgid_plural "%(n)s connecteurs"
 msgstr[0] "%(n)s Stecker"
 msgstr[1] "%(n)s Stecker"
+
+msgid "Paiement de la location"
+msgstr "Zahlung der Vermietung"
+
+msgid "Uniquement pour un paiement lié à une location."
+msgstr "Nur für eine mit einer Vermietung verknüpfte Zahlung."
+
+msgid "Solde location"
+msgstr "Restzahlung Vermietung"
+
+msgid "Mode de paiement du solde"
+msgstr "Zahlungsart der Restzahlung"
+
+msgid "Km supplémentaires à payer"
+msgstr "Zusätzliche km zu zahlen"
+
+msgid "Paiement en espèces refusé : %(montant)s € dépasse le plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une carte."
+msgstr "Barzahlung abgelehnt: %(montant)s € überschreitet die in %(pays)s erlaubte Grenze (%(plafond)s €). Verwenden Sie eine Überweisung oder eine Karte."

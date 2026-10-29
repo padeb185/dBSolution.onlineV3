@@ -958,9 +958,13 @@ def _tva_csv(calcul, type_periode, annee, numero, pays, internes, tot_internes):
 def _synchroniser_locations(facture):
     """Locations liées : même statut de paiement que la facture."""
     for location in facture.locations.all():
+        # Facture complémentaire (kilomètres supplémentaires) : son paiement ne modifie pas
+        # le statut de la location (payée via sa facture principale)
+        if location._est_facture_complementaire(facture):
+            continue
         location.payee = facture.est_payee
         # Acompte de la location repris comme paiement de la facture : il reste l'acompte de la location
-        lie = facture.paiements.filter(location=location).first()
+        lie = facture.paiements.filter(location=location, role_location="ACOMPTE").first()
         if lie is not None:
             location.acompte = True
             location.montant_acompte = lie.montant

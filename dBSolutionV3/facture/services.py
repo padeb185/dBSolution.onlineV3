@@ -1163,7 +1163,7 @@ def reprendre_acomptes_locations(facture):
             continue
         if not (location.acompte and location.montant_acompte) or reste <= 0:
             continue
-        if PaiementFacture.objects.filter(location=location).exists():
+        if PaiementFacture.objects.filter(location=location, role_location="ACOMPTE").exists():
             continue
         montant = min(Decimal(location.montant_acompte).quantize(Decimal("0.01")), reste)
         PaiementFacture.objects.create(

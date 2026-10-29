@@ -68465,3 +68465,21 @@ msgid "%(n)s connecteur"
 msgid_plural "%(n)s connecteurs"
 msgstr[0] "%(n)s βύσμα"
 msgstr[1] "%(n)s βύσματα"
+
+msgid "Paiement de la location"
+msgstr "Πληρωμή ενοικίασης"
+
+msgid "Uniquement pour un paiement lié à une location."
+msgstr "Μόνο για πληρωμή συνδεδεμένη με ενοικίαση."
+
+msgid "Solde location"
+msgstr "Υπόλοιπο ενοικίασης"
+
+msgid "Mode de paiement du solde"
+msgstr "Τρόπος πληρωμής υπολοίπου"
+
+msgid "Km supplémentaires à payer"
+msgstr "Επιπλέον km προς πληρωμή"
+
+msgid "Paiement en espèces refusé : %(montant)s € dépasse le plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une carte."
+msgstr "Η πληρωμή σε μετρητά απορρίφθηκε: %(montant)s € υπερβαίνει το επιτρεπόμενο όριο σε %(pays)s (%(plafond)s €). Χρησιμοποιήστε μεταφορά ή κάρτα."

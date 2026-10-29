@@ -68408,3 +68408,21 @@ msgid "%(n)s connecteur"
 msgid_plural "%(n)s connecteurs"
 msgstr[0] "%(n)s connettore"
 msgstr[1] "%(n)s connettori"
+
+msgid "Paiement de la location"
+msgstr "Pagamento del noleggio"
+
+msgid "Uniquement pour un paiement lié à une location."
+msgstr "Solo per un pagamento collegato a un noleggio."
+
+msgid "Solde location"
+msgstr "Saldo noleggio"
+
+msgid "Mode de paiement du solde"
+msgstr "Modalità di pagamento del saldo"
+
+msgid "Km supplémentaires à payer"
+msgstr "Km aggiuntivi da pagare"
+
+msgid "Paiement en espèces refusé : %(montant)s € dépasse le plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une carte."
+msgstr "Pagamento in contanti rifiutato: %(montant)s € supera il limite consentito in %(pays)s (%(plafond)s €). Usa un bonifico o una carta."

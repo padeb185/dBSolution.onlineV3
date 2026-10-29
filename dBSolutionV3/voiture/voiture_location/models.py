@@ -357,6 +357,20 @@ class Location(models.Model):
         verbose_name=_("Mode de paiement de l'acompte"),
         help_text=_("Espèces : crédité en caisse ; virement, carte, chèque : crédité en banque."),
     )
+    # Mode de paiement du solde (location cochée « Payée ») : caisse ou banque
+    mode_solde = models.CharField(
+        max_length=10,
+        choices=[
+            ("ESPECES", _("Espèces (caisse)")),
+            ("VIREMENT", _("Virement bancaire")),
+            ("CARTE", _("Carte bancaire / Bancontact")),
+            ("CHEQUE", _("Chèque")),
+            ("AUTRE", _("Autre (banque)")),
+        ],
+        default="VIREMENT",
+        verbose_name=_("Mode de paiement du solde"),
+        help_text=_("Espèces : crédité en caisse ; virement, carte, chèque : crédité en banque."),
+    )
     payee = models.BooleanField(default=False, verbose_name=_("Payée"))
 
     remarques = models.TextField(null=True, blank=True, verbose_name=_("Remarques"))
@@ -623,21 +637,37 @@ class Location(models.Model):
     # PAIEMENT
     # -------------------------
     @property
+    def reste_km_supplementaires(self):
+        """
+        Kilomètres supplémentaires facturés à part (facture complémentaire) et pas encore encaissés :
+        brouillon = tout son montant ; facture émise = son reste à payer.
+        """
+        reste = Decimal("0.00")
+        for f in self.factures_complementaires:
+            if f.statut == "EMISE":
+                reste += Decimal(f.reste_a_payer or 0)
+            else:
+                reste += Decimal(f.total or 0)
+        return reste.quantize(DEUX_DECIMALES)
+
+    @property
     def statut_paiement(self):
         if self.payee:
-            return "PAYE"
+            # Location payée, mais kilomètres supplémentaires (facture complémentaire) encore à encaisser
+            return "KM_A_PAYER" if self.reste_km_supplementaires > 0 else "PAYE"
         if self.acompte and self.montant_acompte:
             return "ACOMPTE"
         return "A_PAYER"
 
     @property
     def statut_paiement_display(self):
-        return {"PAYE": _("Payé"), "ACOMPTE": _("Acompte"), "A_PAYER": _("À payer")}[self.statut_paiement]
+        return {"PAYE": _("Payé"), "ACOMPTE": _("Acompte"), "A_PAYER": _("À payer"),
+                "KM_A_PAYER": _("Km supplémentaires à payer")}[self.statut_paiement]
 
     @property
     def montant_paye(self):
         if self.payee:
-            return self.prix_tvac
+            return (self.prix_tvac - self.reste_km_supplementaires).quantize(DEUX_DECIMALES)
         if self.acompte and self.montant_acompte:
             return Decimal(self.montant_acompte).quantize(DEUX_DECIMALES)
         return Decimal("0.00")
@@ -693,7 +723,8 @@ class Location(models.Model):
         """
         Recopie le paiement de la location sur sa facture émise.
         L'acompte est un paiement détaillé de la facture (espèces = caisse, sinon banque),
-        lié à la location ; « Payée » solde la facture.
+        lié à la location ; « Payée » solde la facture par un paiement détaillé du reste
+        (mode de paiement du solde), pour qu'il soit crédité en caisse ou en banque.
         """
         facture = self.facture_emise
         if facture is None:
@@ -703,7 +734,7 @@ class Location(models.Model):
         from facture.models import PaiementFacture
 
         non_ventile = facture.montant_non_ventile
-        paiement = PaiementFacture.objects.filter(facture=facture, location=self).first()
+        paiement = PaiementFacture.objects.filter(facture=facture, location=self, role_location="ACOMPTE").first()
         if self.acompte and self.montant_acompte:
             montant = min(Decimal(self.montant_acompte).quantize(DEUX_DECIMALES), Decimal(facture.total or 0))
             if paiement is None:
@@ -721,16 +752,23 @@ class Location(models.Model):
         elif paiement is not None:
             paiement.delete()
 
+        soldes = PaiementFacture.objects.filter(facture=facture, location=self, role_location="SOLDE")
         if self.payee:
-            try:
-                facture.appliquer_paiement("PAYE", None)
-            except ValueError:
-                return
-        else:
-            if facture.est_payee and non_ventile > 0:
-                # « Payée » décochée sur la location : le solde sans mode est annulé
-                non_ventile = Decimal("0.00")
+            # Solde : paiement détaillé du reste à payer (caisse ou banque selon le mode)
             facture.recalculer_paiement(non_ventile)
+            soldes.exclude(mode=self.mode_solde).update(mode=self.mode_solde)
+            reste = facture.reste_a_payer
+            if reste > 0:
+                PaiementFacture.objects.create(
+                    facture=facture, location=self, role_location="SOLDE", montant=reste, mode=self.mode_solde,
+                    date=timezone.localdate(), reference=gettext("Solde location"),
+                )
+        else:
+            # « Payée » décochée sur la location : le solde enregistré depuis la location est annulé
+            soldes.delete()
+            if facture.est_payee and non_ventile > 0:
+                non_ventile = Decimal("0.00")
+        facture.recalculer_paiement(non_ventile)
         facture.save(update_fields=["statut_paiement", "montant_paye", "date_paiement", "updated_at"])
 
     @property
@@ -859,6 +897,21 @@ class Location(models.Model):
         else:
             self.montant_acompte = None
             self.date_acompte = None
+
+        # Solde en espèces : plafond légal sur le total reçu en espèces (acompte en espèces compris)
+        if self.payee and self.mode_solde == "ESPECES" and "payee" not in errors and self.prix is not None:
+            from facture.paiements import depasse_plafond, plafond_especes
+            from django.utils import timezone
+            acompte = Decimal(self.montant_acompte or 0) if self.acompte else Decimal("0")
+            especes = Decimal(self.prix_tvac) - acompte + (acompte if self.mode_acompte == "ESPECES" else Decimal("0"))
+            adresse = getattr(self.societe, "adresse", None) if self.societe_id else None
+            pays = ((getattr(adresse, "code_pays", "") or "BE")[:2]).upper()
+            plafond = plafond_especes(pays, timezone.localdate())
+            if depasse_plafond(especes, plafond):
+                errors["mode_solde"] = _(
+                    "Paiement en espèces refusé : %(montant)s € dépasse le plafond autorisé en %(pays)s "
+                    "(%(plafond)s €). Utilisez un virement ou une carte."
+                ) % {"montant": especes.quantize(DEUX_DECIMALES), "pays": pays, "plafond": plafond["montant"]}
 
         if errors:
             raise ValidationError(errors)

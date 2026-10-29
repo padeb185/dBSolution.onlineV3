@@ -68437,3 +68437,21 @@ msgid "%(n)s connecteur"
 msgid_plural "%(n)s connecteurs"
 msgstr[0] "%(n)s connector"
 msgstr[1] "%(n)s connectors"
+
+msgid "Paiement de la location"
+msgstr "Betaling van de verhuur"
+
+msgid "Uniquement pour un paiement lié à une location."
+msgstr "Alleen voor een betaling gekoppeld aan een verhuur."
+
+msgid "Solde location"
+msgstr "Saldo verhuur"
+
+msgid "Mode de paiement du solde"
+msgstr "Betaalwijze van het saldo"
+
+msgid "Km supplémentaires à payer"
+msgstr "Extra km te betalen"
+
+msgid "Paiement en espèces refusé : %(montant)s € dépasse le plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une carte."
+msgstr "Contante betaling geweigerd: %(montant)s € overschrijdt het toegestane plafond in %(pays)s (%(plafond)s €). Gebruik een overschrijving of een kaart."

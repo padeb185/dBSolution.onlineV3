@@ -100,7 +100,7 @@ def ecritures_paiement(paiement):
     tresorerie = compte_tresorerie(paiement.mode)
     libelle = f"{paiement.facture.numero or ''} – {paiement.facture.nom_client_courant()}".strip(" –")
     if paiement.location_id:
-        libelle = f"{libelle} – {_('Acompte location')}"
+        libelle = f"{libelle} – {_('Solde location') if paiement.role_location == 'SOLDE' else _('Acompte location')}"
     if paiement.montant < 0:
         montant = -paiement.montant
         return [
@@ -171,8 +171,8 @@ def acomptes_locations_encaisses(societe, debut=None, fin=None, annee=None, mois
     from django.apps import apps
     Location = apps.get_model("voiture_location", "Location")
 
-    qs = (Location.objects.filter(societe=societe, acompte=True, montant_acompte__gt=0,
-                                  date_acompte__isnull=False, paiements_acompte__isnull=True)
+    qs = (Location.objects.filter(societe=societe, acompte=True, montant_acompte__gt=0, date_acompte__isnull=False)
+          .exclude(paiements_acompte__role_location="ACOMPTE")
           .select_related("voiture_exemplaire", "client", "societe_cliente", "client_pilotage")
           .prefetch_related("factures", "factures__paiements")
           .order_by("date_acompte"))

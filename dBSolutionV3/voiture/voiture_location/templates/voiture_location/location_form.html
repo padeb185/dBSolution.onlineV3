@@ -247,6 +247,7 @@
             {% if form.payee.help_text %}<p class="text-gray-500 text-sm mt-1 ml-7">{{ form.payee.help_text }}</p>{% endif %}
             {% if form.payee.errors %}<p class="text-red-600 text-sm mt-1 ml-7">{{ form.payee.errors|striptags }}</p>{% endif %}
         </div>
+        {% include "voiture_location/_champ.html" with field=form.mode_solde %}
 
         {% include "voiture_location/_vendeur_form.html" %}
 
@@ -315,14 +316,19 @@
     const montant = document.getElementById("bloc-montant_acompte");
     const date = document.getElementById("bloc-date_acompte");
     const mode = document.getElementById("bloc-mode_acompte");
+    const payee = document.getElementById("id_payee");
+    const modeSolde = document.getElementById("bloc-mode_solde");
     if (!acompte || !montant) return;
     function maj() {
         const v = acompte.checked ? "" : "none";
         montant.style.display = v;
         if (date) date.style.display = v;
         if (mode) mode.style.display = v;
+        // Mode de paiement du solde : visible quand la location est cochée « Payée »
+        if (modeSolde) modeSolde.style.display = (payee && payee.checked) ? "" : "none";
     }
     acompte.addEventListener("change", maj);
+    if (payee) payee.addEventListener("change", maj);
     maj();
 })();
 

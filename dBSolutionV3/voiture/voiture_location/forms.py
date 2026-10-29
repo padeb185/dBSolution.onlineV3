@@ -100,6 +100,7 @@ class LocationForm(forms.ModelForm):
             "date_acompte",
             "mode_acompte",
             "payee",
+            "mode_solde",
             "remarques",
             "instructeur",
             "instructeur_heures",

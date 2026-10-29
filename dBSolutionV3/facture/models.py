@@ -1021,6 +1021,14 @@ class PaiementFacture(models.Model):
         related_name="paiements_acompte",
         verbose_name=_("Location (acompte)"),
     )
+    # Paiement saisi depuis la location : acompte, ou solde (location cochée « Payée »)
+    role_location = models.CharField(
+        _("Paiement de la location"),
+        max_length=10,
+        choices=[("ACOMPTE", _("Acompte")), ("SOLDE", _("Solde"))],
+        default="ACOMPTE",
+        help_text=_("Uniquement pour un paiement lié à une location."),
+    )
     cree_par = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,

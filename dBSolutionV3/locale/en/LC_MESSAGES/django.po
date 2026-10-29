@@ -68109,3 +68109,21 @@ msgid "%(n)s connecteur"
 msgid_plural "%(n)s connecteurs"
 msgstr[0] "%(n)s connector"
 msgstr[1] "%(n)s connectors"
+
+msgid "Paiement de la location"
+msgstr "Rental payment"
+
+msgid "Uniquement pour un paiement lié à une location."
+msgstr "Only for a payment linked to a rental."
+
+msgid "Solde location"
+msgstr "Rental balance"
+
+msgid "Mode de paiement du solde"
+msgstr "Balance payment method"
+
+msgid "Km supplémentaires à payer"
+msgstr "Extra km to be paid"
+
+msgid "Paiement en espèces refusé : %(montant)s € dépasse le plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une carte."
+msgstr "Cash payment refused: %(montant)s € exceeds the limit allowed in %(pays)s (%(plafond)s €). Use a transfer or a card."
