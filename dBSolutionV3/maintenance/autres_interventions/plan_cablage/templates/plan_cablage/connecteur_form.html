@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Connecteur" %}{% endblock %}
+{% block content %}
+{% include "plan_cablage/_style.html" %}
+<br>
+<div class="p-6">
+    {% if connecteur %}{% trans "Modifier le connecteur" as titre %}{% else %}{% trans "Nouveau connecteur" as titre %}{% endif %}
+    {% include "plan_cablage/_entete.html" with titre=titre %}
+    {% include "partials/messages.html" %}
+    <p class="mb-4"><strong>{{ plan.nom_boitier }}</strong>{% if plan.nom %} – {{ plan.nom }}{% endif %} <span class="pc-badge {{ plan.type_cablage }}">{{ plan.get_type_cablage_display }}</span></p>
+
+    <form method="post" id="form-connecteur">
+        {% csrf_token %}
+        {% if form.non_field_errors or fils.non_form_errors %}
+            <div class="pc-carte" style="background:#fee2e2;color:#991b1b">{{ form.non_field_errors }}{{ fils.non_form_errors }}</div>
+        {% endif %}
+
+        <div class="pc-carte">
+            <h2 class="pc-titre">{% trans "Composant et branche du faisceau" %}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {% for field in form %}
+                <div>
+                    <label for="{{ field.id_for_label }}" class="block font-semibold mb-1">{{ field.label }}{% if field.field.required %} <span class="text-red-600">*</span>{% endif %}</label>
+                    {{ field }}
+                    {% if field.help_text %}<p class="pc-aide mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% for e in field.errors %}<p class="text-red-600 text-sm mt-1">{{ e }}</p>{% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="pc-carte overflow-x-auto">
+            <div class="pc-connecteur-entete">
+                <h2 class="pc-titre" style="margin:0">{% trans "Fils" %} (<span id="nb-fils">0</span>)</h2>
+                <div class="flex flex-wrap items-center gap-2">
+                    <label class="pc-aide" for="modele-fils">{% trans "Modèle" %}</label>
+                    <select id="modele-fils" class="border rounded px-2 py-1 text-sm">
+                        <option value="">—</option>
+                        <option value="alim3">{% trans "3 fils : + rouge, − noir, signal jaune" %}</option>
+                        <option value="injecteur">{% trans "Injecteur 2 fils : + / commande" %}</option>
+                        <option value="capteur3">{% trans "Capteur 3 fils : 5 V, masse capteur, signal" %}</option>
+                        <option value="lambda4">{% trans "Sonde lambda 4 fils : chauffage +/−, signal, masse" %}</option>
+                        <option value="can">{% trans "Bus CAN 2 fils : CAN H / CAN L" %}</option>
+                    </select>
+                    <button type="button" id="appliquer-modele" class="pc-btn pc-btn-gris pc-btn-petit">{% trans "Ajouter" %}</button>
+                    <span class="pc-aide">{% trans "ou" %}</span>
+                    <input type="number" id="nb-a-ajouter" min="1" max="60" value="1" class="border rounded px-2 py-1 text-sm" style="width:4.5rem">
+                    <button type="button" id="ajouter-fils" class="pc-btn pc-btn-petit">+ {% trans "fil(s)" %}</button>
+                </div>
+            </div>
+            {{ fils.management_form }}
+            <table class="pc-table">
+                <thead><tr>
+                    <th>{% trans "Pin connecteur" %}</th><th>{% trans "Pin boîtier" %}</th>
+                    <th>{% trans "Couleur du fil" %}</th><th>{% trans "Couleur de la bande" %}</th><th></th>
+                    <th>{% trans "Fonction" %}</th><th>{% trans "Description" %}</th><th>{% trans "Section (mm²)" %}</th><th></th>
+                </tr></thead>
+                <tbody id="lignes-fils">
+                {% for f in fils %}{% include "plan_cablage/_ligne_fil.html" %}{% endfor %}
+                </tbody>
+            </table>
+            <template id="modele-ligne">{% with f=fils.empty_form %}{% include "plan_cablage/_ligne_fil.html" %}{% endwith %}</template>
+            <p class="pc-aide mt-2">{% trans "Fil bicolore : couleur du fil + couleur de la bande (ex. jaune / blanc). Pin connecteur : position du fil dans le connecteur ; pin boîtier : broche du calculateur." %}</p>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+            <button type="submit" class="pc-btn" style="flex:1">{% trans "Enregistrer" %}</button>
+            <button type="submit" name="suivant" value="1" class="pc-btn pc-btn-vert" style="flex:1">{% trans "Enregistrer et ajouter un autre connecteur" %}</button>
+            <a href="{% url 'plan_cablage:plan_detail' plan.pk %}" class="pc-btn pc-btn-gris" style="flex:1">{% trans "Annuler" %}</a>
+        </div>
+    </form>
+</div>
+{{ couleurs_hex|json_script:"couleurs-hex" }}
+<script>
+(function () {
+    const HEX = JSON.parse(document.getElementById("couleurs-hex").textContent);
+    const total = document.getElementById("id_fil-TOTAL_FORMS");
+    const corps = document.getElementById("lignes-fils");
+    const modele = document.getElementById("modele-ligne");
+
+    function apercu(ligne) {
+        const fil = ligne.querySelector("select.couleur-fil");
+        const bande = ligne.querySelector("select.couleur-bande");
+        const span = ligne.querySelector(".apercu");
+        if (!fil || !span) return;
+        const a = HEX[fil.value] || "#ffffff";
+        const b = bande && bande.value ? HEX[bande.value] : null;
+        span.style.background = b ? `repeating-linear-gradient(90deg, ${a} 0 9px, ${b} 9px 14px)` : a;
+    }
+    function compter() {
+        let n = 0;
+        corps.querySelectorAll(".ligne-fil").forEach(function (l) {
+            const del = l.querySelector('input[type="checkbox"][name$="-DELETE"]');
+            if (!(del && del.checked)) n++;
+        });
+        document.getElementById("nb-fils").textContent = n;
+    }
+    function prochainePin() {
+        let max = 0;
+        corps.querySelectorAll('input[name$="-pin_connecteur"]').forEach(function (i) {
+            const v = parseInt(i.value, 10); if (!isNaN(v) && v > max) max = v;
+        });
+        return max + 1;
+    }
+    function ajouter(valeurs) {
+        const i = parseInt(total.value, 10);
+        corps.insertAdjacentHTML("beforeend", modele.innerHTML.replace(/__prefix__/g, i));
+        total.value = i + 1;
+        const ligne = corps.lastElementChild;
+        const v = Object.assign({pin_connecteur: prochainePin()}, valeurs || {});
+        Object.keys(v).forEach(function (k) {
+            const el = ligne.querySelector(`[name="fil-${i}-${k}"]`);
+            if (el) el.value = v[k];
+        });
+        apercu(ligne); compter();
+    }
+    function renumeroter() {
+        const lignes = corps.querySelectorAll(".ligne-fil");
+        lignes.forEach(function (l, i) {
+            l.querySelectorAll("input,select").forEach(function (el) {
+                ["name", "id"].forEach(function (a) {
+                    const v = el.getAttribute(a); if (v) el.setAttribute(a, v.replace(/fil-\d+-/, "fil-" + i + "-"));
+                });
+            });
+        });
+        total.value = lignes.length;
+    }
+    const MODELES = {
+        alim3: [{couleur_fil: "ROUGE", fonction: "PLUS"}, {couleur_fil: "NOIR", fonction: "MOINS"}, {couleur_fil: "JAUNE", fonction: "SIGNAL"}],
+        injecteur: [{couleur_fil: "ROUGE", fonction: "PLUS_APC"}, {couleur_fil: "JAUNE", couleur_bande: "BLANC", fonction: "COMMANDE"}],
+        capteur3: [{couleur_fil: "ROUGE", fonction: "REF_5V"}, {couleur_fil: "MARRON", fonction: "MASSE_CAPT"}, {couleur_fil: "JAUNE", fonction: "SIGNAL"}],
+        lambda4: [{couleur_fil: "BLANC", fonction: "PLUS"}, {couleur_fil: "BLANC", couleur_bande: "NOIR", fonction: "COMMANDE"}, {couleur_fil: "NOIR", fonction: "SIGNAL"}, {couleur_fil: "GRIS", fonction: "MASSE_CAPT"}],
+        can: [{couleur_fil: "JAUNE", couleur_bande: "NOIR", fonction: "CAN_H"}, {couleur_fil: "VERT", couleur_bande: "NOIR", fonction: "CAN_L"}],
+    };
+    function retirerLignesVides() {
+        // Nouvelles lignes encore vides (sans couleur) : remplacées par le modèle
+        corps.querySelectorAll(".ligne-fil").forEach(function (l) {
+            const fil = l.querySelector("select.couleur-fil");
+            if (l.querySelector(".retirer-fil") && fil && !fil.value) l.remove();
+        });
+        renumeroter();
+    }
+    document.getElementById("appliquer-modele").addEventListener("click", function () {
+        if (!MODELES[document.getElementById("modele-fils").value]) return;
+        retirerLignesVides();
+        (MODELES[document.getElementById("modele-fils").value] || []).forEach(function (v) { ajouter(v); });
+    });
+    document.getElementById("ajouter-fils").addEventListener("click", function () {
+        const n = Math.min(parseInt(document.getElementById("nb-a-ajouter").value, 10) || 1, 60);
+        for (let k = 0; k < n; k++) ajouter();
+    });
+    corps.addEventListener("change", function (e) {
+        const l = e.target.closest(".ligne-fil"); if (l) apercu(l); compter();
+    });
+    corps.addEventListener("click", function (e) {
+        if (e.target.classList.contains("retirer-fil")) { e.target.closest(".ligne-fil").remove(); renumeroter(); compter(); }
+    });
+    corps.querySelectorAll(".ligne-fil").forEach(apercu);
+    if (!corps.querySelector(".ligne-fil")) ajouter();
+    compter();
+})();
+</script>
+{% endblock %}

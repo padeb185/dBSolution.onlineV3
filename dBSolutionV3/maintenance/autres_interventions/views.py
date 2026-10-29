@@ -126,6 +126,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     total_ventilation = 0
     total_securite = 0
     total_fusibles = 0
+    total_plans_cablage = 0
     total_demarreur = 0
     total_remplacement_boite = 0
     total_remplacement_bte_auto = 0
@@ -237,6 +238,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
             total_securite = Securite.objects.filter(voiture_exemplaire=exemplaire).count()
             from maintenance.autres_interventions.fusibles.models import Fusibles
             total_fusibles = Fusibles.objects.filter(voiture_exemplaire=exemplaire).count()
+            from maintenance.autres_interventions.plan_cablage.models import PlanCablage
+            total_plans_cablage = PlanCablage.objects.filter(voiture_exemplaire=exemplaire).count()
             from maintenance.autres_interventions.demarreur.models import Demarreur
             total_demarreur = Demarreur.objects.filter(voiture_exemplaire=exemplaire).count()
             total_remplacement_boite = remplacement_boite.count()
@@ -408,6 +411,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_ventilation": total_ventilation,
         "total_securite": total_securite,
         "total_fusibles": total_fusibles,
+        "total_plans_cablage": total_plans_cablage,
         "total_demarreur": total_demarreur,
         "total_remplacement_boite": total_remplacement_boite,
         "total_remplacement_bte_auto": total_remplacement_bte_auto,

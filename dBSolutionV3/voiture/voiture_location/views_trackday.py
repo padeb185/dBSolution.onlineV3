@@ -49,6 +49,10 @@ def trackday_liste(request):
     if annee.isdigit():
         trackdays = trackdays.filter(date_debut__year=int(annee))
     lignes = [{"t": t, **t.rentabilite()} for t in trackdays]
+    if not _voit_tout(request.user):
+        # Vendeurs : ni chiffre d'affaires, ni coûts, ni marge (statistiques réservées à la direction)
+        lignes = [{"t": l["t"], "nb_vehicules": l["nb_vehicules"], "nb_box": l["nb_box"], "nombre_box": l["nombre_box"]}
+                  for l in lignes]
     return render(request, "voiture_location/trackday/liste.html", {
         "lignes": lignes, "annee": annee,
         "annees": range(timezone.localdate().year - 5, timezone.localdate().year + 2),
@@ -61,24 +65,27 @@ def trackday_liste(request):
 def _trackday_form(request, trackday=None):
     instance = trackday or Trackday(societe=request.user.societe)
     form = TrackdayForm(request.POST or None, instance=instance)
-    couts_fs = TrackdayCoutFormSet(request.POST or None, instance=instance, prefix="cout")
+    # Prix d'achat (location du circuit…) : direction uniquement — ni affiché ni modifiable par les vendeurs
+    voit_couts = _voit_tout(request.user)
+    couts_fs = TrackdayCoutFormSet(request.POST or None, instance=instance, prefix="cout") if voit_couts else None
     if request.method == "POST":
-        if form.is_valid() and couts_fs.is_valid():
+        if form.is_valid() and (couts_fs is None or couts_fs.is_valid()):
             with transaction.atomic():
                 obj = form.save(commit=False)
                 obj.societe = request.user.societe
                 if not obj.cree_par_id:
                     obj.cree_par = request.user
                 obj.save()
-                couts_fs.instance = obj
-                couts_fs.save()
+                if couts_fs is not None:
+                    couts_fs.instance = obj
+                    couts_fs.save()
             _log(request.user, gettext_noop("Trackday") if trackday is None else gettext_noop("Modification du Trackday"), obj)
             messages.success(request, _("Trackday « %(t)s » enregistré.") % {"t": obj})
             return redirect("voiture_location:trackday_detail", pk=obj.pk)
         messages.error(request, _("Le formulaire contient des erreurs."))
     return render(request, "voiture_location/trackday/form.html", {
         "form": form, "couts_fs": couts_fs, "trackday": trackday,
-        "voit_couts": _voit_tout(request.user),
+        "voit_couts": voit_couts,
     })
 
 
@@ -147,9 +154,15 @@ def trackday_detail(request, pk):
     lignes = [_ligne_vehicule(l) for l in trackday.locations_liste()]
     sans_numero = [l for l in lignes if not l["loc"].numero_course]
 
-    # Ventes par vendeur sur ce Trackday
+    voit_rentabilite = _voit_tout(request.user)
+    r = trackday.rentabilite()
+    if not voit_rentabilite:
+        # Vendeurs : seulement les informations d'organisation (véhicules, box, tours, km)
+        r = {k: r[k] for k in ("nb_vehicules", "nb_box", "nombre_box", "tours", "km") if k in r}
+
+    # Ventes par vendeur sur ce Trackday (statistiques : direction uniquement)
     vendeurs = OrderedDict()
-    for l in trackday.locations_liste():
+    for l in (trackday.locations_liste() if voit_rentabilite else []):
         v = vendeurs.setdefault(l.vendeur_id, {"vendeur": l.vendeur, "nb": 0, "htva": ZERO, "tvac": ZERO})
         v["nb"] += 1
         v["htva"] += l.prix_htva
@@ -157,9 +170,9 @@ def trackday_detail(request, pk):
 
     return render(request, "voiture_location/trackday/detail.html", {
         "trackday": trackday, "lignes": lignes, "sans_numero": sans_numero,
-        "r": trackday.rentabilite(), "plan_box": trackday.plan_box(),
+        "r": r, "plan_box": trackday.plan_box(),
         "vendeurs": sorted(vendeurs.values(), key=lambda v: v["tvac"], reverse=True),
-        "voit_rentabilite": _voit_tout(request.user),
+        "voit_rentabilite": voit_rentabilite,
         "peut_supprimer": request.user.is_superuser or getattr(request.user, "role", None) in ROLES_SUPPRESSION,
     })
 

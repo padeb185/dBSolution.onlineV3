@@ -68177,3 +68177,285 @@ msgstr "Statische Berechnung: (km bei Anlage des Fahrzeugs − Kauf-km) × Verbr
 
 msgid "Aucun kilomètre entre l'achat (%(achat)s km) et la création du véhicule (%(creation)s km)."
 msgstr "Keine Kilometer zwischen Kauf (%(achat)s km) und Anlage des Fahrzeugs (%(creation)s km)."
+
+msgid "Plan de câblage"
+msgstr "Verkabelungsplan"
+
+msgid "La bande doit être d'une autre couleur que le fil."
+msgstr "Der Streifen muss eine andere Farbe als der Draht haben."
+
+msgid "La position %(pin)s du connecteur est utilisée plusieurs fois."
+msgstr "Steckerposition %(pin)s wird mehrfach verwendet."
+
+msgid "Câblage d'origine"
+msgstr "Originalverkabelung"
+
+msgid "Câblage custom"
+msgstr "Individuelle Verkabelung"
+
+msgid "Noir"
+msgstr "Schwarz"
+
+msgid "Bleu"
+msgstr "Blau"
+
+msgid "Blanc"
+msgstr "Weiß"
+
+msgid "Marron"
+msgstr "Braun"
+
+msgid "Gris"
+msgstr "Grau"
+
+msgid "Orange"
+msgstr "Orange"
+
+msgid "Violet"
+msgstr "Violett"
+
+msgid "Rose"
+msgstr "Rosa"
+
+msgid "Beige"
+msgstr "Beige"
+
+msgid "Vert clair"
+msgstr "Hellgrün"
+
+msgid "Bleu clair"
+msgstr "Hellblau"
+
+msgid "Transparent"
+msgstr "Transparent"
+
+msgid "+ Alimentation"
+msgstr "+ Versorgung"
+
+msgid "+ Après contact"
+msgstr "+ Zündungsplus"
+
+msgid "− Masse"
+msgstr "− Masse"
+
+msgid "Signal"
+msgstr "Signal"
+
+msgid "Commande (pilotage)"
+msgstr "Ansteuerung"
+
+msgid "Référence 5 V"
+msgstr "5-V-Referenz"
+
+msgid "Masse capteur"
+msgstr "Sensormasse"
+
+msgid "CAN High"
+msgstr "CAN High"
+
+msgid "CAN Low"
+msgstr "CAN Low"
+
+msgid "LIN"
+msgstr "LIN"
+
+msgid "Blindage"
+msgstr "Abschirmung"
+
+msgid "Type de câblage"
+msgstr "Verkabelungsart"
+
+msgid "Nom du faisceau"
+msgstr "Name des Kabelbaums"
+
+msgid "Ex. : faisceau moteur, faisceau habitacle…"
+msgstr "Z. B. Motorkabelbaum, Innenraumkabelbaum…"
+
+msgid "Nom du boîtier électronique"
+msgstr "Name des Steuergeräts"
+
+msgid "Ex. : Bosch ME7.5, MoTeC M150, PDM…"
+msgstr "Z. B. Bosch ME7.5, MoTeC M150, PDM…"
+
+msgid "Référence du boîtier"
+msgstr "Steuergerätenummer"
+
+msgid "Plans de câblage"
+msgstr "Verkabelungspläne"
+
+msgid "Composant / connecteur"
+msgstr "Bauteil / Stecker"
+
+msgid "Ex. : injecteur cylindre 1, capteur PMH, sonde lambda…"
+msgstr "Z. B. Einspritzdüse Zylinder 1, OT-Geber, Lambdasonde…"
+
+msgid "Référence du connecteur"
+msgstr "Steckerbezeichnung"
+
+msgid "Ex. : Bosch EV1 2 voies, Deutsch DTM 3 voies…"
+msgstr "Z. B. Bosch EV1 2-polig, Deutsch DTM 3-polig…"
+
+msgid "Longueur (cm)"
+msgstr "Länge (cm)"
+
+msgid "Nombre de coudes"
+msgstr "Anzahl der Biegungen"
+
+msgid "Gaine / protection"
+msgstr "Schlauch / Schutz"
+
+msgid "Ex. : DR-25, gaine tressée, thermo…"
+msgstr "Z. B. DR-25, Geflechtschlauch, Schrumpfschlauch…"
+
+msgid "Pin boîtier"
+msgstr "Steuergeräte-Pin"
+
+msgid "Ex. : A12, 45"
+msgstr "Z. B. A12, 45"
+
+msgid "Pin connecteur (position)"
+msgstr "Stecker-Pin (Position)"
+
+msgid "Position / numéro de pin dans le connecteur"
+msgstr "Position / Pin-Nummer im Stecker"
+
+msgid "Couleur du fil"
+msgstr "Drahtfarbe"
+
+msgid "Couleur de la bande"
+msgstr "Streifenfarbe"
+
+msgid "Fil bicolore : ex. jaune / blanc"
+msgstr "Zweifarbiger Draht: z. B. gelb / weiß"
+
+msgid "Ex. : commande injecteur 1"
+msgstr "Z. B. Ansteuerung Einspritzdüse 1"
+
+msgid "Section (mm²)"
+msgstr "Querschnitt (mm²)"
+
+msgid "Fil"
+msgstr "Draht"
+
+msgid "Fils"
+msgstr "Drähte"
+
+msgid "Modification du plan de câblage"
+msgstr "Änderung des Verkabelungsplans"
+
+msgid "Plan de câblage « %(p)s » enregistré."
+msgstr "Verkabelungsplan „%(p)s“ gespeichert."
+
+msgid "Suppression du plan de câblage"
+msgstr "Löschung des Verkabelungsplans"
+
+msgid "Plan de câblage supprimé."
+msgstr "Verkabelungsplan gelöscht."
+
+msgid "Connecteur « %(c)s » enregistré."
+msgstr "Stecker „%(c)s“ gespeichert."
+
+msgid "Connecteur « %(c)s » supprimé."
+msgstr "Stecker „%(c)s“ gelöscht."
+
+msgid "Pin connecteur"
+msgstr "Stecker-Pin"
+
+msgid "Couleur (fil / bande)"
+msgstr "Farbe (Draht / Streifen)"
+
+msgid "Section"
+msgstr "Querschnitt"
+
+msgid "Aucun fil."
+msgstr "Kein Draht."
+
+msgid "Modifier le connecteur"
+msgstr "Stecker bearbeiten"
+
+msgid "Nouveau connecteur"
+msgstr "Neuer Stecker"
+
+msgid "Composant et branche du faisceau"
+msgstr "Bauteil und Kabelbaumzweig"
+
+msgid "3 fils : + rouge, − noir, signal jaune"
+msgstr "3 Drähte: + rot, − schwarz, Signal gelb"
+
+msgid "Injecteur 2 fils : + / commande"
+msgstr "Einspritzdüse 2 Drähte: + / Ansteuerung"
+
+msgid "Capteur 3 fils : 5 V, masse capteur, signal"
+msgstr "Sensor 3 Drähte: 5 V, Sensormasse, Signal"
+
+msgid "Sonde lambda 4 fils : chauffage +/−, signal, masse"
+msgstr "Lambdasonde 4 Drähte: Heizung +/−, Signal, Masse"
+
+msgid "Bus CAN 2 fils : CAN H / CAN L"
+msgstr "CAN-Bus 2 Drähte: CAN H / CAN L"
+
+msgid "ou"
+msgstr "oder"
+
+msgid "fil(s)"
+msgstr "Draht/Drähte"
+
+msgid "Fil bicolore : couleur du fil + couleur de la bande (ex. jaune / blanc). Pin connecteur : position du fil dans le connecteur ; pin boîtier : broche du calculateur."
+msgstr "Zweifarbiger Draht: Drahtfarbe + Streifenfarbe (z. B. gelb / weiß). Stecker-Pin: Position des Drahts im Stecker; Steuergeräte-Pin: Pin des Steuergeräts."
+
+msgid "Enregistrer et ajouter un autre connecteur"
+msgstr "Speichern und weiteren Stecker hinzufügen"
+
+msgid "Nouveau plan de câblage"
+msgstr "Neuer Verkabelungsplan"
+
+msgid "Boîtier électronique"
+msgstr "Steuergerät"
+
+msgid "Faisceau"
+msgstr "Kabelbaum"
+
+msgid "Aucun plan de câblage pour ce véhicule."
+msgstr "Kein Verkabelungsplan für dieses Fahrzeug."
+
+msgid "Ajouter un connecteur"
+msgstr "Stecker hinzufügen"
+
+msgid "Longueur de fil totale"
+msgstr "Gesamte Drahtlänge"
+
+msgid "Gaine"
+msgstr "Schlauch"
+
+msgid "Aucun connecteur. Ajoutez le premier : composant, longueur, coudes et fils."
+msgstr "Kein Stecker. Fügen Sie den ersten hinzu: Bauteil, Länge, Biegungen und Drähte."
+
+msgid "Modifier le plan de câblage"
+msgstr "Verkabelungsplan bearbeiten"
+
+msgid "Après l'enregistrement, ajoutez les connecteurs et leurs fils (pin boîtier, position dans le connecteur, couleur / bande, fonction, longueur, coudes)."
+msgstr "Fügen Sie nach dem Speichern die Stecker und ihre Drähte hinzu (Steuergeräte-Pin, Position im Stecker, Farbe / Streifen, Funktion, Länge, Biegungen)."
+
+msgid "Câblage"
+msgstr "Verkabelung"
+
+msgid "Origine · Custom · Boîtier, connecteurs, fils"
+msgstr "Original · Individuell · Steuergerät, Stecker, Drähte"
+
+msgid "Supprimer « %(nom)s » ? Les connecteurs et fils liés sont supprimés aussi."
+msgstr "„%(nom)s“ löschen? Die verknüpften Stecker und Drähte werden ebenfalls gelöscht."
+
+msgid "%(n)s fil"
+msgid_plural "%(n)s fils"
+msgstr[0] "%(n)s Draht"
+msgstr[1] "%(n)s Drähte"
+
+msgid "%(n)s coude"
+msgid_plural "%(n)s coudes"
+msgstr[0] "%(n)s Biegung"
+msgstr[1] "%(n)s Biegungen"
+
+msgid "%(n)s connecteur"
+msgid_plural "%(n)s connecteurs"
+msgstr[0] "%(n)s Stecker"
+msgstr[1] "%(n)s Stecker"

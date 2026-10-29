@@ -1,0 +1,2 @@
+{# Pastille d'un fil : couleur du fil + rayures de la couleur de la bande #}
+<span class="pc-fil" style="{% if f.hex_bande %}background:repeating-linear-gradient(90deg, {{ f.hex_fil }} 0 9px, {{ f.hex_bande }} 9px 14px){% else %}background:{{ f.hex_fil }}{% endif %}"></span>

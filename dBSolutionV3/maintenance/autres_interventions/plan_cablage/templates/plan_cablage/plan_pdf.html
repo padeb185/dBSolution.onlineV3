@@ -1,0 +1,54 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+    @page { size: A4; margin: 14mm 12mm; }
+    body { font-family: Helvetica, Arial, sans-serif; font-size: 9.5pt; color: #111827; }
+    h1 { font-size: 15pt; margin: 0 0 4px 0; }
+    h2 { font-size: 11pt; margin: 14px 0 3px 0; }
+    .aide { color: #6b7280; font-size: 8.5pt; }
+    table { width: 100%; border-collapse: collapse; margin-top: 4px; page-break-inside: auto; }
+    th, td { border: 1px solid #d1d5db; padding: 3px 5px; text-align: left; }
+    th { background: #f3f4f6; }
+    .fil { display: inline-block; width: 34px; height: 9px; border-radius: 4px; border: 1px solid #6b7280; vertical-align: middle; margin-right: 4px; }
+    .entete td { border: 0; padding: 0; }
+    .connecteur { page-break-inside: avoid; }
+</style>
+</head>
+<body>
+<table class="entete"><tr>
+    <td>
+        <h1>{% trans "Plan de câblage" %} – {{ plan.nom_boitier }}</h1>
+        <div>{{ plan.get_type_cablage_display }}{% if plan.nom %} · {{ plan.nom }}{% endif %}{% if plan.reference_boitier %} · {% trans "Réf." %} {{ plan.reference_boitier }}{% endif %}</div>
+        <div class="aide">{{ exemplaire.voiture_modele.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }} · {{ exemplaire.immatriculation }} · {{ exemplaire.numero_vin|default:"" }}</div>
+    </td>
+    <td style="text-align:right" class="aide">{{ societe.nom }}<br>{% now "d/m/Y" %}<br>
+        {% blocktrans count n=connecteurs|length %}{{ n }} connecteur{% plural %}{{ n }} connecteurs{% endblocktrans %} · {% blocktrans count n=nb_fils %}{{ n }} fil{% plural %}{{ n }} fils{% endblocktrans %} · {{ longueur_totale_m }} m</td>
+</tr></table>
+{% if plan.remarques %}<p>{{ plan.remarques|linebreaksbr }}</p>{% endif %}
+
+{% for c in connecteurs %}
+<div class="connecteur">
+    <h2>{{ c.nom }}</h2>
+    <div class="aide">
+        {% blocktrans count n=c.fils.all|length %}{{ n }} fil{% plural %}{{ n }} fils{% endblocktrans %}{% if c.longueur_cm %} · {{ c.longueur_cm }} cm{% endif %} · {% blocktrans count n=c.nombre_coudes %}{{ n }} coude{% plural %}{{ n }} coudes{% endblocktrans %}{% if c.reference_connecteur %} · {% trans "Connecteur" %} {{ c.reference_connecteur }}{% endif %}{% if c.gaine %} · {% trans "Gaine" %} {{ c.gaine }}{% endif %}{% if c.remarques %} · {{ c.remarques }}{% endif %}
+    </div>
+    <table>
+        <tr><th>{% trans "Pin connecteur" %}</th><th>{% trans "Pin boîtier" %}</th><th>{% trans "Couleur (fil / bande)" %}</th><th>{% trans "Fonction" %}</th><th>{% trans "Description" %}</th><th>{% trans "Section" %}</th></tr>
+        {% for f in c.fils.all %}
+        <tr>
+            <td><strong>{{ f.pin_connecteur|default:"—" }}</strong></td>
+            <td>{{ f.pin_boitier|default:"—" }}</td>
+            <td><span class="fil" style="{% if f.hex_bande %}background:repeating-linear-gradient(90deg, {{ f.hex_fil }} 0 7px, {{ f.hex_bande }} 7px 11px){% else %}background:{{ f.hex_fil }}{% endif %}"></span>{{ f.libelle_couleur }}</td>
+            <td>{{ f.get_fonction_display }}</td>
+            <td>{{ f.description }}</td>
+            <td>{% if f.section_mm2 %}{{ f.section_mm2|floatformat:"-2" }} mm²{% endif %}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endfor %}
+</body>
+</html>

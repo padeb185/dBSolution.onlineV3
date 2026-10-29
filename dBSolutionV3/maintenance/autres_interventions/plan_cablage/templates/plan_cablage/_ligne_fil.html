@@ -1,0 +1,12 @@
+{% load i18n %}
+<tr class="ligne-fil">
+    <td>{% for h in f.hidden_fields %}{{ h }}{% endfor %}{{ f.pin_connecteur }}{% for e in f.pin_connecteur.errors %}<p class="text-red-600 text-xs">{{ e }}</p>{% endfor %}</td>
+    <td>{{ f.pin_boitier }}</td>
+    <td>{{ f.couleur_fil }}{% for e in f.couleur_fil.errors %}<p class="text-red-600 text-xs">{{ e }}</p>{% endfor %}</td>
+    <td>{{ f.couleur_bande }}{% for e in f.couleur_bande.errors %}<p class="text-red-600 text-xs">{{ e }}</p>{% endfor %}</td>
+    <td style="text-align:center"><span class="pc-fil apercu"></span></td>
+    <td>{{ f.fonction }}</td>
+    <td>{{ f.description }}</td>
+    <td>{{ f.section_mm2 }}</td>
+    <td style="text-align:center">{% if not f.empty_permitted %}<label class="text-sm" style="color:#b91c1c">{{ f.DELETE }} {% trans "Suppr." %}</label>{% else %}<button type="button" class="retirer-fil text-sm" style="color:#b91c1c">✕</button>{% endif %}</td>
+</tr>

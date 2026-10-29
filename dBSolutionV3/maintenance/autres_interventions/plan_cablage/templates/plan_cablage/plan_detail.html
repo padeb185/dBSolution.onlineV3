@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Plan de câblage" %}{% endblock %}
+{% block content %}
+{% include "plan_cablage/_style.html" %}
+<br>
+<div class="p-6">
+    {% trans "Plan de câblage" as titre %}
+    {% include "plan_cablage/_entete.html" with titre=titre %}
+    {% include "partials/messages.html" %}
+
+    <div class="flex flex-wrap gap-2 mb-6">
+        {% if peut_modifier %}
+            <a href="{% url 'plan_cablage:connecteur_ajouter' plan.pk %}" class="pc-btn pc-btn-vert">+ {% trans "Ajouter un connecteur" %}</a>
+            <a href="{% url 'plan_cablage:plan_modifier' plan.pk %}" class="pc-btn pc-btn-gris">{% trans "Modifier" %}</a>
+        {% endif %}
+        <a href="{% url 'plan_cablage:plan_pdf' plan.pk %}" target="_blank" class="pc-btn">{% trans "PDF" %}</a>
+        {% if peut_supprimer %}<a href="{% url 'plan_cablage:plan_supprimer' plan.pk %}" class="pc-btn pc-btn-rouge">{% trans "Supprimer" %}</a>{% endif %}
+        <a href="{% url 'plan_cablage:plan_liste' exemplaire.id %}" class="pc-btn pc-btn-gris">{% trans "Retour à la liste" %}</a>
+    </div>
+
+    <div class="pc-carte">
+        <h2 class="pc-titre flex items-center gap-3">{{ plan.nom_boitier }} <span class="pc-badge {{ plan.type_cablage }}">{{ plan.get_type_cablage_display }}</span></h2>
+        <div class="pc-kpi">
+            <div><span>{% trans "Boîtier électronique" %}</span><strong>{{ plan.nom_boitier }}</strong></div>
+            <div><span>{% trans "Référence du boîtier" %}</span><strong>{{ plan.reference_boitier|default:"—" }}</strong></div>
+            <div><span>{% trans "Faisceau" %}</span><strong>{{ plan.nom|default:"—" }}</strong></div>
+            <div><span>{% trans "Connecteurs" %}</span><strong>{{ connecteurs|length }}</strong></div>
+            <div><span>{% trans "Fils" %}</span><strong>{{ nb_fils }}</strong></div>
+            <div><span>{% trans "Longueur de fil totale" %}</span><strong>{{ longueur_totale_m }} m</strong></div>
+        </div>
+        {% if plan.remarques %}<div class="mt-3">{{ plan.remarques|linebreaks }}</div>{% endif %}
+    </div>
+
+    {% for c in connecteurs %}
+    <div class="pc-carte overflow-x-auto" id="connecteur-{{ c.pk }}">
+        <div class="pc-connecteur-entete">
+            <div>
+                <h2 class="pc-titre" style="margin-bottom:.15rem">{{ c.nom }}</h2>
+                <div class="pc-aide">
+                    {% blocktrans count n=c.fils.all|length %}{{ n }} fil{% plural %}{{ n }} fils{% endblocktrans %}
+                    {% if c.longueur_cm %} · {{ c.longueur_cm }} cm{% endif %}
+                    · {% blocktrans count n=c.nombre_coudes %}{{ n }} coude{% plural %}{{ n }} coudes{% endblocktrans %}
+                    {% if c.reference_connecteur %} · {% trans "Connecteur" %} {{ c.reference_connecteur }}{% endif %}
+                    {% if c.gaine %} · {% trans "Gaine" %} {{ c.gaine }}{% endif %}
+                </div>
+                {% if c.remarques %}<div class="pc-aide">{{ c.remarques }}</div>{% endif %}
+            </div>
+            {% if peut_modifier %}
+            <div class="flex gap-2">
+                <a href="{% url 'plan_cablage:connecteur_modifier' c.pk %}" class="pc-btn pc-btn-petit">{% trans "Modifier" %}</a>
+                <a href="{% url 'plan_cablage:connecteur_supprimer' c.pk %}" class="pc-btn pc-btn-rouge pc-btn-petit">{% trans "Supprimer" %}</a>
+            </div>
+            {% endif %}
+        </div>
+        {% include "plan_cablage/_tableau_fils.html" %}
+    </div>
+    {% empty %}
+    <div class="pc-carte pc-aide">{% trans "Aucun connecteur. Ajoutez le premier : composant, longueur, coudes et fils." %}</div>
+    {% endfor %}
+</div>
+{% endblock %}

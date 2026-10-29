@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Plan de câblage" %}{% endblock %}
+{% block content %}
+{% include "plan_cablage/_style.html" %}
+<br>
+<div class="p-6 max-w-3xl mx-auto">
+    {% if plan %}{% trans "Modifier le plan de câblage" as titre %}{% else %}{% trans "Nouveau plan de câblage" as titre %}{% endif %}
+    {% include "plan_cablage/_entete.html" with titre=titre %}
+    {% include "partials/messages.html" %}
+    <form method="post" class="pc-carte space-y-4">
+        {% csrf_token %}
+        {% for field in form %}
+            <div>
+                <label for="{{ field.id_for_label }}" class="block font-semibold mb-1">{{ field.label }}{% if field.field.required %} <span class="text-red-600">*</span>{% endif %}</label>
+                {{ field }}
+                {% if field.help_text %}<p class="pc-aide mt-1">{{ field.help_text }}</p>{% endif %}
+                {% for e in field.errors %}<p class="text-red-600 text-sm mt-1">{{ e }}</p>{% endfor %}
+            </div>
+        {% endfor %}
+        <p class="pc-aide">{% trans "Après l'enregistrement, ajoutez les connecteurs et leurs fils (pin boîtier, position dans le connecteur, couleur / bande, fonction, longueur, coudes)." %}</p>
+        <div class="flex gap-3">
+            <button type="submit" class="pc-btn" style="flex:1">{% trans "Enregistrer" %}</button>
+            <a href="{% if plan %}{% url 'plan_cablage:plan_detail' plan.pk %}{% else %}{% url 'plan_cablage:plan_liste' exemplaire.id %}{% endif %}" class="pc-btn pc-btn-gris" style="flex:1">{% trans "Annuler" %}</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

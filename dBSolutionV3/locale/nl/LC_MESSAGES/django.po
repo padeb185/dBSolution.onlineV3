@@ -68155,3 +68155,285 @@ msgstr "Vaste berekening: (km bij aanmaak van het voertuig − aankoop-km) × ve
 
 msgid "Aucun kilomètre entre l'achat (%(achat)s km) et la création du véhicule (%(creation)s km)."
 msgstr "Geen kilometers tussen de aankoop (%(achat)s km) en de aanmaak van het voertuig (%(creation)s km)."
+
+msgid "Plan de câblage"
+msgstr "Bedradingsplan"
+
+msgid "La bande doit être d'une autre couleur que le fil."
+msgstr "De streep moet een andere kleur hebben dan de draad."
+
+msgid "La position %(pin)s du connecteur est utilisée plusieurs fois."
+msgstr "Positie %(pin)s van de connector wordt meerdere keren gebruikt."
+
+msgid "Câblage d'origine"
+msgstr "Originele bedrading"
+
+msgid "Câblage custom"
+msgstr "Custom bedrading"
+
+msgid "Noir"
+msgstr "Zwart"
+
+msgid "Bleu"
+msgstr "Blauw"
+
+msgid "Blanc"
+msgstr "Wit"
+
+msgid "Marron"
+msgstr "Bruin"
+
+msgid "Gris"
+msgstr "Grijs"
+
+msgid "Orange"
+msgstr "Oranje"
+
+msgid "Violet"
+msgstr "Paars"
+
+msgid "Rose"
+msgstr "Roze"
+
+msgid "Beige"
+msgstr "Beige"
+
+msgid "Vert clair"
+msgstr "Lichtgroen"
+
+msgid "Bleu clair"
+msgstr "Lichtblauw"
+
+msgid "Transparent"
+msgstr "Transparant"
+
+msgid "+ Alimentation"
+msgstr "+ Voeding"
+
+msgid "+ Après contact"
+msgstr "+ Na contact"
+
+msgid "− Masse"
+msgstr "− Massa"
+
+msgid "Signal"
+msgstr "Signaal"
+
+msgid "Commande (pilotage)"
+msgstr "Aansturing"
+
+msgid "Référence 5 V"
+msgstr "5 V-referentie"
+
+msgid "Masse capteur"
+msgstr "Sensormassa"
+
+msgid "CAN High"
+msgstr "CAN High"
+
+msgid "CAN Low"
+msgstr "CAN Low"
+
+msgid "LIN"
+msgstr "LIN"
+
+msgid "Blindage"
+msgstr "Afscherming"
+
+msgid "Type de câblage"
+msgstr "Type bedrading"
+
+msgid "Nom du faisceau"
+msgstr "Naam van de kabelboom"
+
+msgid "Ex. : faisceau moteur, faisceau habitacle…"
+msgstr "Bv. motorkabelboom, interieurkabelboom…"
+
+msgid "Nom du boîtier électronique"
+msgstr "Naam van de elektronische module"
+
+msgid "Ex. : Bosch ME7.5, MoTeC M150, PDM…"
+msgstr "Bv. Bosch ME7.5, MoTeC M150, PDM…"
+
+msgid "Référence du boîtier"
+msgstr "Referentie van de module"
+
+msgid "Plans de câblage"
+msgstr "Bedradingsplannen"
+
+msgid "Composant / connecteur"
+msgstr "Component / connector"
+
+msgid "Ex. : injecteur cylindre 1, capteur PMH, sonde lambda…"
+msgstr "Bv. injector cilinder 1, BDP-sensor, lambdasonde…"
+
+msgid "Référence du connecteur"
+msgstr "Referentie van de connector"
+
+msgid "Ex. : Bosch EV1 2 voies, Deutsch DTM 3 voies…"
+msgstr "Bv. Bosch EV1 2-polig, Deutsch DTM 3-polig…"
+
+msgid "Longueur (cm)"
+msgstr "Lengte (cm)"
+
+msgid "Nombre de coudes"
+msgstr "Aantal bochten"
+
+msgid "Gaine / protection"
+msgstr "Mantel / bescherming"
+
+msgid "Ex. : DR-25, gaine tressée, thermo…"
+msgstr "Bv. DR-25, gevlochten mantel, krimpkous…"
+
+msgid "Pin boîtier"
+msgstr "Pin module"
+
+msgid "Ex. : A12, 45"
+msgstr "Bv. A12, 45"
+
+msgid "Pin connecteur (position)"
+msgstr "Pin connector (positie)"
+
+msgid "Position / numéro de pin dans le connecteur"
+msgstr "Positie / pinnummer in de connector"
+
+msgid "Couleur du fil"
+msgstr "Kleur van de draad"
+
+msgid "Couleur de la bande"
+msgstr "Kleur van de streep"
+
+msgid "Fil bicolore : ex. jaune / blanc"
+msgstr "Tweekleurige draad: bv. geel / wit"
+
+msgid "Ex. : commande injecteur 1"
+msgstr "Bv. aansturing injector 1"
+
+msgid "Section (mm²)"
+msgstr "Doorsnede (mm²)"
+
+msgid "Fil"
+msgstr "Draad"
+
+msgid "Fils"
+msgstr "Draden"
+
+msgid "Modification du plan de câblage"
+msgstr "Wijziging van het bedradingsplan"
+
+msgid "Plan de câblage « %(p)s » enregistré."
+msgstr "Bedradingsplan « %(p)s » opgeslagen."
+
+msgid "Suppression du plan de câblage"
+msgstr "Verwijdering van het bedradingsplan"
+
+msgid "Plan de câblage supprimé."
+msgstr "Bedradingsplan verwijderd."
+
+msgid "Connecteur « %(c)s » enregistré."
+msgstr "Connector « %(c)s » opgeslagen."
+
+msgid "Connecteur « %(c)s » supprimé."
+msgstr "Connector « %(c)s » verwijderd."
+
+msgid "Pin connecteur"
+msgstr "Pin connector"
+
+msgid "Couleur (fil / bande)"
+msgstr "Kleur (draad / streep)"
+
+msgid "Section"
+msgstr "Doorsnede"
+
+msgid "Aucun fil."
+msgstr "Geen draad."
+
+msgid "Modifier le connecteur"
+msgstr "Connector wijzigen"
+
+msgid "Nouveau connecteur"
+msgstr "Nieuwe connector"
+
+msgid "Composant et branche du faisceau"
+msgstr "Component en tak van de kabelboom"
+
+msgid "3 fils : + rouge, − noir, signal jaune"
+msgstr "3 draden: + rood, − zwart, signaal geel"
+
+msgid "Injecteur 2 fils : + / commande"
+msgstr "Injector 2 draden: + / aansturing"
+
+msgid "Capteur 3 fils : 5 V, masse capteur, signal"
+msgstr "Sensor 3 draden: 5 V, sensormassa, signaal"
+
+msgid "Sonde lambda 4 fils : chauffage +/−, signal, masse"
+msgstr "Lambdasonde 4 draden: verwarming +/−, signaal, massa"
+
+msgid "Bus CAN 2 fils : CAN H / CAN L"
+msgstr "CAN-bus 2 draden: CAN H / CAN L"
+
+msgid "ou"
+msgstr "of"
+
+msgid "fil(s)"
+msgstr "draad/draden"
+
+msgid "Fil bicolore : couleur du fil + couleur de la bande (ex. jaune / blanc). Pin connecteur : position du fil dans le connecteur ; pin boîtier : broche du calculateur."
+msgstr "Tweekleurige draad: kleur van de draad + kleur van de streep (bv. geel / wit). Pin connector: positie van de draad in de connector; pin module: pin van de rekeneenheid."
+
+msgid "Enregistrer et ajouter un autre connecteur"
+msgstr "Opslaan en nog een connector toevoegen"
+
+msgid "Nouveau plan de câblage"
+msgstr "Nieuw bedradingsplan"
+
+msgid "Boîtier électronique"
+msgstr "Elektronische module"
+
+msgid "Faisceau"
+msgstr "Kabelboom"
+
+msgid "Aucun plan de câblage pour ce véhicule."
+msgstr "Geen bedradingsplan voor dit voertuig."
+
+msgid "Ajouter un connecteur"
+msgstr "Een connector toevoegen"
+
+msgid "Longueur de fil totale"
+msgstr "Totale draadlengte"
+
+msgid "Gaine"
+msgstr "Mantel"
+
+msgid "Aucun connecteur. Ajoutez le premier : composant, longueur, coudes et fils."
+msgstr "Geen connector. Voeg de eerste toe: component, lengte, bochten en draden."
+
+msgid "Modifier le plan de câblage"
+msgstr "Bedradingsplan wijzigen"
+
+msgid "Après l'enregistrement, ajoutez les connecteurs et leurs fils (pin boîtier, position dans le connecteur, couleur / bande, fonction, longueur, coudes)."
+msgstr "Voeg na het opslaan de connectors en hun draden toe (pin module, positie in de connector, kleur / streep, functie, lengte, bochten)."
+
+msgid "Câblage"
+msgstr "Bedrading"
+
+msgid "Origine · Custom · Boîtier, connecteurs, fils"
+msgstr "Origineel · Custom · Module, connectors, draden"
+
+msgid "Supprimer « %(nom)s » ? Les connecteurs et fils liés sont supprimés aussi."
+msgstr "« %(nom)s » verwijderen? De gekoppelde connectors en draden worden ook verwijderd."
+
+msgid "%(n)s fil"
+msgid_plural "%(n)s fils"
+msgstr[0] "%(n)s draad"
+msgstr[1] "%(n)s draden"
+
+msgid "%(n)s coude"
+msgid_plural "%(n)s coudes"
+msgstr[0] "%(n)s bocht"
+msgstr[1] "%(n)s bochten"
+
+msgid "%(n)s connecteur"
+msgid_plural "%(n)s connecteurs"
+msgstr[0] "%(n)s connector"
+msgstr[1] "%(n)s connectors"

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+{% include "plan_cablage/_style.html" %}
+<br>
+<div class="p-6 max-w-xl mx-auto">
+    <div class="pc-carte">
+        <h1 class="pc-titre">{% trans "Confirmer la suppression" %}</h1>
+        <p class="mb-4">{% blocktrans with nom=objet %}Supprimer « {{ nom }} » ? Les connecteurs et fils liés sont supprimés aussi.{% endblocktrans %}</p>
+        <form method="post" class="flex gap-3">
+            {% csrf_token %}
+            <button type="submit" class="pc-btn pc-btn-rouge" style="flex:1">{% trans "Supprimer" %}</button>
+            <a href="{% url 'plan_cablage:plan_detail' plan.pk %}" class="pc-btn pc-btn-gris" style="flex:1">{% trans "Annuler" %}</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

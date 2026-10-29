@@ -68183,3 +68183,285 @@ msgstr "Στατικός υπολογισμός: (km κατά τη δημιου�
 
 msgid "Aucun kilomètre entre l'achat (%(achat)s km) et la création du véhicule (%(creation)s km)."
 msgstr "Κανένα χιλιόμετρο μεταξύ αγοράς (%(achat)s km) και δημιουργίας του οχήματος (%(creation)s km)."
+
+msgid "Plan de câblage"
+msgstr "Σχέδιο καλωδίωσης"
+
+msgid "La bande doit être d'une autre couleur que le fil."
+msgstr "Η λωρίδα πρέπει να έχει άλλο χρώμα από το καλώδιο."
+
+msgid "La position %(pin)s du connecteur est utilisée plusieurs fois."
+msgstr "Η θέση %(pin)s του βύσματος χρησιμοποιείται πολλές φορές."
+
+msgid "Câblage d'origine"
+msgstr "Αρχική καλωδίωση"
+
+msgid "Câblage custom"
+msgstr "Προσαρμοσμένη καλωδίωση"
+
+msgid "Noir"
+msgstr "Μαύρο"
+
+msgid "Bleu"
+msgstr "Μπλε"
+
+msgid "Blanc"
+msgstr "Λευκό"
+
+msgid "Marron"
+msgstr "Καφέ"
+
+msgid "Gris"
+msgstr "Γκρι"
+
+msgid "Orange"
+msgstr "Πορτοκαλί"
+
+msgid "Violet"
+msgstr "Μωβ"
+
+msgid "Rose"
+msgstr "Ροζ"
+
+msgid "Beige"
+msgstr "Μπεζ"
+
+msgid "Vert clair"
+msgstr "Ανοιχτό πράσινο"
+
+msgid "Bleu clair"
+msgstr "Γαλάζιο"
+
+msgid "Transparent"
+msgstr "Διαφανές"
+
+msgid "+ Alimentation"
+msgstr "+ Τροφοδοσία"
+
+msgid "+ Après contact"
+msgstr "+ Μετά τον διακόπτη"
+
+msgid "− Masse"
+msgstr "− Γείωση"
+
+msgid "Signal"
+msgstr "Σήμα"
+
+msgid "Commande (pilotage)"
+msgstr "Εντολή (οδήγηση)"
+
+msgid "Référence 5 V"
+msgstr "Αναφορά 5 V"
+
+msgid "Masse capteur"
+msgstr "Γείωση αισθητήρα"
+
+msgid "CAN High"
+msgstr "CAN High"
+
+msgid "CAN Low"
+msgstr "CAN Low"
+
+msgid "LIN"
+msgstr "LIN"
+
+msgid "Blindage"
+msgstr "Θωράκιση"
+
+msgid "Type de câblage"
+msgstr "Τύπος καλωδίωσης"
+
+msgid "Nom du faisceau"
+msgstr "Όνομα πλεξούδας"
+
+msgid "Ex. : faisceau moteur, faisceau habitacle…"
+msgstr "Π.χ. πλεξούδα κινητήρα, καμπίνας…"
+
+msgid "Nom du boîtier électronique"
+msgstr "Όνομα ηλεκτρονικής μονάδας"
+
+msgid "Ex. : Bosch ME7.5, MoTeC M150, PDM…"
+msgstr "Π.χ. Bosch ME7.5, MoTeC M150, PDM…"
+
+msgid "Référence du boîtier"
+msgstr "Κωδικός μονάδας"
+
+msgid "Plans de câblage"
+msgstr "Σχέδια καλωδίωσης"
+
+msgid "Composant / connecteur"
+msgstr "Εξάρτημα / βύσμα"
+
+msgid "Ex. : injecteur cylindre 1, capteur PMH, sonde lambda…"
+msgstr "Π.χ. μπεκ κυλίνδρου 1, αισθητήρας ΑΝΣ, αισθητήρας λάμδα…"
+
+msgid "Référence du connecteur"
+msgstr "Κωδικός βύσματος"
+
+msgid "Ex. : Bosch EV1 2 voies, Deutsch DTM 3 voies…"
+msgstr "Π.χ. Bosch EV1 2 επαφών, Deutsch DTM 3 επαφών…"
+
+msgid "Longueur (cm)"
+msgstr "Μήκος (cm)"
+
+msgid "Nombre de coudes"
+msgstr "Αριθμός καμπυλών"
+
+msgid "Gaine / protection"
+msgstr "Περίβλημα / προστασία"
+
+msgid "Ex. : DR-25, gaine tressée, thermo…"
+msgstr "Π.χ. DR-25, πλεκτό περίβλημα, θερμοσυστελλόμενο…"
+
+msgid "Pin boîtier"
+msgstr "Ακίδα μονάδας"
+
+msgid "Ex. : A12, 45"
+msgstr "Π.χ. A12, 45"
+
+msgid "Pin connecteur (position)"
+msgstr "Ακίδα βύσματος (θέση)"
+
+msgid "Position / numéro de pin dans le connecteur"
+msgstr "Θέση / αριθμός ακίδας στο βύσμα"
+
+msgid "Couleur du fil"
+msgstr "Χρώμα καλωδίου"
+
+msgid "Couleur de la bande"
+msgstr "Χρώμα λωρίδας"
+
+msgid "Fil bicolore : ex. jaune / blanc"
+msgstr "Δίχρωμο καλώδιο: π.χ. κίτρινο / λευκό"
+
+msgid "Ex. : commande injecteur 1"
+msgstr "Π.χ. εντολή μπεκ 1"
+
+msgid "Section (mm²)"
+msgstr "Διατομή (mm²)"
+
+msgid "Fil"
+msgstr "Καλώδιο"
+
+msgid "Fils"
+msgstr "Καλώδια"
+
+msgid "Modification du plan de câblage"
+msgstr "Τροποποίηση σχεδίου καλωδίωσης"
+
+msgid "Plan de câblage « %(p)s » enregistré."
+msgstr "Το σχέδιο καλωδίωσης «%(p)s» αποθηκεύτηκε."
+
+msgid "Suppression du plan de câblage"
+msgstr "Διαγραφή σχεδίου καλωδίωσης"
+
+msgid "Plan de câblage supprimé."
+msgstr "Το σχέδιο καλωδίωσης διαγράφηκε."
+
+msgid "Connecteur « %(c)s » enregistré."
+msgstr "Το βύσμα «%(c)s» αποθηκεύτηκε."
+
+msgid "Connecteur « %(c)s » supprimé."
+msgstr "Το βύσμα «%(c)s» διαγράφηκε."
+
+msgid "Pin connecteur"
+msgstr "Ακίδα βύσματος"
+
+msgid "Couleur (fil / bande)"
+msgstr "Χρώμα (καλώδιο / λωρίδα)"
+
+msgid "Section"
+msgstr "Διατομή"
+
+msgid "Aucun fil."
+msgstr "Κανένα καλώδιο."
+
+msgid "Modifier le connecteur"
+msgstr "Επεξεργασία βύσματος"
+
+msgid "Nouveau connecteur"
+msgstr "Νέο βύσμα"
+
+msgid "Composant et branche du faisceau"
+msgstr "Εξάρτημα και κλάδος πλεξούδας"
+
+msgid "3 fils : + rouge, − noir, signal jaune"
+msgstr "3 καλώδια: + κόκκινο, − μαύρο, σήμα κίτρινο"
+
+msgid "Injecteur 2 fils : + / commande"
+msgstr "Μπεκ 2 καλώδια: + / εντολή"
+
+msgid "Capteur 3 fils : 5 V, masse capteur, signal"
+msgstr "Αισθητήρας 3 καλώδια: 5 V, γείωση, σήμα"
+
+msgid "Sonde lambda 4 fils : chauffage +/−, signal, masse"
+msgstr "Αισθητήρας λάμδα 4 καλώδια: θέρμανση +/−, σήμα, γείωση"
+
+msgid "Bus CAN 2 fils : CAN H / CAN L"
+msgstr "Δίαυλος CAN 2 καλώδια: CAN H / CAN L"
+
+msgid "ou"
+msgstr "ή"
+
+msgid "fil(s)"
+msgstr "καλώδιο(-α)"
+
+msgid "Fil bicolore : couleur du fil + couleur de la bande (ex. jaune / blanc). Pin connecteur : position du fil dans le connecteur ; pin boîtier : broche du calculateur."
+msgstr "Δίχρωμο καλώδιο: χρώμα καλωδίου + χρώμα λωρίδας (π.χ. κίτρινο / λευκό). Ακίδα βύσματος: θέση του καλωδίου στο βύσμα· ακίδα μονάδας: ακίδα του εγκεφάλου."
+
+msgid "Enregistrer et ajouter un autre connecteur"
+msgstr "Αποθήκευση και προσθήκη άλλου βύσματος"
+
+msgid "Nouveau plan de câblage"
+msgstr "Νέο σχέδιο καλωδίωσης"
+
+msgid "Boîtier électronique"
+msgstr "Ηλεκτρονική μονάδα"
+
+msgid "Faisceau"
+msgstr "Πλεξούδα"
+
+msgid "Aucun plan de câblage pour ce véhicule."
+msgstr "Κανένα σχέδιο καλωδίωσης για αυτό το όχημα."
+
+msgid "Ajouter un connecteur"
+msgstr "Προσθήκη βύσματος"
+
+msgid "Longueur de fil totale"
+msgstr "Συνολικό μήκος καλωδίου"
+
+msgid "Gaine"
+msgstr "Περίβλημα"
+
+msgid "Aucun connecteur. Ajoutez le premier : composant, longueur, coudes et fils."
+msgstr "Κανένα βύσμα. Προσθέστε το πρώτο: εξάρτημα, μήκος, καμπύλες και καλώδια."
+
+msgid "Modifier le plan de câblage"
+msgstr "Επεξεργασία σχεδίου καλωδίωσης"
+
+msgid "Après l'enregistrement, ajoutez les connecteurs et leurs fils (pin boîtier, position dans le connecteur, couleur / bande, fonction, longueur, coudes)."
+msgstr "Μετά την αποθήκευση, προσθέστε τα βύσματα και τα καλώδιά τους (ακίδα μονάδας, θέση στο βύσμα, χρώμα / λωρίδα, λειτουργία, μήκος, καμπύλες)."
+
+msgid "Câblage"
+msgstr "Καλωδίωση"
+
+msgid "Origine · Custom · Boîtier, connecteurs, fils"
+msgstr "Αρχική · Προσαρμοσμένη · Μονάδα, βύσματα, καλώδια"
+
+msgid "Supprimer « %(nom)s » ? Les connecteurs et fils liés sont supprimés aussi."
+msgstr "Διαγραφή «%(nom)s»; Τα συνδεδεμένα βύσματα και καλώδια διαγράφονται επίσης."
+
+msgid "%(n)s fil"
+msgid_plural "%(n)s fils"
+msgstr[0] "%(n)s καλώδιο"
+msgstr[1] "%(n)s καλώδια"
+
+msgid "%(n)s coude"
+msgid_plural "%(n)s coudes"
+msgstr[0] "%(n)s καμπύλη"
+msgstr[1] "%(n)s καμπύλες"
+
+msgid "%(n)s connecteur"
+msgid_plural "%(n)s connecteurs"
+msgstr[0] "%(n)s βύσμα"
+msgstr[1] "%(n)s βύσματα"

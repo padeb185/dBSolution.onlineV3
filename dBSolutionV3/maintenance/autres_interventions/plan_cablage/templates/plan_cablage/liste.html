@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Plans de câblage" %}{% endblock %}
+{% block content %}
+{% include "plan_cablage/_style.html" %}
+<br>
+<div class="p-6">
+    {% trans "Plans de câblage" as titre %}
+    {% include "plan_cablage/_entete.html" with titre=titre %}
+    {% include "partials/messages.html" %}
+
+    <div class="flex flex-wrap gap-2 mb-6">
+        {% if peut_modifier %}<a href="{% url 'plan_cablage:plan_ajouter' exemplaire.id %}" class="pc-btn">+ {% trans "Nouveau plan de câblage" %}</a>{% endif %}
+        <a href="{% url 'autres_interventions:choisir_autre' exemplaire.id %}" class="pc-btn pc-btn-gris">{% trans "Retour aux interventions" %}</a>
+    </div>
+
+    <div class="pc-carte overflow-x-auto">
+        <table class="pc-table">
+            <thead><tr>
+                <th>{% trans "Type" %}</th><th>{% trans "Boîtier électronique" %}</th><th>{% trans "Faisceau" %}</th>
+                <th style="text-align:right">{% trans "Connecteurs" %}</th><th style="text-align:right">{% trans "Fils" %}</th>
+                <th>{% trans "Mis à jour le" %}</th><th></th>
+            </tr></thead>
+            <tbody>
+            {% for p in plans %}
+                <tr>
+                    <td><span class="pc-badge {{ p.type_cablage }}">{{ p.get_type_cablage_display }}</span></td>
+                    <td><strong>{{ p.nom_boitier }}</strong>{% if p.reference_boitier %}<div class="pc-aide">{{ p.reference_boitier }}</div>{% endif %}</td>
+                    <td>{{ p.nom|default:"—" }}</td>
+                    <td style="text-align:right">{{ p.connecteurs.all|length }}</td>
+                    <td style="text-align:right">{{ p.nombre_fils }}</td>
+                    <td>{{ p.updated_at|date:"d/m/Y" }}</td>
+                    <td style="text-align:right"><a href="{% url 'plan_cablage:plan_detail' p.pk %}" class="pc-btn pc-btn-petit">{% trans "Infos" %}</a></td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="7" class="pc-aide" style="text-align:center;padding:1.5rem">{% trans "Aucun plan de câblage pour ce véhicule." %}</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

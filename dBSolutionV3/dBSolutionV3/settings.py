@@ -316,6 +316,7 @@ TENANT_APPS = (
     "maintenance.autres_interventions.preparation_course.demontage.apps.DemontageAllegementConfig",
     "maintenance.autres_interventions.preparation_course.air_jack.apps.AirJackConfig",
     "maintenance.autres_interventions.fusibles.apps.FusiblesConfig",
+    "maintenance.autres_interventions.plan_cablage.apps.PlanCablageConfig",
     "maintenance.autres_interventions.demarreur.apps.DemarreurConfig",
     "maintenance.autres_interventions.suspension.apps.SuspensionConfig",
     "maintenance.autres_interventions.suspension.suspension_origine.apps.SuspensionOrigineConfig",

@@ -360,6 +360,26 @@
         </a>
 
         <!-- ================================================== -->
+        <!-- PLAN DE CÂBLAGE (origine / custom) -->
+        <!-- ================================================== -->
+        <a
+            href="{% url 'plan_cablage:plan_liste' exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="mb-2 text-lg font-semibold">{% trans "Câblage" %}</h2>
+                    <p class="text-sm text-gray-500 mb-1">{% trans "Origine · Custom · Boîtier, connecteurs, fils" %}</p>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_plans_cablage|default:0 }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/em_faisceau.png' %}" alt="{% trans 'Câblage' %}" class="h-[60px] w-[60px]">
+            </div>
+        </a>
+
+        <!-- ================================================== -->
         <!-- DÉMARREUR -->
         <!-- ================================================== -->
         <a

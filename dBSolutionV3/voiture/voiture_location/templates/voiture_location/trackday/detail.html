@@ -31,9 +31,9 @@
             <div><span>{% trans "Box utilisés" %}</span><strong>{{ r.nb_box }} / {{ r.nombre_box }}</strong></div>
             <div><span>{% trans "Tours réservés" %}</span><strong>{{ r.tours }}</strong></div>
             <div><span>{% trans "Kilomètres réservés" %}</span><strong>{{ r.km }} km</strong></div>
+            {% if voit_rentabilite %}
             <div><span>{% trans "Ventes HTVA" %}</span><strong>{{ r.ventes_htva|floatformat:2 }} €</strong></div>
             <div><span>{% trans "Ventes TVAC" %}</span><strong>{{ r.ventes_tvac|floatformat:2 }} €</strong></div>
-            {% if voit_rentabilite %}
             <div><span>{% trans "Prix d'achat total HTVA" %}</span><strong>{{ r.couts_htva|floatformat:2 }} €</strong></div>
             <div><span>{% trans "Marge" %}</span><strong class="{% if r.marge >= 0 %}td-positif{% else %}td-negatif{% endif %}">{{ r.marge|floatformat:2 }} €{% if r.marge_pct is not None %} <small>({{ r.marge_pct }} %)</small>{% endif %}</strong></div>
             <div><span>{% trans "Panier moyen HTVA" %}</span><strong>{{ r.panier_moyen_htva|floatformat:2 }} €</strong></div>
@@ -72,7 +72,7 @@
                     <td class="text-right whitespace-nowrap">{% if l.km_depart is not None %}{{ l.km_depart }} km{% else %}<span class="text-gray-400" title="{% trans 'Kilométrage actuel du véhicule (sortie non encore validée)' %}">{{ l.km_actuel|default:"-" }} km*</span>{% endif %}</td>
                     <td class="text-right whitespace-nowrap">{{ l.loc.distance_affichage|default:"-" }}</td>
                     <td>{% if l.loc.vendeur %}{{ l.loc.vendeur.prenom }} {{ l.loc.vendeur.nom }}{% else %}-{% endif %}</td>
-                    <td class="text-right whitespace-nowrap">{{ l.loc.prix_tvac|floatformat:2 }} €</td>
+                    <td class="text-right whitespace-nowrap">{% if voit_rentabilite or l.loc.vendeur_id == request.user.pk %}{{ l.loc.prix_tvac|floatformat:2 }} €{% else %}<span class="text-gray-400">—</span>{% endif %}</td>
                     <td class="whitespace-nowrap">
                         {% if l.retour %}<span class="td-badge td-badge-ok">{% trans "Rentré" %}</span>
                         {% elif l.sortie %}<span class="td-badge td-badge-att">{% trans "En piste" %}</span>
@@ -110,7 +110,8 @@
             {% if not trackday.nombre_box %}<p class="text-gray-500">{% trans "Aucun box disponible pour ce Trackday." %}</p>{% endif %}
         </div>
 
-        <!-- Ventes par vendeur + coûts -->
+        <!-- Ventes par vendeur + coûts : statistiques réservées à la direction -->
+        {% if voit_rentabilite %}
         <div class="td-carte">
             <h2 class="td-titre">{% trans "Ventes par vendeur" %}</h2>
             <table class="td-table mb-4">
@@ -140,6 +141,7 @@
             </table>
             {% endif %}
         </div>
+        {% endif %}
     </div>
 
     {% if trackday.remarques %}<div class="td-carte mb-6"><h2 class="td-titre">{% trans "Remarques" %}</h2>{{ trackday.remarques|linebreaks }}</div>{% endif %}

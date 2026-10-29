@@ -67406,3 +67406,285 @@ msgstr "Calcul statique : (km à la création du véhicule − km d'achat) × co
 
 msgid "Aucun kilomètre entre l'achat (%(achat)s km) et la création du véhicule (%(creation)s km)."
 msgstr "Aucun kilomètre entre l'achat (%(achat)s km) et la création du véhicule (%(creation)s km)."
+
+msgid "Plan de câblage"
+msgstr "Plan de câblage"
+
+msgid "La bande doit être d'une autre couleur que le fil."
+msgstr "La bande doit être d'une autre couleur que le fil."
+
+msgid "La position %(pin)s du connecteur est utilisée plusieurs fois."
+msgstr "La position %(pin)s du connecteur est utilisée plusieurs fois."
+
+msgid "Câblage d'origine"
+msgstr "Câblage d'origine"
+
+msgid "Câblage custom"
+msgstr "Câblage custom"
+
+msgid "Noir"
+msgstr "Noir"
+
+msgid "Bleu"
+msgstr "Bleu"
+
+msgid "Blanc"
+msgstr "Blanc"
+
+msgid "Marron"
+msgstr "Marron"
+
+msgid "Gris"
+msgstr "Gris"
+
+msgid "Orange"
+msgstr "Orange"
+
+msgid "Violet"
+msgstr "Violet"
+
+msgid "Rose"
+msgstr "Rose"
+
+msgid "Beige"
+msgstr "Beige"
+
+msgid "Vert clair"
+msgstr "Vert clair"
+
+msgid "Bleu clair"
+msgstr "Bleu clair"
+
+msgid "Transparent"
+msgstr "Transparent"
+
+msgid "+ Alimentation"
+msgstr "+ Alimentation"
+
+msgid "+ Après contact"
+msgstr "+ Après contact"
+
+msgid "− Masse"
+msgstr "− Masse"
+
+msgid "Signal"
+msgstr "Signal"
+
+msgid "Commande (pilotage)"
+msgstr "Commande (pilotage)"
+
+msgid "Référence 5 V"
+msgstr "Référence 5 V"
+
+msgid "Masse capteur"
+msgstr "Masse capteur"
+
+msgid "CAN High"
+msgstr "CAN High"
+
+msgid "CAN Low"
+msgstr "CAN Low"
+
+msgid "LIN"
+msgstr "LIN"
+
+msgid "Blindage"
+msgstr "Blindage"
+
+msgid "Type de câblage"
+msgstr "Type de câblage"
+
+msgid "Nom du faisceau"
+msgstr "Nom du faisceau"
+
+msgid "Ex. : faisceau moteur, faisceau habitacle…"
+msgstr "Ex. : faisceau moteur, faisceau habitacle…"
+
+msgid "Nom du boîtier électronique"
+msgstr "Nom du boîtier électronique"
+
+msgid "Ex. : Bosch ME7.5, MoTeC M150, PDM…"
+msgstr "Ex. : Bosch ME7.5, MoTeC M150, PDM…"
+
+msgid "Référence du boîtier"
+msgstr "Référence du boîtier"
+
+msgid "Plans de câblage"
+msgstr "Plans de câblage"
+
+msgid "Composant / connecteur"
+msgstr "Composant / connecteur"
+
+msgid "Ex. : injecteur cylindre 1, capteur PMH, sonde lambda…"
+msgstr "Ex. : injecteur cylindre 1, capteur PMH, sonde lambda…"
+
+msgid "Référence du connecteur"
+msgstr "Référence du connecteur"
+
+msgid "Ex. : Bosch EV1 2 voies, Deutsch DTM 3 voies…"
+msgstr "Ex. : Bosch EV1 2 voies, Deutsch DTM 3 voies…"
+
+msgid "Longueur (cm)"
+msgstr "Longueur (cm)"
+
+msgid "Nombre de coudes"
+msgstr "Nombre de coudes"
+
+msgid "Gaine / protection"
+msgstr "Gaine / protection"
+
+msgid "Ex. : DR-25, gaine tressée, thermo…"
+msgstr "Ex. : DR-25, gaine tressée, thermo…"
+
+msgid "Pin boîtier"
+msgstr "Pin boîtier"
+
+msgid "Ex. : A12, 45"
+msgstr "Ex. : A12, 45"
+
+msgid "Pin connecteur (position)"
+msgstr "Pin connecteur (position)"
+
+msgid "Position / numéro de pin dans le connecteur"
+msgstr "Position / numéro de pin dans le connecteur"
+
+msgid "Couleur du fil"
+msgstr "Couleur du fil"
+
+msgid "Couleur de la bande"
+msgstr "Couleur de la bande"
+
+msgid "Fil bicolore : ex. jaune / blanc"
+msgstr "Fil bicolore : ex. jaune / blanc"
+
+msgid "Ex. : commande injecteur 1"
+msgstr "Ex. : commande injecteur 1"
+
+msgid "Section (mm²)"
+msgstr "Section (mm²)"
+
+msgid "Fil"
+msgstr "Fil"
+
+msgid "Fils"
+msgstr "Fils"
+
+msgid "Modification du plan de câblage"
+msgstr "Modification du plan de câblage"
+
+msgid "Plan de câblage « %(p)s » enregistré."
+msgstr "Plan de câblage « %(p)s » enregistré."
+
+msgid "Suppression du plan de câblage"
+msgstr "Suppression du plan de câblage"
+
+msgid "Plan de câblage supprimé."
+msgstr "Plan de câblage supprimé."
+
+msgid "Connecteur « %(c)s » enregistré."
+msgstr "Connecteur « %(c)s » enregistré."
+
+msgid "Connecteur « %(c)s » supprimé."
+msgstr "Connecteur « %(c)s » supprimé."
+
+msgid "Pin connecteur"
+msgstr "Pin connecteur"
+
+msgid "Couleur (fil / bande)"
+msgstr "Couleur (fil / bande)"
+
+msgid "Section"
+msgstr "Section"
+
+msgid "Aucun fil."
+msgstr "Aucun fil."
+
+msgid "Modifier le connecteur"
+msgstr "Modifier le connecteur"
+
+msgid "Nouveau connecteur"
+msgstr "Nouveau connecteur"
+
+msgid "Composant et branche du faisceau"
+msgstr "Composant et branche du faisceau"
+
+msgid "3 fils : + rouge, − noir, signal jaune"
+msgstr "3 fils : + rouge, − noir, signal jaune"
+
+msgid "Injecteur 2 fils : + / commande"
+msgstr "Injecteur 2 fils : + / commande"
+
+msgid "Capteur 3 fils : 5 V, masse capteur, signal"
+msgstr "Capteur 3 fils : 5 V, masse capteur, signal"
+
+msgid "Sonde lambda 4 fils : chauffage +/−, signal, masse"
+msgstr "Sonde lambda 4 fils : chauffage +/−, signal, masse"
+
+msgid "Bus CAN 2 fils : CAN H / CAN L"
+msgstr "Bus CAN 2 fils : CAN H / CAN L"
+
+msgid "ou"
+msgstr "ou"
+
+msgid "fil(s)"
+msgstr "fil(s)"
+
+msgid "Fil bicolore : couleur du fil + couleur de la bande (ex. jaune / blanc). Pin connecteur : position du fil dans le connecteur ; pin boîtier : broche du calculateur."
+msgstr "Fil bicolore : couleur du fil + couleur de la bande (ex. jaune / blanc). Pin connecteur : position du fil dans le connecteur ; pin boîtier : broche du calculateur."
+
+msgid "Enregistrer et ajouter un autre connecteur"
+msgstr "Enregistrer et ajouter un autre connecteur"
+
+msgid "Nouveau plan de câblage"
+msgstr "Nouveau plan de câblage"
+
+msgid "Boîtier électronique"
+msgstr "Boîtier électronique"
+
+msgid "Faisceau"
+msgstr "Faisceau"
+
+msgid "Aucun plan de câblage pour ce véhicule."
+msgstr "Aucun plan de câblage pour ce véhicule."
+
+msgid "Ajouter un connecteur"
+msgstr "Ajouter un connecteur"
+
+msgid "Longueur de fil totale"
+msgstr "Longueur de fil totale"
+
+msgid "Gaine"
+msgstr "Gaine"
+
+msgid "Aucun connecteur. Ajoutez le premier : composant, longueur, coudes et fils."
+msgstr "Aucun connecteur. Ajoutez le premier : composant, longueur, coudes et fils."
+
+msgid "Modifier le plan de câblage"
+msgstr "Modifier le plan de câblage"
+
+msgid "Après l'enregistrement, ajoutez les connecteurs et leurs fils (pin boîtier, position dans le connecteur, couleur / bande, fonction, longueur, coudes)."
+msgstr "Après l'enregistrement, ajoutez les connecteurs et leurs fils (pin boîtier, position dans le connecteur, couleur / bande, fonction, longueur, coudes)."
+
+msgid "Câblage"
+msgstr "Câblage"
+
+msgid "Origine · Custom · Boîtier, connecteurs, fils"
+msgstr "Origine · Custom · Boîtier, connecteurs, fils"
+
+msgid "Supprimer « %(nom)s » ? Les connecteurs et fils liés sont supprimés aussi."
+msgstr "Supprimer « %(nom)s » ? Les connecteurs et fils liés sont supprimés aussi."
+
+msgid "%(n)s fil"
+msgid_plural "%(n)s fils"
+msgstr[0] "%(n)s fil"
+msgstr[1] "%(n)s fils"
+
+msgid "%(n)s coude"
+msgid_plural "%(n)s coudes"
+msgstr[0] "%(n)s coude"
+msgstr[1] "%(n)s coudes"
+
+msgid "%(n)s connecteur"
+msgid_plural "%(n)s connecteurs"
+msgstr[0] "%(n)s connecteur"
+msgstr[1] "%(n)s connecteurs"

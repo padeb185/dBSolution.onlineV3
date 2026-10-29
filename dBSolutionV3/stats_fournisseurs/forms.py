@@ -1,4 +1,5 @@
 from django import forms
+from django.db.models.functions import Lower
 from django.utils.translation import gettext_lazy as _
 from .models import StatsFournisseur
 
@@ -62,10 +63,8 @@ class StatsFournisseurForm(forms.ModelForm):
         societe = kwargs.pop("societe", None)
         super().__init__(*args, **kwargs)
 
+        # Liste des fournisseurs par ordre alphabétique (sans tenir compte des majuscules)
+        qs = self.fields["fournisseur"].queryset
         if societe:
-            self.fields["fournisseur"].queryset = (
-                self.fields["fournisseur"]
-                .queryset
-                .filter(societe=societe)
-                .order_by("nom")
-            )
+            qs = qs.filter(societe=societe)
+        self.fields["fournisseur"].queryset = qs.order_by(Lower("nom"), "nom")

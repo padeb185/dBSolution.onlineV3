@@ -32,8 +32,7 @@
         <thead><tr>
             <th>{% trans "Date" %}</th><th>{% trans "Circuit" %}</th><th>{% trans "Événement" %}</th>
             <th class="text-right">{% trans "Véhicules" %}</th><th class="text-right">{% trans "Box" %}</th>
-            <th class="text-right">{% trans "Ventes HTVA" %}</th>
-            {% if voit_rentabilite %}<th class="text-right">{% trans "Coûts HTVA" %}</th><th class="text-right">{% trans "Marge" %}</th>{% endif %}
+            {% if voit_rentabilite %}<th class="text-right">{% trans "Ventes HTVA" %}</th><th class="text-right">{% trans "Coûts HTVA" %}</th><th class="text-right">{% trans "Marge" %}</th>{% endif %}
             <th></th>
         </tr></thead>
         <tbody>
@@ -44,8 +43,8 @@
                 <td>{{ l.t.nom|default:"-" }}{% if l.t.organisateur %}<div class="text-xs text-gray-500">{{ l.t.organisateur }}</div>{% endif %}</td>
                 <td class="text-right">{{ l.nb_vehicules }}{% if l.t.places_vehicules %} / {{ l.t.places_vehicules }}{% endif %}</td>
                 <td class="text-right">{{ l.nb_box }} / {{ l.nombre_box }}</td>
-                <td class="text-right whitespace-nowrap">{{ l.ventes_htva|floatformat:2 }} €</td>
                 {% if voit_rentabilite %}
+                <td class="text-right whitespace-nowrap">{{ l.ventes_htva|floatformat:2 }} €</td>
                 <td class="text-right whitespace-nowrap">{{ l.couts_htva|floatformat:2 }} €</td>
                 <td class="text-right whitespace-nowrap font-semibold {% if l.marge >= 0 %}td-positif{% else %}td-negatif{% endif %}">{{ l.marge|floatformat:2 }} €{% if l.marge_pct is not None %} <span class="text-xs">({{ l.marge_pct }} %)</span>{% endif %}</td>
                 {% endif %}

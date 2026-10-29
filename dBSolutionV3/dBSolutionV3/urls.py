@@ -251,6 +251,7 @@ urlpatterns += i18n_patterns(
     path("preparation-course/demontage/", include(("maintenance.autres_interventions.preparation_course.demontage.urls", "pc_demontage"), namespace="pc_demontage")),
     path("preparation-course/air-jack/", include(("maintenance.autres_interventions.preparation_course.air_jack.urls", "pc_air_jack"), namespace="pc_air_jack")),
     path("fusibles/", include(("maintenance.autres_interventions.fusibles.urls", "fusibles"), namespace="fusibles")),
+    path("plan-cablage/", include(("maintenance.autres_interventions.plan_cablage.urls", "plan_cablage"), namespace="plan_cablage")),
     path('bas_moteur/', include(('maintenance.autres_interventions.moteur.bas_moteur.urls', 'bas_moteur'), namespace='bas_moteur')),
     path('metrologie_moteur/', include(('maintenance.autres_interventions.moteur.metrologie_moteur.urls', 'metrologie_moteur'), namespace='metrologie_moteur')),
     path('casse_moteur/', include(('maintenance.autres_interventions.moteur.casse_moteur.urls', 'casse_moteur'), namespace='casse_moteur')),

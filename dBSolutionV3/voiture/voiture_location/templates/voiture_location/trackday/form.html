@@ -25,7 +25,8 @@
             {% endfor %}
         </div>
 
-        <div {% if not voit_couts %}style="display:none"{% endif %}>
+        {% if voit_couts %}
+        <div>
         <h2 class="td-titre">{% trans "Prix d'achat (coûts du Trackday, HTVA)" %}</h2>
         <p class="text-sm text-gray-500 mb-3">{% trans "Location du circuit, box, assurance, personnel, carburant… Ces coûts servent au calcul de rentabilité." %}</p>
         {{ couts_fs.management_form }}
@@ -57,6 +58,7 @@
             <div class="text-lg">{% trans "Prix d'achat total HTVA" %} : <strong id="total-couts">0,00 €</strong></div>
         </div>
         </div>
+        {% endif %}
 
         <div class="flex gap-3">
             <button type="submit" class="td-btn flex-1">{% trans "Enregistrer" %}</button>
@@ -64,6 +66,7 @@
         </div>
     </form>
 </div>
+{% if voit_couts %}
 <script>
 (function () {
     var total = document.getElementById("id_cout-TOTAL_FORMS");
@@ -101,4 +104,5 @@
     somme();
 })();
 </script>
+{% endif %}
 {% endblock %}
