@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n static widget_tweaks %}
-{% block title %}{% trans "Tableau de bord Echappement" %}{% endblock %}
+{% block title %}{% trans "Échappement" %}{% endblock %}
 {% block content %}
 
 <br>
@@ -36,7 +36,7 @@
     {% include "maintenance/partials/plaque.html" %}
 </h1>
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div id="cartes-interventions" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
 
 <!-- Contrôle échappement -->
@@ -79,4 +79,5 @@
 </div>
 <br>
 <br>
+{% include "autres_interventions/_tri_cartes.html" %}
 {% endblock %}

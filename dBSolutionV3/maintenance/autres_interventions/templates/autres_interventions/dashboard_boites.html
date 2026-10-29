@@ -23,7 +23,7 @@
         {% include "maintenance/partials/plaque.html" %}
     </h1>
 
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div id="cartes-interventions" class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {% for b in boites %}
             {% url b.url exemplaire.id as url_boite %}
             <a href="{{ url_boite }}"
@@ -46,4 +46,5 @@
         </a>
     </div>
 </div>
+{% include "autres_interventions/_tri_cartes.html" %}
 {% endblock %}

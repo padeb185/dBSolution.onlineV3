@@ -17,6 +17,14 @@ PREPARATIONS = [
 ]
 
 
+# Interventions d'autres apps rangées dans Préparation course :
+# (namespace, module du modèle, classe, libellé, nom de l'URL de la liste, icône)
+AUTRES = [
+    ("banc_puissance", "maintenance.autres_interventions.banc_puissance.models", "BancPuissance",
+     _("Passage au banc"), "banc_puissance:banc_list", "icons/banc-puissance.png"),
+]
+
+
 def modele_preparation(code):
     for dossier, app, classe, _label in PREPARATIONS:
         if app == code:
@@ -26,7 +34,7 @@ def modele_preparation(code):
 
 def preparations_vehicule(exemplaire):
     """[{code, label, total, url_list, icone}] pour un véhicule."""
-    return [
+    lignes = [
         {
             "code": app,
             "label": label,
@@ -36,6 +44,16 @@ def preparations_vehicule(exemplaire):
         }
         for _dossier, app, _classe, label in PREPARATIONS
     ]
+    for code, module, classe, label, url_list, icone in AUTRES:
+        modele = getattr(import_module(module), classe)
+        lignes.append({
+            "code": code,
+            "label": label,
+            "total": modele.objects.filter(voiture_exemplaire=exemplaire).count() if exemplaire else 0,
+            "url_list": url_list,
+            "icone": icone,
+        })
+    return lignes
 
 
 def total_preparation_course(exemplaire):

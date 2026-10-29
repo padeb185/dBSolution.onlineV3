@@ -3,7 +3,7 @@
 {% load i18n static widget_tweaks %}
 
 {% block title %}
-    {% trans "Tableau de bord moteur" %}
+    {% trans "Moteur et accessoires" %}
 {% endblock %}
 
 {% block content %}
@@ -40,7 +40,7 @@
     {% include "maintenance/partials/plaque.html" %}
 </h1>
 
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div id="cartes-interventions" class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 
         <!-- ================================================== -->
         <!-- ADMISSION -->
@@ -518,6 +518,39 @@
             >
         </a>
 
+        <!-- ================================================== -->
+        <!-- DÉMARREUR -->
+        <!-- ================================================== -->
+        <a
+            href="{% url 'demarreur:demarreur_list' exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">{% trans "Démarreur" %}</h2>
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">{{ total_demarreur|default:0 }}</span>
+                </p>
+            </div>
+            <img src="{% static 'icons/demarreur.png' %}" alt="{% trans 'Démarreur' %}" class="h-[60px] w-[60px]">
+        </a>
+
+        <!-- ================================================== -->
+        <!-- COURROIE D'ACCESSOIRES -->
+        <!-- ================================================== -->
+        <a
+            href="{% url 'courroie_accessoires:courroie_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">{% trans "Courroie d'accessoires" %}</h2>
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">{{ total_access|default:0 }}</span>
+                </p>
+            </div>
+            <img src="{% static 'icons/courroie-daccess.png' %}" alt="{% trans 'Courroie d’accessoires' %}" class="h-[60px] w-[60px]">
+        </a>
 
     </div>
 
@@ -538,4 +571,5 @@
 
 </div>
 
+{% include "autres_interventions/_tri_cartes.html" %}
 {% endblock %}

@@ -359,7 +359,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
                 + MontageTurbo.objects.filter(voiture_exemplaire=exemplaire).count()
                 + remplacement_moteur.count()
                 + allumage.count()
-
+                + total_demarreur      # démarreur et courroie d'accessoires : dans les interventions moteur
+                + total_access
             )
 
             total_int_boite = (
@@ -419,6 +420,10 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_access": total_access,
         "total_echappement": total_echappement,
         "total_batterie": total_batterie,
+        "total_transmission": total_cardan + total_arbre_transmission + total_roulement,
+        "total_aide_conduite": total_abs + total_esp + total_aide_stationnement,
+        "total_geometrie_groupe": total_geometrie + total_geometrie_course,
+        "total_electricite": total_batterie + total_fusibles + total_plans_cablage,
         "total_clim": total_clim,
 
         "total_int_moteur": total_int_moteur,
@@ -602,4 +607,157 @@ def dashboard_boites_view(request, exemplaire_id):
         "exemplaire": exemplaire,
         "boites": boites,
         "total_boites": sum(b["total"] for b in boites),
+    })
+
+
+
+# ------------------------------------------------------------------
+# Électricité : câblage, batterie, boîtes à fusibles
+# ------------------------------------------------------------------
+@never_cache
+@login_required
+def dashboard_electricite_view(request, exemplaire_id):
+    from django.urls import reverse
+    from django.utils.translation import gettext as _
+    from maintenance.autres_interventions.fusibles.models import Fusibles
+    from maintenance.autres_interventions.plan_cablage.models import PlanCablage
+
+    tenant = request.user.societe
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id,
+    )
+    rubriques = [
+        {"label": _("Câblage"), "detail": _("Origine · Custom · Boîtier, connecteurs, fils"),
+         "url": reverse("plan_cablage:plan_liste", args=[exemplaire.id]), "icone": "icons/em_faisceau.png",
+         "total": PlanCablage.objects.filter(voiture_exemplaire=exemplaire).count()},
+        {"label": _("Batterie"), "detail": "",
+         "url": reverse("batterie:batterie_list", kwargs={"exemplaire_id": exemplaire.id}), "icone": "icons/batterie.png",
+         "total": Batterie.objects.filter(voiture_exemplaire=exemplaire).count()},
+        {"label": _("Boîtes à fusibles"), "detail": "",
+         "url": reverse("fusibles:fusibles_list", args=[exemplaire.id]), "icone": "icons/fusibles.png",
+         "total": Fusibles.objects.filter(voiture_exemplaire=exemplaire).count()},
+    ]
+    return render(request, "autres_interventions/dashboard_groupe.html", {
+        "exemplaire": exemplaire,
+        "rubriques": rubriques,
+        "titre": _("Électricité"),
+        "icone": "icons/electricite.png",
+    })
+
+
+
+# ------------------------------------------------------------------
+# Géométrie : géométrie et géométrie course
+# ------------------------------------------------------------------
+@never_cache
+@login_required
+def dashboard_geometrie_view(request, exemplaire_id):
+    from django.urls import reverse
+    from django.utils.translation import gettext as _
+    from maintenance.autres_interventions.geometrie_course.models import GeometrieCourse
+
+    tenant = request.user.societe
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id,
+    )
+    rubriques = [
+        {"label": _("Géométrie"), "detail": "",
+         "url": reverse("geometrie:geometrie_list", kwargs={"exemplaire_id": exemplaire.id}),
+         "icone": "icons/geometrie-laser.png",
+         "total": GeometrieVoiture.objects.filter(voiture_exemplaire=exemplaire).count()},
+        {"label": _("Géométrie course"), "detail": "",
+         "url": reverse("geometrie_course:geocourse_list", kwargs={"exemplaire_id": exemplaire.id}),
+         "icone": "icons/geometrie-course.png",
+         "total": GeometrieCourse.objects.filter(voiture_exemplaire=exemplaire).count()},
+    ]
+    return render(request, "autres_interventions/dashboard_groupe.html", {
+        "exemplaire": exemplaire,
+        "rubriques": rubriques,
+        "titre": _("Géométrie"),
+        "icone": "icons/geometrie-laser.png",
+    })
+
+
+
+# ------------------------------------------------------------------
+# Aide à la conduite : ABS, ESP, aide au stationnement
+# ------------------------------------------------------------------
+@never_cache
+@login_required
+def dashboard_aide_conduite_view(request, exemplaire_id):
+    from django.urls import reverse
+    from django.utils.translation import gettext as _
+    from maintenance.autres_interventions.aide_stationnement.models import AideStationnement
+    from maintenance.autres_interventions.esp.models import Esp
+
+    tenant = request.user.societe
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id,
+    )
+    rubriques = [
+        {"label": _("Système ABS"), "detail": "",
+         "url": reverse("abs:abs_list", kwargs={"exemplaire_id": exemplaire.id}), "icone": "icons/abs.png",
+         "total": Abs.objects.filter(voiture_exemplaire=exemplaire).count()},
+        {"label": _("ESP"), "detail": "",
+         "url": reverse("esp:esp_list", args=[exemplaire.id]), "icone": "icons/esp.png",
+         "total": Esp.objects.filter(voiture_exemplaire=exemplaire).count()},
+        {"label": _("Aide au stationnement"), "detail": _("Capteurs avant / arrière, caméra de recul, Park Assist"),
+         "url": reverse("aide_stationnement:aide_stationnement_list", args=[exemplaire.id]),
+         "icone": "icons/aide_stationnement.png",
+         "total": AideStationnement.objects.filter(voiture_exemplaire=exemplaire).count()},
+    ]
+    return render(request, "autres_interventions/dashboard_groupe.html", {
+        "exemplaire": exemplaire,
+        "rubriques": rubriques,
+        "titre": _("Aide à la conduite"),
+        "icone": "icons/esp.png",
+    })
+
+
+
+# ------------------------------------------------------------------
+# Transmission : arbre de transmission, cardans et roulements de roue
+# ------------------------------------------------------------------
+@never_cache
+@login_required
+def dashboard_transmission_view(request, exemplaire_id):
+    from django.urls import reverse
+    from django.utils.translation import gettext as _
+    from maintenance.autres_interventions.arbre_transmission.models import ArbreTransmission
+
+    tenant = request.user.societe
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id,
+    )
+    rubriques = [
+        {"label": _("Arbre de transmission"), "detail": "",
+         "url": reverse("arbre_transmission:arbre_list", kwargs={"exemplaire_id": exemplaire.id}),
+         "icone": "icons/arbre-transmission.png",
+         "total": ArbreTransmission.objects.filter(voiture_exemplaire=exemplaire).count()},
+        {"label": _("Contrôle des cardans"), "detail": "",
+         "url": reverse("cardan:cardan_list", kwargs={"exemplaire_id": exemplaire.id}),
+         "icone": "icons/cardan.png",
+         "total": Cardan.objects.filter(voiture_exemplaire=exemplaire).count()},
+        {"label": _("Roulements de roue"), "detail": "",
+         "url": reverse("roulement:roulement_list", kwargs={"exemplaire_id": exemplaire.id}),
+         "icone": "icons/roulement-roue-moyeu.png",
+         "total": Roulement.objects.filter(voiture_exemplaire=exemplaire).count()},
+    ]
+    return render(request, "autres_interventions/dashboard_groupe.html", {
+        "exemplaire": exemplaire,
+        "rubriques": rubriques,
+        "titre": _("Transmission"),
+        "icone": "icons/arbre-transmission.png",
     })

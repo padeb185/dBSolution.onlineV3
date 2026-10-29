@@ -1,0 +1,12 @@
+<script>
+// Cartes triées par ordre alphabétique dans la langue affichée (accents et majuscules ignorés)
+(function () {
+    const grille = document.getElementById("{{ grille|default:'cartes-interventions' }}");
+    if (!grille) return;
+    const langue = document.documentElement.lang || "fr";
+    const titre = el => ((el.querySelector("h2") || el).textContent || "").trim();
+    [...grille.children]
+        .sort((a, b) => titre(a).localeCompare(titre(b), langue, {sensitivity: "base"}))
+        .forEach(el => grille.appendChild(el));
+})();
+</script>

@@ -38,10 +38,27 @@
 </h1>
 
 
-     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+     <div id="cartes-interventions" class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
 
-
-
+        <!-- ================================================== -->
+        <!-- AIDE À LA CONDUITE : ABS, ESP, aide au stationnement -->
+        <!-- ================================================== -->
+        <a
+            href="{% url 'autres_interventions:dashboard_aide_conduite' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="mb-2 text-lg font-semibold">{% trans "Aide à la conduite" %}</h2>
+                    <p class="text-sm text-gray-500 mb-1">{% trans "ABS · ESP · Aide au stationnement" %}</p>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_aide_conduite|default:0 }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/esp.png' %}" alt="{% trans 'Aide à la conduite' %}" class="h-[60px] w-[60px]">
+            </div>
+        </a>
 
         <!-- ================================================== -->
         <!-- BOÎTE DE VITESSE (manuelle, automatique, transfert) -->
@@ -80,6 +97,190 @@
         </a>
 
         <!-- ================================================== -->
+        <!-- CLIMATISATION -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'climatisation:clim_list' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+
+                <div>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {% trans "Climatisation" %}
+                    </h2>
+
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">
+                            {{ total_clim|default:0 }}
+                        </span>
+                    </p>
+                </div>
+
+                <img
+                    src="{% static 'icons/climatisation.png' %}"
+                    alt="{% trans 'Climatisation' %}"
+                    class="h-[60px] w-[60px]"
+                >
+
+            </div>
+        </a>
+
+        <!-- ================================================== -->
+        <!-- ÉCHAPPEMENT -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'echappement:dashboard_echappement' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+
+                <div>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {% trans "Échappement" %}
+                    </h2>
+
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">
+                            {{ total_echappement|default:0 }}
+                        </span>
+                    </p>
+                </div>
+
+                <img
+                    src="{% static 'icons/echappement.png' %}"
+                    alt="{% trans 'Échappement' %}"
+                    class="h-[60px] w-[60px]"
+                >
+
+            </div>
+        </a>
+
+        <!-- ================================================== -->
+        <!-- ÉLECTRICITÉ : câblage, batterie, boîtes à fusibles -->
+        <!-- ================================================== -->
+        <a
+            href="{% url 'autres_interventions:dashboard_electricite' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="mb-2 text-lg font-semibold">{% trans "Électricité" %}</h2>
+                    <p class="text-sm text-gray-500 mb-1">{% trans "Câblage · Batterie · Boîtes à fusibles" %}</p>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_electricite|default:0 }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/electricite.png' %}" alt="{% trans 'Électricité' %}" class="h-[60px] w-[60px]">
+            </div>
+        </a>
+
+               <a
+            href="{% url 'embrayage:embrayage_list' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+
+                <div>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {% trans "Embrayage" %}
+                    </h2>
+
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">
+                            {{ total_embrayage|default:0 }}
+                        </span>
+                    </p>
+                </div>
+
+                <img
+                    src="{% static 'icons/disque-dembrayage.png' %}"
+                    alt="{% trans "Disque d'embrayage" %}"
+                    class="h-[60px] w-[60px]"
+                >
+
+            </div>
+        </a>
+
+        <!-- ================================================== -->
+        <!-- GÉOMÉTRIE : géométrie et géométrie course -->
+        <!-- ================================================== -->
+        <a
+            href="{% url 'autres_interventions:dashboard_geometrie' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="mb-2 text-lg font-semibold">{% trans "Géométrie" %}</h2>
+                    <p class="text-sm text-gray-500 mb-1">{% trans "Géométrie · Géométrie course" %}</p>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_geometrie_groupe|default:0 }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/geometrie-laser.png' %}" alt="{% trans 'Géométrie' %}" class="h-[60px] w-[60px]">
+            </div>
+        </a>
+
+        <!-- ================================================== -->
+        <!-- MOTEUR -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'moteur:dashboard_moteur' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+
+                <div>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {% trans "Moteur et accessoires" %}
+                    </h2>
+
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">
+                            {{ total_int_moteur|default:0 }}
+                        </span>
+                    </p>
+                </div>
+
+                <img
+                    src="{% static 'icons/engine.png' %}"
+                    alt="{% trans 'Moteur' %}"
+                    class="h-[60px] w-[60px]"
+                >
+
+            </div>
+        </a>
+
+        <!-- ================================================== -->
+        <!-- PRÉPARATION COURSE (dashboard) -->
+        <!-- ================================================== -->
+        <a
+            href="{% url 'preparation_course:dashboard_preparation_course' exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="mb-1 text-lg font-semibold">{% trans "Préparation course" %}</h2>
+                    <p class="text-xs text-gray-500 mb-1">{% trans "Arceau, extincteur, baquets, câblage, boîtier, moteur, échappement, démontage, air jack" %}</p>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_preparation_course|default:0 }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/preparation_course.png' %}" alt="{% trans 'Préparation course' %}" class="h-[60px] w-[60px]">
+            </div>
+        </a>
+
+        <!-- ================================================== -->
         <!-- RAPPORT D'ACCIDENT -->
         <!-- ================================================== -->
 
@@ -101,222 +302,34 @@
         </a>
 
         <!-- ================================================== -->
-        <!-- PASSAGE AU BANC DE PUISSANCE -->
+        <!-- REFROIDISSEMENT -->
         <!-- ================================================== -->
 
         <a
-            href="{% url 'banc_puissance:banc_list' exemplaire_id=exemplaire.id %}"
+            href="{% url 'refroidissement:ref_list' exemplaire_id=exemplaire.id %}"
             class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
         >
             <div class="flex items-center justify-between">
 
                 <div>
                     <h2 class="mb-2 text-lg font-semibold">
-                        {% trans "Passage au banc" %}
-                    </h2>
-
-                    <p class="text-sm text-gray-500 mb-1">
-                        {% trans "Puissance, couple, cartographie" %}
-                    </p>
-
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">
-                            {{ total_banc_puissance|default:0 }}
-                        </span>
-                    </p>
-                </div>
-
-                <img
-                    src="{% static 'icons/banc-puissance.png' %}"
-                    alt="{% trans 'Passage au banc' %}"
-                    class="h-[60px] w-[60px]"
-                >
-
-            </div>
-        </a>
-
-        <!-- ================================================== -->
-        <!-- MOTEUR -->
-        <!-- ================================================== -->
-
-        <a
-            href="{% url 'moteur:dashboard_moteur' exemplaire_id=exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-
-                <div>
-                    <h2 class="mb-2 text-lg font-semibold">
-                        {% trans "Interventions moteur" %}
+                        {% trans "Refroidissement" %}
                     </h2>
 
                     <p class="text-gray-600">
                         {% trans "Nombre total :" %}
                         <span class="font-bold">
-                            {{ total_int_moteur|default:0 }}
+                            {{ total_ref|default:0 }}
                         </span>
                     </p>
                 </div>
 
                 <img
-                    src="{% static 'icons/engine.png' %}"
-                    alt="{% trans 'Moteur' %}"
+                    src="{% static 'icons/radiateur.png' %}"
+                    alt="{% trans 'Système de refroidissement' %}"
                     class="h-[60px] w-[60px]"
                 >
 
-            </div>
-        </a>
-
-        <!-- ================================================== -->
-        <!-- GÉOMÉTRIE -->
-        <!-- ================================================== -->
-
-        <a
-            href="{% url 'geometrie:geometrie_list' exemplaire_id=exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-
-                <div>
-                    <h2 class="mb-2 text-lg font-semibold">
-                        {% trans "Géométrie" %}
-                    </h2>
-
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">
-                            {{ total_geometrie|default:0 }}
-                        </span>
-                    </p>
-                </div>
-
-                <img
-                    src="{% static 'icons/geometrie-laser.png' %}"
-                    alt="{% trans 'Géométrie' %}"
-                    class="h-[60px] w-[60px]"
-                >
-
-            </div>
-        </a>
-
-
-         <a
-            href="{% url 'geometrie_course:geocourse_list' exemplaire_id=exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-
-                <div>
-                    <h2 class="mb-2 text-lg font-semibold">
-                        {% trans "Géométrie course" %}
-                    </h2>
-
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">
-                            {{ total_geometrie_course|default:0 }}
-                        </span>
-                    </p>
-                </div>
-
-                <img
-                    src="{% static 'icons/geometrie-course.png' %}"
-                    alt="{% trans 'Géométrie course' %}"
-                    class="h-[60px] w-[60px]"
-                >
-
-            </div>
-        </a>
-
-        <!-- ================================================== -->
-        <!-- ABS -->
-        <!-- ================================================== -->
-
-        <a
-            href="{% url 'abs:abs_list' exemplaire_id=exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-
-                <div>
-                    <h2 class="mb-2 text-lg font-semibold">
-                        {% trans "Système ABS" %}
-                    </h2>
-
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">
-                            {{ total_abs|default:0 }}
-                        </span>
-                    </p>
-                </div>
-
-                <img
-                    src="{% static 'icons/abs.png' %}"
-                    alt="{% trans 'Système ABS' %}"
-                    class="h-[60px] w-[60px]"
-                >
-
-            </div>
-        </a>
-
-        <!-- ================================================== -->
-        <!-- ESP -->
-        <!-- ================================================== -->
-        <a
-            href="{% url 'esp:esp_list' exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="mb-2 text-lg font-semibold">{% trans "ESP" %}</h2>
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_esp|default:0 }}</span>
-                    </p>
-                </div>
-                <img src="{% static 'icons/esp.png' %}" alt="{% trans 'ESP' %}" class="h-[60px] w-[60px]">
-            </div>
-        </a>
-
-        <!-- ================================================== -->
-        <!-- AIDE AU STATIONNEMENT -->
-        <!-- ================================================== -->
-        <a
-            href="{% url 'aide_stationnement:aide_stationnement_list' exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="mb-1 text-lg font-semibold">{% trans "Aide au stationnement" %}</h2>
-                    <p class="text-xs text-gray-500 mb-1">{% trans "Capteurs avant / arrière, caméra de recul, Park Assist" %}</p>
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_aide_stationnement|default:0 }}</span>
-                    </p>
-                </div>
-                <img src="{% static 'icons/aide_stationnement.png' %}" alt="{% trans 'Aide au stationnement' %}" class="h-[60px] w-[60px]">
-            </div>
-        </a>
-
-        <!-- ================================================== -->
-        <!-- VENTILATION -->
-        <!-- ================================================== -->
-        <a
-            href="{% url 'ventilation:ventilation_list' exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="mb-1 text-lg font-semibold">{% trans "Ventilation" %}</h2>
-                    <p class="text-xs text-gray-500 mb-1">{% trans "Soufflerie, filtre d'habitacle, résistance de chauffage, moteur de ventilation" %}</p>
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_ventilation|default:0 }}</span>
-                    </p>
-                </div>
-                <img src="{% static 'icons/ventilation.png' %}" alt="{% trans 'Ventilation' %}" class="h-[60px] w-[60px]">
             </div>
         </a>
 
@@ -341,281 +354,69 @@
         </a>
 
         <!-- ================================================== -->
-        <!-- BOÎTES À FUSIBLES -->
+        <!-- SUSPENSION (dashboard : origine + sport) -->
         <!-- ================================================== -->
         <a
-            href="{% url 'fusibles:fusibles_list' exemplaire.id %}"
+            href="{% url 'suspension:dashboard_suspension' exemplaire.id %}"
             class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
         >
             <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="mb-2 text-lg font-semibold">{% trans "Boîtes à fusibles" %}</h2>
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_fusibles|default:0 }}</span>
-                    </p>
-                </div>
-                <img src="{% static 'icons/fusibles.png' %}" alt="{% trans 'Boîtes à fusibles' %}" class="h-[60px] w-[60px]">
-            </div>
-        </a>
-
-        <!-- ================================================== -->
-        <!-- PLAN DE CÂBLAGE (origine / custom) -->
-        <!-- ================================================== -->
-        <a
-            href="{% url 'plan_cablage:plan_liste' exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="mb-2 text-lg font-semibold">{% trans "Câblage" %}</h2>
-                    <p class="text-sm text-gray-500 mb-1">{% trans "Origine · Custom · Boîtier, connecteurs, fils" %}</p>
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_plans_cablage|default:0 }}</span>
-                    </p>
-                </div>
-                <img src="{% static 'icons/em_faisceau.png' %}" alt="{% trans 'Câblage' %}" class="h-[60px] w-[60px]">
-            </div>
-        </a>
-
-        <!-- ================================================== -->
-        <!-- DÉMARREUR -->
-        <!-- ================================================== -->
-        <a
-            href="{% url 'demarreur:demarreur_list' exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="mb-2 text-lg font-semibold">{% trans "Démarreur" %}</h2>
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_demarreur|default:0 }}</span>
-                    </p>
-                </div>
-                <img src="{% static 'icons/demarreur.png' %}" alt="{% trans 'Démarreur' %}" class="h-[60px] w-[60px]">
-            </div>
-        </a>
-
-        <!-- ================================================== -->
-        <!-- COURROIE D'ACCESSOIRES -->
-        <!-- ================================================== -->
-
-        <a
-            href="{% url 'courroie_accessoires:courroie_list' exemplaire_id=exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-
                 <div>
                     <h2 class="mb-2 text-lg font-semibold">
-                        {% trans "Courroie d'accessoires" %}
+                        {% trans "Suspension" %}
                     </h2>
-
                     <p class="text-gray-600">
                         {% trans "Nombre total :" %}
-                        <span class="font-bold">
-                            {{ total_access|default:0 }}
-                        </span>
+                        <span class="font-bold">{{ total_suspension|default:0 }}</span>
                     </p>
                 </div>
-
                 <img
-                    src="{% static 'icons/courroie-daccess.png' %}"
-                    alt="{% trans 'Courroie d’accessoires' %}"
+                    src="{% static 'icons/suspension.png' %}"
+                    alt="{% trans 'Suspension' %}"
                     class="h-[60px] w-[60px]"
                 >
-
             </div>
         </a>
 
         <!-- ================================================== -->
-        <!-- ÉCHAPPEMENT -->
+        <!-- TRANSMISSION : arbre de transmission et cardans -->
         <!-- ================================================== -->
-
         <a
-            href="{% url 'echappement:dashboard_echappement' exemplaire_id=exemplaire.id %}"
+            href="{% url 'autres_interventions:dashboard_transmission' exemplaire_id=exemplaire.id %}"
             class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
         >
             <div class="flex items-center justify-between">
-
                 <div>
-                    <h2 class="mb-2 text-lg font-semibold">
-                        {% trans "Dashboard échappement" %}
-                    </h2>
-
+                    <h2 class="mb-2 text-lg font-semibold">{% trans "Transmission" %}</h2>
+                    <p class="text-sm text-gray-500 mb-1">{% trans "Arbre de transmission · Cardans · Roulements de roue" %}</p>
                     <p class="text-gray-600">
                         {% trans "Nombre total :" %}
-                        <span class="font-bold">
-                            {{ total_echappement|default:0 }}
-                        </span>
+                        <span class="font-bold">{{ total_transmission|default:0 }}</span>
                     </p>
                 </div>
-
-                <img
-                    src="{% static 'icons/echappement.png' %}"
-                    alt="{% trans 'Échappement' %}"
-                    class="h-[60px] w-[60px]"
-                >
-
+                <img src="{% static 'icons/arbre-transmission.png' %}" alt="{% trans 'Transmission' %}" class="h-[60px] w-[60px]">
             </div>
         </a>
 
         <!-- ================================================== -->
-        <!-- BATTERIE -->
+        <!-- VENTILATION -->
         <!-- ================================================== -->
-
         <a
-            href="{% url 'batterie:batterie_list' exemplaire_id=exemplaire.id %}"
+            href="{% url 'ventilation:ventilation_list' exemplaire.id %}"
             class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
         >
             <div class="flex items-center justify-between">
-
                 <div>
-                    <h2 class="mb-2 text-lg font-semibold">
-                        {% trans "Batterie" %}
-                    </h2>
-
+                    <h2 class="mb-1 text-lg font-semibold">{% trans "Ventilation" %}</h2>
+                    <p class="text-xs text-gray-500 mb-1">{% trans "Soufflerie, filtre d'habitacle, résistance de chauffage, moteur de ventilation" %}</p>
                     <p class="text-gray-600">
                         {% trans "Nombre total :" %}
-                        <span class="font-bold">
-                            {{ total_batterie|default:0 }}
-                        </span>
+                        <span class="font-bold">{{ total_ventilation|default:0 }}</span>
                     </p>
                 </div>
-
-                <img
-                    src="{% static 'icons/batterie.png' %}"
-                    alt="{% trans 'Batterie' %}"
-                    class="h-[60px] w-[60px]"
-                >
-
+                <img src="{% static 'icons/ventilation.png' %}" alt="{% trans 'Ventilation' %}" class="h-[60px] w-[60px]">
             </div>
         </a>
-
-        <!-- ================================================== -->
-        <!-- CLIMATISATION -->
-        <!-- ================================================== -->
-
-        <a
-            href="{% url 'climatisation:clim_list' exemplaire_id=exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-
-                <div>
-                    <h2 class="mb-2 text-lg font-semibold">
-                        {% trans "Contrôle de la climatisation" %}
-                    </h2>
-
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">
-                            {{ total_clim|default:0 }}
-                        </span>
-                    </p>
-                </div>
-
-                <img
-                    src="{% static 'icons/climatisation.png' %}"
-                    alt="{% trans 'Climatisation' %}"
-                    class="h-[60px] w-[60px]"
-                >
-
-            </div>
-        </a>
-
-        <!-- ================================================== -->
-        <!-- REFROIDISSEMENT -->
-        <!-- ================================================== -->
-
-        <a
-            href="{% url 'refroidissement:ref_list' exemplaire_id=exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-
-                <div>
-                    <h2 class="mb-2 text-lg font-semibold">
-                        {% trans "Contrôle du refroidissement" %}
-                    </h2>
-
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">
-                            {{ total_ref|default:0 }}
-                        </span>
-                    </p>
-                </div>
-
-                <img
-                    src="{% static 'icons/radiateur.png' %}"
-                    alt="{% trans 'Système de refroidissement' %}"
-                    class="h-[60px] w-[60px]"
-                >
-
-            </div>
-        </a>
-
-
-         <a
-            href="{% url 'cardan:cardan_list' exemplaire_id=exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-
-                <div>
-                    <h2 class="mb-2 text-lg font-semibold">
-                        {% trans "Contrôle des cardans" %}
-                    </h2>
-
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">
-                            {{ total_cardan|default:0 }}
-                        </span>
-                    </p>
-                </div>
-
-                <img
-                    src="{% static 'icons/cardan.png' %}"
-                    alt="{% trans 'cardans' %}"
-                    class="h-[60px] w-[60px]"
-                >
-
-            </div>
-        </a>
-
-
-         <a
-            href="{% url 'arbre_transmission:arbre_list' exemplaire_id=exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-
-                <div>
-                    <h2 class="mb-2 text-lg font-semibold">
-                        {% trans "Arbre de transmission" %}
-                    </h2>
-
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">
-                            {{ total_arbre_transmission|default:0 }}
-                        </span>
-                    </p>
-                </div>
-
-                <img
-                    src="{% static 'icons/arbre-transmission.png' %}"
-                    alt="{% trans 'Arbre de transmission' %}"
-                    class="h-[60px] w-[60px]"
-                >
-
-            </div>
-        </a>
-
 
          <a
             href="{% url 'vitrage:vitrage_list' exemplaire_id=exemplaire.id %}"
@@ -645,109 +446,6 @@
             </div>
         </a>
 
-
-         <a
-            href="{% url 'roulement:roulement_list' exemplaire_id=exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-
-                <div>
-                    <h2 class="mb-2 text-lg font-semibold">
-                        {% trans "Roulements de roue" %}
-                    </h2>
-
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">
-                            {{ total_roulement|default:0 }}
-                        </span>
-                    </p>
-                </div>
-
-                <img
-                    src="{% static 'icons/roulement-roue-moyeu.png' %}"
-                    alt="{% trans 'Roulements de roue' %}"
-                    class="h-[60px] w-[60px]"
-                >
-
-            </div>
-        </a>
-
-        <!-- ================================================== -->
-        <!-- PRÉPARATION COURSE (dashboard) -->
-        <!-- ================================================== -->
-        <a
-            href="{% url 'preparation_course:dashboard_preparation_course' exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="mb-1 text-lg font-semibold">{% trans "Préparation course" %}</h2>
-                    <p class="text-xs text-gray-500 mb-1">{% trans "Arceau, extincteur, baquets, câblage, boîtier, moteur, échappement, démontage, air jack" %}</p>
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_preparation_course|default:0 }}</span>
-                    </p>
-                </div>
-                <img src="{% static 'icons/preparation_course.png' %}" alt="{% trans 'Préparation course' %}" class="h-[60px] w-[60px]">
-            </div>
-        </a>
-
-        <!-- ================================================== -->
-        <!-- SUSPENSION (dashboard : origine + sport) -->
-        <!-- ================================================== -->
-        <a
-            href="{% url 'suspension:dashboard_suspension' exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="mb-2 text-lg font-semibold">
-                        {% trans "Suspension" %}
-                    </h2>
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_suspension|default:0 }}</span>
-                    </p>
-                </div>
-                <img
-                    src="{% static 'icons/suspension.png' %}"
-                    alt="{% trans 'Suspension' %}"
-                    class="h-[60px] w-[60px]"
-                >
-            </div>
-        </a>
-
-               <a
-            href="{% url 'embrayage:embrayage_list' exemplaire_id=exemplaire.id %}"
-            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
-        >
-            <div class="flex items-center justify-between">
-
-                <div>
-                    <h2 class="mb-2 text-lg font-semibold">
-                        {% trans "Remplacement de l'embrayage" %}
-                    </h2>
-
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">
-                            {{ total_embrayage|default:0 }}
-                        </span>
-                    </p>
-                </div>
-
-                <img
-                    src="{% static 'icons/disque-dembrayage.png' %}"
-                    alt="{% trans "Disque d'embrayage" %}"
-                    class="h-[60px] w-[60px]"
-                >
-
-            </div>
-        </a>
-
-
     </div>
 
     <!-- ================================================== -->
@@ -766,5 +464,6 @@
     </div>
 
 </div>
+{% include "autres_interventions/_tri_cartes.html" %}
 {% endblock %}
 

@@ -11,7 +11,7 @@
 
     <div class="flex flex-wrap gap-2 mb-6">
         {% if peut_modifier %}<a href="{% url 'plan_cablage:plan_ajouter' exemplaire.id %}" class="pc-btn">+ {% trans "Nouveau plan de câblage" %}</a>{% endif %}
-        <a href="{% url 'autres_interventions:choisir_autre' exemplaire.id %}" class="pc-btn pc-btn-gris">{% trans "Retour aux interventions" %}</a>
+        <a href="{% url 'autres_interventions:dashboard_electricite' exemplaire.id %}" class="pc-btn pc-btn-gris">{% trans "Retour à Électricité" %}</a>
     </div>
 
     <div class="pc-carte overflow-x-auto">
