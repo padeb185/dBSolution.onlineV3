@@ -67,8 +67,10 @@ class StatsFournisseur(models.Model):
 
         for a in qs_mds:
             # HTVA = marchandise + transport (cohérent avec montant_tva)
-            htva = a.montant_htva_total or Decimal("0.00")
-            tva = a.montant_tva or Decimal("0.00")
+            # Note de crédit : montants négatifs (diminuent les achats du fournisseur)
+            sg = getattr(a, "signe", 1)
+            htva = (a.montant_htva_total or Decimal("0.00")) * sg
+            tva = (a.montant_tva or Decimal("0.00")) * sg
             lignes.append({
                 "date": a.date_facture,
                 "reference": a.reference_facture or "",
@@ -87,8 +89,9 @@ class StatsFournisseur(models.Model):
             qs_outil = qs_outil.filter(date_facture__month=mois)
 
         for o in qs_outil:
-            htva = (o.prix_htva or Decimal("0.00")) * (o.quantite or 0)
-            tva = o.tva_a_recuperer or Decimal("0.00")
+            sg = getattr(o, "signe", 1)
+            htva = (o.prix_htva or Decimal("0.00")) * (o.quantite or 0) * sg
+            tva = (o.tva_a_recuperer or Decimal("0.00")) * sg
             lignes.append({
                 "date": o.date_facture,
                 "reference": o.reference or "",

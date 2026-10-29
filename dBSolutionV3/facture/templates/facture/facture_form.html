@@ -23,6 +23,9 @@
 
     {% include "partials/messages.html" %}
     {% include "facture/_entete_facture.html" %}
+    {% if facture.est_facture %}
+        <p class="text-sm text-gray-600 mb-4">{% trans "Notes de crédit et de débit : disponibles dans le détail de la facture une fois émise." %}</p>
+    {% endif %}
 
     <form method="post" id="form-facture">
         {% csrf_token %}

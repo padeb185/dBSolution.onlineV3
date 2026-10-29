@@ -1,0 +1,27 @@
+{% load i18n %}
+{% if origine %}
+<div style="background:#fff7ed;border:1px solid #fdba74;color:#7c2d12;border-radius:6px;padding:10px;margin-bottom:12px;">
+    {% if type_note == "NOTE_CREDIT" %}
+        {% blocktrans with ref=origine.reference_facture|default:origine %}Note de crédit sur la facture {{ ref }} : les montants de la facture sont repris, ajustez-les au montant crédité par le fournisseur.{% endblocktrans %}
+    {% else %}
+        {% blocktrans with ref=origine.reference_facture|default:origine %}Note de débit sur la facture {{ ref }} : encodez le supplément facturé par le fournisseur.{% endblocktrans %}
+    {% endif %}
+</div>
+{% endif %}
+<script>
+// Facture / note : la facture d'origine et le motif ne s'affichent que pour une note
+document.addEventListener("DOMContentLoaded", function () {
+    const sel = document.querySelector("[data-type-document]");
+    if (!sel) return;
+    const blocs = ["document_origine", "motif"].map(function (n) {
+        const el = sel.form.querySelector("[name='" + n + "']");
+        return el ? el.closest("div") : null;
+    }).filter(Boolean);
+    function maj() {
+        const note = sel.value !== "FACTURE";
+        blocs.forEach(function (b) { b.style.display = note ? "" : "none"; });
+    }
+    sel.addEventListener("change", maj);
+    maj();
+});
+</script>

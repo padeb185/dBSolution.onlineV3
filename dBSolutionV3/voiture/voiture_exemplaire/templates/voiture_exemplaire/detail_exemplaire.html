@@ -81,10 +81,7 @@
                         <span>{{ moteur.cylindree_l }}L</span>
                         <span class="text-gray-500">({{ moteur.puissance_ch }} ch)</span>
                     </div>
-                    <a href="{% url 'voiture_exemplaire:lier_moteur_exemplaire' exemplaire_id=exemplaire.id %}"
-                       class="text-blue-700 hover:underline whitespace-nowrap">
-                        {% trans "Modifier" %}
-                    </a>
+                    {% include "voiture_exemplaire/_actions_composant.html" with type="moteur" obj=moteur %}
                 </li>
                 {% empty %}
                 <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center gap-4">
@@ -93,7 +90,7 @@
                     </div>
                     <a href="{% url 'voiture_exemplaire:lier_moteur_exemplaire' exemplaire_id=exemplaire.id %}"
                        class="text-blue-700 hover:underline whitespace-nowrap">
-                        {% trans "Modifier" %}
+                        {% trans "Lier" %}
                     </a>
                 </li>
                 {% endfor %}
@@ -112,10 +109,7 @@
                         <span class="font-medium">{{ boite.fabricant }}</span>
                         <span>{{ boite.get_type_de_boite_display }} {{ boite.nom_du_type|default:"" }}</span>
                     </div>
-                    <a href="{% url 'voiture_exemplaire:lier_boite_exemplaire' exemplaire_id=exemplaire.id %}"
-                       class="text-blue-700 hover:underline whitespace-nowrap">
-                        {% trans "Modifier" %}
-                    </a>
+                    {% include "voiture_exemplaire/_actions_composant.html" with type="boite" obj=boite %}
                 </li>
                 {% empty %}
                 <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center gap-4">
@@ -124,7 +118,7 @@
                     </div>
                     <a href="{% url 'voiture_exemplaire:lier_boite_exemplaire' exemplaire_id=exemplaire.id %}"
                        class="text-blue-700 hover:underline whitespace-nowrap">
-                        {% trans "Modifier" %}
+                        {% trans "Lier" %}
                     </a>
                 </li>
                 {% endfor %}
@@ -144,10 +138,7 @@
                         <span>{{ embrayage.type_embrayage }}</span>
                         <span class="text-gray-500">{{ embrayage.volant_moteur }}</span>
                     </div>
-                    <a href="{% url 'voiture_exemplaire:lier_embrayage_exemplaire' exemplaire_id=exemplaire.id %}"
-                       class="text-blue-700 hover:underline whitespace-nowrap">
-                        {% trans "Modifier" %}
-                    </a>
+                    {% include "voiture_exemplaire/_actions_composant.html" with type="embrayage" obj=embrayage %}
                 </li>
                 {% empty %}
                 <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center gap-4">
@@ -156,7 +147,7 @@
                     </div>
                     <a href="{% url 'voiture_exemplaire:lier_embrayage_exemplaire' exemplaire_id=exemplaire.id %}"
                        class="text-blue-700 hover:underline whitespace-nowrap">
-                        {% trans "Modifier" %}
+                        {% trans "Lier" %}
                     </a>
                 </li>
                 {% endfor %}

@@ -943,3 +943,82 @@ def finances_cout_annuel(request, exemplaire_id):
             for e in erreurs:
                 messages.error(request, f"{form.fields[champ].label if champ in form.fields else ''} : {e}")
     return retour
+
+
+
+# ------------------------------------------------------------
+# Composants liés (moteur, boîte, embrayage) : supprimer le lien avec le véhicule
+# Le composant n'est pas supprimé du catalogue : il peut être relié à nouveau.
+# ------------------------------------------------------------
+COMPOSANTS_LIES = {
+    "moteur": {
+        "modele": MoteurVoiture, "relation": "moteurs", "icone": "icons/engine.png",
+        "detail": ("voiture_moteur:moteur_detail", "moteur_id"),
+        "modifier": ("voiture_moteur:modifier_moteur", "moteur_id"),
+        "lier": "voiture_exemplaire:lier_moteur_exemplaire",
+    },
+    "boite": {
+        "modele": VoitureBoite, "relation": "boites", "icone": "icons/boite-de-vitesse.png",
+        "detail": ("voiture_boite:boite_detail", "boite_id"),
+        "modifier": ("voiture_boite:modifier_boite", "boite_id"),
+        "lier": "voiture_exemplaire:lier_boite_exemplaire",
+    },
+    "embrayage": {
+        "modele": VoitureEmbrayage, "relation": "embrayages", "icone": "icons/disque-dembrayage.png",
+        "detail": ("voiture_embrayage:embrayage_detail", "embrayage_id"),
+        "modifier": ("voiture_embrayage:modifier_embrayage", "embrayage_id"),
+        "lier": "voiture_exemplaire:lier_embrayage_exemplaire",
+    },
+}
+
+
+def _libelle_composant(type_composant, obj):
+    if type_composant == "moteur":
+        return " ".join(str(x) for x in (obj.motoriste, f"{obj.cylindree_l} L" if obj.cylindree_l else "",
+                                         obj.code_moteur or "", f"{obj.puissance_ch} ch" if obj.puissance_ch else "") if x)
+    if type_composant == "boite":
+        return " ".join(str(x) for x in (obj.fabricant, obj.get_type_de_boite_display(), obj.nom_du_type or "") if x)
+    return " ".join(str(x) for x in (obj.fabricant, obj.type_embrayage or "", obj.volant_moteur or "") if x)
+
+
+@login_required
+def delier_composant(request, exemplaire_id, type_composant, composant_id):
+    from utilisateurs.models import UserLog
+
+    conf = COMPOSANTS_LIES.get(type_composant)
+    if conf is None:
+        messages.error(request, _("Composant inconnu."))
+        return redirect("voiture_exemplaire:voiture_exemplaire_detail", exemplaire_id=exemplaire_id)
+
+    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+    societe = getattr(request.user, "societe", None)
+    if not request.user.is_superuser and societe is not None and exemplaire.societe_id != societe.pk:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    composant = get_object_or_404(getattr(exemplaire, conf["relation"]), pk=composant_id)
+    libelle = _libelle_composant(type_composant, composant)
+    retour = request.GET.get("retour") or request.POST.get("retour") or ""
+
+    if request.method == "POST":
+        composant.voitures_exemplaires.remove(exemplaire)
+        UserLog.objects.create(
+            utilisateur=request.user,
+            action=f"{_('Lien supprimé')} : {libelle} – {exemplaire.immatriculation or exemplaire.pk}",
+        )
+        messages.success(request, _("Le lien avec « %(composant)s » a été supprimé du véhicule %(immatriculation)s. "
+                                    "Le composant reste dans le catalogue.")
+                         % {"composant": libelle, "immatriculation": exemplaire.immatriculation or ""})
+        if retour == "lier":
+            return redirect(conf["lier"], exemplaire_id=exemplaire.id)
+        return redirect("voiture_exemplaire:voiture_exemplaire_detail", exemplaire_id=exemplaire.id)
+
+    return render(request, "voiture_exemplaire/delier_composant.html", {
+        "exemplaire": exemplaire,
+        "composant": composant,
+        "type_composant": type_composant,
+        "libelle": libelle,
+        "icone": conf["icone"],
+        "url_detail": reverse(conf["detail"][0], kwargs={conf["detail"][1]: composant.pk}),
+        "retour": retour,
+    })

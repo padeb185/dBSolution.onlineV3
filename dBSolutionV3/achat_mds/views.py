@@ -5,6 +5,8 @@ from django.views.decorators.cache import never_cache
 from achat_mds.forms import AchatForm
 from fournisseur.models import Fournisseur
 from django.contrib import messages
+from django.core.exceptions import ValidationError
+from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models import ProtectedError, RestrictedError
@@ -13,6 +15,7 @@ from django.utils.translation import gettext as _, gettext_noop
 from utilisateurs.models import UserLog
 
 from .models import AchatMds
+from .documents import TypeDocumentAchat, type_note_demande
 from utils.securite import peut_supprimer, refuser_suppression
 
 
@@ -28,8 +31,18 @@ def achat_mds_view(request):
     fournisseurs = Fournisseur.objects.filter(societe=tenant)
     achat_mds = AchatMds.objects.filter(societe=tenant)
 
+    # Note de crédit / débit créée depuis une facture d'origine (?origine=<id>&type=NOTE_CREDIT)
+    origine = None
+    type_note = type_note_demande(request)
+    if request.GET.get("origine"):
+        try:
+            origine = AchatMds.objects.get(pk=request.GET["origine"], societe=tenant,
+                                      type_document=TypeDocumentAchat.FACTURE)
+        except (AchatMds.DoesNotExist, ValueError, ValidationError):
+            raise Http404
+
     if request.method == "POST":
-        form = AchatForm(request.POST)
+        form = AchatForm(request.POST, societe=tenant, instance=AchatMds(societe=tenant))
 
         if form.is_valid():
             achat = form.save(commit=False)
@@ -38,15 +51,32 @@ def achat_mds_view(request):
 
             messages.success(
                 request,
-                _("Achat enregistré avec succès.")
+                _("Achat enregistré avec succès.") if achat.est_facture else
+                _("%(document)s enregistrée avec succès.") % {"document": achat.libelle_document}
             )
 
+            if achat.est_note:
+                return redirect("achat_mds:achat_detail", achat_id=achat.document_origine_id)
             return redirect(
                 f"{reverse('achat_mds:achat_list')}?saved=1"
             )
 
     else:
-        form = AchatForm()
+        initial = {}
+        if origine is not None and type_note:
+            credit = type_note == TypeDocumentAchat.NOTE_CREDIT
+            initial = {
+                "type_document": type_note,
+                "document_origine": origine.pk,
+                "fournisseur": origine.fournisseur_id,
+                "libelle_facture": origine.libelle_facture,
+                "achat_tva": origine.achat_tva,
+                "transport_tva": origine.transport_tva,
+                # Note de crédit : mêmes montants que la facture (à ajuster) ; note de débit : à zéro
+                "achat_montant_htva": origine.achat_montant_htva if credit else 0,
+                "transport_montant_htva": origine.transport_montant_htva if credit else None,
+            }
+        form = AchatForm(societe=tenant, initial=initial)
 
     return render(
         request,
@@ -55,6 +85,8 @@ def achat_mds_view(request):
             "form": form,
             "achat_mds": achat_mds,
             "fournisseurs": fournisseurs,
+            "origine": origine,
+            "type_note": type_note,
         },
     )
 
@@ -82,7 +114,7 @@ def achat_detail_view(request, achat_id):
     tenant = request.user.societe
 
     achat = get_object_or_404(
-        AchatMds,
+        AchatMds.objects.select_related("fournisseur", "document_origine"),
         id=achat_id,
         societe=tenant   # 🔒 IMPORTANT sécurité multi-tenant
     )
@@ -110,7 +142,7 @@ def modifier_achat_view(request, achat_id):
     fournisseurs = Fournisseur.objects.filter(societe=tenant)
 
     if request.method == "POST":
-        form = AchatForm(request.POST, instance=achat)
+        form = AchatForm(request.POST, instance=achat, societe=tenant)
         if form.is_valid():
             form.save()
             messages.success(request, _("Achat modifié avec succès !"))
@@ -120,7 +152,7 @@ def modifier_achat_view(request, achat_id):
 
 
     else:
-        form = AchatForm(instance=achat)
+        form = AchatForm(instance=achat, societe=tenant)
 
     return render(
         request,
@@ -173,7 +205,7 @@ def delete_achat_view(request, pk):
         except (ProtectedError, RestrictedError):
             messages.error(
                 request,
-                _("Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé ailleurs.") % {"ref": libelle},
+                _("Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé ailleurs (par exemple par une note de crédit ou de débit).") % {"ref": libelle},
             )
             return redirect("achat_mds:delete_achat", pk=pk)
 

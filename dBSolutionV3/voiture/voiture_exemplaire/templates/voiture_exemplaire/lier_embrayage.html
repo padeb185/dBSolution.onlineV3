@@ -27,6 +27,20 @@
     {% endfor %}
     {% endif %}
 
+    {% with lies=exemplaire.embrayages.all %}{% if lies %}
+    <div class="mb-6">
+        <h2 class="font-semibold mb-2">{% trans "Embrayages liés à ce véhicule" %}</h2>
+        <ul class="space-y-2">
+            {% for c in lies %}
+            <li class="border p-3 rounded-md flex flex-wrap justify-between items-center gap-3">
+                <span class="font-medium">{% if "embrayage" == "moteur" %}{{ c.motoriste }} {{ c.cylindree_l }} {{ c.code_moteur }} {{ c.puissance_ch }}{% elif "embrayage" == "boite" %}{{ c.fabricant }} {{ c.get_type_de_boite_display }} {{ c.nom_du_type|default:"" }}{% else %}{{ c.fabricant }} {{ c.type_embrayage }} {{ c.volant_moteur }}{% endif %}</span>
+                {% include "voiture_exemplaire/_actions_composant.html" with type="embrayage" obj=c retour="lier" %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}{% endwith %}
+
     <form method="post">
         {% csrf_token %}
         <label for="embrayage_id" class="block mb-2 font-semibold">{% trans "Choisir un embrayage" %}</label>

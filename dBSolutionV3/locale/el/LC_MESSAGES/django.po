@@ -67913,3 +67913,135 @@ msgstr "μπορεί ακόμη να πιστωθεί: %(montant)s €"
 
 msgid "Ce montant est déduit de la facture %(numero)s ; un éventuel trop-perçu vous est remboursé."
 msgstr "Το ποσό αφαιρείται από το τιμολόγιο %(numero)s· τυχόν επιπλέον ποσό σας επιστρέφεται."
+
+msgid "Émettez d'abord la facture : une note de crédit ou de débit se crée sur une facture émise."
+msgstr "Εκδώστε πρώτα το τιμολόγιο: πιστωτικό ή χρεωστικό δημιουργείται σε εκδοθέν τιμολόγιο."
+
+msgid "Notes de crédit et de débit : disponibles dans le détail de la facture une fois émise."
+msgstr "Πιστωτικά και χρεωστικά: διαθέσιμα στις λεπτομέρειες του τιμολογίου μετά την έκδοση."
+
+msgid "Composant inconnu."
+msgstr "Άγνωστο εξάρτημα."
+
+msgid "Lien supprimé"
+msgstr "Η σύνδεση αφαιρέθηκε"
+
+msgid "Le lien avec « %(composant)s » a été supprimé du véhicule %(immatriculation)s. Le composant reste dans le catalogue."
+msgstr "Η σύνδεση με «%(composant)s» αφαιρέθηκε από το όχημα %(immatriculation)s. Το εξάρτημα παραμένει στον κατάλογο."
+
+msgid "Supprimer le lien"
+msgstr "Αφαίρεση σύνδεσης"
+
+msgid "Supprimer le lien avec le véhicule"
+msgstr "Αφαίρεση σύνδεσης με το όχημα"
+
+msgid "Seul le lien avec ce véhicule est supprimé : le composant reste dans le catalogue (avec son historique) et peut être relié à nouveau."
+msgstr "Αφαιρείται μόνο η σύνδεση με αυτό το όχημα: το εξάρτημα παραμένει στον κατάλογο (με το ιστορικό του) και μπορεί να συνδεθεί ξανά."
+
+msgid "Moteurs liés à ce véhicule"
+msgstr "Κινητήρες συνδεδεμένοι με το όχημα"
+
+msgid "Boîtes liées à ce véhicule"
+msgstr "Κιβώτια συνδεδεμένα με το όχημα"
+
+msgid "Embrayages liés à ce véhicule"
+msgstr "Συμπλέκτες συνδεδεμένοι με το όχημα"
+
+msgid "Obligatoire pour une note de crédit ou de débit."
+msgstr "Υποχρεωτικό για πιστωτικό ή χρεωστικό σημείωμα."
+
+msgid "Imputée sur la facture d'origine"
+msgstr "Συμψηφίστηκε με το αρχικό τιμολόγιο"
+
+msgid "Une facture ne peut pas avoir de facture d'origine."
+msgstr "Ένα τιμολόγιο δεν μπορεί να έχει αρχικό τιμολόγιο."
+
+msgid "Cette facture a déjà des notes de crédit ou de débit : elle ne peut pas devenir une note."
+msgstr "Αυτό το τιμολόγιο έχει ήδη πιστωτικά ή χρεωστικά: δεν μπορεί να γίνει σημείωμα."
+
+msgid "Une note de crédit ou de débit doit être liée à une facture d'origine."
+msgstr "Ένα πιστωτικό ή χρεωστικό πρέπει να συνδέεται με αρχικό τιμολόγιο."
+
+msgid "Le document d'origine doit être une facture, pas une note."
+msgstr "Το αρχικό έγγραφο πρέπει να είναι τιμολόγιο, όχι σημείωμα."
+
+msgid "Un document ne peut pas être sa propre origine."
+msgstr "Ένα έγγραφο δεν μπορεί να είναι η δική του προέλευση."
+
+msgid "La facture d'origine appartient à une autre société."
+msgstr "Το αρχικό τιμολόγιο ανήκει σε άλλη εταιρεία."
+
+msgid "La note doit être émise par le même fournisseur que la facture d'origine."
+msgstr "Το σημείωμα πρέπει να εκδίδεται από τον ίδιο προμηθευτή με το αρχικό τιμολόγιο."
+
+msgid "La note de crédit (%(note)s €) dépasse le montant encore créditable de la facture d'origine (%(dispo)s €)."
+msgstr "Το πιστωτικό (%(note)s €) υπερβαίνει το ποσό που μπορεί ακόμη να πιστωθεί στο αρχικό τιμολόγιο (%(dispo)s €)."
+
+msgid "Le montant de la note doit être supérieur à zéro."
+msgstr "Το ποσό του σημειώματος πρέπει να είναι μεγαλύτερο από μηδέν."
+
+msgid "Ex: retour de pièces, erreur de prix, remise accordée…"
+msgstr "Π.χ. επιστροφή ανταλλακτικών, λάθος τιμής, έκπτωση…"
+
+msgid "%(document)s enregistrée avec succès."
+msgstr "%(document)s καταχωρήθηκε με επιτυχία."
+
+msgid "Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé ailleurs (par exemple par une note de crédit ou de débit)."
+msgstr "Αδυναμία διαγραφής της αγοράς «%(ref)s»: χρησιμοποιείται ακόμη αλλού (π.χ. από πιστωτικό ή χρεωστικό)."
+
+msgid "Ex: retour d'outillage, erreur de prix, remise accordée…"
+msgstr "Π.χ. επιστροφή εργαλείων, λάθος τιμής, έκπτωση…"
+
+msgid "Remboursement reçu : %(achat)s"
+msgstr "Επιστροφή χρημάτων ελήφθη: %(achat)s"
+
+msgid "Facture d'achat payée (net des notes de crédit imputées) : %(achat)s"
+msgstr "Τιμολόγιο αγοράς εξοφλήθηκε (μετά τα συμψηφισμένα πιστωτικά): %(achat)s"
+
+msgid "Notes de crédit / notes de débit"
+msgstr "Πιστωτικά / χρεωστικά σημειώματα"
+
+msgid "La note de crédit diminue la charge, la TVA à récupérer et la dette fournisseur. Elle est déduite du paiement de la facture d'origine si celle-ci n'est pas encore payée, sinon elle apparaît comme remboursement à recevoir dans « Factures à payer »."
+msgstr "Το πιστωτικό μειώνει το έξοδο, τον ανακτήσιμο ΦΠΑ και την οφειλή προς τον προμηθευτή. Αφαιρείται από την πληρωμή του αρχικού τιμολογίου αν δεν έχει ακόμη εξοφληθεί· διαφορετικά εμφανίζεται ως επιστροφή προς είσπραξη στα «Τιμολόγια προς πληρωμή»."
+
+msgid "Imputée"
+msgstr "Συμψηφίστηκε"
+
+msgid "Remboursée"
+msgstr "Επιστράφηκε"
+
+msgid "Ouverte"
+msgstr "Ανοιχτό"
+
+msgid "Solde net de la facture"
+msgstr "Καθαρό υπόλοιπο τιμολογίου"
+
+msgid "Aucune note de crédit ou de débit pour cette facture."
+msgstr "Κανένα πιστωτικό ή χρεωστικό για αυτό το τιμολόγιο."
+
+msgid "Facture entièrement créditée : plus aucune note de crédit possible."
+msgstr "Το τιμολόγιο πιστώθηκε πλήρως: δεν είναι δυνατό άλλο πιστωτικό."
+
+msgid "remboursement à recevoir"
+msgstr "επιστροφή προς είσπραξη"
+
+msgid "notes de crédit"
+msgstr "πιστωτικά"
+
+msgid "Marquer remboursée"
+msgstr "Σήμανση ως επιστραφέν"
+
+msgid "Note de crédit imputée sur le paiement de la facture d'origine le %(jour)s."
+msgstr "Πιστωτικό συμψηφίστηκε με την πληρωμή του αρχικού τιμολογίου στις %(jour)s."
+
+msgid "Remboursement reçu du fournisseur le %(jour)s."
+msgstr "Επιστροφή χρημάτων από τον προμηθευτή στις %(jour)s."
+
+msgid "Encore créditable : %(dispo)s € TVAC"
+msgstr "Μπορεί ακόμη να πιστωθεί: %(dispo)s € με ΦΠΑ"
+
+msgid "Note de crédit sur la facture %(ref)s : les montants de la facture sont repris, ajustez-les au montant crédité par le fournisseur."
+msgstr "Πιστωτικό στο τιμολόγιο %(ref)s: τα ποσά του τιμολογίου αντιγράφονται, προσαρμόστε τα στο ποσό που πίστωσε ο προμηθευτής."
+
+msgid "Note de débit sur la facture %(ref)s : encodez le supplément facturé par le fournisseur."
+msgstr "Χρεωστικό στο τιμολόγιο %(ref)s: καταχωρίστε την επιπλέον χρέωση του προμηθευτή."

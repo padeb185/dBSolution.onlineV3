@@ -67885,3 +67885,135 @@ msgstr "nog te crediteren: %(montant)s €"
 
 msgid "Ce montant est déduit de la facture %(numero)s ; un éventuel trop-perçu vous est remboursé."
 msgstr "Dit bedrag wordt afgetrokken van factuur %(numero)s; een eventueel teveel betaald bedrag wordt u terugbetaald."
+
+msgid "Émettez d'abord la facture : une note de crédit ou de débit se crée sur une facture émise."
+msgstr "Geef eerst de factuur uit: een credit- of debetnota wordt opgemaakt op een uitgegeven factuur."
+
+msgid "Notes de crédit et de débit : disponibles dans le détail de la facture une fois émise."
+msgstr "Credit- en debetnota's: beschikbaar in de details van de factuur zodra die uitgegeven is."
+
+msgid "Composant inconnu."
+msgstr "Onbekend onderdeel."
+
+msgid "Lien supprimé"
+msgstr "Koppeling verwijderd"
+
+msgid "Le lien avec « %(composant)s » a été supprimé du véhicule %(immatriculation)s. Le composant reste dans le catalogue."
+msgstr "De koppeling met “%(composant)s” is verwijderd van voertuig %(immatriculation)s. Het onderdeel blijft in de catalogus."
+
+msgid "Supprimer le lien"
+msgstr "Koppeling verwijderen"
+
+msgid "Supprimer le lien avec le véhicule"
+msgstr "Koppeling met het voertuig verwijderen"
+
+msgid "Seul le lien avec ce véhicule est supprimé : le composant reste dans le catalogue (avec son historique) et peut être relié à nouveau."
+msgstr "Alleen de koppeling met dit voertuig wordt verwijderd: het onderdeel blijft in de catalogus (met zijn historiek) en kan opnieuw gekoppeld worden."
+
+msgid "Moteurs liés à ce véhicule"
+msgstr "Motoren gekoppeld aan dit voertuig"
+
+msgid "Boîtes liées à ce véhicule"
+msgstr "Versnellingsbakken gekoppeld aan dit voertuig"
+
+msgid "Embrayages liés à ce véhicule"
+msgstr "Koppelingen gekoppeld aan dit voertuig"
+
+msgid "Obligatoire pour une note de crédit ou de débit."
+msgstr "Verplicht voor een credit- of debetnota."
+
+msgid "Imputée sur la facture d'origine"
+msgstr "Verrekend met de oorspronkelijke factuur"
+
+msgid "Une facture ne peut pas avoir de facture d'origine."
+msgstr "Een factuur kan geen oorspronkelijke factuur hebben."
+
+msgid "Cette facture a déjà des notes de crédit ou de débit : elle ne peut pas devenir une note."
+msgstr "Deze factuur heeft al credit- of debetnota's: ze kan geen nota worden."
+
+msgid "Une note de crédit ou de débit doit être liée à une facture d'origine."
+msgstr "Een credit- of debetnota moet aan een oorspronkelijke factuur gekoppeld zijn."
+
+msgid "Le document d'origine doit être une facture, pas une note."
+msgstr "Het oorspronkelijke document moet een factuur zijn, geen nota."
+
+msgid "Un document ne peut pas être sa propre origine."
+msgstr "Een document kan niet zijn eigen oorsprong zijn."
+
+msgid "La facture d'origine appartient à une autre société."
+msgstr "De oorspronkelijke factuur behoort tot een andere onderneming."
+
+msgid "La note doit être émise par le même fournisseur que la facture d'origine."
+msgstr "De nota moet door dezelfde leverancier uitgegeven zijn als de oorspronkelijke factuur."
+
+msgid "La note de crédit (%(note)s €) dépasse le montant encore créditable de la facture d'origine (%(dispo)s €)."
+msgstr "De creditnota (%(note)s €) overschrijdt het nog crediteerbare bedrag van de oorspronkelijke factuur (%(dispo)s €)."
+
+msgid "Le montant de la note doit être supérieur à zéro."
+msgstr "Het bedrag van de nota moet groter zijn dan nul."
+
+msgid "Ex: retour de pièces, erreur de prix, remise accordée…"
+msgstr "Bv. teruggestuurde onderdelen, prijsfout, toegekende korting…"
+
+msgid "%(document)s enregistrée avec succès."
+msgstr "%(document)s succesvol opgeslagen."
+
+msgid "Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé ailleurs (par exemple par une note de crédit ou de débit)."
+msgstr "Kan aankoop « %(ref)s » niet verwijderen: ze wordt elders nog gebruikt (bijvoorbeeld door een credit- of debetnota)."
+
+msgid "Ex: retour d'outillage, erreur de prix, remise accordée…"
+msgstr "Bv. teruggestuurd gereedschap, prijsfout, toegekende korting…"
+
+msgid "Remboursement reçu : %(achat)s"
+msgstr "Terugbetaling ontvangen: %(achat)s"
+
+msgid "Facture d'achat payée (net des notes de crédit imputées) : %(achat)s"
+msgstr "Aankoopfactuur betaald (na aftrek van verrekende creditnota's): %(achat)s"
+
+msgid "Notes de crédit / notes de débit"
+msgstr "Creditnota's / debetnota's"
+
+msgid "La note de crédit diminue la charge, la TVA à récupérer et la dette fournisseur. Elle est déduite du paiement de la facture d'origine si celle-ci n'est pas encore payée, sinon elle apparaît comme remboursement à recevoir dans « Factures à payer »."
+msgstr "De creditnota vermindert de kost, de terug te vorderen btw en de leveranciersschuld. Ze wordt afgetrokken van de betaling van de oorspronkelijke factuur als die nog niet betaald is; anders verschijnt ze als te ontvangen terugbetaling in « Te betalen facturen »."
+
+msgid "Imputée"
+msgstr "Verrekend"
+
+msgid "Remboursée"
+msgstr "Terugbetaald"
+
+msgid "Ouverte"
+msgstr "Open"
+
+msgid "Solde net de la facture"
+msgstr "Nettosaldo van de factuur"
+
+msgid "Aucune note de crédit ou de débit pour cette facture."
+msgstr "Geen credit- of debetnota voor deze factuur."
+
+msgid "Facture entièrement créditée : plus aucune note de crédit possible."
+msgstr "Factuur volledig gecrediteerd: geen creditnota meer mogelijk."
+
+msgid "remboursement à recevoir"
+msgstr "te ontvangen terugbetaling"
+
+msgid "notes de crédit"
+msgstr "creditnota's"
+
+msgid "Marquer remboursée"
+msgstr "Markeren als terugbetaald"
+
+msgid "Note de crédit imputée sur le paiement de la facture d'origine le %(jour)s."
+msgstr "Creditnota verrekend met de betaling van de oorspronkelijke factuur op %(jour)s."
+
+msgid "Remboursement reçu du fournisseur le %(jour)s."
+msgstr "Terugbetaling ontvangen van de leverancier op %(jour)s."
+
+msgid "Encore créditable : %(dispo)s € TVAC"
+msgstr "Nog crediteerbaar: %(dispo)s € incl. btw"
+
+msgid "Note de crédit sur la facture %(ref)s : les montants de la facture sont repris, ajustez-les au montant crédité par le fournisseur."
+msgstr "Creditnota op factuur %(ref)s: de bedragen van de factuur zijn overgenomen, pas ze aan het door de leverancier gecrediteerde bedrag aan."
+
+msgid "Note de débit sur la facture %(ref)s : encodez le supplément facturé par le fournisseur."
+msgstr "Debetnota op factuur %(ref)s: voer het door de leverancier aangerekende supplement in."

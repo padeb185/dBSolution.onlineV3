@@ -67557,3 +67557,135 @@ msgstr "still creditable: %(montant)s €"
 
 msgid "Ce montant est déduit de la facture %(numero)s ; un éventuel trop-perçu vous est remboursé."
 msgstr "This amount is deducted from invoice %(numero)s; any overpayment will be refunded to you."
+
+msgid "Émettez d'abord la facture : une note de crédit ou de débit se crée sur une facture émise."
+msgstr "Issue the invoice first: a credit or debit note is created on an issued invoice."
+
+msgid "Notes de crédit et de débit : disponibles dans le détail de la facture une fois émise."
+msgstr "Credit and debit notes: available in the invoice details once issued."
+
+msgid "Composant inconnu."
+msgstr "Unknown component."
+
+msgid "Lien supprimé"
+msgstr "Link removed"
+
+msgid "Le lien avec « %(composant)s » a été supprimé du véhicule %(immatriculation)s. Le composant reste dans le catalogue."
+msgstr "The link with “%(composant)s” has been removed from vehicle %(immatriculation)s. The component stays in the catalogue."
+
+msgid "Supprimer le lien"
+msgstr "Remove link"
+
+msgid "Supprimer le lien avec le véhicule"
+msgstr "Remove the link with the vehicle"
+
+msgid "Seul le lien avec ce véhicule est supprimé : le composant reste dans le catalogue (avec son historique) et peut être relié à nouveau."
+msgstr "Only the link with this vehicle is removed: the component stays in the catalogue (with its history) and can be linked again."
+
+msgid "Moteurs liés à ce véhicule"
+msgstr "Engines linked to this vehicle"
+
+msgid "Boîtes liées à ce véhicule"
+msgstr "Gearboxes linked to this vehicle"
+
+msgid "Embrayages liés à ce véhicule"
+msgstr "Clutches linked to this vehicle"
+
+msgid "Obligatoire pour une note de crédit ou de débit."
+msgstr "Required for a credit or debit note."
+
+msgid "Imputée sur la facture d'origine"
+msgstr "Offset against the original invoice"
+
+msgid "Une facture ne peut pas avoir de facture d'origine."
+msgstr "An invoice cannot have an original invoice."
+
+msgid "Cette facture a déjà des notes de crédit ou de débit : elle ne peut pas devenir une note."
+msgstr "This invoice already has credit or debit notes: it cannot become a note."
+
+msgid "Une note de crédit ou de débit doit être liée à une facture d'origine."
+msgstr "A credit or debit note must be linked to an original invoice."
+
+msgid "Le document d'origine doit être une facture, pas une note."
+msgstr "The original document must be an invoice, not a note."
+
+msgid "Un document ne peut pas être sa propre origine."
+msgstr "A document cannot be its own origin."
+
+msgid "La facture d'origine appartient à une autre société."
+msgstr "The original invoice belongs to another company."
+
+msgid "La note doit être émise par le même fournisseur que la facture d'origine."
+msgstr "The note must be issued by the same supplier as the original invoice."
+
+msgid "La note de crédit (%(note)s €) dépasse le montant encore créditable de la facture d'origine (%(dispo)s €)."
+msgstr "The credit note (%(note)s €) exceeds the amount still creditable on the original invoice (%(dispo)s €)."
+
+msgid "Le montant de la note doit être supérieur à zéro."
+msgstr "The note amount must be greater than zero."
+
+msgid "Ex: retour de pièces, erreur de prix, remise accordée…"
+msgstr "E.g. returned parts, price error, discount granted…"
+
+msgid "%(document)s enregistrée avec succès."
+msgstr "%(document)s saved successfully."
+
+msgid "Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé ailleurs (par exemple par une note de crédit ou de débit)."
+msgstr "Unable to delete purchase “%(ref)s”: it is still used elsewhere (for example by a credit or debit note)."
+
+msgid "Ex: retour d'outillage, erreur de prix, remise accordée…"
+msgstr "E.g. returned tools, price error, discount granted…"
+
+msgid "Remboursement reçu : %(achat)s"
+msgstr "Refund received: %(achat)s"
+
+msgid "Facture d'achat payée (net des notes de crédit imputées) : %(achat)s"
+msgstr "Purchase invoice paid (net of offset credit notes): %(achat)s"
+
+msgid "Notes de crédit / notes de débit"
+msgstr "Credit notes / debit notes"
+
+msgid "La note de crédit diminue la charge, la TVA à récupérer et la dette fournisseur. Elle est déduite du paiement de la facture d'origine si celle-ci n'est pas encore payée, sinon elle apparaît comme remboursement à recevoir dans « Factures à payer »."
+msgstr "The credit note reduces the expense, the recoverable VAT and the supplier debt. It is deducted from the payment of the original invoice if that invoice is not yet paid; otherwise it appears as a refund to receive in “Invoices to pay”."
+
+msgid "Imputée"
+msgstr "Offset"
+
+msgid "Remboursée"
+msgstr "Refunded"
+
+msgid "Ouverte"
+msgstr "Open"
+
+msgid "Solde net de la facture"
+msgstr "Net invoice balance"
+
+msgid "Aucune note de crédit ou de débit pour cette facture."
+msgstr "No credit or debit note for this invoice."
+
+msgid "Facture entièrement créditée : plus aucune note de crédit possible."
+msgstr "Invoice fully credited: no further credit note possible."
+
+msgid "remboursement à recevoir"
+msgstr "refund to receive"
+
+msgid "notes de crédit"
+msgstr "credit notes"
+
+msgid "Marquer remboursée"
+msgstr "Mark as refunded"
+
+msgid "Note de crédit imputée sur le paiement de la facture d'origine le %(jour)s."
+msgstr "Credit note offset against the payment of the original invoice on %(jour)s."
+
+msgid "Remboursement reçu du fournisseur le %(jour)s."
+msgstr "Refund received from the supplier on %(jour)s."
+
+msgid "Encore créditable : %(dispo)s € TVAC"
+msgstr "Still creditable: %(dispo)s € incl. VAT"
+
+msgid "Note de crédit sur la facture %(ref)s : les montants de la facture sont repris, ajustez-les au montant crédité par le fournisseur."
+msgstr "Credit note on invoice %(ref)s: the invoice amounts are copied, adjust them to the amount credited by the supplier."
+
+msgid "Note de débit sur la facture %(ref)s : encodez le supplément facturé par le fournisseur."
+msgstr "Debit note on invoice %(ref)s: enter the extra amount charged by the supplier."

@@ -4,10 +4,11 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from .comptabilite import FactureAchatMixin
+from .documents import DocumentAchatModel
 
 
 
-class AchatMds(FactureAchatMixin, models.Model):
+class AchatMds(FactureAchatMixin, DocumentAchatModel):
     societe = models.ForeignKey(
         "societe.Societe",
         on_delete=models.CASCADE,
@@ -90,7 +91,9 @@ class AchatMds(FactureAchatMixin, models.Model):
         ordering = ["-date_facture"]
 
     def __str__(self):
-        return f"Achat {self.fournisseur.nom} - {self.date_facture}"
+        prefixe = "Achat" if self.est_facture else self.libelle_document
+        ref = f" {self.reference_facture}" if self.reference_facture else ""
+        return f"{prefixe} {self.fournisseur.nom}{ref} - {self.date_facture}"
 
     # ------------------------
     # CALCULS FINANCIERS

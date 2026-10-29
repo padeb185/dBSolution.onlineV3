@@ -4,8 +4,9 @@ from django.utils.translation import gettext_lazy as _
 from fournisseur.models import Fournisseur
 from decimal import Decimal
 from achat_mds.comptabilite import FactureAchatMixin
+from achat_mds.documents import DocumentAchatModel
 
-class Outillage(FactureAchatMixin, models.Model):
+class Outillage(FactureAchatMixin, DocumentAchatModel):
     # Outillage : compte de charge propre (à adapter au plan comptable ;
     # un outillage durable au-delà du seuil d'immobilisation va en 230000)
     COMPTE_ACHATS = "613000"

@@ -67856,3 +67856,135 @@ msgstr "ancora accreditabile: %(montant)s €"
 
 msgid "Ce montant est déduit de la facture %(numero)s ; un éventuel trop-perçu vous est remboursé."
 msgstr "Questo importo viene dedotto dalla fattura %(numero)s; un'eventuale eccedenza vi sarà rimborsata."
+
+msgid "Émettez d'abord la facture : une note de crédit ou de débit se crée sur une facture émise."
+msgstr "Emetti prima la fattura: una nota di credito o di debito si crea su una fattura emessa."
+
+msgid "Notes de crédit et de débit : disponibles dans le détail de la facture une fois émise."
+msgstr "Note di credito e di debito: disponibili nel dettaglio della fattura una volta emessa."
+
+msgid "Composant inconnu."
+msgstr "Componente sconosciuto."
+
+msgid "Lien supprimé"
+msgstr "Collegamento rimosso"
+
+msgid "Le lien avec « %(composant)s » a été supprimé du véhicule %(immatriculation)s. Le composant reste dans le catalogue."
+msgstr "Il collegamento con «%(composant)s» è stato rimosso dal veicolo %(immatriculation)s. Il componente resta nel catalogo."
+
+msgid "Supprimer le lien"
+msgstr "Rimuovi il collegamento"
+
+msgid "Supprimer le lien avec le véhicule"
+msgstr "Rimuovi il collegamento con il veicolo"
+
+msgid "Seul le lien avec ce véhicule est supprimé : le composant reste dans le catalogue (avec son historique) et peut être relié à nouveau."
+msgstr "Viene rimosso solo il collegamento con questo veicolo: il componente resta nel catalogo (con la sua cronologia) e può essere ricollegato."
+
+msgid "Moteurs liés à ce véhicule"
+msgstr "Motori collegati a questo veicolo"
+
+msgid "Boîtes liées à ce véhicule"
+msgstr "Cambi collegati a questo veicolo"
+
+msgid "Embrayages liés à ce véhicule"
+msgstr "Frizioni collegate a questo veicolo"
+
+msgid "Obligatoire pour une note de crédit ou de débit."
+msgstr "Obbligatorio per una nota di credito o di debito."
+
+msgid "Imputée sur la facture d'origine"
+msgstr "Imputata sulla fattura d'origine"
+
+msgid "Une facture ne peut pas avoir de facture d'origine."
+msgstr "Una fattura non può avere una fattura d'origine."
+
+msgid "Cette facture a déjà des notes de crédit ou de débit : elle ne peut pas devenir une note."
+msgstr "Questa fattura ha già note di credito o di debito: non può diventare una nota."
+
+msgid "Une note de crédit ou de débit doit être liée à une facture d'origine."
+msgstr "Una nota di credito o di debito deve essere collegata a una fattura d'origine."
+
+msgid "Le document d'origine doit être une facture, pas une note."
+msgstr "Il documento d'origine deve essere una fattura, non una nota."
+
+msgid "Un document ne peut pas être sa propre origine."
+msgstr "Un documento non può essere la propria origine."
+
+msgid "La facture d'origine appartient à une autre société."
+msgstr "La fattura d'origine appartiene a un'altra società."
+
+msgid "La note doit être émise par le même fournisseur que la facture d'origine."
+msgstr "La nota deve essere emessa dallo stesso fornitore della fattura d'origine."
+
+msgid "La note de crédit (%(note)s €) dépasse le montant encore créditable de la facture d'origine (%(dispo)s €)."
+msgstr "La nota di credito (%(note)s €) supera l'importo ancora accreditabile della fattura d'origine (%(dispo)s €)."
+
+msgid "Le montant de la note doit être supérieur à zéro."
+msgstr "L'importo della nota deve essere maggiore di zero."
+
+msgid "Ex: retour de pièces, erreur de prix, remise accordée…"
+msgstr "Es.: reso di pezzi, errore di prezzo, sconto concesso…"
+
+msgid "%(document)s enregistrée avec succès."
+msgstr "%(document)s registrata con successo."
+
+msgid "Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé ailleurs (par exemple par une note de crédit ou de débit)."
+msgstr "Impossibile eliminare l'acquisto «%(ref)s»: è ancora utilizzato altrove (ad esempio da una nota di credito o di debito)."
+
+msgid "Ex: retour d'outillage, erreur de prix, remise accordée…"
+msgstr "Es.: reso di attrezzature, errore di prezzo, sconto concesso…"
+
+msgid "Remboursement reçu : %(achat)s"
+msgstr "Rimborso ricevuto: %(achat)s"
+
+msgid "Facture d'achat payée (net des notes de crédit imputées) : %(achat)s"
+msgstr "Fattura d'acquisto pagata (al netto delle note di credito imputate): %(achat)s"
+
+msgid "Notes de crédit / notes de débit"
+msgstr "Note di credito / note di debito"
+
+msgid "La note de crédit diminue la charge, la TVA à récupérer et la dette fournisseur. Elle est déduite du paiement de la facture d'origine si celle-ci n'est pas encore payée, sinon elle apparaît comme remboursement à recevoir dans « Factures à payer »."
+msgstr "La nota di credito riduce il costo, l'IVA da recuperare e il debito verso il fornitore. Viene dedotta dal pagamento della fattura d'origine se non è ancora pagata; altrimenti appare come rimborso da ricevere in «Fatture da pagare»."
+
+msgid "Imputée"
+msgstr "Imputata"
+
+msgid "Remboursée"
+msgstr "Rimborsata"
+
+msgid "Ouverte"
+msgstr "Aperta"
+
+msgid "Solde net de la facture"
+msgstr "Saldo netto della fattura"
+
+msgid "Aucune note de crédit ou de débit pour cette facture."
+msgstr "Nessuna nota di credito o di debito per questa fattura."
+
+msgid "Facture entièrement créditée : plus aucune note de crédit possible."
+msgstr "Fattura interamente accreditata: nessuna ulteriore nota di credito possibile."
+
+msgid "remboursement à recevoir"
+msgstr "rimborso da ricevere"
+
+msgid "notes de crédit"
+msgstr "note di credito"
+
+msgid "Marquer remboursée"
+msgstr "Segna come rimborsata"
+
+msgid "Note de crédit imputée sur le paiement de la facture d'origine le %(jour)s."
+msgstr "Nota di credito imputata sul pagamento della fattura d'origine il %(jour)s."
+
+msgid "Remboursement reçu du fournisseur le %(jour)s."
+msgstr "Rimborso ricevuto dal fornitore il %(jour)s."
+
+msgid "Encore créditable : %(dispo)s € TVAC"
+msgstr "Ancora accreditabile: %(dispo)s € IVA incl."
+
+msgid "Note de crédit sur la facture %(ref)s : les montants de la facture sont repris, ajustez-les au montant crédité par le fournisseur."
+msgstr "Nota di credito sulla fattura %(ref)s: gli importi della fattura sono ripresi, adattali all'importo accreditato dal fornitore."
+
+msgid "Note de débit sur la facture %(ref)s : encodez le supplément facturé par le fournisseur."
+msgstr "Nota di debito sulla fattura %(ref)s: inserisci il supplemento fatturato dal fornitore."

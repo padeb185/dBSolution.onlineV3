@@ -6,6 +6,8 @@ from outillage.forms import OutillageForm
 from django.utils.translation import gettext_lazy as _
 from utilisateurs.models import UserLog
 from django.contrib import messages
+from django.core.exceptions import ValidationError
+from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models import ProtectedError, RestrictedError
@@ -14,6 +16,7 @@ from django.utils.translation import gettext as _, gettext_noop
 
 from core.suppression import analyser_suppression
 from .models import Outillage
+from achat_mds.documents import TypeDocumentAchat, type_note_demande
 from utils.securite import peut_supprimer, refuser_suppression
 
 
@@ -42,7 +45,8 @@ def outillage_detail(request, outillage_id):
     tenant = request.user.societe
 
 
-    outillage = get_object_or_404(Outillage, id_outillage=outillage_id, societe=tenant)
+    outillage = get_object_or_404(Outillage.objects.select_related("fournisseur", "document_origine"),
+                                  id_outillage=outillage_id, societe=tenant)
 
     return render(
         request,
@@ -60,9 +64,19 @@ def ajouter_outillage_all(request):
 
     tenant = request.user.societe
 
+    # Note de crédit / débit créée depuis une facture d'origine (?origine=<id>&type=NOTE_CREDIT)
+    origine = None
+    type_note = type_note_demande(request)
+    if request.GET.get("origine"):
+        try:
+            origine = Outillage.objects.get(pk=request.GET["origine"], societe=tenant,
+                                      type_document=TypeDocumentAchat.FACTURE)
+        except (Outillage.DoesNotExist, ValueError, ValidationError):
+            raise Http404
+
     if request.method == "POST":
 
-        form_outillage = OutillageForm(request.POST)
+        form_outillage = OutillageForm(request.POST, societe=tenant, instance=Outillage(societe=tenant))
 
         if form_outillage.is_valid():
 
@@ -74,6 +88,13 @@ def ajouter_outillage_all(request):
             outillage.societe = tenant
 
             outillage.save()
+
+            if outillage.est_note:
+                messages.success(
+                    request,
+                    _("%(document)s enregistrée avec succès.") % {"document": outillage.libelle_document}
+                )
+                return redirect("outillage:outillage_detail", outillage_id=outillage.document_origine_id)
 
             messages.success(
                 request,
@@ -92,13 +113,31 @@ def ajouter_outillage_all(request):
 
     else:
 
-        form_outillage = OutillageForm()
+        initial = {}
+        if origine is not None and type_note:
+            credit = type_note == TypeDocumentAchat.NOTE_CREDIT
+            initial = {
+                "type_document": type_note,
+                "document_origine": origine.pk,
+                "fournisseur": origine.fournisseur_id,
+                "libelle": origine.libelle,
+                "reference": origine.reference,
+                "taux_tva": origine.taux_tva,
+                "transport_tva": origine.transport_tva,
+                # Note de crédit : mêmes montants que la facture (à ajuster) ; note de débit : à zéro
+                "quantite": origine.quantite if credit else 1,
+                "prix_htva": origine.prix_htva if credit else 0,
+                "transport_montant_htva": origine.transport_montant_htva if credit else None,
+            }
+        form_outillage = OutillageForm(societe=tenant, initial=initial)
 
     return render(
         request,
         "outillage/outillage_form.html",
         {
             "form": form_outillage,
+            "origine": origine,
+            "type_note": type_note,
         },
     )
 
@@ -113,20 +152,20 @@ def modifier_outillage(request, outillage_id):
     )
 
     if request.method == "POST":
-        form_outillage = OutillageForm(request.POST, instance=outillage)
+        form_outillage = OutillageForm(request.POST, instance=outillage, societe=tenant)
 
         if form_outillage.is_valid():
             form_outillage.save()
             messages.success(request, "Outillage mis à jour avec succès.")
 
             return redirect(
-                f"{reverse('outillage:outillage_detail', kwargs={'outillage_id': outillage.id})}?saved=1"
+                f"{reverse('outillage:outillage_detail', kwargs={'outillage_id': outillage.pk})}?saved=1"
             )
 
         else:
             messages.error(request, "Le formulaire contient des erreurs.")
     else:
-        form_outillage = OutillageForm(instance=outillage)
+        form_outillage = OutillageForm(instance=outillage, societe=tenant)
 
     return render(
         request,

@@ -301,17 +301,31 @@ class CalculTVA:
     # ------------------------------------------------------------
     # TVA à récupérer (achats)
     # ------------------------------------------------------------
+    @staticmethod
+    def _signe_achat(doc):
+        """Note de crédit fournisseur : TVA à récupérer diminuée (montants négatifs)."""
+        return Decimal(getattr(doc, "signe", 1))
+
+    @staticmethod
+    def _libelle_achat(doc, libelle):
+        if getattr(doc, "est_note", False):
+            return f"{doc.libelle_document} – {libelle or ''}".strip(" –")
+        return libelle
+
     def _achats(self):
         from achat_mds.models import AchatMds
         base = tva = ZERO
         n = 0
         for achat in AchatMds.objects.select_related("fournisseur").filter(self._filtre_societe(), date_facture__range=(self.debut, self.fin)):
             # Marchandises / pièces (le transport est une source à part, avec sa propre déductibilité)
-            base += achat.achat_montant_htva or ZERO
-            tva += achat.montant_tva_achat or ZERO
+            sg = self._signe_achat(achat)
+            b_ = (achat.achat_montant_htva or ZERO) * sg
+            t_ = (achat.montant_tva_achat or ZERO) * sg
+            base += b_
+            tva += t_
             n += 1
             self._mvt_recuperer("achats", achat.date_facture, achat.reference_facture, achat.fournisseur,
-                                achat.libelle_facture, achat.achat_montant_htva, achat.montant_tva_achat)
+                                self._libelle_achat(achat, achat.libelle_facture), b_, t_)
         return base, tva, n
 
     def _transport_achats(self):
@@ -320,21 +334,27 @@ class CalculTVA:
         n = 0
         for achat in AchatMds.objects.select_related("fournisseur").filter(self._filtre_societe(), date_facture__range=(self.debut, self.fin),
                                              transport_montant_htva__gt=0):
-            base += achat.transport_montant_htva or ZERO
-            tva += achat.montant_tva_transport or ZERO
+            sg = self._signe_achat(achat)
+            b_ = (achat.transport_montant_htva or ZERO) * sg
+            t_ = (achat.montant_tva_transport or ZERO) * sg
+            base += b_
+            tva += t_
             n += 1
             self._mvt_recuperer("transport_achats", achat.date_facture, achat.reference_facture, achat.fournisseur,
-                                _("Transport – %(libelle)s") % {"libelle": achat.libelle_facture or ""},
-                                achat.transport_montant_htva, achat.montant_tva_transport)
+                                self._libelle_achat(achat, _("Transport – %(libelle)s") % {"libelle": achat.libelle_facture or ""}),
+                                b_, t_)
         from outillage.models import Outillage
         for outil in Outillage.objects.select_related("fournisseur").filter(self._filtre_societe(), date_facture__range=(self.debut, self.fin),
                                               transport_montant_htva__gt=0):
-            base += outil.transport_montant_htva or ZERO
-            tva += outil.montant_tva_transport or ZERO
+            sg = self._signe_achat(outil)
+            b_ = (outil.transport_montant_htva or ZERO) * sg
+            t_ = (outil.montant_tva_transport or ZERO) * sg
+            base += b_
+            tva += t_
             n += 1
             self._mvt_recuperer("transport_achats", outil.date_facture, outil.reference_facture, outil.fournisseur,
-                                _("Transport – %(libelle)s") % {"libelle": outil.libelle or ""},
-                                outil.transport_montant_htva, outil.montant_tva_transport)
+                                self._libelle_achat(outil, _("Transport – %(libelle)s") % {"libelle": outil.libelle or ""}),
+                                b_, t_)
         return base, tva, n
 
     def _outillage(self):
@@ -343,11 +363,14 @@ class CalculTVA:
         n = 0
         for outil in Outillage.objects.select_related("fournisseur").filter(self._filtre_societe(), date_facture__range=(self.debut, self.fin)):
             # Outillage hors transport (le transport est dans « Frais de transport sur achats »)
-            base += outil.achat_montant_htva
-            tva += outil.montant_tva_achat
+            sg = self._signe_achat(outil)
+            b_ = outil.achat_montant_htva * sg
+            t_ = outil.montant_tva_achat * sg
+            base += b_
+            tva += t_
             n += 1
             self._mvt_recuperer("outillage", outil.date_facture, outil.reference_facture, outil.fournisseur,
-                                outil.libelle, outil.achat_montant_htva, outil.montant_tva_achat)
+                                self._libelle_achat(outil, outil.libelle), b_, t_)
         return base, tva, n
 
     def _carburant(self):

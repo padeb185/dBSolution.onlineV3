@@ -3,6 +3,7 @@ from django.db.models import ExpressionWrapper, DecimalField, F
 from django.utils.translation import gettext_lazy as _
 from achat_mds.models import AchatMds
 from fournisseur.models import Fournisseur
+from achat_mds.documents import appliquer_choix_documents
 
 
 class AchatForm(forms.ModelForm):
@@ -19,6 +20,9 @@ class AchatForm(forms.ModelForm):
         model = AchatMds
 
         fields = [
+            "type_document",
+            "document_origine",
+            "motif",
             "fournisseur",
             "libelle_facture",
             "reference_facture",
@@ -31,6 +35,9 @@ class AchatForm(forms.ModelForm):
         ]
 
         labels = {
+            "type_document": _("Type de document"),
+            "document_origine": _("Facture d'origine"),
+            "motif": _("Motif de la note"),
             "libelle_facture": _("Libellé facture"),
             "reference_facture": _("Référence facture"),
             "achat_montant_htva": _("Montant achat HTVA"),
@@ -42,6 +49,18 @@ class AchatForm(forms.ModelForm):
         }
 
         widgets = {
+            "type_document": forms.Select(attrs={
+                "class": "border rounded px-3 py-2 w-full text-sm h-10",
+                "data-type-document": "1",
+            }),
+            "document_origine": forms.Select(attrs={
+                "class": "border rounded px-3 py-2 w-full text-sm h-10",
+            }),
+            "motif": forms.Textarea(attrs={
+                "class": "border rounded px-3 py-2 w-full text-sm",
+                "rows": 2,
+                "placeholder": _("Ex: retour de pièces, erreur de prix, remise accordée…"),
+            }),
 
             # -------------------------
             # TEXTE
@@ -101,11 +120,12 @@ class AchatForm(forms.ModelForm):
             }),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, societe=None, **kwargs):
 
         super().__init__(*args, **kwargs)
 
         self.fields["fournisseur"].queryset = Fournisseur.objects.all().order_by("nom")
+        appliquer_choix_documents(self, societe, self.instance)
 
     def get_queryset(self):
         return super().get_queryset().annotate(

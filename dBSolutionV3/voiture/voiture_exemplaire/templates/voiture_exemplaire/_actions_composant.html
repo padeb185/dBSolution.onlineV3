@@ -1,0 +1,22 @@
+{% load i18n %}
+{# Actions d'un composant lié au véhicule. Variables : type ("moteur" | "boite" | "embrayage"), obj, exemplaire, retour ("" | "lier") #}
+<span class="actions-composant">
+    {% if type == "moteur" %}
+        <a href="{% url 'voiture_moteur:moteur_detail' moteur_id=obj.id %}" class="ac-lien">{% trans "Détail" %}</a>
+        <a href="{% url 'voiture_moteur:modifier_moteur' moteur_id=obj.id %}" class="ac-lien">{% trans "Modifier" %}</a>
+    {% elif type == "boite" %}
+        <a href="{% url 'voiture_boite:boite_detail' boite_id=obj.id %}" class="ac-lien">{% trans "Détail" %}</a>
+        <a href="{% url 'voiture_boite:modifier_boite' boite_id=obj.id %}" class="ac-lien">{% trans "Modifier" %}</a>
+    {% else %}
+        <a href="{% url 'voiture_embrayage:embrayage_detail' embrayage_id=obj.id %}" class="ac-lien">{% trans "Détail" %}</a>
+        <a href="{% url 'voiture_embrayage:modifier_embrayage' embrayage_id=obj.id %}" class="ac-lien">{% trans "Modifier" %}</a>
+    {% endif %}
+    <a href="{% url 'voiture_exemplaire:delier_composant' exemplaire_id=exemplaire.id type_composant=type composant_id=obj.id %}{% if retour %}?retour={{ retour }}{% endif %}"
+       class="ac-lien ac-supprimer">{% trans "Supprimer le lien" %}</a>
+</span>
+<style>
+.actions-composant { display:inline-flex; flex-wrap:wrap; gap:12px; white-space:nowrap; }
+.ac-lien { color:#1d4ed8; font-weight:600; }
+.ac-lien:hover { text-decoration:underline; }
+.ac-supprimer { color:#b91c1c; }
+</style>

@@ -67907,3 +67907,135 @@ msgstr "noch gutschreibbar: %(montant)s €"
 
 msgid "Ce montant est déduit de la facture %(numero)s ; un éventuel trop-perçu vous est remboursé."
 msgstr "Dieser Betrag wird von der Rechnung %(numero)s abgezogen; eine eventuelle Überzahlung wird Ihnen erstattet."
+
+msgid "Émettez d'abord la facture : une note de crédit ou de débit se crée sur une facture émise."
+msgstr "Stellen Sie zuerst die Rechnung aus: Gutschriften und Lastschriften werden zu einer ausgestellten Rechnung erstellt."
+
+msgid "Notes de crédit et de débit : disponibles dans le détail de la facture une fois émise."
+msgstr "Gutschriften und Lastschriften: in den Rechnungsdetails verfügbar, sobald die Rechnung ausgestellt ist."
+
+msgid "Composant inconnu."
+msgstr "Unbekanntes Bauteil."
+
+msgid "Lien supprimé"
+msgstr "Verknüpfung entfernt"
+
+msgid "Le lien avec « %(composant)s » a été supprimé du véhicule %(immatriculation)s. Le composant reste dans le catalogue."
+msgstr "Die Verknüpfung mit „%(composant)s“ wurde vom Fahrzeug %(immatriculation)s entfernt. Das Bauteil bleibt im Katalog."
+
+msgid "Supprimer le lien"
+msgstr "Verknüpfung entfernen"
+
+msgid "Supprimer le lien avec le véhicule"
+msgstr "Verknüpfung mit dem Fahrzeug entfernen"
+
+msgid "Seul le lien avec ce véhicule est supprimé : le composant reste dans le catalogue (avec son historique) et peut être relié à nouveau."
+msgstr "Nur die Verknüpfung mit diesem Fahrzeug wird entfernt: Das Bauteil bleibt im Katalog (mit seiner Historie) und kann erneut verknüpft werden."
+
+msgid "Moteurs liés à ce véhicule"
+msgstr "Mit diesem Fahrzeug verknüpfte Motoren"
+
+msgid "Boîtes liées à ce véhicule"
+msgstr "Mit diesem Fahrzeug verknüpfte Getriebe"
+
+msgid "Embrayages liés à ce véhicule"
+msgstr "Mit diesem Fahrzeug verknüpfte Kupplungen"
+
+msgid "Obligatoire pour une note de crédit ou de débit."
+msgstr "Pflichtfeld für eine Gutschrift oder Lastschrift."
+
+msgid "Imputée sur la facture d'origine"
+msgstr "Mit der Originalrechnung verrechnet"
+
+msgid "Une facture ne peut pas avoir de facture d'origine."
+msgstr "Eine Rechnung kann keine Originalrechnung haben."
+
+msgid "Cette facture a déjà des notes de crédit ou de débit : elle ne peut pas devenir une note."
+msgstr "Diese Rechnung hat bereits Gutschriften oder Lastschriften: Sie kann keine Note werden."
+
+msgid "Une note de crédit ou de débit doit être liée à une facture d'origine."
+msgstr "Eine Gutschrift oder Lastschrift muss mit einer Originalrechnung verknüpft sein."
+
+msgid "Le document d'origine doit être une facture, pas une note."
+msgstr "Das Originaldokument muss eine Rechnung sein, keine Note."
+
+msgid "Un document ne peut pas être sa propre origine."
+msgstr "Ein Dokument kann nicht sein eigenes Original sein."
+
+msgid "La facture d'origine appartient à une autre société."
+msgstr "Die Originalrechnung gehört zu einem anderen Unternehmen."
+
+msgid "La note doit être émise par le même fournisseur que la facture d'origine."
+msgstr "Die Note muss vom selben Lieferanten wie die Originalrechnung ausgestellt sein."
+
+msgid "La note de crédit (%(note)s €) dépasse le montant encore créditable de la facture d'origine (%(dispo)s €)."
+msgstr "Die Gutschrift (%(note)s €) übersteigt den noch gutschreibbaren Betrag der Originalrechnung (%(dispo)s €)."
+
+msgid "Le montant de la note doit être supérieur à zéro."
+msgstr "Der Betrag der Note muss größer als null sein."
+
+msgid "Ex: retour de pièces, erreur de prix, remise accordée…"
+msgstr "Z. B. Teilerücksendung, Preisfehler, gewährter Rabatt…"
+
+msgid "%(document)s enregistrée avec succès."
+msgstr "%(document)s erfolgreich gespeichert."
+
+msgid "Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé ailleurs (par exemple par une note de crédit ou de débit)."
+msgstr "Einkauf „%(ref)s“ kann nicht gelöscht werden: Er wird noch anderweitig verwendet (z. B. durch eine Gutschrift oder Lastschrift)."
+
+msgid "Ex: retour d'outillage, erreur de prix, remise accordée…"
+msgstr "Z. B. Werkzeugrücksendung, Preisfehler, gewährter Rabatt…"
+
+msgid "Remboursement reçu : %(achat)s"
+msgstr "Erstattung erhalten: %(achat)s"
+
+msgid "Facture d'achat payée (net des notes de crédit imputées) : %(achat)s"
+msgstr "Eingangsrechnung bezahlt (abzüglich verrechneter Gutschriften): %(achat)s"
+
+msgid "Notes de crédit / notes de débit"
+msgstr "Gutschriften / Lastschriften"
+
+msgid "La note de crédit diminue la charge, la TVA à récupérer et la dette fournisseur. Elle est déduite du paiement de la facture d'origine si celle-ci n'est pas encore payée, sinon elle apparaît comme remboursement à recevoir dans « Factures à payer »."
+msgstr "Die Gutschrift mindert den Aufwand, die erstattungsfähige MwSt. und die Lieferantenschuld. Sie wird von der Zahlung der Originalrechnung abgezogen, wenn diese noch nicht bezahlt ist; andernfalls erscheint sie als zu erhaltende Erstattung unter „Zu zahlende Rechnungen“."
+
+msgid "Imputée"
+msgstr "Verrechnet"
+
+msgid "Remboursée"
+msgstr "Erstattet"
+
+msgid "Ouverte"
+msgstr "Offen"
+
+msgid "Solde net de la facture"
+msgstr "Nettosaldo der Rechnung"
+
+msgid "Aucune note de crédit ou de débit pour cette facture."
+msgstr "Keine Gutschrift oder Lastschrift zu dieser Rechnung."
+
+msgid "Facture entièrement créditée : plus aucune note de crédit possible."
+msgstr "Rechnung vollständig gutgeschrieben: keine weitere Gutschrift möglich."
+
+msgid "remboursement à recevoir"
+msgstr "zu erhaltende Erstattung"
+
+msgid "notes de crédit"
+msgstr "Gutschriften"
+
+msgid "Marquer remboursée"
+msgstr "Als erstattet markieren"
+
+msgid "Note de crédit imputée sur le paiement de la facture d'origine le %(jour)s."
+msgstr "Gutschrift am %(jour)s mit der Zahlung der Originalrechnung verrechnet."
+
+msgid "Remboursement reçu du fournisseur le %(jour)s."
+msgstr "Erstattung vom Lieferanten am %(jour)s erhalten."
+
+msgid "Encore créditable : %(dispo)s € TVAC"
+msgstr "Noch gutschreibbar: %(dispo)s € inkl. MwSt."
+
+msgid "Note de crédit sur la facture %(ref)s : les montants de la facture sont repris, ajustez-les au montant crédité par le fournisseur."
+msgstr "Gutschrift zur Rechnung %(ref)s: Die Rechnungsbeträge wurden übernommen, passen Sie sie an den vom Lieferanten gutgeschriebenen Betrag an."
+
+msgid "Note de débit sur la facture %(ref)s : encodez le supplément facturé par le fournisseur."
+msgstr "Lastschrift zur Rechnung %(ref)s: Erfassen Sie den vom Lieferanten berechneten Zuschlag."

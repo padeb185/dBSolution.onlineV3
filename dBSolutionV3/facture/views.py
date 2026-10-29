@@ -1168,8 +1168,17 @@ def factures_a_payer_view(request):
     }
 
     def montant(obj):
-        """Montant à payer : la carrosserie déduit la part payée directement par l'assurance."""
+        """
+        Montant à payer : la carrosserie déduit la part payée directement par l'assurance ;
+        une facture d'achat déduit ses notes de crédit ouvertes (imputées au paiement) ;
+        une note de crédit fournisseur est un montant à recevoir (négatif).
+        """
+        if hasattr(obj, "montant_a_regler"):
+            return obj.montant_a_regler
         return getattr(obj, "montant_a_payer", None) if hasattr(obj, "montant_a_payer") else obj.total_tvac
+
+    def tva(obj):
+        return getattr(obj, "montant_tva_signe", obj.montant_tva)
     CHAMP_FOURNISSEUR = {"externe": "garage_id", "carrosserie": "carrossier_id"}
 
     def detail_url(obj):
@@ -1186,7 +1195,10 @@ def factures_a_payer_view(request):
             return _("Carrosserie externe")
         if isinstance(obj, MaintenanceExterne):
             return _("Maintenance externe")
-        return _("Outillage") if isinstance(obj, Outillage) else _("Achat")
+        base = _("Outillage") if isinstance(obj, Outillage) else _("Achat")
+        if getattr(obj, "est_note", False):
+            return f"{obj.libelle_document} – {base}"
+        return base
 
     def libelle(obj):
         return getattr(obj, "libelle_facture", None) or getattr(obj, "libelle", None) or ""
@@ -1197,17 +1209,36 @@ def factures_a_payer_view(request):
         achat = get_object_or_404(qs, pk=request.POST.get("achat_id"))
         nom = achat.reference_facture or achat.fournisseur.nom
         champs_maj = ["date_paiement"] if isinstance(achat, (MaintenanceExterne, CarrosserieExterne)) else None
+        document_achat = hasattr(achat, "marquer_paye")
         if request.POST.get("action") == "annuler":
-            achat.date_paiement = None
             message = _("Paiement annulé : %(achat)s") % {"achat": nom}
+            if document_achat:
+                # Annule aussi l'imputation des notes de crédit déduites de ce paiement
+                with transaction.atomic():
+                    achat.annuler_paiement()
+            else:
+                achat.date_paiement = None
+                achat.save(update_fields=champs_maj) if champs_maj else achat.save()
         else:
             try:
-                achat.date_paiement = datetime.strptime(request.POST.get("date") or "", "%Y-%m-%d").date()
+                jour = datetime.strptime(request.POST.get("date") or "", "%Y-%m-%d").date()
             except ValueError:
-                achat.date_paiement = timezone.localdate()
-            message = _("Facture d'achat payée : %(achat)s") % {"achat": nom}
-        # Maintenance externe : ne pas relancer le calcul ni les compteurs du véhicule
-        achat.save(update_fields=champs_maj) if champs_maj else achat.save()
+                jour = timezone.localdate()
+            if document_achat:
+                if getattr(achat, "est_note_credit", False):
+                    message = _("Remboursement reçu : %(achat)s") % {"achat": nom}
+                else:
+                    message = _("Facture d'achat payée : %(achat)s") % {"achat": nom}
+                    if achat.notes_credit_ouvertes():
+                        message = _("Facture d'achat payée (net des notes de crédit imputées) : %(achat)s") % {"achat": nom}
+                # Facture : les notes de crédit ouvertes sont imputées sur ce paiement
+                with transaction.atomic():
+                    achat.marquer_paye(jour)
+            else:
+                achat.date_paiement = jour
+                message = _("Facture d'achat payée : %(achat)s") % {"achat": nom}
+                # Maintenance externe : ne pas relancer le calcul ni les compteurs du véhicule
+                achat.save(update_fields=champs_maj) if champs_maj else achat.save()
         UserLog.objects.create(utilisateur=request.user, action=str(message))
         messages.success(request, message)
         return redirect(f"{reverse('facture:a_payer')}?{request.GET.urlencode()}")
@@ -1221,6 +1252,10 @@ def factures_a_payer_view(request):
         if type_filtre and type_filtre != type_:
             continue
         q = qs.filter(date_paiement__isnull=True)
+        if type_ in ("achat", "outillage"):
+            # Notes de crédit dont la facture d'origine n'est pas encore payée :
+            # déjà déduites du montant de cette facture (imputation au paiement)
+            q = q.exclude(type_document="NOTE_CREDIT", document_origine__date_paiement__isnull=True)
         if fournisseur_id:
             q = q.filter(**{CHAMP_FOURNISSEUR.get(type_, "fournisseur_id"): fournisseur_id})
         a_payer += [(type_, o) for o in q]
@@ -1261,7 +1296,7 @@ def factures_a_payer_view(request):
         "lignes": lignes,
         "tranches": tranches,
         "total_a_payer": sum((l["a_payer"] for l in lignes), z),
-        "total_tva": sum((l["achat"].montant_tva for l in lignes), z),
+        "total_tva": sum((tva(l["achat"]) for l in lignes), z),
         "par_fournisseur": sorted(par_fournisseur.values(), key=lambda f: -f["total"]),
         "fournisseurs": sorted(fournisseurs.values(), key=lambda f: f.nom or ""),
         "fournisseur_id": fournisseur_id,

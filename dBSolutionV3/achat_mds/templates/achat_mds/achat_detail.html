@@ -14,8 +14,8 @@
                      class="w-12 h-12"
                      onerror="this.src='{% static 'icons/achatmds.png' %}';">
            {% endwith %}
-           <span>{% trans "Détails de l'achat :" %}</span>
-           <span class="text-black-700">{{ fournisseur.nom }}</span>
+           <span>{% if achat.est_facture %}{% trans "Détails de l'achat :" %}{% else %}{{ achat.libelle_document }} :{% endif %}</span>
+           <span class="text-black-700">{{ achat.fournisseur.nom }}</span>
         </h1>
 
     </div>
@@ -94,6 +94,9 @@
         {% endif %}
     <br>
     </div>
+
+    {% url 'achat_mds:achat_form' as url_creer_note %}
+    {% include "achat_mds/_notes_achat.html" with doc=achat url_detail="achat_mds:achat_detail" url_creer=url_creer_note %}
 
     {% include "achat_mds/_montants_ecritures.html" with achat=achat ecritures=ecritures %}
 

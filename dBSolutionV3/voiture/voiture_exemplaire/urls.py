@@ -4,7 +4,8 @@ from .views import ajouter_exemplaire_all, liste_exemplaires, voiture_exemplaire
     liste_exemplaires_all, lier_boite_exemplaire, lier_moteur_exemplaire, lier_embrayage_exemplaire, \
     lier_freins, lier_frein_ar, lier_pneus_av, lier_pneus_ar, supprimer_exemplaire_all, \
     remplacer_train_pneus, basculer_monte_pneus, \
-    finances_liste, finances_detail, finances_modifier, finances_supprimer, finances_cout_annuel
+    finances_liste, finances_detail, finances_modifier, finances_supprimer, finances_cout_annuel, \
+    delier_composant
 
 app_name = "voiture_exemplaire"
 
@@ -30,6 +31,7 @@ urlpatterns = [
     path('exemplaire/<uuid:exemplaire_id>/lier-moteur/',lier_moteur_exemplaire,name='lier_moteur_exemplaire'),
 
     path('exemplaire/<uuid:exemplaire_id>/lier-embrayage/', lier_embrayage_exemplaire, name='lier_embrayage_exemplaire'),
+    path('exemplaire/<uuid:exemplaire_id>/delier/<str:type_composant>/<uuid:composant_id>/', delier_composant, name='delier_composant'),
 
     path('exemplaire/<uuid:exemplaire_id>/lier-frein/', lier_freins, name='lier_frein'),
 

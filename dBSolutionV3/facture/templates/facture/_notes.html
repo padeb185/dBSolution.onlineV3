@@ -13,7 +13,17 @@
     {% endwith %}
     {% if facture.motif %}<p class="mt-1"><strong>{% trans "Motif" %} :</strong> {{ facture.motif|linebreaksbr }}</p>{% endif %}
 </div>
-{% elif facture.est_emise and not facture.client_est_societe %}
+{% elif facture.client_est_societe %}
+<div class="bg-white shadow-md rounded-lg p-4 mb-6 text-sm text-gray-600">
+    <strong>{% trans "Notes de crédit et de débit" %} :</strong>
+    {% trans "Facture interne à notre société : pas de note de crédit ou de débit (ce n'est pas une vente)." %}
+</div>
+{% elif not facture.est_emise %}
+<div class="bg-white shadow-md rounded-lg p-4 mb-6 text-sm text-gray-600">
+    <strong>{% trans "Notes de crédit et de débit" %} :</strong>
+    {% trans "Émettez d'abord la facture : une note de crédit ou de débit se crée sur une facture émise." %}
+</div>
+{% else %}
 <div class="bg-white shadow-md rounded-lg p-6 mb-6">
     <h2 class="text-lg font-semibold mb-3">{% trans "Notes de crédit et de débit" %}</h2>
     {% with notes=facture.notes.all %}

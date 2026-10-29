@@ -70,15 +70,15 @@
         {% for l in lignes %}
             <tr>
                 <td class="border px-2 py-1">{{ l.achat.date_facture|date:"d/m/Y" }}</td>
-                <td class="border px-2 py-1"><span class="px-2 py-0.5 rounded text-xs font-semibold {% if l.type == 'outillage' %}bg-purple-100 text-purple-800{% else %}bg-blue-100 text-blue-800{% endif %}">{{ l.nature }}</span></td>
+                <td class="border px-2 py-1"><span class="px-2 py-0.5 rounded text-xs font-semibold {% if l.achat.est_note_credit %}bg-red-100 text-red-800{% elif l.type == 'outillage' %}bg-purple-100 text-purple-800{% else %}bg-blue-100 text-blue-800{% endif %}">{{ l.nature }}</span></td>
                 <td class="border px-2 py-1">{{ l.achat.fournisseur.nom }}</td>
                 <td class="border px-2 py-1">
                     <a href="{{ l.url }}" class="text-blue-700 hover:underline">{{ l.achat.reference_facture|default:"—" }}</a>
                 </td>
                 <td class="border px-2 py-1">{{ l.libelle|default:"—" }}</td>
-                <td class="border px-2 py-1 text-right">{{ l.achat.montant_htva_total|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right">{{ l.achat.montant_tva|floatformat:2 }} €</td>
-                <td class="border px-2 py-1 text-right font-semibold">{{ l.a_payer|floatformat:2 }} €{% if l.a_payer != l.achat.total_tvac %}<span class="block text-xs font-normal text-gray-500">{% trans "facture" %} {{ l.achat.total_tvac|floatformat:2 }} € − {% trans "assurance" %}</span>{% endif %}</td>
+                <td class="border px-2 py-1 text-right">{% if l.achat.est_note %}{{ l.achat.montant_htva_signe|floatformat:2 }}{% else %}{{ l.achat.montant_htva_total|floatformat:2 }}{% endif %} €</td>
+                <td class="border px-2 py-1 text-right">{% if l.achat.est_note %}{{ l.achat.montant_tva_signe|floatformat:2 }}{% else %}{{ l.achat.montant_tva|floatformat:2 }}{% endif %} €</td>
+                <td class="border px-2 py-1 text-right font-semibold">{{ l.a_payer|floatformat:2 }} €{% if l.achat.est_note_credit %}<span class="block text-xs font-normal text-red-700">{% trans "remboursement à recevoir" %}</span>{% elif l.a_payer != l.achat.total_tvac %}<span class="block text-xs font-normal text-gray-500">{% trans "facture" %} {{ l.achat.total_tvac|floatformat:2 }} € − {% if l.type == 'achat' or l.type == 'outillage' %}{% trans "notes de crédit" %}{% else %}{% trans "assurance" %}{% endif %}</span>{% endif %}</td>
                 <td class="border px-2 py-1 text-right">
                     <span class="px-2 py-1 rounded text-xs font-semibold {{ l.badge }}">{{ l.age }} {% trans "j" %}</span>
                 </td>
@@ -88,7 +88,7 @@
                         <input type="hidden" name="achat_id" value="{{ l.achat.pk }}">
                         <input type="hidden" name="type" value="{{ l.type }}">
                         <input type="date" name="date" value="{{ aujourdhui|date:'Y-m-d' }}" class="border rounded px-2 py-1 text-xs">
-                        <button type="submit" class="bg-green-700 text-white px-3 py-1 rounded hover:bg-green-500 font-semibold text-xs">{% trans "Marquer payée" %}</button>
+                        <button type="submit" class="bg-green-700 text-white px-3 py-1 rounded hover:bg-green-500 font-semibold text-xs">{% if l.achat.est_note_credit %}{% trans "Marquer remboursée" %}{% else %}{% trans "Marquer payée" %}{% endif %}</button>
                     </form>
                 </td>
             </tr>

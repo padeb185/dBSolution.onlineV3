@@ -1,0 +1,105 @@
+{% load i18n %}
+<!-- Notes de crédit / débit fournisseur (achats MDS et outillage)
+     Paramètres : doc, url_detail (nom de vue du détail), url_creer (URL du formulaire de création) -->
+<style>
+    .na-carte { background:#fff; border-radius:.5rem; box-shadow:0 1px 3px rgba(0,0,0,.12); padding:1.25rem 1.5rem; margin-bottom:1.5rem; }
+    .na-badge { display:inline-block; padding:.15rem .6rem; border-radius:.35rem; font-size:.8rem; font-weight:600; }
+    .na-badge.FACTURE { background:#dbeafe; color:#1e40af; }
+    .na-badge.NOTE_CREDIT { background:#fee2e2; color:#991b1b; }
+    .na-badge.NOTE_DEBIT { background:#ffedd5; color:#9a3412; }
+    .na-btn { display:inline-block; padding:.55rem 1rem; border-radius:.35rem; font-weight:600; color:#fff; text-align:center; }
+    .na-btn.credit { background:#b91c1c; } .na-btn.credit:hover { background:#ef4444; }
+    .na-btn.debit { background:#ea580c; } .na-btn.debit:hover { background:#fb923c; }
+    .na-info { background:#fff7ed; border:1px solid #fdba74; color:#7c2d12; border-radius:.35rem; padding:.6rem .9rem; font-size:.9rem; }
+    .na-table { width:100%; border-collapse:collapse; font-size:.9rem; }
+    .na-table th, .na-table td { border:1px solid #e5e7eb; padding:.35rem .5rem; }
+    .na-table th { background:#f3f4f6; text-align:left; }
+    .na-neg { color:#b91c1c; }
+</style>
+
+<div class="na-carte">
+    <h2 class="text-lg font-semibold mb-3 flex items-center gap-3">
+        {% trans "Notes de crédit / notes de débit" %}
+        <span class="na-badge {{ doc.type_document }}">{{ doc.libelle_document }}</span>
+    </h2>
+
+    {% if doc.est_note %}
+        <p class="mb-2">
+            <strong>{% trans "Facture d'origine" %} :</strong>
+            <a class="text-blue-700 underline" href="{% url url_detail doc.document_origine.pk %}">
+                {{ doc.document_origine.reference_facture|default:doc.document_origine }}
+            </a>
+            ({{ doc.document_origine.date_facture|date:"d/m/Y" }} – {{ doc.document_origine.total_tvac|floatformat:2 }} € {% trans "TVAC" %})
+        </p>
+        <p class="mb-2"><strong>{% trans "Motif" %} :</strong> {{ doc.motif|linebreaksbr }}</p>
+        <p class="mb-2">
+            <strong>{% trans "Montant" %} :</strong>
+            <span class="{% if doc.est_note_credit %}na-neg{% endif %} font-semibold">{{ doc.total_tvac_signe|floatformat:2 }} € {% trans "TVAC" %}</span>
+        </p>
+        {% if doc.est_note_credit %}
+            <div class="na-info">
+                {% if doc.imputee_sur_origine %}
+                    {% blocktrans with jour=doc.date_paiement|date:"d/m/Y" %}Note de crédit imputée sur le paiement de la facture d'origine le {{ jour }}.{% endblocktrans %}
+                {% elif doc.date_paiement %}
+                    {% blocktrans with jour=doc.date_paiement|date:"d/m/Y" %}Remboursement reçu du fournisseur le {{ jour }}.{% endblocktrans %}
+                {% else %}
+                    {% trans "La note de crédit diminue la charge, la TVA à récupérer et la dette fournisseur. Elle est déduite du paiement de la facture d'origine si celle-ci n'est pas encore payée, sinon elle apparaît comme remboursement à recevoir dans « Factures à payer »." %}
+                {% endif %}
+            </div>
+        {% endif %}
+    {% else %}
+        {% with notes=doc.notes.all %}
+            {% if notes %}
+                <table class="na-table mb-3">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Type" %}</th>
+                            <th>{% trans "Référence" %}</th>
+                            <th>{% trans "Date" %}</th>
+                            <th>{% trans "Motif" %}</th>
+                            <th style="text-align:right">{% trans "TVAC" %}</th>
+                            <th>{% trans "Statut" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for n in notes %}
+                        <tr>
+                            <td><a href="{% url url_detail n.pk %}" class="na-badge {{ n.type_document }}">{{ n.libelle_document }}</a></td>
+                            <td><a class="text-blue-700 underline" href="{% url url_detail n.pk %}">{{ n.reference_facture|default:"—" }}</a></td>
+                            <td>{{ n.date_facture|date:"d/m/Y" }}</td>
+                            <td>{{ n.motif|truncatechars:60 }}</td>
+                            <td style="text-align:right" class="{% if n.est_note_credit %}na-neg{% endif %}">{{ n.total_tvac_signe|floatformat:2 }} €</td>
+                            <td>
+                                {% if n.imputee_sur_origine %}{% trans "Imputée" %}
+                                {% elif n.date_paiement %}{% if n.est_note_credit %}{% trans "Remboursée" %}{% else %}{% trans "Payée" %}{% endif %}
+                                {% else %}{% trans "Ouverte" %}{% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr class="font-semibold">
+                            <td colspan="4">{% trans "Solde net de la facture" %}</td>
+                            <td style="text-align:right">{{ doc.solde_net|floatformat:2 }} €</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            {% else %}
+                <p class="text-gray-500 mb-3">{% trans "Aucune note de crédit ou de débit pour cette facture." %}</p>
+            {% endif %}
+        {% endwith %}
+
+        <div class="flex flex-wrap gap-3 items-center">
+            {% if doc.est_creditee %}
+                <span class="na-info">{% trans "Facture entièrement créditée : plus aucune note de crédit possible." %}</span>
+            {% else %}
+                <a class="na-btn credit" href="{{ url_creer }}?origine={{ doc.pk }}&type=NOTE_CREDIT">{% trans "Créer une note de crédit" %}</a>
+            {% endif %}
+            <a class="na-btn debit" href="{{ url_creer }}?origine={{ doc.pk }}&type=NOTE_DEBIT">{% trans "Créer une note de débit" %}</a>
+            {% if not doc.est_creditee %}
+                <span class="text-sm text-gray-600">{% blocktrans with dispo=doc.credit_disponible|floatformat:2 %}Encore créditable : {{ dispo }} € TVAC{% endblocktrans %}</span>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>

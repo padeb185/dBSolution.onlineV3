@@ -13,7 +13,7 @@
                      class="w-12 h-12"
                      onerror="this.src='{% static 'icons/outils.png' %}';">
             {% endwith %}
-            <span>{% trans "Détails de l'outillage :" %}</span>
+            <span>{% if outillage.est_facture %}{% trans "Détails de l'outillage :" %}{% else %}{{ outillage.libelle_document }} :{% endif %}</span>
 
            <span class="text-black-700">{{ outillage.libelle }}</span>
 
@@ -107,6 +107,9 @@
 
     </div>
 
+
+    {% url 'outillage:outillage_form' as url_creer_note %}
+    {% include "achat_mds/_notes_achat.html" with doc=outillage url_detail="outillage:outillage_detail" url_creer=url_creer_note %}
 
     {% trans "Outillage" as libelle_outillage %}
     {% include "achat_mds/_montants_ecritures.html" with achat=outillage ecritures=ecritures libelle_marchandise=libelle_outillage %}

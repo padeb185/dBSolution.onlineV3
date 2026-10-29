@@ -65,6 +65,13 @@ class FactureAchatMixin:
         """
         z = Decimal("0.00")
         lib = f"{self.fournisseur.nom} {self.reference_facture or ''}".strip()
+        # Note de crédit fournisseur : écritures inversées (charge, TVA et dette diminuées ;
+        # le « paiement » est alors un remboursement reçu : 550000 / 440000)
+        inverse = getattr(self, "est_note_credit", False)
+        if inverse:
+            lib = f"{_('Note de crédit')} – {lib}"
+        elif getattr(self, "est_note_debit", False):
+            lib = f"{_('Note de débit')} – {lib}"
 
         tva_achat_ded = _r(self.montant_tva_achat * Decimal(deductible_achat) / Decimal("100"))
         tva_transport_ded = _r(self.montant_tva_transport * Decimal(deductible_transport) / Decimal("100"))
@@ -74,6 +81,8 @@ class FactureAchatMixin:
         lignes = []
 
         def ligne(journal, jour, compte, intitule, debit=z, credit=z):
+            if inverse:
+                debit, credit = credit, debit
             if debit or credit:
                 lignes.append({"journal": journal, "date": jour, "compte": compte, "intitule": intitule,
                                "libelle": lib, "debit": _r(debit), "credit": _r(credit)})
@@ -83,6 +92,11 @@ class FactureAchatMixin:
         ligne("ACH", self.date_facture, self.COMPTE_TVA, _("TVA à récupérer"), debit=tva_achat_ded + tva_transport_ded)
         ligne("ACH", self.date_facture, self.COMPTE_FOURNISSEURS, _("Fournisseurs"), credit=self.total_tvac)
         if avec_paiement and self.date_paiement:
-            ligne("BQE", self.date_paiement, self.COMPTE_FOURNISSEURS, _("Fournisseurs"), debit=self.total_tvac)
-            ligne("BQE", self.date_paiement, self.COMPTE_BANQUE, _("Banque – compte courant"), credit=self.total_tvac)
+            # Note de crédit imputée sur la facture d'origine : pas de mouvement bancaire,
+            # la dette 440000 est compensée directement par la facture d'origine.
+            if inverse and getattr(self, "imputee_sur_origine", False):
+                return lignes
+            regle = getattr(self, "montant_regle_banque", self.total_tvac)
+            ligne("BQE", self.date_paiement, self.COMPTE_FOURNISSEURS, _("Fournisseurs"), debit=regle)
+            ligne("BQE", self.date_paiement, self.COMPTE_BANQUE, _("Banque – compte courant"), credit=regle)
         return lignes

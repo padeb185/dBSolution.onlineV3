@@ -1,6 +1,7 @@
 from django import forms
 from .models import Outillage
 from django.utils.translation import gettext_lazy as _
+from achat_mds.documents import appliquer_choix_documents
 
 class OutillageForm(forms.ModelForm):
 
@@ -8,6 +9,9 @@ class OutillageForm(forms.ModelForm):
         model = Outillage
 
         fields = [
+            "type_document",
+            "document_origine",
+            "motif",
             "fournisseur",
             "libelle",
             "reference",
@@ -22,6 +26,9 @@ class OutillageForm(forms.ModelForm):
         ]
 
         labels = {
+            "type_document": _("Type de document"),
+            "document_origine": _("Facture d'origine"),
+            "motif": _("Motif de la note"),
             "fournisseur": _("Fournisseur"),
             "libelle": _("Libellé"),
             "reference": _("Référence"),
@@ -36,6 +43,18 @@ class OutillageForm(forms.ModelForm):
         }
 
         widgets = {
+            "type_document": forms.Select(attrs={
+                "class": "border rounded px-4 py-2 w-full",
+                "data-type-document": "1",
+            }),
+            "document_origine": forms.Select(attrs={
+                "class": "border rounded px-4 py-2 w-full",
+            }),
+            "motif": forms.Textarea(attrs={
+                "class": "border rounded px-4 py-2 w-full",
+                "rows": 2,
+                "placeholder": _("Ex: retour d'outillage, erreur de prix, remise accordée…"),
+            }),
 
             # -------------------------
             # FOURNISSEUR
@@ -116,9 +135,11 @@ class OutillageForm(forms.ModelForm):
             ),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, societe=None, **kwargs):
 
         super().__init__(*args, **kwargs)
+
+        appliquer_choix_documents(self, societe, self.instance)
 
         # Optionnel : texte vide dans select fournisseur
         self.fields["fournisseur"].empty_label = _("Sélectionner un fournisseur")
