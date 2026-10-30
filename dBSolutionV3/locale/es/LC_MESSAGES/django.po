@@ -68791,3 +68791,417 @@ msgstr "Aviso AdBlue en el cuadro"
 
 msgid "Injecteur · Réservoir · Pompe · Ajout · Tuyaux · Diagnostic · Pot DeNOx"
 msgstr "Inyector · Depósito · Bomba · Llenado · Tubos · Diagnóstico · Catalizador DeNOx"
+
+msgid "Veuillez corriger les champs suivants :"
+msgstr "Corrija los siguientes campos:"
+
+msgid "Champ"
+msgstr "Campo"
+
+msgid "Au moins 12 caractères"
+msgstr "Al menos 12 caracteres"
+
+msgid "Une majuscule"
+msgstr "Una mayúscula"
+
+msgid "Une minuscule"
+msgstr "Una minúscula"
+
+msgid "Un chiffre"
+msgstr "Un número"
+
+msgid "Un caractère spécial (! ? @ # $ %% & * …)"
+msgstr "Un carácter especial (! ? @ # $ %% & * …)"
+
+msgid "Les mots de passe sont identiques"
+msgstr "Las contraseñas coinciden"
+
+msgid "Les mots de passe ne sont pas identiques"
+msgstr "Las contraseñas no coinciden"
+
+msgid "Masquer"
+msgstr "Ocultar"
+
+msgid "Le temps de main-d'œuvre est obligatoire."
+msgstr "El tiempo de mano de obra es obligatorio."
+
+msgid "Le serrage des roues doit être marqué « Fait »."
+msgstr "El apriete de las ruedas debe marcarse como « Hecho »."
+
+msgid "Congés payés, pécules et 13e mois"
+msgstr "Vacaciones pagadas, paga de vacaciones y 13.ª paga"
+
+msgid "Jours de droit"
+msgstr "Días de derecho"
+
+msgid "Jours pris"
+msgstr "Días tomados"
+
+msgid "Jours à prendre"
+msgstr "Días por tomar"
+
+msgid "Simple pécule payé"
+msgstr "Paga simple de vacaciones pagada"
+
+msgid "Double pécule (brut)"
+msgstr "Doble paga de vacaciones (bruto)"
+
+msgid "13e mois (brut)"
+msgstr "13.ª paga (bruto)"
+
+msgid "Régime"
+msgstr "Régimen"
+
+msgid "Pris"
+msgstr "Tomados"
+
+msgid "À prendre"
+msgstr "Por tomar"
+
+msgid "Double pécule"
+msgstr "Doble paga de vacaciones"
+
+msgid "13e mois"
+msgstr "13.ª paga"
+
+msgid "Caisse de vacances"
+msgstr "Caja de vacaciones"
+
+msgid "mois"
+msgstr "meses"
+
+msgid "Aucune paie enregistrée : créez une paie pour calculer les congés."
+msgstr "Ninguna nómina registrada: cree una nómina para calcular las vacaciones."
+
+msgid "Créer une paie"
+msgstr "Crear una nómina"
+
+msgid "Aucun travailleur."
+msgstr "Ningún trabajador."
+
+msgid "Brut mensuel"
+msgstr "Bruto mensual"
+
+msgid "Aucune paie enregistrée pour ce travailleur : créez une paie pour calculer les congés, le pécule et le 13e mois."
+msgstr "Ninguna nómina para este trabajador: cree una para calcular vacaciones, paga de vacaciones y 13.ª paga."
+
+msgid "Droit annuel"
+msgstr "Derecho anual"
+
+msgid "20 jours × régime de travail (non encodé dans la paie)"
+msgstr "20 días × régimen (no indicado en la nómina)"
+
+msgid "encodé dans la paie"
+msgstr "indicado en la nómina"
+
+msgid "Plus de jours pris que le droit : vérifiez l'encodage."
+msgstr "Más días tomados que el derecho: revise los datos."
+
+msgid "Jours non pris en fin d'année : ils sont perdus (ni reportés ni payés)."
+msgstr "Los días no tomados a fin de año se pierden (ni se trasladan ni se pagan)."
+
+msgid "Valeur d'un jour de congé"
+msgstr "Valor de un día de vacaciones"
+
+msgid "simple pécule (caisse de vacances) ÷ jours de droit"
+msgstr "paga simple (caja de vacaciones) ÷ días de derecho"
+
+msgid "salaire mensuel × 3 / 65"
+msgstr "salario mensual × 3 / 65"
+
+msgid "Mois par mois"
+msgstr "Mes a mes"
+
+msgid "Cumul"
+msgstr "Acumulado"
+
+msgid "Simple pécule"
+msgstr "Paga simple de vacaciones"
+
+msgid "Pas de paie – créer"
+msgstr "Sin nómina – crear"
+
+msgid "Ouvrier : le pécule est payé par la caisse de vacances (en général en mai / juin), pas par l'employeur."
+msgstr "Obrero: la paga de vacaciones la abona la caja de vacaciones (normalmente en mayo / junio), no el empleador."
+
+msgid "Base : brut à 108 %% de l'année précédente"
+msgstr "Base: bruto al 108 %% del año anterior"
+
+msgid "Pas de paie l'année précédente : estimation sur 12 mois du salaire actuel."
+msgstr "Sin nómina el año anterior: estimación sobre 12 meses del salario actual."
+
+msgid "Simple pécule (8 %%)"
+msgstr "Paga simple (8 %%)"
+
+msgid "Double pécule (7,38 %%)"
+msgstr "Doble paga (7,38 %%)"
+
+msgid "Pécule total estimé (15,38 %%)"
+msgstr "Paga de vacaciones total estimada (15,38 %%)"
+
+msgid "Simple pécule payé (jours pris)"
+msgstr "Paga simple pagada (días tomados)"
+
+msgid "Simple pécule des jours restants"
+msgstr "Paga simple de los días restantes"
+
+msgid "Double pécule (92 %%)"
+msgstr "Doble paga (92 %%)"
+
+msgid "Estimation – pas encore payé"
+msgstr "Estimación – aún no pagada"
+
+msgid "ONSS (13,07 %% sur 85 %%)"
+msgstr "ONSS (13,07 %% sobre 85 %%)"
+
+msgid "Pour le payer : cochez « Payer le double pécule de vacances ce mois » dans la paie (en général mai ou juin)."
+msgstr "Para pagarla: marque « Pagar la doble paga de vacaciones este mes » en la nómina (normalmente mayo o junio)."
+
+msgid "Estimation – pas encore payée"
+msgstr "Estimación – aún no pagada"
+
+msgid "Payée avec la paie de"
+msgstr "Pagada con la nómina de"
+
+msgid "Mois prestés ou assimilés"
+msgstr "Meses trabajados o asimilados"
+
+msgid "Période de référence"
+msgstr "Periodo de referencia"
+
+msgid "Montant de référence"
+msgstr "Importe de referencia"
+
+msgid "Mois avec une paie / mois prévus"
+msgstr "Meses con nómina / meses previstos"
+
+msgid "sur"
+msgstr "de"
+
+msgid "Brut estimé"
+msgstr "Bruto estimado"
+
+msgid "ONSS (13,07 %%)"
+msgstr "ONSS (13,07 %%)"
+
+msgid "Net estimé"
+msgstr "Neto estimado"
+
+msgid "Pour la payer : cochez « Payer la prime de fin d'année (13e mois) ce mois » dans la paie de décembre."
+msgstr "Para pagarla: marque « Pagar la prima de fin de año (13.ª paga) este mes » en la nómina de diciembre."
+
+msgid "Pas de montant de référence (salaire) pour estimer la prime."
+msgstr "Sin importe de referencia (salario) para estimar la prima."
+
+msgid "Congés de tous les travailleurs"
+msgstr "Vacaciones de todos los trabajadores"
+
+msgid "Paies du travailleur"
+msgstr "Nóminas del trabajador"
+
+msgid "Rappel des règles belges (congés payés, pécules, 13e mois)"
+msgstr "Recordatorio de las normas belgas (vacaciones, pagas, 13.ª paga)"
+
+msgid "20 jours par an pour un temps plein (5 jours / semaine) ayant travaillé toute l'année précédente (exercice de vacances)."
+msgstr "20 días al año a tiempo completo (5 días / semana) habiendo trabajado todo el año anterior."
+
+msgid "Temps partiel ou année incomplète : au prorata (régime de travail, jours prestés ou assimilés)."
+msgstr "Tiempo parcial o año incompleto: a prorrata (régimen, días trabajados o asimilados)."
+
+msgid "Les jours doivent être pris avant le 31 décembre ; ils ne sont pas reportables ni payables (sauf à la sortie)."
+msgstr "Los días deben tomarse antes del 31 de diciembre; no se trasladan ni se pagan (salvo a la salida)."
+
+msgid "Salaire journalier d'un employé : salaire mensuel × 3 / 65."
+msgstr "Salario diario de un empleado: salario mensual × 3 / 65."
+
+msgid "simple pécule = salaire maintenu pendant les jours pris ; double pécule = 92 %% du brut mensuel, payé en général en mai / juin."
+msgstr "paga simple = salario mantenido durante los días tomados; doble paga = 92 %% del bruto mensual, normalmente en mayo / junio."
+
+msgid "ONSS sur le double pécule : 13,07 %% calculés sur 85 %% (la part de 7 %% n'est pas soumise) ; précompte au taux des allocations exceptionnelles."
+msgstr "ONSS sobre la doble paga: 13,07 %% sobre 85 %% (la parte del 7 %% está exenta); retención al tipo de asignaciones excepcionales."
+
+msgid "payé par la caisse de vacances : 15,38 %% du brut à 108 %% de l'année précédente (8 %% simple + 7,38 %% double). L'employeur cotise 15,84 %% du brut à 108 %%."
+msgstr "pagada por la caja de vacaciones: 15,38 %% del bruto al 108 %% del año anterior (8 %% simple + 7,38 %% doble). El empleador cotiza 15,84 %% del bruto al 108 %%."
+
+msgid "un salaire mensuel brut, au prorata des mois prestés ou assimilés de l'année civile, payé en décembre."
+msgstr "un salario mensual bruto, a prorrata de los meses trabajados o asimilados del año natural, pagado en diciembre."
+
+msgid "taux horaire au 1er décembre × 38 h × 52 / 12, période du 1er décembre au 30 novembre, payée au plus tard le 20 décembre (minimum 3 mois d'ancienneté)."
+msgstr "tarifa horaria al 1 de diciembre × 38 h × 52 / 12, periodo del 1 de diciembre al 30 de noviembre, pagada a más tardar el 20 de diciembre (mínimo 3 meses de antigüedad)."
+
+msgid "ONSS 13,07 %% (sur 108 %% pour un ouvrier), sans bonus à l'emploi ; précompte au taux des allocations exceptionnelles."
+msgstr "ONSS 13,07 %% (sobre 108 %% para un obrero), sin bonus al empleo; retención al tipo de asignaciones excepcionales."
+
+msgid "Montants estimés à partir des paies enregistrées ; à vérifier avec votre secrétariat social."
+msgstr "Importes estimados a partir de las nóminas registradas; verifique con su gestoría."
+
+msgid "Détail des congés"
+msgstr "Detalle de vacaciones"
+
+msgid "Déjà pris (autres mois)"
+msgstr "Ya tomados (otros meses)"
+
+msgid "Restant avant ce mois"
+msgstr "Restante antes de este mes"
+
+msgid "Les jours pris ce mois dépassent le solde restant."
+msgstr "Los días tomados este mes superan el saldo restante."
+
+msgid "Double pécule déjà payé cette année (mois : %%s)."
+msgstr "Doble paga ya pagada este año (mes: %%s)."
+
+msgid "Double pécule pas encore payé cette année (employé : en général en mai / juin)."
+msgstr "Doble paga aún no pagada este año (empleado: normalmente mayo / junio)."
+
+msgid "Ouvrier : le pécule de vacances est payé par la caisse de vacances."
+msgstr "Obrero: la paga de vacaciones la abona la caja de vacaciones."
+
+msgid "13e mois déjà payé (paie de %%s)."
+msgstr "13.ª paga ya pagada (nómina de %%s)."
+
+msgid "13e mois pas encore payé : %%s / 12 mois prévus (en décembre)."
+msgstr "13.ª paga aún no pagada: %%s / 12 meses previstos (en diciembre)."
+
+msgid "Congés"
+msgstr "Vacaciones"
+
+msgid "≈ %(n)s jour(s) par mois sur les %(m)s mois restants"
+msgstr "≈ %(n)s día(s) al mes en los %(m)s meses restantes"
+
+msgid "%(n)s paie(s) de l'année précédente"
+msgstr "%(n)s nómina(s) del año anterior"
+
+msgid "01/12/%(a)s → 30/11/%(b)s (CP 112)"
+msgstr "01/12/%(a)s → 30/11/%(b)s (CP 112)"
+
+msgid "année civile %(a)s"
+msgstr "año natural %(a)s"
+
+msgid "Précompte (%(t)s %%)"
+msgstr "Retención (%(t)s %%)"
+
+msgid "prévus"
+msgstr "previstos"
+
+msgid "Double pécule de vacances"
+msgstr "Doble paga de vacaciones"
+
+msgid "Jours de congé payés (simple pécule)"
+msgstr "Días de vacaciones pagados (paga simple)"
+
+msgid "Pécule de sortie (fin de contrat)"
+msgstr "Paga de vacaciones de salida (fin de contrato)"
+
+msgid "Autre paiement de vacances"
+msgstr "Otro pago de vacaciones"
+
+msgid "Année des vacances"
+msgstr "Año de vacaciones"
+
+msgid "Date de l'écriture"
+msgstr "Fecha del asiento"
+
+msgid "Jours de congé"
+msgstr "Días de vacaciones"
+
+msgid "Jours de congé payés (comptés comme pris) ou non pris payés à la sortie."
+msgstr "Días pagados (contados como tomados) o no tomados pagados a la salida."
+
+msgid "Montant brut"
+msgstr "Importe bruto"
+
+msgid "Retenue ONSS travailleur"
+msgstr "Retención ONSS del trabajador"
+
+msgid "Vide : pas encore payé (dette envers le travailleur)."
+msgstr "Vacío: aún no pagado (deuda con el trabajador)."
+
+msgid "Paiement de congés / pécule"
+msgstr "Pago de vacaciones / paga"
+
+msgid "Paiements de congés / pécules"
+msgstr "Pagos de vacaciones / pagas"
+
+msgid "Indiquez le montant brut (bouton « Calculer » pour une proposition)."
+msgstr "Indique el importe bruto (botón « Calcular » para una propuesta)."
+
+msgid "Les retenues dépassent le montant brut."
+msgstr "Las retenciones superan el importe bruto."
+
+msgid "Montants proposés – vérifiez puis enregistrez."
+msgstr "Importes propuestos – revise y guarde."
+
+msgid "Le paiement de congés a été enregistré et comptabilisé."
+msgstr "El pago de vacaciones se ha registrado y contabilizado."
+
+msgid "Le net est marqué comme payé."
+msgstr "El neto está marcado como pagado."
+
+msgid "Le paiement de congés a été supprimé."
+msgstr "El pago de vacaciones se ha eliminado."
+
+msgid "Payer des congés"
+msgstr "Pagar vacaciones"
+
+msgid "Paiement de congés"
+msgstr "Pago de vacaciones"
+
+msgid "Aucune paie enregistrée pour ce travailleur : encodez les montants vous-même."
+msgstr "Ninguna nómina para este trabajador: indique los importes usted mismo."
+
+msgid "Ouvrier : le pécule de vacances (simple et double) est payé par la caisse de vacances, pas par l'employeur. N'enregistrez un paiement que si vous payez vous-même."
+msgstr "Obrero: la paga de vacaciones (simple y doble) la abona la caja de vacaciones, no el empleador. Registre un pago solo si lo paga usted."
+
+msgid "Proposition : 92 %% du salaire mensuel brut ; ONSS 13,07 %% sur 85 %% ; précompte au taux des allocations exceptionnelles. La charge reprend la provision pour double pécule (456000)."
+msgstr "Propuesta: 92 %% del salario mensual bruto; ONSS 13,07 %% sobre 85 %%; retención al tipo de asignaciones excepcionales. El cargo utiliza la provisión de doble paga (456000)."
+
+msgid "Proposition : jours × salaire journalier (mensuel × 3 / 65) ; ONSS 13,07 %% ; précompte au taux de la dernière paie ; cotisations patronales au taux de la dernière paie. Les jours sont comptés comme pris."
+msgstr "Propuesta: días × salario diario (mensual × 3 / 65); ONSS 13,07 %%; retención y cotizaciones patronales al tipo de la última nómina. Los días cuentan como tomados."
+
+msgid "Proposition : 15,34 %% du brut de l'année (%(base)s €) – 7,67 %% simple + 7,67 %% double ; ONSS 13,07 %% (double pécule sur 85 %%) ; précompte au taux des allocations exceptionnelles. À vérifier avec votre secrétariat social (pécule anticipé de l'année suivante non compris)."
+msgstr "Propuesta: 15,34 %% del bruto del año (%(base)s €) – 7,67 %% simple + 7,67 %% doble; ONSS 13,07 %% (doble sobre 85 %%); retención al tipo de asignaciones excepcionales. Verifique con su gestoría (paga anticipada del año siguiente no incluida)."
+
+msgid "Calculer les montants"
+msgstr "Calcular los importes"
+
+msgid "Enregistrer et comptabiliser"
+msgstr "Guardar y contabilizar"
+
+msgid "Écritures comptables"
+msgstr "Asientos contables"
+
+msgid "Supprimer ce paiement de congés et ses écritures ?"
+msgstr "¿Eliminar este pago de vacaciones y sus asientos?"
+
+msgid "Paiement en dehors de la paie mensuelle, comptabilisé automatiquement (charge, ONSS, précompte, net à payer, puis paiement par banque ou caisse)."
+msgstr "Pago fuera de la nómina mensual, contabilizado automáticamente (cargo, ONSS, retención, neto a pagar y pago por banco o caja)."
+
+msgid "Payer le double pécule"
+msgstr "Pagar la doble paga"
+
+msgid "déjà payé"
+msgstr "ya pagado"
+
+msgid "Payer des jours de congé"
+msgstr "Pagar días de vacaciones"
+
+msgid "Pécule de sortie"
+msgstr "Paga de vacaciones de salida"
+
+msgid "Autre paiement"
+msgstr "Otro pago"
+
+msgid "Payer"
+msgstr "Pagar"
+
+msgid "Aucun paiement de congés hors paie pour cette année."
+msgstr "Ningún pago de vacaciones fuera de nómina este año."
+
+msgid "Congés / pécules à payer"
+msgstr "Vacaciones / pagas por pagar"
+
+msgid "dont %(n)s payé(s) hors paie"
+msgstr "de los cuales %(n)s pagados fuera de nómina"
+
+msgid "%(n)s jour(s) réglé(s) par le pécule de sortie"
+msgstr "%(n)s día(s) liquidado(s) con la paga de salida"

@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from django import forms
+from maintenance.obligatoires import ChampsObligatoiresMaintenanceMixin
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
@@ -11,7 +12,7 @@ from ..moteur_lie import moteur_actuel
 from .models import RemplacementMoteur
 
 
-class RemplacementMoteurForm(forms.ModelForm):
+class RemplacementMoteurForm(ChampsObligatoiresMaintenanceMixin, forms.ModelForm):
 
     nombre_remplacements_moteurs = forms.IntegerField(
         required=False,

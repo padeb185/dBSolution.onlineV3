@@ -68843,3 +68843,417 @@ msgstr "Προειδοποίηση AdBlue στον πίνακα οργάνων"
 
 msgid "Injecteur · Réservoir · Pompe · Ajout · Tuyaux · Diagnostic · Pot DeNOx"
 msgstr "Μπεκ · Δεξαμενή · Αντλία · Συμπλήρωση · Σωλήνες · Διάγνωση · DeNOx"
+
+msgid "Veuillez corriger les champs suivants :"
+msgstr "Διορθώστε τα παρακάτω πεδία:"
+
+msgid "Champ"
+msgstr "Πεδίο"
+
+msgid "Au moins 12 caractères"
+msgstr "Τουλάχιστον 12 χαρακτήρες"
+
+msgid "Une majuscule"
+msgstr "Ένα κεφαλαίο γράμμα"
+
+msgid "Une minuscule"
+msgstr "Ένα πεζό γράμμα"
+
+msgid "Un chiffre"
+msgstr "Ένα ψηφίο"
+
+msgid "Un caractère spécial (! ? @ # $ %% & * …)"
+msgstr "Ένας ειδικός χαρακτήρας (! ? @ # $ %% & * …)"
+
+msgid "Les mots de passe sont identiques"
+msgstr "Οι κωδικοί ταιριάζουν"
+
+msgid "Les mots de passe ne sont pas identiques"
+msgstr "Οι κωδικοί δεν ταιριάζουν"
+
+msgid "Masquer"
+msgstr "Απόκρυψη"
+
+msgid "Le temps de main-d'œuvre est obligatoire."
+msgstr "Ο χρόνος εργασίας είναι υποχρεωτικός."
+
+msgid "Le serrage des roues doit être marqué « Fait »."
+msgstr "Η σύσφιξη των τροχών πρέπει να σημειωθεί ως « Ολοκληρώθηκε »."
+
+msgid "Congés payés, pécules et 13e mois"
+msgstr "Άδεια μετ' αποδοχών, επίδομα αδείας και 13ος μισθός"
+
+msgid "Jours de droit"
+msgstr "Δικαιούμενες ημέρες"
+
+msgid "Jours pris"
+msgstr "Ημέρες που λήφθηκαν"
+
+msgid "Jours à prendre"
+msgstr "Ημέρες προς λήψη"
+
+msgid "Simple pécule payé"
+msgstr "Απλό επίδομα αδείας που καταβλήθηκε"
+
+msgid "Double pécule (brut)"
+msgstr "Διπλό επίδομα αδείας (μικτό)"
+
+msgid "13e mois (brut)"
+msgstr "13ος μισθός (μικτός)"
+
+msgid "Régime"
+msgstr "Καθεστώς"
+
+msgid "Pris"
+msgstr "Ελήφθησαν"
+
+msgid "À prendre"
+msgstr "Προς λήψη"
+
+msgid "Double pécule"
+msgstr "Διπλό επίδομα αδείας"
+
+msgid "13e mois"
+msgstr "13ος μισθός"
+
+msgid "Caisse de vacances"
+msgstr "Ταμείο αδειών"
+
+msgid "mois"
+msgstr "μήνες"
+
+msgid "Aucune paie enregistrée : créez une paie pour calculer les congés."
+msgstr "Δεν έχει καταχωριστεί μισθοδοσία: δημιουργήστε μία για τον υπολογισμό των αδειών."
+
+msgid "Créer une paie"
+msgstr "Δημιουργία μισθοδοσίας"
+
+msgid "Aucun travailleur."
+msgstr "Κανένας εργαζόμενος."
+
+msgid "Brut mensuel"
+msgstr "Μηνιαίος μικτός"
+
+msgid "Aucune paie enregistrée pour ce travailleur : créez une paie pour calculer les congés, le pécule et le 13e mois."
+msgstr "Καμία μισθοδοσία για αυτόν τον εργαζόμενο: δημιουργήστε μία για τον υπολογισμό αδειών, επιδόματος και 13ου μισθού."
+
+msgid "Droit annuel"
+msgstr "Ετήσιο δικαίωμα"
+
+msgid "20 jours × régime de travail (non encodé dans la paie)"
+msgstr "20 ημέρες × καθεστώς (δεν καταχωρίστηκε)"
+
+msgid "encodé dans la paie"
+msgstr "καταχωρίστηκε στη μισθοδοσία"
+
+msgid "Plus de jours pris que le droit : vérifiez l'encodage."
+msgstr "Περισσότερες ημέρες από το δικαίωμα: ελέγξτε την καταχώριση."
+
+msgid "Jours non pris en fin d'année : ils sont perdus (ni reportés ni payés)."
+msgstr "Οι ημέρες που δεν λήφθηκαν χάνονται στο τέλος του έτους."
+
+msgid "Valeur d'un jour de congé"
+msgstr "Αξία μίας ημέρας αδείας"
+
+msgid "simple pécule (caisse de vacances) ÷ jours de droit"
+msgstr "απλό επίδομα (ταμείο) ÷ δικαιούμενες ημέρες"
+
+msgid "salaire mensuel × 3 / 65"
+msgstr "μηνιαίος μισθός × 3 / 65"
+
+msgid "Mois par mois"
+msgstr "Μήνα προς μήνα"
+
+msgid "Cumul"
+msgstr "Σωρευτικά"
+
+msgid "Simple pécule"
+msgstr "Απλό επίδομα αδείας"
+
+msgid "Pas de paie – créer"
+msgstr "Χωρίς μισθοδοσία – δημιουργία"
+
+msgid "Ouvrier : le pécule est payé par la caisse de vacances (en général en mai / juin), pas par l'employeur."
+msgstr "Εργάτης: το επίδομα καταβάλλεται από το ταμείο αδειών (συνήθως Μάιο / Ιούνιο), όχι από τον εργοδότη."
+
+msgid "Base : brut à 108 %% de l'année précédente"
+msgstr "Βάση: μικτά στο 108 %% του προηγούμενου έτους"
+
+msgid "Pas de paie l'année précédente : estimation sur 12 mois du salaire actuel."
+msgstr "Χωρίς μισθοδοσία το προηγούμενο έτος: εκτίμηση 12 μηνών του τρέχοντος μισθού."
+
+msgid "Simple pécule (8 %%)"
+msgstr "Απλό επίδομα (8 %%)"
+
+msgid "Double pécule (7,38 %%)"
+msgstr "Διπλό επίδομα (7,38 %%)"
+
+msgid "Pécule total estimé (15,38 %%)"
+msgstr "Εκτιμώμενο συνολικό επίδομα (15,38 %%)"
+
+msgid "Simple pécule payé (jours pris)"
+msgstr "Απλό επίδομα που καταβλήθηκε (ημέρες που λήφθηκαν)"
+
+msgid "Simple pécule des jours restants"
+msgstr "Απλό επίδομα των υπολοίπων ημερών"
+
+msgid "Double pécule (92 %%)"
+msgstr "Διπλό επίδομα (92 %%)"
+
+msgid "Estimation – pas encore payé"
+msgstr "Εκτίμηση – δεν έχει καταβληθεί"
+
+msgid "ONSS (13,07 %% sur 85 %%)"
+msgstr "ONSS (13,07 %% επί 85 %%)"
+
+msgid "Pour le payer : cochez « Payer le double pécule de vacances ce mois » dans la paie (en général mai ou juin)."
+msgstr "Για καταβολή: επιλέξτε « Καταβολή διπλού επιδόματος αυτόν τον μήνα » στη μισθοδοσία (συνήθως Μάιο ή Ιούνιο)."
+
+msgid "Estimation – pas encore payée"
+msgstr "Εκτίμηση – δεν έχει καταβληθεί"
+
+msgid "Payée avec la paie de"
+msgstr "Καταβλήθηκε με τη μισθοδοσία του"
+
+msgid "Mois prestés ou assimilés"
+msgstr "Μήνες εργασίας ή εξομοιούμενοι"
+
+msgid "Période de référence"
+msgstr "Περίοδος αναφοράς"
+
+msgid "Montant de référence"
+msgstr "Ποσό αναφοράς"
+
+msgid "Mois avec une paie / mois prévus"
+msgstr "Μήνες με μισθοδοσία / αναμενόμενοι μήνες"
+
+msgid "sur"
+msgstr "από"
+
+msgid "Brut estimé"
+msgstr "Εκτιμώμενο μικτό"
+
+msgid "ONSS (13,07 %%)"
+msgstr "ONSS (13,07 %%)"
+
+msgid "Net estimé"
+msgstr "Εκτιμώμενο καθαρό"
+
+msgid "Pour la payer : cochez « Payer la prime de fin d'année (13e mois) ce mois » dans la paie de décembre."
+msgstr "Για καταβολή: επιλέξτε « Καταβολή 13ου μισθού αυτόν τον μήνα » στη μισθοδοσία Δεκεμβρίου."
+
+msgid "Pas de montant de référence (salaire) pour estimer la prime."
+msgstr "Δεν υπάρχει ποσό αναφοράς (μισθός) για εκτίμηση."
+
+msgid "Congés de tous les travailleurs"
+msgstr "Άδειες όλων των εργαζομένων"
+
+msgid "Paies du travailleur"
+msgstr "Μισθοδοσίες του εργαζομένου"
+
+msgid "Rappel des règles belges (congés payés, pécules, 13e mois)"
+msgstr "Υπενθύμιση βελγικών κανόνων (άδειες, επιδόματα, 13ος μισθός)"
+
+msgid "20 jours par an pour un temps plein (5 jours / semaine) ayant travaillé toute l'année précédente (exercice de vacances)."
+msgstr "20 ημέρες τον χρόνο για πλήρη απασχόληση (5 ημέρες / εβδομάδα) με εργασία όλο το προηγούμενο έτος."
+
+msgid "Temps partiel ou année incomplète : au prorata (régime de travail, jours prestés ou assimilés)."
+msgstr "Μερική απασχόληση ή ελλιπές έτος: αναλογικά."
+
+msgid "Les jours doivent être pris avant le 31 décembre ; ils ne sont pas reportables ni payables (sauf à la sortie)."
+msgstr "Οι ημέρες λαμβάνονται έως τις 31 Δεκεμβρίου· δεν μεταφέρονται ούτε πληρώνονται (εκτός αποχώρησης)."
+
+msgid "Salaire journalier d'un employé : salaire mensuel × 3 / 65."
+msgstr "Ημερομίσθιο υπαλλήλου: μηνιαίος μισθός × 3 / 65."
+
+msgid "simple pécule = salaire maintenu pendant les jours pris ; double pécule = 92 %% du brut mensuel, payé en général en mai / juin."
+msgstr "απλό επίδομα = μισθός κατά τις ημέρες αδείας· διπλό = 92 %% του μηνιαίου μικτού, συνήθως Μάιο / Ιούνιο."
+
+msgid "ONSS sur le double pécule : 13,07 %% calculés sur 85 %% (la part de 7 %% n'est pas soumise) ; précompte au taux des allocations exceptionnelles."
+msgstr "ONSS στο διπλό επίδομα: 13,07 %% επί 85 %% (το 7 %% απαλλάσσεται)· παρακράτηση με συντελεστή έκτακτων παροχών."
+
+msgid "payé par la caisse de vacances : 15,38 %% du brut à 108 %% de l'année précédente (8 %% simple + 7,38 %% double). L'employeur cotise 15,84 %% du brut à 108 %%."
+msgstr "καταβάλλεται από το ταμείο: 15,38 %% του μικτού στο 108 %% του προηγούμενου έτους (8 %% απλό + 7,38 %% διπλό). Ο εργοδότης εισφέρει 15,84 %% του μικτού στο 108 %%."
+
+msgid "un salaire mensuel brut, au prorata des mois prestés ou assimilés de l'année civile, payé en décembre."
+msgstr "ένας μικτός μηνιαίος μισθός, αναλογικά με τους μήνες του ημερολογιακού έτους, τον Δεκέμβριο."
+
+msgid "taux horaire au 1er décembre × 38 h × 52 / 12, période du 1er décembre au 30 novembre, payée au plus tard le 20 décembre (minimum 3 mois d'ancienneté)."
+msgstr "ωριαία αμοιβή 1ης Δεκεμβρίου × 38 ώρες × 52 / 12, περίοδος 1 Δεκεμβρίου – 30 Νοεμβρίου, έως τις 20 Δεκεμβρίου (ελάχιστο 3 μήνες)."
+
+msgid "ONSS 13,07 %% (sur 108 %% pour un ouvrier), sans bonus à l'emploi ; précompte au taux des allocations exceptionnelles."
+msgstr "ONSS 13,07 %% (επί 108 %% για εργάτη), χωρίς μπόνους απασχόλησης· παρακράτηση έκτακτων παροχών."
+
+msgid "Montants estimés à partir des paies enregistrées ; à vérifier avec votre secrétariat social."
+msgstr "Ποσά εκτιμώμενα από τις καταχωρισμένες μισθοδοσίες· ελέγξτε με τον λογιστή μισθοδοσίας."
+
+msgid "Détail des congés"
+msgstr "Λεπτομέρειες αδειών"
+
+msgid "Déjà pris (autres mois)"
+msgstr "Ήδη ληφθείσες (άλλοι μήνες)"
+
+msgid "Restant avant ce mois"
+msgstr "Υπόλοιπο πριν από αυτόν τον μήνα"
+
+msgid "Les jours pris ce mois dépassent le solde restant."
+msgstr "Οι ημέρες αυτού του μήνα υπερβαίνουν το υπόλοιπο."
+
+msgid "Double pécule déjà payé cette année (mois : %%s)."
+msgstr "Το διπλό επίδομα καταβλήθηκε ήδη φέτος (μήνας: %%s)."
+
+msgid "Double pécule pas encore payé cette année (employé : en général en mai / juin)."
+msgstr "Το διπλό επίδομα δεν έχει καταβληθεί φέτος (υπάλληλος: συνήθως Μάιο / Ιούνιο)."
+
+msgid "Ouvrier : le pécule de vacances est payé par la caisse de vacances."
+msgstr "Εργάτης: το επίδομα αδείας καταβάλλεται από το ταμείο αδειών."
+
+msgid "13e mois déjà payé (paie de %%s)."
+msgstr "Ο 13ος μισθός καταβλήθηκε ήδη (μισθοδοσία %%s)."
+
+msgid "13e mois pas encore payé : %%s / 12 mois prévus (en décembre)."
+msgstr "Ο 13ος μισθός δεν έχει καταβληθεί: %%s / 12 μήνες (τον Δεκέμβριο)."
+
+msgid "Congés"
+msgstr "Άδειες"
+
+msgid "≈ %(n)s jour(s) par mois sur les %(m)s mois restants"
+msgstr "≈ %(n)s ημέρα(ες) τον μήνα για τους υπόλοιπους %(m)s μήνες"
+
+msgid "%(n)s paie(s) de l'année précédente"
+msgstr "%(n)s μισθοδοσία(ες) του προηγούμενου έτους"
+
+msgid "01/12/%(a)s → 30/11/%(b)s (CP 112)"
+msgstr "01/12/%(a)s → 30/11/%(b)s (CP 112)"
+
+msgid "année civile %(a)s"
+msgstr "ημερολογιακό έτος %(a)s"
+
+msgid "Précompte (%(t)s %%)"
+msgstr "Παρακράτηση (%(t)s %%)"
+
+msgid "prévus"
+msgstr "αναμενόμενοι"
+
+msgid "Double pécule de vacances"
+msgstr "Διπλό επίδομα αδείας"
+
+msgid "Jours de congé payés (simple pécule)"
+msgstr "Πληρωμένες ημέρες αδείας (απλό επίδομα)"
+
+msgid "Pécule de sortie (fin de contrat)"
+msgstr "Επίδομα αδείας αποχώρησης (λήξη σύμβασης)"
+
+msgid "Autre paiement de vacances"
+msgstr "Άλλη πληρωμή αδείας"
+
+msgid "Année des vacances"
+msgstr "Έτος αδειών"
+
+msgid "Date de l'écriture"
+msgstr "Ημερομηνία εγγραφής"
+
+msgid "Jours de congé"
+msgstr "Ημέρες αδείας"
+
+msgid "Jours de congé payés (comptés comme pris) ou non pris payés à la sortie."
+msgstr "Πληρωμένες ημέρες (λογίζονται ως ληφθείσες) ή μη ληφθείσες κατά την αποχώρηση."
+
+msgid "Montant brut"
+msgstr "Μικτό ποσό"
+
+msgid "Retenue ONSS travailleur"
+msgstr "Κράτηση ONSS εργαζομένου"
+
+msgid "Vide : pas encore payé (dette envers le travailleur)."
+msgstr "Κενό: δεν έχει πληρωθεί (οφειλή προς τον εργαζόμενο)."
+
+msgid "Paiement de congés / pécule"
+msgstr "Πληρωμή αδείας / επιδόματος"
+
+msgid "Paiements de congés / pécules"
+msgstr "Πληρωμές αδειών / επιδομάτων"
+
+msgid "Indiquez le montant brut (bouton « Calculer » pour une proposition)."
+msgstr "Συμπληρώστε το μικτό ποσό (κουμπί « Υπολογισμός » για πρόταση)."
+
+msgid "Les retenues dépassent le montant brut."
+msgstr "Οι κρατήσεις υπερβαίνουν το μικτό ποσό."
+
+msgid "Montants proposés – vérifiez puis enregistrez."
+msgstr "Προτεινόμενα ποσά – ελέγξτε και αποθηκεύστε."
+
+msgid "Le paiement de congés a été enregistré et comptabilisé."
+msgstr "Η πληρωμή αδείας καταχωρίστηκε και λογιστικοποιήθηκε."
+
+msgid "Le net est marqué comme payé."
+msgstr "Το καθαρό σημειώθηκε ως πληρωμένο."
+
+msgid "Le paiement de congés a été supprimé."
+msgstr "Η πληρωμή αδείας διαγράφηκε."
+
+msgid "Payer des congés"
+msgstr "Πληρωμή αδειών"
+
+msgid "Paiement de congés"
+msgstr "Πληρωμή αδείας"
+
+msgid "Aucune paie enregistrée pour ce travailleur : encodez les montants vous-même."
+msgstr "Καμία μισθοδοσία: συμπληρώστε τα ποσά μόνοι σας."
+
+msgid "Ouvrier : le pécule de vacances (simple et double) est payé par la caisse de vacances, pas par l'employeur. N'enregistrez un paiement que si vous payez vous-même."
+msgstr "Εργάτης: το επίδομα (απλό και διπλό) καταβάλλεται από το ταμείο αδειών. Καταχωρίστε πληρωμή μόνο αν πληρώνετε εσείς."
+
+msgid "Proposition : 92 %% du salaire mensuel brut ; ONSS 13,07 %% sur 85 %% ; précompte au taux des allocations exceptionnelles. La charge reprend la provision pour double pécule (456000)."
+msgstr "Πρόταση: 92 %% του μικτού μηνιαίου μισθού· ONSS 13,07 %% επί 85 %%· παρακράτηση έκτακτων παροχών. Χρησιμοποιείται η πρόβλεψη διπλού επιδόματος (456000)."
+
+msgid "Proposition : jours × salaire journalier (mensuel × 3 / 65) ; ONSS 13,07 %% ; précompte au taux de la dernière paie ; cotisations patronales au taux de la dernière paie. Les jours sont comptés comme pris."
+msgstr "Πρόταση: ημέρες × ημερομίσθιο (μηνιαίος × 3 / 65)· ONSS 13,07 %%· παρακράτηση και εργοδοτικές εισφορές με τους συντελεστές της τελευταίας μισθοδοσίας. Οι ημέρες λογίζονται ως ληφθείσες."
+
+msgid "Proposition : 15,34 %% du brut de l'année (%(base)s €) – 7,67 %% simple + 7,67 %% double ; ONSS 13,07 %% (double pécule sur 85 %%) ; précompte au taux des allocations exceptionnelles. À vérifier avec votre secrétariat social (pécule anticipé de l'année suivante non compris)."
+msgstr "Πρόταση: 15,34 %% του μικτού του έτους (%(base)s €) – 7,67 %% απλό + 7,67 %% διπλό· ONSS 13,07 %% (διπλό επί 85 %%)· παρακράτηση έκτακτων παροχών. Ελέγξτε με τον λογιστή (χωρίς το προκαταβαλλόμενο επίδομα του επόμενου έτους)."
+
+msgid "Calculer les montants"
+msgstr "Υπολογισμός ποσών"
+
+msgid "Enregistrer et comptabiliser"
+msgstr "Αποθήκευση και λογιστικοποίηση"
+
+msgid "Écritures comptables"
+msgstr "Λογιστικές εγγραφές"
+
+msgid "Supprimer ce paiement de congés et ses écritures ?"
+msgstr "Διαγραφή αυτής της πληρωμής αδείας και των εγγραφών της;"
+
+msgid "Paiement en dehors de la paie mensuelle, comptabilisé automatiquement (charge, ONSS, précompte, net à payer, puis paiement par banque ou caisse)."
+msgstr "Πληρωμή εκτός μηνιαίας μισθοδοσίας, λογιστικοποιείται αυτόματα (δαπάνη, ONSS, παρακράτηση, καθαρό, πληρωμή μέσω τράπεζας ή ταμείου)."
+
+msgid "Payer le double pécule"
+msgstr "Πληρωμή διπλού επιδόματος"
+
+msgid "déjà payé"
+msgstr "ήδη πληρωμένο"
+
+msgid "Payer des jours de congé"
+msgstr "Πληρωμή ημερών αδείας"
+
+msgid "Pécule de sortie"
+msgstr "Επίδομα αδείας αποχώρησης"
+
+msgid "Autre paiement"
+msgstr "Άλλη πληρωμή"
+
+msgid "Payer"
+msgstr "Πληρωμή"
+
+msgid "Aucun paiement de congés hors paie pour cette année."
+msgstr "Καμία πληρωμή αδείας εκτός μισθοδοσίας φέτος."
+
+msgid "Congés / pécules à payer"
+msgstr "Άδειες / επιδόματα προς πληρωμή"
+
+msgid "dont %(n)s payé(s) hors paie"
+msgstr "εκ των οποίων %(n)s πληρώθηκαν εκτός μισθοδοσίας"
+
+msgid "%(n)s jour(s) réglé(s) par le pécule de sortie"
+msgstr "%(n)s ημέρα(ες) εξοφλήθηκαν με το επίδομα αποχώρησης"

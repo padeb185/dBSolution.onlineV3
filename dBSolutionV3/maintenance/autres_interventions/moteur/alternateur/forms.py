@@ -1,5 +1,6 @@
 from decimal import Decimal
 from django import forms
+from maintenance.obligatoires import ChampsObligatoiresMaintenanceMixin
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -11,7 +12,7 @@ from .models import Alternateur
 
 
 
-class AlternateurForm(forms.ModelForm):
+class AlternateurForm(ChampsObligatoiresMaintenanceMixin, forms.ModelForm):
     temps_heures = forms.IntegerField(
         required=False,
         min_value=0

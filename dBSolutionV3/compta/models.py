@@ -174,7 +174,8 @@ class CompteTresorerie(models.Model):
             pass
 
         # Investissements et versements ONSS / précompte payés depuis ce compte
-        for rel, champ in (("immobilisations", "date_paiement"), ("versements_sociaux", "date")):
+        for rel, champ in (("immobilisations", "date_paiement"), ("versements_sociaux", "date"),
+                           ("paiements_conges", "date_paiement")):
             try:
                 qs = getattr(self, rel).filter(**{f"{champ}__isnull": False})
                 if debut:
@@ -274,7 +275,8 @@ class CompteTresorerie(models.Model):
                 pass
 
             # Investissements et versements sociaux sans compte précisé → banque par défaut
-            for modele, champ in ((Immobilisation, "date_paiement"), (VersementSocial, "date")):
+            for modele, champ in ((Immobilisation, "date_paiement"), (VersementSocial, "date"),
+                                  (PaiementConges, "date_paiement")):
                 try:
                     qs = modele.objects.filter(**{"societe": self.societe, f"{champ}__isnull": False,
                                                   "compte_paiement__isnull": True, f"{champ}__gte": bornes_debut})
@@ -941,6 +943,120 @@ class VersementSocial(models.Model):
                 "entree": ZERO, "sortie": self.montant, "contrepartie": self.compte_dette,
                 "piece": self.reference or f"{self.type}-{self.periode}", "source": "versement_social",
                 "objet": self, "ordre": 6}
+
+
+# ======================================================================
+# SALAIRES – paiement des congés / pécules de vacances hors paie mensuelle
+# ======================================================================
+class PaiementConges(models.Model):
+    """
+    Paiement d'un pécule de vacances ou de jours de congé en dehors de la paie mensuelle :
+    double pécule (employé), jours de congé payés (simple pécule), pécule de sortie, autre.
+    Comptabilisé : charge (ou reprise de la provision 456000 pour le double pécule), retenues ONSS /
+    précompte, net à payer (455000), puis paiement depuis la banque ou la caisse.
+    """
+    class Type(models.TextChoices):
+        DOUBLE_PECULE = "DOUBLE_PECULE", _("Double pécule de vacances")
+        SIMPLE_PECULE = "SIMPLE_PECULE", _("Jours de congé payés (simple pécule)")
+        PECULE_SORTIE = "PECULE_SORTIE", _("Pécule de sortie (fin de contrat)")
+        AUTRE = "AUTRE", _("Autre paiement de vacances")
+
+    class Statut(models.TextChoices):
+        EMPLOYE = "employe", _("Employé")
+        OUVRIER = "ouvrier", _("Ouvrier")
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    societe = models.ForeignKey("societe.Societe", on_delete=models.CASCADE, related_name="paiements_conges")
+    utilisateur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT,
+                                    related_name="paiements_conges", verbose_name=_("Travailleur"))
+    type = models.CharField(_("Type"), max_length=20, choices=Type.choices, default=Type.DOUBLE_PECULE)
+    statut_travailleur = models.CharField(_("Statut"), max_length=10, choices=Statut.choices, default=Statut.EMPLOYE)
+    annee = models.PositiveIntegerField(_("Année des vacances"))
+    date = models.DateField(_("Date de l'écriture"), default=date.today)
+    jours = models.DecimalField(_("Jours de congé"), max_digits=5, decimal_places=1, default=ZERO,
+                                validators=[MinValueValidator(Decimal("0"))],
+                                help_text=_("Jours de congé payés (comptés comme pris) ou non pris payés à la sortie."))
+    brut = models.DecimalField(_("Montant brut"), max_digits=12, decimal_places=2, default=ZERO,
+                               validators=[MinValueValidator(Decimal("0"))])
+    onss = models.DecimalField(_("Retenue ONSS travailleur"), max_digits=12, decimal_places=2, default=ZERO,
+                               validators=[MinValueValidator(Decimal("0"))])
+    precompte = models.DecimalField(_("Précompte professionnel"), max_digits=12, decimal_places=2, default=ZERO,
+                                    validators=[MinValueValidator(Decimal("0"))])
+    cotisations_patronales = models.DecimalField(_("Cotisations patronales ONSS"), max_digits=12, decimal_places=2,
+                                                 default=ZERO, validators=[MinValueValidator(Decimal("0"))])
+    net = models.DecimalField(_("Net à payer"), max_digits=12, decimal_places=2, default=ZERO, editable=False)
+    date_paiement = models.DateField(_("Date du paiement"), null=True, blank=True,
+                                     help_text=_("Vide : pas encore payé (dette envers le travailleur)."))
+    compte_paiement = models.ForeignKey(CompteTresorerie, on_delete=models.SET_NULL, null=True, blank=True,
+                                        related_name="paiements_conges", verbose_name=_("Payé depuis le compte"),
+                                        help_text=_("Vide : compte bancaire par défaut."))
+    remarques = models.TextField(_("Remarques"), blank=True)
+    cree_par = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,
+                                 related_name="+", verbose_name=_("Créé par"))
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("Paiement de congés / pécule")
+        verbose_name_plural = _("Paiements de congés / pécules")
+        ordering = ["-date", "-created_at"]
+
+    def __str__(self):
+        return f"{self.get_type_display()} {self.annee} – {self.utilisateur} – {self.net} €"
+
+    def save(self, *args, **kwargs):
+        self.net = (Decimal(self.brut or 0) - Decimal(self.onss or 0) - Decimal(self.precompte or 0)).quantize(R2)
+        super().save(*args, **kwargs)
+
+    @property
+    def piece(self):
+        return f"CONG-{self.date:%Y%m%d}-{str(self.pk)[:6]}"
+
+    @property
+    def est_paye(self):
+        return self.date_paiement is not None
+
+    @property
+    def nom_travailleur(self):
+        return f"{self.utilisateur.prenom} {self.utilisateur.nom}".strip()
+
+    @property
+    def compte_charge(self):
+        if self.type == self.Type.DOUBLE_PECULE:
+            return "456000"   # reprise de la provision pour double pécule
+        return "620300" if self.statut_travailleur == self.Statut.OUVRIER else "620200"
+
+    def ecritures(self, avec_paiement=True):
+        """Lignes PCMN : {journal, date, compte, intitule, libelle, debit, credit, type}."""
+        from utilisateurs.paie_belgique import COMPTES
+        lib = f"{self.get_type_display()} {self.annee} – {self.nom_travailleur}"
+        L = []
+
+        def ligne(compte, libelle, debit=ZERO, credit=ZERO, journal="OD", jour=None, type_="conges"):
+            debit, credit = Decimal(debit or 0).quantize(R2), Decimal(credit or 0).quantize(R2)
+            if debit or credit:
+                L.append({"journal": journal, "date": jour or self.date, "compte": compte,
+                          "intitule": _(COMPTES[compte]) if compte in COMPTES else "",
+                          "libelle": f"{libelle} – {lib}", "debit": debit, "credit": credit,
+                          "type": type_, "source": "salaire", "objet": self})
+
+        ligne(self.compte_charge, _("Brut"), debit=self.brut)
+        ligne("621000", _("Cotisations patronales ONSS"), debit=self.cotisations_patronales)
+        ligne("454000", _("Cotisations patronales ONSS"), credit=self.cotisations_patronales)
+        ligne("454000", _("Retenue ONSS travailleur"), credit=self.onss)
+        ligne("453000", _("Précompte professionnel"), credit=self.precompte)
+        ligne("455000", _("Net à payer"), credit=self.net)
+        if avec_paiement and self.date_paiement and self.net:
+            banque = self.compte_paiement.compte_pcmn if self.compte_paiement else COMPTE_BANQUE_DEFAUT
+            ligne("455000", _("Paiement"), debit=self.net, journal="BQ", jour=self.date_paiement, type_="paiement")
+            ligne(banque, _("Paiement"), credit=self.net, journal="BQ", jour=self.date_paiement, type_="paiement")
+            L[-1]["intitule"] = self.compte_paiement.nom if self.compte_paiement else _("Banque")
+        return L
+
+    def ligne_tresorerie(self):
+        return {"date": self.date_paiement,
+                "libelle": f"{self.get_type_display()} {self.annee} – {self.nom_travailleur}",
+                "entree": ZERO, "sortie": self.net, "contrepartie": "455000", "piece": self.piece,
+                "source": "conges", "objet": self, "ordre": 3}
 
 
 # ======================================================================

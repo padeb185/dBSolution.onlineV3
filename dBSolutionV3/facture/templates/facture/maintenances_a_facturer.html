@@ -116,7 +116,7 @@
                                class="inline-block mb-1 px-2 py-1 rounded text-sm font-semibold
                                {% if f.statut == 'EMISE' %}bg-green-100 text-green-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
                                 {% if f.statut == 'EMISE' %}{{ f.numero }}{% else %}{% trans "Brouillon" %}{% endif %}
-                                ({{ f.get_type_facture_display }})
+                                ({{ f.libelle_type }})
                             </a>
                         {% empty %}
                             <span class="text-red-700 font-semibold">{% trans "À facturer" %}</span>
@@ -171,7 +171,7 @@
                                class="inline-block mb-1 px-2 py-1 rounded text-sm font-semibold
                                {% if f.statut == 'EMISE' %}bg-green-100 text-green-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
                                 {% if f.statut == 'EMISE' %}{{ f.numero }}{% else %}{% trans "Brouillon" %}{% endif %}
-                                ({{ f.get_type_facture_display }})
+                                ({{ f.libelle_type }})
                             </a>
                         {% empty %}
                             <span class="text-red-700 font-semibold">{% trans "À facturer" %}</span>

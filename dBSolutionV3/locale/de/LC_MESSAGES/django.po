@@ -68837,3 +68837,417 @@ msgstr "AdBlue-Warnung im Kombiinstrument"
 
 msgid "Injecteur · Réservoir · Pompe · Ajout · Tuyaux · Diagnostic · Pot DeNOx"
 msgstr "Injektor · Tank · Pumpe · Nachfüllen · Leitungen · Diagnose · DeNOx-Kat"
+
+msgid "Veuillez corriger les champs suivants :"
+msgstr "Bitte korrigieren Sie folgende Felder:"
+
+msgid "Champ"
+msgstr "Feld"
+
+msgid "Au moins 12 caractères"
+msgstr "Mindestens 12 Zeichen"
+
+msgid "Une majuscule"
+msgstr "Ein Großbuchstabe"
+
+msgid "Une minuscule"
+msgstr "Ein Kleinbuchstabe"
+
+msgid "Un chiffre"
+msgstr "Eine Ziffer"
+
+msgid "Un caractère spécial (! ? @ # $ %% & * …)"
+msgstr "Ein Sonderzeichen (! ? @ # $ %% & * …)"
+
+msgid "Les mots de passe sont identiques"
+msgstr "Die Passwörter stimmen überein"
+
+msgid "Les mots de passe ne sont pas identiques"
+msgstr "Die Passwörter stimmen nicht überein"
+
+msgid "Masquer"
+msgstr "Ausblenden"
+
+msgid "Le temps de main-d'œuvre est obligatoire."
+msgstr "Die Arbeitszeit ist erforderlich."
+
+msgid "Le serrage des roues doit être marqué « Fait »."
+msgstr "Das Anziehen der Räder muss als „Erledigt“ markiert sein."
+
+msgid "Congés payés, pécules et 13e mois"
+msgstr "Bezahlter Urlaub, Urlaubsgeld und 13. Monatsgehalt"
+
+msgid "Jours de droit"
+msgstr "Anspruchstage"
+
+msgid "Jours pris"
+msgstr "Genommene Tage"
+
+msgid "Jours à prendre"
+msgstr "Noch zu nehmende Tage"
+
+msgid "Simple pécule payé"
+msgstr "Einfaches Urlaubsgeld gezahlt"
+
+msgid "Double pécule (brut)"
+msgstr "Doppeltes Urlaubsgeld (brutto)"
+
+msgid "13e mois (brut)"
+msgstr "13. Monatsgehalt (brutto)"
+
+msgid "Régime"
+msgstr "Arbeitsregelung"
+
+msgid "Pris"
+msgstr "Genommen"
+
+msgid "À prendre"
+msgstr "Zu nehmen"
+
+msgid "Double pécule"
+msgstr "Doppeltes Urlaubsgeld"
+
+msgid "13e mois"
+msgstr "13. Monatsgehalt"
+
+msgid "Caisse de vacances"
+msgstr "Urlaubskasse"
+
+msgid "mois"
+msgstr "Monate"
+
+msgid "Aucune paie enregistrée : créez une paie pour calculer les congés."
+msgstr "Keine Lohnabrechnung erfasst: Erstellen Sie eine, um den Urlaub zu berechnen."
+
+msgid "Créer une paie"
+msgstr "Lohnabrechnung erstellen"
+
+msgid "Aucun travailleur."
+msgstr "Keine Mitarbeiter."
+
+msgid "Brut mensuel"
+msgstr "Monatsbrutto"
+
+msgid "Aucune paie enregistrée pour ce travailleur : créez une paie pour calculer les congés, le pécule et le 13e mois."
+msgstr "Keine Lohnabrechnung für diesen Mitarbeiter: Erstellen Sie eine, um Urlaub, Urlaubsgeld und 13. Monatsgehalt zu berechnen."
+
+msgid "Droit annuel"
+msgstr "Jahresanspruch"
+
+msgid "20 jours × régime de travail (non encodé dans la paie)"
+msgstr "20 Tage × Arbeitsregelung (nicht in der Abrechnung erfasst)"
+
+msgid "encodé dans la paie"
+msgstr "in der Abrechnung erfasst"
+
+msgid "Plus de jours pris que le droit : vérifiez l'encodage."
+msgstr "Mehr Tage genommen als Anspruch: Eingaben prüfen."
+
+msgid "Jours non pris en fin d'année : ils sont perdus (ni reportés ni payés)."
+msgstr "Nicht genommene Tage verfallen am Jahresende (weder übertragen noch bezahlt)."
+
+msgid "Valeur d'un jour de congé"
+msgstr "Wert eines Urlaubstages"
+
+msgid "simple pécule (caisse de vacances) ÷ jours de droit"
+msgstr "einfaches Urlaubsgeld (Urlaubskasse) ÷ Anspruchstage"
+
+msgid "salaire mensuel × 3 / 65"
+msgstr "Monatsgehalt × 3 / 65"
+
+msgid "Mois par mois"
+msgstr "Monat für Monat"
+
+msgid "Cumul"
+msgstr "Kumuliert"
+
+msgid "Simple pécule"
+msgstr "Einfaches Urlaubsgeld"
+
+msgid "Pas de paie – créer"
+msgstr "Keine Abrechnung – erstellen"
+
+msgid "Ouvrier : le pécule est payé par la caisse de vacances (en général en mai / juin), pas par l'employeur."
+msgstr "Arbeiter: Das Urlaubsgeld zahlt die Urlaubskasse (meist im Mai / Juni), nicht der Arbeitgeber."
+
+msgid "Base : brut à 108 %% de l'année précédente"
+msgstr "Basis: Brutto zu 108 %% des Vorjahres"
+
+msgid "Pas de paie l'année précédente : estimation sur 12 mois du salaire actuel."
+msgstr "Keine Abrechnung im Vorjahr: Schätzung auf 12 Monate des aktuellen Gehalts."
+
+msgid "Simple pécule (8 %%)"
+msgstr "Einfaches Urlaubsgeld (8 %%)"
+
+msgid "Double pécule (7,38 %%)"
+msgstr "Doppeltes Urlaubsgeld (7,38 %%)"
+
+msgid "Pécule total estimé (15,38 %%)"
+msgstr "Geschätztes Urlaubsgeld gesamt (15,38 %%)"
+
+msgid "Simple pécule payé (jours pris)"
+msgstr "Einfaches Urlaubsgeld gezahlt (genommene Tage)"
+
+msgid "Simple pécule des jours restants"
+msgstr "Einfaches Urlaubsgeld der Resttage"
+
+msgid "Double pécule (92 %%)"
+msgstr "Doppeltes Urlaubsgeld (92 %%)"
+
+msgid "Estimation – pas encore payé"
+msgstr "Schätzung – noch nicht gezahlt"
+
+msgid "ONSS (13,07 %% sur 85 %%)"
+msgstr "LSS (13,07 %% auf 85 %%)"
+
+msgid "Pour le payer : cochez « Payer le double pécule de vacances ce mois » dans la paie (en général mai ou juin)."
+msgstr "Zum Auszahlen: „Doppeltes Urlaubsgeld diesen Monat zahlen“ in der Abrechnung ankreuzen (meist Mai oder Juni)."
+
+msgid "Estimation – pas encore payée"
+msgstr "Schätzung – noch nicht gezahlt"
+
+msgid "Payée avec la paie de"
+msgstr "Gezahlt mit der Abrechnung von"
+
+msgid "Mois prestés ou assimilés"
+msgstr "Gearbeitete oder gleichgestellte Monate"
+
+msgid "Période de référence"
+msgstr "Referenzzeitraum"
+
+msgid "Montant de référence"
+msgstr "Referenzbetrag"
+
+msgid "Mois avec une paie / mois prévus"
+msgstr "Monate mit Abrechnung / erwartete Monate"
+
+msgid "sur"
+msgstr "von"
+
+msgid "Brut estimé"
+msgstr "Geschätztes Brutto"
+
+msgid "ONSS (13,07 %%)"
+msgstr "LSS (13,07 %%)"
+
+msgid "Net estimé"
+msgstr "Geschätztes Netto"
+
+msgid "Pour la payer : cochez « Payer la prime de fin d'année (13e mois) ce mois » dans la paie de décembre."
+msgstr "Zum Auszahlen: „Jahresendprämie (13. Monatsgehalt) diesen Monat zahlen“ in der Dezemberabrechnung ankreuzen."
+
+msgid "Pas de montant de référence (salaire) pour estimer la prime."
+msgstr "Kein Referenzbetrag (Gehalt) zur Schätzung der Prämie."
+
+msgid "Congés de tous les travailleurs"
+msgstr "Urlaub aller Mitarbeiter"
+
+msgid "Paies du travailleur"
+msgstr "Abrechnungen des Mitarbeiters"
+
+msgid "Rappel des règles belges (congés payés, pécules, 13e mois)"
+msgstr "Belgische Regeln (bezahlter Urlaub, Urlaubsgeld, 13. Monat)"
+
+msgid "20 jours par an pour un temps plein (5 jours / semaine) ayant travaillé toute l'année précédente (exercice de vacances)."
+msgstr "20 Tage pro Jahr für Vollzeit (5 Tage / Woche) bei voller Tätigkeit im Vorjahr (Urlaubsdienstjahr)."
+
+msgid "Temps partiel ou année incomplète : au prorata (régime de travail, jours prestés ou assimilés)."
+msgstr "Teilzeit oder unvollständiges Jahr: anteilig (Arbeitsregelung, gearbeitete oder gleichgestellte Tage)."
+
+msgid "Les jours doivent être pris avant le 31 décembre ; ils ne sont pas reportables ni payables (sauf à la sortie)."
+msgstr "Die Tage müssen vor dem 31. Dezember genommen werden; keine Übertragung oder Auszahlung (außer beim Austritt)."
+
+msgid "Salaire journalier d'un employé : salaire mensuel × 3 / 65."
+msgstr "Tageslohn eines Angestellten: Monatsgehalt × 3 / 65."
+
+msgid "simple pécule = salaire maintenu pendant les jours pris ; double pécule = 92 %% du brut mensuel, payé en général en mai / juin."
+msgstr "einfaches Urlaubsgeld = fortgezahltes Gehalt; doppeltes Urlaubsgeld = 92 %% des Monatsbruttos, meist im Mai / Juni."
+
+msgid "ONSS sur le double pécule : 13,07 %% calculés sur 85 %% (la part de 7 %% n'est pas soumise) ; précompte au taux des allocations exceptionnelles."
+msgstr "LSS auf doppeltes Urlaubsgeld: 13,07 %% auf 85 %% (der 7-%%-Teil ist frei); Lohnsteuer zum Satz für Sonderzahlungen."
+
+msgid "payé par la caisse de vacances : 15,38 %% du brut à 108 %% de l'année précédente (8 %% simple + 7,38 %% double). L'employeur cotise 15,84 %% du brut à 108 %%."
+msgstr "von der Urlaubskasse gezahlt: 15,38 %% des Bruttos zu 108 %% des Vorjahres (8 %% einfach + 7,38 %% doppelt). Der Arbeitgeber zahlt 15,84 %% des Bruttos zu 108 %%."
+
+msgid "un salaire mensuel brut, au prorata des mois prestés ou assimilés de l'année civile, payé en décembre."
+msgstr "ein Bruttomonatsgehalt, anteilig der gearbeiteten oder gleichgestellten Monate des Kalenderjahres, im Dezember gezahlt."
+
+msgid "taux horaire au 1er décembre × 38 h × 52 / 12, période du 1er décembre au 30 novembre, payée au plus tard le 20 décembre (minimum 3 mois d'ancienneté)."
+msgstr "Stundenlohn am 1. Dezember × 38 Std. × 52 / 12, Zeitraum 1. Dezember bis 30. November, spätestens am 20. Dezember gezahlt (mind. 3 Monate Betriebszugehörigkeit)."
+
+msgid "ONSS 13,07 %% (sur 108 %% pour un ouvrier), sans bonus à l'emploi ; précompte au taux des allocations exceptionnelles."
+msgstr "LSS 13,07 %% (auf 108 %% für Arbeiter), ohne Beschäftigungsbonus; Lohnsteuer zum Satz für Sonderzahlungen."
+
+msgid "Montants estimés à partir des paies enregistrées ; à vérifier avec votre secrétariat social."
+msgstr "Beträge aus den erfassten Abrechnungen geschätzt; bitte mit Ihrem Sozialsekretariat prüfen."
+
+msgid "Détail des congés"
+msgstr "Urlaubsdetails"
+
+msgid "Déjà pris (autres mois)"
+msgstr "Bereits genommen (andere Monate)"
+
+msgid "Restant avant ce mois"
+msgstr "Rest vor diesem Monat"
+
+msgid "Les jours pris ce mois dépassent le solde restant."
+msgstr "Die genommenen Tage übersteigen den Restanspruch."
+
+msgid "Double pécule déjà payé cette année (mois : %%s)."
+msgstr "Doppeltes Urlaubsgeld dieses Jahr bereits gezahlt (Monat: %%s)."
+
+msgid "Double pécule pas encore payé cette année (employé : en général en mai / juin)."
+msgstr "Doppeltes Urlaubsgeld dieses Jahr noch nicht gezahlt (Angestellte: meist Mai / Juni)."
+
+msgid "Ouvrier : le pécule de vacances est payé par la caisse de vacances."
+msgstr "Arbeiter: Das Urlaubsgeld zahlt die Urlaubskasse."
+
+msgid "13e mois déjà payé (paie de %%s)."
+msgstr "13. Monatsgehalt bereits gezahlt (Abrechnung %%s)."
+
+msgid "13e mois pas encore payé : %%s / 12 mois prévus (en décembre)."
+msgstr "13. Monatsgehalt noch nicht gezahlt: %%s / 12 Monate erwartet (im Dezember)."
+
+msgid "Congés"
+msgstr "Urlaub"
+
+msgid "≈ %(n)s jour(s) par mois sur les %(m)s mois restants"
+msgstr "≈ %(n)s Tag(e) pro Monat in den restlichen %(m)s Monaten"
+
+msgid "%(n)s paie(s) de l'année précédente"
+msgstr "%(n)s Abrechnung(en) des Vorjahres"
+
+msgid "01/12/%(a)s → 30/11/%(b)s (CP 112)"
+msgstr "01.12.%(a)s → 30.11.%(b)s (PK 112)"
+
+msgid "année civile %(a)s"
+msgstr "Kalenderjahr %(a)s"
+
+msgid "Précompte (%(t)s %%)"
+msgstr "Lohnsteuer (%(t)s %%)"
+
+msgid "prévus"
+msgstr "erwartet"
+
+msgid "Double pécule de vacances"
+msgstr "Doppeltes Urlaubsgeld"
+
+msgid "Jours de congé payés (simple pécule)"
+msgstr "Bezahlte Urlaubstage (einfaches Urlaubsgeld)"
+
+msgid "Pécule de sortie (fin de contrat)"
+msgstr "Austrittsurlaubsgeld (Vertragsende)"
+
+msgid "Autre paiement de vacances"
+msgstr "Sonstige Urlaubszahlung"
+
+msgid "Année des vacances"
+msgstr "Urlaubsjahr"
+
+msgid "Date de l'écriture"
+msgstr "Buchungsdatum"
+
+msgid "Jours de congé"
+msgstr "Urlaubstage"
+
+msgid "Jours de congé payés (comptés comme pris) ou non pris payés à la sortie."
+msgstr "Bezahlte Urlaubstage (als genommen gezählt) oder beim Austritt bezahlte Resttage."
+
+msgid "Montant brut"
+msgstr "Bruttobetrag"
+
+msgid "Retenue ONSS travailleur"
+msgstr "LSS-Abzug Arbeitnehmer"
+
+msgid "Vide : pas encore payé (dette envers le travailleur)."
+msgstr "Leer: noch nicht gezahlt (Schuld gegenüber dem Mitarbeiter)."
+
+msgid "Paiement de congés / pécule"
+msgstr "Zahlung Urlaub / Urlaubsgeld"
+
+msgid "Paiements de congés / pécules"
+msgstr "Zahlungen Urlaub / Urlaubsgeld"
+
+msgid "Indiquez le montant brut (bouton « Calculer » pour une proposition)."
+msgstr "Bruttobetrag angeben (Schaltfläche „Berechnen“ für einen Vorschlag)."
+
+msgid "Les retenues dépassent le montant brut."
+msgstr "Die Abzüge übersteigen den Bruttobetrag."
+
+msgid "Montants proposés – vérifiez puis enregistrez."
+msgstr "Vorgeschlagene Beträge – prüfen und speichern."
+
+msgid "Le paiement de congés a été enregistré et comptabilisé."
+msgstr "Die Urlaubszahlung wurde gespeichert und gebucht."
+
+msgid "Le net est marqué comme payé."
+msgstr "Der Nettobetrag ist als bezahlt markiert."
+
+msgid "Le paiement de congés a été supprimé."
+msgstr "Die Urlaubszahlung wurde gelöscht."
+
+msgid "Payer des congés"
+msgstr "Urlaub bezahlen"
+
+msgid "Paiement de congés"
+msgstr "Urlaubszahlung"
+
+msgid "Aucune paie enregistrée pour ce travailleur : encodez les montants vous-même."
+msgstr "Keine Abrechnung für diesen Mitarbeiter: Beträge selbst eingeben."
+
+msgid "Ouvrier : le pécule de vacances (simple et double) est payé par la caisse de vacances, pas par l'employeur. N'enregistrez un paiement que si vous payez vous-même."
+msgstr "Arbeiter: Das Urlaubsgeld (einfach und doppelt) zahlt die Urlaubskasse, nicht der Arbeitgeber. Erfassen Sie nur eine Zahlung, wenn Sie selbst zahlen."
+
+msgid "Proposition : 92 %% du salaire mensuel brut ; ONSS 13,07 %% sur 85 %% ; précompte au taux des allocations exceptionnelles. La charge reprend la provision pour double pécule (456000)."
+msgstr "Vorschlag: 92 %% des Bruttomonatsgehalts; LSS 13,07 %% auf 85 %%; Lohnsteuer zum Satz für Sonderzahlungen. Die Belastung nutzt die Rückstellung für doppeltes Urlaubsgeld (456000)."
+
+msgid "Proposition : jours × salaire journalier (mensuel × 3 / 65) ; ONSS 13,07 %% ; précompte au taux de la dernière paie ; cotisations patronales au taux de la dernière paie. Les jours sont comptés comme pris."
+msgstr "Vorschlag: Tage × Tageslohn (Monat × 3 / 65); LSS 13,07 %%; Lohnsteuer und Arbeitgeberbeiträge zum Satz der letzten Abrechnung. Die Tage gelten als genommen."
+
+msgid "Proposition : 15,34 %% du brut de l'année (%(base)s €) – 7,67 %% simple + 7,67 %% double ; ONSS 13,07 %% (double pécule sur 85 %%) ; précompte au taux des allocations exceptionnelles. À vérifier avec votre secrétariat social (pécule anticipé de l'année suivante non compris)."
+msgstr "Vorschlag: 15,34 %% des Jahresbruttos (%(base)s €) – 7,67 %% einfach + 7,67 %% doppelt; LSS 13,07 %% (doppelt auf 85 %%); Lohnsteuer zum Satz für Sonderzahlungen. Mit Ihrem Sozialsekretariat prüfen (vorgezogenes Urlaubsgeld des Folgejahres nicht enthalten)."
+
+msgid "Calculer les montants"
+msgstr "Beträge berechnen"
+
+msgid "Enregistrer et comptabiliser"
+msgstr "Speichern und buchen"
+
+msgid "Écritures comptables"
+msgstr "Buchungen"
+
+msgid "Supprimer ce paiement de congés et ses écritures ?"
+msgstr "Diese Urlaubszahlung und ihre Buchungen löschen?"
+
+msgid "Paiement en dehors de la paie mensuelle, comptabilisé automatiquement (charge, ONSS, précompte, net à payer, puis paiement par banque ou caisse)."
+msgstr "Zahlung außerhalb der Monatsabrechnung, automatisch gebucht (Aufwand, LSS, Lohnsteuer, Netto, dann Zahlung per Bank oder Kasse)."
+
+msgid "Payer le double pécule"
+msgstr "Doppeltes Urlaubsgeld zahlen"
+
+msgid "déjà payé"
+msgstr "bereits gezahlt"
+
+msgid "Payer des jours de congé"
+msgstr "Urlaubstage bezahlen"
+
+msgid "Pécule de sortie"
+msgstr "Austrittsurlaubsgeld"
+
+msgid "Autre paiement"
+msgstr "Sonstige Zahlung"
+
+msgid "Payer"
+msgstr "Zahlen"
+
+msgid "Aucun paiement de congés hors paie pour cette année."
+msgstr "Keine Urlaubszahlung außerhalb der Abrechnungen in diesem Jahr."
+
+msgid "Congés / pécules à payer"
+msgstr "Zu zahlender Urlaub / Urlaubsgeld"
+
+msgid "dont %(n)s payé(s) hors paie"
+msgstr "davon %(n)s außerhalb der Abrechnung bezahlt"
+
+msgid "%(n)s jour(s) réglé(s) par le pécule de sortie"
+msgstr "%(n)s Tag(e) durch das Austrittsurlaubsgeld abgegolten"

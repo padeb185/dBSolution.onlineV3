@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Payer des congés" %}{% endblock %}
+
+{% block content %}
+<br>
+<div class="max-w-3xl mx-auto p-6 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-2 flex items-center gap-4">
+        <img src="{% static 'icons/paie.png' %}" alt="" class="w-16 h-16">
+        <span>{% if paiement %}{% trans "Paiement de congés" %}{% else %}{% trans "Payer des congés" %}{% endif %}
+            – {{ travailleur.prenom }} {{ travailleur.nom }}</span>
+    </h1>
+
+    {% include "partials/messages.html" %}
+
+    {% if proposition.avertissement == "aucune_paie" %}
+        <div class="bg-yellow-100 text-yellow-800 border border-yellow-300 p-3 rounded mb-4">{% trans "Aucune paie enregistrée pour ce travailleur : encodez les montants vous-même." %}</div>
+    {% elif proposition.avertissement == "ouvrier_caisse" %}
+        <div class="bg-yellow-100 text-yellow-800 border border-yellow-300 p-3 rounded mb-4">{% trans "Ouvrier : le pécule de vacances (simple et double) est payé par la caisse de vacances, pas par l'employeur. N'enregistrez un paiement que si vous payez vous-même." %}</div>
+    {% endif %}
+    {% if proposition.explication == "double" %}
+        <p class="text-sm text-gray-600 mb-4">{% trans "Proposition : 92 % du salaire mensuel brut ; ONSS 13,07 % sur 85 % ; précompte au taux des allocations exceptionnelles. La charge reprend la provision pour double pécule (456000)." %}</p>
+    {% elif proposition.explication == "simple" %}
+        <p class="text-sm text-gray-600 mb-4">{% trans "Proposition : jours × salaire journalier (mensuel × 3 / 65) ; ONSS 13,07 % ; précompte au taux de la dernière paie ; cotisations patronales au taux de la dernière paie. Les jours sont comptés comme pris." %}</p>
+    {% elif proposition.explication == "sortie" %}
+        <p class="text-sm text-gray-600 mb-4">{% blocktrans with base=proposition.base|floatformat:"2g" %}Proposition : 15,34 % du brut de l'année ({{ base }} €) – 7,67 % simple + 7,67 % double ; ONSS 13,07 % (double pécule sur 85 %) ; précompte au taux des allocations exceptionnelles. À vérifier avec votre secrétariat social (pécule anticipé de l'année suivante non compris).{% endblocktrans %}</p>
+    {% endif %}
+
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        {% if form.non_field_errors %}<div class="bg-red-100 text-red-800 border border-red-300 p-3 rounded">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}</div>{% endif %}
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {% with f=form.type %}{% include "utilisateurs/paie/_champ_simple.html" %}{% endwith %}
+            {% with f=form.annee %}{% include "utilisateurs/paie/_champ_simple.html" %}{% endwith %}
+            {% with f=form.date %}{% include "utilisateurs/paie/_champ_simple.html" %}{% endwith %}
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {% with f=form.jours %}{% include "utilisateurs/paie/_champ_simple.html" %}{% endwith %}
+            <div class="md:col-span-2 flex items-end">
+                <button type="submit" name="calculer" value="1" formnovalidate
+                        class="w-full bg-green-700 text-white px-5 py-3 rounded hover:bg-green-500 font-semibold">
+                    {% trans "Calculer les montants" %}
+                </button>
+            </div>
+        </div>
+
+        <h2 class="text-lg font-semibold border-b pb-1 mt-4">{% trans "Montants" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {% with f=form.brut %}{% include "utilisateurs/paie/_champ_simple.html" %}{% endwith %}
+            {% with f=form.onss %}{% include "utilisateurs/paie/_champ_simple.html" %}{% endwith %}
+            {% with f=form.precompte %}{% include "utilisateurs/paie/_champ_simple.html" %}{% endwith %}
+            {% with f=form.cotisations_patronales %}{% include "utilisateurs/paie/_champ_simple.html" %}{% endwith %}
+        </div>
+        <p class="text-lg font-semibold">{% trans "Net à payer" %} : <span id="net-calcule">—</span> €</p>
+
+        <h2 class="text-lg font-semibold border-b pb-1 mt-4">{% trans "Paiement" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {% with f=form.date_paiement %}{% include "utilisateurs/paie/_champ_simple.html" %}{% endwith %}
+            {% with f=form.compte_paiement %}{% include "utilisateurs/paie/_champ_simple.html" %}{% endwith %}
+        </div>
+        {% with f=form.remarques %}{% include "utilisateurs/paie/_champ_simple.html" %}{% endwith %}
+
+        <div class="flex gap-3 mt-6">
+            <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold">{% trans "Enregistrer et comptabiliser" %}</button>
+            <a href="{% url 'utilisateurs:conges_travailleur' travailleur.pk %}" class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+        </div>
+    </form>
+
+    {% if paiement %}
+    <h2 class="text-lg font-semibold border-b pb-1 mt-8 mb-2">{% trans "Écritures comptables" %}</h2>
+    {% include "utilisateurs/paie/_ecritures_conges.html" with lignes=ecritures %}
+    <form method="post" action="{% url 'utilisateurs:paiement_conges_supprimer' paiement.pk %}" class="mt-6"
+          onsubmit="return confirm('{% trans "Supprimer ce paiement de congés et ses écritures ?" as t %}{{ t|escapejs }}');">
+        {% csrf_token %}
+        <button type="submit" class="w-full bg-red-600 text-white px-5 py-3 rounded hover:bg-red-700 font-semibold">{% trans "Supprimer" %}</button>
+    </form>
+    {% endif %}
+</div>
+<script>
+(function () {
+    const val = id => parseFloat(String((document.getElementById(id) || {}).value || "0").replace(",", ".")) || 0;
+    const sortie = document.getElementById("net-calcule");
+    function maj() {
+        const net = val("id_brut") - val("id_onss") - val("id_precompte");
+        sortie.textContent = net.toLocaleString(document.documentElement.lang || "fr-BE", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    }
+    ["id_brut", "id_onss", "id_precompte"].forEach(id => { const el = document.getElementById(id); if (el) el.addEventListener("input", maj); });
+    maj();
+})();
+</script>
+<br>
+{% endblock %}

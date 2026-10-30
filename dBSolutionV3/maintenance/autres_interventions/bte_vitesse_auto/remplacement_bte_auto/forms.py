@@ -2,6 +2,7 @@ from decimal import Decimal
 
 from django.core.exceptions import ValidationError
 from django import forms
+from maintenance.obligatoires import ChampsObligatoiresMaintenanceMixin
 from django.utils.translation import gettext_lazy as _
 
 from maindoeuvre.models import MainDoeuvre
@@ -9,7 +10,7 @@ from maintenance.choices import RouesSerrageEtat
 from .models import RemplacementBteAuto
 
 
-class RemplacementBteAutoForm(forms.ModelForm):
+class RemplacementBteAutoForm(ChampsObligatoiresMaintenanceMixin, forms.ModelForm):
     nombre_remplacements = forms.IntegerField(
         required=False,
         disabled=True,

@@ -1,0 +1,6 @@
+<div>
+    <label for="{{ f.id_for_label }}" class="block font-semibold mb-1">{{ f.label }}{% if f.field.required %} <span class="text-red-600">*</span>{% endif %}</label>
+    {{ f }}
+    {% if f.help_text %}<p class="text-gray-500 text-xs mt-1">{{ f.help_text }}</p>{% endif %}
+    {% if f.errors %}<p class="text-red-600 text-sm mt-1">{{ f.errors|striptags }}</p>{% endif %}
+</div>

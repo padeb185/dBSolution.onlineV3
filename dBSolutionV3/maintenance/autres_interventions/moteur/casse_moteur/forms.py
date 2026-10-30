@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from django import forms
+from maintenance.obligatoires import ChampsObligatoiresMaintenanceMixin
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
@@ -10,7 +11,7 @@ from .models import CasseMoteur, EssaiCylindre, PieceCassee, PieceMoteur
 _C = "border rounded px-2 py-1 bg-white"
 
 
-class CasseMoteurForm(forms.ModelForm):
+class CasseMoteurForm(ChampsObligatoiresMaintenanceMixin, forms.ModelForm):
     temps_heures = forms.IntegerField(required=False, min_value=0)
     temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)
 

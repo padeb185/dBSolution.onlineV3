@@ -410,6 +410,19 @@ def _periode(request):
     return annee, mois if 1 <= mois <= 12 else 0
 
 
+def _paiements_conges_periode(request, annee, mois):
+    """Paiements de congés hors paie dont la date d'écriture tombe dans la période."""
+    try:
+        from compta.models import PaiementConges
+        qs = PaiementConges.objects.filter(societe=_societe(request), date__year=annee) \
+            .select_related("utilisateur", "compte_paiement")
+        if mois:
+            qs = qs.filter(date__month=mois)
+        return list(qs.order_by("date"))
+    except Exception:
+        return []
+
+
 def _paies_periode(request):
     annee, mois = _periode(request)
     paies = _paies_societe(request).filter(annee=annee)
@@ -439,6 +452,16 @@ def paie_comptabilite(request):
         journal.append({"paie": paie, "lignes": lignes})
         for l in lignes:
             b = balance[l["compte"]]
+            b["debit"] += l["debit"]
+            b["credit"] += l["credit"]
+    # ---- Paiements de congés / pécules hors paie
+    conges = _paiements_conges_periode(request, annee, mois)
+    journal_conges = []
+    for pc in conges:
+        lignes = pc.ecritures()
+        journal_conges.append({"paiement": pc, "lignes": lignes})
+        for l in lignes:
+            b = balance.setdefault(l["compte"], {"compte": l["compte"], "intitule": l["intitule"], "debit": z, "credit": z})
             b["debit"] += l["debit"]
             b["credit"] += l["credit"]
     balance = [b for b in balance.values() if b["debit"] or b["credit"]]
@@ -474,6 +497,22 @@ def paie_comptabilite(request):
                                "echeance": _dernier_jour(a_ech, m_ech), "montant": z}
         onss[trimestre]["montant"] += montant_onss
 
+    for pc in conges:
+        cle = pc.date.month
+        if cle not in precompte:
+            m_suiv, a_suiv = (1, pc.date.year + 1) if cle == 12 else (cle + 1, pc.date.year)
+            precompte[cle] = {"periode": f"{cle:02d}/{pc.date.year}", "echeance": date(a_suiv, m_suiv, 15), "montant": z}
+        precompte[cle]["montant"] += pc.precompte or z
+        trimestre = (cle - 1) // 3 + 1
+        if trimestre not in onss:
+            m_ech = trimestre * 3 + 1
+            a_ech = pc.date.year + 1 if m_ech > 12 else pc.date.year
+            m_ech = 1 if m_ech > 12 else m_ech
+            onss[trimestre] = {"periode": f"T{trimestre} {pc.date.year}", "echeance": _dernier_jour(a_ech, m_ech), "montant": z}
+        onss[trimestre]["montant"] += (pc.onss or z) + (pc.cotisations_patronales or z)
+    precompte = OrderedDict(sorted(precompte.items()))
+    onss = OrderedDict(sorted(onss.items()))
+
     # ---- Salaires nets à payer
     non_payees = [p for p in paies if not p.est_paye]
     payees = [p for p in paies if p.est_paye]
@@ -492,8 +531,10 @@ def paie_comptabilite(request):
         "onss": list(onss.values()),
         "total_onss": sum((o["montant"] for o in onss.values()), z),
         "non_payees": non_payees,
-        "total_a_payer": sum((p.net_a_payer for p in non_payees), z),
-        "total_paye": sum((p.net_a_payer for p in payees), z),
+        "total_a_payer": sum((p.net_a_payer for p in non_payees), z) + sum((pc.net for pc in conges if not pc.est_paye), z),
+        "total_paye": sum((p.net_a_payer for p in payees), z) + sum((pc.net for pc in conges if pc.est_paye), z),
+        "journal_conges": journal_conges,
+        "conges_non_payes": [pc for pc in conges if not pc.est_paye],
         "aujourdhui": timezone.now().date(),
     })
 
@@ -528,6 +569,12 @@ def paie_comptabilite_csv(request):
             jour = paie.date_paiement if l["type"] == "paiement" else _dernier_jour(paie.annee, paie.mois)
             journal = "BQ" if l["type"] == "paiement" else "OD"
             w.writerow([jour.strftime("%d/%m/%Y"), journal, piece, l["compte"], l["intitule"],
+                        l["libelle"], travailleur, fmt(l["debit"]), fmt(l["credit"])])
+
+    for pc in _paiements_conges_periode(request, annee, mois):
+        travailleur = pc.nom_travailleur
+        for l in pc.ecritures():
+            w.writerow([l["date"].strftime("%d/%m/%Y"), l["journal"], pc.piece, l["compte"], l["intitule"],
                         l["libelle"], travailleur, fmt(l["debit"]), fmt(l["credit"])])
 
     return response
@@ -588,3 +635,268 @@ def cout_main_oeuvre(request):
         "rapport": rapport,
         "heures_reference": HEURES_REFERENCE_MOIS,
     })
+
+
+# ==================================================================
+# CONGÉS PAYÉS / PÉCULES / 13e MOIS
+# ==================================================================
+def _travailleurs_conges(request, annee):
+    """Travailleurs actifs + ceux qui ont une paie dans l'année."""
+    from django.db.models import Q
+    avec_paie = _paies_societe(request).filter(annee=annee).values_list("utilisateur_id", flat=True)
+    return (
+        Utilisateur.objects
+        .filter(societe=_societe(request))
+        .exclude(is_superuser=True)
+        .filter(Q(is_active=True) | Q(id__in=avec_paie))
+        .order_by("nom", "prenom")
+    )
+
+
+@never_cache
+@login_required
+def conges_liste(request):
+    """Congés payés de tous les travailleurs pour une année : droit, pris, restant, pécules, 13e mois."""
+    from .conges import situation_conges
+    if not _acces_paie(request.user):
+        return _refuser(request)
+
+    annee = _annee(request)
+    aujourdhui = timezone.localdate()
+    paies = _paies_societe(request)
+    lignes = []
+    totaux = {"droit": 0, "pris": 0, "restant": 0, "simple": 0, "double": 0, "treizieme": 0}
+    for u in _travailleurs_conges(request, annee):
+        s = situation_conges(paies.filter(utilisateur=u), annee, aujourdhui, _paiements_conges(request, u, annee))
+        lignes.append({"travailleur": u, "s": s})
+        if s["derniere"]:
+            totaux["droit"] += s["droit"]
+            totaux["pris"] += s["pris"]
+            totaux["restant"] += s["restant"]
+            pec = s["pecule"]
+            totaux["simple"] += pec.get("simple_cumule") or 0
+            totaux["double"] += pec.get("double_brut") or 0
+            t = s["treizieme"]
+            totaux["treizieme"] += t.get("brut") or ((t.get("estimation") or {}).get("brut") or 0)
+
+    annees = sorted(set(paies.values_list("annee", flat=True)) | {annee, aujourdhui.year}, reverse=True)
+    return render(request, "utilisateurs/paie/conges_liste.html", {
+        "annee": annee,
+        "annees": annees,
+        "lignes": lignes,
+        "totaux": totaux,
+        "aujourdhui": aujourdhui,
+    })
+
+
+@never_cache
+@login_required
+def conges_travailleur(request, utilisateur_id):
+    """Détail des congés d'un travailleur : mois par mois, solde, pécules, 13e mois."""
+    from .conges import situation_conges
+    if not _acces_paie(request.user):
+        return _refuser(request)
+
+    travailleur = get_object_or_404(
+        Utilisateur.objects.filter(societe=_societe(request)).exclude(is_superuser=True), pk=utilisateur_id
+    )
+    annee = _annee(request)
+    aujourdhui = timezone.localdate()
+    paies = _paies_societe(request).filter(utilisateur=travailleur)
+    s = situation_conges(paies, annee, aujourdhui, _paiements_conges(request, travailleur, annee))
+    for ligne in s["lignes"]:
+        ligne["nom"] = _(MOIS_NOMS[ligne["mois"]])
+    annees = sorted(set(paies.values_list("annee", flat=True)) | {annee, aujourdhui.year}, reverse=True)
+    try:
+        from compta.models import CompteTresorerie
+        comptes = list(CompteTresorerie.objects.filter(societe=_societe(request), actif=True).order_by("type", "nom"))
+    except Exception:
+        comptes = []
+    return render(request, "utilisateurs/paie/conges_travailleur.html", {
+        "comptes": comptes,
+        "travailleur": travailleur,
+        "annee": annee,
+        "annees": annees,
+        "s": s,
+        "aujourdhui": aujourdhui,
+    })
+
+
+@never_cache
+@login_required
+def conges_resume_json(request, utilisateur_id):
+    """Résumé pour le formulaire « Créer une paie » (JSON)."""
+    from django.http import JsonResponse
+    from .conges import situation_conges
+    if not _acces_paie(request.user):
+        return JsonResponse({"erreur": "acces"}, status=403)
+    travailleur = get_object_or_404(
+        Utilisateur.objects.filter(societe=_societe(request)).exclude(is_superuser=True), pk=utilisateur_id
+    )
+    annee = _annee(request)
+    try:
+        mois = int(request.GET.get("mois") or 0)
+    except ValueError:
+        mois = 0
+    paies = _paies_societe(request).filter(utilisateur=travailleur)
+    # Exclut la paie en cours de modification / du mois encodé pour afficher le solde AVANT ce mois
+    if mois:
+        paies_avant = paies.exclude(annee=annee, mois=mois)
+    else:
+        paies_avant = paies
+    s = situation_conges(paies_avant, annee, timezone.localdate(), _paiements_conges(request, travailleur, annee))
+    t, pec = s["treizieme"], s["pecule"]
+    f = lambda v: str(v if v is not None else "")
+    return JsonResponse({
+        "travailleur": f"{travailleur.prenom} {travailleur.nom}".strip(),
+        "annee": annee,
+        "statut": s["statut"],
+        "droit": f(s["droit"]),
+        "pris": f(s["pris"]),
+        "restant": f(s["restant"]),
+        "a_des_paies": bool(s["derniere"]),
+        "double_pecule_paye": bool(pec.get("double_paye")),
+        "double_pecule_mois": pec.get("double_mois") or [],
+        "treizieme_paye": bool(t.get("paye")),
+        "treizieme_mois": t.get("mois"),
+        "treizieme_mois_prestes": t.get("mois_prestes"),
+        "treizieme_mois_prevus": t.get("mois_prevus"),
+        "url": reverse("utilisateurs:conges_travailleur", args=[travailleur.pk]) + f"?annee={annee}",
+    })
+
+
+
+# ==================================================================
+# PAIEMENT DES CONGÉS / PÉCULES HORS PAIE (comptabilisé)
+# ==================================================================
+def _paiements_conges(request, travailleur, annee):
+    try:
+        from compta.models import PaiementConges
+        return list(PaiementConges.objects.filter(societe=_societe(request), utilisateur=travailleur, annee=annee)
+                    .select_related("compte_paiement", "utilisateur"))
+    except Exception:
+        return []
+
+
+def _get_paiement_conges(request, pk):
+    from compta.models import PaiementConges
+    return get_object_or_404(PaiementConges.objects.filter(societe=_societe(request))
+                             .select_related("utilisateur", "compte_paiement"), pk=pk)
+
+
+@never_cache
+@login_required
+def paiement_conges_form(request, utilisateur_id=None, pk=None):
+    """Création / modification d'un paiement de congés ; « Calculer » propose les montants."""
+    from compta.models import PaiementConges
+    from .conges import proposer_paiement
+    from .forms_conges import PaiementCongesForm
+
+    if not _acces_paie(request.user):
+        return _refuser(request)
+    societe = _societe(request)
+    paiement = _get_paiement_conges(request, pk) if pk else None
+    travailleur = paiement.utilisateur if paiement else get_object_or_404(
+        Utilisateur.objects.filter(societe=societe).exclude(is_superuser=True), pk=utilisateur_id)
+    paies = _paies_societe(request).filter(utilisateur=travailleur)
+    aujourdhui = timezone.localdate()
+    proposition = None
+
+    def proposer(type_paiement, annee, jours=None):
+        autres = [pc for pc in _paiements_conges(request, travailleur, annee) if not paiement or pc.pk != paiement.pk]
+        return proposer_paiement(type_paiement, paies, annee, aujourdhui, jours, autres)
+
+    if request.method == "POST":
+        form = PaiementCongesForm(request.POST, instance=paiement, societe=societe)
+        if "calculer" in request.POST:
+            try:
+                annee = int(request.POST.get("annee") or aujourdhui.year)
+            except ValueError:
+                annee = aujourdhui.year
+            type_paiement = request.POST.get("type") or PaiementConges.Type.DOUBLE_PECULE
+            proposition = proposer(type_paiement, annee, request.POST.get("jours") or None)
+            donnees = request.POST.copy()
+            for champ in ("brut", "onss", "precompte", "cotisations_patronales", "jours"):
+                donnees[champ] = str(proposition[champ])
+            form = PaiementCongesForm(initial={k: donnees.get(k) for k in PaiementCongesForm.Meta.fields},
+                                      instance=paiement, societe=societe)
+            messages.info(request, _("Montants proposés – vérifiez puis enregistrez."))
+        elif form.is_valid():
+            obj = form.save(commit=False)
+            obj.societe = societe
+            obj.utilisateur = travailleur
+            derniere = paies.order_by("-annee", "-mois").first()
+            if derniere:
+                obj.statut_travailleur = derniere.statut_travailleur
+            if not obj.cree_par_id:
+                obj.cree_par = request.user
+            obj.save()
+            _log(request, f"Paiement congés {obj.get_type_display()} {obj.annee} – {travailleur}")
+            messages.success(request, _("Le paiement de congés a été enregistré et comptabilisé."))
+            return redirect(reverse("utilisateurs:conges_travailleur", args=[travailleur.pk]) + f"?annee={obj.annee}")
+        else:
+            messages.error(request, _("Le formulaire contient des erreurs."))
+    else:
+        if paiement:
+            form = PaiementCongesForm(instance=paiement, societe=societe)
+        else:
+            try:
+                annee = int(request.GET.get("annee") or aujourdhui.year)
+            except ValueError:
+                annee = aujourdhui.year
+            type_paiement = request.GET.get("type") or PaiementConges.Type.DOUBLE_PECULE
+            if type_paiement not in PaiementConges.Type.values:
+                type_paiement = PaiementConges.Type.DOUBLE_PECULE
+            proposition = proposer(type_paiement, annee, request.GET.get("jours") or None)
+            form = PaiementCongesForm(societe=societe, initial={
+                "type": type_paiement, "annee": annee, "date": aujourdhui,
+                "jours": proposition["jours"], "brut": proposition["brut"], "onss": proposition["onss"],
+                "precompte": proposition["precompte"], "cotisations_patronales": proposition["cotisations_patronales"],
+            })
+
+    return render(request, "utilisateurs/paie/paiement_conges_form.html", {
+        "form": form,
+        "travailleur": travailleur,
+        "paiement": paiement,
+        "proposition": proposition,
+        "ecritures": paiement.ecritures() if paiement else None,
+    })
+
+
+@login_required
+def paiement_conges_payer(request, pk):
+    """Marque le net comme payé (date + compte) ou annule le paiement."""
+    from compta.models import CompteTresorerie, PaiementConges
+    if not _acces_paie(request.user):
+        return _refuser(request)
+    paiement = _get_paiement_conges(request, pk)
+    if request.method == "POST":
+        if "annuler" in request.POST:
+            PaiementConges.objects.filter(pk=paiement.pk).update(date_paiement=None)
+            messages.success(request, _("Le paiement a été annulé."))
+        else:
+            try:
+                jour = date.fromisoformat(request.POST.get("date_paiement") or "")
+            except ValueError:
+                jour = timezone.localdate()
+            compte = CompteTresorerie.objects.filter(
+                societe=_societe(request), pk=request.POST.get("compte_paiement") or None).first() \
+                if request.POST.get("compte_paiement") else None
+            PaiementConges.objects.filter(pk=paiement.pk).update(date_paiement=jour, compte_paiement=compte)
+            messages.success(request, _("Le net est marqué comme payé."))
+        _log(request, f"Paiement congés payé/annulé {paiement.annee} – {paiement.utilisateur}")
+    return redirect(reverse("utilisateurs:conges_travailleur", args=[paiement.utilisateur_id]) + f"?annee={paiement.annee}")
+
+
+@login_required
+def paiement_conges_supprimer(request, pk):
+    if not _acces_paie(request.user) or not peut_supprimer(request.user):
+        return refuser_suppression(request)
+    paiement = _get_paiement_conges(request, pk)
+    if request.method == "POST":
+        utilisateur_id, annee = paiement.utilisateur_id, paiement.annee
+        _log(request, f"Suppression paiement congés {paiement}")
+        paiement.delete()
+        messages.success(request, _("Le paiement de congés a été supprimé."))
+        return redirect(reverse("utilisateurs:conges_travailleur", args=[utilisateur_id]) + f"?annee={annee}")
+    return redirect(reverse("utilisateurs:paiement_conges_modifier", args=[paiement.pk]))

@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from django import forms
+from maintenance.obligatoires import ChampsObligatoiresMaintenanceMixin
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
@@ -12,7 +13,7 @@ from .models import Crevaison
 
 
 
-class CrevaisonForm(forms.ModelForm):
+class CrevaisonForm(ChampsObligatoiresMaintenanceMixin, forms.ModelForm):
     temps_heures = forms.IntegerField(required=False, min_value=0)
     temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)
 

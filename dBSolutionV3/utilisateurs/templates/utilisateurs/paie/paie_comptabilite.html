@@ -96,6 +96,42 @@
     {% endif %}
 </div>
 
+{% if conges_non_payes %}
+<div class="bg-white shadow-md rounded-lg p-6 mb-8">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Congés / pécules à payer" %}</h2>
+    <div class="overflow-x-auto">
+        <table class="min-w-full table-auto border-collapse border border-gray-200">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-3 py-2 text-left">{% trans "Travailleur" %}</th>
+                    <th class="border px-3 py-2 text-left">{% trans "Type" %}</th>
+                    <th class="border px-3 py-2 text-left">{% trans "IBAN" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Net à payer" %}</th>
+                    <th class="border px-3 py-2 text-center">{% trans "Paiement" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for pc in conges_non_payes %}
+                <tr>
+                    <td class="border px-3 py-2"><a href="{% url 'utilisateurs:paiement_conges_modifier' pc.pk %}" class="text-blue-700 hover:underline">{{ pc.nom_travailleur }}</a></td>
+                    <td class="border px-3 py-2">{{ pc.get_type_display }} {{ pc.annee }}</td>
+                    <td class="border px-3 py-2"><span class="font-mono">{{ pc.utilisateur.iban_masque|default:"—" }}</span></td>
+                    <td class="border px-3 py-2 text-right font-semibold">{{ pc.net|floatformat:"2g" }} €</td>
+                    <td class="border px-3 py-2 text-center">
+                        <form method="post" action="{% url 'utilisateurs:paiement_conges_payer' pc.pk %}" class="flex gap-2 justify-center">
+                            {% csrf_token %}
+                            <input type="date" name="date_paiement" value="{{ aujourdhui|date:'Y-m-d' }}" class="border rounded px-2 py-1">
+                            <button type="submit" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">{% trans "Payé" %}</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
     <!-- Précompte -->
     <div class="bg-white shadow-md rounded-lg p-6">
@@ -209,6 +245,18 @@
         {% include "utilisateurs/paie/_ecritures.html" with lignes=entree.lignes %}
     {% empty %}
         <p class="text-gray-500">{% trans "Aucune paie pour cette période." %}</p>
+    {% endfor %}
+    {% for entree in journal_conges %}
+        <h3 class="font-semibold mt-4 mb-2">
+            <a href="{% url 'utilisateurs:paiement_conges_modifier' entree.paiement.pk %}" class="text-blue-700 hover:underline">{{ entree.paiement.piece }}</a>
+            · {{ entree.paiement.get_type_display }} · {{ entree.paiement.nom_travailleur }}
+            {% if entree.paiement.est_paye %}
+                <span class="ml-2 px-2 py-0.5 rounded bg-green-100 text-green-800 text-xs">{% trans "payé le" %} {{ entree.paiement.date_paiement|date:"d/m/Y" }}</span>
+            {% else %}
+                <span class="ml-2 px-2 py-0.5 rounded bg-yellow-100 text-yellow-800 text-xs">{% trans "net à payer" %}</span>
+            {% endif %}
+        </h3>
+        {% include "utilisateurs/paie/_ecritures.html" with lignes=entree.lignes %}
     {% endfor %}
 </div>
 

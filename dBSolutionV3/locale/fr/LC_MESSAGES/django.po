@@ -68066,3 +68066,417 @@ msgstr "Alerte AdBlue au tableau de bord"
 
 msgid "Injecteur · Réservoir · Pompe · Ajout · Tuyaux · Diagnostic · Pot DeNOx"
 msgstr "Injecteur · Réservoir · Pompe · Ajout · Tuyaux · Diagnostic · Pot DeNOx"
+
+msgid "Veuillez corriger les champs suivants :"
+msgstr "Veuillez corriger les champs suivants :"
+
+msgid "Champ"
+msgstr "Champ"
+
+msgid "Au moins 12 caractères"
+msgstr "Au moins 12 caractères"
+
+msgid "Une majuscule"
+msgstr "Une majuscule"
+
+msgid "Une minuscule"
+msgstr "Une minuscule"
+
+msgid "Un chiffre"
+msgstr "Un chiffre"
+
+msgid "Un caractère spécial (! ? @ # $ %% & * …)"
+msgstr "Un caractère spécial (! ? @ # $ %% & * …)"
+
+msgid "Les mots de passe sont identiques"
+msgstr "Les mots de passe sont identiques"
+
+msgid "Les mots de passe ne sont pas identiques"
+msgstr "Les mots de passe ne sont pas identiques"
+
+msgid "Masquer"
+msgstr "Masquer"
+
+msgid "Le temps de main-d'œuvre est obligatoire."
+msgstr "Le temps de main-d'œuvre est obligatoire."
+
+msgid "Le serrage des roues doit être marqué « Fait »."
+msgstr "Le serrage des roues doit être marqué « Fait »."
+
+msgid "Congés payés, pécules et 13e mois"
+msgstr "Congés payés, pécules et 13e mois"
+
+msgid "Jours de droit"
+msgstr "Jours de droit"
+
+msgid "Jours pris"
+msgstr "Jours pris"
+
+msgid "Jours à prendre"
+msgstr "Jours à prendre"
+
+msgid "Simple pécule payé"
+msgstr "Simple pécule payé"
+
+msgid "Double pécule (brut)"
+msgstr "Double pécule (brut)"
+
+msgid "13e mois (brut)"
+msgstr "13e mois (brut)"
+
+msgid "Régime"
+msgstr "Régime"
+
+msgid "Pris"
+msgstr "Pris"
+
+msgid "À prendre"
+msgstr "À prendre"
+
+msgid "Double pécule"
+msgstr "Double pécule"
+
+msgid "13e mois"
+msgstr "13e mois"
+
+msgid "Caisse de vacances"
+msgstr "Caisse de vacances"
+
+msgid "mois"
+msgstr "mois"
+
+msgid "Aucune paie enregistrée : créez une paie pour calculer les congés."
+msgstr "Aucune paie enregistrée : créez une paie pour calculer les congés."
+
+msgid "Créer une paie"
+msgstr "Créer une paie"
+
+msgid "Aucun travailleur."
+msgstr "Aucun travailleur."
+
+msgid "Brut mensuel"
+msgstr "Brut mensuel"
+
+msgid "Aucune paie enregistrée pour ce travailleur : créez une paie pour calculer les congés, le pécule et le 13e mois."
+msgstr "Aucune paie enregistrée pour ce travailleur : créez une paie pour calculer les congés, le pécule et le 13e mois."
+
+msgid "Droit annuel"
+msgstr "Droit annuel"
+
+msgid "20 jours × régime de travail (non encodé dans la paie)"
+msgstr "20 jours × régime de travail (non encodé dans la paie)"
+
+msgid "encodé dans la paie"
+msgstr "encodé dans la paie"
+
+msgid "Plus de jours pris que le droit : vérifiez l'encodage."
+msgstr "Plus de jours pris que le droit : vérifiez l'encodage."
+
+msgid "Jours non pris en fin d'année : ils sont perdus (ni reportés ni payés)."
+msgstr "Jours non pris en fin d'année : ils sont perdus (ni reportés ni payés)."
+
+msgid "Valeur d'un jour de congé"
+msgstr "Valeur d'un jour de congé"
+
+msgid "simple pécule (caisse de vacances) ÷ jours de droit"
+msgstr "simple pécule (caisse de vacances) ÷ jours de droit"
+
+msgid "salaire mensuel × 3 / 65"
+msgstr "salaire mensuel × 3 / 65"
+
+msgid "Mois par mois"
+msgstr "Mois par mois"
+
+msgid "Cumul"
+msgstr "Cumul"
+
+msgid "Simple pécule"
+msgstr "Simple pécule"
+
+msgid "Pas de paie – créer"
+msgstr "Pas de paie – créer"
+
+msgid "Ouvrier : le pécule est payé par la caisse de vacances (en général en mai / juin), pas par l'employeur."
+msgstr "Ouvrier : le pécule est payé par la caisse de vacances (en général en mai / juin), pas par l'employeur."
+
+msgid "Base : brut à 108 %% de l'année précédente"
+msgstr "Base : brut à 108 %% de l'année précédente"
+
+msgid "Pas de paie l'année précédente : estimation sur 12 mois du salaire actuel."
+msgstr "Pas de paie l'année précédente : estimation sur 12 mois du salaire actuel."
+
+msgid "Simple pécule (8 %%)"
+msgstr "Simple pécule (8 %%)"
+
+msgid "Double pécule (7,38 %%)"
+msgstr "Double pécule (7,38 %%)"
+
+msgid "Pécule total estimé (15,38 %%)"
+msgstr "Pécule total estimé (15,38 %%)"
+
+msgid "Simple pécule payé (jours pris)"
+msgstr "Simple pécule payé (jours pris)"
+
+msgid "Simple pécule des jours restants"
+msgstr "Simple pécule des jours restants"
+
+msgid "Double pécule (92 %%)"
+msgstr "Double pécule (92 %%)"
+
+msgid "Estimation – pas encore payé"
+msgstr "Estimation – pas encore payé"
+
+msgid "ONSS (13,07 %% sur 85 %%)"
+msgstr "ONSS (13,07 %% sur 85 %%)"
+
+msgid "Pour le payer : cochez « Payer le double pécule de vacances ce mois » dans la paie (en général mai ou juin)."
+msgstr "Pour le payer : cochez « Payer le double pécule de vacances ce mois » dans la paie (en général mai ou juin)."
+
+msgid "Estimation – pas encore payée"
+msgstr "Estimation – pas encore payée"
+
+msgid "Payée avec la paie de"
+msgstr "Payée avec la paie de"
+
+msgid "Mois prestés ou assimilés"
+msgstr "Mois prestés ou assimilés"
+
+msgid "Période de référence"
+msgstr "Période de référence"
+
+msgid "Montant de référence"
+msgstr "Montant de référence"
+
+msgid "Mois avec une paie / mois prévus"
+msgstr "Mois avec une paie / mois prévus"
+
+msgid "sur"
+msgstr "sur"
+
+msgid "Brut estimé"
+msgstr "Brut estimé"
+
+msgid "ONSS (13,07 %%)"
+msgstr "ONSS (13,07 %%)"
+
+msgid "Net estimé"
+msgstr "Net estimé"
+
+msgid "Pour la payer : cochez « Payer la prime de fin d'année (13e mois) ce mois » dans la paie de décembre."
+msgstr "Pour la payer : cochez « Payer la prime de fin d'année (13e mois) ce mois » dans la paie de décembre."
+
+msgid "Pas de montant de référence (salaire) pour estimer la prime."
+msgstr "Pas de montant de référence (salaire) pour estimer la prime."
+
+msgid "Congés de tous les travailleurs"
+msgstr "Congés de tous les travailleurs"
+
+msgid "Paies du travailleur"
+msgstr "Paies du travailleur"
+
+msgid "Rappel des règles belges (congés payés, pécules, 13e mois)"
+msgstr "Rappel des règles belges (congés payés, pécules, 13e mois)"
+
+msgid "20 jours par an pour un temps plein (5 jours / semaine) ayant travaillé toute l'année précédente (exercice de vacances)."
+msgstr "20 jours par an pour un temps plein (5 jours / semaine) ayant travaillé toute l'année précédente (exercice de vacances)."
+
+msgid "Temps partiel ou année incomplète : au prorata (régime de travail, jours prestés ou assimilés)."
+msgstr "Temps partiel ou année incomplète : au prorata (régime de travail, jours prestés ou assimilés)."
+
+msgid "Les jours doivent être pris avant le 31 décembre ; ils ne sont pas reportables ni payables (sauf à la sortie)."
+msgstr "Les jours doivent être pris avant le 31 décembre ; ils ne sont pas reportables ni payables (sauf à la sortie)."
+
+msgid "Salaire journalier d'un employé : salaire mensuel × 3 / 65."
+msgstr "Salaire journalier d'un employé : salaire mensuel × 3 / 65."
+
+msgid "simple pécule = salaire maintenu pendant les jours pris ; double pécule = 92 %% du brut mensuel, payé en général en mai / juin."
+msgstr "simple pécule = salaire maintenu pendant les jours pris ; double pécule = 92 %% du brut mensuel, payé en général en mai / juin."
+
+msgid "ONSS sur le double pécule : 13,07 %% calculés sur 85 %% (la part de 7 %% n'est pas soumise) ; précompte au taux des allocations exceptionnelles."
+msgstr "ONSS sur le double pécule : 13,07 %% calculés sur 85 %% (la part de 7 %% n'est pas soumise) ; précompte au taux des allocations exceptionnelles."
+
+msgid "payé par la caisse de vacances : 15,38 %% du brut à 108 %% de l'année précédente (8 %% simple + 7,38 %% double). L'employeur cotise 15,84 %% du brut à 108 %%."
+msgstr "payé par la caisse de vacances : 15,38 %% du brut à 108 %% de l'année précédente (8 %% simple + 7,38 %% double). L'employeur cotise 15,84 %% du brut à 108 %%."
+
+msgid "un salaire mensuel brut, au prorata des mois prestés ou assimilés de l'année civile, payé en décembre."
+msgstr "un salaire mensuel brut, au prorata des mois prestés ou assimilés de l'année civile, payé en décembre."
+
+msgid "taux horaire au 1er décembre × 38 h × 52 / 12, période du 1er décembre au 30 novembre, payée au plus tard le 20 décembre (minimum 3 mois d'ancienneté)."
+msgstr "taux horaire au 1er décembre × 38 h × 52 / 12, période du 1er décembre au 30 novembre, payée au plus tard le 20 décembre (minimum 3 mois d'ancienneté)."
+
+msgid "ONSS 13,07 %% (sur 108 %% pour un ouvrier), sans bonus à l'emploi ; précompte au taux des allocations exceptionnelles."
+msgstr "ONSS 13,07 %% (sur 108 %% pour un ouvrier), sans bonus à l'emploi ; précompte au taux des allocations exceptionnelles."
+
+msgid "Montants estimés à partir des paies enregistrées ; à vérifier avec votre secrétariat social."
+msgstr "Montants estimés à partir des paies enregistrées ; à vérifier avec votre secrétariat social."
+
+msgid "Détail des congés"
+msgstr "Détail des congés"
+
+msgid "Déjà pris (autres mois)"
+msgstr "Déjà pris (autres mois)"
+
+msgid "Restant avant ce mois"
+msgstr "Restant avant ce mois"
+
+msgid "Les jours pris ce mois dépassent le solde restant."
+msgstr "Les jours pris ce mois dépassent le solde restant."
+
+msgid "Double pécule déjà payé cette année (mois : %%s)."
+msgstr "Double pécule déjà payé cette année (mois : %%s)."
+
+msgid "Double pécule pas encore payé cette année (employé : en général en mai / juin)."
+msgstr "Double pécule pas encore payé cette année (employé : en général en mai / juin)."
+
+msgid "Ouvrier : le pécule de vacances est payé par la caisse de vacances."
+msgstr "Ouvrier : le pécule de vacances est payé par la caisse de vacances."
+
+msgid "13e mois déjà payé (paie de %%s)."
+msgstr "13e mois déjà payé (paie de %%s)."
+
+msgid "13e mois pas encore payé : %%s / 12 mois prévus (en décembre)."
+msgstr "13e mois pas encore payé : %%s / 12 mois prévus (en décembre)."
+
+msgid "Congés"
+msgstr "Congés"
+
+msgid "≈ %(n)s jour(s) par mois sur les %(m)s mois restants"
+msgstr "≈ %(n)s jour(s) par mois sur les %(m)s mois restants"
+
+msgid "%(n)s paie(s) de l'année précédente"
+msgstr "%(n)s paie(s) de l'année précédente"
+
+msgid "01/12/%(a)s → 30/11/%(b)s (CP 112)"
+msgstr "01/12/%(a)s → 30/11/%(b)s (CP 112)"
+
+msgid "année civile %(a)s"
+msgstr "année civile %(a)s"
+
+msgid "Précompte (%(t)s %%)"
+msgstr "Précompte (%(t)s %%)"
+
+msgid "prévus"
+msgstr "prévus"
+
+msgid "Double pécule de vacances"
+msgstr "Double pécule de vacances"
+
+msgid "Jours de congé payés (simple pécule)"
+msgstr "Jours de congé payés (simple pécule)"
+
+msgid "Pécule de sortie (fin de contrat)"
+msgstr "Pécule de sortie (fin de contrat)"
+
+msgid "Autre paiement de vacances"
+msgstr "Autre paiement de vacances"
+
+msgid "Année des vacances"
+msgstr "Année des vacances"
+
+msgid "Date de l'écriture"
+msgstr "Date de l'écriture"
+
+msgid "Jours de congé"
+msgstr "Jours de congé"
+
+msgid "Jours de congé payés (comptés comme pris) ou non pris payés à la sortie."
+msgstr "Jours de congé payés (comptés comme pris) ou non pris payés à la sortie."
+
+msgid "Montant brut"
+msgstr "Montant brut"
+
+msgid "Retenue ONSS travailleur"
+msgstr "Retenue ONSS travailleur"
+
+msgid "Vide : pas encore payé (dette envers le travailleur)."
+msgstr "Vide : pas encore payé (dette envers le travailleur)."
+
+msgid "Paiement de congés / pécule"
+msgstr "Paiement de congés / pécule"
+
+msgid "Paiements de congés / pécules"
+msgstr "Paiements de congés / pécules"
+
+msgid "Indiquez le montant brut (bouton « Calculer » pour une proposition)."
+msgstr "Indiquez le montant brut (bouton « Calculer » pour une proposition)."
+
+msgid "Les retenues dépassent le montant brut."
+msgstr "Les retenues dépassent le montant brut."
+
+msgid "Montants proposés – vérifiez puis enregistrez."
+msgstr "Montants proposés – vérifiez puis enregistrez."
+
+msgid "Le paiement de congés a été enregistré et comptabilisé."
+msgstr "Le paiement de congés a été enregistré et comptabilisé."
+
+msgid "Le net est marqué comme payé."
+msgstr "Le net est marqué comme payé."
+
+msgid "Le paiement de congés a été supprimé."
+msgstr "Le paiement de congés a été supprimé."
+
+msgid "Payer des congés"
+msgstr "Payer des congés"
+
+msgid "Paiement de congés"
+msgstr "Paiement de congés"
+
+msgid "Aucune paie enregistrée pour ce travailleur : encodez les montants vous-même."
+msgstr "Aucune paie enregistrée pour ce travailleur : encodez les montants vous-même."
+
+msgid "Ouvrier : le pécule de vacances (simple et double) est payé par la caisse de vacances, pas par l'employeur. N'enregistrez un paiement que si vous payez vous-même."
+msgstr "Ouvrier : le pécule de vacances (simple et double) est payé par la caisse de vacances, pas par l'employeur. N'enregistrez un paiement que si vous payez vous-même."
+
+msgid "Proposition : 92 %% du salaire mensuel brut ; ONSS 13,07 %% sur 85 %% ; précompte au taux des allocations exceptionnelles. La charge reprend la provision pour double pécule (456000)."
+msgstr "Proposition : 92 %% du salaire mensuel brut ; ONSS 13,07 %% sur 85 %% ; précompte au taux des allocations exceptionnelles. La charge reprend la provision pour double pécule (456000)."
+
+msgid "Proposition : jours × salaire journalier (mensuel × 3 / 65) ; ONSS 13,07 %% ; précompte au taux de la dernière paie ; cotisations patronales au taux de la dernière paie. Les jours sont comptés comme pris."
+msgstr "Proposition : jours × salaire journalier (mensuel × 3 / 65) ; ONSS 13,07 %% ; précompte au taux de la dernière paie ; cotisations patronales au taux de la dernière paie. Les jours sont comptés comme pris."
+
+msgid "Proposition : 15,34 %% du brut de l'année (%(base)s €) – 7,67 %% simple + 7,67 %% double ; ONSS 13,07 %% (double pécule sur 85 %%) ; précompte au taux des allocations exceptionnelles. À vérifier avec votre secrétariat social (pécule anticipé de l'année suivante non compris)."
+msgstr "Proposition : 15,34 %% du brut de l'année (%(base)s €) – 7,67 %% simple + 7,67 %% double ; ONSS 13,07 %% (double pécule sur 85 %%) ; précompte au taux des allocations exceptionnelles. À vérifier avec votre secrétariat social (pécule anticipé de l'année suivante non compris)."
+
+msgid "Calculer les montants"
+msgstr "Calculer les montants"
+
+msgid "Enregistrer et comptabiliser"
+msgstr "Enregistrer et comptabiliser"
+
+msgid "Écritures comptables"
+msgstr "Écritures comptables"
+
+msgid "Supprimer ce paiement de congés et ses écritures ?"
+msgstr "Supprimer ce paiement de congés et ses écritures ?"
+
+msgid "Paiement en dehors de la paie mensuelle, comptabilisé automatiquement (charge, ONSS, précompte, net à payer, puis paiement par banque ou caisse)."
+msgstr "Paiement en dehors de la paie mensuelle, comptabilisé automatiquement (charge, ONSS, précompte, net à payer, puis paiement par banque ou caisse)."
+
+msgid "Payer le double pécule"
+msgstr "Payer le double pécule"
+
+msgid "déjà payé"
+msgstr "déjà payé"
+
+msgid "Payer des jours de congé"
+msgstr "Payer des jours de congé"
+
+msgid "Pécule de sortie"
+msgstr "Pécule de sortie"
+
+msgid "Autre paiement"
+msgstr "Autre paiement"
+
+msgid "Payer"
+msgstr "Payer"
+
+msgid "Aucun paiement de congés hors paie pour cette année."
+msgstr "Aucun paiement de congés hors paie pour cette année."
+
+msgid "Congés / pécules à payer"
+msgstr "Congés / pécules à payer"
+
+msgid "dont %(n)s payé(s) hors paie"
+msgstr "dont %(n)s payé(s) hors paie"
+
+msgid "%(n)s jour(s) réglé(s) par le pécule de sortie"
+msgstr "%(n)s jour(s) réglé(s) par le pécule de sortie"

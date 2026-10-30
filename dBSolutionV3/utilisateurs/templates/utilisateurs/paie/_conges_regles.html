@@ -1,0 +1,32 @@
+{% load i18n %}
+<details class="bg-white shadow-md rounded-lg p-4 mb-6">
+    <summary class="font-semibold cursor-pointer">{% trans "Rappel des règles belges (congés payés, pécules, 13e mois)" %}</summary>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 text-sm text-gray-700">
+        <div>
+            <h3 class="font-semibold mb-1">{% trans "Congés payés" %}</h3>
+            <ul class="list-disc ml-5 space-y-1">
+                <li>{% trans "20 jours par an pour un temps plein (5 jours / semaine) ayant travaillé toute l'année précédente (exercice de vacances)." %}</li>
+                <li>{% trans "Temps partiel ou année incomplète : au prorata (régime de travail, jours prestés ou assimilés)." %}</li>
+                <li>{% trans "Les jours doivent être pris avant le 31 décembre ; ils ne sont pas reportables ni payables (sauf à la sortie)." %}</li>
+                <li>{% trans "Salaire journalier d'un employé : salaire mensuel × 3 / 65." %}</li>
+            </ul>
+        </div>
+        <div>
+            <h3 class="font-semibold mb-1">{% trans "Pécule de vacances" %}</h3>
+            <ul class="list-disc ml-5 space-y-1">
+                <li><strong>{% trans "Employé" %}</strong> : {% trans "simple pécule = salaire maintenu pendant les jours pris ; double pécule = 92 % du brut mensuel, payé en général en mai / juin." %}</li>
+                <li>{% trans "ONSS sur le double pécule : 13,07 % calculés sur 85 % (la part de 7 % n'est pas soumise) ; précompte au taux des allocations exceptionnelles." %}</li>
+                <li><strong>{% trans "Ouvrier" %}</strong> : {% trans "payé par la caisse de vacances : 15,38 % du brut à 108 % de l'année précédente (8 % simple + 7,38 % double). L'employeur cotise 15,84 % du brut à 108 %." %}</li>
+            </ul>
+        </div>
+        <div>
+            <h3 class="font-semibold mb-1">{% trans "Prime de fin d'année (13e mois)" %}</h3>
+            <ul class="list-disc ml-5 space-y-1">
+                <li><strong>CP 200</strong> : {% trans "un salaire mensuel brut, au prorata des mois prestés ou assimilés de l'année civile, payé en décembre." %}</li>
+                <li><strong>CP 112</strong> : {% trans "taux horaire au 1er décembre × 38 h × 52 / 12, période du 1er décembre au 30 novembre, payée au plus tard le 20 décembre (minimum 3 mois d'ancienneté)." %}</li>
+                <li>{% trans "ONSS 13,07 % (sur 108 % pour un ouvrier), sans bonus à l'emploi ; précompte au taux des allocations exceptionnelles." %}</li>
+            </ul>
+        </div>
+    </div>
+    <p class="text-xs text-gray-500 mt-3">{% trans "Montants estimés à partir des paies enregistrées ; à vérifier avec votre secrétariat social." %}</p>
+</details>

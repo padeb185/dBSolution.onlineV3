@@ -59,7 +59,7 @@ window.initChoixVehicule = window.initChoixVehicule || function (select) {
     // Un <select> caché « required » bloquerait l'envoi sans message : on vérifie nous-mêmes
     const obligatoire = select.required;
     select.required = false;
-    if (select.classList.contains("input-error")) bouton.classList.add("border-red-500");
+    if (select.classList.contains("input-error") || select.getAttribute("aria-invalid") === "true") bouton.classList.add("input-error");
 
     function afficherSelection() {
         const opt = options.find(o => o.dataset.id === select.value);
@@ -99,7 +99,7 @@ window.initChoixVehicule = window.initChoixVehicule || function (select) {
     }
     function choisir(id) {
         select.value = id;
-        bouton.classList.remove("border-red-500");
+        bouton.classList.remove("input-error"); select.removeAttribute("aria-invalid");
         select.dispatchEvent(new Event("change", { bubbles: true }));
         afficherSelection();
         fermer();
@@ -110,7 +110,7 @@ window.initChoixVehicule = window.initChoixVehicule || function (select) {
         select.form.addEventListener("submit", (e) => {
             if (!select.value && document.body.contains(select)) {
                 e.preventDefault();
-                bouton.classList.add("border-red-500");
+                bouton.classList.add("input-error");
                 bouton.scrollIntoView({ block: "center" });
                 ouvrir();
             }

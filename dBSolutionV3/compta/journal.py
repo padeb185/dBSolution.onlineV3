@@ -122,6 +122,18 @@ def ecritures_societe(societe, debut=None, fin=None, sources=None):
         except Exception:
             pass
 
+    # ---- Paiements de congés / pécules hors paie mensuelle
+    if sources & {"salaire", "paiement_salaire"}:
+        try:
+            from .models import PaiementConges
+            for pc in PaiementConges.objects.filter(societe=societe).select_related("utilisateur", "compte_paiement"):
+                for l in pc.ecritures(avec_paiement=True):
+                    source = "paiement_salaire" if l["type"] == "paiement" else "salaire"
+                    if source in sources and _dans(l["date"], debut, fin):
+                        E.append(_norm(l, source, pc.piece))
+        except Exception:
+            pass
+
     # ---- Objets de la comptabilité
     from .models import FactureInstructeur, Immobilisation, MouvementTresorerie, ValorisationStock, VersementSocial
     if "versement_social" in sources:

@@ -329,6 +329,13 @@ class Facture(models.Model):
     def est_pro(self):
         return self.type_facture == self.TypeFacture.PRO
 
+    @property
+    def libelle_type(self):
+        """Type affiché : « Interne » pour une facture à notre propre société (véhicule de la société)."""
+        if self.client_est_societe:
+            return _("Interne")
+        return self.get_type_facture_display()
+
     # -------------------------
     # NOTES DE CRÉDIT / DE DÉBIT
     # -------------------------

@@ -1,0 +1,76 @@
+{% load i18n %}
+{# Résumé congés / pécule / 13e mois du travailleur choisi (formulaire de paie) #}
+<div id="conges-resume" class="rounded-lg p-4 mb-6" style="display:none;background:#eff6ff;border:1px solid #bfdbfe">
+    <div class="flex items-center justify-between gap-2 mb-2">
+        <h2 class="font-semibold">{% trans "Congés payés" %} – <span data-r="travailleur"></span> (<span data-r="annee"></span>)</h2>
+        <a data-r="url" href="#" target="_blank" class="text-sm text-blue-700 underline whitespace-nowrap">{% trans "Détail des congés" %}</a>
+    </div>
+    <div class="grid grid-cols-3 gap-2 text-center">
+        <div><p class="text-xs text-gray-500">{% trans "Droit" %}</p><p class="text-xl font-bold" data-r="droit"></p></div>
+        <div><p class="text-xs text-gray-500">{% trans "Déjà pris (autres mois)" %}</p><p class="text-xl font-bold" data-r="pris"></p></div>
+        <div><p class="text-xs text-gray-500">{% trans "Restant avant ce mois" %}</p><p class="text-xl font-bold" data-r="restant"></p></div>
+    </div>
+    <p class="text-sm mt-2" data-r="alerte" style="color:#b91c1c;display:none">{% trans "Les jours pris ce mois dépassent le solde restant." %}</p>
+    <ul class="text-sm mt-2 space-y-1">
+        <li data-r="pecule"></li>
+        <li data-r="treizieme"></li>
+    </ul>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const boite = document.getElementById("conges-resume");
+    const sel = document.getElementById("id_utilisateur");
+    if (!boite || !sel) return;
+    const champAnnee = document.getElementById("id_annee");
+    const champMois = document.getElementById("id_mois");
+    const champPris = document.getElementById("id_conges_jours_pris");
+    const base = "{% url 'utilisateurs:conges_resume_json' '00000000-0000-0000-0000-000000000000' %}";
+    const T = {
+        doublePaye: "{% trans 'Double pécule déjà payé cette année (mois : %s).' as t %}{{ t|escapejs }}",
+        doubleAPayer: "{% trans 'Double pécule pas encore payé cette année (employé : en général en mai / juin).' as t %}{{ t|escapejs }}",
+        ouvrier: "{% trans 'Ouvrier : le pécule de vacances est payé par la caisse de vacances.' as t %}{{ t|escapejs }}",
+        treiziemePaye: "{% trans '13e mois déjà payé (paie de %s).' as t %}{{ t|escapejs }}",
+        treiziemeAPayer: "{% trans '13e mois pas encore payé : %s / 12 mois prévus (en décembre).' as t %}{{ t|escapejs }}"
+    };
+    const nb = v => {
+        const n = Number(v);
+        return isNaN(n) ? v : n.toLocaleString(document.documentElement.lang || "fr-BE", {maximumFractionDigits: 1});
+    };
+    const r = n => boite.querySelector('[data-r="' + n + '"]');
+    let donnees = null;
+
+    function verifier() {
+        if (!donnees || !champPris) return;
+        const pris = parseFloat(String(champPris.value || "0").replace(",", ".")) || 0;
+        r("alerte").style.display = pris > Number(donnees.restant) ? "" : "none";
+    }
+
+    function charger() {
+        if (!sel.value) { boite.style.display = "none"; return; }
+        const url = base.replace("00000000-0000-0000-0000-000000000000", sel.value)
+            + "?annee=" + encodeURIComponent(champAnnee ? champAnnee.value : "")
+            + "&mois=" + encodeURIComponent(champMois ? champMois.value : "");
+        fetch(url, {credentials: "same-origin"}).then(rep => rep.ok ? rep.json() : null).then(d => {
+            if (!d) { boite.style.display = "none"; return; }
+            donnees = d;
+            r("travailleur").textContent = d.travailleur;
+            r("annee").textContent = d.annee;
+            r("url").href = d.url;
+            r("droit").textContent = nb(d.droit);
+            r("pris").textContent = nb(d.pris);
+            r("restant").textContent = nb(d.restant);
+            r("restant").style.color = Number(d.restant) < 0 ? "#b91c1c" : (Number(d.restant) > 0 ? "#b45309" : "#15803d");
+            r("pecule").textContent = d.statut === "ouvrier" ? T.ouvrier
+                : (d.double_pecule_paye ? T.doublePaye.replace("%s", d.double_pecule_mois.join(", ")) : T.doubleAPayer);
+            r("treizieme").textContent = d.treizieme_paye ? T.treiziemePaye.replace("%s", d.treizieme_mois + "/" + d.annee)
+                : (d.treizieme_mois_prevus !== null && d.treizieme_mois_prevus !== undefined
+                    ? T.treiziemeAPayer.replace("%s", d.treizieme_mois_prevus) : "");
+            boite.style.display = "";
+            verifier();
+        }).catch(() => { boite.style.display = "none"; });
+    }
+    [sel, champAnnee, champMois].forEach(el => el && el.addEventListener("change", charger));
+    if (champPris) champPris.addEventListener("input", verifier);
+    charger();
+});
+</script>

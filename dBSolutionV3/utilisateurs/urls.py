@@ -120,5 +120,12 @@ urlpatterns = [
     path("paie/<int:pk>/payer/", views_paie.paie_payer, name="paie_payer"),
     path("paie/comptabilite/", views_paie.paie_comptabilite, name="paie_comptabilite"),
     path("paie/cout-main-oeuvre/", views_paie.cout_main_oeuvre, name="cout_main_oeuvre"),
+    path("paie/conges/", views_paie.conges_liste, name="conges_liste"),
+    path("paie/conges/<uuid:utilisateur_id>/", views_paie.conges_travailleur, name="conges_travailleur"),
+    path("paie/conges/<uuid:utilisateur_id>/resume.json", views_paie.conges_resume_json, name="conges_resume_json"),
+    path("paie/conges/<uuid:utilisateur_id>/payer/", views_paie.paiement_conges_form, name="paiement_conges_creer"),
+    path("paie/conges/paiement/<uuid:pk>/", views_paie.paiement_conges_form, name="paiement_conges_modifier"),
+    path("paie/conges/paiement/<uuid:pk>/payer/", views_paie.paiement_conges_payer, name="paiement_conges_payer"),
+    path("paie/conges/paiement/<uuid:pk>/supprimer/", views_paie.paiement_conges_supprimer, name="paiement_conges_supprimer"),
     path("paie/comptabilite/export.csv", views_paie.paie_comptabilite_csv, name="paie_comptabilite_csv"),
 ]

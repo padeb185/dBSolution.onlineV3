@@ -69,8 +69,8 @@
             <tr>
                 <td class="border px-4 py-2 font-semibold">{{ f.numero|default:"—" }}</td>
                 <td class="border px-4 py-2" data-order="{{ f.issue_date|date:'Y-m-d' }}" data-search="{{ f.issue_date|date:'Y-m-d' }} {{ f.issue_date|date:'d/m/Y' }}">{{ f.issue_date|date:"d/m/Y" }}</td>
-                <td class="border px-4 py-2" data-search="{{ f.get_type_facture_display }} {{ f.get_type_document_display }}">
-                    {{ f.get_type_facture_display }}
+                <td class="border px-4 py-2" data-search="{{ f.libelle_type }} {{ f.get_type_document_display }}">
+                    {{ f.libelle_type }}
                     {% if f.est_note %}<span class="badge-doc {% if f.est_note_credit %}credit{% else %}debit{% endif %}">{{ f.get_type_document_display }}</span>{% endif %}
                 </td>
                 <td class="border px-4 py-2">{{ f.nom_client_courant|default:"-" }}</td>

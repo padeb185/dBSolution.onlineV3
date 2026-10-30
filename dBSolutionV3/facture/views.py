@@ -152,7 +152,7 @@ def maintenances_a_facturer_view(request):
             "voiture_exemplaire__client",
         )
         .prefetch_related(
-            Prefetch("factures", queryset=Facture.objects.only("id_facture", "numero", "statut", "type_facture"))
+            Prefetch("factures", queryset=Facture.objects.only("id_facture", "numero", "statut", "type_facture", "client_est_societe"))
         )
         .order_by("-date_intervention")
     )
@@ -164,7 +164,7 @@ def maintenances_a_facturer_view(request):
                         "voiture_exemplaire__client")
         .prefetch_related(
             "codes",
-            Prefetch("factures", queryset=Facture.objects.only("id_facture", "numero", "statut", "type_facture")),
+            Prefetch("factures", queryset=Facture.objects.only("id_facture", "numero", "statut", "type_facture", "client_est_societe")),
         )
         .order_by("-date_diagnostic")
     )

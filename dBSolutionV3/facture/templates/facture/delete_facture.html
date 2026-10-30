@@ -53,7 +53,7 @@
         <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Facture" %}</h2>
         <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
             <dt class="text-gray-600">{% trans "Type" %}</dt>
-            <dd class="font-medium">{{ facture.get_type_facture_display }}</dd>
+            <dd class="font-medium">{{ facture.libelle_type }}</dd>
 
             <dt class="text-gray-600">{% trans "Client" %}</dt>
             <dd class="font-medium">{{ facture.nom_client_courant|default:"—" }}</dd>

@@ -10,7 +10,7 @@
 
     <!-- CSS (augmente v= après chaque modification du style) -->
     <link rel="stylesheet" href="{% static 'theme/css/dist/styles.css' %}?v=20">
-    <link rel="stylesheet" href="{% static 'styles_suite.css' %}?v=14">
+    <link rel="stylesheet" href="{% static 'styles_suite.css' %}?v=15">
 
     <link rel="icon" type="image/png" href="{% static 'images/favicon.ico' %}">
 
@@ -338,6 +338,13 @@
     };
 </script>
 <script src="{% static 'js/iban.js' %}?v=1"></script>
+<script>
+    window.ERREURS_FORM_MESSAGES = {
+        titre: "{% trans 'Veuillez corriger les champs suivants :' as t %}{{ t|escapejs }}",
+        champ: "{% trans 'Champ' as t %}{{ t|escapejs }}"
+    };
+</script>
+<script src="{% static 'js/erreurs_formulaire.js' %}?v=1"></script>
 {% url 'piece:api_recherche' as api_pieces %}{% url 'piece:api_codes_intervention' as api_codes_pieces %}
 {% if api_pieces and request.user.is_authenticated %}
 <script>

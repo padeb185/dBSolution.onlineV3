@@ -34,7 +34,7 @@ class EntretienListView(ListView):
     model = Entretien
     template_name = "entretien/entretien_list.html"
     context_object_name = "entretiens"
-    ordering = ["-id"]
+    ordering = ["-date", "-created_at"]
 
     def get_queryset(self):
         queryset = Entretien.objects.select_related(
@@ -51,6 +51,10 @@ class EntretienListView(ListView):
                 models.Q(tech_societe__isnull=True)
             )
 
+        # Seulement les entretiens du véhicule affiché
+        queryset = queryset.filter(voiture_exemplaire_id=self.kwargs.get("exemplaire_id"))
+
+        # Tri par défaut : le plus récent d'abord (aussi sans JavaScript)
         return queryset.order_by(*self.ordering)
 
     def get_context_data(self, **kwargs):
@@ -58,8 +62,11 @@ class EntretienListView(ListView):
 
         exemplaire_id = self.kwargs.get("exemplaire_id")
 
+        tenant = getattr(self.request.user, "societe", None)
         context["exemplaire"] = get_object_or_404(
-            VoitureExemplaire,
+            VoitureExemplaire.objects.filter(
+                Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
+            ),
             id=exemplaire_id
         )
 

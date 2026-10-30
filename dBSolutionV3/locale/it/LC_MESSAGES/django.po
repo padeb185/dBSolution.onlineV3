@@ -68786,3 +68786,417 @@ msgstr "Avviso AdBlue sul cruscotto"
 
 msgid "Injecteur · Réservoir · Pompe · Ajout · Tuyaux · Diagnostic · Pot DeNOx"
 msgstr "Iniettore · Serbatoio · Pompa · Rabbocco · Tubi · Diagnosi · Catalizzatore DeNOx"
+
+msgid "Veuillez corriger les champs suivants :"
+msgstr "Correggere i seguenti campi:"
+
+msgid "Champ"
+msgstr "Campo"
+
+msgid "Au moins 12 caractères"
+msgstr "Almeno 12 caratteri"
+
+msgid "Une majuscule"
+msgstr "Una maiuscola"
+
+msgid "Une minuscule"
+msgstr "Una minuscola"
+
+msgid "Un chiffre"
+msgstr "Una cifra"
+
+msgid "Un caractère spécial (! ? @ # $ %% & * …)"
+msgstr "Un carattere speciale (! ? @ # $ %% & * …)"
+
+msgid "Les mots de passe sont identiques"
+msgstr "Le password coincidono"
+
+msgid "Les mots de passe ne sont pas identiques"
+msgstr "Le password non coincidono"
+
+msgid "Masquer"
+msgstr "Nascondi"
+
+msgid "Le temps de main-d'œuvre est obligatoire."
+msgstr "Il tempo di manodopera è obbligatorio."
+
+msgid "Le serrage des roues doit être marqué « Fait »."
+msgstr "Il serraggio delle ruote deve essere segnato come « Fatto »."
+
+msgid "Congés payés, pécules et 13e mois"
+msgstr "Ferie retribuite, indennità ferie e tredicesima"
+
+msgid "Jours de droit"
+msgstr "Giorni spettanti"
+
+msgid "Jours pris"
+msgstr "Giorni presi"
+
+msgid "Jours à prendre"
+msgstr "Giorni da prendere"
+
+msgid "Simple pécule payé"
+msgstr "Indennità ferie semplice pagata"
+
+msgid "Double pécule (brut)"
+msgstr "Doppia indennità ferie (lordo)"
+
+msgid "13e mois (brut)"
+msgstr "Tredicesima (lordo)"
+
+msgid "Régime"
+msgstr "Regime"
+
+msgid "Pris"
+msgstr "Presi"
+
+msgid "À prendre"
+msgstr "Da prendere"
+
+msgid "Double pécule"
+msgstr "Doppia indennità ferie"
+
+msgid "13e mois"
+msgstr "Tredicesima"
+
+msgid "Caisse de vacances"
+msgstr "Cassa ferie"
+
+msgid "mois"
+msgstr "mesi"
+
+msgid "Aucune paie enregistrée : créez une paie pour calculer les congés."
+msgstr "Nessuna busta paga registrata: creane una per calcolare le ferie."
+
+msgid "Créer une paie"
+msgstr "Crea una busta paga"
+
+msgid "Aucun travailleur."
+msgstr "Nessun lavoratore."
+
+msgid "Brut mensuel"
+msgstr "Lordo mensile"
+
+msgid "Aucune paie enregistrée pour ce travailleur : créez une paie pour calculer les congés, le pécule et le 13e mois."
+msgstr "Nessuna busta paga per questo lavoratore: creane una per calcolare ferie, indennità e tredicesima."
+
+msgid "Droit annuel"
+msgstr "Diritto annuale"
+
+msgid "20 jours × régime de travail (non encodé dans la paie)"
+msgstr "20 giorni × regime (non indicato in busta paga)"
+
+msgid "encodé dans la paie"
+msgstr "indicato in busta paga"
+
+msgid "Plus de jours pris que le droit : vérifiez l'encodage."
+msgstr "Più giorni presi del diritto: verificare i dati."
+
+msgid "Jours non pris en fin d'année : ils sont perdus (ni reportés ni payés)."
+msgstr "I giorni non presi a fine anno sono persi (né riportati né pagati)."
+
+msgid "Valeur d'un jour de congé"
+msgstr "Valore di un giorno di ferie"
+
+msgid "simple pécule (caisse de vacances) ÷ jours de droit"
+msgstr "indennità semplice (cassa ferie) ÷ giorni spettanti"
+
+msgid "salaire mensuel × 3 / 65"
+msgstr "stipendio mensile × 3 / 65"
+
+msgid "Mois par mois"
+msgstr "Mese per mese"
+
+msgid "Cumul"
+msgstr "Cumulato"
+
+msgid "Simple pécule"
+msgstr "Indennità ferie semplice"
+
+msgid "Pas de paie – créer"
+msgstr "Nessuna busta paga – crea"
+
+msgid "Ouvrier : le pécule est payé par la caisse de vacances (en général en mai / juin), pas par l'employeur."
+msgstr "Operaio: l'indennità è pagata dalla cassa ferie (di solito a maggio / giugno), non dal datore di lavoro."
+
+msgid "Base : brut à 108 %% de l'année précédente"
+msgstr "Base: lordo al 108 %% dell'anno precedente"
+
+msgid "Pas de paie l'année précédente : estimation sur 12 mois du salaire actuel."
+msgstr "Nessuna busta paga l'anno precedente: stima su 12 mesi dello stipendio attuale."
+
+msgid "Simple pécule (8 %%)"
+msgstr "Indennità semplice (8 %%)"
+
+msgid "Double pécule (7,38 %%)"
+msgstr "Doppia indennità (7,38 %%)"
+
+msgid "Pécule total estimé (15,38 %%)"
+msgstr "Indennità totale stimata (15,38 %%)"
+
+msgid "Simple pécule payé (jours pris)"
+msgstr "Indennità semplice pagata (giorni presi)"
+
+msgid "Simple pécule des jours restants"
+msgstr "Indennità semplice dei giorni restanti"
+
+msgid "Double pécule (92 %%)"
+msgstr "Doppia indennità (92 %%)"
+
+msgid "Estimation – pas encore payé"
+msgstr "Stima – non ancora pagata"
+
+msgid "ONSS (13,07 %% sur 85 %%)"
+msgstr "ONSS (13,07 %% su 85 %%)"
+
+msgid "Pour le payer : cochez « Payer le double pécule de vacances ce mois » dans la paie (en général mai ou juin)."
+msgstr "Per pagarla: spuntare « Pagare la doppia indennità ferie questo mese » nella busta paga (di solito maggio o giugno)."
+
+msgid "Estimation – pas encore payée"
+msgstr "Stima – non ancora pagata"
+
+msgid "Payée avec la paie de"
+msgstr "Pagata con la busta paga di"
+
+msgid "Mois prestés ou assimilés"
+msgstr "Mesi lavorati o assimilati"
+
+msgid "Période de référence"
+msgstr "Periodo di riferimento"
+
+msgid "Montant de référence"
+msgstr "Importo di riferimento"
+
+msgid "Mois avec une paie / mois prévus"
+msgstr "Mesi con busta paga / mesi previsti"
+
+msgid "sur"
+msgstr "su"
+
+msgid "Brut estimé"
+msgstr "Lordo stimato"
+
+msgid "ONSS (13,07 %%)"
+msgstr "ONSS (13,07 %%)"
+
+msgid "Net estimé"
+msgstr "Netto stimato"
+
+msgid "Pour la payer : cochez « Payer la prime de fin d'année (13e mois) ce mois » dans la paie de décembre."
+msgstr "Per pagarla: spuntare « Pagare la tredicesima questo mese » nella busta paga di dicembre."
+
+msgid "Pas de montant de référence (salaire) pour estimer la prime."
+msgstr "Nessun importo di riferimento (stipendio) per stimare il premio."
+
+msgid "Congés de tous les travailleurs"
+msgstr "Ferie di tutti i lavoratori"
+
+msgid "Paies du travailleur"
+msgstr "Buste paga del lavoratore"
+
+msgid "Rappel des règles belges (congés payés, pécules, 13e mois)"
+msgstr "Promemoria regole belghe (ferie, indennità, tredicesima)"
+
+msgid "20 jours par an pour un temps plein (5 jours / semaine) ayant travaillé toute l'année précédente (exercice de vacances)."
+msgstr "20 giorni l'anno per un tempo pieno (5 giorni / settimana) che ha lavorato tutto l'anno precedente."
+
+msgid "Temps partiel ou année incomplète : au prorata (régime de travail, jours prestés ou assimilés)."
+msgstr "Part-time o anno incompleto: pro rata (regime, giorni lavorati o assimilati)."
+
+msgid "Les jours doivent être pris avant le 31 décembre ; ils ne sont pas reportables ni payables (sauf à la sortie)."
+msgstr "I giorni vanno presi entro il 31 dicembre; non sono riportabili né pagabili (salvo all'uscita)."
+
+msgid "Salaire journalier d'un employé : salaire mensuel × 3 / 65."
+msgstr "Paga giornaliera di un impiegato: stipendio mensile × 3 / 65."
+
+msgid "simple pécule = salaire maintenu pendant les jours pris ; double pécule = 92 %% du brut mensuel, payé en général en mai / juin."
+msgstr "indennità semplice = stipendio mantenuto nei giorni presi; doppia indennità = 92 %% del lordo mensile, di solito a maggio / giugno."
+
+msgid "ONSS sur le double pécule : 13,07 %% calculés sur 85 %% (la part de 7 %% n'est pas soumise) ; précompte au taux des allocations exceptionnelles."
+msgstr "ONSS sulla doppia indennità: 13,07 %% su 85 %% (la quota del 7 %% è esente); ritenuta all'aliquota delle indennità eccezionali."
+
+msgid "payé par la caisse de vacances : 15,38 %% du brut à 108 %% de l'année précédente (8 %% simple + 7,38 %% double). L'employeur cotise 15,84 %% du brut à 108 %%."
+msgstr "pagata dalla cassa ferie: 15,38 %% del lordo al 108 %% dell'anno precedente (8 %% semplice + 7,38 %% doppia). Il datore versa il 15,84 %% del lordo al 108 %%."
+
+msgid "un salaire mensuel brut, au prorata des mois prestés ou assimilés de l'année civile, payé en décembre."
+msgstr "uno stipendio mensile lordo, pro rata dei mesi lavorati o assimilati dell'anno civile, pagato a dicembre."
+
+msgid "taux horaire au 1er décembre × 38 h × 52 / 12, période du 1er décembre au 30 novembre, payée au plus tard le 20 décembre (minimum 3 mois d'ancienneté)."
+msgstr "paga oraria al 1° dicembre × 38 h × 52 / 12, periodo dal 1° dicembre al 30 novembre, pagata entro il 20 dicembre (minimo 3 mesi di anzianità)."
+
+msgid "ONSS 13,07 %% (sur 108 %% pour un ouvrier), sans bonus à l'emploi ; précompte au taux des allocations exceptionnelles."
+msgstr "ONSS 13,07 %% (su 108 %% per un operaio), senza bonus occupazione; ritenuta all'aliquota delle indennità eccezionali."
+
+msgid "Montants estimés à partir des paies enregistrées ; à vérifier avec votre secrétariat social."
+msgstr "Importi stimati dalle buste paga registrate; verificare con il consulente del lavoro."
+
+msgid "Détail des congés"
+msgstr "Dettaglio ferie"
+
+msgid "Déjà pris (autres mois)"
+msgstr "Già presi (altri mesi)"
+
+msgid "Restant avant ce mois"
+msgstr "Restanti prima di questo mese"
+
+msgid "Les jours pris ce mois dépassent le solde restant."
+msgstr "I giorni presi questo mese superano il saldo."
+
+msgid "Double pécule déjà payé cette année (mois : %%s)."
+msgstr "Doppia indennità già pagata quest'anno (mese: %%s)."
+
+msgid "Double pécule pas encore payé cette année (employé : en général en mai / juin)."
+msgstr "Doppia indennità non ancora pagata quest'anno (impiegato: di solito maggio / giugno)."
+
+msgid "Ouvrier : le pécule de vacances est payé par la caisse de vacances."
+msgstr "Operaio: l'indennità ferie è pagata dalla cassa ferie."
+
+msgid "13e mois déjà payé (paie de %%s)."
+msgstr "Tredicesima già pagata (busta paga di %%s)."
+
+msgid "13e mois pas encore payé : %%s / 12 mois prévus (en décembre)."
+msgstr "Tredicesima non ancora pagata: %%s / 12 mesi previsti (a dicembre)."
+
+msgid "Congés"
+msgstr "Ferie"
+
+msgid "≈ %(n)s jour(s) par mois sur les %(m)s mois restants"
+msgstr "≈ %(n)s giorno/i al mese nei %(m)s mesi restanti"
+
+msgid "%(n)s paie(s) de l'année précédente"
+msgstr "%(n)s busta/e paga dell'anno precedente"
+
+msgid "01/12/%(a)s → 30/11/%(b)s (CP 112)"
+msgstr "01/12/%(a)s → 30/11/%(b)s (CP 112)"
+
+msgid "année civile %(a)s"
+msgstr "anno civile %(a)s"
+
+msgid "Précompte (%(t)s %%)"
+msgstr "Ritenuta (%(t)s %%)"
+
+msgid "prévus"
+msgstr "previsti"
+
+msgid "Double pécule de vacances"
+msgstr "Doppia indennità ferie"
+
+msgid "Jours de congé payés (simple pécule)"
+msgstr "Giorni di ferie pagati (indennità semplice)"
+
+msgid "Pécule de sortie (fin de contrat)"
+msgstr "Indennità ferie di uscita (fine contratto)"
+
+msgid "Autre paiement de vacances"
+msgstr "Altro pagamento ferie"
+
+msgid "Année des vacances"
+msgstr "Anno delle ferie"
+
+msgid "Date de l'écriture"
+msgstr "Data della scrittura"
+
+msgid "Jours de congé"
+msgstr "Giorni di ferie"
+
+msgid "Jours de congé payés (comptés comme pris) ou non pris payés à la sortie."
+msgstr "Giorni pagati (contati come presi) o non presi pagati all'uscita."
+
+msgid "Montant brut"
+msgstr "Importo lordo"
+
+msgid "Retenue ONSS travailleur"
+msgstr "Ritenuta ONSS lavoratore"
+
+msgid "Vide : pas encore payé (dette envers le travailleur)."
+msgstr "Vuoto: non ancora pagato (debito verso il lavoratore)."
+
+msgid "Paiement de congés / pécule"
+msgstr "Pagamento ferie / indennità"
+
+msgid "Paiements de congés / pécules"
+msgstr "Pagamenti ferie / indennità"
+
+msgid "Indiquez le montant brut (bouton « Calculer » pour une proposition)."
+msgstr "Indicare l'importo lordo (pulsante « Calcola » per una proposta)."
+
+msgid "Les retenues dépassent le montant brut."
+msgstr "Le ritenute superano l'importo lordo."
+
+msgid "Montants proposés – vérifiez puis enregistrez."
+msgstr "Importi proposti – verificare e salvare."
+
+msgid "Le paiement de congés a été enregistré et comptabilisé."
+msgstr "Il pagamento ferie è stato registrato e contabilizzato."
+
+msgid "Le net est marqué comme payé."
+msgstr "Il netto è segnato come pagato."
+
+msgid "Le paiement de congés a été supprimé."
+msgstr "Il pagamento ferie è stato eliminato."
+
+msgid "Payer des congés"
+msgstr "Pagare ferie"
+
+msgid "Paiement de congés"
+msgstr "Pagamento ferie"
+
+msgid "Aucune paie enregistrée pour ce travailleur : encodez les montants vous-même."
+msgstr "Nessuna busta paga per questo lavoratore: inserire gli importi manualmente."
+
+msgid "Ouvrier : le pécule de vacances (simple et double) est payé par la caisse de vacances, pas par l'employeur. N'enregistrez un paiement que si vous payez vous-même."
+msgstr "Operaio: l'indennità (semplice e doppia) è pagata dalla cassa ferie, non dal datore. Registrare un pagamento solo se pagate voi."
+
+msgid "Proposition : 92 %% du salaire mensuel brut ; ONSS 13,07 %% sur 85 %% ; précompte au taux des allocations exceptionnelles. La charge reprend la provision pour double pécule (456000)."
+msgstr "Proposta: 92 %% dello stipendio mensile lordo; ONSS 13,07 %% su 85 %%; ritenuta all'aliquota delle indennità eccezionali. Il costo utilizza l'accantonamento per la doppia indennità (456000)."
+
+msgid "Proposition : jours × salaire journalier (mensuel × 3 / 65) ; ONSS 13,07 %% ; précompte au taux de la dernière paie ; cotisations patronales au taux de la dernière paie. Les jours sont comptés comme pris."
+msgstr "Proposta: giorni × paga giornaliera (mensile × 3 / 65); ONSS 13,07 %%; ritenuta e contributi datoriali all'aliquota dell'ultima busta paga. I giorni sono contati come presi."
+
+msgid "Proposition : 15,34 %% du brut de l'année (%(base)s €) – 7,67 %% simple + 7,67 %% double ; ONSS 13,07 %% (double pécule sur 85 %%) ; précompte au taux des allocations exceptionnelles. À vérifier avec votre secrétariat social (pécule anticipé de l'année suivante non compris)."
+msgstr "Proposta: 15,34 %% del lordo dell'anno (%(base)s €) – 7,67 %% semplice + 7,67 %% doppia; ONSS 13,07 %% (doppia su 85 %%); ritenuta all'aliquota delle indennità eccezionali. Verificare con il consulente (indennità anticipata dell'anno successivo esclusa)."
+
+msgid "Calculer les montants"
+msgstr "Calcola gli importi"
+
+msgid "Enregistrer et comptabiliser"
+msgstr "Salva e contabilizza"
+
+msgid "Écritures comptables"
+msgstr "Scritture contabili"
+
+msgid "Supprimer ce paiement de congés et ses écritures ?"
+msgstr "Eliminare questo pagamento ferie e le sue scritture?"
+
+msgid "Paiement en dehors de la paie mensuelle, comptabilisé automatiquement (charge, ONSS, précompte, net à payer, puis paiement par banque ou caisse)."
+msgstr "Pagamento fuori dalla busta paga mensile, contabilizzato automaticamente (costo, ONSS, ritenuta, netto da pagare, poi pagamento tramite banca o cassa)."
+
+msgid "Payer le double pécule"
+msgstr "Pagare la doppia indennità"
+
+msgid "déjà payé"
+msgstr "già pagato"
+
+msgid "Payer des jours de congé"
+msgstr "Pagare giorni di ferie"
+
+msgid "Pécule de sortie"
+msgstr "Indennità ferie di uscita"
+
+msgid "Autre paiement"
+msgstr "Altro pagamento"
+
+msgid "Payer"
+msgstr "Paga"
+
+msgid "Aucun paiement de congés hors paie pour cette année."
+msgstr "Nessun pagamento ferie fuori busta paga quest'anno."
+
+msgid "Congés / pécules à payer"
+msgstr "Ferie / indennità da pagare"
+
+msgid "dont %(n)s payé(s) hors paie"
+msgstr "di cui %(n)s pagati fuori busta paga"
+
+msgid "%(n)s jour(s) réglé(s) par le pécule de sortie"
+msgstr "%(n)s giorno/i liquidato/i con l'indennità di uscita"

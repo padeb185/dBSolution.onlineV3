@@ -2,6 +2,7 @@ from decimal import Decimal
 from functools import lru_cache
 
 from django import forms
+from maintenance.obligatoires import ChampsObligatoiresMaintenanceMixin
 from django.contrib.staticfiles import finders
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
@@ -52,7 +53,7 @@ def icone_piece(base):
 SUFFIXES_PIECE = ("", "_cote", "_fabricant", "_quantite", "_prix")
 
 
-class ArbreTransmissionForm(forms.ModelForm):
+class ArbreTransmissionForm(ChampsObligatoiresMaintenanceMixin, forms.ModelForm):
     temps_heures = forms.IntegerField(required=False, min_value=0)
     temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)
 

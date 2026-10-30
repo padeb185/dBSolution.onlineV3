@@ -1,4 +1,5 @@
 from django import forms
+from maintenance.obligatoires import ChampsObligatoiresMaintenanceMixin
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from .models import NettoyageExterieur
@@ -6,7 +7,7 @@ from maindoeuvre.models import MainDoeuvre
 from django.utils.translation import gettext_lazy as _
 
 
-class NettoyageExterieurForm(forms.ModelForm):
+class NettoyageExterieurForm(ChampsObligatoiresMaintenanceMixin, forms.ModelForm):
     temps_heures = forms.IntegerField(required=False, min_value=0)
     temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)
 

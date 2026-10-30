@@ -4,8 +4,8 @@
     <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-2">
         <h2 class="text-lg font-semibold mb-2">{% trans "Facture" %}</h2>
         <p><strong>{% trans "Type" %} :</strong>
-            <span class="px-2 py-1 rounded font-semibold {% if facture.est_pro %}bg-green-100 text-green-800{% else %}bg-blue-100 text-blue-800{% endif %}">
-                {{ facture.get_type_facture_display }}
+            <span class="px-2 py-1 rounded font-semibold {% if facture.client_est_societe %}bg-gray-200 text-gray-800{% elif facture.est_pro %}bg-green-100 text-green-800{% else %}bg-blue-100 text-blue-800{% endif %}">
+                {{ facture.libelle_type }}
             </span>
         </p>
         <p><strong>{% trans "Statut" %} :</strong>
@@ -85,7 +85,7 @@
                                     {{ f.nom_client_courant|default:"-" }}
                                 </a>
                             </td>
-                            <td>{% if f.client_est_societe %}{% trans "Interne" %}{% else %}{{ f.get_type_facture_display }}{% endif %}</td>
+                            <td>{{ f.libelle_type }}</td>
                             <td class="num">{{ f.part_pourcent|floatformat:"2g" }} %</td>
                             <td>{% if f.est_emise %}{{ f.numero }}{% else %}{% trans "Brouillon" %}{% endif %}</td>
                             <td class="num">{{ f.total|floatformat:"2g" }} €</td>

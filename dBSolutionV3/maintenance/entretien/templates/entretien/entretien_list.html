@@ -58,26 +58,26 @@
     <div class="flex flex-wrap items-end gap-3">
         <input id="search-immatriculation" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Immatriculation' %}" >
+               placeholder="{% trans 'Immatriculation' as t %}{{ t|escapejs }}" >
 
         <input id="search-kilometres" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Kilomètres' %}">
+               placeholder="{% trans 'Kilomètres' as t %}{{ t|escapejs }}">
 
         <input id="search-tag" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Étiquette' %}">
+               placeholder="{% trans 'Étiquette' as t %}{{ t|escapejs }}">
 
         <input id="search-utilisateur" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Technicien' %}">
+               placeholder="{% trans 'Technicien' as t %}{{ t|escapejs }}">
 
         <input id="search-date" type="date"
                class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500">
 
          <input id="search-temps" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Temps' %}">
+               placeholder="{% trans 'Temps' as t %}{{ t|escapejs }}">
 
     </div>
 </div>
@@ -115,7 +115,7 @@
                 {% else %}—{% endif %}
             </td>
 
-            <td class="border px-4 py-2">{{ entretien.kilometres_chassis }}</td>
+            <td class="border px-4 py-2 text-right" data-order="{{ entretien.kilometres_chassis|default:0|stringformat:'d' }}" data-search="{{ entretien.kilometres_chassis|default:0|stringformat:'d' }} {{ entretien.kilometres_chassis|milliers }}">{{ entretien.kilometres_chassis|milliers }} km</td>
 
              <td class="border px-4 py-2 text-center font-bold
                {% if entretien.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300 border-2
@@ -126,7 +126,7 @@
             </td>
 
             <td class="border px-4 py-2">{{ entretien.tech_nom_technicien }}</td>
-            <td data-order="{{ entretien.date|date:'Y-m-d H:i:s' }}">
+            <td class="border px-4 py-2" data-order="{{ entretien.date|date:'Y-m-d H:i:s' }}" data-search="{{ entretien.date|date:'Y-m-d d/m/Y' }}">
                 {{ entretien.date|date:"d/m/Y H:i" }}
             </td>
 
@@ -160,20 +160,25 @@ $(document).ready(function() {
     var table = $('#entretiens-table').DataTable({
         pageLength: 10,
         language: {
-            emptyTable: "{% trans 'Aucun entretien enregistré pour cet exemplaire.' %}",
-            search: "{% trans 'Recherche globale :' %}",
-            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
-            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ entretiens' %}",
-            infoEmpty: "{% trans 'Aucun entretien trouvé' %}",
-            zeroRecords: "{% trans 'Aucun entretien trouvé' %}",
+            emptyTable: "{% trans 'Aucun entretien enregistré pour cet exemplaire.' as t %}{{ t|escapejs }}",
+            search: "{% trans 'Recherche globale :' as t %}{{ t|escapejs }}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' as t %}{{ t|escapejs }}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ entretiens' as t %}{{ t|escapejs }}",
+            infoEmpty: "{% trans 'Aucun entretien trouvé' as t %}{{ t|escapejs }}",
+            zeroRecords: "{% trans 'Aucun entretien trouvé' as t %}{{ t|escapejs }}",
             paginate: {
-                first: "{% trans 'Premier' %}",
-                last: "{% trans 'Dernier' %}",
-                next: "{% trans 'Suivant' %}",
-                previous: "{% trans 'Précédent' %}"
+                first: "{% trans 'Premier' as t %}{{ t|escapejs }}",
+                last: "{% trans 'Dernier' as t %}{{ t|escapejs }}",
+                next: "{% trans 'Suivant' as t %}{{ t|escapejs }}",
+                previous: "{% trans 'Précédent' as t %}{{ t|escapejs }}"
             }
         },
-        order: [[5, "desc"]]
+        // Tri par défaut : date (colonne 6), la plus récente en premier
+        order: [[5, "desc"]],
+        columnDefs: [
+            { targets: 2, type: "num" },
+            { targets: 7, orderable: false, searchable: false }
+        ]
     });
 
     $('#search-immatriculation').on('keyup', function () {

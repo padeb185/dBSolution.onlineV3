@@ -1,0 +1,25 @@
+{% load i18n %}
+<div class="overflow-x-auto">
+<table class="min-w-full border-collapse text-sm">
+    <thead><tr class="bg-gray-100">
+        <th class="border px-2 py-1 text-left">{% trans "Date" %}</th>
+        <th class="border px-2 py-1 text-left">{% trans "Journal" %}</th>
+        <th class="border px-2 py-1 text-left">{% trans "Compte" %}</th>
+        <th class="border px-2 py-1 text-left">{% trans "Libellé" %}</th>
+        <th class="border px-2 py-1 text-right">{% trans "Débit" %}</th>
+        <th class="border px-2 py-1 text-right">{% trans "Crédit" %}</th>
+    </tr></thead>
+    <tbody>
+    {% for l in lignes %}
+        <tr>
+            <td class="border px-2 py-1">{{ l.date|date:"d/m/Y" }}</td>
+            <td class="border px-2 py-1">{{ l.journal }}</td>
+            <td class="border px-2 py-1">{{ l.compte }} <span class="text-xs text-gray-500">{{ l.intitule }}</span></td>
+            <td class="border px-2 py-1">{{ l.libelle }}</td>
+            <td class="border px-2 py-1 text-right">{% if l.debit %}{{ l.debit|floatformat:"2g" }}{% endif %}</td>
+            <td class="border px-2 py-1 text-right">{% if l.credit %}{{ l.credit|floatformat:"2g" }}{% endif %}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>

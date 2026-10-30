@@ -1,4 +1,5 @@
 from django import forms
+from maintenance.obligatoires import ChampsObligatoiresMaintenanceMixin
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from maintenance.carrosserie_interne.models import CarrosserieInterne
@@ -7,7 +8,7 @@ from maindoeuvre.models import MainDoeuvre
 from maintenance.choices import RouesSerrageEtat
 
 
-class CarrosserieInterneForm(forms.ModelForm):
+class CarrosserieInterneForm(ChampsObligatoiresMaintenanceMixin, forms.ModelForm):
 
     temps_heures = forms.IntegerField(required=False, min_value=0)
     temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)

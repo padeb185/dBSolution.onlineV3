@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Congés payés" %}{% endblock %}
+
+{% block content %}
+<br>
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+    <h1 class="text-2xl font-bold flex items-center">
+        <img src="{% static 'icons/paie.png' %}" alt="" style="width:60px; height:60px; margin-right:10px;">
+        {% trans "Congés payés, pécules et 13e mois" %} – {{ annee }}
+    </h1>
+    <form method="get" class="flex items-center gap-2">
+        <label for="annee" class="font-semibold">{% trans "Année" %}</label>
+        <select id="annee" name="annee" onchange="this.form.submit()" class="border rounded px-3 py-2">
+            {% for a in annees %}<option value="{{ a }}" {% if a == annee %}selected{% endif %}>{{ a }}</option>{% endfor %}
+        </select>
+    </form>
+</div>
+
+{% include "partials/messages.html" %}
+
+<!-- Totaux -->
+<div class="grid grid-cols-2 md:grid-cols-6 gap-4 mb-6">
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-sm text-gray-500">{% trans "Jours de droit" %}</p><p class="text-2xl font-bold">{{ totaux.droit|floatformat:"-1g" }}</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-sm text-gray-500">{% trans "Jours pris" %}</p><p class="text-2xl font-bold">{{ totaux.pris|floatformat:"-1g" }}</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-sm text-gray-500">{% trans "Jours à prendre" %}</p><p class="text-2xl font-bold" style="color:{% if totaux.restant > 0 %}#b45309{% else %}#15803d{% endif %}">{{ totaux.restant|floatformat:"-1g" }}</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-sm text-gray-500">{% trans "Simple pécule payé" %}</p><p class="text-xl font-bold">{{ totaux.simple|floatformat:"2g" }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-sm text-gray-500">{% trans "Double pécule (brut)" %}</p><p class="text-xl font-bold">{{ totaux.double|floatformat:"2g" }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-sm text-gray-500">{% trans "13e mois (brut)" %}</p><p class="text-xl font-bold">{{ totaux.treizieme|floatformat:"2g" }} €</p></div>
+</div>
+
+{% include "utilisateurs/paie/_conges_regles.html" %}
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-6 overflow-x-auto">
+    <table class="min-w-full border-collapse text-sm">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border px-3 py-2 text-left">{% trans "Travailleur" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "Statut" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Régime" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Droit" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Pris" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "À prendre" %}</th>
+                <th class="border px-3 py-2 text-left" style="min-width:120px"></th>
+                <th class="border px-3 py-2 text-left">{% trans "Double pécule" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "13e mois" %}</th>
+                <th class="border px-3 py-2 text-center">{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for l in lignes %}{% with s=l.s t=l.travailleur %}
+            <tr>
+                <td class="border px-3 py-2 font-semibold">{{ t.prenom }} {{ t.nom }}<br><span class="text-xs text-gray-500">{{ t.get_role_display }}</span></td>
+                {% if s.derniere %}
+                <td class="border px-3 py-2">{% if s.statut == "ouvrier" %}{% trans "Ouvrier" %}{% else %}{% trans "Employé" %}{% endif %}</td>
+                <td class="border px-3 py-2 text-right">{{ s.regime|floatformat:"-2g" }} %</td>
+                <td class="border px-3 py-2 text-right">{{ s.droit|floatformat:"-1g" }}</td>
+                <td class="border px-3 py-2 text-right">{{ s.pris|floatformat:"-1g" }}</td>
+                <td class="border px-3 py-2 text-right font-semibold" style="color:{% if s.depasse %}#b91c1c{% elif s.restant > 0 %}#b45309{% else %}#15803d{% endif %}">{{ s.restant|floatformat:"-1g" }}</td>
+                <td class="border px-3 py-2">
+                    <div class="bg-gray-100 rounded h-3"><div class="h-3 rounded" style="width:{{ s.pourcentage }}%;background:{% if s.depasse %}#dc2626{% else %}#16a34a{% endif %}"></div></div>
+                    <span class="text-xs text-gray-500">{{ s.pourcentage }} %</span>
+                </td>
+                <td class="border px-3 py-2">
+                    {% if s.statut == "ouvrier" %}
+                        <span class="text-gray-600">{% trans "Caisse de vacances" %}</span><br><span class="text-xs">≈ {{ s.pecule.total|floatformat:"2g" }} €</span>
+                    {% elif s.pecule.double_paye %}
+                        <span class="px-2 py-0.5 rounded bg-green-100 text-green-800 text-xs font-semibold">{% trans "Payé" %}</span> {{ s.pecule.double_brut|floatformat:"2g" }} €
+                    {% elif s.pecule.double_brut %}
+                        <span class="px-2 py-0.5 rounded text-xs font-semibold" style="background:#fef3c7;color:#92400e">{% trans "À payer" %}</span> ≈ {{ s.pecule.double_brut|floatformat:"2g" }} €
+                    {% else %}—{% endif %}
+                </td>
+                <td class="border px-3 py-2">
+                    {% if s.treizieme.paye %}
+                        <span class="px-2 py-0.5 rounded bg-green-100 text-green-800 text-xs font-semibold">{% trans "Payé" %}</span> {{ s.treizieme.brut|floatformat:"2g" }} €
+                    {% elif s.treizieme.estimation %}
+                        <span class="px-2 py-0.5 rounded text-xs font-semibold" style="background:#fef3c7;color:#92400e">{% trans "À payer" %}</span> ≈ {{ s.treizieme.estimation.brut|floatformat:"2g" }} €
+                        <br><span class="text-xs text-gray-500">{{ s.treizieme.mois_prevus }}/12 {% trans "mois" %}</span>
+                    {% else %}—{% endif %}
+                </td>
+                {% else %}
+                <td colspan="8" class="border px-3 py-2 text-gray-500">{% trans "Aucune paie enregistrée : créez une paie pour calculer les congés." %}</td>
+                {% endif %}
+                <td class="border px-3 py-2 text-center whitespace-nowrap">
+                    <a href="{% url 'utilisateurs:conges_travailleur' t.pk %}?annee={{ annee }}" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">{% trans "Détail" %}</a>
+                    <a href="{% url 'utilisateurs:creer_paie_utilisateur' %}?utilisateur={{ t.pk }}" class="bg-green-700 text-white px-3 py-1 rounded hover:bg-green-500">{% trans "Créer une paie" %}</a>
+                </td>
+            </tr>
+        {% endwith %}{% empty %}
+            <tr><td colspan="10" class="border px-3 py-2 text-gray-500">{% trans "Aucun travailleur." %}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <a href="{% url 'utilisateurs:paie_panneau' %}?annee={{ annee }}" class="block bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">{% trans "Panneau de contrôle des paies" %}</a>
+    <a href="{% url 'utilisateurs:creer_paie_utilisateur' %}" class="block bg-green-700 text-white px-5 py-4 rounded hover:bg-green-500 font-semibold text-center">{% trans "Créer une paie mensuelle" %}</a>
+</div>
+<br><br>
+{% endblock %}

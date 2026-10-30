@@ -68815,3 +68815,417 @@ msgstr "AdBlue-waarschuwing op het dashboard"
 
 msgid "Injecteur · Réservoir · Pompe · Ajout · Tuyaux · Diagnostic · Pot DeNOx"
 msgstr "Injector · Tank · Pomp · Bijvullen · Leidingen · Diagnose · DeNOx-kat"
+
+msgid "Veuillez corriger les champs suivants :"
+msgstr "Corrigeer de volgende velden:"
+
+msgid "Champ"
+msgstr "Veld"
+
+msgid "Au moins 12 caractères"
+msgstr "Minstens 12 tekens"
+
+msgid "Une majuscule"
+msgstr "Een hoofdletter"
+
+msgid "Une minuscule"
+msgstr "Een kleine letter"
+
+msgid "Un chiffre"
+msgstr "Een cijfer"
+
+msgid "Un caractère spécial (! ? @ # $ %% & * …)"
+msgstr "Een speciaal teken (! ? @ # $ %% & * …)"
+
+msgid "Les mots de passe sont identiques"
+msgstr "De wachtwoorden zijn identiek"
+
+msgid "Les mots de passe ne sont pas identiques"
+msgstr "De wachtwoorden zijn niet identiek"
+
+msgid "Masquer"
+msgstr "Verbergen"
+
+msgid "Le temps de main-d'œuvre est obligatoire."
+msgstr "De arbeidstijd is verplicht."
+
+msgid "Le serrage des roues doit être marqué « Fait »."
+msgstr "Het aanspannen van de wielen moet als « Gedaan » gemarkeerd zijn."
+
+msgid "Congés payés, pécules et 13e mois"
+msgstr "Betaald verlof, vakantiegeld en 13e maand"
+
+msgid "Jours de droit"
+msgstr "Recht op dagen"
+
+msgid "Jours pris"
+msgstr "Opgenomen dagen"
+
+msgid "Jours à prendre"
+msgstr "Nog op te nemen dagen"
+
+msgid "Simple pécule payé"
+msgstr "Enkel vakantiegeld betaald"
+
+msgid "Double pécule (brut)"
+msgstr "Dubbel vakantiegeld (bruto)"
+
+msgid "13e mois (brut)"
+msgstr "13e maand (bruto)"
+
+msgid "Régime"
+msgstr "Arbeidsregime"
+
+msgid "Pris"
+msgstr "Opgenomen"
+
+msgid "À prendre"
+msgstr "Op te nemen"
+
+msgid "Double pécule"
+msgstr "Dubbel vakantiegeld"
+
+msgid "13e mois"
+msgstr "13e maand"
+
+msgid "Caisse de vacances"
+msgstr "Vakantiekas"
+
+msgid "mois"
+msgstr "maanden"
+
+msgid "Aucune paie enregistrée : créez une paie pour calculer les congés."
+msgstr "Geen loonbrief geregistreerd: maak een loonbrief aan om het verlof te berekenen."
+
+msgid "Créer une paie"
+msgstr "Loonbrief aanmaken"
+
+msgid "Aucun travailleur."
+msgstr "Geen werknemers."
+
+msgid "Brut mensuel"
+msgstr "Bruto per maand"
+
+msgid "Aucune paie enregistrée pour ce travailleur : créez une paie pour calculer les congés, le pécule et le 13e mois."
+msgstr "Geen loonbrief voor deze werknemer: maak er een aan om verlof, vakantiegeld en 13e maand te berekenen."
+
+msgid "Droit annuel"
+msgstr "Jaarlijks recht"
+
+msgid "20 jours × régime de travail (non encodé dans la paie)"
+msgstr "20 dagen × arbeidsregime (niet ingevuld in de loonbrief)"
+
+msgid "encodé dans la paie"
+msgstr "ingevuld in de loonbrief"
+
+msgid "Plus de jours pris que le droit : vérifiez l'encodage."
+msgstr "Meer dagen opgenomen dan het recht: controleer de invoer."
+
+msgid "Jours non pris en fin d'année : ils sont perdus (ni reportés ni payés)."
+msgstr "Niet opgenomen dagen op het einde van het jaar gaan verloren (niet overgedragen of betaald)."
+
+msgid "Valeur d'un jour de congé"
+msgstr "Waarde van een verlofdag"
+
+msgid "simple pécule (caisse de vacances) ÷ jours de droit"
+msgstr "enkel vakantiegeld (vakantiekas) ÷ dagen recht"
+
+msgid "salaire mensuel × 3 / 65"
+msgstr "maandloon × 3 / 65"
+
+msgid "Mois par mois"
+msgstr "Maand per maand"
+
+msgid "Cumul"
+msgstr "Cumulatief"
+
+msgid "Simple pécule"
+msgstr "Enkel vakantiegeld"
+
+msgid "Pas de paie – créer"
+msgstr "Geen loonbrief – aanmaken"
+
+msgid "Ouvrier : le pécule est payé par la caisse de vacances (en général en mai / juin), pas par l'employeur."
+msgstr "Arbeider: het vakantiegeld wordt door de vakantiekas betaald (meestal in mei / juni), niet door de werkgever."
+
+msgid "Base : brut à 108 %% de l'année précédente"
+msgstr "Basis: bruto aan 108 %% van het vorige jaar"
+
+msgid "Pas de paie l'année précédente : estimation sur 12 mois du salaire actuel."
+msgstr "Geen loonbrief vorig jaar: raming op 12 maanden van het huidige loon."
+
+msgid "Simple pécule (8 %%)"
+msgstr "Enkel vakantiegeld (8 %%)"
+
+msgid "Double pécule (7,38 %%)"
+msgstr "Dubbel vakantiegeld (7,38 %%)"
+
+msgid "Pécule total estimé (15,38 %%)"
+msgstr "Geraamd totaal vakantiegeld (15,38 %%)"
+
+msgid "Simple pécule payé (jours pris)"
+msgstr "Enkel vakantiegeld betaald (opgenomen dagen)"
+
+msgid "Simple pécule des jours restants"
+msgstr "Enkel vakantiegeld van de resterende dagen"
+
+msgid "Double pécule (92 %%)"
+msgstr "Dubbel vakantiegeld (92 %%)"
+
+msgid "Estimation – pas encore payé"
+msgstr "Raming – nog niet betaald"
+
+msgid "ONSS (13,07 %% sur 85 %%)"
+msgstr "RSZ (13,07 %% op 85 %%)"
+
+msgid "Pour le payer : cochez « Payer le double pécule de vacances ce mois » dans la paie (en général mai ou juin)."
+msgstr "Om het te betalen: vink « Dubbel vakantiegeld deze maand betalen » aan in de loonbrief (meestal mei of juni)."
+
+msgid "Estimation – pas encore payée"
+msgstr "Raming – nog niet betaald"
+
+msgid "Payée avec la paie de"
+msgstr "Betaald met de loonbrief van"
+
+msgid "Mois prestés ou assimilés"
+msgstr "Gewerkte of gelijkgestelde maanden"
+
+msgid "Période de référence"
+msgstr "Referteperiode"
+
+msgid "Montant de référence"
+msgstr "Referentiebedrag"
+
+msgid "Mois avec une paie / mois prévus"
+msgstr "Maanden met loonbrief / verwachte maanden"
+
+msgid "sur"
+msgstr "op"
+
+msgid "Brut estimé"
+msgstr "Geraamd bruto"
+
+msgid "ONSS (13,07 %%)"
+msgstr "RSZ (13,07 %%)"
+
+msgid "Net estimé"
+msgstr "Geraamd netto"
+
+msgid "Pour la payer : cochez « Payer la prime de fin d'année (13e mois) ce mois » dans la paie de décembre."
+msgstr "Om ze te betalen: vink « Eindejaarspremie (13e maand) deze maand betalen » aan in de loonbrief van december."
+
+msgid "Pas de montant de référence (salaire) pour estimer la prime."
+msgstr "Geen referentiebedrag (loon) om de premie te ramen."
+
+msgid "Congés de tous les travailleurs"
+msgstr "Verlof van alle werknemers"
+
+msgid "Paies du travailleur"
+msgstr "Loonbrieven van de werknemer"
+
+msgid "Rappel des règles belges (congés payés, pécules, 13e mois)"
+msgstr "Herinnering Belgische regels (betaald verlof, vakantiegeld, 13e maand)"
+
+msgid "20 jours par an pour un temps plein (5 jours / semaine) ayant travaillé toute l'année précédente (exercice de vacances)."
+msgstr "20 dagen per jaar voor een voltijdse (5 dagen / week) die het hele vorige jaar gewerkt heeft (vakantiedienstjaar)."
+
+msgid "Temps partiel ou année incomplète : au prorata (régime de travail, jours prestés ou assimilés)."
+msgstr "Deeltijds of onvolledig jaar: pro rata (arbeidsregime, gewerkte of gelijkgestelde dagen)."
+
+msgid "Les jours doivent être pris avant le 31 décembre ; ils ne sont pas reportables ni payables (sauf à la sortie)."
+msgstr "De dagen moeten vóór 31 december opgenomen worden; ze zijn niet overdraagbaar of betaalbaar (behalve bij uitdiensttreding)."
+
+msgid "Salaire journalier d'un employé : salaire mensuel × 3 / 65."
+msgstr "Dagloon van een bediende: maandloon × 3 / 65."
+
+msgid "simple pécule = salaire maintenu pendant les jours pris ; double pécule = 92 %% du brut mensuel, payé en général en mai / juin."
+msgstr "enkel vakantiegeld = doorbetaald loon tijdens de opgenomen dagen; dubbel vakantiegeld = 92 %% van het maandbruto, meestal betaald in mei / juni."
+
+msgid "ONSS sur le double pécule : 13,07 %% calculés sur 85 %% (la part de 7 %% n'est pas soumise) ; précompte au taux des allocations exceptionnelles."
+msgstr "RSZ op dubbel vakantiegeld: 13,07 %% op 85 %% (het deel van 7 %% is vrijgesteld); bedrijfsvoorheffing aan het tarief van uitzonderlijke vergoedingen."
+
+msgid "payé par la caisse de vacances : 15,38 %% du brut à 108 %% de l'année précédente (8 %% simple + 7,38 %% double). L'employeur cotise 15,84 %% du brut à 108 %%."
+msgstr "betaald door de vakantiekas: 15,38 %% van het bruto aan 108 %% van het vorige jaar (8 %% enkel + 7,38 %% dubbel). De werkgever draagt 15,84 %% van het bruto aan 108 %% bij."
+
+msgid "un salaire mensuel brut, au prorata des mois prestés ou assimilés de l'année civile, payé en décembre."
+msgstr "één bruto maandloon, pro rata van de gewerkte of gelijkgestelde maanden van het kalenderjaar, betaald in december."
+
+msgid "taux horaire au 1er décembre × 38 h × 52 / 12, période du 1er décembre au 30 novembre, payée au plus tard le 20 décembre (minimum 3 mois d'ancienneté)."
+msgstr "uurloon op 1 december × 38 u × 52 / 12, periode van 1 december tot 30 november, uiterlijk op 20 december betaald (minimum 3 maanden anciënniteit)."
+
+msgid "ONSS 13,07 %% (sur 108 %% pour un ouvrier), sans bonus à l'emploi ; précompte au taux des allocations exceptionnelles."
+msgstr "RSZ 13,07 %% (op 108 %% voor een arbeider), zonder werkbonus; bedrijfsvoorheffing aan het tarief van uitzonderlijke vergoedingen."
+
+msgid "Montants estimés à partir des paies enregistrées ; à vérifier avec votre secrétariat social."
+msgstr "Bedragen geraamd op basis van de geregistreerde loonbrieven; controleer bij uw sociaal secretariaat."
+
+msgid "Détail des congés"
+msgstr "Detail van het verlof"
+
+msgid "Déjà pris (autres mois)"
+msgstr "Al opgenomen (andere maanden)"
+
+msgid "Restant avant ce mois"
+msgstr "Resterend vóór deze maand"
+
+msgid "Les jours pris ce mois dépassent le solde restant."
+msgstr "De opgenomen dagen deze maand overschrijden het saldo."
+
+msgid "Double pécule déjà payé cette année (mois : %%s)."
+msgstr "Dubbel vakantiegeld dit jaar al betaald (maand: %%s)."
+
+msgid "Double pécule pas encore payé cette année (employé : en général en mai / juin)."
+msgstr "Dubbel vakantiegeld dit jaar nog niet betaald (bediende: meestal in mei / juni)."
+
+msgid "Ouvrier : le pécule de vacances est payé par la caisse de vacances."
+msgstr "Arbeider: het vakantiegeld wordt door de vakantiekas betaald."
+
+msgid "13e mois déjà payé (paie de %%s)."
+msgstr "13e maand al betaald (loonbrief van %%s)."
+
+msgid "13e mois pas encore payé : %%s / 12 mois prévus (en décembre)."
+msgstr "13e maand nog niet betaald: %%s / 12 maanden voorzien (in december)."
+
+msgid "Congés"
+msgstr "Verlof"
+
+msgid "≈ %(n)s jour(s) par mois sur les %(m)s mois restants"
+msgstr "≈ %(n)s dag(en) per maand over de resterende %(m)s maanden"
+
+msgid "%(n)s paie(s) de l'année précédente"
+msgstr "%(n)s loonbrief/brieven van het vorige jaar"
+
+msgid "01/12/%(a)s → 30/11/%(b)s (CP 112)"
+msgstr "01/12/%(a)s → 30/11/%(b)s (PC 112)"
+
+msgid "année civile %(a)s"
+msgstr "kalenderjaar %(a)s"
+
+msgid "Précompte (%(t)s %%)"
+msgstr "Bedrijfsvoorheffing (%(t)s %%)"
+
+msgid "prévus"
+msgstr "voorzien"
+
+msgid "Double pécule de vacances"
+msgstr "Dubbel vakantiegeld"
+
+msgid "Jours de congé payés (simple pécule)"
+msgstr "Betaalde verlofdagen (enkel vakantiegeld)"
+
+msgid "Pécule de sortie (fin de contrat)"
+msgstr "Vertrekvakantiegeld (einde contract)"
+
+msgid "Autre paiement de vacances"
+msgstr "Andere vakantiebetaling"
+
+msgid "Année des vacances"
+msgstr "Vakantiejaar"
+
+msgid "Date de l'écriture"
+msgstr "Boekingsdatum"
+
+msgid "Jours de congé"
+msgstr "Verlofdagen"
+
+msgid "Jours de congé payés (comptés comme pris) ou non pris payés à la sortie."
+msgstr "Betaalde verlofdagen (als opgenomen geteld) of niet-opgenomen dagen betaald bij vertrek."
+
+msgid "Montant brut"
+msgstr "Brutobedrag"
+
+msgid "Retenue ONSS travailleur"
+msgstr "RSZ-inhouding werknemer"
+
+msgid "Vide : pas encore payé (dette envers le travailleur)."
+msgstr "Leeg: nog niet betaald (schuld aan de werknemer)."
+
+msgid "Paiement de congés / pécule"
+msgstr "Betaling verlof / vakantiegeld"
+
+msgid "Paiements de congés / pécules"
+msgstr "Betalingen verlof / vakantiegeld"
+
+msgid "Indiquez le montant brut (bouton « Calculer » pour une proposition)."
+msgstr "Vul het brutobedrag in (knop « Berekenen » voor een voorstel)."
+
+msgid "Les retenues dépassent le montant brut."
+msgstr "De inhoudingen overschrijden het brutobedrag."
+
+msgid "Montants proposés – vérifiez puis enregistrez."
+msgstr "Voorgestelde bedragen – controleer en sla op."
+
+msgid "Le paiement de congés a été enregistré et comptabilisé."
+msgstr "De verlofbetaling is geregistreerd en geboekt."
+
+msgid "Le net est marqué comme payé."
+msgstr "Het netto is als betaald gemarkeerd."
+
+msgid "Le paiement de congés a été supprimé."
+msgstr "De verlofbetaling is verwijderd."
+
+msgid "Payer des congés"
+msgstr "Verlof betalen"
+
+msgid "Paiement de congés"
+msgstr "Verlofbetaling"
+
+msgid "Aucune paie enregistrée pour ce travailleur : encodez les montants vous-même."
+msgstr "Geen loonbrief voor deze werknemer: vul de bedragen zelf in."
+
+msgid "Ouvrier : le pécule de vacances (simple et double) est payé par la caisse de vacances, pas par l'employeur. N'enregistrez un paiement que si vous payez vous-même."
+msgstr "Arbeider: het vakantiegeld (enkel en dubbel) wordt door de vakantiekas betaald, niet door de werkgever. Registreer enkel een betaling als u zelf betaalt."
+
+msgid "Proposition : 92 %% du salaire mensuel brut ; ONSS 13,07 %% sur 85 %% ; précompte au taux des allocations exceptionnelles. La charge reprend la provision pour double pécule (456000)."
+msgstr "Voorstel: 92 %% van het bruto maandloon; RSZ 13,07 %% op 85 %%; voorheffing aan het tarief van uitzonderlijke vergoedingen. De kost neemt de provisie voor dubbel vakantiegeld terug (456000)."
+
+msgid "Proposition : jours × salaire journalier (mensuel × 3 / 65) ; ONSS 13,07 %% ; précompte au taux de la dernière paie ; cotisations patronales au taux de la dernière paie. Les jours sont comptés comme pris."
+msgstr "Voorstel: dagen × dagloon (maand × 3 / 65); RSZ 13,07 %%; voorheffing en werkgeversbijdragen aan het tarief van de laatste loonbrief. De dagen worden als opgenomen geteld."
+
+msgid "Proposition : 15,34 %% du brut de l'année (%(base)s €) – 7,67 %% simple + 7,67 %% double ; ONSS 13,07 %% (double pécule sur 85 %%) ; précompte au taux des allocations exceptionnelles. À vérifier avec votre secrétariat social (pécule anticipé de l'année suivante non compris)."
+msgstr "Voorstel: 15,34 %% van het bruto van het jaar (%(base)s €) – 7,67 %% enkel + 7,67 %% dubbel; RSZ 13,07 %% (dubbel op 85 %%); voorheffing aan het tarief van uitzonderlijke vergoedingen. Controleer bij uw sociaal secretariaat (vervroegd vakantiegeld van volgend jaar niet inbegrepen)."
+
+msgid "Calculer les montants"
+msgstr "Bedragen berekenen"
+
+msgid "Enregistrer et comptabiliser"
+msgstr "Opslaan en boeken"
+
+msgid "Écritures comptables"
+msgstr "Boekingen"
+
+msgid "Supprimer ce paiement de congés et ses écritures ?"
+msgstr "Deze verlofbetaling en haar boekingen verwijderen?"
+
+msgid "Paiement en dehors de la paie mensuelle, comptabilisé automatiquement (charge, ONSS, précompte, net à payer, puis paiement par banque ou caisse)."
+msgstr "Betaling buiten de maandelijkse loonbrief, automatisch geboekt (kost, RSZ, voorheffing, netto te betalen, dan betaling via bank of kas)."
+
+msgid "Payer le double pécule"
+msgstr "Dubbel vakantiegeld betalen"
+
+msgid "déjà payé"
+msgstr "al betaald"
+
+msgid "Payer des jours de congé"
+msgstr "Verlofdagen betalen"
+
+msgid "Pécule de sortie"
+msgstr "Vertrekvakantiegeld"
+
+msgid "Autre paiement"
+msgstr "Andere betaling"
+
+msgid "Payer"
+msgstr "Betalen"
+
+msgid "Aucun paiement de congés hors paie pour cette année."
+msgstr "Geen verlofbetaling buiten de loonbrieven dit jaar."
+
+msgid "Congés / pécules à payer"
+msgstr "Te betalen verlof / vakantiegeld"
+
+msgid "dont %(n)s payé(s) hors paie"
+msgstr "waarvan %(n)s betaald buiten de loonbrief"
+
+msgid "%(n)s jour(s) réglé(s) par le pécule de sortie"
+msgstr "%(n)s dag(en) vereffend via het vertrekvakantiegeld"

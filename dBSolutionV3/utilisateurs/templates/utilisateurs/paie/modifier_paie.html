@@ -25,6 +25,8 @@
         </div>
     {% endif %}
 
+    {% include "utilisateurs/paie/_conges_resume.html" %}
+
     <form method="post">
         {% csrf_token %}
 

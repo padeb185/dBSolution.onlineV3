@@ -68487,3 +68487,417 @@ msgstr "AdBlue warning on the dashboard"
 
 msgid "Injecteur · Réservoir · Pompe · Ajout · Tuyaux · Diagnostic · Pot DeNOx"
 msgstr "Injector · Tank · Pump · Top-up · Lines · Diagnostics · DeNOx unit"
+
+msgid "Veuillez corriger les champs suivants :"
+msgstr "Please correct the following fields:"
+
+msgid "Champ"
+msgstr "Field"
+
+msgid "Au moins 12 caractères"
+msgstr "At least 12 characters"
+
+msgid "Une majuscule"
+msgstr "One uppercase letter"
+
+msgid "Une minuscule"
+msgstr "One lowercase letter"
+
+msgid "Un chiffre"
+msgstr "One digit"
+
+msgid "Un caractère spécial (! ? @ # $ %% & * …)"
+msgstr "One special character (! ? @ # $ %% & * …)"
+
+msgid "Les mots de passe sont identiques"
+msgstr "The passwords match"
+
+msgid "Les mots de passe ne sont pas identiques"
+msgstr "The passwords do not match"
+
+msgid "Masquer"
+msgstr "Hide"
+
+msgid "Le temps de main-d'œuvre est obligatoire."
+msgstr "Labour time is required."
+
+msgid "Le serrage des roues doit être marqué « Fait »."
+msgstr "Wheel tightening must be marked “Done”."
+
+msgid "Congés payés, pécules et 13e mois"
+msgstr "Paid leave, holiday pay and 13th month"
+
+msgid "Jours de droit"
+msgstr "Days entitled"
+
+msgid "Jours pris"
+msgstr "Days taken"
+
+msgid "Jours à prendre"
+msgstr "Days left to take"
+
+msgid "Simple pécule payé"
+msgstr "Single holiday pay paid"
+
+msgid "Double pécule (brut)"
+msgstr "Double holiday pay (gross)"
+
+msgid "13e mois (brut)"
+msgstr "13th month (gross)"
+
+msgid "Régime"
+msgstr "Work schedule"
+
+msgid "Pris"
+msgstr "Taken"
+
+msgid "À prendre"
+msgstr "To take"
+
+msgid "Double pécule"
+msgstr "Double holiday pay"
+
+msgid "13e mois"
+msgstr "13th month"
+
+msgid "Caisse de vacances"
+msgstr "Holiday fund"
+
+msgid "mois"
+msgstr "months"
+
+msgid "Aucune paie enregistrée : créez une paie pour calculer les congés."
+msgstr "No payslip recorded: create a payslip to calculate leave."
+
+msgid "Créer une paie"
+msgstr "Create a payslip"
+
+msgid "Aucun travailleur."
+msgstr "No workers."
+
+msgid "Brut mensuel"
+msgstr "Monthly gross"
+
+msgid "Aucune paie enregistrée pour ce travailleur : créez une paie pour calculer les congés, le pécule et le 13e mois."
+msgstr "No payslip recorded for this worker: create one to calculate leave, holiday pay and the 13th month."
+
+msgid "Droit annuel"
+msgstr "Annual entitlement"
+
+msgid "20 jours × régime de travail (non encodé dans la paie)"
+msgstr "20 days × work schedule (not entered in the payslip)"
+
+msgid "encodé dans la paie"
+msgstr "entered in the payslip"
+
+msgid "Plus de jours pris que le droit : vérifiez l'encodage."
+msgstr "More days taken than entitled: check the entries."
+
+msgid "Jours non pris en fin d'année : ils sont perdus (ni reportés ni payés)."
+msgstr "Days not taken at year end are lost (neither carried over nor paid)."
+
+msgid "Valeur d'un jour de congé"
+msgstr "Value of one day of leave"
+
+msgid "simple pécule (caisse de vacances) ÷ jours de droit"
+msgstr "single holiday pay (holiday fund) ÷ days entitled"
+
+msgid "salaire mensuel × 3 / 65"
+msgstr "monthly salary × 3 / 65"
+
+msgid "Mois par mois"
+msgstr "Month by month"
+
+msgid "Cumul"
+msgstr "Cumulative"
+
+msgid "Simple pécule"
+msgstr "Single holiday pay"
+
+msgid "Pas de paie – créer"
+msgstr "No payslip – create"
+
+msgid "Ouvrier : le pécule est payé par la caisse de vacances (en général en mai / juin), pas par l'employeur."
+msgstr "Blue-collar worker: holiday pay is paid by the holiday fund (usually in May / June), not by the employer."
+
+msgid "Base : brut à 108 %% de l'année précédente"
+msgstr "Basis: gross at 108 %% of the previous year"
+
+msgid "Pas de paie l'année précédente : estimation sur 12 mois du salaire actuel."
+msgstr "No payslip the previous year: estimate based on 12 months of the current salary."
+
+msgid "Simple pécule (8 %%)"
+msgstr "Single holiday pay (8 %%)"
+
+msgid "Double pécule (7,38 %%)"
+msgstr "Double holiday pay (7.38 %%)"
+
+msgid "Pécule total estimé (15,38 %%)"
+msgstr "Estimated total holiday pay (15.38 %%)"
+
+msgid "Simple pécule payé (jours pris)"
+msgstr "Single holiday pay paid (days taken)"
+
+msgid "Simple pécule des jours restants"
+msgstr "Single holiday pay for remaining days"
+
+msgid "Double pécule (92 %%)"
+msgstr "Double holiday pay (92 %%)"
+
+msgid "Estimation – pas encore payé"
+msgstr "Estimate – not paid yet"
+
+msgid "ONSS (13,07 %% sur 85 %%)"
+msgstr "Social security (13.07 %% on 85 %%)"
+
+msgid "Pour le payer : cochez « Payer le double pécule de vacances ce mois » dans la paie (en général mai ou juin)."
+msgstr "To pay it: tick “Pay the double holiday pay this month” in the payslip (usually May or June)."
+
+msgid "Estimation – pas encore payée"
+msgstr "Estimate – not paid yet"
+
+msgid "Payée avec la paie de"
+msgstr "Paid with the payslip of"
+
+msgid "Mois prestés ou assimilés"
+msgstr "Months worked or equivalent"
+
+msgid "Période de référence"
+msgstr "Reference period"
+
+msgid "Montant de référence"
+msgstr "Reference amount"
+
+msgid "Mois avec une paie / mois prévus"
+msgstr "Months with a payslip / expected months"
+
+msgid "sur"
+msgstr "out of"
+
+msgid "Brut estimé"
+msgstr "Estimated gross"
+
+msgid "ONSS (13,07 %%)"
+msgstr "Social security (13.07 %%)"
+
+msgid "Net estimé"
+msgstr "Estimated net"
+
+msgid "Pour la payer : cochez « Payer la prime de fin d'année (13e mois) ce mois » dans la paie de décembre."
+msgstr "To pay it: tick “Pay the year-end bonus (13th month) this month” in the December payslip."
+
+msgid "Pas de montant de référence (salaire) pour estimer la prime."
+msgstr "No reference amount (salary) to estimate the bonus."
+
+msgid "Congés de tous les travailleurs"
+msgstr "Leave of all workers"
+
+msgid "Paies du travailleur"
+msgstr "Worker's payslips"
+
+msgid "Rappel des règles belges (congés payés, pécules, 13e mois)"
+msgstr "Belgian rules reminder (paid leave, holiday pay, 13th month)"
+
+msgid "20 jours par an pour un temps plein (5 jours / semaine) ayant travaillé toute l'année précédente (exercice de vacances)."
+msgstr "20 days a year for a full-timer (5 days / week) who worked the whole previous year (holiday reference year)."
+
+msgid "Temps partiel ou année incomplète : au prorata (régime de travail, jours prestés ou assimilés)."
+msgstr "Part-time or incomplete year: pro rata (work schedule, days worked or equivalent)."
+
+msgid "Les jours doivent être pris avant le 31 décembre ; ils ne sont pas reportables ni payables (sauf à la sortie)."
+msgstr "Days must be taken before 31 December; they cannot be carried over or paid (except on leaving)."
+
+msgid "Salaire journalier d'un employé : salaire mensuel × 3 / 65."
+msgstr "Daily pay of a white-collar employee: monthly salary × 3 / 65."
+
+msgid "simple pécule = salaire maintenu pendant les jours pris ; double pécule = 92 %% du brut mensuel, payé en général en mai / juin."
+msgstr "single holiday pay = salary continued during days taken; double holiday pay = 92 %% of monthly gross, usually paid in May / June."
+
+msgid "ONSS sur le double pécule : 13,07 %% calculés sur 85 %% (la part de 7 %% n'est pas soumise) ; précompte au taux des allocations exceptionnelles."
+msgstr "Social security on double holiday pay: 13.07 %% on 85 %% (the 7 %% part is exempt); withholding tax at the exceptional-allowance rate."
+
+msgid "payé par la caisse de vacances : 15,38 %% du brut à 108 %% de l'année précédente (8 %% simple + 7,38 %% double). L'employeur cotise 15,84 %% du brut à 108 %%."
+msgstr "paid by the holiday fund: 15.38 %% of gross at 108 %% of the previous year (8 %% single + 7.38 %% double). The employer contributes 15.84 %% of gross at 108 %%."
+
+msgid "un salaire mensuel brut, au prorata des mois prestés ou assimilés de l'année civile, payé en décembre."
+msgstr "one monthly gross salary, pro rata of months worked or equivalent in the calendar year, paid in December."
+
+msgid "taux horaire au 1er décembre × 38 h × 52 / 12, période du 1er décembre au 30 novembre, payée au plus tard le 20 décembre (minimum 3 mois d'ancienneté)."
+msgstr "hourly rate on 1 December × 38 h × 52 / 12, period from 1 December to 30 November, paid by 20 December at the latest (minimum 3 months' seniority)."
+
+msgid "ONSS 13,07 %% (sur 108 %% pour un ouvrier), sans bonus à l'emploi ; précompte au taux des allocations exceptionnelles."
+msgstr "Social security 13.07 %% (on 108 %% for a blue-collar worker), no work bonus; withholding tax at the exceptional-allowance rate."
+
+msgid "Montants estimés à partir des paies enregistrées ; à vérifier avec votre secrétariat social."
+msgstr "Amounts estimated from recorded payslips; check with your payroll provider."
+
+msgid "Détail des congés"
+msgstr "Leave details"
+
+msgid "Déjà pris (autres mois)"
+msgstr "Already taken (other months)"
+
+msgid "Restant avant ce mois"
+msgstr "Remaining before this month"
+
+msgid "Les jours pris ce mois dépassent le solde restant."
+msgstr "Days taken this month exceed the remaining balance."
+
+msgid "Double pécule déjà payé cette année (mois : %%s)."
+msgstr "Double holiday pay already paid this year (month: %%s)."
+
+msgid "Double pécule pas encore payé cette année (employé : en général en mai / juin)."
+msgstr "Double holiday pay not paid yet this year (white-collar: usually in May / June)."
+
+msgid "Ouvrier : le pécule de vacances est payé par la caisse de vacances."
+msgstr "Blue-collar worker: holiday pay is paid by the holiday fund."
+
+msgid "13e mois déjà payé (paie de %%s)."
+msgstr "13th month already paid (payslip of %%s)."
+
+msgid "13e mois pas encore payé : %%s / 12 mois prévus (en décembre)."
+msgstr "13th month not paid yet: %%s / 12 months expected (in December)."
+
+msgid "Congés"
+msgstr "Leave"
+
+msgid "≈ %(n)s jour(s) par mois sur les %(m)s mois restants"
+msgstr "≈ %(n)s day(s) per month over the remaining %(m)s months"
+
+msgid "%(n)s paie(s) de l'année précédente"
+msgstr "%(n)s payslip(s) from the previous year"
+
+msgid "01/12/%(a)s → 30/11/%(b)s (CP 112)"
+msgstr "01/12/%(a)s → 30/11/%(b)s (JC 112)"
+
+msgid "année civile %(a)s"
+msgstr "calendar year %(a)s"
+
+msgid "Précompte (%(t)s %%)"
+msgstr "Withholding tax (%(t)s %%)"
+
+msgid "prévus"
+msgstr "expected"
+
+msgid "Double pécule de vacances"
+msgstr "Double holiday pay"
+
+msgid "Jours de congé payés (simple pécule)"
+msgstr "Paid leave days (single holiday pay)"
+
+msgid "Pécule de sortie (fin de contrat)"
+msgstr "Exit holiday pay (end of contract)"
+
+msgid "Autre paiement de vacances"
+msgstr "Other holiday payment"
+
+msgid "Année des vacances"
+msgstr "Holiday year"
+
+msgid "Date de l'écriture"
+msgstr "Entry date"
+
+msgid "Jours de congé"
+msgstr "Leave days"
+
+msgid "Jours de congé payés (comptés comme pris) ou non pris payés à la sortie."
+msgstr "Paid leave days (counted as taken) or untaken days paid on leaving."
+
+msgid "Montant brut"
+msgstr "Gross amount"
+
+msgid "Retenue ONSS travailleur"
+msgstr "Employee social security deduction"
+
+msgid "Vide : pas encore payé (dette envers le travailleur)."
+msgstr "Empty: not paid yet (debt to the worker)."
+
+msgid "Paiement de congés / pécule"
+msgstr "Leave / holiday pay payment"
+
+msgid "Paiements de congés / pécules"
+msgstr "Leave / holiday pay payments"
+
+msgid "Indiquez le montant brut (bouton « Calculer » pour une proposition)."
+msgstr "Enter the gross amount (“Calculate” button for a proposal)."
+
+msgid "Les retenues dépassent le montant brut."
+msgstr "Deductions exceed the gross amount."
+
+msgid "Montants proposés – vérifiez puis enregistrez."
+msgstr "Proposed amounts – check, then save."
+
+msgid "Le paiement de congés a été enregistré et comptabilisé."
+msgstr "The leave payment has been saved and posted."
+
+msgid "Le net est marqué comme payé."
+msgstr "The net amount is marked as paid."
+
+msgid "Le paiement de congés a été supprimé."
+msgstr "The leave payment has been deleted."
+
+msgid "Payer des congés"
+msgstr "Pay leave"
+
+msgid "Paiement de congés"
+msgstr "Leave payment"
+
+msgid "Aucune paie enregistrée pour ce travailleur : encodez les montants vous-même."
+msgstr "No payslip for this worker: enter the amounts yourself."
+
+msgid "Ouvrier : le pécule de vacances (simple et double) est payé par la caisse de vacances, pas par l'employeur. N'enregistrez un paiement que si vous payez vous-même."
+msgstr "Blue-collar worker: holiday pay (single and double) is paid by the holiday fund, not by the employer. Only record a payment if you pay it yourself."
+
+msgid "Proposition : 92 %% du salaire mensuel brut ; ONSS 13,07 %% sur 85 %% ; précompte au taux des allocations exceptionnelles. La charge reprend la provision pour double pécule (456000)."
+msgstr "Proposal: 92 %% of the monthly gross salary; social security 13.07 %% on 85 %%; withholding tax at the exceptional-allowance rate. The charge uses the double holiday pay provision (456000)."
+
+msgid "Proposition : jours × salaire journalier (mensuel × 3 / 65) ; ONSS 13,07 %% ; précompte au taux de la dernière paie ; cotisations patronales au taux de la dernière paie. Les jours sont comptés comme pris."
+msgstr "Proposal: days × daily pay (monthly × 3 / 65); social security 13.07 %%; withholding tax and employer contributions at the rates of the last payslip. The days are counted as taken."
+
+msgid "Proposition : 15,34 %% du brut de l'année (%(base)s €) – 7,67 %% simple + 7,67 %% double ; ONSS 13,07 %% (double pécule sur 85 %%) ; précompte au taux des allocations exceptionnelles. À vérifier avec votre secrétariat social (pécule anticipé de l'année suivante non compris)."
+msgstr "Proposal: 15.34 %% of the year's gross (%(base)s €) – 7.67 %% single + 7.67 %% double; social security 13.07 %% (double part on 85 %%); withholding tax at the exceptional-allowance rate. Check with your payroll provider (next year's advance holiday pay not included)."
+
+msgid "Calculer les montants"
+msgstr "Calculate the amounts"
+
+msgid "Enregistrer et comptabiliser"
+msgstr "Save and post"
+
+msgid "Écritures comptables"
+msgstr "Accounting entries"
+
+msgid "Supprimer ce paiement de congés et ses écritures ?"
+msgstr "Delete this leave payment and its entries?"
+
+msgid "Paiement en dehors de la paie mensuelle, comptabilisé automatiquement (charge, ONSS, précompte, net à payer, puis paiement par banque ou caisse)."
+msgstr "Payment outside the monthly payslip, posted automatically (cost, social security, withholding tax, net payable, then payment by bank or cash)."
+
+msgid "Payer le double pécule"
+msgstr "Pay double holiday pay"
+
+msgid "déjà payé"
+msgstr "already paid"
+
+msgid "Payer des jours de congé"
+msgstr "Pay leave days"
+
+msgid "Pécule de sortie"
+msgstr "Exit holiday pay"
+
+msgid "Autre paiement"
+msgstr "Other payment"
+
+msgid "Payer"
+msgstr "Pay"
+
+msgid "Aucun paiement de congés hors paie pour cette année."
+msgstr "No leave payment outside payslips this year."
+
+msgid "Congés / pécules à payer"
+msgstr "Leave / holiday pay to pay"
+
+msgid "dont %(n)s payé(s) hors paie"
+msgstr "of which %(n)s paid outside payslips"
+
+msgid "%(n)s jour(s) réglé(s) par le pécule de sortie"
+msgstr "%(n)s day(s) settled by the exit holiday pay"
