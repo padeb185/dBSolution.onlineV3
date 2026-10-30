@@ -41,6 +41,7 @@ COMPTES_CONTREPARTIE = [
     ("451000", _("TVA à payer")),
     ("453000", _("Précomptes retenus")),
     ("454000", _("Office National de Sécurité Sociale")),
+    ("454100", _("ONSS – cotisation annuelle vacances ouvriers (caisse de vacances)")),
     ("455000", _("Rémunérations")),
     ("430000", _("Dettes financières à court terme")),
     ("480000", _("Dettes diverses")),
@@ -904,8 +905,9 @@ class VersementSocial(models.Model):
     class Type(models.TextChoices):
         ONSS = "ONSS", _("ONSS (cotisations sociales)")
         PRECOMPTE = "PRECOMPTE", _("Précompte professionnel (SPF Finances)")
+        VACANCES = "VACANCES", _("Cotisation annuelle vacances ouvriers (ONSS / caisse de vacances)")
 
-    COMPTES = {Type.ONSS: "454000", Type.PRECOMPTE: "453000"}
+    COMPTES = {Type.ONSS: "454000", Type.PRECOMPTE: "453000", Type.VACANCES: "454100"}
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     societe = models.ForeignKey("societe.Societe", on_delete=models.CASCADE, related_name="versements_sociaux")

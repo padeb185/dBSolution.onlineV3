@@ -222,6 +222,7 @@ def salaires_compta(request):
     comptes = {c["compte"]: c for c in balance(E)}
     dettes = []
     for code, intitule in (("455000", _("Rémunérations nettes à payer")), ("454000", _("ONSS à payer")),
+                           ("454100", _("Cotisation annuelle vacances ouvriers à payer")),
                            ("453000", _("Précompte professionnel à payer")), ("456000", _("Pécules de vacances"))):
         c = comptes.get(code, {"debit": ZERO, "credit": ZERO})
         dettes.append({"compte": code, "intitule": intitule, "debit": c["debit"], "credit": c["credit"],

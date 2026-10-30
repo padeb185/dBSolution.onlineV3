@@ -436,7 +436,7 @@ def _paies_periode(request):
 def paie_comptabilite(request):
     from decimal import Decimal
     from collections import OrderedDict
-    from .paie_belgique import COMPTES
+    from .paie_belgique import COMPTES, repartition_vacances_ouvrier
 
     if not _acces_paie(request.user):
         return _refuser(request)
@@ -474,6 +474,7 @@ def paie_comptabilite(request):
     precompte = OrderedDict()
     # ---- ONSS à verser (trimestriel, fin du mois qui suit le trimestre)
     onss = OrderedDict()
+    vacances_annuelles = OrderedDict()
     for paie in paies:
         pp = (paie.montant_precompte or z) + (paie.double_pecule_precompte or z) + (paie.treizieme_mois_precompte or z)
         cle = paie.mois
@@ -486,8 +487,13 @@ def paie_comptabilite(request):
         montant_onss = (
             (paie.montant_onss or z) + (paie.csss or z) + (paie.cotisations_patronales or z)
             + (paie.cotisation_co2 or z) + (paie.double_pecule_onss or z) + (paie.treizieme_mois_onss or z)
-            + ((paie.cotisations_vacances or z) if paie.statut_travailleur == "ouvrier" else z)
+            + (repartition_vacances_ouvrier(paie.cotisations_vacances)[0] if paie.statut_travailleur == "ouvrier" else z)
         )
+        # Ouvriers : part annuelle (10,27 %) de la cotisation vacances, avis de l'ONSS / caisse en avril N+1
+        if paie.statut_travailleur == "ouvrier" and paie.cotisations_vacances:
+            v = vacances_annuelles.setdefault(paie.annee, {
+                "periode": str(paie.annee), "echeance": date(paie.annee + 1, 4, 30), "montant": z})
+            v["montant"] += repartition_vacances_ouvrier(paie.cotisations_vacances)[1]
         trimestre = (paie.mois - 1) // 3 + 1
         if trimestre not in onss:
             m_ech = trimestre * 3 + 1
@@ -534,6 +540,8 @@ def paie_comptabilite(request):
         "total_a_payer": sum((p.net_a_payer for p in non_payees), z) + sum((pc.net for pc in conges if not pc.est_paye), z),
         "total_paye": sum((p.net_a_payer for p in payees), z) + sum((pc.net for pc in conges if pc.est_paye), z),
         "journal_conges": journal_conges,
+        "vacances_annuelles": list(vacances_annuelles.values()),
+        "total_vacances_annuelles": sum((v["montant"] for v in vacances_annuelles.values()), z),
         "conges_non_payes": [pc for pc in conges if not pc.est_paye],
         "aujourdhui": timezone.now().date(),
     })

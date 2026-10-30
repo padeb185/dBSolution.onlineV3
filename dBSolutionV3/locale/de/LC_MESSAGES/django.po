@@ -69251,3 +69251,48 @@ msgstr "davon %(n)s außerhalb der Abrechnung bezahlt"
 
 msgid "%(n)s jour(s) réglé(s) par le pécule de sortie"
 msgstr "%(n)s Tag(e) durch das Austrittsurlaubsgeld abgegolten"
+
+msgid "ONSS – cotisation annuelle vacances ouvriers (caisse de vacances)"
+msgstr "LSS – jährlicher Urlaubsbeitrag Arbeiter (Urlaubskasse)"
+
+msgid "Cotisation vacances ouvriers – part trimestrielle (5,57 %)"
+msgstr "Urlaubsbeitrag Arbeiter – vierteljährlicher Teil (5,57 %)"
+
+msgid "Cotisation vacances ouvriers – part annuelle (10,27 %), payable en avril de l'année suivante"
+msgstr "Urlaubsbeitrag Arbeiter – jährlicher Teil (10,27 %), zahlbar im April des Folgejahres"
+
+msgid "Cotisation annuelle vacances ouvriers (ONSS / caisse de vacances)"
+msgstr "Jährlicher Urlaubsbeitrag Arbeiter (LSS / Urlaubskasse)"
+
+msgid "Cotisation annuelle vacances ouvriers à payer"
+msgstr "Zu zahlender jährlicher Urlaubsbeitrag Arbeiter"
+
+msgid "Congés payés : coût employeur et paiements"
+msgstr "Bezahlter Urlaub: Arbeitgeberkosten und Zahlungen"
+
+msgid "Employés"
+msgstr "Angestellte"
+
+msgid "L'employeur paie lui-même les pécules au travailleur : le simple pécule est compris dans le salaire du mois de congé, le double pécule (92 %%) est payé en mai / juin (dans la paie ou via « Payer des congés »). Aucun organisme à payer. Chaque mois, une provision (625000 / 456000) est constituée puis reprise au paiement du double pécule."
+msgstr "Der Arbeitgeber zahlt das Urlaubsgeld direkt an den Mitarbeiter: Das einfache Urlaubsgeld ist im Gehalt des Urlaubsmonats enthalten, das doppelte (92 %%) wird im Mai / Juni gezahlt (in der Abrechnung oder über „Urlaub bezahlen“). Keine Einrichtung zu zahlen. Monatlich wird eine Rückstellung (625000 / 456000) gebildet und bei Zahlung des doppelten Urlaubsgelds aufgelöst."
+
+msgid "Ouvriers"
+msgstr "Arbeiter"
+
+msgid "L'employeur ne paie pas les pécules au travailleur : il verse une cotisation de 15,84 %% du brut à 108 %%. La part trimestrielle (5,57 %%) est payée avec l'ONSS du trimestre (454000). La part annuelle (10,27 %%) est réclamée par l'ONSS (ou la caisse de vacances sectorielle) en avril de l'année suivante (454100). La caisse paie ensuite le pécule au travailleur."
+msgstr "Der Arbeitgeber zahlt das Urlaubsgeld nicht an den Arbeiter: Er zahlt einen Beitrag von 15,84 %% des Bruttos zu 108 %%. Der vierteljährliche Teil (5,57 %%) wird mit der LSS des Quartals gezahlt (454000). Der jährliche Teil (10,27 %%) wird im April des Folgejahres vom LSS (oder der Urlaubskasse) angefordert (454100). Die Kasse zahlt dann das Urlaubsgeld an den Arbeiter."
+
+msgid "Cotisation annuelle vacances ouvriers à payer (10,27 %%)"
+msgstr "Zu zahlender jährlicher Urlaubsbeitrag Arbeiter (10,27 %%)"
+
+msgid "Année des salaires"
+msgstr "Jahr der Löhne"
+
+msgid "Échéance (avis de l'ONSS / caisse)"
+msgstr "Fälligkeit (Bescheid LSS / Kasse)"
+
+msgid "Au paiement, enregistrez un versement de type « Cotisation annuelle vacances ouvriers » dans Comptabilité › Salaires : il apure le compte 454100 et sort de la banque."
+msgstr "Bei Zahlung eine Überweisung vom Typ „Jährlicher Urlaubsbeitrag Arbeiter“ unter Buchhaltung › Löhne erfassen: Sie gleicht Konto 454100 aus und geht von der Bank ab."
+
+msgid "Enregistrer un versement (ONSS, précompte, vacances)"
+msgstr "Überweisung erfassen (LSS, Lohnsteuer, Urlaub)"

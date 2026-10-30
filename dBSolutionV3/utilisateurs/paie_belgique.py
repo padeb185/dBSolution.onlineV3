@@ -97,6 +97,8 @@ PRECOMPTE_PECULE = [  # (rémunération annuelle brute jusqu'à, taux)
     (None, D("0.5350")),
 ]
 COTISATION_VACANCES_OUVRIER = D("15.84")     # % (5,57 trim. + 10,27 annuelle) sur 108 %
+COTISATION_VACANCES_TRIMESTRIELLE = D("5.57")  # payée avec l'ONSS du trimestre
+COTISATION_VACANCES_ANNUELLE = D("10.27")      # avis de l'ONSS (ou de la caisse de vacances) en avril N+1
 
 # ---- Congés payés (vacances annuelles)
 CONGES_JOURS_TEMPS_PLEIN = D("20")           # régime 5 jours / semaine, année complète
@@ -541,10 +543,18 @@ COMPTES = {
     "625000": gettext_noop("Provisions pour pécules de vacances (dotations)"),
     "453000": gettext_noop("Précomptes retenus"),
     "454000": gettext_noop("Office National de Sécurité Sociale"),
+    "454100": gettext_noop("ONSS – cotisation annuelle vacances ouvriers (caisse de vacances)"),
     "455000": gettext_noop("Rémunérations"),
     "456000": gettext_noop("Pécules de vacances"),
     "550000": gettext_noop("Banque – compte courant"),
 }
+
+
+def repartition_vacances_ouvrier(cotisations_vacances):
+    """Cotisation vacances ouvrier (15,84 %) → (part trimestrielle 5,57 %, part annuelle 10,27 %)."""
+    total = D(cotisations_vacances or 0)
+    trimestrielle = r2(total * COTISATION_VACANCES_TRIMESTRIELLE / COTISATION_VACANCES_OUVRIER)
+    return trimestrielle, r2(total - trimestrielle)
 
 
 def ecritures_paie(statut, brut, cotisations_patronales=ZERO, cotisation_co2=ZERO,
@@ -579,7 +589,10 @@ def ecritures_paie(statut, brut, cotisations_patronales=ZERO, cotisation_co2=ZER
     ligne("454000", _("Cotisations patronales ONSS"), credit=cotisations_patronales)
     ligne("454000", _("Cotisation de solidarité CO2"), credit=cotisation_co2)
     if statut == "ouvrier":
-        ligne("454000", _("Cotisations vacances annuelles ouvriers"), credit=cotisations_vacances)
+        trimestrielle, annuelle = repartition_vacances_ouvrier(cotisations_vacances)
+        ligne("454000", _("Cotisation vacances ouvriers – part trimestrielle (5,57 %)"), credit=trimestrielle)
+        ligne("454100", _("Cotisation vacances ouvriers – part annuelle (10,27 %), payable en avril de l'année suivante"),
+              credit=annuelle)
     else:
         ligne("456000", _("Provision double pécule de vacances"), credit=cotisations_vacances)
     ligne("453000", _("Précompte professionnel"), credit=precompte)

@@ -186,6 +186,48 @@
     </div>
 </div>
 
+<!-- Congés payés : qui paie quoi -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-8">
+    <h2 class="text-lg font-semibold mb-2">{% trans "Congés payés : coût employeur et paiements" %}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-700">
+        <div>
+            <h3 class="font-semibold mb-1">{% trans "Employés" %}</h3>
+            <p>{% trans "L'employeur paie lui-même les pécules au travailleur : le simple pécule est compris dans le salaire du mois de congé, le double pécule (92 %) est payé en mai / juin (dans la paie ou via « Payer des congés »). Aucun organisme à payer. Chaque mois, une provision (625000 / 456000) est constituée puis reprise au paiement du double pécule." %}</p>
+        </div>
+        <div>
+            <h3 class="font-semibold mb-1">{% trans "Ouvriers" %}</h3>
+            <p>{% trans "L'employeur ne paie pas les pécules au travailleur : il verse une cotisation de 15,84 % du brut à 108 %. La part trimestrielle (5,57 %) est payée avec l'ONSS du trimestre (454000). La part annuelle (10,27 %) est réclamée par l'ONSS (ou la caisse de vacances sectorielle) en avril de l'année suivante (454100). La caisse paie ensuite le pécule au travailleur." %}</p>
+        </div>
+    </div>
+
+    {% if vacances_annuelles %}
+    <h3 class="font-semibold mt-4 mb-2">{% trans "Cotisation annuelle vacances ouvriers à payer (10,27 %)" %}</h3>
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border px-3 py-2 text-left">{% trans "Année des salaires" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "Échéance (avis de l'ONSS / caisse)" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Montant estimé" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for v in vacances_annuelles %}
+            <tr>
+                <td class="border px-3 py-2">{{ v.periode }}</td>
+                <td class="border px-3 py-2">{{ v.echeance|date:"d/m/Y" }}</td>
+                <td class="border px-3 py-2 text-right">{{ v.montant|floatformat:"2g" }} €</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p class="text-xs text-gray-500 mt-2">{% trans "Au paiement, enregistrez un versement de type « Cotisation annuelle vacances ouvriers » dans Comptabilité › Salaires : il apure le compte 454100 et sort de la banque." %}</p>
+    {% endif %}
+    {% url 'compta:salaires_compta' as url_versements %}
+    {% if url_versements %}
+    <a href="{{ url_versements }}?annee={{ annee }}" class="inline-block mt-3 bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">{% trans "Enregistrer un versement (ONSS, précompte, vacances)" %}</a>
+    {% endif %}
+</div>
+
 <!-- Balance par compte -->
 <div class="bg-white shadow-md rounded-lg p-6 mb-8">
     <h2 class="text-lg font-semibold mb-4">{% trans "Balance des comptes (PCMN)" %}</h2>
