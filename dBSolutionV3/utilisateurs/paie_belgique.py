@@ -71,6 +71,16 @@ REDUCTION_CONJOINT_HANDICAPE = D("52")
 REDUCTION_PP_HEURES_SUP = {20: D("0.6681"), 50: D("0.5775"), 100: D("0.5775")}
 HEURES_SUP_MAX_AN = 180
 
+# ---- Dirigeant d'entreprise (administrateur, gérant) – pas d'ONSS salarié
+#   Précompte : même barème, frais forfaitaires 3 % plafonnés (à vérifier chaque année) ;
+#   cotisations sociales d'indépendant (caisse d'assurances sociales) déductibles.
+FRAIS_PRO_DIRIGEANT_TAUX = D("0.03")
+FRAIS_PRO_DIRIGEANT_MAX = D("3200.00")
+COTISATIONS_INDEPENDANT = [  # (revenu annuel jusqu'à, taux) – estimation, à vérifier avec la caisse
+    (D("76638.43"), D("0.205")),
+    (D("112944.47"), D("0.1416")),
+]
+
 # ---- Cotisation spéciale de sécurité sociale (retenue mensuelle)
 CSSS_SEUIL_1 = D("1095.09")
 CSSS_SEUIL_2 = D("1945.38")
@@ -228,9 +238,10 @@ def precompte_professionnel(imposable_mensuel, situation_familiale,
                             nombre_enfants=0, nombre_enfants_handicapes=0,
                             parent_isole=False, beneficiaire_handicape=False,
                             conjoint_handicape=False, bonus_a=ZERO, bonus_b=ZERO,
-                            reduction_heures_sup=ZERO):
+                            reduction_heures_sup=ZERO, frais_taux=None, frais_max=None):
     annuel = D(imposable_mensuel) * 12
-    frais = min(annuel * FRAIS_PRO_TAUX, FRAIS_PRO_MAX)
+    frais = min(annuel * (FRAIS_PRO_TAUX if frais_taux is None else frais_taux),
+                FRAIS_PRO_MAX if frais_max is None else frais_max)
     net_annuel = annuel - frais
 
     un_revenu = situation_familiale == "marie_un_revenu"
@@ -531,6 +542,88 @@ def calculer_paie(brut, statut="employe", taux_patronal=None, situation_familial
     }
 
 
+def cotisations_sociales_independant(revenu_annuel):
+    """Cotisations sociales annuelles d'un indépendant à titre principal (estimation, sans minimum)."""
+    reste, bas, total = D(revenu_annuel or 0), ZERO, ZERO
+    for plafond, taux in COTISATIONS_INDEPENDANT:
+        tranche = max(ZERO, min(reste, plafond) - bas)
+        total += tranche * taux
+        bas = plafond
+    return r2(total)
+
+
+def calculer_paie_dirigeant(remuneration_annuelle, brut_mensuel=None, situation_familiale="isole",
+                            nombre_enfants=0, nombre_enfants_handicapes=0, parent_isole=False,
+                            beneficiaire_handicape=False, conjoint_handicape=False,
+                            atn_autres=ZERO, voiture=None, date_paie=None,
+                            bonus=None, cotisations_prises_en_charge=False):
+    """
+    Rémunération d'un dirigeant d'entreprise : rémunération brute annuelle répartie en 12 mois,
+    sans ONSS salarié ni cotisations patronales ; précompte avec frais forfaitaires dirigeants ;
+    bonus lié au chiffre d'affaires (imposable, précompte au taux des allocations exceptionnelles).
+    bonus = {"chiffre_affaires": CA annuel, "taux": % du CA, "payer": bool} ou None.
+    """
+    date_paie = date_paie or date.today()
+    annuel = D(remuneration_annuelle or 0)
+    brut = r2(annuel / 12) if annuel else r2(brut_mensuel or 0)
+    annuel = annuel or brut * 12
+
+    atn_auto = co2 = ZERO
+    if voiture:
+        atn_auto = atn_voiture(voiture.get("valeur_catalogue"), voiture.get("co2"),
+                               voiture.get("carburant"), voiture.get("date_immatriculation"), date_paie)
+        atn_auto = max(ZERO, atn_auto - D(voiture.get("contribution_personnelle") or 0))
+        co2 = cotisation_co2(voiture.get("co2"), voiture.get("carburant"), voiture.get("commandee_apres_07_2023"))
+    atn_total = r2(atn_auto + D(atn_autres or 0))
+
+    # Bonus sur le chiffre d'affaires annuel
+    prime = None
+    if bonus and bonus.get("taux"):
+        ca = D(bonus.get("chiffre_affaires") or 0)
+        montant = r2(ca * D(bonus["taux"]) / 100)
+        prime = {"chiffre_affaires": r2(ca), "taux": D(bonus["taux"]), "brut_annuel": montant,
+                 "paye": bool(bonus.get("payer")), "brut": ZERO, "precompte": ZERO, "net": ZERO,
+                 "taux_precompte": r2(taux_precompte_exceptionnel(brut) * 100)}
+        if prime["paye"] and montant > 0:
+            prime["brut"] = montant
+            prime["precompte"] = r2(montant * taux_precompte_exceptionnel(brut))
+            prime["net"] = r2(montant - prime["precompte"])
+
+    # Cotisations sociales d'indépendant (sur la rémunération annuelle + bonus)
+    base_cotisations = annuel + (prime["brut_annuel"] if prime else ZERO)
+    cotisations_annuelles = cotisations_sociales_independant(base_cotisations)
+    cotisations = r2(cotisations_annuelles / 12)
+
+    # Précompte : cotisations sociales déductibles ; prises en charge par la société = avantage imposable
+    # (ajouté puis déduit : sans effet sur la base).
+    imposable = r2(brut + atn_total - (ZERO if cotisations_prises_en_charge else cotisations))
+    imposable = max(ZERO, imposable)
+    precompte = precompte_professionnel(
+        imposable, situation_familiale, nombre_enfants, nombre_enfants_handicapes, parent_isole,
+        beneficiaire_handicape, conjoint_handicape,
+        frais_taux=FRAIS_PRO_DIRIGEANT_TAUX, frais_max=FRAIS_PRO_DIRIGEANT_MAX,
+    )
+    net = r2(brut - precompte + (prime["net"] if prime else ZERO))
+    prises = cotisations if cotisations_prises_en_charge else ZERO
+    brut_employeur = r2(brut + (prime["brut"] if prime else ZERO) + prises + co2)
+    zero_conges = {"droit": ZERO, "jours_pris": ZERO, "salaire_journalier": ZERO,
+                   "simple_pecule": ZERO, "pecule_ouvrier_annuel": ZERO}
+    return {
+        "fraction": D("1"), "brut_base": brut, "montant_heures_sup": ZERO, "brut": brut, "brut_majore": brut,
+        "onss_brut": ZERO, "bonus_emploi": ZERO, "onss": ZERO,
+        "atn_voiture": atn_auto, "atn_total": atn_total, "imposable": imposable, "reduction_heures_sup": ZERO,
+        "precompte": precompte, "taux_precompte": r2(precompte / imposable * 100) if imposable else ZERO,
+        "csss": ZERO, "double_pecule": None, "treizieme_mois": None, "conges": zero_conges, "net": net,
+        "taux_patronal": ZERO, "cotisations_patronales": ZERO, "reduction_structurelle": ZERO,
+        "reduction_groupe_cible": ZERO, "cotisations_patronales_nettes": ZERO, "vacances_employeur": ZERO,
+        "cotisation_co2": co2, "brut_employeur": brut_employeur,
+        "remuneration_annuelle": r2(annuel), "bonus": prime,
+        "cotisations_sociales": cotisations, "cotisations_sociales_annuelles": cotisations_annuelles,
+        "cotisations_prises_en_charge": bool(cotisations_prises_en_charge),
+        "net_apres_cotisations": r2(net - (ZERO if cotisations_prises_en_charge else cotisations)),
+    }
+
+
 # ==================================================================
 # COMPTABILISATION (PCMN – plan comptable minimum normalisé belge)
 # ==================================================================
@@ -539,6 +632,7 @@ from django.utils.translation import gettext as _, gettext_noop
 COMPTES = {
     "620200": gettext_noop("Rémunérations et avantages sociaux directs – employés"),
     "620300": gettext_noop("Rémunérations et avantages sociaux directs – ouvriers"),
+    "618000": gettext_noop("Rémunérations et avantages sociaux directs des administrateurs et gérants"),
     "621000": gettext_noop("Cotisations patronales d'assurances sociales"),
     "625000": gettext_noop("Provisions pour pécules de vacances (dotations)"),
     "453000": gettext_noop("Précomptes retenus"),
@@ -546,6 +640,7 @@ COMPTES = {
     "454100": gettext_noop("ONSS – cotisation annuelle vacances ouvriers (caisse de vacances)"),
     "455000": gettext_noop("Rémunérations"),
     "456000": gettext_noop("Pécules de vacances"),
+    "459000": gettext_noop("Autres dettes sociales – caisse d'assurances sociales (dirigeant)"),
     "550000": gettext_noop("Banque – compte courant"),
 }
 
@@ -559,7 +654,8 @@ def repartition_vacances_ouvrier(cotisations_vacances):
 
 def ecritures_paie(statut, brut, cotisations_patronales=ZERO, cotisation_co2=ZERO,
                    cotisations_vacances=ZERO, onss=ZERO, csss=ZERO, precompte=ZERO,
-                   net_salaire=ZERO, double_pecule=None, date_paiement=None, treizieme_mois=None):
+                   net_salaire=ZERO, double_pecule=None, date_paiement=None, treizieme_mois=None,
+                   bonus_dirigeant=None, cotisations_independant=ZERO):
     """
     Écriture de salaire (journal des opérations diverses) + paiement.
     Retourne une liste de lignes {compte, libelle, debit, credit, type}.
@@ -572,13 +668,18 @@ def ecritures_paie(statut, brut, cotisations_patronales=ZERO, cotisation_co2=ZER
             L.append({"compte": compte, "intitule": _(COMPTES[compte]) if compte in COMPTES else "",
                       "libelle": libelle, "debit": debit, "credit": credit, "type": type_})
 
-    compte_brut = "620300" if statut == "ouvrier" else "620200"
+    compte_brut = {"ouvrier": "620300", "dirigeant": "618000"}.get(statut, "620200")
 
     # ---- Charges
     ligne(compte_brut, _("Salaire brut"), debit=brut)
     ligne("621000", _("Cotisations patronales ONSS (après réductions)"), debit=cotisations_patronales)
     ligne("621000", _("Cotisation de solidarité CO2 (voiture de société)"), debit=cotisation_co2)
-    if statut == "ouvrier":
+    if statut == "dirigeant":
+        # Cotisations sociales d'indépendant prises en charge par la société (caisse d'assurances sociales)
+        ligne("618000", _("Cotisations sociales du dirigeant prises en charge"), debit=cotisations_independant)
+        ligne("459000", _("Cotisations sociales du dirigeant – caisse d'assurances sociales"),
+              credit=cotisations_independant)
+    elif statut == "ouvrier":
         ligne("621000", _("Cotisations vacances annuelles ouvriers"), debit=cotisations_vacances)
     else:
         ligne("625000", _("Provision double pécule de vacances"), debit=cotisations_vacances)
@@ -605,6 +706,12 @@ def ecritures_paie(statut, brut, cotisations_patronales=ZERO, cotisation_co2=ZER
         ligne("453000", _("Précompte double pécule"), credit=double_pecule.get("precompte"), type_="pecule")
         ligne("455000", _("Double pécule net à payer"), credit=double_pecule.get("net"), type_="pecule")
 
+    # ---- Bonus du dirigeant sur le chiffre d'affaires
+    if bonus_dirigeant and bonus_dirigeant.get("brut"):
+        ligne(compte_brut, _("Bonus du dirigeant sur le chiffre d'affaires"), debit=bonus_dirigeant["brut"], type_="prime")
+        ligne("453000", _("Précompte sur le bonus du dirigeant"), credit=bonus_dirigeant.get("precompte"), type_="prime")
+        ligne("455000", _("Bonus du dirigeant net à payer"), credit=bonus_dirigeant.get("net"), type_="prime")
+
     # ---- Prime de fin d'année (13e mois) : charge de rémunération, retenues et net à payer
     if treizieme_mois and treizieme_mois.get("brut"):
         ligne(compte_brut, _("Prime de fin d'année (13e mois) brute"), debit=treizieme_mois["brut"], type_="prime")
@@ -615,7 +722,7 @@ def ecritures_paie(statut, brut, cotisations_patronales=ZERO, cotisation_co2=ZER
     # ---- Paiement du net
     if date_paiement:
         total_net = (D(net_salaire or 0) + D((double_pecule or {}).get("net") or 0)
-                     + D((treizieme_mois or {}).get("net") or 0))
+                     + D((treizieme_mois or {}).get("net") or 0) + D((bonus_dirigeant or {}).get("net") or 0))
         ligne("455000", _("Paiement du salaire net"), debit=total_net, type_="paiement")
         ligne("550000", _("Paiement du salaire net"), credit=total_net, type_="paiement")
 

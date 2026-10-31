@@ -63,6 +63,17 @@ def situation_conges(paies_travailleur, annee, aujourdhui, paiements=None):
     regime = _d(getattr(derniere, "regime_travail", None) or 100) if derniere else D("100")
     fraction = regime / 100 if regime else D("1")
 
+    # ---- Dirigeant d'entreprise : pas de régime de congés payés / pécules / 13e mois salarié
+    if statut == "dirigeant":
+        return {
+            "annee": annee, "statut": statut, "regime": regime, "droit": ZERO, "droit_source": "dirigeant",
+            "pris": ZERO, "restant": ZERO, "depasse": False, "pourcentage": 0, "mois_restants": 0,
+            "a_planifier_par_mois": ZERO, "lignes": [], "paiements": list(paiements or []),
+            "jours_hors_paie": ZERO, "jours_sortie": ZERO, "nb_paies": len(paies_annee), "derniere": derniere,
+            "brut_mensuel": _d(derniere.salaire_brut_mensuel) if derniere else ZERO,
+            "salaire_journalier": ZERO, "pecule": {"statut": statut}, "treizieme": {}, "dirigeant": True,
+        }
+
     # ---- Droit annuel : dernière valeur encodée dans l'année, sinon 20 j × régime
     droit = None
     for m in sorted(paies_annee, reverse=True):

@@ -405,6 +405,7 @@ class UserLog(models.Model):
 class StatutTravailleur(models.TextChoices):
     EMPLOYE = "employe", _("Employé")
     OUVRIER = "ouvrier", _("Ouvrier")
+    DIRIGEANT = "dirigeant", _("Dirigeant d'entreprise (administrateur / gérant)")
 
 
 class CommissionParitaire(models.TextChoices):
@@ -759,6 +760,46 @@ class PaieUtilisateur(models.Model):
     )
 
     # -------------------------
+    # DIRIGEANT D'ENTREPRISE (administrateur / gérant)
+    # -------------------------
+    dirigeant_remuneration_annuelle = models.DecimalField(
+        max_digits=12, decimal_places=2, blank=True, null=True,
+        verbose_name=_("Rémunération brute annuelle du dirigeant"),
+        help_text=_("Répartie en 12 mensualités. Pas d'ONSS salarié ni de cotisations patronales."),
+    )
+    dirigeant_bonus_taux_ca = models.DecimalField(
+        max_digits=6, decimal_places=3, blank=True, null=True,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        verbose_name=_("Bonus : pourcentage du chiffre d'affaires annuel"),
+        help_text=_("Intéressement au chiffre d'affaires, imposable (précompte des allocations exceptionnelles)."),
+    )
+    dirigeant_chiffre_affaires = models.DecimalField(
+        max_digits=14, decimal_places=2, blank=True, null=True,
+        verbose_name=_("Chiffre d'affaires annuel HTVA (base du bonus)"),
+        help_text=_("Vide : chiffre d'affaires de l'année repris de la comptabilité (comptes 70)."),
+    )
+    dirigeant_bonus_ce_mois = models.BooleanField(
+        default=False, verbose_name=_("Payer le bonus sur le chiffre d'affaires ce mois"),
+    )
+    dirigeant_cotisations_prises_en_charge = models.BooleanField(
+        default=False, verbose_name=_("Cotisations sociales d'indépendant payées par la société"),
+        help_text=_("Sinon, le dirigeant les paie lui-même à sa caisse d'assurances sociales."),
+    )
+    dirigeant_cotisations_sociales = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True,
+        verbose_name=_("Cotisations sociales d'indépendant (estimation mensuelle)"),
+    )
+    dirigeant_bonus_brut = models.DecimalField(
+        max_digits=12, decimal_places=2, blank=True, null=True, verbose_name=_("Bonus brut payé ce mois"),
+    )
+    dirigeant_bonus_precompte = models.DecimalField(
+        max_digits=12, decimal_places=2, blank=True, null=True, verbose_name=_("Bonus – précompte"),
+    )
+    dirigeant_bonus_net = models.DecimalField(
+        max_digits=12, decimal_places=2, blank=True, null=True, verbose_name=_("Bonus net"),
+    )
+
+    # -------------------------
     # RÉSULTATS DU CALCUL
     # -------------------------
     salaire_brut_majore = models.DecimalField(
@@ -863,6 +904,25 @@ class PaieUtilisateur(models.Model):
         except (TypeError, ValueError):
             date_paie = date.today()
 
+        if self.statut_travailleur == "dirigeant":
+            from .paie_belgique import calculer_paie_dirigeant
+            return calculer_paie_dirigeant(
+                self.dirigeant_remuneration_annuelle,
+                brut_mensuel=self.salaire_brut_mensuel,
+                situation_familiale=self.situation_familiale,
+                nombre_enfants=self.nombre_enfants_charge,
+                nombre_enfants_handicapes=self.nombre_enfants_handicapes,
+                parent_isole=self.parent_isole,
+                beneficiaire_handicape=self.beneficiaire_handicape,
+                conjoint_handicape=self.conjoint_handicape,
+                atn_autres=self.atn_autres,
+                voiture=voiture,
+                date_paie=date_paie,
+                bonus={"chiffre_affaires": self.dirigeant_chiffre_affaires, "taux": self.dirigeant_bonus_taux_ca,
+                       "payer": self.dirigeant_bonus_ce_mois} if self.dirigeant_bonus_taux_ca else None,
+                cotisations_prises_en_charge=self.dirigeant_cotisations_prises_en_charge,
+            )
+
         return calculer_paie(
             self.salaire_brut_mensuel,
             statut=self.statut_travailleur,
@@ -923,6 +983,9 @@ class PaieUtilisateur(models.Model):
         from .paie_belgique import calculer_paie, minimum_cp, TAUX_ONSS_TRAVAILLEUR
 
         fraction = (Decimal(self.regime_travail or 100) / 100) or Decimal("1")
+
+        if self.statut_travailleur == "dirigeant":
+            return self._calculer_dirigeant()
 
         taux_cp, mensuel_cp = minimum_cp(
             self.commission_paritaire,
@@ -991,6 +1054,53 @@ class PaieUtilisateur(models.Model):
         ).quantize(Decimal("0.01"))
         return r
 
+    def _calculer_dirigeant(self):
+        """Dirigeant : rémunération annuelle / 12, bonus sur CA, pas d'ONSS ni de congés payés salarié."""
+        from decimal import Decimal
+        z = Decimal("0")
+        if self.dirigeant_remuneration_annuelle:
+            self.salaire_brut_mensuel = (Decimal(self.dirigeant_remuneration_annuelle) / 12).quantize(Decimal("0.01"))
+        if not self.salaire_brut_mensuel:
+            return None
+        self.commission_paritaire = "AUTRE"
+        self.categorie_cp = ""
+        self.heures_supplementaires = z
+        self.double_pecule_ce_mois = False
+        self.treizieme_mois_ce_mois = False
+        r = self._resultat_calcul()
+        bonus = r.get("bonus") or {}
+        self.montant_heures_sup = z
+        self.salaire_brut_majore = r["brut"]
+        self.taux_onss = z
+        self.montant_onss = z
+        self.bonus_emploi = z
+        self.atn_voiture = r["atn_voiture"]
+        self.atn_total = r["atn_total"]
+        self.salaire_imposable = r["imposable"]
+        self.montant_precompte = r["precompte"]
+        self.taux_precompte_professionnel = r["taux_precompte"]
+        self.csss = z
+        self.double_pecule_brut = self.double_pecule_net = None
+        self.double_pecule_onss = self.double_pecule_precompte = None
+        self.treizieme_mois_brut = self.treizieme_mois_net = None
+        self.treizieme_mois_onss = self.treizieme_mois_precompte = None
+        self.conges_simple_pecule = None
+        self.conges_pecule_ouvrier_annuel = None
+        self.conges_jours_solde = None
+        self.dirigeant_cotisations_sociales = r["cotisations_sociales"]
+        self.dirigeant_bonus_brut = bonus.get("brut") or None
+        self.dirigeant_bonus_precompte = bonus.get("precompte") or None
+        self.dirigeant_bonus_net = bonus.get("net") or None
+        self.salaire_net_mois = r["net"]
+        self.taux_charges_patronales = z
+        self.cotisations_patronales = z
+        self.reduction_structurelle = z
+        self.cotisations_vacances = z
+        self.cotisation_co2 = r["cotisation_co2"]
+        self.salaire_brut_mensuel_employeur = r["brut_employeur"]
+        self.salaire_total = (r["brut_employeur"] + (self.conges_payes or z)).quantize(Decimal("0.01"))
+        return r
+
     # -------------------------
     # FICHE DE PAIE (PDF travailleur – sans coût employeur)
     # -------------------------
@@ -1008,6 +1118,9 @@ class PaieUtilisateur(models.Model):
         def ligne(libelle, base=None, taux=None, montant=None, signe="", style="", unite_taux="%", unite="€"):
             return {"libelle": libelle, "base": base, "taux": taux, "unite_taux": unite_taux,
                     "montant": montant, "signe": signe, "style": style, "unite": unite}
+
+        if self.statut_travailleur == "dirigeant":
+            return self._fiche_dirigeant(r, ligne)
 
         maj = int(self.majoration_heures_sup or 50)
         heures = self.nombre_heures_preste or z
@@ -1112,6 +1225,46 @@ class PaieUtilisateur(models.Model):
 
         return {"lignes": lignes, "net": r["net"], "resultat": r}
 
+    def _fiche_dirigeant(self, r, ligne):
+        from decimal import Decimal
+        z = Decimal("0")
+        lignes = [
+            ligne(_("Rémunération brute annuelle"), montant=r["remuneration_annuelle"], style="info"),
+            ligne(_("Rémunération mensuelle (1/12)"), montant=r["brut"], signe="+"),
+        ]
+        if r["atn_voiture"]:
+            lignes.append(ligne(_("Avantage de toute nature – voiture de société"), montant=r["atn_voiture"], signe="+"))
+        if r["atn_total"] - r["atn_voiture"]:
+            lignes.append(ligne(_("Autres avantages de toute nature"), montant=r["atn_total"] - r["atn_voiture"], signe="+"))
+        if not r["cotisations_prises_en_charge"] and r["cotisations_sociales"]:
+            lignes.append(ligne(_("Cotisations sociales d'indépendant déductibles (estimation)"),
+                                montant=r["cotisations_sociales"], signe="-", style="info"))
+        lignes.append(ligne(_("Rémunération imposable"), montant=r["imposable"], style="total"))
+        lignes.append(ligne(_("Précompte professionnel (dirigeant)"), base=r["imposable"],
+                            taux=r["taux_precompte"], montant=r["precompte"], signe="-"))
+        if r["atn_total"]:
+            lignes.append(ligne(_("Avantages de toute nature (non payés en argent)"), montant=r["atn_total"], signe="-"))
+        bonus = r.get("bonus")
+        net_remuneration = r["net"] - ((bonus or {}).get("net") or z)
+        lignes.append(ligne(_("Net de la rémunération"), montant=net_remuneration, style="total"))
+        if bonus:
+            lignes.append(ligne(_("Chiffre d'affaires annuel HTVA"), montant=bonus["chiffre_affaires"], style="info"))
+            if bonus["paye"]:
+                lignes.append(ligne(_("Bonus sur le chiffre d'affaires"), base=bonus["chiffre_affaires"],
+                                    taux=bonus["taux"], montant=bonus["brut"], signe="+"))
+                lignes.append(ligne(_("Précompte sur le bonus (allocation exceptionnelle)"), base=bonus["brut"],
+                                    taux=bonus["taux_precompte"], montant=bonus["precompte"], signe="-"))
+                lignes.append(ligne(_("Bonus net"), montant=bonus["net"], style="sous-total"))
+            else:
+                lignes.append(ligne(_("Bonus sur le chiffre d'affaires (non payé ce mois)"), base=bonus["chiffre_affaires"],
+                                    taux=bonus["taux"], montant=bonus["brut_annuel"], style="info"))
+        if r["cotisations_sociales"]:
+            lignes.append(ligne(
+                _("Cotisations sociales d'indépendant (payées par la société)") if r["cotisations_prises_en_charge"]
+                else _("Cotisations sociales d'indépendant à payer par le dirigeant (estimation)"),
+                montant=r["cotisations_sociales"], style="info"))
+        return {"lignes": lignes, "net": r["net"], "resultat": r}
+
     # -------------------------
     # COMPTABILITÉ
     # -------------------------
@@ -1120,7 +1273,7 @@ class PaieUtilisateur(models.Model):
         """Net du salaire du mois, hors double pécule et prime de fin d'année."""
         from decimal import Decimal
         return ((self.salaire_net_mois or Decimal("0")) - (self.double_pecule_net or Decimal("0"))
-                - (self.treizieme_mois_net or Decimal("0")))
+                - (self.treizieme_mois_net or Decimal("0")) - (self.dirigeant_bonus_net or Decimal("0")))
 
     @property
     def net_a_payer(self):
@@ -1163,6 +1316,13 @@ class PaieUtilisateur(models.Model):
                 "precompte": self.treizieme_mois_precompte or z,
                 "net": self.treizieme_mois_net or z,
             } if self.treizieme_mois_brut else None,
+            bonus_dirigeant={
+                "brut": self.dirigeant_bonus_brut,
+                "precompte": self.dirigeant_bonus_precompte or z,
+                "net": self.dirigeant_bonus_net or z,
+            } if self.dirigeant_bonus_brut else None,
+            cotisations_independant=(self.dirigeant_cotisations_sociales or z)
+            if self.statut_travailleur == "dirigeant" and self.dirigeant_cotisations_prises_en_charge else z,
         )
 
     def save(self, *args, **kwargs):

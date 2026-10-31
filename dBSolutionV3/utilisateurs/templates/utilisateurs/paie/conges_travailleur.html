@@ -10,7 +10,7 @@
         <img src="{% static 'icons/paie.png' %}" alt="" style="width:60px; height:60px; margin-right:10px;">
         <span>{% trans "Congés payés" %} – {{ travailleur.prenom }} {{ travailleur.nom }} – {{ annee }}
             <span class="block text-sm font-normal text-gray-500">
-                {% if s.statut == "ouvrier" %}{% trans "Ouvrier" %}{% else %}{% trans "Employé" %}{% endif %}
+                {% if s.statut == "ouvrier" %}{% trans "Ouvrier" %}{% elif s.statut == "dirigeant" %}{% trans "Dirigeant" %}{% else %}{% trans "Employé" %}{% endif %}
                 · {% trans "Régime" %} {{ s.regime|floatformat:"-2g" }} %
                 {% if s.brut_mensuel %}· {% trans "Brut mensuel" %} {{ s.brut_mensuel|floatformat:"2g" }} €{% endif %}
             </span>
@@ -32,6 +32,11 @@
 </div>
 {% endif %}
 
+{% if s.dirigeant %}
+<div class="bg-yellow-100 text-yellow-800 border border-yellow-300 p-4 rounded mb-6">
+    {% trans "Dirigeant d'entreprise : pas de congés payés, pécule ni 13e mois de salarié (rémunération annuelle et bonus)." %}
+</div>
+{% else %}
 <!-- Synthèse -->
 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
     <div class="bg-white shadow-md rounded-lg p-4">
@@ -256,6 +261,7 @@
 </div>
 
 {% include "utilisateurs/paie/_conges_regles.html" %}
+{% endif %}
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
     <a href="{% url 'utilisateurs:creer_paie_utilisateur' %}?utilisateur={{ travailleur.pk }}" class="block bg-green-700 text-white px-5 py-4 rounded hover:bg-green-500 font-semibold text-center">{% trans "Créer une paie" %}</a>

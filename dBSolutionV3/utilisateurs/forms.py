@@ -268,6 +268,9 @@ class PaieUtilisateurForm(forms.ModelForm):
         "conges_jours_solde",
         "conges_simple_pecule",
         "conges_pecule_ouvrier_annuel",
+        "dirigeant_cotisations_sociales",
+        "dirigeant_bonus_brut",
+        "dirigeant_bonus_net",
         "salaire_net_mois",
         "cotisations_patronales",
         "reduction_structurelle",
@@ -288,12 +291,17 @@ class PaieUtilisateurForm(forms.ModelForm):
         "voiture_valeur_catalogue", "voiture_co2", "voiture_carburant",
         "voiture_date_immatriculation", "voiture_commandee_apres_07_2023",
         "voiture_contribution_personnelle", "conges_jours_droit",
+        "dirigeant_remuneration_annuelle", "dirigeant_bonus_taux_ca", "dirigeant_cotisations_prises_en_charge",
     ]
 
     SECTIONS = [
         (_("Travailleur et commission paritaire"), [
             "utilisateur", "statut_travailleur", "commission_paritaire", "categorie_cp",
             "classe_cp200", "annees_experience", "anciennete_un_an", "regime_travail",
+        ]),
+        (_("Dirigeant d'entreprise"), [
+            "dirigeant_remuneration_annuelle", "dirigeant_bonus_taux_ca", "dirigeant_chiffre_affaires",
+            "dirigeant_bonus_ce_mois", "dirigeant_cotisations_prises_en_charge",
         ]),
         (_("Situation familiale (précompte professionnel)"), [
             "situation_familiale", "parent_isole", "nombre_enfants_charge",
@@ -326,6 +334,7 @@ class PaieUtilisateurForm(forms.ModelForm):
             "double_pecule_precompte",
             "treizieme_mois_onss",
             "treizieme_mois_precompte",
+            "dirigeant_bonus_precompte",
         ]
         widgets = {
             "voiture_date_immatriculation": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),

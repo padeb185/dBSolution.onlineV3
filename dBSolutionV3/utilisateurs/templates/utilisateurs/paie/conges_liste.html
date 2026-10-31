@@ -52,7 +52,9 @@
         {% for l in lignes %}{% with s=l.s t=l.travailleur %}
             <tr>
                 <td class="border px-3 py-2 font-semibold">{{ t.prenom }} {{ t.nom }}<br><span class="text-xs text-gray-500">{{ t.get_role_display }}</span></td>
-                {% if s.derniere %}
+                {% if s.dirigeant %}
+                <td colspan="8" class="border px-3 py-2 text-gray-500">{% trans "Dirigeant d'entreprise : pas de congés payés, pécule ni 13e mois de salarié (rémunération annuelle et bonus)." %}</td>
+                {% elif s.derniere %}
                 <td class="border px-3 py-2">{% if s.statut == "ouvrier" %}{% trans "Ouvrier" %}{% else %}{% trans "Employé" %}{% endif %}</td>
                 <td class="border px-3 py-2 text-right">{{ s.regime|floatformat:"-2g" }} %</td>
                 <td class="border px-3 py-2 text-right">{{ s.droit|floatformat:"-1g" }}</td>

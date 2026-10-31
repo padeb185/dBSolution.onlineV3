@@ -256,6 +256,29 @@ def paie_pdf(request, pk):
     return response
 
 # ==================================================================
+# DIRIGEANT : chiffre d'affaires annuel (base du bonus) repris de la comptabilité
+# ==================================================================
+def _chiffre_affaires(request, annee):
+    from decimal import Decimal
+    try:
+        from compta.journal import ecritures_societe
+        E = ecritures_societe(_societe(request), date(annee, 1, 1), date(annee, 12, 31), sources=["vente"])
+        return sum((e["credit"] - e["debit"] for e in E if str(e["compte"]).startswith("70")), Decimal("0.00"))
+    except Exception:
+        return None
+
+
+def _completer_dirigeant(request, paie):
+    """Bonus sur CA sans chiffre d'affaires encodé : reprise du CA HTVA de l'année (comptes 70)."""
+    if (paie.statut_travailleur == "dirigeant" and paie.dirigeant_bonus_taux_ca
+            and paie.dirigeant_chiffre_affaires in (None, "") and paie.annee):
+        ca = _chiffre_affaires(request, int(paie.annee))
+        if ca is not None:
+            paie.dirigeant_chiffre_affaires = ca
+    return paie
+
+
+# ==================================================================
 # CRÉATION
 # ==================================================================
 @login_required
@@ -268,12 +291,13 @@ def creer_paie_utilisateur(request):
 
         if form.is_valid():
             if "calculer" in request.POST:
-                paie = form.save(commit=False)
+                paie = _completer_dirigeant(request, form.save(commit=False))
                 paie.calculer()
                 form = PaieUtilisateurForm(instance=paie, societe=_societe(request))
                 messages.info(request, _("Calcul effectué – vérifiez puis enregistrez."))
             else:
-                paie = form.save()
+                paie = _completer_dirigeant(request, form.save(commit=False))
+                paie.save()
                 _log(request, f"Création paie {paie.mois}/{paie.annee} – {paie.utilisateur}")
                 messages.success(request, _("La paie mensuelle a été enregistrée avec succès."))
                 return redirect("utilisateurs:paie_detail", pk=paie.pk)
@@ -320,12 +344,13 @@ def modifier_paie(request, pk):
 
         if form.is_valid():
             if "calculer" in request.POST:
-                paie_calc = form.save(commit=False)
+                paie_calc = _completer_dirigeant(request, form.save(commit=False))
                 paie_calc.calculer()
                 form = PaieUtilisateurForm(instance=paie_calc, societe=_societe(request))
                 messages.info(request, _("Calcul effectué – vérifiez puis enregistrez."))
             else:
-                paie = form.save()
+                paie = _completer_dirigeant(request, form.save(commit=False))
+                paie.save()
                 _log(request, f"Modification paie {paie.mois}/{paie.annee} – {paie.utilisateur}")
                 messages.success(request, _("La paie mensuelle a été mise à jour."))
                 return redirect("utilisateurs:paie_detail", pk=paie.pk)
@@ -476,7 +501,8 @@ def paie_comptabilite(request):
     onss = OrderedDict()
     vacances_annuelles = OrderedDict()
     for paie in paies:
-        pp = (paie.montant_precompte or z) + (paie.double_pecule_precompte or z) + (paie.treizieme_mois_precompte or z)
+        pp = ((paie.montant_precompte or z) + (paie.double_pecule_precompte or z) + (paie.treizieme_mois_precompte or z)
+              + (paie.dirigeant_bonus_precompte or z))
         cle = paie.mois
         if cle not in precompte:
             m_suiv, a_suiv = (1, paie.annee + 1) if paie.mois == 12 else (paie.mois + 1, paie.annee)

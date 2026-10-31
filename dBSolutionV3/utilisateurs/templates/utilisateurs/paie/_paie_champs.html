@@ -17,6 +17,7 @@
 </div>
 
 {% for titre, champs in form.sections %}
+    <section class="paie-section">
     <h2 class="text-xl font-semibold mb-4 mt-8 border-b pb-1">{{ titre }}</h2>
 
     {% if forloop.last %}
@@ -55,6 +56,7 @@
     {% if forloop.last %}
         </div>
     {% endif %}
+    </section>
 {% endfor %}
 
 <style>
@@ -93,6 +95,30 @@ document.addEventListener("DOMContentLoaded", function () {
         const treizieme = document.getElementById("id_treizieme_mois_ce_mois");
         afficher(["treizieme_mois_mois_prestes", "treizieme_mois_reference", "treizieme_mois_brut", "treizieme_mois_net"],
                  !treizieme || treizieme.checked);
+
+        // Dirigeant d'entreprise : rémunération annuelle + bonus sur CA, pas d'ONSS / CP / congés / 13e mois
+        const dirigeant = !!statut && statut.value === "dirigeant";
+        afficher(["dirigeant_remuneration_annuelle", "dirigeant_bonus_taux_ca", "dirigeant_chiffre_affaires",
+                  "dirigeant_bonus_ce_mois", "dirigeant_cotisations_prises_en_charge",
+                  "dirigeant_cotisations_sociales", "dirigeant_bonus_brut", "dirigeant_bonus_net"], dirigeant);
+        if (dirigeant) {
+            afficher(["commission_paritaire", "categorie_cp", "classe_cp200", "annees_experience", "anciennete_un_an",
+                      "regime_travail", "salaire_brut_heure", "nombre_jours_preste", "nombre_heures_preste",
+                      "heures_supplementaires", "majoration_heures_sup", "taux_charges_patronales",
+                      "reduction_groupe_cible", "conges_jours_droit", "conges_jours_pris", "conges_payes",
+                      "double_pecule_ce_mois", "treizieme_mois_ce_mois", "treizieme_mois_mois_prestes",
+                      "treizieme_mois_reference", "montant_heures_sup", "salaire_brut_majore", "taux_onss",
+                      "bonus_emploi", "montant_onss", "csss", "double_pecule_brut", "double_pecule_net",
+                      "treizieme_mois_brut", "treizieme_mois_net", "conges_jours_solde", "conges_simple_pecule",
+                      "conges_pecule_ouvrier_annuel", "cotisations_patronales", "reduction_structurelle",
+                      "cotisations_vacances"], false);
+        }
+        // Sections sans champ visible : masquées
+        document.querySelectorAll(".paie-section").forEach(sec => {
+            const blocs = sec.querySelectorAll('[id^="bloc_"]');
+            const visible = Array.from(blocs).some(b => b.style.display !== "none");
+            sec.style.display = blocs.length && !visible ? "none" : "";
+        });
     }
 
     [cp, voiture, statut, document.getElementById("id_treizieme_mois_ce_mois")].forEach(el => el && el.addEventListener("change", maj));

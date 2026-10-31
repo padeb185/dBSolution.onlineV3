@@ -42,6 +42,7 @@ COMPTES_CONTREPARTIE = [
     ("453000", _("Précomptes retenus")),
     ("454000", _("Office National de Sécurité Sociale")),
     ("454100", _("ONSS – cotisation annuelle vacances ouvriers (caisse de vacances)")),
+    ("459000", _("Autres dettes sociales – caisse d'assurances sociales (dirigeant)")),
     ("455000", _("Rémunérations")),
     ("430000", _("Dettes financières à court terme")),
     ("480000", _("Dettes diverses")),
@@ -906,8 +907,9 @@ class VersementSocial(models.Model):
         ONSS = "ONSS", _("ONSS (cotisations sociales)")
         PRECOMPTE = "PRECOMPTE", _("Précompte professionnel (SPF Finances)")
         VACANCES = "VACANCES", _("Cotisation annuelle vacances ouvriers (ONSS / caisse de vacances)")
+        INASTI = "INASTI", _("Cotisations sociales du dirigeant (caisse d'assurances sociales)")
 
-    COMPTES = {Type.ONSS: "454000", Type.PRECOMPTE: "453000", Type.VACANCES: "454100"}
+    COMPTES = {Type.ONSS: "454000", Type.PRECOMPTE: "453000", Type.VACANCES: "454100", Type.INASTI: "459000"}
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     societe = models.ForeignKey("societe.Societe", on_delete=models.CASCADE, related_name="versements_sociaux")
