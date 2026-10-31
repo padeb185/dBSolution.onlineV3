@@ -1,0 +1,16 @@
+{% load i18n %}{% autoescape off %}{% blocktrans with prenom=user.prenom %}Bonjour {{ prenom }},{% endblocktrans %}
+
+{% if evenement == "changement" %}{% trans "Le mot de passe de votre compte CarsCosts vient d'être modifié." %}{% else %}{% trans "Le mot de passe de votre compte CarsCosts vient d'être réinitialisé (lien « mot de passe oublié »)." %}{% endif %}
+
+{% trans "Date et heure" %} : {{ quand|date:"d/m/Y H:i" }}
+{% trans "Adresse IP" %} : {{ ip }}
+{% trans "Navigateur" %} : {{ navigateur }}
+
+{% trans "Si c'était vous, vous n'avez rien à faire." %}
+
+{% trans "Si ce n'était pas vous, sécurisez immédiatement votre compte :" %}
+{{ lien_pas_moi }}
+
+{% blocktrans with n=validite_jours %}Ce lien bloque le mot de passe, déconnecte toutes les sessions ouvertes, vous envoie un lien pour choisir un nouveau mot de passe et prévient la direction de votre société. Il est valable {{ n }} jours.{% endblocktrans %}
+
+CarsCosts{% endautoescape %}

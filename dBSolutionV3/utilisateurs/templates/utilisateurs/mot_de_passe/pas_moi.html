@@ -1,0 +1,35 @@
+{% extends "utilisateurs/mot_de_passe/_cadre.html" %}
+{% load i18n %}
+{% block title %}{% trans "Sécuriser mon compte" %}{% endblock %}
+{% block titre_cadre %}{% trans "Sécuriser mon compte" %}{% endblock %}
+{% block cadre %}
+{% if invalide %}
+    <p class="text-gray-700 mb-4">{% trans "Ce lien n'est plus valable (expiré ou modifié). Utilisez « Mot de passe oublié » ou contactez la direction de votre société." %}</p>
+    <a href="{% url 'password_reset' %}" class="block w-full text-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700">{% trans "Mot de passe oublié" %}</a>
+{% elif fait %}
+    <div class="bg-green-100 text-green-800 border border-green-300 p-3 rounded mb-4">{% trans "Votre compte est sécurisé." %}</div>
+    <ul class="list-disc ml-5 text-gray-700 space-y-1 mb-4">
+        <li>{% trans "Le mot de passe a été bloqué : il ne permet plus de se connecter." %}</li>
+        <li>{% trans "Toutes les sessions ouvertes ont été déconnectées." %}</li>
+        {% if fait.lien %}<li>{% trans "Un lien pour choisir un nouveau mot de passe a été envoyé à votre adresse e-mail entreprise." %}</li>
+        {% else %}<li>{% trans "Aucun lien n'a pu être envoyé : contactez la direction de votre société." %}</li>{% endif %}
+        {% if fait.direction %}<li>{% trans "La direction de votre société a été prévenue." %}</li>{% endif %}
+    </ul>
+    <p class="text-sm text-gray-500">{% trans "Si l'authentification à deux facteurs est activée, elle reste demandée à la prochaine connexion." %}</p>
+{% elif deja %}
+    <p class="text-gray-700 mb-4">{% trans "Votre compte vient déjà d'être sécurisé. Consultez votre boîte e-mail entreprise pour choisir un nouveau mot de passe." %}</p>
+{% else %}
+    <p class="text-gray-700 mb-3">{% blocktrans with prenom=utilisateur.prenom %}{{ prenom }}, vous signalez un changement de mot de passe que vous n'avez pas effectué.{% endblocktrans %}</p>
+    <p class="text-gray-700 mb-3">{% trans "En confirmant :" %}</p>
+    <ul class="list-disc ml-5 text-gray-700 space-y-1 mb-4">
+        <li>{% trans "le mot de passe actuel est bloqué ;" %}</li>
+        <li>{% trans "toutes les sessions ouvertes sont déconnectées ;" %}</li>
+        <li>{% trans "un lien pour choisir un nouveau mot de passe est envoyé à votre adresse e-mail entreprise ;" %}</li>
+        <li>{% trans "la direction de votre société est prévenue." %}</li>
+    </ul>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="w-full bg-red-600 text-white py-3 rounded hover:bg-red-700 font-semibold">{% trans "Ce n'était pas moi – sécuriser mon compte" %}</button>
+    </form>
+{% endif %}
+{% endblock %}

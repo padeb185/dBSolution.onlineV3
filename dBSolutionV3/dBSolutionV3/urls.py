@@ -53,6 +53,8 @@ urlpatterns += i18n_patterns(
     path("connexion/mot-de-passe-oublie/envoye/", mdp.MotDePasseOublieEnvoyeView.as_view(), name="password_reset_done"),
     path("connexion/reinitialiser/<uidb64>/<token>/", mdp.NouveauMotDePasseView.as_view(), name="password_reset_confirm"),
     path("connexion/reinitialiser/termine/", mdp.NouveauMotDePasseTermineView.as_view(), name="password_reset_complete"),
+    # Alerte de sécurité : « ce n'était pas moi » (lien reçu après un changement de mot de passe)
+    path("connexion/securiser-compte/<str:jeton>/", mdp.pas_moi_view, name="password_pas_moi"),
 
     # Changement du mot de passe par l'utilisateur connecté
     path("compte/mot-de-passe/", mdp.ChangerMotDePasseView.as_view(), name="password_change"),

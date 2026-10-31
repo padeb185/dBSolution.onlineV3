@@ -1,0 +1,23 @@
+{% load i18n %}<!doctype html>
+<html><body style="font-family: Arial, sans-serif; color: #1f2937; background: #f3f4f6; padding: 24px;">
+<div style="max-width: 560px; margin: 0 auto; background: #ffffff; border-radius: 8px; padding: 28px;">
+    <h2 style="color: #1e3a8a; margin-top: 0;">CarsCosts</h2>
+    <p>{% blocktrans with prenom=user.prenom %}Bonjour {{ prenom }},{% endblocktrans %}</p>
+    <p><strong>{% if evenement == "changement" %}{% trans "Le mot de passe de votre compte CarsCosts vient d'être modifié." %}{% else %}{% trans "Le mot de passe de votre compte CarsCosts vient d'être réinitialisé (lien « mot de passe oublié »)." %}{% endif %}</strong></p>
+    <table style="font-size: 14px; margin: 12px 0; border-collapse: collapse;">
+        <tr><td style="padding: 4px 12px 4px 0; color: #6b7280;">{% trans "Date et heure" %}</td><td>{{ quand|date:"d/m/Y H:i" }}</td></tr>
+        <tr><td style="padding: 4px 12px 4px 0; color: #6b7280;">{% trans "Adresse IP" %}</td><td>{{ ip }}</td></tr>
+        <tr><td style="padding: 4px 12px 4px 0; color: #6b7280;">{% trans "Navigateur" %}</td><td style="font-size: 12px;">{{ navigateur }}</td></tr>
+    </table>
+    <p>{% trans "Si c'était vous, vous n'avez rien à faire." %}</p>
+    <p style="background: #fef2f2; border-left: 4px solid #dc2626; padding: 12px; color: #991b1b;">
+        <strong>{% trans "Si ce n'était pas vous, sécurisez immédiatement votre compte :" %}</strong>
+    </p>
+    <p style="text-align: center; margin: 24px 0;">
+        <a href="{{ lien_pas_moi }}" style="background: #dc2626; color: #ffffff; padding: 12px 22px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+            {% trans "Ce n'était pas moi – sécuriser mon compte" %}
+        </a>
+    </p>
+    <p style="font-size: 13px; color: #6b7280;">{% blocktrans with n=validite_jours %}Ce lien bloque le mot de passe, déconnecte toutes les sessions ouvertes, vous envoie un lien pour choisir un nouveau mot de passe et prévient la direction de votre société. Il est valable {{ n }} jours.{% endblocktrans %}</p>
+</div>
+</body></html>

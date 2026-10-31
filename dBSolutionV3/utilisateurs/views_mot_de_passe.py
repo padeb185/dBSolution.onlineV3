@@ -8,13 +8,14 @@ from django.contrib import messages
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
 from .models import Utilisateur, UserLog
+from .securite_mdp import alerter_changement, lire_jeton, securiser_compte
 from .mot_de_passe import (ChangementMotDePasseForm, NouveauMotDePasseForm, ReinitialisationForm,
                            adresse_recuperation)
 
@@ -66,6 +67,7 @@ class NouveauMotDePasseView(auth_views.PasswordResetConfirmView):
     def form_valid(self, form):
         reponse = super().form_valid(form)
         UserLog.objects.create(utilisateur=form.user, action="Réinitialisation du mot de passe (lien e-mail)")
+        alerter_changement(self.request, form.user, "reinitialisation")
         return reponse
 
 
@@ -81,6 +83,7 @@ class ChangerMotDePasseView(auth_views.PasswordChangeView):
     def form_valid(self, form):
         reponse = super().form_valid(form)
         UserLog.objects.create(utilisateur=self.request.user, action="Changement du mot de passe")
+        alerter_changement(self.request, self.request.user, "changement")
         return reponse
 
 
@@ -117,3 +120,25 @@ def envoyer_lien_reinitialisation(request, pk):
         )
         messages.success(request, _("Lien de réinitialisation envoyé à %(email)s.") % {"email": adresse})
     return redirect("utilisateurs:liste_utilisateurs")
+
+
+def pas_moi_view(request, jeton):
+    """
+    Lien « Ce n'était pas moi » reçu après un changement de mot de passe :
+    GET : explication + bouton de confirmation ; POST : sécurisation du compte.
+    """
+    donnees = lire_jeton(jeton)
+    utilisateur = Utilisateur.objects.filter(pk=donnees["u"]).first() if donnees else None
+    if utilisateur is None:
+        return render(request, "utilisateurs/mot_de_passe/pas_moi.html", {"invalide": True})
+
+    cle = f"mdp_pas_moi_{utilisateur.pk}"
+    if request.method == "POST":
+        if cache.get(cle):
+            return render(request, "utilisateurs/mot_de_passe/pas_moi.html", {"deja": True, "utilisateur": utilisateur})
+        cache.set(cle, 1, 10 * 60)
+        fait = securiser_compte(request, utilisateur, donnees.get("e", ""))
+        return render(request, "utilisateurs/mot_de_passe/pas_moi.html", {"fait": fait, "utilisateur": utilisateur})
+    return render(request, "utilisateurs/mot_de_passe/pas_moi.html", {
+        "utilisateur": utilisateur, "evenement": donnees.get("e", ""),
+    })

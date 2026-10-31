@@ -1,0 +1,12 @@
+{% load i18n %}{% autoescape off %}{% trans "Alerte de sécurité" %}
+
+{% blocktrans with nom=user.prenom|add:" "|add:user.nom %}{{ nom }} a signalé un changement de mot de passe qu'il n'a pas effectué.{% endblocktrans %}
+
+{% trans "Mesures prises automatiquement : mot de passe bloqué, toutes les sessions déconnectées, lien de réinitialisation envoyé à l'adresse entreprise de l'utilisateur." %}
+
+{% trans "Date et heure" %} : {{ quand|date:"d/m/Y H:i" }}
+{% trans "Adresse IP du signalement" %} : {{ ip }}
+
+{% trans "Vérifiez le journal d'activité de l'utilisateur et contactez-le si nécessaire." %}
+
+CarsCosts{% endautoescape %}
