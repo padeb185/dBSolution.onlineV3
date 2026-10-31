@@ -69574,3 +69574,183 @@ msgstr "Automatisch bijgewerkt bij elke verhuur die voor deze klant wordt opgesl
 
 msgid "Fiche client pilotage"
 msgstr "Pilotagefiche"
+
+msgid "Remorques"
+msgstr "Aanhangwagens"
+
+msgid "Administratif"
+msgstr "Administratief"
+
+msgid "Une remorque avec cette immatriculation existe déjà."
+msgstr "Er bestaat al een aanhangwagen met deze inschrijving."
+
+msgid "Le poids à vide ne peut pas dépasser la masse maximale autorisée."
+msgstr "Het leeggewicht mag de maximaal toegelaten massa niet overschrijden."
+
+msgid "Plateau ouvert"
+msgstr "Open plateau"
+
+msgid "Plateau fermé (porte-voiture fermé)"
+msgstr "Gesloten plateau (gesloten autotransporter)"
+
+msgid "Porte-voiture ouvert"
+msgstr "Open autotransporter"
+
+msgid "Plateau basculant"
+msgstr "Kantelbaar plateau"
+
+msgid "Remorque bâchée"
+msgstr "Huifaanhangwagen"
+
+msgid "Remorque fourgon (caisse fermée)"
+msgstr "Gesloten aanhangwagen (kofferaanhanger)"
+
+msgid "Porte-engin"
+msgstr "Machinetransporter"
+
+msgid "Bagagère"
+msgstr "Bagagewagen"
+
+msgid "Simple essieu"
+msgstr "Enkele as"
+
+msgid "Double essieu"
+msgstr "Dubbele as"
+
+msgid "Triple essieu"
+msgstr "Drievoudige as"
+
+msgid "Nom / repère"
+msgstr "Naam / kenmerk"
+
+msgid "Ex. : Plateau rouge, Remorque course 2…"
+msgstr "Bv.: Rood plateau, Raceaanhanger 2…"
+
+msgid "Numéro de châssis (VIN)"
+msgstr "Chassisnummer (VIN)"
+
+msgid "Essieux"
+msgstr "Assen"
+
+msgid "Freinée"
+msgstr "Geremd"
+
+msgid "Obligatoire au-delà de 750 kg de masse maximale autorisée."
+msgstr "Verplicht boven 750 kg maximaal toegelaten massa."
+
+msgid "Masse maximale autorisée (MMA, kg)"
+msgstr "Maximaal toegelaten massa (MTM, kg)"
+
+msgid "Poids à vide (kg)"
+msgstr "Leeggewicht (kg)"
+
+msgid "Longueur utile du plateau (cm)"
+msgstr "Nuttige lengte plateau (cm)"
+
+msgid "Largeur utile du plateau (cm)"
+msgstr "Nuttige breedte plateau (cm)"
+
+msgid "Treuil"
+msgstr "Lier"
+
+msgid "Rampes de chargement"
+msgstr "Oprijplaten"
+
+msgid "Roue jockey"
+msgstr "Neuswiel"
+
+msgid "Dimension des pneus"
+msgstr "Bandenmaat"
+
+msgid "Ex. : 195/50 R13C"
+msgstr "Bv.: 195/50 R13C"
+
+msgid "Prochain contrôle technique"
+msgstr "Volgende technische keuring"
+
+msgid "Assurance / n° de police"
+msgstr "Verzekering / polisnr."
+
+msgid "En service"
+msgstr "In dienst"
+
+msgid "Remorque"
+msgstr "Aanhangwagen"
+
+msgid "La remorque a été enregistrée."
+msgstr "De aanhangwagen is opgeslagen."
+
+msgid "La remorque %(immat)s a été supprimée."
+msgstr "Aanhangwagen %(immat)s is verwijderd."
+
+msgid "La masse maximale autorisée dépasse 750 kg : la remorque doit être freinée."
+msgstr "De MTM overschrijdt 750 kg: de aanhangwagen moet geremd zijn."
+
+msgid "Le contrôle technique est dépassé."
+msgstr "De technische keuring is verlopen."
+
+msgid "Contrôle technique dans les 30 jours."
+msgstr "Technische keuring binnen 30 dagen."
+
+msgid "Non freinée"
+msgstr "Ongeremd"
+
+msgid "MMA"
+msgstr "MTM"
+
+msgid "Poids à vide"
+msgstr "Leeggewicht"
+
+msgid "Charge utile"
+msgstr "Laadvermogen"
+
+msgid "Plateau utile"
+msgstr "Nuttig plateau"
+
+msgid "Équipements"
+msgstr "Uitrusting"
+
+msgid "Rampes"
+msgstr "Oprijplaten"
+
+msgid "Permis indicatif"
+msgstr "Indicatief rijbewijs"
+
+msgid "Supprimer cette remorque ?"
+msgstr "Deze aanhangwagen verwijderen?"
+
+msgid "Retour à la liste des remorques"
+msgstr "Terug naar de lijst met aanhangwagens"
+
+msgid "Modifier la remorque"
+msgstr "Aanhangwagen wijzigen"
+
+msgid "Ajouter une remorque"
+msgstr "Aanhangwagen toevoegen"
+
+msgid "Remorques en service"
+msgstr "Aanhangwagens in dienst"
+
+msgid "Contrôle technique dépassé ou dans les 30 jours"
+msgstr "Technische keuring verlopen of binnen 30 dagen"
+
+msgid "Tous les essieux"
+msgstr "Alle assen"
+
+msgid "Freinée ou non"
+msgstr "Geremd of niet"
+
+msgid "MMA > 750 kg : freinage obligatoire"
+msgstr "MTM > 750 kg: remmen verplicht"
+
+msgid "Aucune remorque enregistrée."
+msgstr "Geen aanhangwagen geregistreerd."
+
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ remorques"
+msgstr "Weergave _START_ tot _END_ van _TOTAL_ aanhangwagens"
+
+msgid "Aucune remorque trouvée"
+msgstr "Geen aanhangwagen gevonden"
+
+msgid "Plateaux, porte-voitures, essieux, freinage"
+msgstr "Plateaus, autotransporters, assen, remmen"

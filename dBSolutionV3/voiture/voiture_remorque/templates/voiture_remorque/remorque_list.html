@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Remorques" %}{% endblock %}
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center gap-3">
+    <img src="{% static 'icons/remorque.svg' %}" alt="" class="w-14 h-14">
+    {% trans "Remorques" %}
+</h1>
+
+{% include "partials/messages.html" %}
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-sm text-gray-500">{% trans "Remorques en service" %}</p><p class="text-2xl font-bold">{{ nb_actives }}</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-sm text-gray-500">{% trans "Contrôle technique dépassé ou dans les 30 jours" %}</p><p class="text-2xl font-bold" style="color:{% if nb_ct %}#b91c1c{% else %}#15803d{% endif %}">{{ nb_ct }}</p></div>
+    {% if peut_gerer %}
+    <a href="{% url 'voiture_remorque:remorque_ajouter' %}" class="flex items-center justify-center bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">{% trans "Ajouter une remorque" %}</a>
+    {% endif %}
+</div>
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+        <input id="search-immatriculation" type="search" class="border rounded px-3 py-2" placeholder="{% trans 'Immatriculation' %}">
+        <select id="search-type" class="border rounded px-3 py-2">
+            <option value="">{% trans "Tous les types" %}</option>
+            {% for v, l in types %}<option value="{{ l }}">{{ l }}</option>{% endfor %}
+        </select>
+        <select id="search-essieux" class="border rounded px-3 py-2">
+            <option value="">{% trans "Tous les essieux" %}</option>
+            <option>{% trans "Simple essieu" %}</option>
+            <option>{% trans "Double essieu" %}</option>
+            <option>{% trans "Triple essieu" %}</option>
+        </select>
+        <select id="search-freinee" class="border rounded px-3 py-2">
+            <option value="">{% trans "Freinée ou non" %}</option>
+            <option value="{% trans 'Freinée' %}">{% trans "Freinée" %}</option>
+            <option value="{% trans 'Non freinée' %}">{% trans "Non freinée" %}</option>
+        </select>
+    </div>
+</div>
+
+<table id="remorques-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2">{% trans "Type" %}</th>
+            <th class="border px-4 py-2">{% trans "Essieux" %}</th>
+            <th class="border px-4 py-2">{% trans "Freinage" %}</th>
+            <th class="border px-4 py-2 text-right">{% trans "MMA" %}</th>
+            <th class="border px-4 py-2 text-right">{% trans "Charge utile" %}</th>
+            <th class="border px-4 py-2">{% trans "Contrôle technique" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Actions" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for r in remorques %}
+        <tr style="{% if not r.actif %}opacity:.55{% endif %}">
+            <td class="border px-4 py-2" data-search="{{ r.immatriculation }}">
+                {% include "maintenance/partials/plaque.html" with pays_plaque=r.pays immat_plaque=r.immatriculation taille="petite" %}
+                {% if r.nom %}<span class="block text-xs text-gray-500 mt-1">{{ r.nom }}</span>{% endif %}
+                {% if not r.actif %}<span class="block text-xs text-gray-500">{% trans "Hors service" %}</span>{% endif %}
+            </td>
+            <td class="border px-4 py-2">{{ r.get_type_remorque_display }}{% if r.marque or r.modele %}<span class="block text-xs text-gray-500">{{ r.marque }} {{ r.modele }}</span>{% endif %}</td>
+            <td class="border px-4 py-2">{{ r.get_essieux_display }}</td>
+            <td class="border px-4 py-2">
+                {% if r.freinee %}<span class="px-2 py-0.5 rounded bg-green-100 text-green-800 text-xs font-semibold">{% trans "Freinée" %}</span>
+                {% else %}<span class="px-2 py-0.5 rounded bg-gray-100 text-gray-700 text-xs font-semibold">{% trans "Non freinée" %}</span>{% endif %}
+                {% if r.alerte_freinage %}<span class="block text-xs" style="color:#b91c1c">{% trans "MMA > 750 kg : freinage obligatoire" %}</span>{% endif %}
+            </td>
+            <td class="border px-4 py-2 text-right" data-order="{{ r.mma_kg|default:0 }}">{% if r.mma_kg %}{{ r.mma_kg|milliers }} kg{% else %}—{% endif %}</td>
+            <td class="border px-4 py-2 text-right" data-order="{{ r.charge_utile_kg|default:0 }}">{% if r.charge_utile_kg is not None %}{{ r.charge_utile_kg|milliers }} kg{% else %}—{% endif %}</td>
+            <td class="border px-4 py-2" data-order="{{ r.controle_technique|date:'Y-m-d' }}">
+                {% if r.controle_technique %}
+                    <span style="{% if r.ct_depasse %}color:#b91c1c;font-weight:600{% elif r.ct_bientot %}color:#b45309;font-weight:600{% endif %}">{{ r.controle_technique|date:"d/m/Y" }}</span>
+                {% else %}—{% endif %}
+            </td>
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'voiture_remorque:remorque_detail' r.pk %}" class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700">{% trans "Infos" %}</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<br>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <a href="{% url 'voiture_marque:dashboard_voiture' %}" class="block bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Tableau de bord des voitures" %}</a>
+    <a href="{% url 'utilisateurs:dashboard' %}" class="block bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">{% trans "Retour au tableau de bord" %}</a>
+</div>
+<br><br>
+
+<script>
+$(document).ready(function () {
+    const table = $('#remorques-table').DataTable({
+        pageLength: 25,
+        order: [[0, 'asc']],
+        language: {
+            emptyTable: "{% trans 'Aucune remorque enregistrée.' as t %}{{ t|escapejs }}",
+            search: "{% trans 'Recherche globale :' as t %}{{ t|escapejs }}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' as t %}{{ t|escapejs }}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ remorques' as t %}{{ t|escapejs }}",
+            infoEmpty: "{% trans 'Aucune remorque trouvée' as t %}{{ t|escapejs }}",
+            zeroRecords: "{% trans 'Aucune remorque trouvée' as t %}{{ t|escapejs }}",
+            paginate: {first: "{% trans 'Premier' as t %}{{ t|escapejs }}", last: "{% trans 'Dernier' as t %}{{ t|escapejs }}",
+                       next: "{% trans 'Suivant' as t %}{{ t|escapejs }}", previous: "{% trans 'Précédent' as t %}{{ t|escapejs }}"}
+        },
+        columnDefs: [{targets: 7, orderable: false, searchable: false}, {targets: [4, 5], type: 'num'}]
+    });
+    $('#search-immatriculation').on('keyup change search', function () { table.column(0).search(this.value).draw(); });
+    $('#search-type').on('change', function () { table.column(1).search(this.value).draw(); });
+    $('#search-essieux').on('change', function () { table.column(2).search(this.value).draw(); });
+    $('#search-freinee').on('change', function () {
+        table.column(3).search(this.value ? '^\\s*' + $.fn.dataTable.util.escapeRegex(this.value) : '', true, false).draw();
+    });
+});
+</script>
+{% endblock %}

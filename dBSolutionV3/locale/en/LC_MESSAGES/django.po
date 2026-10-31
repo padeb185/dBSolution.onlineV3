@@ -69246,3 +69246,183 @@ msgstr "Updated automatically with each rental saved or changed for this custome
 
 msgid "Fiche client pilotage"
 msgstr "Driving-customer record"
+
+msgid "Remorques"
+msgstr "Trailers"
+
+msgid "Administratif"
+msgstr "Administrative"
+
+msgid "Une remorque avec cette immatriculation existe déjà."
+msgstr "A trailer with this registration already exists."
+
+msgid "Le poids à vide ne peut pas dépasser la masse maximale autorisée."
+msgstr "The empty weight cannot exceed the maximum authorised mass."
+
+msgid "Plateau ouvert"
+msgstr "Open flatbed"
+
+msgid "Plateau fermé (porte-voiture fermé)"
+msgstr "Enclosed flatbed (enclosed car transporter)"
+
+msgid "Porte-voiture ouvert"
+msgstr "Open car transporter"
+
+msgid "Plateau basculant"
+msgstr "Tilting flatbed"
+
+msgid "Remorque bâchée"
+msgstr "Tarpaulin trailer"
+
+msgid "Remorque fourgon (caisse fermée)"
+msgstr "Box trailer (closed body)"
+
+msgid "Porte-engin"
+msgstr "Plant trailer"
+
+msgid "Bagagère"
+msgstr "Luggage trailer"
+
+msgid "Simple essieu"
+msgstr "Single axle"
+
+msgid "Double essieu"
+msgstr "Double axle"
+
+msgid "Triple essieu"
+msgstr "Triple axle"
+
+msgid "Nom / repère"
+msgstr "Name / label"
+
+msgid "Ex. : Plateau rouge, Remorque course 2…"
+msgstr "E.g.: Red flatbed, Race trailer 2…"
+
+msgid "Numéro de châssis (VIN)"
+msgstr "Chassis number (VIN)"
+
+msgid "Essieux"
+msgstr "Axles"
+
+msgid "Freinée"
+msgstr "Braked"
+
+msgid "Obligatoire au-delà de 750 kg de masse maximale autorisée."
+msgstr "Mandatory above 750 kg maximum authorised mass."
+
+msgid "Masse maximale autorisée (MMA, kg)"
+msgstr "Maximum authorised mass (kg)"
+
+msgid "Poids à vide (kg)"
+msgstr "Empty weight (kg)"
+
+msgid "Longueur utile du plateau (cm)"
+msgstr "Usable bed length (cm)"
+
+msgid "Largeur utile du plateau (cm)"
+msgstr "Usable bed width (cm)"
+
+msgid "Treuil"
+msgstr "Winch"
+
+msgid "Rampes de chargement"
+msgstr "Loading ramps"
+
+msgid "Roue jockey"
+msgstr "Jockey wheel"
+
+msgid "Dimension des pneus"
+msgstr "Tyre size"
+
+msgid "Ex. : 195/50 R13C"
+msgstr "E.g.: 195/50 R13C"
+
+msgid "Prochain contrôle technique"
+msgstr "Next roadworthiness test"
+
+msgid "Assurance / n° de police"
+msgstr "Insurance / policy no."
+
+msgid "En service"
+msgstr "In service"
+
+msgid "Remorque"
+msgstr "Trailer"
+
+msgid "La remorque a été enregistrée."
+msgstr "The trailer has been saved."
+
+msgid "La remorque %(immat)s a été supprimée."
+msgstr "Trailer %(immat)s has been deleted."
+
+msgid "La masse maximale autorisée dépasse 750 kg : la remorque doit être freinée."
+msgstr "The maximum authorised mass exceeds 750 kg: the trailer must be braked."
+
+msgid "Le contrôle technique est dépassé."
+msgstr "The roadworthiness test is overdue."
+
+msgid "Contrôle technique dans les 30 jours."
+msgstr "Roadworthiness test within 30 days."
+
+msgid "Non freinée"
+msgstr "Unbraked"
+
+msgid "MMA"
+msgstr "Max. mass"
+
+msgid "Poids à vide"
+msgstr "Empty weight"
+
+msgid "Charge utile"
+msgstr "Payload"
+
+msgid "Plateau utile"
+msgstr "Usable bed"
+
+msgid "Équipements"
+msgstr "Equipment"
+
+msgid "Rampes"
+msgstr "Ramps"
+
+msgid "Permis indicatif"
+msgstr "Indicative licence"
+
+msgid "Supprimer cette remorque ?"
+msgstr "Delete this trailer?"
+
+msgid "Retour à la liste des remorques"
+msgstr "Back to trailer list"
+
+msgid "Modifier la remorque"
+msgstr "Edit trailer"
+
+msgid "Ajouter une remorque"
+msgstr "Add a trailer"
+
+msgid "Remorques en service"
+msgstr "Trailers in service"
+
+msgid "Contrôle technique dépassé ou dans les 30 jours"
+msgstr "Roadworthiness test overdue or within 30 days"
+
+msgid "Tous les essieux"
+msgstr "All axles"
+
+msgid "Freinée ou non"
+msgstr "Braked or not"
+
+msgid "MMA > 750 kg : freinage obligatoire"
+msgstr "Max. mass > 750 kg: brakes mandatory"
+
+msgid "Aucune remorque enregistrée."
+msgstr "No trailer recorded."
+
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ remorques"
+msgstr "Showing _START_ to _END_ of _TOTAL_ trailers"
+
+msgid "Aucune remorque trouvée"
+msgstr "No trailer found"
+
+msgid "Plateaux, porte-voitures, essieux, freinage"
+msgstr "Flatbeds, car transporters, axles, brakes"

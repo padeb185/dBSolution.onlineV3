@@ -69596,3 +69596,183 @@ msgstr "Wird bei jeder für diesen Kunden gespeicherten oder geänderten Vermiet
 
 msgid "Fiche client pilotage"
 msgstr "Fahrerkarte"
+
+msgid "Remorques"
+msgstr "Anhänger"
+
+msgid "Administratif"
+msgstr "Verwaltung"
+
+msgid "Une remorque avec cette immatriculation existe déjà."
+msgstr "Ein Anhänger mit diesem Kennzeichen existiert bereits."
+
+msgid "Le poids à vide ne peut pas dépasser la masse maximale autorisée."
+msgstr "Das Leergewicht darf die zulässige Gesamtmasse nicht überschreiten."
+
+msgid "Plateau ouvert"
+msgstr "Offene Pritsche"
+
+msgid "Plateau fermé (porte-voiture fermé)"
+msgstr "Geschlossene Pritsche (geschlossener Autotransporter)"
+
+msgid "Porte-voiture ouvert"
+msgstr "Offener Autotransporter"
+
+msgid "Plateau basculant"
+msgstr "Kippbare Pritsche"
+
+msgid "Remorque bâchée"
+msgstr "Planenanhänger"
+
+msgid "Remorque fourgon (caisse fermée)"
+msgstr "Kofferanhänger (geschlossen)"
+
+msgid "Porte-engin"
+msgstr "Maschinentransporter"
+
+msgid "Bagagère"
+msgstr "Gepäckanhänger"
+
+msgid "Simple essieu"
+msgstr "Einachser"
+
+msgid "Double essieu"
+msgstr "Tandemachse"
+
+msgid "Triple essieu"
+msgstr "Dreiachser"
+
+msgid "Nom / repère"
+msgstr "Name / Kennung"
+
+msgid "Ex. : Plateau rouge, Remorque course 2…"
+msgstr "z. B.: Rote Pritsche, Rennanhänger 2…"
+
+msgid "Numéro de châssis (VIN)"
+msgstr "Fahrgestellnummer (FIN)"
+
+msgid "Essieux"
+msgstr "Achsen"
+
+msgid "Freinée"
+msgstr "Gebremst"
+
+msgid "Obligatoire au-delà de 750 kg de masse maximale autorisée."
+msgstr "Pflicht über 750 kg zulässiger Gesamtmasse."
+
+msgid "Masse maximale autorisée (MMA, kg)"
+msgstr "Zulässige Gesamtmasse (kg)"
+
+msgid "Poids à vide (kg)"
+msgstr "Leergewicht (kg)"
+
+msgid "Longueur utile du plateau (cm)"
+msgstr "Nutzbare Pritschenlänge (cm)"
+
+msgid "Largeur utile du plateau (cm)"
+msgstr "Nutzbare Pritschenbreite (cm)"
+
+msgid "Treuil"
+msgstr "Seilwinde"
+
+msgid "Rampes de chargement"
+msgstr "Auffahrrampen"
+
+msgid "Roue jockey"
+msgstr "Stützrad"
+
+msgid "Dimension des pneus"
+msgstr "Reifengröße"
+
+msgid "Ex. : 195/50 R13C"
+msgstr "z. B.: 195/50 R13C"
+
+msgid "Prochain contrôle technique"
+msgstr "Nächste technische Prüfung"
+
+msgid "Assurance / n° de police"
+msgstr "Versicherung / Policen-Nr."
+
+msgid "En service"
+msgstr "In Betrieb"
+
+msgid "Remorque"
+msgstr "Anhänger"
+
+msgid "La remorque a été enregistrée."
+msgstr "Der Anhänger wurde gespeichert."
+
+msgid "La remorque %(immat)s a été supprimée."
+msgstr "Anhänger %(immat)s wurde gelöscht."
+
+msgid "La masse maximale autorisée dépasse 750 kg : la remorque doit être freinée."
+msgstr "Die zulässige Gesamtmasse übersteigt 750 kg: Der Anhänger muss gebremst sein."
+
+msgid "Le contrôle technique est dépassé."
+msgstr "Die technische Prüfung ist überfällig."
+
+msgid "Contrôle technique dans les 30 jours."
+msgstr "Technische Prüfung innerhalb von 30 Tagen."
+
+msgid "Non freinée"
+msgstr "Ungebremst"
+
+msgid "MMA"
+msgstr "zGM"
+
+msgid "Poids à vide"
+msgstr "Leergewicht"
+
+msgid "Charge utile"
+msgstr "Nutzlast"
+
+msgid "Plateau utile"
+msgstr "Nutzbare Pritsche"
+
+msgid "Équipements"
+msgstr "Ausstattung"
+
+msgid "Rampes"
+msgstr "Rampen"
+
+msgid "Permis indicatif"
+msgstr "Richtwert Führerschein"
+
+msgid "Supprimer cette remorque ?"
+msgstr "Diesen Anhänger löschen?"
+
+msgid "Retour à la liste des remorques"
+msgstr "Zurück zur Anhängerliste"
+
+msgid "Modifier la remorque"
+msgstr "Anhänger bearbeiten"
+
+msgid "Ajouter une remorque"
+msgstr "Anhänger hinzufügen"
+
+msgid "Remorques en service"
+msgstr "Anhänger in Betrieb"
+
+msgid "Contrôle technique dépassé ou dans les 30 jours"
+msgstr "Technische Prüfung überfällig oder innerhalb von 30 Tagen"
+
+msgid "Tous les essieux"
+msgstr "Alle Achsen"
+
+msgid "Freinée ou non"
+msgstr "Gebremst oder nicht"
+
+msgid "MMA > 750 kg : freinage obligatoire"
+msgstr "zGM > 750 kg: Bremse Pflicht"
+
+msgid "Aucune remorque enregistrée."
+msgstr "Kein Anhänger erfasst."
+
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ remorques"
+msgstr "Anzeige _START_ bis _END_ von _TOTAL_ Anhängern"
+
+msgid "Aucune remorque trouvée"
+msgstr "Kein Anhänger gefunden"
+
+msgid "Plateaux, porte-voitures, essieux, freinage"
+msgstr "Pritschen, Autotransporter, Achsen, Bremsen"

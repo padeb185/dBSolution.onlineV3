@@ -250,6 +250,7 @@ TENANT_APPS = (
     'voiture.voiture_freins_av',
     'voiture.voiture_freins_ar',
     'voiture.voiture_jantes',
+    'voiture.voiture_remorque',
     'voiture.voiture_vente',
     'voiture.voiture_location',
     'voiture.voiture_diagnostic',

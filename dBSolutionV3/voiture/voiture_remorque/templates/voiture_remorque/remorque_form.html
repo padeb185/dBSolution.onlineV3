@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% if remorque %}{% trans "Modifier la remorque" %}{% else %}{% trans "Ajouter une remorque" %}{% endif %}{% endblock %}
+{% block content %}
+<br>
+<div class="max-w-3xl mx-auto p-6 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-6 flex items-center gap-3">
+        <img src="{% static 'icons/remorque.svg' %}" alt="" class="w-14 h-14">
+        {% if remorque %}{% trans "Modifier la remorque" %} {{ remorque.immatriculation }}{% else %}{% trans "Ajouter une remorque" %}{% endif %}
+    </h1>
+    {% include "partials/messages.html" %}
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}<div class="bg-red-100 text-red-800 border border-red-300 p-3 rounded mb-4">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}</div>{% endif %}
+        {% for titre, champs in form.sections %}
+            <h2 class="text-xl font-semibold mb-4 mt-6 border-b pb-1">{{ titre }}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {% for field in champs %}
+                <div class="{% if field.name == 'remarques' %}md:col-span-2{% endif %}">
+                    {% if field.field.widget.input_type == "checkbox" %}
+                        <label class="inline-flex items-center gap-2 mt-6">{{ field }} <span class="font-semibold">{{ field.label }}</span></label>
+                    {% else %}
+                        <label for="{{ field.id_for_label }}" class="block font-semibold mb-1">{{ field.label }}{% if field.field.required %} <span class="text-red-600">*</span>{% endif %}</label>
+                        {{ field }}
+                    {% endif %}
+                    {% if field.help_text %}<p class="text-gray-500 text-xs mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endfor %}
+            </div>
+        {% endfor %}
+        <div class="flex gap-3 mt-8">
+            <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold">{% trans "Enregistrer" %}</button>
+            <a href="{% if remorque %}{% url 'voiture_remorque:remorque_detail' remorque.pk %}{% else %}{% url 'voiture_remorque:remorque_list' %}{% endif %}"
+               class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+        </div>
+    </form>
+</div>
+<br>
+{% endblock %}

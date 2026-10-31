@@ -383,6 +383,16 @@
              class="w-[60px] h-[60px]">
     </a>
 
+    <!-- Remorques -->
+    <a href="{% url 'voiture_remorque:remorque_list' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">{% trans "Remorques" %}</h2>
+            <p class="text-gray-600 text-sm">{% trans "Plateaux, porte-voitures, essieux, freinage" %}</p>
+        </div>
+        <img src="{% static 'icons/remorque.svg' %}" alt="{% trans 'Remorques' %}" class="w-[60px] h-[60px]">
+    </a>
+
     <!-- Moteurs -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/moteur/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">

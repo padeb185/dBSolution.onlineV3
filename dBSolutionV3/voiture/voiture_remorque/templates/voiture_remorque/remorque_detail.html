@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Remorque" %} {{ remorque.immatriculation }}{% endblock %}
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-4 flex flex-wrap items-center gap-4">
+    <img src="{% static 'icons/remorque.svg' %}" alt="" class="w-14 h-14">
+    <span>{% trans "Remorque" %}{% if remorque.nom %} – {{ remorque.nom }}{% endif %}</span>
+    {% include "maintenance/partials/plaque.html" with pays_plaque=remorque.pays immat_plaque=remorque.immatriculation %}
+</h1>
+{% include "partials/messages.html" %}
+
+{% if remorque.alerte_freinage %}
+<div class="bg-red-100 text-red-800 border border-red-300 p-3 rounded mb-4">{% trans "La masse maximale autorisée dépasse 750 kg : la remorque doit être freinée." %}</div>
+{% endif %}
+{% if remorque.ct_depasse %}
+<div class="bg-red-100 text-red-800 border border-red-300 p-3 rounded mb-4">{% trans "Le contrôle technique est dépassé." %}</div>
+{% elif remorque.ct_bientot %}
+<div class="bg-yellow-100 text-yellow-800 border border-yellow-300 p-3 rounded mb-4">{% trans "Contrôle technique dans les 30 jours." %}</div>
+{% endif %}
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-3">{% trans "Identification" %}</h2>
+        <p><strong>{% trans "Immatriculation" %} :</strong> {{ remorque.immatriculation }}{% if remorque.pays %} ({{ remorque.get_pays_display }}){% endif %}</p>
+        <p><strong>{% trans "Marque / modèle" %} :</strong> {{ remorque.marque|default:"—" }} {{ remorque.modele }}</p>
+        <p><strong>{% trans "Numéro de châssis (VIN)" %} :</strong> {{ remorque.numero_chassis|default:"—" }}</p>
+        <p><strong>{% trans "Année" %} :</strong> {{ remorque.annee|default:"—" }}</p>
+        <p><strong>{% trans "Date de 1re immatriculation" %} :</strong> {{ remorque.date_premiere_immatriculation|date:"d/m/Y"|default:"—" }}</p>
+        <p><strong>{% trans "Statut" %} :</strong> {% if remorque.actif %}{% trans "En service" %}{% else %}{% trans "Hors service" %}{% endif %}</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-3">{% trans "Caractéristiques" %}</h2>
+        <p><strong>{% trans "Type" %} :</strong> {{ remorque.get_type_remorque_display }}</p>
+        <p><strong>{% trans "Essieux" %} :</strong> {{ remorque.get_essieux_display }}</p>
+        <p><strong>{% trans "Freinage" %} :</strong> {% if remorque.freinee %}{% trans "Freinée" %}{% else %}{% trans "Non freinée" %}{% endif %}</p>
+        <p><strong>{% trans "MMA" %} :</strong> {% if remorque.mma_kg %}{{ remorque.mma_kg|milliers }} kg{% else %}—{% endif %}</p>
+        <p><strong>{% trans "Poids à vide" %} :</strong> {% if remorque.poids_vide_kg %}{{ remorque.poids_vide_kg|milliers }} kg{% else %}—{% endif %}</p>
+        <p><strong>{% trans "Charge utile" %} :</strong> {% if remorque.charge_utile_kg is not None %}{{ remorque.charge_utile_kg|milliers }} kg{% else %}—{% endif %}</p>
+        <p><strong>{% trans "Plateau utile" %} :</strong> {% if remorque.longueur_plateau_cm %}{{ remorque.longueur_plateau_cm }} × {{ remorque.largeur_plateau_cm|default:"?" }} cm{% else %}—{% endif %}</p>
+        <p><strong>{% trans "Pneus" %} :</strong> {{ remorque.dimension_pneus|default:"—" }}</p>
+        <p><strong>{% trans "Équipements" %} :</strong>
+            {% if remorque.treuil %}{% trans "Treuil" %} · {% endif %}{% if remorque.rampes %}{% trans "Rampes" %} · {% endif %}{% if remorque.roue_jockey %}{% trans "Roue jockey" %}{% endif %}
+            {% if not remorque.treuil and not remorque.rampes and not remorque.roue_jockey %}—{% endif %}</p>
+        {% if remorque.permis %}<p class="text-sm text-gray-500 mt-2">{% trans "Permis indicatif" %} : {{ remorque.permis }}</p>{% endif %}
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-3">{% trans "Administratif" %}</h2>
+        <p><strong>{% trans "Prochain contrôle technique" %} :</strong>
+            <span style="{% if remorque.ct_depasse %}color:#b91c1c;font-weight:600{% elif remorque.ct_bientot %}color:#b45309;font-weight:600{% endif %}">{{ remorque.controle_technique|date:"d/m/Y"|default:"—" }}</span></p>
+        <p><strong>{% trans "Assurance" %} :</strong> {{ remorque.assurance|default:"—" }}</p>
+        <p><strong>{% trans "Prix d'achat HTVA" %} :</strong> {% if remorque.prix_achat %}{{ remorque.prix_achat|floatformat:"2g" }} €{% else %}—{% endif %}</p>
+        <p><strong>{% trans "Date d'achat" %} :</strong> {{ remorque.date_achat|date:"d/m/Y"|default:"—" }}</p>
+        {% if remorque.remarques %}<p class="mt-2"><strong>{% trans "Remarques" %} :</strong><br>{{ remorque.remarques|linebreaksbr }}</p>{% endif %}
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    {% if peut_gerer %}
+    <a href="{% url 'voiture_remorque:remorque_modifier' remorque.pk %}" class="block bg-yellow-500 text-white px-5 py-4 rounded hover:bg-yellow-400 font-semibold text-center">{% trans "Modifier" %}</a>
+    <form method="post" action="{% url 'voiture_remorque:remorque_supprimer' remorque.pk %}"
+          onsubmit="return confirm('{% trans "Supprimer cette remorque ?" as t %}{{ t|escapejs }}');">
+        {% csrf_token %}
+        <button type="submit" class="w-full bg-red-600 text-white px-5 py-4 rounded hover:bg-red-700 font-semibold">{% trans "Supprimer" %}</button>
+    </form>
+    {% endif %}
+    <a href="{% url 'voiture_remorque:remorque_list' %}" class="block bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">{% trans "Retour à la liste des remorques" %}</a>
+</div>
+<br><br>
+{% endblock %}

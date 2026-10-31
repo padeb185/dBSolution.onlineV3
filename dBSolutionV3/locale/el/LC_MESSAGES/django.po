@@ -69602,3 +69602,183 @@ msgstr "Ενημερώνεται αυτόματα με κάθε ενοικίασ
 
 msgid "Fiche client pilotage"
 msgstr "Καρτέλα πελάτη οδήγησης"
+
+msgid "Remorques"
+msgstr "Ρυμουλκούμενα"
+
+msgid "Administratif"
+msgstr "Διοικητικά"
+
+msgid "Une remorque avec cette immatriculation existe déjà."
+msgstr "Υπάρχει ήδη ρυμουλκούμενο με αυτόν τον αριθμό."
+
+msgid "Le poids à vide ne peut pas dépasser la masse maximale autorisée."
+msgstr "Το απόβαρο δεν μπορεί να υπερβαίνει τη μέγιστη επιτρεπόμενη μάζα."
+
+msgid "Plateau ouvert"
+msgstr "Ανοιχτή πλατφόρμα"
+
+msgid "Plateau fermé (porte-voiture fermé)"
+msgstr "Κλειστή πλατφόρμα (κλειστό αυτοκινητάμαξο)"
+
+msgid "Porte-voiture ouvert"
+msgstr "Ανοιχτό αυτοκινητάμαξο"
+
+msgid "Plateau basculant"
+msgstr "Ανατρεπόμενη πλατφόρμα"
+
+msgid "Remorque bâchée"
+msgstr "Ρυμουλκούμενο με μουσαμά"
+
+msgid "Remorque fourgon (caisse fermée)"
+msgstr "Κλειστό ρυμουλκούμενο (κιβώτιο)"
+
+msgid "Porte-engin"
+msgstr "Μεταφορέας μηχανημάτων"
+
+msgid "Bagagère"
+msgstr "Ρυμουλκούμενο αποσκευών"
+
+msgid "Simple essieu"
+msgstr "Μονός άξονας"
+
+msgid "Double essieu"
+msgstr "Διπλός άξονας"
+
+msgid "Triple essieu"
+msgstr "Τριπλός άξονας"
+
+msgid "Nom / repère"
+msgstr "Όνομα / σήμανση"
+
+msgid "Ex. : Plateau rouge, Remorque course 2…"
+msgstr "Π.χ.: Κόκκινη πλατφόρμα, Ρυμουλκούμενο αγώνων 2…"
+
+msgid "Numéro de châssis (VIN)"
+msgstr "Αριθμός πλαισίου (VIN)"
+
+msgid "Essieux"
+msgstr "Άξονες"
+
+msgid "Freinée"
+msgstr "Με φρένα"
+
+msgid "Obligatoire au-delà de 750 kg de masse maximale autorisée."
+msgstr "Υποχρεωτικό άνω των 750 kg μέγιστης μάζας."
+
+msgid "Masse maximale autorisée (MMA, kg)"
+msgstr "Μέγιστη επιτρεπόμενη μάζα (kg)"
+
+msgid "Poids à vide (kg)"
+msgstr "Απόβαρο (kg)"
+
+msgid "Longueur utile du plateau (cm)"
+msgstr "Ωφέλιμο μήκος πλατφόρμας (cm)"
+
+msgid "Largeur utile du plateau (cm)"
+msgstr "Ωφέλιμο πλάτος πλατφόρμας (cm)"
+
+msgid "Treuil"
+msgstr "Βαρούλκο"
+
+msgid "Rampes de chargement"
+msgstr "Ράμπες φόρτωσης"
+
+msgid "Roue jockey"
+msgstr "Ρόδα στήριξης"
+
+msgid "Dimension des pneus"
+msgstr "Διάσταση ελαστικών"
+
+msgid "Ex. : 195/50 R13C"
+msgstr "Π.χ.: 195/50 R13C"
+
+msgid "Prochain contrôle technique"
+msgstr "Επόμενος τεχνικός έλεγχος"
+
+msgid "Assurance / n° de police"
+msgstr "Ασφάλεια / αρ. συμβολαίου"
+
+msgid "En service"
+msgstr "Σε λειτουργία"
+
+msgid "Remorque"
+msgstr "Ρυμουλκούμενο"
+
+msgid "La remorque a été enregistrée."
+msgstr "Το ρυμουλκούμενο αποθηκεύτηκε."
+
+msgid "La remorque %(immat)s a été supprimée."
+msgstr "Το ρυμουλκούμενο %(immat)s διαγράφηκε."
+
+msgid "La masse maximale autorisée dépasse 750 kg : la remorque doit être freinée."
+msgstr "Η μέγιστη μάζα υπερβαίνει τα 750 kg: απαιτούνται φρένα."
+
+msgid "Le contrôle technique est dépassé."
+msgstr "Ο τεχνικός έλεγχος έχει λήξει."
+
+msgid "Contrôle technique dans les 30 jours."
+msgstr "Τεχνικός έλεγχος εντός 30 ημερών."
+
+msgid "Non freinée"
+msgstr "Χωρίς φρένα"
+
+msgid "MMA"
+msgstr "ΜΜΑ"
+
+msgid "Poids à vide"
+msgstr "Απόβαρο"
+
+msgid "Charge utile"
+msgstr "Ωφέλιμο φορτίο"
+
+msgid "Plateau utile"
+msgstr "Ωφέλιμη πλατφόρμα"
+
+msgid "Équipements"
+msgstr "Εξοπλισμός"
+
+msgid "Rampes"
+msgstr "Ράμπες"
+
+msgid "Permis indicatif"
+msgstr "Ενδεικτικό δίπλωμα"
+
+msgid "Supprimer cette remorque ?"
+msgstr "Διαγραφή αυτού του ρυμουλκούμενου;"
+
+msgid "Retour à la liste des remorques"
+msgstr "Επιστροφή στη λίστα ρυμουλκούμενων"
+
+msgid "Modifier la remorque"
+msgstr "Επεξεργασία ρυμουλκούμενου"
+
+msgid "Ajouter une remorque"
+msgstr "Προσθήκη ρυμουλκούμενου"
+
+msgid "Remorques en service"
+msgstr "Ρυμουλκούμενα σε λειτουργία"
+
+msgid "Contrôle technique dépassé ou dans les 30 jours"
+msgstr "Τεχνικός έλεγχος ληγμένος ή εντός 30 ημερών"
+
+msgid "Tous les essieux"
+msgstr "Όλοι οι άξονες"
+
+msgid "Freinée ou non"
+msgstr "Με ή χωρίς φρένα"
+
+msgid "MMA > 750 kg : freinage obligatoire"
+msgstr "ΜΜΑ > 750 kg: υποχρεωτικά φρένα"
+
+msgid "Aucune remorque enregistrée."
+msgstr "Δεν υπάρχει καταχωρισμένο ρυμουλκούμενο."
+
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ remorques"
+msgstr "Εμφάνιση _START_ έως _END_ από _TOTAL_ ρυμουλκούμενα"
+
+msgid "Aucune remorque trouvée"
+msgstr "Δεν βρέθηκε ρυμουλκούμενο"
+
+msgid "Plateaux, porte-voitures, essieux, freinage"
+msgstr "Πλατφόρμες, αυτοκινητάμαξα, άξονες, φρένα"

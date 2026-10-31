@@ -160,6 +160,14 @@ def check_marque(request):
 
 
 
+def _total_remorques(user):
+    try:
+        from voiture.voiture_remorque.models import Remorque
+        return Remorque.objects.filter(societe=getattr(user, "societe", None), actif=True).count()
+    except Exception:
+        return 0
+
+
 @never_cache
 @login_required
 def dashboard_voiture_view(request):
@@ -178,6 +186,7 @@ def dashboard_voiture_view(request):
             "total_marques": marques.count(),
             "total_modele": modeles.count(),
             "total_exemplaires": exemplaires.count(),
+            "total_remorques": _total_remorques(user),
             "marques": marques,
             "modele": modeles,
             "exemplaires": exemplaires,
