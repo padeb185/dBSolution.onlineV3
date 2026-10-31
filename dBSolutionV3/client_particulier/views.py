@@ -48,11 +48,44 @@ def client_detail(request, client_particulier_id):
     with tenant_context(tenant):
         client_particulier = get_object_or_404(ClientParticulier, id=client_particulier_id)
         adresse = client_particulier.adresse  # si tu veux l’afficher séparément
+        locations, stats, pilotes = _historique_pilotage(client_particulier, tenant)
 
     return render(request, "client_particulier/client_detail.html", {
         "client_particulier": client_particulier,
         "adresse": adresse,
+        "locations": locations,
+        "stats": stats,
+        "pilotes": pilotes,
+        "pour_client": True,
     })
+
+
+def _historique_pilotage(client_particulier, societe):
+    """
+    Historique de pilotage du client : ses locations comme client ou deuxième pilote, et celles de ses
+    fiches « client pilotage » (mêmes règles et statistiques que la fiche client pilotage).
+    """
+    from django.db.models import Q
+    from client_pilotage.models import ClientPilotage
+    from voiture.voiture_location.models import Location
+
+    pilotes = list(ClientPilotage.objects.filter(client_particulier=client_particulier))
+    filtre = Q(client=client_particulier) | Q(deuxieme_client=client_particulier)
+    for p in pilotes:
+        filtre |= Q(client_pilotage=p) | Q(deuxieme_client_pilotage=p)
+    qs = Location.objects.filter(filtre)
+    if societe is not None:
+        qs = qs.filter(societe=societe)
+    locations = list(qs.select_related("voiture_exemplaire__voiture_marque", "voiture_exemplaire__voiture_modele",
+                                       "instructeur").order_by("-date_debut", "-heure_debut", "-created_at"))
+    ids_pilotes = {p.pk for p in pilotes}
+    for l in locations:
+        premier = l.client_id == client_particulier.pk or l.client_pilotage_id in ids_pilotes
+        l.comme_deuxieme = not premier and (
+            l.deuxieme_client_id == client_particulier.pk or l.deuxieme_client_pilotage_id in ids_pilotes)
+    # Mêmes statistiques que la fiche client pilotage (la méthode n'utilise que la liste fournie)
+    stats = ClientPilotage.statistiques_pilotage(None, locations)
+    return locations, stats, pilotes
 
 
 @login_required

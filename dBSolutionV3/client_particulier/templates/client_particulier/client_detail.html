@@ -101,6 +101,14 @@
     </div>
 
 
+    {% if pilotes %}
+    <div class="bg-white shadow-md rounded-lg p-4 mb-4 text-sm">
+        {% trans "Fiche client pilotage" %} :
+        {% for p in pilotes %}<a href="{% url 'client_pilotage:client_pilotage_detail' p.id %}" class="text-blue-700 underline">{{ p.get_niveau_display }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
+    </div>
+    {% endif %}
+    {% include "client_pilotage/_historique_locations.html" %}
+
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
         <h2 class="text-lg font-semibold mb-4">
             {% trans "Adresse" %}

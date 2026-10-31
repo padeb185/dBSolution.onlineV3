@@ -46,7 +46,7 @@
 <br>
 
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-3 items-end">
         <input id="search-immatriculation" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Immatriculation' %}">
@@ -65,6 +65,10 @@
         <input id="search-lieu" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Circuit / route' %}">
+
+        <input id="search-client" type="search"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Client (nom, société)' %}">
     </div>
 </div>
 
@@ -112,7 +116,7 @@
                 {% endif %}
             </td>
             <td class="border px-4 py-2">{{ loc.lieu|default:"—" }}</td>
-            <td class="border px-4 py-2">{{ loc.locataire|default:"—" }}</td>
+            <td class="border px-4 py-2">{{ loc.locataire|default:"—" }}{% if loc.nom_locataire %}<span class="sr-only"> {{ loc.nom_locataire }}</span>{% endif %}</td>
             <td class="border px-4 py-2" data-order="{{ loc.kilometrage|default:0 }}">{{ loc.distance_affichage|default:"—" }}</td>
             <td class="border px-4 py-2" data-order="{{ loc.prix_tvac|stringformat:'s' }}">
                 {{ loc.prix_tvac|floatformat:"2g" }} €
@@ -152,6 +156,10 @@
 <br><br>
 
 <script>
+function sansAccents(texte) {
+    return String(texte || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
 $(document).ready(function () {
     const table = $('#locations-table').DataTable({
         language: {
@@ -171,7 +179,9 @@ $(document).ready(function () {
         order: [[7, 'desc']],
         columnDefs: [
             { targets: 10, orderable: false, searchable: false },
-            { targets: [5, 6], type: 'num' }
+            { targets: [5, 6], type: 'num' },
+            // Client : recherche sans tenir compte des accents ni des majuscules
+            { targets: 4, render: function (data, type) { return type === 'filter' ? sansAccents(data) : data; } }
         ]
     });
 
@@ -179,6 +189,7 @@ $(document).ready(function () {
     $('#search-vehicule').on('keyup change', function () { table.column(1).search(this.value).draw(); });
     $('#search-type').on('change', function () { table.column(2).search(this.value).draw(); });
     $('#search-lieu').on('keyup change', function () { table.column(3).search(this.value).draw(); });
+    $('#search-client').on('keyup change search', function () { table.column(4).search(sansAccents(this.value)).draw(); });
 });
 </script>
 {% endblock %}

@@ -69231,3 +69231,18 @@ msgstr "%(nom)s reported a password change they did not make."
 
 msgid "%(prenom)s, vous signalez un changement de mot de passe que vous n'avez pas effectué."
 msgstr "%(prenom)s, you are reporting a password change you did not make."
+
+msgid "Client (nom, société)"
+msgstr "Customer (name, company)"
+
+msgid "Aucune location pour ce client."
+msgstr "No rental for this customer."
+
+msgid "Une location apparaît ici quand ce client est choisi comme client (ou deuxième pilote) dans le formulaire de location, directement ou via sa fiche client pilotage."
+msgstr "A rental appears here when this customer is chosen as customer (or second driver) in the rental form, directly or via their driving-customer record."
+
+msgid "Mis à jour automatiquement à chaque location enregistrée ou modifiée pour ce client."
+msgstr "Updated automatically with each rental saved or changed for this customer."
+
+msgid "Fiche client pilotage"
+msgstr "Driving-customer record"
