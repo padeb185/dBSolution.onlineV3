@@ -133,8 +133,7 @@ def securiser_compte(request, utilisateur, evenement):
     try:
         UserLog.objects.create(
             utilisateur=utilisateur,
-            action=f"Sécurité : « ce n'était pas moi » ({evenement}) – mot de passe bloqué, sessions déconnectées "
-                   f"– IP {ip_client(request)}",
+            action=f"Compte sécurisé après un changement de mot de passe non effectué par l'utilisateur – IP {ip_client(request)}",
         )
     except Exception:
         pass

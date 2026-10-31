@@ -82,11 +82,18 @@ def _activites_avec_plaques(logs):
     # Clé de comparaison : lettres et chiffres seulement (« 1-ABC-123 », « 1 ABC 123 » et « 1abc123 » sont identiques)
     cle = lambda t: re.sub(r"[^A-Z0-9]", "", (t or "").upper())
     immats = {}
-    for immat, pays in VoitureExemplaire.objects.exclude(immatriculation__isnull=True).exclude(
-            immatriculation="").values_list("immatriculation", "pays"):
-        k = cle(immat)
-        if len(k) >= 4:
-            immats.setdefault(k, (immat.strip(), pays))
+    try:
+        for immat, pays in VoitureExemplaire.objects.exclude(immatriculation__isnull=True).exclude(
+                immatriculation="").values_list("immatriculation", "pays"):
+            k = cle(immat)
+            if len(k) >= 4:
+                immats.setdefault(k, (immat.strip(), pays))
+    except Exception:
+        # Table des véhicules inaccessible (schéma public) : activités affichées sans plaque
+        from django.db import connection
+        if connection.in_atomic_block:
+            raise
+        immats = {}
     # Les plus longues d'abord (« 1ABC321 » avant « ABC321 »)
     cles = sorted(immats, key=len, reverse=True)
     for log in logs:
@@ -402,13 +409,23 @@ def dashboard_view(request):
     context["societe"] = societe
     context["schema_name"] = schema_name
 
+    # Dernières activités : les plaques sont cherchées dans le schéma de la société
+    # (après un changement de langue, la page peut être servie hors du préfixe /tenant/<schéma>/).
     try:
-        context["dernieres_activites"] = _activites_avec_plaques(UserLog.objects.filter(
+        logs = list(UserLog.objects.filter(
             utilisateur=request.user,
             utilisateur__societe=request.user.societe
-        ).order_by("-date_action")[:100])
+        ).select_related("utilisateur").order_by("-date_action")[:100])
     except Exception:
-        context["dernieres_activites"] = []
+        logs = []
+    try:
+        if schema_name:
+            with schema_context(schema_name):
+                context["dernieres_activites"] = _activites_avec_plaques(logs)
+        else:
+            context["dernieres_activites"] = _activites_avec_plaques(logs)
+    except Exception:
+        context["dernieres_activites"] = logs
 
     # Agenda : maintenances du jour assignées à l'utilisateur et pas encore terminées
     try:

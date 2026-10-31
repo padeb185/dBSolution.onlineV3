@@ -55,10 +55,11 @@
              width="200"
              class="shrink-0">
 
-        <form action="{% url 'set_language' %}" method="post"
+        <form action="{% url 'set_language' %}" method="post" id="form-langue"
               class="flex items-center gap-2 shrink-0">
             {% csrf_token %}
-            <input type="hidden" name="next" value="/">
+            {% comment %}Rester sur la même page dans la nouvelle langue : le code de langue de l'URL est remplacé (/tenant/<schéma>/<langue>/… ou /<langue>/…), sinon la langue de l'URL l'emporterait.{% endcomment %}
+            <input type="hidden" name="next" id="langue-next" value="{{ request.get_full_path }}">
 
             <select name="language"
                     class="border rounded p-1 focus:ring-2 focus:ring-blue-500 focus:outline-none">
@@ -75,6 +76,26 @@
                 {% trans "Changer" %}
             </button>
         </form>
+        <script>
+        (function () {
+            const form = document.getElementById("form-langue");
+            if (!form) return;
+            const codes = [{% for code, name in LANGUAGES %}"{{ code }}"{% if not forloop.last %}, {% endif %}{% endfor %}];
+            form.addEventListener("submit", function () {
+                const choix = form.querySelector("select[name=language]").value;
+                const groupe = "(" + codes.join("|") + ")";
+                let chemin = window.location.pathname;
+                const tenant = new RegExp("^(/tenant/[^/]+/)" + groupe + "(?=/|$)");
+                const simple = new RegExp("^/" + groupe + "(?=/|$)");
+                if (tenant.test(chemin)) {
+                    chemin = chemin.replace(tenant, "$1" + choix);
+                } else if (simple.test(chemin)) {
+                    chemin = chemin.replace(simple, "/" + choix);
+                }
+                document.getElementById("langue-next").value = chemin + window.location.search;
+            });
+        })();
+        </script>
 
         <a href="{% url 'utilisateurs:logout' %}"
           class="bg-red-700 hover:bg-red-500 text-white px-5 py-2 min-w-[130px] text-center whitespace-nowrap shrink-0 rounded-md font-semibold inline-block transition duration-300">

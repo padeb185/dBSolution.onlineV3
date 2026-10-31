@@ -151,7 +151,7 @@
         {% elif c.km_achat is None %}
             <p style="color:#9a3412">{% trans "Complétez le kilométrage de départ (achat) pour estimer le carburant non encodé." %}</p>
         {% elif c.consommation and not c.km %}
-            <p style="color:#9a3412">{% blocktrans with achat=c.km_achat creation=c.km_creation %}Aucun kilomètre entre l'achat ({{ achat|milliers }} km) et la création du véhicule ({{ creation|milliers }} km).{% endblocktrans %}</p>
+            <p style="color:#9a3412">{% blocktrans with achat=c.km_achat|milliers creation=c.km_creation|milliers %}Aucun kilomètre entre l'achat ({{ achat }} km) et la création du véhicule ({{ creation }} km).{% endblocktrans %}</p>
         {% else %}
             <p style="color:#9a3412">{% trans "Indiquez une consommation moyenne (L/100 km) dans les données financières pour estimer le carburant non encodé." %}</p>
         {% endif %}
