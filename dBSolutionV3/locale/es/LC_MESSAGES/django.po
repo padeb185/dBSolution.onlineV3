@@ -69361,3 +69361,12 @@ msgstr "Dirigente de empresa: sin vacaciones, paga ni 13.ª paga de asalariado (
 
 msgid "Dirigeant"
 msgstr "Dirigente"
+
+msgid "Coût employeur mensuel (calcul inversé)"
+msgstr "Coste mensual del empleador (cálculo inverso)"
+
+msgid "Budget mensuel total de l'employeur. Le salaire brut est alors calculé pour atteindre ce coût (minimum de la commission paritaire respecté), puis l'ONSS, le précompte (selon la situation familiale) et le net. Laisser vide pour un calcul à partir du salaire brut."
+msgstr "Presupuesto mensual total del empleador. El salario bruto se calcula para alcanzar este coste (respetando el mínimo de la comisión paritaria), luego ONSS, retención (según situación familiar) y neto. Dejar vacío para calcular a partir del bruto."
+
+msgid "Le coût employeur demandé est inférieur au minimum de la commission paritaire : salaire minimum appliqué (coût employeur %(cout)s €)."
+msgstr "El coste solicitado es inferior al mínimo de la comisión paritaria: se aplica el salario mínimo (coste del empleador %(cout)s €)."

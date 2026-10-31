@@ -69057,3 +69057,12 @@ msgstr "Company director: no employee paid leave, holiday pay or 13th month (ann
 
 msgid "Dirigeant"
 msgstr "Director"
+
+msgid "Coût employeur mensuel (calcul inversé)"
+msgstr "Monthly employer cost (reverse calculation)"
+
+msgid "Budget mensuel total de l'employeur. Le salaire brut est alors calculé pour atteindre ce coût (minimum de la commission paritaire respecté), puis l'ONSS, le précompte (selon la situation familiale) et le net. Laisser vide pour un calcul à partir du salaire brut."
+msgstr "Total monthly employer budget. The gross salary is then calculated to reach this cost (joint committee minimum respected), followed by social security, withholding tax (according to family situation) and net pay. Leave empty to calculate from the gross salary."
+
+msgid "Le coût employeur demandé est inférieur au minimum de la commission paritaire : salaire minimum appliqué (coût employeur %(cout)s €)."
+msgstr "The requested employer cost is below the joint committee minimum: minimum salary applied (employer cost %(cout)s €)."

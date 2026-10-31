@@ -69413,3 +69413,12 @@ msgstr "Διευθυντής: χωρίς άδεια, επίδομα ή 13ο μι
 
 msgid "Dirigeant"
 msgstr "Διευθυντής"
+
+msgid "Coût employeur mensuel (calcul inversé)"
+msgstr "Μηνιαίο κόστος εργοδότη (αντίστροφος υπολογισμός)"
+
+msgid "Budget mensuel total de l'employeur. Le salaire brut est alors calculé pour atteindre ce coût (minimum de la commission paritaire respecté), puis l'ONSS, le précompte (selon la situation familiale) et le net. Laisser vide pour un calcul à partir du salaire brut."
+msgstr "Συνολικός μηνιαίος προϋπολογισμός εργοδότη. Ο μικτός μισθός υπολογίζεται ώστε να επιτευχθεί αυτό το κόστος (με τήρηση του ελάχιστου), έπειτα ONSS, παρακράτηση (ανάλογα με την οικογενειακή κατάσταση) και καθαρό. Αφήστε κενό για υπολογισμό από τον μικτό."
+
+msgid "Le coût employeur demandé est inférieur au minimum de la commission paritaire : salaire minimum appliqué (coût employeur %(cout)s €)."
+msgstr "Το ζητούμενο κόστος είναι κάτω από το ελάχιστο: εφαρμόστηκε ο ελάχιστος μισθός (κόστος εργοδότη %(cout)s €)."

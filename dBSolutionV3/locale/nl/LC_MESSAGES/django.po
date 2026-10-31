@@ -69385,3 +69385,12 @@ msgstr "Bedrijfsleider: geen betaald verlof, vakantiegeld of 13e maand van werkn
 
 msgid "Dirigeant"
 msgstr "Bedrijfsleider"
+
+msgid "Coût employeur mensuel (calcul inversé)"
+msgstr "Maandelijkse werkgeverskost (omgekeerde berekening)"
+
+msgid "Budget mensuel total de l'employeur. Le salaire brut est alors calculé pour atteindre ce coût (minimum de la commission paritaire respecté), puis l'ONSS, le précompte (selon la situation familiale) et le net. Laisser vide pour un calcul à partir du salaire brut."
+msgstr "Totaal maandbudget van de werkgever. Het brutoloon wordt dan berekend om deze kost te bereiken (minimum van het paritair comité gerespecteerd), daarna RSZ, voorheffing (volgens gezinssituatie) en netto. Leeg laten voor een berekening vanaf het brutoloon."
+
+msgid "Le coût employeur demandé est inférieur au minimum de la commission paritaire : salaire minimum appliqué (coût employeur %(cout)s €)."
+msgstr "De gevraagde werkgeverskost ligt onder het minimum van het paritair comité: minimumloon toegepast (werkgeverskost %(cout)s €)."

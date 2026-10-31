@@ -69407,3 +69407,12 @@ msgstr "Unternehmensleiter: kein Arbeitnehmerurlaub, Urlaubsgeld oder 13. Monat 
 
 msgid "Dirigeant"
 msgstr "Unternehmensleiter"
+
+msgid "Coût employeur mensuel (calcul inversé)"
+msgstr "Monatliche Arbeitgeberkosten (Rückrechnung)"
+
+msgid "Budget mensuel total de l'employeur. Le salaire brut est alors calculé pour atteindre ce coût (minimum de la commission paritaire respecté), puis l'ONSS, le précompte (selon la situation familiale) et le net. Laisser vide pour un calcul à partir du salaire brut."
+msgstr "Monatliches Gesamtbudget des Arbeitgebers. Das Bruttogehalt wird so berechnet, dass diese Kosten erreicht werden (Mindestlohn der paritätischen Kommission eingehalten), danach LSS, Lohnsteuer (je nach Familienstand) und Netto. Leer lassen für eine Berechnung ab Bruttogehalt."
+
+msgid "Le coût employeur demandé est inférieur au minimum de la commission paritaire : salaire minimum appliqué (coût employeur %(cout)s €)."
+msgstr "Die gewünschten Arbeitgeberkosten liegen unter dem Mindestlohn der paritätischen Kommission: Mindestlohn angewandt (Arbeitgeberkosten %(cout)s €)."

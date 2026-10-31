@@ -292,6 +292,7 @@ class PaieUtilisateurForm(forms.ModelForm):
         "voiture_date_immatriculation", "voiture_commandee_apres_07_2023",
         "voiture_contribution_personnelle", "conges_jours_droit",
         "dirigeant_remuneration_annuelle", "dirigeant_bonus_taux_ca", "dirigeant_cotisations_prises_en_charge",
+        "cout_employeur_cible",
     ]
 
     SECTIONS = [
@@ -308,7 +309,7 @@ class PaieUtilisateurForm(forms.ModelForm):
             "nombre_enfants_handicapes", "beneficiaire_handicape", "conjoint_handicape",
         ]),
         (_("Prestations et salaire"), [
-            "salaire_brut_heure", "nombre_jours_preste", "nombre_heures_preste",
+            "cout_employeur_cible", "salaire_brut_heure", "nombre_jours_preste", "nombre_heures_preste",
             "salaire_brut_mensuel", "heures_supplementaires", "majoration_heures_sup",
             "taux_charges_patronales", "reduction_groupe_cible",
         ]),

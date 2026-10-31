@@ -268,6 +268,16 @@ def _chiffre_affaires(request, annee):
         return None
 
 
+def _alerte_cout(request, paie):
+    """Budget employeur trop bas pour le minimum de la commission paritaire."""
+    cout = getattr(paie, "alerte_cout_cible", None)
+    if cout:
+        messages.warning(request, _(
+            "Le coût employeur demandé est inférieur au minimum de la commission paritaire : "
+            "salaire minimum appliqué (coût employeur %(cout)s €)."
+        ) % {"cout": f"{cout:.2f}".replace(".", ",")})
+
+
 def _completer_dirigeant(request, paie):
     """Bonus sur CA sans chiffre d'affaires encodé : reprise du CA HTVA de l'année (comptes 70)."""
     if (paie.statut_travailleur == "dirigeant" and paie.dirigeant_bonus_taux_ca
@@ -293,6 +303,7 @@ def creer_paie_utilisateur(request):
             if "calculer" in request.POST:
                 paie = _completer_dirigeant(request, form.save(commit=False))
                 paie.calculer()
+                _alerte_cout(request, paie)
                 form = PaieUtilisateurForm(instance=paie, societe=_societe(request))
                 messages.info(request, _("Calcul effectué – vérifiez puis enregistrez."))
             else:
@@ -346,6 +357,7 @@ def modifier_paie(request, pk):
             if "calculer" in request.POST:
                 paie_calc = _completer_dirigeant(request, form.save(commit=False))
                 paie_calc.calculer()
+                _alerte_cout(request, paie_calc)
                 form = PaieUtilisateurForm(instance=paie_calc, societe=_societe(request))
                 messages.info(request, _("Calcul effectué – vérifiez puis enregistrez."))
             else:

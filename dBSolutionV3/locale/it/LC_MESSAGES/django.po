@@ -69356,3 +69356,12 @@ msgstr "Dirigente d'impresa: niente ferie, indennità o tredicesima da dipendent
 
 msgid "Dirigeant"
 msgstr "Dirigente"
+
+msgid "Coût employeur mensuel (calcul inversé)"
+msgstr "Costo mensile del datore (calcolo inverso)"
+
+msgid "Budget mensuel total de l'employeur. Le salaire brut est alors calculé pour atteindre ce coût (minimum de la commission paritaire respecté), puis l'ONSS, le précompte (selon la situation familiale) et le net. Laisser vide pour un calcul à partir du salaire brut."
+msgstr "Budget mensile totale del datore. Lo stipendio lordo viene calcolato per raggiungere questo costo (minimo della commissione paritetica rispettato), poi ONSS, ritenuta (secondo la situazione familiare) e netto. Lasciare vuoto per calcolare dal lordo."
+
+msgid "Le coût employeur demandé est inférieur au minimum de la commission paritaire : salaire minimum appliqué (coût employeur %(cout)s €)."
+msgstr "Il costo richiesto è inferiore al minimo della commissione paritetica: applicato il salario minimo (costo datore %(cout)s €)."

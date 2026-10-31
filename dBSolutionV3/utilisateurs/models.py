@@ -760,6 +760,18 @@ class PaieUtilisateur(models.Model):
     )
 
     # -------------------------
+    # CALCUL INVERSÉ : à partir d'un coût employeur
+    # -------------------------
+    cout_employeur_cible = models.DecimalField(
+        max_digits=12, decimal_places=2, blank=True, null=True,
+        validators=[MinValueValidator(0)],
+        verbose_name=_("Coût employeur mensuel (calcul inversé)"),
+        help_text=_("Budget mensuel total de l'employeur. Le salaire brut est alors calculé pour atteindre ce coût "
+                    "(minimum de la commission paritaire respecté), puis l'ONSS, le précompte (selon la situation "
+                    "familiale) et le net. Laisser vide pour un calcul à partir du salaire brut."),
+    )
+
+    # -------------------------
     # DIRIGEANT D'ENTREPRISE (administrateur / gérant)
     # -------------------------
     dirigeant_remuneration_annuelle = models.DecimalField(
@@ -984,6 +996,9 @@ class PaieUtilisateur(models.Model):
 
         fraction = (Decimal(self.regime_travail or 100) / 100) or Decimal("1")
 
+        if self.cout_employeur_cible and not getattr(self, "_resolution_en_cours", False):
+            return self._calculer_depuis_cout()
+
         if self.statut_travailleur == "dirigeant":
             return self._calculer_dirigeant()
 
@@ -1053,6 +1068,73 @@ class PaieUtilisateur(models.Model):
             r["brut_employeur"] + (self.conges_payes or Decimal("0"))
         ).quantize(Decimal("0.01"))
         return r
+
+    @staticmethod
+    def _cout_mensuel(r):
+        """Coût employeur du mois hors primes ponctuelles (13e mois, bonus du dirigeant)."""
+        from decimal import Decimal
+        z = Decimal("0")
+        cout = r["brut_employeur"]
+        prime = r.get("treizieme_mois") or {}
+        if prime:
+            cout -= (prime.get("brut") or z) + (prime.get("cotisations_patronales") or z) + (prime.get("cotisations_vacances") or z)
+        bonus = r.get("bonus") or {}
+        cout -= bonus.get("brut") or z
+        return cout
+
+    def _calculer_depuis_cout(self):
+        """
+        Calcul inversé : cherche le salaire brut mensuel dont le coût employeur (brut + cotisations patronales
+        nettes + provision / cotisation vacances + CO2) égale le budget, puis calcule la paie complète.
+        Le minimum de la commission paritaire reste appliqué (alerte_cout_cible si le budget est trop bas).
+        """
+        from decimal import Decimal, ROUND_DOWN
+        cible = Decimal(self.cout_employeur_cible)
+        dirigeant = self.statut_travailleur == "dirigeant"
+        self.alerte_cout_cible = None
+        taux_saisi = self.salaire_brut_heure     # taux horaire encodé (sinon : minimum de la CP / taux effectif)
+        self._resolution_en_cours = True
+        try:
+            self.nombre_heures_preste = Decimal("0")   # le brut découle du coût, pas des heures
+
+            def essai(brut):
+                self.salaire_brut_mensuel = brut
+                if dirigeant:
+                    self.dirigeant_remuneration_annuelle = brut * 12
+                r = self.calculer()
+                return self._cout_mensuel(r) if r else Decimal("0")
+
+            bas, haut = Decimal("0"), cible
+            for _i in range(45):
+                milieu = ((bas + haut) / 2).quantize(Decimal("0.0001"))
+                if essai(milieu) <= cible:
+                    bas = milieu
+                else:
+                    haut = milieu
+            brut = bas.quantize(Decimal("0.01"), rounding=ROUND_DOWN)
+            r = None
+            if brut > 0:
+                self.salaire_brut_mensuel = brut
+                if dirigeant:
+                    self.dirigeant_remuneration_annuelle = brut * 12
+                r = self.calculer()
+            if r is None or self._cout_mensuel(r) > cible + Decimal("0.05"):
+                # Budget sous le minimum de la CP : salaire minimum appliqué
+                self.salaire_brut_mensuel = None
+                r = self.calculer()
+                if r:
+                    self.alerte_cout_cible = self._cout_mensuel(r)
+            if r and not dirigeant and self.salaire_brut_mensuel:
+                if taux_saisi and self.salaire_brut_heure == taux_saisi:
+                    # Taux horaire imposé : nombre d'heures que le budget permet
+                    self.nombre_heures_preste = (self.salaire_brut_mensuel / taux_saisi).quantize(Decimal("0.01"))
+                else:
+                    # Commission paritaire : taux horaire effectif sur un horaire de 38 h / semaine × régime
+                    fraction = (Decimal(self.regime_travail or 100) / 100) or Decimal("1")
+                    self.salaire_brut_heure = (self.salaire_brut_mensuel / (Decimal("164.67") * fraction)).quantize(Decimal("0.01"))
+            return r
+        finally:
+            self._resolution_en_cours = False
 
     def _calculer_dirigeant(self):
         """Dirigeant : rémunération annuelle / 12, bonus sur CA, pas d'ONSS ni de congés payés salarié."""
