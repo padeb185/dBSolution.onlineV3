@@ -2,9 +2,13 @@
 {% load i18n static %}
 {% block title %}{% trans "Remorques" %}{% endblock %}
 {% block content %}
+<style>
+    .ct-depasse { color: #b91c1c; font-weight: 600; }
+    .ct-bientot { color: #b45309; font-weight: 600; }
+</style>
 <br>
 <h1 class="text-2xl font-bold mb-6 flex items-center gap-3">
-    <img src="{% static 'icons/remorque.svg' %}" alt="" class="w-14 h-14">
+    <img src="{% static 'icons/remorque.svg' %}" alt="" class="w-20 h-20">
     {% trans "Remorques" %}
 </h1>
 
@@ -71,7 +75,7 @@
             <td class="border px-4 py-2 text-right" data-order="{{ r.charge_utile_kg|default:0 }}">{% if r.charge_utile_kg is not None %}{{ r.charge_utile_kg|milliers }} kg{% else %}—{% endif %}</td>
             <td class="border px-4 py-2" data-order="{{ r.controle_technique|date:'Y-m-d' }}">
                 {% if r.controle_technique %}
-                    <span style="{% if r.ct_depasse %}color:#b91c1c;font-weight:600{% elif r.ct_bientot %}color:#b45309;font-weight:600{% endif %}">{{ r.controle_technique|date:"d/m/Y" }}</span>
+                    <span class="{% if r.ct_depasse %}ct-depasse{% elif r.ct_bientot %}ct-bientot{% endif %}">{{ r.controle_technique|date:"d/m/Y" }}</span>
                 {% else %}—{% endif %}
             </td>
             <td class="border px-4 py-2 text-center">

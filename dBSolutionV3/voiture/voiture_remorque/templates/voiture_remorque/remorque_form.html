@@ -5,7 +5,7 @@
 <br>
 <div class="max-w-3xl mx-auto p-6 bg-white rounded shadow">
     <h1 class="text-2xl font-bold mb-6 flex items-center gap-3">
-        <img src="{% static 'icons/remorque.svg' %}" alt="" class="w-14 h-14">
+        <img src="{% static 'icons/remorque.svg' %}" alt="" class="w-20 h-20">
         {% if remorque %}{% trans "Modifier la remorque" %} {{ remorque.immatriculation }}{% else %}{% trans "Ajouter une remorque" %}{% endif %}
     </h1>
     {% include "partials/messages.html" %}

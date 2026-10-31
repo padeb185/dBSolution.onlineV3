@@ -2,6 +2,10 @@
 {% load i18n static %}
 {% block title %}{% trans "Remorque" %} {{ remorque.immatriculation }}{% endblock %}
 {% block content %}
+<style>
+    .ct-depasse { color: #b91c1c; font-weight: 600; }
+    .ct-bientot { color: #b45309; font-weight: 600; }
+</style>
 <br>
 <h1 class="text-2xl font-bold mb-4 flex flex-wrap items-center gap-4">
     <img src="{% static 'icons/remorque.svg' %}" alt="" class="w-14 h-14">
@@ -47,7 +51,7 @@
     <div class="bg-white shadow-md rounded-lg p-6">
         <h2 class="text-lg font-semibold mb-3">{% trans "Administratif" %}</h2>
         <p><strong>{% trans "Prochain contrôle technique" %} :</strong>
-            <span style="{% if remorque.ct_depasse %}color:#b91c1c;font-weight:600{% elif remorque.ct_bientot %}color:#b45309;font-weight:600{% endif %}">{{ remorque.controle_technique|date:"d/m/Y"|default:"—" }}</span></p>
+            <span class="{% if remorque.ct_depasse %}ct-depasse{% elif remorque.ct_bientot %}ct-bientot{% endif %}">{{ remorque.controle_technique|date:"d/m/Y"|default:"—" }}</span></p>
         <p><strong>{% trans "Assurance" %} :</strong> {{ remorque.assurance|default:"—" }}</p>
         <p><strong>{% trans "Prix d'achat HTVA" %} :</strong> {% if remorque.prix_achat %}{{ remorque.prix_achat|floatformat:"2g" }} €{% else %}—{% endif %}</p>
         <p><strong>{% trans "Date d'achat" %} :</strong> {{ remorque.date_achat|date:"d/m/Y"|default:"—" }}</p>
