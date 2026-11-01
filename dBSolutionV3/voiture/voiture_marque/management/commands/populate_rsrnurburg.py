@@ -49,6 +49,39 @@ class Command(BaseCommand):
             "Ford", "Chevrolet", "Cadillac", "Buick", "GMC", "Chrysler",
             "Dodge", "Jeep", "Tesla", "Lincoln", "Pontiac",
             "Oldsmobile", "Mercury", "Hummer", "Ram",
+            # Pionniers (1890-1919)
+            "Duryea", "Winton", "Haynes-Apperson", "Apperson", "Locomobile", "Stanley",
+            "White", "Packard", "Pierce-Arrow", "Peerless", "Thomas", "Knox", "Pope",
+            "Columbia", "Stevens-Duryea", "Franklin", "Studebaker", "Rambler", "Maxwell",
+            "Hupmobile", "Marmon", "Mercer", "Stutz", "Simplex", "Chalmers", "Hudson",
+            "Overland", "Cole", "Moon", "Paige", "Reo", "Saxon", "Scripps-Booth",
+            "Velie", "Jeffery", "Kissel", "Lozier", "Matheson", "Chandler", "Jordan",
+            "Dort", "Auburn", "Duesenberg", "Oakland", "Brush", "Cartercar", "Holsman",
+            "Detroit Electric", "Baker Electric", "Riker", "Doble", "Owen Magnetic",
+            "Premier", "National", "Regal", "Elmore", "Case", "Essex",
+            # Entre-deux-guerres (1920-1945)
+            "DeSoto", "Plymouth", "LaSalle", "Cord", "Graham-Paige", "Graham",
+            "Durant", "Star", "Flint", "Rickenbacker", "Wills Sainte Claire", "Gardner",
+            "Willys", "Whippet", "Erskine", "Rockne", "Viking", "Marquette",
+            "Terraplane", "Lafayette", "Nash", "American Bantam", "Crosley",
+            "Stout Scarab", "Checker",
+            # Après-guerre (1945-1979)
+            "Kaiser", "Frazer", "Henry J", "Tucker", "Muntz", "Cunningham", "Kurtis",
+            "Nash-Healey", "Edsel", "Imperial", "Continental", "Allstate", "Metropolitan",
+            "AMC", "International Harvester", "Scout", "Avanti", "Excalibur", "Shelby",
+            "Clénet", "Zimmer",
+            # Années 1980 à aujourd'hui
+            "DeLorean", "Eagle", "Geo", "Saturn", "Vector", "Mosler", "Panoz",
+            "Callaway", "Saleen", "Hennessey", "SSC", "Rossion", "Anteros", "Equus",
+            "Falcon", "Rezvani", "Czinger", "Drako", "Lyons",
+            # Électriques et nouvelles marques
+            "Rivian", "Lucid", "Fisker", "Karma", "Canoo", "Lordstown", "Aptera",
+            "Faraday Future", "Bollinger", "Scout Motors", "Workhorse", "Nikola",
+            "Zap", "GEM", "Elio",
+            # Utilitaires, camions et militaires
+            "Mack", "Peterbilt", "Kenworth", "Freightliner", "International", "Navistar",
+            "Western Star", "Autocar", "Diamond T", "Sterling", "Oshkosh", "AM General",
+            "Federal", "FWD",
 
             # 🇨🇳 Chine
             "Geely", "BYD", "Chery", "Great Wall", "Haval", "NIO",
@@ -77,7 +110,7 @@ class Command(BaseCommand):
             "Holden",
 
             # 🌍 Marques mondiales / électriques
-            "Rivian", "Lucid", "Fisker", "Polestar",
+            "Polestar",
             "VinFast", "Aiways"
 
                        "Renault RS", "Peugeot Sport", "Citroën Sport", "Alpine", "Venturi", "Matra",
