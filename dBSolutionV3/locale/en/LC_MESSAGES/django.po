@@ -77750,6 +77750,10 @@ msgstr "The trailer has been saved."
 msgid "La remorque %(immat)s a été supprimée."
 msgstr "Trailer %(immat)s has been deleted."
 
+#: theme/templates/base.html:65
+msgid "Langue"
+msgstr "Language"
+
 #, python-format
 #~ msgid ""
 #~ "Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé "

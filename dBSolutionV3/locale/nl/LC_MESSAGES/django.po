@@ -77977,6 +77977,10 @@ msgstr "De aanhangwagen is opgeslagen."
 msgid "La remorque %(immat)s a été supprimée."
 msgstr "Aanhangwagen %(immat)s is verwijderd."
 
+#: theme/templates/base.html:65
+msgid "Langue"
+msgstr "Taal"
+
 #, python-format
 #~ msgid ""
 #~ "Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé "

@@ -55,14 +55,15 @@
              width="200"
              class="shrink-0">
 
+        <div class="flex items-center gap-3 shrink-0">
         <form action="{% url 'set_language' %}" method="post" id="form-langue"
-              class="flex items-center gap-2 shrink-0">
+              class="flex items-center shrink-0">
             {% csrf_token %}
             {% comment %}Rester sur la même page dans la nouvelle langue : le code de langue de l'URL est remplacé (/tenant/<schéma>/<langue>/… ou /<langue>/…), sinon la langue de l'URL l'emporterait.{% endcomment %}
             <input type="hidden" name="next" id="langue-next" value="{{ request.get_full_path }}">
 
-            <select name="language"
-                    class="border rounded p-1 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <select name="language" aria-label="{% trans 'Langue' %}"
+                    class="border rounded p-1 cursor-pointer focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 {% get_available_languages as LANGUAGES %}
                 {% for code, name in LANGUAGES %}
                     <option value="{{ code }}" {% if code == LANGUAGE_CODE %}selected{% endif %}>
@@ -71,18 +72,22 @@
                 {% endfor %}
             </select>
 
-            <button type="submit"
-                    class="bg-blue-700 text-white px-2 py-1 rounded hover:bg-blue-400 transition duration-300">
-                {% trans "Changer" %}
-            </button>
+            {% comment %}Sans JavaScript : bouton de secours (la langue change dès la sélection sinon).{% endcomment %}
+            <noscript>
+                <button type="submit"
+                        class="ml-2 bg-blue-700 text-white px-2 py-1 rounded hover:bg-blue-400 transition duration-300">
+                    {% trans "Changer" %}
+                </button>
+            </noscript>
         </form>
         <script>
         (function () {
             const form = document.getElementById("form-langue");
             if (!form) return;
             const codes = [{% for code, name in LANGUAGES %}"{{ code }}"{% if not forloop.last %}, {% endif %}{% endfor %}];
-            form.addEventListener("submit", function () {
-                const choix = form.querySelector("select[name=language]").value;
+            const select = form.querySelector("select[name=language]");
+            function majNext() {
+                const choix = select.value;
                 const groupe = "(" + codes.join("|") + ")";
                 let chemin = window.location.pathname;
                 const tenant = new RegExp("^(/tenant/[^/]+/)" + groupe + "(?=/|$)");
@@ -93,7 +98,13 @@
                     chemin = chemin.replace(simple, "/" + choix);
                 }
                 document.getElementById("langue-next").value = chemin + window.location.search;
+            }
+            // Bascule immédiate dès qu'une langue est sélectionnée (plus besoin du bouton « Changer »)
+            select.addEventListener("change", function () {
+                majNext();
+                form.submit();
             });
+            form.addEventListener("submit", majNext);
         })();
         </script>
 
@@ -101,6 +112,7 @@
           class="bg-red-700 hover:bg-red-500 text-white px-5 py-2 min-w-[130px] text-center whitespace-nowrap shrink-0 rounded-md font-semibold inline-block transition duration-300">
             {% trans "Déconnexion" %}
         </a>
+        </div>
 
     </nav>
 </header>

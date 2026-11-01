@@ -19,9 +19,52 @@ class Command(BaseCommand):
             "Peugeot", "Renault", "Citroën", "DS Automobiles", "Alpine",
             "Bugatti", "Simca", "Talbot", "Venturi",
 
+            # Pionniers (1890-1919)
+            "Panhard", "De Dion-Bouton", "Bollée", "Mors", "Darracq", "Delahaye",
+            "Delage", "Hotchkiss", "Clément-Bayard", "Lorraine-Dietrich", "Berliet",
+            "Unic", "Chenard-Walcker", "Brasier", "Georges Richard", "Rochet-Schneider",
+            "Turcat-Méry", "Sizaire-Naudin", "Le Zèbre", "La Licorne", "Gobron-Brillié",
+            "Decauville", "Delaunay-Belleville", "Charron", "Cottin & Desgouttes",
+            "Vinot-Deguingand",
+
+            # Entre-deux-guerres
+            "Voisin", "Salmson", "Amilcar", "Ballot", "Bignan", "Donnet", "Tracta",
+            "Mathis", "Rosengart", "Talbot-Lago", "Matford",
+
+            # Après-guerre (1945-1979)
+            "Facel Vega", "DB", "CG", "Monica", "Matra", "Ligier", "Vespa", "Willème",
+            "Saviem", "Bernard", "Sovam", "Heuliez",
+
+            # Années 1980 à aujourd'hui
+            "Aixam", "Microcar", "Chatenet", "Bellier", "Mega", "Hommell", "PGO",
+            "De la Chapelle", "Dangel", "Gruau", "Renault Trucks", "Bluecar",
+            "Mia Electric", "Hopium",
+
             # 🇩🇪 Allemagne
             "Volkswagen", "Audi", "BMW", "Mercedes-Benz", "Porsche",
             "Opel", "Maybach", "Smart", "Borgward", "Wartburg",
+
+            # Pionniers (1886-1919)
+            "Benz", "Daimler", "Horch", "Wanderer", "Adler", "Stoewer", "Brennabor",
+            "Dürkopp", "Protos", "NAG", "Dixi", "Hansa", "Komnick", "Presto",
+
+            # Entre-deux-guerres
+            "Auto Union", "DKW", "NSU", "Hanomag", "Tempo", "Goliath", "Lloyd",
+
+            # Après-guerre (1945-1990)
+            "Glas", "Gutbrod", "Messerschmitt", "Heinkel", "Zündapp", "Veritas",
+            "Amphicar", "Trabant", "IFA", "EMW", "Barkas", "Melkus", "Multicar",
+
+            # Préparateurs et sportives
+            "Alpina", "AMG", "Brabus", "Ruf", "Gemballa", "9ff", "Isdera", "Lotec",
+            "Wiesmann", "Gumpert", "Apollo", "Artega", "Mercedes-Maybach",
+
+            # Électriques et nouvelles marques
+            "Sono Motors", "e.GO Mobile", "StreetScooter",
+
+            # Utilitaires, camions et autocars
+            "MAN", "Büssing", "Magirus-Deutz", "Krupp", "Henschel", "Faun", "Setra",
+            "Kässbohrer", "Neoplan", "Unimog", "Vidal & Sohn",
 
             # 🇮🇹 Italie
             "Fiat", "Alfa Romeo", "Lancia", "Ferrari", "Lamborghini",
@@ -49,6 +92,7 @@ class Command(BaseCommand):
             "Ford", "Chevrolet", "Cadillac", "Buick", "GMC", "Chrysler",
             "Dodge", "Jeep", "Tesla", "Lincoln", "Pontiac",
             "Oldsmobile", "Mercury", "Hummer", "Ram",
+
             # Pionniers (1890-1919)
             "Duryea", "Winton", "Haynes-Apperson", "Apperson", "Locomobile", "Stanley",
             "White", "Packard", "Pierce-Arrow", "Peerless", "Thomas", "Knox", "Pope",
@@ -59,25 +103,30 @@ class Command(BaseCommand):
             "Dort", "Auburn", "Duesenberg", "Oakland", "Brush", "Cartercar", "Holsman",
             "Detroit Electric", "Baker Electric", "Riker", "Doble", "Owen Magnetic",
             "Premier", "National", "Regal", "Elmore", "Case", "Essex",
+
             # Entre-deux-guerres (1920-1945)
             "DeSoto", "Plymouth", "LaSalle", "Cord", "Graham-Paige", "Graham",
             "Durant", "Star", "Flint", "Rickenbacker", "Wills Sainte Claire", "Gardner",
             "Willys", "Whippet", "Erskine", "Rockne", "Viking", "Marquette",
             "Terraplane", "Lafayette", "Nash", "American Bantam", "Crosley",
             "Stout Scarab", "Checker",
+
             # Après-guerre (1945-1979)
             "Kaiser", "Frazer", "Henry J", "Tucker", "Muntz", "Cunningham", "Kurtis",
             "Nash-Healey", "Edsel", "Imperial", "Continental", "Allstate", "Metropolitan",
             "AMC", "International Harvester", "Scout", "Avanti", "Excalibur", "Shelby",
             "Clénet", "Zimmer",
+
             # Années 1980 à aujourd'hui
             "DeLorean", "Eagle", "Geo", "Saturn", "Vector", "Mosler", "Panoz",
             "Callaway", "Saleen", "Hennessey", "SSC", "Rossion", "Anteros", "Equus",
             "Falcon", "Rezvani", "Czinger", "Drako", "Lyons",
+
             # Électriques et nouvelles marques
             "Rivian", "Lucid", "Fisker", "Karma", "Canoo", "Lordstown", "Aptera",
             "Faraday Future", "Bollinger", "Scout Motors", "Workhorse", "Nikola",
             "Zap", "GEM", "Elio",
+            
             # Utilitaires, camions et militaires
             "Mack", "Peterbilt", "Kenworth", "Freightliner", "International", "Navistar",
             "Western Star", "Autocar", "Diamond T", "Sterling", "Oshkosh", "AM General",
@@ -95,6 +144,22 @@ class Command(BaseCommand):
 
             # 🇨🇿 Tchéquie
             "Skoda", "Tatra",
+
+            # 🇧🇪 Belgique
+
+            # Pionniers (1895-1919)
+            "Minerva", "FN", "Métallurgique", "Excelsior", "Germain", "Nagant",
+            "Pipe", "Vivinus", "Miesse", "Fondu", "Dasse", "Delin", "Jenatzy",
+            "Pieper", "Springuel", "Auto-Mixte", "Linon", "Hermes", "Belgica",
+
+            # Entre-deux-guerres
+            "Imperia", "Vanden Plas", "D'Ieteren",
+
+            # Artisans et sportives (depuis 1960)
+            "Méan", "Apal", "Edran", "ADK", "Gillet",
+            
+            # Autocars, camions et motos
+            "Van Hool", "Jonckheere", "LAG", "Brossel", "Saroléa", "Gillet Herstal",
 
             # 🇷🇴 Roumanie
             "Dacia",

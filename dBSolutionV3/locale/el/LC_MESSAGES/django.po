@@ -77977,6 +77977,10 @@ msgstr "Το ρυμουλκούμενο αποθηκεύτηκε."
 msgid "La remorque %(immat)s a été supprimée."
 msgstr "Το ρυμουλκούμενο %(immat)s διαγράφηκε."
 
+#: theme/templates/base.html:65
+msgid "Langue"
+msgstr "Γλώσσα"
+
 #, python-format
 #~ msgid ""
 #~ "Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé "
