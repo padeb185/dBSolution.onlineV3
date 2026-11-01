@@ -1,0 +1,8 @@
+{% load i18n %}<div class="flex flex-wrap gap-2 items-center">
+    <span class="text-sm text-gray-600">{% trans "Période" %} :</span>
+    {% for code, p in periodes.items %}
+        <a href="?periode={{ code }}"
+           class="px-3 py-1 rounded text-sm font-semibold {% if code == periode.code %}bg-blue-700 text-white{% else %}bg-white border hover:bg-blue-50{% endif %}">{{ p.libelle }}</a>
+    {% endfor %}
+    <span class="text-xs text-gray-500 ml-2">{% trans "Actualisation automatique" %} : <span id="maj-heure">{% now "H:i:s" %}</span></span>
+</div>

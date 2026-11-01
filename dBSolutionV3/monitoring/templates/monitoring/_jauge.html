@@ -1,0 +1,10 @@
+{% load monitoring_tags %}<div class="bg-white shadow-md rounded-lg p-5">
+    <div class="flex justify-between items-baseline mb-2">
+        <h2 class="text-sm font-semibold text-gray-600">{{ titre }}</h2>
+        <span class="text-2xl font-bold" id="{{ cle }}-valeur">{% if valeur is None %}—{% else %}{{ valeur|floatformat:1 }} %{% endif %}</span>
+    </div>
+    <div class="w-full bg-gray-200 rounded h-2.5">
+        <div id="{{ cle }}-barre" class="h-2.5 rounded {{ valeur|couleur_jauge:seuils }}" style="width: {{ valeur|largeur }}%"></div>
+    </div>
+    {% if detail %}<p class="text-xs text-gray-500 mt-2" id="{{ cle }}-detail">{{ detail }}</p>{% endif %}
+</div>

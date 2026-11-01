@@ -1,0 +1,117 @@
+{% load i18n %}<script>
+(function () {
+    const G = JSON.parse(document.getElementById("graphiques-monitoring").textContent);
+    const URL_API = "{{ url_api|escapejs }}";
+    const TENANT = "{{ schema|default:''|escapejs }}";
+    const langue = document.documentElement.lang || "fr-BE";
+    const PALETTE = ["#2563eb", "#16a34a", "#f59e0b", "#dc2626", "#7c3aed", "#0891b2", "#db2777", "#65a30d", "#ea580c", "#475569"];
+    const T = {
+        cpu: "{% trans 'CPU' %}", ram: "{% trans 'RAM' %}", disque: "{% trans 'Disque' %}",
+        enLigne: "{% trans 'En ligne' %}", connectes: "{% trans 'Connectés' %}", enLigneTenant: "{% trans 'En ligne (ce tenant)' %}",
+        requetes: "{% trans 'Requêtes' %}", erreurs: "{% trans 'Erreurs 5xx' %}", duree: "{% trans 'Temps moyen (ms)' %}",
+        memoire: "{% trans 'Mémoire application (Mo)' %}", aucune: "{% trans 'Pas encore de mesures sur cette période.' %}"
+    };
+
+    function octets(n) {
+        if (n === null || n === undefined) return "—";
+        const u = ["o", "Ko", "Mo", "Go", "To"]; let i = 0; n = Number(n);
+        while (n >= 1024 && i < u.length - 1) { n /= 1024; i++; }
+        return n.toLocaleString(langue, {maximumFractionDigits: 1}) + " " + u[i];
+    }
+    function couleur(v, orange, rouge) {
+        if (v === null || v === undefined) return "bg-gray-300";
+        return v >= rouge ? "bg-red-600" : (v >= orange ? "bg-amber-500" : "bg-green-600");
+    }
+    function jauge(cle, v, orange, rouge) {
+        const val = document.getElementById(cle + "-valeur"), barre = document.getElementById(cle + "-barre");
+        if (!val || !barre) return;
+        val.textContent = (v === null || v === undefined) ? "—" : Number(v).toLocaleString(langue, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + " %";
+        barre.style.width = Math.max(0, Math.min(100, Math.round(v || 0))) + "%";
+        barre.className = "h-2.5 rounded " + couleur(v, orange, rouge);
+    }
+    function texte(id, v) { const el = document.getElementById(id); if (el) el.textContent = (v === null || v === undefined) ? "—" : v; }
+
+    // ---------------- Graphiques
+    if (typeof Chart !== "undefined") {
+        const options = (empile, max) => ({
+            responsive: true, maintainAspectRatio: false, animation: false,
+            interaction: {mode: "index", intersect: false},
+            plugins: {legend: {position: "bottom", labels: {boxWidth: 12}}},
+            scales: {x: {stacked: empile, ticks: {maxTicksLimit: 12, autoSkip: true}},
+                     y: {stacked: empile, beginAtZero: true, suggestedMax: max}}
+        });
+        const ligne = (label, data, c, extra) => Object.assign({label, data, borderColor: c, backgroundColor: c, borderWidth: 2,
+                                                               pointRadius: 0, tension: .25, spanGaps: true}, extra || {});
+        function vide(id) {
+            const cv = document.getElementById(id);
+            if (cv) cv.parentElement.innerHTML = '<p class="text-sm text-gray-500 py-10 text-center">' + T.aucune + "</p>";
+        }
+        const S = G.serveur || {labels: []}, R = G.trafic || {labels: []};
+
+        if (document.getElementById("g-serveur")) {
+            S.labels.length ? new Chart(document.getElementById("g-serveur"), {type: "line", data: {labels: S.labels, datasets: [
+                ligne(T.cpu, S.cpu, PALETTE[0]), ligne(T.ram, S.ram, PALETTE[2]), ligne(T.disque, S.disque, PALETTE[4])]},
+                options: options(false, 100)}) : vide("g-serveur");
+        }
+        if (document.getElementById("g-utilisateurs")) {
+            const ds = [ligne(T.enLigne, S.en_ligne, PALETTE[1], {fill: false}), ligne(T.connectes, S.sessions, PALETTE[9])];
+            if (S.en_ligne_tenant) ds.unshift(ligne(T.enLigneTenant, S.en_ligne_tenant, PALETTE[3]));
+            S.labels.length ? new Chart(document.getElementById("g-utilisateurs"), {type: "line",
+                data: {labels: S.labels, datasets: ds}, options: options(false)}) : vide("g-utilisateurs");
+        }
+        if (document.getElementById("g-trafic")) {
+            let ds;
+            if (R.par_tenant && Object.keys(R.par_tenant).length) {
+                ds = Object.entries(R.par_tenant).map(([nom, data], i) => ({label: nom, data, backgroundColor: PALETTE[i % PALETTE.length]}));
+            } else {
+                ds = [{label: T.requetes, data: R.requetes, backgroundColor: PALETTE[0]},
+                      {label: T.erreurs, data: R.erreurs, backgroundColor: PALETTE[3]}];
+            }
+            new Chart(document.getElementById("g-trafic"), {type: "bar", data: {labels: R.labels, datasets: ds},
+                options: options(!!R.par_tenant)});
+        }
+        if (document.getElementById("g-duree")) {
+            const ds = [ligne(T.duree, R.duree_moyenne, PALETTE[5], {yAxisID: "y"})];
+            const opt = options(false);
+            if (S.app_memoire_mo && S.labels.length && !TENANT) {
+                // Mémoire : axe secondaire (les deux séries n'ont pas les mêmes tranches : on garde les libellés du trafic)
+                ds.push(ligne(T.memoire, S.app_memoire_mo, PALETTE[6], {yAxisID: "y1", xAxisID: "x1"}));
+                opt.scales.y1 = {position: "right", beginAtZero: true, grid: {drawOnChartArea: false}};
+                opt.scales.x1 = {type: "category", labels: S.labels, display: false};
+            }
+            new Chart(document.getElementById("g-duree"), {type: "line", data: {labels: R.labels, datasets: ds}, options: opt});
+        }
+    }
+
+    // ---------------- Rafraîchissement automatique (toutes les 15 s)
+    async function actualiser() {
+        try {
+            const r = await fetch(URL_API + (TENANT ? "?tenant=" + encodeURIComponent(TENANT) : ""), {credentials: "same-origin"});
+            if (!r.ok) return;
+            const d = await r.json();
+            jauge("cpu", d.cpu, 70, 85); jauge("ram", d.ram, 75, 90); jauge("swap", d.swap, 25, 50); jauge("disque", d.disque, 75, 85);
+            const c = d.charge || {};
+            texte("charge", [c["1"], c["5"], c["15"]].map(v => v === null || v === undefined ? "—" : v).join(" / "));
+            texte("app-memoire", octets(d.app_memoire));
+            texte("en-ligne", d.en_ligne); texte("connectes", d.connectes);
+            document.querySelectorAll("[data-en-ligne]").forEach(el => {
+                const v = (d.par_tenant[el.dataset.enLigne] || {}).en_ligne || 0;
+                el.textContent = v; el.classList.toggle("text-green-700", v > 0);
+            });
+            document.querySelectorAll("[data-connectes]").forEach(el => {
+                el.textContent = (d.par_tenant[el.dataset.connectes] || {}).connectes || 0;
+            });
+            if (d.tenant) {
+                texte("tenant-en-ligne", d.tenant.en_ligne); texte("tenant-connectes", d.tenant.connectes);
+                const etats = Object.fromEntries(d.tenant.utilisateurs.map(u => [u.id, u]));
+                document.querySelectorAll("[data-utilisateur]").forEach(el => {
+                    const u = etats[el.dataset.utilisateur];
+                    el.className = "inline-block w-2 h-2 rounded-full mr-1 " + (u ? (u.en_ligne ? "bg-green-600" : "bg-gray-400") : "bg-gray-200");
+                });
+            }
+            texte("maj-heure", d.horodatage);
+        } catch (e) { /* réseau indisponible : nouvel essai au prochain tour */ }
+    }
+    setInterval(actualiser, 15000);
+})();
+</script>

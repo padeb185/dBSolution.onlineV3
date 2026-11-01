@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load i18n static monitoring_tags %}
+
+{% block title %}{% trans "Monitoring" %} – {{ societe.nom }}{% endblock %}
+
+{% block content %}
+<br>
+<div class="p-6">
+<div class="flex flex-wrap justify-between items-center gap-4 mb-2">
+    <h1 class="text-3xl font-bold">{% trans "Monitoring" %} – {{ societe.nom }}</h1>
+    {% include "monitoring/_periodes.html" %}
+</div>
+<p class="text-sm text-gray-600 mb-6">
+    {% trans "Schéma" %} <span class="font-mono">{{ schema }}</span> ·
+    {{ societe.get_pays_display }} ·
+    {% if societe.on_trial %}{% trans "Période d'essai" %}{% else %}{% trans "Abonnement" %}{% endif %}{% if societe.paid_until %} – {% blocktrans with d=societe.paid_until|date:"d/m/Y" %}payé jusqu'au {{ d }}{% endblocktrans %}{% endif %} ·
+    <a class="text-blue-700 hover:underline" href="{% url 'monitoring:tableau' %}?periode={{ periode.code }}">{% trans "← Tous les tenants" %}</a> ·
+    <a class="text-blue-700 hover:underline" href="{% url 'utilisateurs:tenant_detail' societe.pk %}">{% trans "Fiche du tenant" %}</a>
+</p>
+
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+    {% blocktrans asvar d_el with m=en_ligne_minutes %}actifs depuis moins de {{ m }} min{% endblocktrans %}
+    {% include "monitoring/_carte.html" with titre=_("En ligne") cle="tenant-en-ligne" valeur=en_ligne classe="text-green-700" detail=d_el %}
+    {% include "monitoring/_carte.html" with titre=_("Connectés") cle="tenant-connectes" valeur=connectes detail=_("sessions ouvertes") %}
+    {% blocktrans asvar v_users with a=nb_actifs m=societe.max_utilisateurs %}{{ a }} / {{ m }}{% endblocktrans %}
+    {% include "monitoring/_carte.html" with titre=_("Utilisateurs actifs") valeur=v_users detail=_("comptes actifs / maximum") %}
+    {% blocktrans asvar t_req with p=periode.libelle %}Requêtes ({{ p }}){% endblocktrans %}
+    {% blocktrans asvar d_req with p=part_requetes %}{{ p }} % du trafic du serveur{% endblocktrans %}
+    {% include "monitoring/_carte.html" with titre=t_req valeur=trafic.requetes detail=d_req %}
+    {% if trafic.duree_moyenne is not None %}{% blocktrans asvar v_duree with m=trafic.duree_moyenne %}{{ m }} ms{% endblocktrans %}{% else %}{% trans "—" as v_duree %}{% endif %}
+    {% blocktrans asvar d_duree with m=trafic.duree_ms_max %}max {{ m }} ms{% endblocktrans %}
+    {% include "monitoring/_carte.html" with titre=_("Temps de réponse moyen") valeur=v_duree detail=d_duree %}
+    {% blocktrans asvar v_charge with p=part_charge %}{{ p }} %{% endblocktrans %}
+    {% include "monitoring/_carte.html" with titre=_("Part de la charge du serveur") valeur=v_charge detail=_("temps de traitement des requêtes") %}
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div class="bg-white shadow-md rounded-lg p-5 lg:col-span-2">
+        <h2 class="text-sm font-semibold text-gray-600 mb-2">{% trans "Trafic" %}</h2>
+        <table class="min-w-full text-sm">
+            <thead><tr class="text-gray-500"><th class="text-left py-1"></th><th class="text-right">{% trans "Requêtes" %}</th><th class="text-right">{% trans "Temps moyen" %}</th><th class="text-right">{% trans "Max" %}</th><th class="text-right">{% trans "4xx" %}</th><th class="text-right">{% trans "5xx" %}</th></tr></thead>
+            <tbody>
+            {% for code, r in resume.items %}
+            <tr class="border-t">
+                <td class="py-1 font-semibold">{% if code == "1h" %}{% trans "1 heure" %}{% elif code == "24h" %}{% trans "24 heures" %}{% else %}{% trans "7 jours" %}{% endif %}</td>
+                <td class="text-right">{{ r.requetes|default:0 }}</td>
+                <td class="text-right">{% if r.duree_moyenne is not None %}{{ r.duree_moyenne }} ms{% else %}—{% endif %}</td>
+                <td class="text-right">{% if r.duree_ms_max %}{{ r.duree_ms_max }} ms{% else %}—{% endif %}</td>
+                <td class="text-right">{{ r.erreurs_4xx|default:0 }}</td>
+                <td class="text-right {% if r.erreurs_5xx %}text-red-700 font-semibold{% endif %}">{{ r.erreurs_5xx|default:0 }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5">
+        <h2 class="text-sm font-semibold text-gray-600 mb-1">{% trans "Taille des données" %}</h2>
+        <p class="text-2xl font-bold">{% if db %}{{ db.taille|filesizeformat }}{% else %}—{% endif %}</p>
+        {% if db %}<p class="text-xs text-gray-500 mt-1">{% blocktrans with n=db.lignes t=db.tables %}~{{ n }} lignes dans {{ t }} tables{% endblocktrans %}</p>
+        {% if base.taille %}<p class="text-xs text-gray-500">{% widthratio db.taille base.taille 100 %} % {% trans "de la base" %}</p>{% endif %}{% endif %}
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5">
+        <h2 class="text-sm font-semibold text-gray-600 mb-1">{% trans "Mémoire et CPU" %}</h2>
+        <p class="text-sm text-gray-600">{% trans "Les tenants partagent les processus du serveur : la mémoire et le CPU se lisent sur le tableau global. La part de la charge ci-dessus indique ce que ce tenant consomme." %}</p>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <div class="bg-white shadow-md rounded-lg p-5"><h3 class="font-semibold mb-2">{% trans "Requêtes et erreurs" %}</h3><div style="height:260px"><canvas id="g-trafic"></canvas></div></div>
+    <div class="bg-white shadow-md rounded-lg p-5"><h3 class="font-semibold mb-2">{% trans "Temps de réponse moyen (ms)" %}</h3><div style="height:260px"><canvas id="g-duree"></canvas></div></div>
+    <div class="bg-white shadow-md rounded-lg p-5 lg:col-span-2"><h3 class="font-semibold mb-2">{% trans "Utilisateurs en ligne" %}</h3><div style="height:260px"><canvas id="g-utilisateurs"></canvas></div></div>
+</div>
+
+<h2 class="text-xl font-semibold mb-3">{% trans "Utilisateurs" %}</h2>
+<div class="bg-white shadow-md rounded-lg overflow-x-auto mb-8">
+<table class="min-w-full table-auto border-collapse text-sm">
+    <thead class="bg-gray-100"><tr>
+        <th class="border px-3 py-2 text-left">{% trans "Utilisateur" %}</th>
+        <th class="border px-3 py-2 text-left">{% trans "Rôle" %}</th>
+        <th class="border px-3 py-2 text-left">{% trans "Statut" %}</th>
+        <th class="border px-3 py-2 text-left">{% trans "Dernière activité" %}</th>
+        <th class="border px-3 py-2 text-left">{% trans "Dernière connexion" %}</th>
+    </tr></thead>
+    <tbody>
+    {% for l in lignes_utilisateurs %}{% with u=l.utilisateur c=l.connexion %}
+    <tr class="{% if not u.is_active %}text-gray-400{% endif %}">
+        <td class="border px-3 py-2"><span data-utilisateur="{{ u.pk }}" class="inline-block w-2 h-2 rounded-full mr-1 {% if c and c.en_ligne %}bg-green-600{% elif c %}bg-gray-400{% else %}bg-gray-200{% endif %}"></span>{{ u.prenom }} {{ u.nom }}<span class="block text-xs text-gray-500">{{ u.email|default:"" }}</span></td>
+        <td class="border px-3 py-2">{{ u.get_role_display|default:u.role }}</td>
+        <td class="border px-3 py-2">{% if c and c.en_ligne %}<span class="text-green-700 font-semibold">{% trans "En ligne" %}</span>{% elif c %}{% trans "Connecté (inactif)" %}{% elif u.is_active %}{% trans "Hors ligne" %}{% else %}{% trans "Désactivé" %}{% endif %}</td>
+        <td class="border px-3 py-2">{% if c %}{% blocktrans with t=c.derniere_activite|timesince %}il y a {{ t }}{% endblocktrans %}{% if c.sessions > 1 %} <span class="text-xs text-gray-500">({% blocktrans with n=c.sessions %}{{ n }} sessions{% endblocktrans %})</span>{% endif %}{% else %}—{% endif %}</td>
+        <td class="border px-3 py-2">{{ u.last_login|date:"d/m/Y H:i"|default:"—" }}</td>
+    </tr>
+    {% endwith %}{% empty %}
+    <tr><td colspan="5" class="border px-3 py-4 text-center text-gray-500">{% trans "Aucun utilisateur." %}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+
+{{ graphiques|json_script:"graphiques-monitoring" }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+{% url 'monitoring:api' as url_api %}
+{% include "monitoring/_scripts.html" with url_api=url_api schema=schema %}
+{% endblock %}

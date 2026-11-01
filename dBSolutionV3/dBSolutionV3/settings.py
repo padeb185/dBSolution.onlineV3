@@ -120,6 +120,9 @@ SHARED_APPS = (
 
     'adresse',
     'societe',
+
+    # Monitoring serveur (trafic par tenant, mesures du serveur) – schéma public
+    'monitoring',
 )
 
 
@@ -436,6 +439,8 @@ MIDDLEWARE = [
     # Résolution du tenant à partir du domaine :
     # dbsolution.localhost, campus.localhost, etc.
     "django_tenants.middleware.TenantSubfolderMiddleware",
+    # Monitoring : compte les requêtes par tenant (statut, durée) – juste après la résolution du tenant
+    "monitoring.middleware.MonitoringMiddleware",
 
     "django.middleware.security.SecurityMiddleware",
     # CSP + Permissions-Policy (voir dBSolutionV3/middleware/securite_headers.py)

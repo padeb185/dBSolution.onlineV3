@@ -52,6 +52,15 @@
             <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="{% trans 'Tenants' %}" style="width:60px; height:60px; margin-right:10px;">
         </a>
 
+        <a href="{% url 'monitoring:tableau' %}"
+           class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+            <div>
+                <h2 class="text-lg font-semibold mb-2">{% trans "Monitoring serveur" %}</h2>
+                <p>{% trans "CPU, mémoire, disque, utilisateurs connectés et trafic – global et par tenant." %}</p>
+            </div>
+            <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="{% trans 'Monitoring serveur' %}" style="width:60px; height:60px; margin-right:10px;">
+        </a>
+
         <a href="{% url 'utilisateurs:tenant_creer' %}"
            class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
             <div>

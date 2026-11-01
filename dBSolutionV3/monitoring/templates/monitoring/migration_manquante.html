@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Monitoring serveur" %}{% endblock %}
+{% block content %}
+<br>
+<div class="p-6 max-w-3xl">
+    <h1 class="text-3xl font-bold mb-4">{% trans "Monitoring serveur" %}</h1>
+    <div class="rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-amber-900">
+        <p class="font-semibold mb-2">{% trans "Les tables du monitoring n'existent pas encore." %}</p>
+        <p class="mb-2">{% trans "Appliquez les migrations du schéma public, puis rechargez la page :" %}</p>
+        <pre class="bg-white border rounded px-3 py-2 text-sm">python manage.py migrate_schemas --shared</pre>
+    </div>
+</div>
+{% endblock %}
