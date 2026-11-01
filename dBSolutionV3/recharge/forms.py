@@ -107,6 +107,11 @@ class ElectriciteForm(forms.ModelForm):
         self.societe = kwargs.pop("societe", None)
 
         super().__init__(*args, **kwargs)
+        # Pays par défaut : pays du tenant (Societe.pays)
+        if ("pays" in self.fields and not self.is_bound and not getattr(self.instance, "pk", None)
+                and not self.initial.get("pays")):
+            from core.pays import pays_societe
+            self.initial["pays"] = pays_societe()
 
         self.order_fields([
             "voiture_exemplaire",

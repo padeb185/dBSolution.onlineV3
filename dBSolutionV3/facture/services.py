@@ -91,7 +91,7 @@ def _libelle_piece(libelle):
 
 
 def _taux_tva(obj):
-    pays = getattr(obj, "pays", None) or TVAConfig.DEFAULT_PAYS
+    pays = getattr(obj, "pays", None) or TVAConfig.pays_defaut()
     return arrondi(TVAConfig.get_tva(pays))
 
 
@@ -659,9 +659,8 @@ def creer_factures_par_parts(maintenances, user, diagnostics=()):
 
 
 def _taux_tva_societe(societe):
-    adresse = getattr(societe, "adresse", None)
-    pays = (getattr(adresse, "code_pays", "") or TVAConfig.DEFAULT_PAYS)[:2].upper()
-    return arrondi(TVAConfig.get_tva(pays))
+    from core.pays import pays_societe
+    return arrondi(TVAConfig.get_tva(pays_societe(societe)))
 
 
 def lignes_depuis_diagnostic(diagnostic, marge_main_oeuvre, taux_tva):

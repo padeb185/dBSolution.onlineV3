@@ -43,7 +43,8 @@ class Command(BaseCommand):
             directeur=options['directeur'],
             numero_tva=options['numero_tva'],
             site=options.get('site'),
-            adresse=adresse
+            adresse=adresse,
+            pays=(options['code_pays'] or "BE")[:2].upper(),
         )
         societe.slug = slugify(options['nom'])
         societe.save()  # Crée le schema automatiquement grâce à auto_create_schema

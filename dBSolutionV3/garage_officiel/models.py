@@ -96,7 +96,9 @@ class GarageOfficiel(models.Model):
 
     @property
     def code_pays(self):
-        return (getattr(self.adresse, "code_pays", "") or "BE")[:2].upper() if self.adresse_id else "BE"
+        from core.pays import pays_societe
+        code = (getattr(self.adresse, "code_pays", "") or "")[:2].upper() if self.adresse_id else ""
+        return code or pays_societe()
 
     def clean(self):
         super().clean()

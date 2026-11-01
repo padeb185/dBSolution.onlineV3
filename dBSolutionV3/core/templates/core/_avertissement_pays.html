@@ -1,0 +1,10 @@
+{% load i18n %}{# Avertissement : module belge utilisé par un tenant établi dans un autre pays. module = "compta" ou "paie" #}
+{% if profil_pays_tenant and not profil_pays_tenant.compta_native %}
+<div class="mb-6 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+    {% if module == "paie" %}
+    {% blocktrans with pays=pays_tenant_nom %}Votre société est établie en {{ pays }} : les calculs de paie utilisent les barèmes belges (ONSS, précompte professionnel). Les barèmes de ce pays ne sont pas encore disponibles – faites valider les montants par votre secrétariat social.{% endblocktrans %}
+    {% else %}
+    {% blocktrans with pays=pays_tenant_nom %}Votre société est établie en {{ pays }} : la comptabilité utilise le plan comptable belge (PCMN) et le schéma BNB. Le plan comptable national n'est pas encore disponible – faites valider les écritures par votre comptable.{% endblocktrans %}
+    {% endif %}
+</div>
+{% endif %}

@@ -475,10 +475,8 @@ class Location(models.Model):
     # -------------------------
     @property
     def pays_tva(self):
-        from maintenance.choices import TVAConfig
-        adresse = getattr(self.societe, "adresse", None)
-        code = (getattr(adresse, "code_pays", "") or TVAConfig.DEFAULT_PAYS)[:2].upper()
-        return code if code in TVAConfig.TVA_PIECES else TVAConfig.DEFAULT_PAYS
+        from core.pays import pays_societe
+        return pays_societe(self.societe if self.societe_id else None)
 
     @property
     def taux_tva(self):
@@ -896,8 +894,7 @@ class Location(models.Model):
             # Espèces : plafond légal des paiements en espèces (pays de la société)
             if self.mode_acompte == "ESPECES" and self.montant_acompte and "montant_acompte" not in errors:
                 from facture.paiements import depasse_plafond, plafond_especes
-                adresse = getattr(self.societe, "adresse", None) if self.societe_id else None
-                pays = ((getattr(adresse, "code_pays", "") or "BE")[:2]).upper()
+                pays = self.pays_tva
                 plafond = plafond_especes(pays, self.date_acompte)
                 if depasse_plafond(Decimal(self.montant_acompte), plafond):
                     errors["mode_acompte"] = _(
@@ -914,8 +911,7 @@ class Location(models.Model):
             from django.utils import timezone
             acompte = Decimal(self.montant_acompte or 0) if self.acompte else Decimal("0")
             especes = Decimal(self.prix_tvac) - acompte + (acompte if self.mode_acompte == "ESPECES" else Decimal("0"))
-            adresse = getattr(self.societe, "adresse", None) if self.societe_id else None
-            pays = ((getattr(adresse, "code_pays", "") or "BE")[:2]).upper()
+            pays = self.pays_tva
             plafond = plafond_especes(pays, timezone.localdate())
             if depasse_plafond(especes, plafond):
                 errors["mode_solde"] = _(

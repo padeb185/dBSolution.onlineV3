@@ -165,8 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.getElementById('id_numero').value = '';
                     document.getElementById('id_code_postal').value = '';
                     document.getElementById('id_ville').value = '';
-                    document.getElementById('id_pays').value = 'Belgique';
-                    document.getElementById('id_code_pays').value = 'BE';
+                    document.getElementById('id_pays').value = '{{ pays_tenant_nom|escapejs }}';
+                    document.getElementById('id_code_pays').value = '{{ pays_tenant|escapejs }}';
                 }
             })
             .catch(err => console.error("Erreur:", err));

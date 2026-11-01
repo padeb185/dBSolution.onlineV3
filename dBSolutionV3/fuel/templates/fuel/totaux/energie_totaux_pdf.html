@@ -60,7 +60,7 @@
 <div class="sous-titre">
     {% trans "Période" %} : <strong>{{ periode.libelle }}</strong>
     ({{ periode.debut|date:"d/m/Y" }} – {{ periode.fin|date:"d/m/Y" }})
-    · {% trans "Déduction TVA belge" %} : {{ deduction|floatformat:"0g" }} %
+    · {% if pays_societe == "BE" or not pays_societe %}{% trans "Déduction TVA belge" %}{% else %}{% blocktrans with pays=pays_societe_nom %}Déduction TVA – {{ pays }}{% endblocktrans %}{% endif %} : {{ deduction|floatformat:"0g" }} %
 </div>
 
 <div class="cartes">
@@ -132,9 +132,15 @@
     {% endfor %}</tbody>
 </table>
 <div class="note">
+    {% if pays_societe == "BE" or not pays_societe %}
     <strong>{% trans "Déclaration TVA belge" %}</strong> –
     {% trans "Grille 82 (base HT)" %} : {{ declaration_be.grille_82|floatformat:"2g" }} € ·
     {% trans "Grille 59 (TVA déductible)" %} : {{ declaration_be.grille_59|floatformat:"2g" }} € ·
+    {% else %}
+    <strong>{% blocktrans with pays=pays_societe_nom %}Déclaration TVA nationale – {{ pays }}{% endblocktrans %}</strong> –
+    {% trans "Base HT" %} : {{ declaration_be.grille_82|floatformat:"2g" }} € ·
+    {% trans "TVA déductible" %} : {{ declaration_be.grille_59|floatformat:"2g" }} € ·
+    {% endif %}
     {% trans "TVA non déductible" %} : {{ declaration_be.tva_non_deductible|floatformat:"2g" }} €
     {% for r in regimes %}{% if r.code == "remboursement_ue" %}<br>
     {% blocktrans with d=echeance_remboursement_ue|date:"d/m/Y" %}Demande de remboursement de la TVA étrangère via Intervat (procédure UE) au plus tard le {{ d }}.{% endblocktrans %}

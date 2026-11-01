@@ -15,6 +15,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from core.pays import pays_tenant_defaut
 from maintenance.choices import FabricantPiece, TAUX_HORAIRE_CHOICES, TVAConfig
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
@@ -179,7 +180,7 @@ DECISIONS_CHIFFREES = (DecisionPiece.A_REMPLACER, DecisionPiece.REMPLACE, Decisi
 
 
 class RapportAccident(TechnicienMixin, models.Model):
-    pays = models.CharField(max_length=5, choices=TVAConfig.PAYS_CHOICES, default=TVAConfig.DEFAULT_PAYS, verbose_name=_("Pays"))
+    pays = models.CharField(max_length=5, choices=TVAConfig.PAYS_CHOICES, default=pays_tenant_defaut, verbose_name=_("Pays"))
     maintenance = models.ForeignKey(Maintenance, on_delete=models.CASCADE, related_name="rapport_accident", null=True, blank=True)
     voiture_exemplaire = models.ForeignKey(
         "voiture_exemplaire.VoitureExemplaire", on_delete=models.CASCADE, related_name="rapports_accident",

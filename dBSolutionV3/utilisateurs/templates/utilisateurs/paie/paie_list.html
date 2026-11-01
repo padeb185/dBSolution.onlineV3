@@ -4,6 +4,7 @@
 {% block title %}{% trans "Liste des paies" %}{% endblock %}
 
 {% block content %}
+{% include "core/_avertissement_pays.html" with module="paie" %}
 <br>
 <h1 class="text-2xl font-bold mb-6 flex items-center">
     <img src="{% static 'icons/paie.png' %}" alt=""

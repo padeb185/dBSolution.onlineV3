@@ -187,6 +187,7 @@ def dashboard_voiture_view(request):
             "total_modele": modeles.count(),
             "total_exemplaires": exemplaires.count(),
             "total_remorques": _total_remorques(user),
+            "total_utilitaires": exemplaires.filter(type_utilisation="utilitaire").count(),
             "marques": marques,
             "modele": modeles,
             "exemplaires": exemplaires,

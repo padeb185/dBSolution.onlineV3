@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from adresse.models import Adresse
+from core.pays import pays_tenant_defaut
 from maintenance.choices import TVAConfig
 from voiture.voiture_marque.models import VoitureMarque
 from .models import GarageOfficiel
@@ -14,7 +15,7 @@ class GarageOfficielForm(forms.ModelForm):
     boite = forms.CharField(label=_("Boite"), max_length=10, required=False)
     code_postal = forms.CharField(label=_("Code postal"), max_length=10)
     ville = forms.CharField(label=_("Ville"), max_length=100)
-    code_pays = forms.ChoiceField(label=_("Pays"), choices=TVAConfig.PAYS_CHOICES, initial="BE")
+    code_pays = forms.ChoiceField(label=_("Pays"), choices=TVAConfig.PAYS_CHOICES, initial=pays_tenant_defaut)
 
     class Meta:
         model = GarageOfficiel
@@ -40,7 +41,7 @@ class GarageOfficielForm(forms.ModelForm):
         if adresse:
             for champ in ("rue", "numero", "boite", "code_postal", "ville"):
                 self.fields[champ].initial = getattr(adresse, champ)
-            self.fields["code_pays"].initial = (adresse.code_pays or "BE")[:2].upper()
+            self.fields["code_pays"].initial = (adresse.code_pays or pays_tenant_defaut())[:2].upper()
 
     def save(self, commit=True):
         instance = super().save(commit=False)
@@ -49,7 +50,7 @@ class GarageOfficielForm(forms.ModelForm):
             instance.societe = societe
 
         cd = self.cleaned_data
-        code_pays = cd.get("code_pays") or "BE"
+        code_pays = cd.get("code_pays") or pays_tenant_defaut()
         valeurs = {
             "rue": cd["rue"].strip(), "numero": cd["numero"].strip(), "boite": (cd.get("boite") or "").strip() or None,
             "code_postal": cd["code_postal"].strip(), "ville": cd["ville"].strip(),

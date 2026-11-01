@@ -530,15 +530,25 @@ def liste_exemplaires_all(request):
     exemplaires = VoitureExemplaire.objects.select_related(
         'voiture_marque', 'voiture_modele', 'voiture_moteur'
     ).all().order_by('id')
+
+    # Filtre par type d'utilisation (ex. ?utilisation=utilitaire : véhicules utilitaires de la société)
+    from voiture.voiture_exemplaire.models import TypeUtilisation, precharger_alertes
+    utilisation = request.GET.get("utilisation", "")
+    if utilisation in TypeUtilisation.values:
+        exemplaires = exemplaires.filter(type_utilisation=utilisation)
+    else:
+        utilisation = ""
+
     # Alertes rodage / entretien : rodages validés chargés en une requête
-    from voiture.voiture_exemplaire.models import precharger_alertes
     exemplaires = precharger_alertes(exemplaires)
 
     return render(
         request,
         'voiture_exemplaire/list.html',
         {
-            'exemplaires': exemplaires
+            'exemplaires': exemplaires,
+            'utilisation': utilisation,
+            'utilisation_label': dict(TypeUtilisation.choices).get(utilisation, ""),
         }
     )
 

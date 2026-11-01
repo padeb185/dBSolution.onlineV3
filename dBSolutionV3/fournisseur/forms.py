@@ -1,3 +1,4 @@
+from core.pays import nom_pays_tenant, pays_tenant_defaut
 from django import forms
 from stdnum import iban
 
@@ -49,7 +50,7 @@ class FournisseurForm(forms.ModelForm):
 
     pays = forms.CharField(
         required=False,
-        initial=_("Belgique"),
+        initial=nom_pays_tenant,
         widget=forms.TextInput(attrs={
             "class": "border rounded px-4 py-2 w-full",
             "placeholder": _("Pays")
@@ -58,7 +59,7 @@ class FournisseurForm(forms.ModelForm):
 
     code_pays = forms.CharField(
         required=False,
-        initial="BE",
+        initial=pays_tenant_defaut,
         widget=forms.TextInput(attrs={
             "class": "border rounded px-4 py-2 w-full",
             "placeholder": _("Code pays")

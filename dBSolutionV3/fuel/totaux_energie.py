@@ -1,6 +1,7 @@
 """
 Totaux énergie (carburants, recharges électriques, AdBlue)
 + ventilation TVA par pays + écritures comptables (PCMN belge).
+Le pays « national » (TVA déductible) est le pays du tenant (Societe.pays).
 
 Utilisé par fuel/views_totaux.py (écran, PDF, CSV).
 """
@@ -42,7 +43,11 @@ COMPTES = OrderedDict([
     (COMPTE_CONTREPARTIE, gettext_noop("Banque – compte courant")),
 ])
 
-PAYS_SOCIETE = "BE"
+def pays_societe_courant():
+    """Pays du tenant (Societe.pays) : la TVA de ce pays passe par la déclaration nationale."""
+    from core.pays import pays_societe
+    return pays_societe()
+
 PAYS_HORS_UE = {"GB"}
 
 FAMILLES = OrderedDict([
@@ -165,6 +170,8 @@ def _modele(obj):
 
 
 def operations(societe, periode):
+    from core.pays import pays_societe
+    pays_national = pays_societe(societe)
     pays_labels = dict(Fuel.PAYS_CHOICES)
     labels_carburant = dict(TypeCarburant.choices)
     ops = []
@@ -172,7 +179,7 @@ def operations(societe, periode):
     def ajouter(famille, obj, categorie, categorie_label, quantite, unite, ttc, taux, piece):
         ht, tva = _ventiler(ttc, obj.montant_ht, obj.montant_tva, taux)
         vehicule, immat = _vehicule(obj)
-        pays = obj.pays or PAYS_SOCIETE
+        pays = obj.pays or pays_national
         ops.append({
             "famille": famille,
             "famille_label": _(FAMILLES[famille]["label"]),
@@ -208,7 +215,7 @@ def operations(societe, periode):
                                          date__month__in=periode.liste_mois).select_related(*sel)):
         ajouter("electricite", e, "ELECTRICITE", _("Électricité"),
                 e.kW, "kWh", e.prix_recharge,
-                RechargeCarburant.TVA_ELECTRICITE.get(e.pays or PAYS_SOCIETE, 0), f"ELEC-{str(e.pk)[:8]}")
+                RechargeCarburant.TVA_ELECTRICITE.get(e.pays or pays_national, 0), f"ELEC-{str(e.pk)[:8]}")
 
     for a in (AdBlue.objects.filter(societe=societe, date__year=periode.annee,
                                     date__month__in=periode.liste_mois).select_related(*sel)):
@@ -234,8 +241,13 @@ def _cumuler(t, o):
     t["ttc"] += o["ttc"]
 
 
-def regime_tva(pays):
-    if pays == PAYS_SOCIETE:
+def _nom_pays(code):
+    from core.pays import nom_pays
+    return nom_pays(code)
+
+
+def regime_tva(pays, pays_national=None):
+    if pays == (pays_national or pays_societe_courant()):
         return "deductible"
     if pays in PAYS_HORS_UE:
         return "non_recuperable"
@@ -249,8 +261,15 @@ REGIMES = {
 }
 
 
+def _label_regime(code, pays_national):
+    if code == "deductible" and pays_national != "BE":
+        return _("Déductible (déclaration TVA – %(pays)s)") % {"pays": _nom_pays(pays_national)}
+    return _(REGIMES[code])
+
+
 def totaux(ops, periode, deduction=Decimal("100")):
     total = _vide()
+    pays_national = pays_societe_courant()
 
     # --- par famille / par catégorie (essence 95, 98, diesel, électricité, AdBlue…)
     par_famille = OrderedDict((k, dict(_vide(), label=_(v["label"]), unites=set())) for k, v in FAMILLES.items())
@@ -284,7 +303,8 @@ def totaux(ops, periode, deduction=Decimal("100")):
         p = o["pays"]
         if p not in par_pays:
             par_pays[p] = dict(_vide(), code=p, nom=o["pays_nom"], taux=o["taux"],
-                               regime=regime_tva(p), regime_label=_(REGIMES[regime_tva(p)]),
+                               regime=regime_tva(p, pays_national),
+                               regime_label=_label_regime(regime_tva(p, pays_national), pays_national),
                                familles=OrderedDict((k, _vide()) for k in FAMILLES))
         _cumuler(par_pays[p], o)
         _cumuler(par_pays[p]["familles"][o["famille"]], o)
@@ -311,11 +331,12 @@ def totaux(ops, periode, deduction=Decimal("100")):
         pays["familles_liste"] = [dict(v, code=k, label=_(FAMILLES[k]["label"]))
                                   for k, v in pays["familles"].items() if v["nb"]]
 
-    pays_tries = sorted(par_pays.values(), key=lambda x: (x["code"] != PAYS_SOCIETE, x["nom"]))
+    pays_tries = sorted(par_pays.values(), key=lambda x: (x["code"] != pays_national, x["nom"]))
 
     # --- synthèse TVA par régime
-    regimes = OrderedDict((k, {"code": k, "label": _(v), "ht": ZERO, "tva": ZERO, "ttc": ZERO})
-                          for k, v in REGIMES.items())
+    regimes = OrderedDict((k, {"code": k, "label": _label_regime(k, pays_national), "ht": ZERO, "tva": ZERO,
+                               "ttc": ZERO})
+                          for k in REGIMES)
     for p in pays_tries:
         r = regimes[p["regime"]]
         r["ht"] += p["ht"]
@@ -323,7 +344,7 @@ def totaux(ops, periode, deduction=Decimal("100")):
         r["ttc"] += p["ttc"]
 
     # --- grilles de la déclaration TVA belge (achats en Belgique)
-    be = par_pays.get(PAYS_SOCIETE)
+    be = par_pays.get(pays_national)
     tva_be = be["tva"] if be else ZERO
     tva_be_deductible = r2(tva_be * deduction / Decimal("100"))
     declaration_be = {
@@ -342,6 +363,8 @@ def totaux(ops, periode, deduction=Decimal("100")):
         "par_trimestre": list(par_trimestre.values()),
         "par_vehicule": sorted(par_vehicule.values(), key=lambda v: -v["ttc"]),
         "declaration_be": declaration_be,
+        "pays_societe": pays_national,
+        "pays_societe_nom": _nom_pays(pays_national),
         "echeance_remboursement_ue": date(periode.annee + 1, 9, 30),
     }
 

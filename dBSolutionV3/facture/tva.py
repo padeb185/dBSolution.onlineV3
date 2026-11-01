@@ -1,7 +1,7 @@
 """
 Calcul de la TVA d'une période : TVA à payer (factures émises) et TVA à récupérer
 (achats, outillage, carburant, AdBlue, électricité), avec le solde et les grilles indicatives
-de la déclaration TVA belge.
+de la déclaration TVA du pays de la société (Societe.pays ; Belgique par défaut).
 """
 from calendar import monthrange
 from datetime import date
@@ -522,9 +522,9 @@ class CalculTVA:
     # Déclarations nationales (UE)
     # ------------------------------------------------------------
     def pays_par_defaut(self):
-        adresse = getattr(self.societe, "adresse", None)
-        code = (getattr(adresse, "code_pays", "") or "BE")[:2].upper()
-        return code if code in TVAConfig.TVA_PIECES else "BE"
+        """Pays du tenant (Societe.pays) : pays de la déclaration TVA."""
+        from core.pays import pays_societe
+        return pays_societe(self.societe)
 
     def declaration(self, pays=None):
         """

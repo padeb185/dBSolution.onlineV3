@@ -1850,15 +1850,20 @@ class TVAConfig:
     DEFAULT_PAYS = "BE"
 
     @classmethod
+    def pays_defaut(cls):
+        """Pays du tenant courant (Societe.pays), Belgique à défaut."""
+        from core.pays import pays_societe
+        return pays_societe()
+
+    @classmethod
     def get_tva(cls, pays):
         """
         Retourne le taux de TVA du pays.
-        Belgique par défaut si le pays n'est pas trouvé.
+        Pays du tenant par défaut si le pays n'est pas trouvé (Belgique à défaut).
         """
-        return cls.TVA_PIECES.get(
-            pays,
-            cls.TVA_PIECES[cls.DEFAULT_PAYS],
-        )
+        if pays in cls.TVA_PIECES:
+            return cls.TVA_PIECES[pays]
+        return cls.TVA_PIECES.get(cls.pays_defaut(), cls.TVA_PIECES[cls.DEFAULT_PAYS])
 
     #taux_tva = TVAConfig.get_tva(self.pays)
 

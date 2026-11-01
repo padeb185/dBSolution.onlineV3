@@ -36,8 +36,9 @@ class AdresseForm(forms.ModelForm):
 
         # Valeurs par défaut uniquement à la création
         if not self.is_bound and not self.instance.pk:
-            self.fields["pays"].initial = "Belgique"
-            self.fields["code_pays"].initial = "BE"
+            from core.pays import nom_pays_tenant, pays_tenant_defaut
+            self.fields["pays"].initial = nom_pays_tenant()
+            self.fields["code_pays"].initial = pays_tenant_defaut()
 
     def save(self, commit=True):
         adresse = super().save(commit=False)

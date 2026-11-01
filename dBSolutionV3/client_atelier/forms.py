@@ -1,3 +1,4 @@
+from core.pays import nom_pays_tenant, pays_tenant_defaut
 from societe_cliente.models import SocieteCliente
 from stdnum import iban
 from django import forms
@@ -150,7 +151,7 @@ class ClientAtelierForm(forms.ModelForm):
     pays = forms.CharField(
         required=False,
         label=_("Pays"),
-        initial="Belgique",
+        initial=nom_pays_tenant,
         widget=forms.TextInput(attrs={
             "class": "border rounded px-3 py-2 w-full text-sm"
         })
@@ -159,7 +160,7 @@ class ClientAtelierForm(forms.ModelForm):
     code_pays = forms.CharField(
         required=False,
         label=_("Code pays"),
-        initial="BE",
+        initial=pays_tenant_defaut,
         widget=forms.TextInput(attrs={
             "class": "border rounded px-3 py-2 w-full text-sm"
         })

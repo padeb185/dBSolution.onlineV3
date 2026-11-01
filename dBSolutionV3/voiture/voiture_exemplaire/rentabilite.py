@@ -55,7 +55,8 @@ def _jour(d):
 def energie(ex):
     from adblue.models import AdBlue
     from fuel.models import Fuel
-    from fuel.totaux_energie import PAYS_SOCIETE, _ventiler
+    from core.pays import pays_societe
+    from fuel.totaux_energie import _ventiler
     from recharge.models import Electricite, RechargeCarburant
 
     res = OrderedDict([
@@ -75,7 +76,7 @@ def energie(ex):
     for f in Fuel.objects.filter(voiture_exemplaire=ex):
         ajouter("carburant", f, f.litres, f.prix_refuelling, Fuel.TVA_CARBURANT.get(f.pays, 0))
     for e in Electricite.objects.filter(voiture_exemplaire=ex):
-        ajouter("electricite", e, e.kW, e.prix_recharge, RechargeCarburant.TVA_ELECTRICITE.get(e.pays or PAYS_SOCIETE, 0))
+        ajouter("electricite", e, e.kW, e.prix_recharge, RechargeCarburant.TVA_ELECTRICITE.get(e.pays or pays_societe(getattr(ex, "societe", None)), 0))
     for a in AdBlue.objects.filter(voiture_exemplaire=ex):
         ajouter("adblue", a, a.litres, a.prix_adblue, AdBlue.TVA_CARBURANT.get(a.pays, 0))
 
@@ -126,7 +127,7 @@ def carburant_estime(ex, en, km=None):
     """
     from django.db.models import Sum
     from fuel.models import Fuel
-    from fuel.totaux_energie import PAYS_SOCIETE
+    from core.pays import pays_societe
 
     carburant = en["carburant"]
     km_fin, source_km = km_reference_carburant(ex)
@@ -155,7 +156,7 @@ def carburant_estime(ex, en, km=None):
     # Pleins éventuellement encodés sur la période achat → création (évite de les compter deux fois)
     encodes = Fuel.objects.filter(voiture_exemplaire=ex, kilometrage_fuel__gt=int(km_achat),
                                   kilometrage_fuel__lte=km_fin).aggregate(t=Sum("litres"))["t"] or ZERO
-    taux = Decimal(str(Fuel.TVA_CARBURANT.get(PAYS_SOCIETE, 21)))
+    taux = Decimal(str(Fuel.TVA_CARBURANT.get(pays_societe(getattr(ex, "societe", None)), 21)))
     litres_total = r2(Decimal(km) * Decimal(conso) / Decimal("100"))
     litres = max(r2(litres_total - Decimal(encodes)), ZERO)
     ttc = r2(litres * Decimal(prix))

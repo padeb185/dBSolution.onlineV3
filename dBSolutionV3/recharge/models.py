@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.db.models import Sum
 from decimal import Decimal, ROUND_HALF_UP
 from utilisateurs.models import Utilisateur
+from core.pays import pays_societe
 
 
 class TypeCarburant(models.TextChoices):
@@ -237,7 +238,7 @@ class Electricite(models.Model):
             )
 
         # Calcul HT et TVA
-        tva_percent = RechargeCarburant.TVA_ELECTRICITE.get(self.pays or 'BE', 0)
+        tva_percent = RechargeCarburant.TVA_ELECTRICITE.get(self.pays or pays_societe(), 0)
         tva_decimal = Decimal(tva_percent) / Decimal('100')
         if self.prix_recharge:
             self.montant_ht = (Decimal(self.prix_recharge) / (Decimal('1') + tva_decimal)).quantize(

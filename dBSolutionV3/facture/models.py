@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from adresse.models import Adresse
+from core.pays import pays_tenant_defaut
 from societe_cliente.models import SocieteCliente
 
 DEUX_DECIMALES = Decimal("0.01")
@@ -46,7 +47,7 @@ class Company(models.Model):
     code_pays = models.CharField(
         _("Code pays"),
         max_length=2,
-        default="BE"
+        default=pays_tenant_defaut
     )
 
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
@@ -527,8 +528,8 @@ class Facture(models.Model):
         }
 
     def pays_vendeur(self):
-        adresse = getattr(self.societe, "adresse", None)
-        return ((getattr(adresse, "code_pays", "") or "BE")[:2]).upper()
+        from core.pays import pays_societe
+        return pays_societe(self.societe)
 
     def recalculer_paiement(self, non_ventile=Decimal("0")):
         """

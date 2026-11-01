@@ -15,6 +15,7 @@ class TypeUtilisation(models.TextChoices):
     PRIVE = "prive", _("Privé")
     LOCATION = "location", _("Location")
     INTERNE = "interne", _("Interne")
+    UTILITAIRE = "utilitaire", _("Véhicule utilitaire (société)")
 
 class NomPays(models.TextChoices):
     # Les valeurs doivent correspondre exactement à celles testées dans

@@ -7,10 +7,19 @@
     <h1 class="text-2xl font-bold mb-6 flex items-center gap-4">
         <img src="{% static 'icons/mecanique.png' %}" alt="Mécanique"
              style="width:60px; height:60px; margin-right:10px;">
-        {% trans "Liste des véhicules :" %}
-        {{ modele.voiture_marque.nom_marque }} {{ modele.nom_modele }}
-        {% if modele.nom_variante %}- {{ modele.nom_variante }}{% endif %}
+        {% if utilisation == "utilitaire" %}
+            {% trans "Véhicules utilitaires de la société" %}
+        {% else %}
+            {% trans "Liste des véhicules :" %}
+            {% if utilisation_label %}{{ utilisation_label }}{% endif %}
+            {{ modele.voiture_marque.nom_marque }} {{ modele.nom_modele }}
+            {% if modele.nom_variante %}- {{ modele.nom_variante }}{% endif %}
+        {% endif %}
     </h1>
+
+    {% if utilisation == "utilitaire" %}
+    <p class="text-gray-600 mb-4">{% trans "Camionnettes, fourgons, dépanneuses, pick-up… : véhicules de la société dont le type d'utilisation est « Véhicule utilitaire » (à choisir dans la fiche du véhicule)." %}</p>
+    {% endif %}
 
     {% if exemplaires %}
 
@@ -108,7 +117,7 @@
     {% else %}
     <div class="bg-red-50 border border-red-200 shadow-md rounded-lg p-6 text-center">
         <p class="text-red-700 font-semibold">
-            {% trans "Aucun exemplaire disponible pour la maintenance." %}
+            {% if utilisation == "utilitaire" %}{% trans "Aucun véhicule utilitaire : choisissez le type d'utilisation « Véhicule utilitaire » dans la fiche d'un véhicule de la société." %}{% else %}{% trans "Aucun exemplaire disponible pour la maintenance." %}{% endif %}
         </p>
     </div>
     {% endif %}

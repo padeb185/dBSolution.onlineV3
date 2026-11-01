@@ -45,7 +45,10 @@ def plafond_especes(code_pays, jour=None, non_resident=False):
     Retourne {"montant", "strict", "source"} ou None s'il n'y a pas de plafond.
     """
     jour = jour or date.today()
-    regle = PLAFONDS_ESPECES.get((code_pays or "BE").upper()[:2])
+    if not code_pays:
+        from core.pays import pays_societe
+        code_pays = pays_societe()
+    regle = PLAFONDS_ESPECES.get(code_pays.upper()[:2])
     montant, strict = None, False
     if regle:
         montant, strict, non_res = regle

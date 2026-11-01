@@ -4,6 +4,7 @@ from django.core.validators import StepValueValidator
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from core.pays import pays_tenant_defaut
 from maintenance.choices import FabricantLubrifiant, TAUX_HORAIRE_CHOICES, TVAConfig, LiquideDirectionQualite, \
     HuileEtat, HuileBoiteNiveauxEtat, HuilePontEtat, RefroidissementQualiteEtat, LiquideFreinsQualite, LaveGlaceQualite, \
     RouesSerrageEtat
@@ -26,7 +27,7 @@ class Niveau(TechnicienMixin, models.Model):
     pays = models.CharField(
         max_length=5,
         choices=TVAConfig.PAYS_CHOICES,
-        default=TVAConfig.DEFAULT_PAYS,
+        default=pays_tenant_defaut,
         verbose_name=_("Pays"),
     )
 

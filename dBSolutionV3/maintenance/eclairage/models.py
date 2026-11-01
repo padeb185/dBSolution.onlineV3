@@ -10,6 +10,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from maintenance.check_up.models import PhareEtat, PhareReglageEtat, HuileBoiteEtat
+from core.pays import pays_tenant_defaut
 from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantLubrifiant, FabricantFiltre, \
     AmpouleAutomobile, FabricantPiece, TypeHuileDirection, FabricantBougies, FabricantAmpoule, TVAConfig, HuileEtat, \
     HuilePontEtat, LaveGlaceQualite, LiquideFreinsQualite, RefroidissementQualiteEtat
@@ -38,7 +39,7 @@ class Eclairage(TechnicienMixin, models.Model):
     pays = models.CharField(
         max_length=5,
         choices=TVAConfig.PAYS_CHOICES,
-        default=TVAConfig.DEFAULT_PAYS,
+        default=pays_tenant_defaut,
         verbose_name=_("Pays"),
     )
 

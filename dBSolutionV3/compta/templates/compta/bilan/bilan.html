@@ -2,6 +2,7 @@
 {% load i18n static %}
 {% block title %}{% trans "Comptes annuels" %} {{ annee }}{% endblock %}
 {% block content %}
+{% include "core/_avertissement_pays.html" with module="compta" %}
 <div class="p-6 max-w-7xl mx-auto">
 {% trans "Comptes annuels – bilan et compte de résultats (normes belges)" as titre %}
 {% include "compta/immo/_nav.html" with icone="icons/bilan.png" %}

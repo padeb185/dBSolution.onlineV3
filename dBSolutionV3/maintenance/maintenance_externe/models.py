@@ -6,6 +6,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from core.pays import pays_tenant_defaut
 from maintenance.choices import TVAConfig
 from maintenance.models import Maintenance
 
@@ -58,7 +59,7 @@ class MaintenanceExterne(models.Model):
         _("Pays de la TVA"),
         max_length=2,
         choices=TVAConfig.PAYS_CHOICES,
-        default=TVAConfig.DEFAULT_PAYS,
+        default=pays_tenant_defaut,
     )
     taux_tva = models.DecimalField(
         _("Taux de TVA (%)"),
@@ -326,7 +327,7 @@ class CarrosserieExterne(models.Model):
     kilometrage = models.PositiveIntegerField(_("Kilométrage"), null=True, blank=True)
 
     pays = models.CharField(_("Pays de la TVA"), max_length=2, choices=TVAConfig.PAYS_CHOICES,
-                            default=TVAConfig.DEFAULT_PAYS)
+                            default=pays_tenant_defaut)
     taux_tva = models.DecimalField(_("Taux de TVA (%)"), max_digits=5, decimal_places=2, blank=True,
                                    validators=[MinValueValidator(0), MaxValueValidator(100)],
                                    help_text=_("Repris automatiquement du pays, modifiable."))

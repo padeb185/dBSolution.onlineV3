@@ -1,4 +1,5 @@
 
+from core.pays import nom_pays_tenant, pays_tenant_defaut
 from core.suppression import analyser_suppression
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -67,8 +68,8 @@ def ajouter_assurance_all(request):
             "numero": request.POST.get("numero", "").strip(),
             "code_postal": request.POST.get("code_postal", "").strip(),
             "ville": request.POST.get("ville", "").strip(),
-            "pays": request.POST.get("pays", "Belgique").strip(),
-            "code_pays": request.POST.get("code_pays", "BE").strip(),
+            "pays": (request.POST.get("pays") or nom_pays_tenant()).strip(),
+            "code_pays": (request.POST.get("code_pays") or pays_tenant_defaut()).strip(),
             "societe": tenant,
         }
 

@@ -7,6 +7,7 @@ from decimal import Decimal
 
 import xml.etree.ElementTree as etree
 
+from core.pays import pays_societe
 from facture.models import Company, ParametresPeppol, arrondi
 
 NS_INVOICE = "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
@@ -47,6 +48,11 @@ def nettoyer_tva(numero_tva):
     return re.sub(r"[^A-Za-z0-9]", "", numero_tva or "").upper()
 
 
+def _pays_tenant():
+    """Pays du tenant courant (Societe.pays), BE à défaut."""
+    return pays_societe()
+
+
 def endpoint(peppol_id, numero_tva, code_pays):
     """
     (schemeID, valeur) de l'adresse Peppol.
@@ -61,13 +67,14 @@ def endpoint(peppol_id, numero_tva, code_pays):
         return schema.strip(), valeur
 
     tva = nettoyer_tva(numero_tva)
-    pays = (tva[:2] if tva[:2].isalpha() else code_pays or "BE").upper()
+    pays = (tva[:2] if tva[:2].isalpha() else code_pays or _pays_tenant()).upper()
     if pays == "BE":
         return "0208", re.sub(r"\D", "", tva)
     return SCHEMA_TVA_PAYS.get(pays, "9925"), tva
 
 
-def ajouter_adresse(party, adresse, code_pays_defaut="BE"):
+def ajouter_adresse(party, adresse, code_pays_defaut=None):
+    code_pays_defaut = code_pays_defaut or _pays_tenant()
     postal = cac(party, "PostalAddress")
     if adresse:
         rue = f"{adresse.rue} {adresse.numero}".strip()
@@ -84,11 +91,12 @@ def ajouter_adresse(party, adresse, code_pays_defaut="BE"):
     return code_pays
 
 
-def ajouter_partie(parent, tag, nom, numero_tva, adresse, peppol_id=None, email=None):
+def ajouter_partie(parent, tag, nom, numero_tva, adresse, peppol_id=None, email=None, code_pays_defaut=None):
     conteneur = cac(parent, tag)
     party = cac(conteneur, "Party")
 
-    code_pays = (adresse.code_pays[:2].upper() if adresse and adresse.code_pays else "BE")
+    code_pays = (adresse.code_pays[:2].upper() if adresse and adresse.code_pays
+                 else (code_pays_defaut or _pays_tenant()))
     schema, valeur = endpoint(peppol_id, numero_tva, code_pays)
     cbc(party, "EndpointID", valeur, schemeID=schema)
 
@@ -182,6 +190,7 @@ def generate_peppol_invoice(facture):
         numero_tva=societe.numero_tva if societe else "",
         adresse=(company.adresse if company and company.adresse else getattr(societe, "adresse", None)),
         peppol_id=(parametres.peppol_id if parametres and parametres.peppol_id else (company.peppol_id if company else None)),
+        code_pays_defaut=pays_societe(societe),
     )
 
     # === Client ===

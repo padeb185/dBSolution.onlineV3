@@ -164,8 +164,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 const pays = document.getElementById('id_pays');
                 const code = document.getElementById('id_code_pays');
 
-                if (pays) pays.value = 'Belgique';
-                if (code) code.value = 'BE';
+                if (pays) pays.value = '{{ pays_tenant_nom|escapejs }}';
+                if (code) code.value = '{{ pays_tenant|escapejs }}';
             }
         })
         .catch(err => console.error("Erreur:", err));

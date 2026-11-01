@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError, FieldDoesNotExist
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
+from core.pays import pays_tenant_defaut
 from maintenance.choices import RefroidissementFabricant, CourroieDistributionFabricant, FabricantPiece, TVAConfig, \
     RouesSerrageEtat, RefroidissementQualiteEtat
 from utils.mixin import TechnicienMixin
@@ -29,7 +30,7 @@ class CourroieDistribution(TechnicienMixin, models.Model):
     pays = models.CharField(
         max_length=5,
         choices=TVAConfig.PAYS_CHOICES,
-        default=TVAConfig.DEFAULT_PAYS,
+        default=pays_tenant_defaut,
         verbose_name=_("Pays"),
     )
     # -------------------------

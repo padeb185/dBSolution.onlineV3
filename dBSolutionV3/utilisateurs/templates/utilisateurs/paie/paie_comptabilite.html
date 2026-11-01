@@ -4,6 +4,7 @@
 {% block title %}{% trans "Comptabilité des salaires" %}{% endblock %}
 
 {% block content %}
+{% include "core/_avertissement_pays.html" with module="paie" %}
 <br>
 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
     <h1 class="text-2xl font-bold flex items-center">

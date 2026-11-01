@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from core.pays import pays_tenant_defaut
 from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantLubrifiant, RefroidissementFabricant, \
     FabricantFrein, TypeHuileDirection, FabricantPiece, FabricantSuspension, AmpouleAutomobile, FabricantPneus, \
     FabricantBatterie, FabricantAmpoule, TVAConfig, HuileEtat, HuileBoiteEtat, HuilePontEtat, \
@@ -111,7 +112,7 @@ class Checkup(TechnicienMixin, models.Model):
     pays = models.CharField(
         max_length=5,
         choices=TVAConfig.PAYS_CHOICES,
-        default=TVAConfig.DEFAULT_PAYS,
+        default=pays_tenant_defaut,
         verbose_name=_("Pays"),
     )
 

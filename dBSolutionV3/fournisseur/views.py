@@ -87,8 +87,9 @@ def ajouter_fournisseur_all(request):
             boite = form_fournisseur.cleaned_data.get("boite")
             code_postal = form_fournisseur.cleaned_data.get("code_postal")
             ville = form_fournisseur.cleaned_data.get("ville")
-            pays = form_fournisseur.cleaned_data.get("pays") or "Belgique"
-            code_pays = form_fournisseur.cleaned_data.get("code_pays") or "BE"
+            from core.pays import nom_pays_tenant, pays_tenant_defaut
+            pays = form_fournisseur.cleaned_data.get("pays") or nom_pays_tenant()
+            code_pays = form_fournisseur.cleaned_data.get("code_pays") or pays_tenant_defaut()
 
             if not all([rue, numero, code_postal, ville]):
                 messages.error(

@@ -41,7 +41,7 @@
         </select>
     </div>
     <div>
-        <label class="block text-xs text-gray-500">{% trans "Déduction TVA belge (%)" %}</label>
+        <label class="block text-xs text-gray-500">{% if pays_societe == "BE" or not pays_societe %}{% trans "Déduction TVA belge (%)" %}{% else %}{% blocktrans with pays=pays_societe_nom %}Déduction TVA – {{ pays }} (%){% endblocktrans %}{% endif %}</label>
         <input type="number" name="deduction" min="0" max="100" step="1" value="{{ deduction|floatformat:0 }}"
                class="border rounded px-3 py-2 w-24">
     </div>
@@ -180,10 +180,14 @@
             {% endif %}{% endfor %}
         </div>
         <div>
+            {% if pays_societe == "BE" or not pays_societe %}
             <h3 class="font-semibold mb-2">{% trans "Déclaration TVA belge (achats en Belgique)" %}</h3>
+            {% else %}
+            <h3 class="font-semibold mb-2">{% blocktrans with pays=pays_societe_nom %}Déclaration TVA nationale (achats – {{ pays }}){% endblocktrans %}</h3>
+            {% endif %}
             <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
-                <tr><td class="border px-3 py-2">{% trans "Grille 82 – base HT" %}</td><td class="border px-3 py-2 text-right">{{ declaration_be.grille_82|floatformat:"2g" }} €</td></tr>
-                <tr><td class="border px-3 py-2">{% trans "Grille 59 – TVA déductible" %} ({{ deduction|floatformat:"0g" }} %)</td><td class="border px-3 py-2 text-right font-semibold">{{ declaration_be.grille_59|floatformat:"2g" }} €</td></tr>
+                <tr><td class="border px-3 py-2">{% if pays_societe == "BE" or not pays_societe %}{% trans "Grille 82 – base HT" %}{% else %}{% trans "Base HT" %}{% endif %}</td><td class="border px-3 py-2 text-right">{{ declaration_be.grille_82|floatformat:"2g" }} €</td></tr>
+                <tr><td class="border px-3 py-2">{% if pays_societe == "BE" or not pays_societe %}{% trans "Grille 59 – TVA déductible" %}{% else %}{% trans "TVA déductible" %}{% endif %} ({{ deduction|floatformat:"0g" }} %)</td><td class="border px-3 py-2 text-right font-semibold">{{ declaration_be.grille_59|floatformat:"2g" }} €</td></tr>
                 <tr><td class="border px-3 py-2">{% trans "TVA non déductible (en charge)" %}</td><td class="border px-3 py-2 text-right">{{ declaration_be.tva_non_deductible|floatformat:"2g" }} €</td></tr>
             </table>
         </div>

@@ -5,6 +5,7 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from django_tenants.utils import get_public_schema_name
 
+from maintenance.choices import TVAConfig
 from societe.models import Domain, Societe
 from .models import Utilisateur
 
@@ -22,6 +23,10 @@ class TenantCreationForm(forms.Form):
     numero_tel = forms.CharField(label=_("Numéro de téléphone"), max_length=30, required=False)
     iban = forms.CharField(label=_("IBAN"), max_length=34, required=False)
     site = forms.URLField(label=_("Site internet"), required=False)
+    pays = forms.ChoiceField(
+        label=_("Pays"), choices=TVAConfig.PAYS_CHOICES, initial=TVAConfig.DEFAULT_PAYS,
+        help_text=_("Pays d'établissement : TVA (taux, déclaration), factures / Peppol, paiements, comptabilité."),
+    )
 
     # ---------------- Tenant
     schema_name = forms.CharField(
@@ -42,8 +47,6 @@ class TenantCreationForm(forms.Form):
     boite = forms.CharField(label=_("Boite"), max_length=10, required=False)
     code_postal = forms.CharField(label=_("Code postal"), max_length=10)
     ville = forms.CharField(label=_("Ville"), max_length=100)
-    pays = forms.CharField(label=_("Pays"), max_length=100, initial="Belgique")
-    code_pays = forms.CharField(label=_("Code pays"), max_length=5, initial="BE")
 
     # ---------------- Premier utilisateur (direction)
     admin_prenom = forms.CharField(label=_("Prénom"), max_length=100, required=False)
@@ -60,9 +63,9 @@ class TenantCreationForm(forms.Form):
     )
 
     SECTIONS = [
-        (_("Société"), ["nom", "directeur", "numero_tva", "numero_tel", "iban", "site"]),
+        (_("Société"), ["nom", "directeur", "pays", "numero_tva", "numero_tel", "iban", "site"]),
         (_("Tenant"), ["schema_name", "max_utilisateurs", "paid_until", "on_trial"]),
-        (_("Adresse"), ["rue", "numero", "boite", "code_postal", "ville", "pays", "code_pays"]),
+        (_("Adresse"), ["rue", "numero", "boite", "code_postal", "ville"]),
         (_("Premier utilisateur (direction) – facultatif"), ["admin_prenom", "admin_nom", "admin_email", "admin_password",
                                                                  "admin_password_confirmation"]),
     ]
@@ -95,6 +98,11 @@ class TenantCreationForm(forms.Form):
     def clean(self):
         cleaned = super().clean()
         nom = cleaned.get("nom")
+
+        # Pays : pays de la société et de son adresse
+        code_pays = cleaned.get("pays") or TVAConfig.DEFAULT_PAYS
+        cleaned["code_pays"] = code_pays
+        cleaned["pays_nom"] = str(dict(TVAConfig.PAYS_CHOICES).get(code_pays, code_pays))
 
         # Schéma : saisi ou généré depuis le nom
         schema = (cleaned.get("schema_name") or "").strip().lower()
@@ -138,13 +146,17 @@ class TenantCreationForm(forms.Form):
 class TenantModificationForm(forms.ModelForm):
     class Meta:
         model = Societe
-        fields = ["nom", "directeur", "numero_tva", "numero_tel", "iban", "site",
+        fields = ["nom", "directeur", "pays", "numero_tva", "numero_tel", "iban", "site",
                   "max_utilisateurs", "paid_until", "on_trial"]
         widgets = {"paid_until": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d")}
+        help_texts = {
+            "pays": _("Changer de pays modifie la TVA par défaut (taux, déclaration), les factures / Peppol et les "
+                      "plafonds de paiement en espèces. Les documents déjà émis ne sont pas recalculés."),
+        }
 
     def sections(self):
         return [
-            (_("Société"), [self[n] for n in ["nom", "directeur", "numero_tva", "numero_tel", "iban", "site"]]),
+            (_("Société"), [self[n] for n in ["nom", "directeur", "pays", "numero_tva", "numero_tel", "iban", "site"]]),
             (_("Tenant"), [self[n] for n in ["max_utilisateurs", "paid_until", "on_trial"]]),
         ]
 

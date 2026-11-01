@@ -711,11 +711,11 @@ def parametres_peppol_view(request):
 
     from .peppol.generator import endpoint
 
-    adresse = getattr(societe, "adresse", None)
+    from core.pays import pays_societe
     schema, valeur = endpoint(
         parametres.peppol_id,
         getattr(societe, "numero_tva", ""),
-        (adresse.code_pays if adresse and adresse.code_pays else "BE"),
+        pays_societe(societe),
     )
 
     return render(request, "facture/parametres_peppol.html", {

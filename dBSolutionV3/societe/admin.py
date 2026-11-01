@@ -12,6 +12,7 @@ class SocieteAdmin(admin.ModelAdmin):
     list_display = (
         "nom",
         "directeur",
+        "pays",
         "adresse",
         "numero_tva",
         "iban",
@@ -26,6 +27,8 @@ class SocieteAdmin(admin.ModelAdmin):
     list_display_links = (
         "nom",
     )
+
+    list_filter = ("pays", "on_trial")
 
     list_editable = (
         "directeur",
@@ -59,6 +62,7 @@ class SocieteAdmin(admin.ModelAdmin):
                 "id_societe",
                 "nom",
                 "directeur",
+                "pays",
                 "adresse",
                 "numero_tva",
                 "iban",

@@ -25,7 +25,7 @@ class Command(BaseCommand):
             "--immatriculation", type=str, default=None, help="Immatriculation (optionnel)"
         )
         parser.add_argument(
-            "--type_utilisation", type=str, choices=["societe", "client", "prive", "location"],
+            "--type_utilisation", type=str, choices=["societe", "client", "prive", "location", "interne", "utilitaire"],
             default="prive", help="Type d'utilisation de l'exemplaire"
         )
 

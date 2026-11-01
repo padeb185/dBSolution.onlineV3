@@ -4,6 +4,8 @@ from django.utils.text import slugify
 from django_tenants.models import TenantMixin, DomainMixin
 from django.utils.translation import gettext_lazy as _
 
+from maintenance.choices import TVAConfig
+
 
 class Societe(TenantMixin):
     schema_name = models.CharField(max_length=63, unique=True)
@@ -59,6 +61,16 @@ class Societe(TenantMixin):
 
     site = models.URLField(max_length=200, blank=True, null=True)
 
+    # Pays d'établissement : pilote la TVA (taux, déclaration), les factures / Peppol,
+    # les plafonds de paiement en espèces, les ventes et la comptabilité.
+    pays = models.CharField(
+        _("Pays"),
+        max_length=2,
+        choices=TVAConfig.PAYS_CHOICES,
+        default=TVAConfig.DEFAULT_PAYS,
+        help_text=_("Pays d'établissement de la société (TVA, factures, comptabilité)."),
+    )
+
     class Meta:
         verbose_name = "Société"
         verbose_name_plural = "Sociétés"
@@ -74,6 +86,24 @@ class Societe(TenantMixin):
 
     def __str__(self):
         return self.nom
+
+    # ------------------------------------------------------------
+    # Pays
+    # ------------------------------------------------------------
+    @property
+    def code_pays(self):
+        from core.pays import pays_societe
+        return pays_societe(self)
+
+    @property
+    def profil_pays(self):
+        from core.pays import profil_pays
+        return profil_pays(self.code_pays)
+
+    @property
+    def taux_tva_normal(self):
+        from core.pays import taux_tva_normal
+        return taux_tva_normal(self.code_pays)
 
 
 class Domain(DomainMixin):

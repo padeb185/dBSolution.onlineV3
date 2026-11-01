@@ -73,10 +73,11 @@ def tenant_creer(request):
                 adresse = Adresse.objects.create(
                     rue=d["rue"], numero=d["numero"], boite=d["boite"] or None,
                     code_postal=d["code_postal"], ville=d["ville"],
-                    pays=d["pays"], code_pays=d["code_pays"],
+                    pays=d["pays_nom"], code_pays=d["code_pays"],
                 )
 
                 societe = Societe(
+                    pays=d["code_pays"],
                     nom=d["nom"],
                     schema_name=d["schema_name"],
                     slug=d["slug"],
@@ -101,7 +102,7 @@ def tenant_creer(request):
                         adresse_user = Adresse.objects.create(
                             rue=d["rue"], numero=d["numero"], boite=d["boite"] or None,
                             code_postal=d["code_postal"], ville=d["ville"],
-                            pays=d["pays"], code_pays=d["code_pays"],
+                            pays=d["pays_nom"], code_pays=d["code_pays"],
                         )
                         Utilisateur.objects.create_user(
                             email=d["admin_email"],
@@ -152,13 +153,28 @@ def tenant_detail(request, pk):
 @user_passes_test(is_admin)
 def tenant_modifier(request, pk):
     societe = get_object_or_404(_tenants(), pk=pk)
+    ancien_pays = societe.pays
     form = TenantModificationForm(request.POST or None, instance=societe)
 
     if request.method == "POST" and form.is_valid():
         try:
             # Un tenant ne peut être modifié que depuis le schéma public (django-tenants)
-            with schema_context(get_public_schema_name()):
-                form.save()
+            with schema_context(get_public_schema_name()), transaction.atomic():
+                societe = form.save()
+                pays_change = societe.pays != ancien_pays
+                # Changement de pays : l'adresse de la société suit (code pays + nom)
+                if pays_change and societe.adresse_id:
+                    from maintenance.choices import TVAConfig
+                    adresse = societe.adresse
+                    adresse.code_pays = societe.pays
+                    adresse.pays = str(dict(TVAConfig.PAYS_CHOICES).get(societe.pays, societe.pays))
+                    adresse.save(update_fields=["code_pays", "pays", "updated_at"])
+            if pays_change:
+                _log(request, f"Changement de pays du tenant {societe.nom} : {ancien_pays} → {societe.pays}")
+                messages.info(request, _(
+                    "Pays changé : %(ancien)s → %(nouveau)s. La TVA, les factures et Peppol utilisent désormais "
+                    "ce pays ; les documents déjà émis ne sont pas modifiés."
+                ) % {"ancien": ancien_pays, "nouveau": societe.pays})
             _log(request, f"Modification du tenant {societe.nom}")
             messages.success(request, _("Le tenant a été mis à jour."))
             return redirect("utilisateurs:tenant_detail", pk=societe.pk)

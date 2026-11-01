@@ -1,3 +1,4 @@
+from core.pays import nom_pays_tenant, pays_tenant_defaut
 from django import forms
 from .models import SocieteCliente
 from django.utils.translation import gettext_lazy as _
@@ -72,7 +73,7 @@ class SocieteClienteForm(forms.ModelForm):
 
     pays = forms.CharField(
         required=False,
-        initial="Belgique",
+        initial=nom_pays_tenant,
         widget=forms.TextInput(attrs={
             "class": "border rounded px-4 py-2 w-full"
         })
@@ -80,7 +81,7 @@ class SocieteClienteForm(forms.ModelForm):
 
     code_pays = forms.CharField(
         required=False,
-        initial="BE",
+        initial=pays_tenant_defaut,
         widget=forms.TextInput(attrs={
             "class": "border rounded px-4 py-2 w-full"
         })
