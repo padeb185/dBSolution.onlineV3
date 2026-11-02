@@ -1,10 +1,20 @@
-{% load i18n %}{# Avertissement : module belge utilisé par un tenant établi dans un autre pays. module = "compta" ou "paie" #}
-{% if profil_pays_tenant and not profil_pays_tenant.compta_native %}
+{% load i18n %}{# Avertissement : module non natif pour le pays du tenant. module = "compta", "bilan" ou "paie" #}
+{% if profil_pays_tenant %}
+{% if module == "paie" and not profil_pays_tenant.paie_native %}
 <div class="mb-6 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-    {% if module == "paie" %}
     {% blocktrans with pays=pays_tenant_nom %}Votre société est établie en {{ pays }} : les calculs de paie utilisent les barèmes belges (ONSS, précompte professionnel). Les barèmes de ce pays ne sont pas encore disponibles – faites valider les montants par votre secrétariat social.{% endblocktrans %}
-    {% else %}
-    {% blocktrans with pays=pays_tenant_nom %}Votre société est établie en {{ pays }} : la comptabilité utilise le plan comptable belge (PCMN) et le schéma BNB. Le plan comptable national n'est pas encore disponible – faites valider les écritures par votre comptable.{% endblocktrans %}
-    {% endif %}
 </div>
+{% elif module == "paie" and profil_pays_tenant.code == "DE" %}
+<div class="mb-6 rounded-lg border border-sky-300 bg-sky-50 px-4 py-3 text-sm text-sky-900">
+    {% trans "Paie allemande 2026 : Lohnsteuer (classes I à VI), Solidaritätszuschlag, Kirchensteuer, cotisations sociales, Minijob et Midijob. Estimation à faire valider par votre Steuerberater ou logiciel de paie (DEÜV / ELStAM)." %}
+</div>
+{% elif module != "paie" and not profil_pays_tenant.compta_native %}
+<div class="mb-6 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+    {% blocktrans with pays=pays_tenant_nom %}Votre société est établie en {{ pays }} : la comptabilité utilise le plan comptable belge (PCMN) et le schéma BNB. Le plan comptable national n'est pas encore disponible – faites valider les écritures par votre comptable.{% endblocktrans %}
+</div>
+{% elif module == "bilan" and not profil_pays_tenant.bilan_natif %}
+<div class="mb-6 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+    {% blocktrans with pays=pays_tenant_nom plan=profil_pays_tenant.plan_comptable %}Votre société est établie en {{ pays }} : le journal et la balance sont présentés dans le plan {{ plan }}, mais le bilan et le compte de résultats suivent encore le schéma belge (BNB). Faites établir les comptes annuels nationaux par votre comptable.{% endblocktrans %}
+</div>
+{% endif %}
 {% endif %}

@@ -33,9 +33,9 @@
             <p class="text-xl font-bold text-green-700">{{ paie.salaire_net_mois|default:0|floatformat:"2g" }} €</p>
         </div>
         <div class="bg-white shadow-md rounded-lg p-4">
-            <p class="text-gray-500 text-sm">{% trans "Précompte professionnel" %}</p>
+            <p class="text-gray-500 text-sm">{% if paie.est_paie_allemande %}{% trans "Lohnsteuer" %}{% else %}{% trans "Précompte professionnel" %}{% endif %}</p>
             <p class="text-xl font-bold text-red-700">{{ paie.montant_precompte|default:0|floatformat:"2g" }} €</p>
-            <p class="text-gray-500 text-xs">{% trans "ONSS" %} : {{ paie.montant_onss|default:0|floatformat:"2g" }} €</p>
+            <p class="text-gray-500 text-xs">{% if paie.est_paie_allemande %}{% trans "Cotisations sociales" %}{% else %}{% trans "ONSS" %}{% endif %} : {{ paie.montant_onss|default:0|floatformat:"2g" }} €{% if paie.montant_soli %} · Soli {{ paie.montant_soli|floatformat:"2g" }} €{% endif %}{% if paie.montant_kirchensteuer %} · KiSt {{ paie.montant_kirchensteuer|floatformat:"2g" }} €{% endif %}</p>
         </div>
         <div class="bg-white shadow-md rounded-lg p-4">
             <p class="text-gray-500 text-sm">{% trans "Coût employeur" %}</p>

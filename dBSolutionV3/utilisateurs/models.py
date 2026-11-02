@@ -1,6 +1,7 @@
 import base64
 import re
 import uuid
+from decimal import Decimal
 from io import BytesIO
 import pyotp
 import qrcode
@@ -408,6 +409,34 @@ class StatutTravailleur(models.TextChoices):
     DIRIGEANT = "dirigeant", _("Dirigeant d'entreprise (administrateur / gérant)")
 
 
+class Steuerklasse(models.IntegerChoices):
+    I = 1, _("I – célibataire, divorcé(e)")
+    II = 2, _("II – parent isolé (Entlastungsbetrag)")
+    III = 3, _("III – marié(e), conjoint en classe V ou sans revenus")
+    IV = 4, _("IV – marié(e), revenus comparables")
+    V = 5, _("V – marié(e), conjoint en classe III")
+    VI = 6, _("VI – deuxième emploi")
+
+
+class Bundesland(models.TextChoices):
+    BW = "BW", "Baden-Württemberg"
+    BY = "BY", "Bayern"
+    BE = "BE", "Berlin"
+    BB = "BB", "Brandenburg"
+    HB = "HB", "Bremen"
+    HH = "HH", "Hamburg"
+    HE = "HE", "Hessen"
+    MV = "MV", "Mecklenburg-Vorpommern"
+    NI = "NI", "Niedersachsen"
+    NW = "NW", "Nordrhein-Westfalen"
+    RP = "RP", "Rheinland-Pfalz"
+    SL = "SL", "Saarland"
+    SN = "SN", "Sachsen"
+    ST = "ST", "Sachsen-Anhalt"
+    SH = "SH", "Schleswig-Holstein"
+    TH = "TH", "Thüringen"
+
+
 class CommissionParitaire(models.TextChoices):
     CP112 = "CP112", _("CP 112 – Entreprises de garage (ouvriers)")
     CP200 = "CP200", _("CP 200 – Employés (CPAE)")
@@ -772,6 +801,44 @@ class PaieUtilisateur(models.Model):
     )
 
     # -------------------------
+    # ALLEMAGNE (société établie en Allemagne : Lohnsteuer + Sozialversicherung)
+    # -------------------------
+    de_steuerklasse = models.PositiveSmallIntegerField(
+        choices=Steuerklasse.choices, default=Steuerklasse.I, verbose_name=_("Classe d'impôt (Steuerklasse)"),
+    )
+    de_bundesland = models.CharField(
+        max_length=2, choices=Bundesland.choices, blank=True, default="",
+        verbose_name=_("Land (Bundesland)"),
+        help_text=_("Taux de Kirchensteuer (8 % en Bavière et Bade-Wurtemberg, 9 % ailleurs) et assurance dépendance en Saxe."),
+    )
+    de_kirchensteuer = models.BooleanField(default=False, verbose_name=_("Soumis à la Kirchensteuer"))
+    de_kinderfreibetraege = models.DecimalField(
+        max_digits=4, decimal_places=1, default=0, validators=[MinValueValidator(0)],
+        verbose_name=_("Kinderfreibeträge (nombre, ex. 0,5 / 1,0)"),
+        help_text=_("Valeur figurant dans les ELStAM : réduit le Solidaritätszuschlag et la Kirchensteuer."),
+    )
+    de_kinderlos_zuschlag = models.BooleanField(
+        default=True, verbose_name=_("Supplément dépendance sans enfant (23 ans et plus)"),
+        help_text=_("+0,6 % à charge du salarié s'il n'a pas d'enfant. Le nombre d'enfants à charge (moins de 25 ans) "
+                    "donne l'abattement à partir du 2e enfant."),
+    )
+    de_zusatzbeitrag_kv = models.DecimalField(
+        max_digits=4, decimal_places=2, default=Decimal("2.90"), validators=[MinValueValidator(0)],
+        verbose_name=_("Cotisation complémentaire de la caisse maladie (Zusatzbeitrag, %)"),
+    )
+    de_taux_umlagen = models.DecimalField(
+        max_digits=5, decimal_places=2, default=Decimal("2.00"), validators=[MinValueValidator(0)],
+        verbose_name=_("Umlagen U1 / U2 + Berufsgenossenschaft (%, employeur)"),
+    )
+    montant_soli = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True, verbose_name=_("Solidaritätszuschlag"),
+    )
+    montant_kirchensteuer = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True, verbose_name=_("Kirchensteuer"),
+    )
+    de_detail_cotisations = models.JSONField(blank=True, null=True, editable=False)
+
+    # -------------------------
     # DIRIGEANT D'ENTREPRISE (administrateur / gérant)
     # -------------------------
     dirigeant_remuneration_annuelle = models.DecimalField(
@@ -895,10 +962,55 @@ class PaieUtilisateur(models.Model):
     # -------------------------
     # CALCUL
     # -------------------------
+    @property
+    def pays_paie(self):
+        """Pays de la paie = pays (nationalité) de la société du travailleur : 'DE' → paie allemande, sinon belge."""
+        from core.pays import pays_societe
+        societe = getattr(self.utilisateur, "societe", None) if self.utilisateur_id else None
+        return pays_societe(societe)
+
+    @property
+    def est_paie_allemande(self):
+        return self.pays_paie == "DE"
+
+    def _resultat_calcul_allemagne(self, date_paie):
+        from .paie_allemagne import calculer_paie as calculer_paie_de
+        voiture = None
+        if self.voiture_societe:
+            voiture = {"valeur_catalogue": self.voiture_valeur_catalogue, "carburant": self.voiture_carburant,
+                       "contribution_personnelle": self.voiture_contribution_personnelle}
+        return calculer_paie_de(
+            self.salaire_brut_mensuel,
+            statut=self.statut_travailleur,
+            steuerklasse=self.de_steuerklasse,
+            kirchensteuer=self.de_kirchensteuer,
+            bundesland=self.de_bundesland,
+            kinderfreibetraege=self.de_kinderfreibetraege,
+            nombre_enfants=self.nombre_enfants_charge,
+            kinderlos_zuschlag=self.de_kinderlos_zuschlag,
+            zusatzbeitrag=self.de_zusatzbeitrag_kv,
+            taux_umlagen=self.de_taux_umlagen,
+            regime_travail=self.regime_travail,
+            taux_horaire=self.salaire_brut_heure,
+            heures_sup=self.heures_supplementaires,
+            majoration_heures_sup=self.majoration_heures_sup,
+            atn_autres=self.atn_autres,
+            voiture=voiture,
+            date_paie=date_paie,
+            conges_jours_pris=self.conges_jours_pris,
+            conges_jours_droit=self.conges_jours_droit,
+        )
+
     def _resultat_calcul(self):
-        """Appelle le moteur de calcul belge avec les paramètres de la paie."""
+        """Appelle le moteur de calcul du pays de la société (Allemagne ou Belgique)."""
         from datetime import date
         from .paie_belgique import calculer_paie
+
+        if self.est_paie_allemande:
+            try:
+                return self._resultat_calcul_allemagne(date(int(self.annee), int(self.mois), 1))
+            except (TypeError, ValueError):
+                return self._resultat_calcul_allemagne(date.today())
 
         voiture = None
         if self.voiture_societe:
@@ -999,6 +1111,9 @@ class PaieUtilisateur(models.Model):
         if self.cout_employeur_cible and not getattr(self, "_resolution_en_cours", False):
             return self._calculer_depuis_cout()
 
+        if self.est_paie_allemande:
+            return self._calculer_allemagne()
+
         if self.statut_travailleur == "dirigeant":
             return self._calculer_dirigeant()
 
@@ -1067,6 +1182,70 @@ class PaieUtilisateur(models.Model):
         self.salaire_total = (
             r["brut_employeur"] + (self.conges_payes or Decimal("0"))
         ).quantize(Decimal("0.01"))
+        return r
+
+    def _calculer_allemagne(self):
+        """Paie allemande : salaire minimum légal (Mindestlohn), Lohnsteuer, Soli, KiSt, Sozialversicherung."""
+        from decimal import Decimal
+        from .paie_allemagne import MINDESTLOHN, HEURES_MOIS_TEMPS_PLEIN as HEURES_DE
+        z = Decimal("0")
+        fraction = (Decimal(self.regime_travail or 100) / 100) or Decimal("1")
+        dirigeant = self.statut_travailleur == "dirigeant"
+
+        if dirigeant and self.dirigeant_remuneration_annuelle:
+            self.salaire_brut_mensuel = (Decimal(self.dirigeant_remuneration_annuelle) / 12).quantize(Decimal("0.01"))
+        if not dirigeant and self.salaire_brut_heure and self.salaire_brut_heure < MINDESTLOHN:
+            self.salaire_brut_heure = MINDESTLOHN      # le taux horaire ne peut pas être inférieur au Mindestlohn
+        heures = self.nombre_heures_preste or z
+        if heures > 0 and self.salaire_brut_heure:
+            self.salaire_brut_mensuel = (heures * self.salaire_brut_heure).quantize(Decimal("0.01"))
+        if not self.salaire_brut_mensuel:
+            return None
+        if not self.salaire_brut_heure and fraction:
+            self.salaire_brut_heure = (self.salaire_brut_mensuel / (HEURES_DE * fraction)).quantize(Decimal("0.01"))
+
+        # champs propres à la Belgique : sans objet
+        self.commission_paritaire = self.commission_paritaire or "AUTRE"
+        self.double_pecule_ce_mois = False
+        self.treizieme_mois_ce_mois = False
+
+        r = self._resultat_calcul()
+        self.montant_heures_sup = r["montant_heures_sup"]
+        self.salaire_brut_majore = r["brut_majore"]
+        self.taux_onss = (r["sv_an"] / r["brut_majore"] * 100).quantize(Decimal("0.01")) if r["brut_majore"] else z
+        self.montant_onss = r["sv_an"]
+        self.bonus_emploi = z
+        self.atn_voiture = r["atn_voiture"]
+        self.atn_total = r["atn_total"]
+        self.salaire_imposable = r["imposable"]
+        self.montant_precompte = r["precompte"]
+        self.taux_precompte_professionnel = r["taux_precompte"]
+        self.montant_soli = r["soli"]
+        self.montant_kirchensteuer = r["kirchensteuer"]
+        self.csss = z
+        self.de_detail_cotisations = {
+            "sv": [{k: (str(v) if isinstance(v, Decimal) else v) for k, v in l.items()} for l in r["sv"]],
+            "autres": [{k: (str(v) if isinstance(v, Decimal) else v) for k, v in l.items()} for l in r["autres_patronales"]],
+            "minijob": r["minijob"], "midijob": r["midijob"], "pauschsteuer": str(r["pauschsteuer"]),
+        }
+        self.double_pecule_brut = self.double_pecule_net = None
+        self.double_pecule_onss = self.double_pecule_precompte = None
+        self.treizieme_mois_brut = self.treizieme_mois_net = None
+        self.treizieme_mois_onss = self.treizieme_mois_precompte = None
+        self.dirigeant_cotisations_sociales = None
+        self.dirigeant_bonus_brut = self.dirigeant_bonus_precompte = self.dirigeant_bonus_net = None
+        conges = r["conges"]
+        self.conges_simple_pecule = None
+        self.conges_pecule_ouvrier_annuel = None
+        self.conges_jours_solde = (conges["droit"] - self.jours_conges_pris_annee()).quantize(Decimal("0.1"))
+        self.salaire_net_mois = r["net"]
+        self.taux_charges_patronales = r["taux_patronal"]
+        self.cotisations_patronales = r["cotisations_patronales_nettes"]
+        self.reduction_structurelle = z
+        self.cotisations_vacances = z
+        self.cotisation_co2 = z
+        self.salaire_brut_mensuel_employeur = r["brut_employeur"]
+        self.salaire_total = (r["brut_employeur"] + (self.conges_payes or z)).quantize(Decimal("0.01"))
         return r
 
     @staticmethod
@@ -1200,6 +1379,12 @@ class PaieUtilisateur(models.Model):
         def ligne(libelle, base=None, taux=None, montant=None, signe="", style="", unite_taux="%", unite="€"):
             return {"libelle": libelle, "base": base, "taux": taux, "unite_taux": unite_taux,
                     "montant": montant, "signe": signe, "style": style, "unite": unite}
+
+        if r.get("pays") == "DE":
+            from .paie_allemagne import lignes_fiche
+            return {"lignes": lignes_fiche(r, ligne, self.salaire_brut_heure, self.nombre_heures_preste or None,
+                                           self.heures_supplementaires, int(self.majoration_heures_sup or 0)),
+                    "net": r["net"], "resultat": r}
 
         if self.statut_travailleur == "dirigeant":
             return self._fiche_dirigeant(r, ligne)
@@ -1371,6 +1556,19 @@ class PaieUtilisateur(models.Model):
         from .paie_belgique import ecritures_paie
 
         z = Decimal("0")
+        if self.est_paie_allemande:
+            from .paie_allemagne import ecritures_paie as ecritures_paie_de
+            pauschsteuer = Decimal(str((self.de_detail_cotisations or {}).get("pauschsteuer") or 0))
+            return ecritures_paie_de(
+                self.statut_travailleur,
+                (self.salaire_brut_mensuel or z) + (self.montant_heures_sup or z),
+                cotisations_patronales=self.cotisations_patronales or z,
+                sv_an=self.montant_onss or z,
+                impots=(self.montant_precompte or z) + (self.montant_soli or z) + (self.montant_kirchensteuer or z),
+                pauschsteuer=pauschsteuer,
+                net_salaire=self.net_salaire,
+                date_paiement=self.date_paiement if avec_paiement else None,
+            )
         pecule = None
         if self.double_pecule_brut:
             pecule = {

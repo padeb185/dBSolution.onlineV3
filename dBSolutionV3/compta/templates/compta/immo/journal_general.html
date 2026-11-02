@@ -5,6 +5,7 @@
 <div class="p-6">
 {% trans "Journal général (débit / crédit)" as titre %}
 {% include "compta/immo/_nav.html" %}
+{% if plan %}<div class="mb-4 rounded-lg border border-sky-300 bg-sky-50 px-4 py-3 text-sm text-sky-900">{% blocktrans with plan=plan.nom %}Comptabilisation selon le pays de la société : comptes présentés dans le plan {{ plan }}. L'export CSV indique aussi le compte interne (PCMN). Correspondance à valider par votre Steuerberater.{% endblocktrans %}</div>{% endif %}
 
 <form method="get" class="bg-white shadow rounded p-4 mb-4">
     <div class="flex flex-wrap items-end gap-3 mb-3">
@@ -35,7 +36,7 @@
 <div class="overflow-x-auto bg-white shadow-md rounded-lg mb-6">
 <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
     <thead><tr class="bg-gray-100">
-        <th class="border px-3 py-2 text-left">{% trans "Compte" %}</th>
+        <th class="border px-3 py-2 text-left">{% if plan %}{{ plan.code }}{% else %}{% trans "Compte" %}{% endif %}</th>
         <th class="border px-3 py-2 text-left">{% trans "Intitulé" %}</th>
         <th class="border px-3 py-2 text-right">{% trans "Débit" %}</th>
         <th class="border px-3 py-2 text-right">{% trans "Crédit" %}</th>

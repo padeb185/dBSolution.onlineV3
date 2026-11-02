@@ -15,15 +15,27 @@ from django.utils.translation import gettext_lazy as _
 PAYS_DEFAUT = "BE"
 
 # Profils nationaux : ce que l'application sait faire nativement pour chaque pays.
-# Tout l'existant est belge ; les autres pays utilisent le profil générique
+# Le pays est celui de la société (nationalité : Societe.pays, sinon adresse). Pays gérés nativement :
+# Belgique, puis Allemagne (ajoutée en premier). Les autres pays utilisent le profil générique
 # (TVA, factures et Peppol suivent le pays, compta et paie restent sur le modèle belge).
 PROFILS = {
+    # Allemagne (premier pays ajouté) : paie allemande, journal et balance en SKR03.
+    # Le bilan reste établi selon le schéma BNB (schéma HGB § 266 / § 275 pas encore disponible).
+    "DE": {
+        "plan_comptable": "SKR03",
+        "plan_comptable_nom": _("SKR03 (DATEV Standardkontenrahmen 03)"),
+        "comptes_annuels": _("Schéma BNB (belge) – schéma HGB (§ 266 / § 275) non disponible"),
+        "compta_native": True,
+        "paie_native": True,
+        "bilan_natif": False,
+    },
     "BE": {
         "plan_comptable": "PCMN",
         "plan_comptable_nom": _("Plan comptable minimum normalisé (PCMN)"),
         "comptes_annuels": _("Schéma BNB (Banque nationale de Belgique)"),
         "compta_native": True,
         "paie_native": True,
+        "bilan_natif": True,
     },
 }
 
@@ -33,6 +45,7 @@ PROFIL_GENERIQUE = {
     "comptes_annuels": _("Schéma BNB (belge) – modèle national non disponible"),
     "compta_native": False,
     "paie_native": False,
+    "bilan_natif": False,
 }
 
 

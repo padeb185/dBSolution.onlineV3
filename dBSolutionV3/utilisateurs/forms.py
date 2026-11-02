@@ -186,6 +186,23 @@ class UtilisateurCreationForm(forms.ModelForm):
 
         super().__init__(*args, **kwargs)
 
+        # Pays de la paie = nationalité (pays) de la société
+        from core.pays import pays_societe
+        self.pays = pays_societe(societe)
+        self.est_allemagne = self.pays == "DE"
+        for nom in (self.CHAMPS_BELGIQUE if self.est_allemagne else self.CHAMPS_ALLEMAGNE):
+            self.fields.pop(nom, None)
+        if self.est_allemagne:
+            for nom, libelle in self.LIBELLES_ALLEMAGNE.items():
+                if nom in self.fields:
+                    self.fields[nom].label = libelle
+                    self.fields[nom].help_text = ""
+            if "statut_travailleur" in self.fields:
+                self.fields["statut_travailleur"].help_text = _(
+                    "Employé et ouvrier sont traités de la même façon. « Dirigeant » = gérant associé majoritaire "
+                    "(Geschäftsführer), non soumis aux assurances sociales."
+                )
+
         self.fields["email_entreprise"].label = _("E-mail entreprise (récupération du mot de passe)")
         self.fields["email_entreprise"].help_text = _(
             "Le lien « Mot de passe oublié » est envoyé à cette adresse ; à défaut, à l'e-mail de connexion."
@@ -261,6 +278,8 @@ class PaieUtilisateurForm(forms.ModelForm):
         "taux_precompte_professionnel",
         "montant_precompte",
         "csss",
+        "montant_soli",
+        "montant_kirchensteuer",
         "double_pecule_brut",
         "double_pecule_net",
         "treizieme_mois_brut",
@@ -293,7 +312,69 @@ class PaieUtilisateurForm(forms.ModelForm):
         "voiture_contribution_personnelle", "conges_jours_droit",
         "dirigeant_remuneration_annuelle", "dirigeant_bonus_taux_ca", "dirigeant_cotisations_prises_en_charge",
         "cout_employeur_cible",
+        "de_steuerklasse", "de_bundesland", "de_kirchensteuer", "de_kinderfreibetraege",
+        "de_kinderlos_zuschlag", "de_zusatzbeitrag_kv", "de_taux_umlagen",
     ]
+
+    # Champs propres à chaque pays (retirés du formulaire pour l'autre pays)
+    CHAMPS_ALLEMAGNE = [
+        "de_steuerklasse", "de_bundesland", "de_kirchensteuer", "de_kinderfreibetraege",
+        "de_kinderlos_zuschlag", "de_zusatzbeitrag_kv", "de_taux_umlagen", "montant_soli", "montant_kirchensteuer",
+    ]
+    CHAMPS_BELGIQUE = [
+        "commission_paritaire", "categorie_cp", "classe_cp200", "annees_experience", "anciennete_un_an",
+        "situation_familiale", "parent_isole", "nombre_enfants_handicapes", "beneficiaire_handicape",
+        "conjoint_handicape", "taux_charges_patronales", "reduction_groupe_cible", "double_pecule_ce_mois",
+        "treizieme_mois_ce_mois", "treizieme_mois_mois_prestes", "treizieme_mois_reference",
+        "voiture_co2", "voiture_date_immatriculation", "voiture_commandee_apres_07_2023",
+        "dirigeant_bonus_taux_ca", "dirigeant_chiffre_affaires", "dirigeant_bonus_ce_mois",
+        "dirigeant_cotisations_prises_en_charge", "bonus_emploi", "csss", "double_pecule_brut",
+        "double_pecule_net", "treizieme_mois_brut", "treizieme_mois_net", "conges_simple_pecule",
+        "conges_pecule_ouvrier_annuel", "dirigeant_cotisations_sociales", "dirigeant_bonus_brut",
+        "dirigeant_bonus_net", "reduction_structurelle", "cotisations_vacances", "cotisation_co2",
+    ]
+
+    SECTIONS_ALLEMAGNE = [
+        (_("Travailleur"), ["utilisateur", "statut_travailleur", "regime_travail"]),
+        (_("Gérant (Geschäftsführer)"), ["dirigeant_remuneration_annuelle"]),
+        (_("Impôt sur le salaire (Lohnsteuer – ELStAM)"), [
+            "de_steuerklasse", "de_kinderfreibetraege", "de_kirchensteuer", "de_bundesland",
+        ]),
+        (_("Assurances sociales (Sozialversicherung)"), [
+            "nombre_enfants_charge", "de_kinderlos_zuschlag", "de_zusatzbeitrag_kv", "de_taux_umlagen",
+        ]),
+        (_("Prestations et salaire"), [
+            "cout_employeur_cible", "salaire_brut_heure", "nombre_jours_preste", "nombre_heures_preste",
+            "salaire_brut_mensuel", "heures_supplementaires", "majoration_heures_sup",
+        ]),
+        (_("Congés (Urlaub)"), ["conges_jours_droit", "conges_jours_pris", "conges_payes"]),
+        (_("Avantages en nature (Sachbezüge)"), [
+            "atn_autres", "voiture_societe", "voiture_valeur_catalogue", "voiture_carburant",
+            "voiture_contribution_personnelle",
+        ]),
+        (_("Calcul du salaire"), [
+            "montant_heures_sup", "salaire_brut_majore", "taux_onss", "montant_onss", "atn_voiture", "atn_total",
+            "salaire_imposable", "taux_precompte_professionnel", "montant_precompte", "montant_soli",
+            "montant_kirchensteuer", "conges_jours_solde", "salaire_net_mois", "cotisations_patronales",
+            "salaire_brut_mensuel_employeur", "salaire_total",
+        ]),
+    ]
+
+    # Libellés des champs communs adaptés à la paie allemande
+    LIBELLES_ALLEMAGNE = {
+        "statut_travailleur": _("Statut"),
+        "nombre_enfants_charge": _("Enfants de moins de 25 ans (assurance dépendance)"),
+        "salaire_brut_majore": _("Salaire soumis (Steuer- / SV-Brutto)"),
+        "taux_onss": _("Taux des cotisations sociales salarié (%)"),
+        "montant_onss": _("Cotisations sociales salarié (KV, PV, RV, AV)"),
+        "taux_precompte_professionnel": _("Taux de Lohnsteuer (%)"),
+        "montant_precompte": _("Lohnsteuer"),
+        "salaire_imposable": _("Salaire imposable (Steuerbrutto)"),
+        "cotisations_patronales": _("Cotisations patronales (SV, Umlagen, BG)"),
+        "voiture_valeur_catalogue": _("Prix catalogue brut (1 %-Regelung)"),
+        "dirigeant_remuneration_annuelle": _("Rémunération annuelle du gérant"),
+        "majoration_heures_sup": _("Majoration des heures supplémentaires (%)"),
+    }
 
     SECTIONS = [
         (_("Travailleur et commission paritaire"), [
@@ -389,9 +470,10 @@ class PaieUtilisateurForm(forms.ModelForm):
             )
 
     def sections(self):
+        sections = self.SECTIONS_ALLEMAGNE if getattr(self, "est_allemagne", False) else self.SECTIONS
         return [
             (titre, [self[nom] for nom in noms if nom in self.fields])
-            for titre, noms in self.SECTIONS
+            for titre, noms in sections
         ]
 
 

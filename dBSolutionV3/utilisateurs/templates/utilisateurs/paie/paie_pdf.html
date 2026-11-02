@@ -150,7 +150,7 @@
 {% endif %}
 
 <p class="note">
-    {% blocktrans %}Montants calculés selon les barèmes belges {{ annee_parametres }} (ONSS, précompte professionnel – formule-clé, cotisation spéciale de sécurité sociale, bonus à l'emploi). Le taux de précompte indiqué est le taux effectif sur la rémunération imposable.{% endblocktrans %}
+    {% if paie.est_paie_allemande %}{% trans "Montants calculés selon les règles allemandes 2026 (Lohnsteuer – § 32a EStG et Programmablaufplan 2026, Solidaritätszuschlag, Kirchensteuer, cotisations sociales KV / PV / RV / AV plafonnées). Estimation : à faire valider par le Steuerberater ou le logiciel de paie." %}{% else %}{% blocktrans %}Montants calculés selon les barèmes belges {{ annee_parametres }} (ONSS, précompte professionnel – formule-clé, cotisation spéciale de sécurité sociale, bonus à l'emploi). Le taux de précompte indiqué est le taux effectif sur la rémunération imposable.{% endblocktrans %}{% endif %}
     <br>{% trans "Document généré le" %} {{ date_export|date:"d/m/Y H:i" }}.
 </p>
 

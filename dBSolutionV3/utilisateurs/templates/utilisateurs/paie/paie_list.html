@@ -45,7 +45,7 @@
         <p class="text-xl font-bold text-green-700">{{ totaux.net|default:0|floatformat:"2g" }} €</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-4">
-        <p class="text-gray-500 text-sm">{% trans "Précompte" %}</p>
+        <p class="text-gray-500 text-sm">{% if pays_tenant == "DE" %}{% trans "Lohnsteuer" %}{% else %}{% trans "Précompte" %}{% endif %}</p>
         <p class="text-xl font-bold text-red-700">{{ totaux.precompte|default:0|floatformat:"2g" }} €</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-4">
@@ -81,8 +81,8 @@
             <th class="border px-4 py-2">{% trans "Statut" %}</th>
             <th class="border px-4 py-2">{% trans "CP" %}</th>
             <th class="border px-4 py-2 text-right">{% trans "Brut" %}</th>
-            <th class="border px-4 py-2 text-right">{% trans "ONSS" %}</th>
-            <th class="border px-4 py-2 text-right">{% trans "Précompte" %}</th>
+            <th class="border px-4 py-2 text-right">{% if pays_tenant == "DE" %}{% trans "Cotisations sociales" %}{% else %}{% trans "ONSS" %}{% endif %}</th>
+            <th class="border px-4 py-2 text-right">{% if pays_tenant == "DE" %}{% trans "Lohnsteuer" %}{% else %}{% trans "Précompte" %}{% endif %}</th>
             <th class="border px-4 py-2 text-right">{% trans "Net" %}</th>
             <th class="border px-4 py-2 text-right">{% trans "Coût employeur" %}</th>
             <th class="border px-4 py-2 text-center">{% trans "Info" %}</th>

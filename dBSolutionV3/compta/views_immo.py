@@ -220,15 +220,24 @@ def salaires_compta(request):
     E = ecritures_societe(societe, date(annee, 1, 1), date(annee, 12, 31),
                           sources=["salaire", "paiement_salaire", "versement_social"])
     comptes = {c["compte"]: c for c in balance(E)}
+    from core.pays import pays_societe
+    from .plans_comptables import compte_national, convertir_ecritures
+    pays = pays_societe(societe)
+    if pays == "DE":
+        postes = (("455000", _("Salaires nets à payer")),
+                  ("454000", _("Cotisations sociales à payer (Krankenkassen / Minijob-Zentrale)")),
+                  ("453000", _("Lohnsteuer, Solidaritätszuschlag et Kirchensteuer à payer (Finanzamt)")))
+    else:
+        postes = (("455000", _("Rémunérations nettes à payer")), ("454000", _("ONSS à payer")),
+                  ("454100", _("Cotisation annuelle vacances ouvriers à payer")),
+                  ("459000", _("Cotisations sociales du dirigeant à payer")),
+                  ("453000", _("Précompte professionnel à payer")), ("456000", _("Pécules de vacances")))
     dettes = []
-    for code, intitule in (("455000", _("Rémunérations nettes à payer")), ("454000", _("ONSS à payer")),
-                           ("454100", _("Cotisation annuelle vacances ouvriers à payer")),
-                           ("459000", _("Cotisations sociales du dirigeant à payer")),
-                           ("453000", _("Précompte professionnel à payer")), ("456000", _("Pécules de vacances"))):
+    for code, intitule in postes:
         c = comptes.get(code, {"debit": ZERO, "credit": ZERO})
-        dettes.append({"compte": code, "intitule": intitule, "debit": c["debit"], "credit": c["credit"],
-                       "solde": c["credit"] - c["debit"]})
-    paiements = [e for e in E if e["source"] in ("paiement_salaire", "versement_social")]
+        dettes.append({"compte": compte_national(code, pays)[0], "intitule": intitule, "debit": c["debit"],
+                       "credit": c["credit"], "solde": c["credit"] - c["debit"]})
+    paiements = convertir_ecritures([e for e in E if e["source"] in ("paiement_salaire", "versement_social")], pays)
 
     return render(request, "compta/immo/salaires.html", {
         "form": form, "annee": annee, "annees": range(timezone.localdate().year - 5, timezone.localdate().year + 2),
@@ -275,6 +284,12 @@ def journal_general(request):
     compte = (request.GET.get("compte") or "").strip()
 
     E = ecritures_societe(request.user.societe, debut, fin, choisies)
+    # Comptabilisation par pays : comptes du plan national de la société (DE → SKR03, BE → PCMN)
+    from core.pays import pays_societe
+    from .plans_comptables import convertir_ecritures, plan_du_pays
+    pays = pays_societe(request.user.societe)
+    plan = plan_du_pays(pays)
+    E = convertir_ecritures(E, pays)
     if compte:
         E = [e for e in E if e["compte"].startswith(compte)]
     bal = balance(E)
@@ -287,12 +302,18 @@ def journal_general(request):
         response["Content-Disposition"] = f'attachment; filename="{nom}"'
         response.write("﻿")
         w = csv.writer(response, delimiter=";")
-        w.writerow([_("Date"), _("Journal"), _("Pièce"), _("Compte"), _("Intitulé du compte"), _("Libellé"),
-                    _("Débit"), _("Crédit"), _("Source")])
+        entete = [_("Date"), _("Journal"), _("Pièce"), plan["code"] if plan else _("Compte"), _("Intitulé du compte"),
+                  _("Libellé"), _("Débit"), _("Crédit"), _("Source")]
+        if plan:
+            entete.append(_("Compte interne (PCMN)"))
+        w.writerow(entete)
         fmt = lambda x: f"{x:.2f}".replace(".", ",") if x else ""
         for e in E:
-            w.writerow([e["date"].strftime("%d/%m/%Y"), e["journal"], e["piece"], e["compte"], e["intitule"],
-                        e["libelle"], fmt(e["debit"]), fmt(e["credit"]), SOURCES.get(e["source"], "")])
+            ligne = [e["date"].strftime("%d/%m/%Y"), e["journal"], e["piece"], e["compte"], e["intitule"],
+                     e["libelle"], fmt(e["debit"]), fmt(e["credit"]), SOURCES.get(e["source"], "")]
+            if plan:
+                ligne.append(e.get("compte_pcmn", ""))
+            w.writerow(ligne)
         return response
 
     return render(request, "compta/immo/journal_general.html", {
@@ -300,5 +321,5 @@ def journal_general(request):
         "equilibre": abs(total_debit - total_credit) < Decimal("0.01"),
         "annee": annee, "mois": mois, "annees": range(timezone.localdate().year - 5, timezone.localdate().year + 2),
         "mois_choix": range(1, 13), "sources": SOURCES, "choisies": choisies, "compte": compte,
-        "query": request.GET.urlencode(),
+        "query": request.GET.urlencode(), "plan": plan,
     })
