@@ -376,7 +376,7 @@ def lignes_fiche(r, ligne, salaire_brut_heure=None, heures=None, heures_sup=None
                             base=heures_sup, montant=r["montant_heures_sup"], signe="+"))
     lignes.append(ligne(_("Rémunération brute (Bruttolohn)"), montant=r["brut"], style="total"))
     if r["atn_voiture"]:
-        lignes.append(ligne(_("Avantage voiture de société (1 %%-Regelung)"), montant=r["atn_voiture"], signe="+"))
+        lignes.append(ligne(_("Avantage voiture de société (1 %-Regelung)"), montant=r["atn_voiture"], signe="+"))
     if r["atn_total"] - r["atn_voiture"]:
         lignes.append(ligne(_("Autres avantages en nature (Sachbezüge)"), montant=r["atn_total"] - r["atn_voiture"], signe="+"))
     if r["atn_total"]:
