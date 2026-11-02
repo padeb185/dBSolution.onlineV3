@@ -27,6 +27,8 @@ class TypeCarburant(models.TextChoices):
 class TypeDistribution(models.TextChoices):
     CHAINE = "CHAINE", _("Chaîne")
     COURROIE = "COURROIE", _("Courroie")
+    AUCUNE = "AUCUNE", _("Aucune (électrique / rotatif)")
+    NC = "NC", _("Non communiquée")
 
 class MoteurVoiture(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

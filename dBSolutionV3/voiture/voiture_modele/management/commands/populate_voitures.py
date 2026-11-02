@@ -154,7 +154,10 @@ class Command(BaseCommand):
 
         if lier_moteurs:
             for motoriste, code in d.get("moteurs", []):
-                moteur = MoteurVoiture.objects.filter(motoriste__iexact=motoriste, code_moteur__iexact=code).first()
+                tous = MoteurVoiture.objects.filter(motoriste__iexact=motoriste, code_moteur__iexact=code)
+                # priorité au moteur « catalogue » (non lié à un exemplaire)
+                moteur = (tous.filter(voitures_exemplaires__isnull=True).order_by("date_creation").first()
+                          or tous.order_by("date_creation").first())
                 if moteur is None:
                     st["moteurs_absents"].add(f"{motoriste} {code}")
                     continue
