@@ -54,6 +54,65 @@
 
 
 
+    <!-- ================= FINANCEMENT ================= -->
+    <div id="financement" class="mb-6">
+        <div class="flex items-center justify-between mb-2">
+            <h2 class="text-lg font-semibold">{% trans "Financement" %}</h2>
+            <a href="{% url 'voiture_exemplaire:finances_financement' exemplaire.id %}" class="bg-blue-700 hover:bg-blue-500 text-white px-3 py-1 rounded text-sm font-semibold">{% if rent.financement %}{% trans "Modifier" %}{% else %}{% trans "Ajouter un financement" %}{% endif %}</a>
+        </div>
+        {% with f=rent.financement %}
+        {% if f %}
+            {% with fv=f.objet s=f.resume %}
+            <dl class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2 text-sm mb-3">
+                <dt class="text-gray-600">{% trans "Mode" %}</dt><dd>{{ fv.get_mode_display }}</dd>
+                <dt class="text-gray-600">{% trans "Usage" %}</dt><dd>{{ fv.usage_display }}{% if not fv.comptabilise %} ({% trans "non comptabilisé" %}){% endif %}</dd>
+                {% if fv.organisme %}<dt class="text-gray-600">{% trans "Organisme" %}</dt><dd>{{ fv.organisme }}</dd>{% endif %}
+                <dt class="text-gray-600">{% trans "Début" %}</dt><dd>{{ fv.date_debut|date:"d/m/Y" }}{% if s.fin %} → {{ s.fin|date:"d/m/Y" }}{% endif %}</dd>
+                {% if fv.valeur_htva %}<dt class="text-gray-600">{% trans "Valeur HTVA" %}</dt><dd>{{ fv.valeur_htva|floatformat:"2g" }} €</dd>{% endif %}
+                <dt class="text-gray-600">{% trans "TVA déductible" %}</dt><dd>{{ fv.tva_deductible_effective|floatformat:"0" }} %</dd>
+                {% if s.nb_echeances %}<dt class="text-gray-600">{% trans "Mensualité" %}</dt><dd>{{ s.mensualite|floatformat:"2g" }} € × {{ s.nb_echeances }}</dd>{% endif %}
+                {% if s.capital_finance %}<dt class="text-gray-600">{% trans "Capital financé" %}</dt><dd>{{ s.capital_finance|floatformat:"2g" }} €</dd>{% endif %}
+                {% if s.total_interets %}<dt class="text-gray-600">{% trans "Intérêts (total / échus)" %}</dt><dd>{{ s.total_interets|floatformat:"2g" }} € / {{ s.interets_payes|floatformat:"2g" }} €</dd>{% endif %}
+                {% if s.nb_echeances %}<dt class="text-gray-600">{% trans "Payé à ce jour" %}</dt><dd>{{ s.paye|floatformat:"2g" }} €</dd>
+                <dt class="text-gray-600">{% trans "Capital restant dû" %}</dt><dd>{{ s.capital_restant|floatformat:"2g" }} €</dd>{% endif %}
+                {% if f.amortissement_annuel %}<dt class="text-gray-600">{% trans "Amortissement annuel" %}</dt><dd>{{ f.amortissement_annuel|floatformat:"2g" }} € ({{ fv.duree_amortissement_annees }} {% trans "ans" %})</dd>{% endif %}
+                {% if fv.immobilisation %}<dt class="text-gray-600">{% trans "Immobilisation comptable" %}</dt><dd>{{ fv.immobilisation.get_categorie_display }}</dd>{% endif %}
+            </dl>
+            {% if s.echeancier %}
+            <details class="mb-2">
+                <summary class="cursor-pointer text-sm text-blue-700 font-semibold">{% trans "Échéancier" %} ({{ s.echeancier|length }})</summary>
+                <div class="overflow-x-auto mt-2">
+                <table class="min-w-full text-sm border">
+                    <thead><tr class="bg-gray-100">
+                        <th class="border px-2 py-1">#</th><th class="border px-2 py-1">{% trans "Date" %}</th>
+                        <th class="border px-2 py-1 text-right">{% trans "Montant" %}</th><th class="border px-2 py-1 text-right">{% trans "Intérêts" %}</th>
+                        <th class="border px-2 py-1 text-right">{% trans "Capital" %}</th><th class="border px-2 py-1 text-right">{% trans "TVA" %}</th>
+                        <th class="border px-2 py-1 text-right">{% trans "Solde" %}</th>
+                    </tr></thead>
+                    <tbody>
+                    {% for l in s.echeancier %}
+                        <tr class="{% if l.option %}bg-yellow-50{% endif %}">
+                            <td class="border px-2 py-1">{% if l.option %}{% trans "Option" %}{% else %}{{ l.num }}{% endif %}</td>
+                            <td class="border px-2 py-1">{{ l.date|date:"d/m/Y" }}</td>
+                            <td class="border px-2 py-1 text-right">{{ l.mensualite|floatformat:"2g" }}</td>
+                            <td class="border px-2 py-1 text-right">{{ l.interet|floatformat:"2g" }}</td>
+                            <td class="border px-2 py-1 text-right">{{ l.capital|floatformat:"2g" }}</td>
+                            <td class="border px-2 py-1 text-right">{{ l.tva|floatformat:"2g" }}</td>
+                            <td class="border px-2 py-1 text-right">{{ l.solde|floatformat:"2g" }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            </details>
+            {% endif %}
+            {% endwith %}
+        {% else %}
+            <p class="text-sm text-gray-500">{% trans "Aucun financement encodé : le prix d'achat de la fiche est utilisé comme coût d'acquisition." %}</p>
+        {% endif %}
+        {% endwith %}
+    </div>
+
     {% with r=rent %}
     <!-- ================= SYNTHÈSE ================= -->
     <h2 class="text-lg font-semibold mb-2">{% trans "Rentabilité du véhicule" %}</h2>
@@ -91,6 +150,8 @@
             <tr><td class="border px-2 py-1 pl-6">{% trans "Prix d'achat" %}</td><td class="border px-2 py-1 text-right">{{ r.acquisition.prix_achat|floatformat:"2g" }} €</td><td class="border px-2 py-1"></td></tr>
             <tr><td class="border px-2 py-1 pl-6">{% trans "Taxe de mise en circulation" %}</td><td class="border px-2 py-1 text-right">{{ r.acquisition.taxe_mise_en_circulation|floatformat:"2g" }} €</td><td class="border px-2 py-1"></td></tr>
             <tr><td class="border px-2 py-1 pl-6">{% trans "Autres frais d'achat" %}</td><td class="border px-2 py-1 text-right">{{ r.acquisition.frais_achat|floatformat:"2g" }} €</td><td class="border px-2 py-1"></td></tr>
+            {% if r.acquisition.loyers %}<tr><td class="border px-2 py-1 pl-6">{% trans "Loyers de leasing / renting échus (HTVA + TVA non déductible)" %}</td><td class="border px-2 py-1 text-right">{{ r.acquisition.loyers|floatformat:"2g" }} €</td><td class="border px-2 py-1"></td></tr>{% endif %}
+            {% if r.acquisition.interets %}<tr><td class="border px-2 py-1 pl-6">{% trans "Intérêts échus (crédit / leasing)" %}</td><td class="border px-2 py-1 text-right">{{ r.acquisition.interets|floatformat:"2g" }} €</td><td class="border px-2 py-1"></td></tr>{% endif %}
             <tr class="font-semibold"><td class="border px-2 py-1">{% trans "Coût d'acquisition" %}</td><td class="border px-2 py-1 text-right">{{ r.acquisition.total|floatformat:"2g" }} €</td><td class="border px-2 py-1"></td></tr>
 
             <tr class="bg-yellow-50 font-semibold"><td class="border px-2 py-1" colspan="3">{% trans "Utilisation" %}</td></tr>

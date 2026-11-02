@@ -2,6 +2,7 @@ from decimal import Decimal
 
 from django.conf import settings
 from django.db import models
+from core.pays import taux_tva_defaut
 import uuid
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -220,7 +221,7 @@ class Piece(models.Model):
     # Prix
     prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat"))
     majoration_pourcent = models.DecimalField(max_digits=5, decimal_places=2, default=0, verbose_name=_("Majoration (%)"))
-    tva = models.DecimalField(max_digits=4, decimal_places=2, default=21.00, verbose_name=_("TVA (%)"))
+    tva = models.DecimalField(max_digits=4, decimal_places=2, default=taux_tva_defaut, verbose_name=_("TVA (%)"))
     prix_vente = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix de vente"))
 
     # Stock

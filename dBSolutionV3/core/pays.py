@@ -114,6 +114,13 @@ def taux_tva_normal(code=None):
     return TVAConfig.TVA_PIECES.get(code, TVAConfig.TVA_PIECES[PAYS_DEFAUT])
 
 
+def taux_tva_defaut():
+    """Taux de TVA normal du pays du tenant courant (défaut des champs « taux de TVA »).
+    Belgique 21 %, Allemagne 19 %, France 20 %, Pays-Bas 21 %, Luxembourg 17 %…"""
+    from decimal import Decimal
+    return Decimal(str(taux_tva_normal(pays_societe()))).quantize(Decimal("0.01"))
+
+
 def compta_native(code=None):
     return profil_pays(code)["compta_native"]
 

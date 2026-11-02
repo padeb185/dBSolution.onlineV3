@@ -23,6 +23,7 @@ SOURCES = OrderedDict([
     ("instructeur", gettext_lazy("Instructeurs indépendants")),
     ("reversement", gettext_lazy("Reversements aux propriétaires (locations)")),
     ("immobilisation", gettext_lazy("Immobilisations et amortissements")),
+    ("financement", gettext_lazy("Financement des véhicules (crédit, leasing, renting)")),
     ("stock", gettext_lazy("Stock")),
     ("tresorerie", gettext_lazy("Trésorerie (mouvements manuels)")),
     ("ouverture", gettext_lazy("Soldes d'ouverture des comptes de trésorerie")),
@@ -160,6 +161,16 @@ def ecritures_societe(societe, debut=None, fin=None, sources=None):
         for i in Immobilisation.objects.filter(societe=societe).select_related("compte_paiement"):
             for l in i.ecritures(debut, fin):
                 E.append(_norm(l, "immobilisation", i.reference_facture))
+    if "financement" in sources:
+        try:
+            from voiture.voiture_exemplaire.financement import ecritures as ecritures_financement
+            from voiture.voiture_exemplaire.models import FinancementVehicule
+            for fv in FinancementVehicule.objects.filter(exemplaire__societe=societe).select_related(
+                    "exemplaire", "compte_paiement"):
+                for l in ecritures_financement(fv, debut, fin):
+                    E.append(_norm(l, "financement", l["piece"]))
+        except Exception:
+            pass
     if "stock" in sources:
         for v in ValorisationStock.objects.filter(societe=societe):
             for l in v.ecritures():

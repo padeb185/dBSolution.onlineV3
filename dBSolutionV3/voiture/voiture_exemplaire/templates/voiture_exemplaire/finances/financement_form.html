@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load i18n widget_tweaks static %}
+{% block title %}{% trans "Financement du véhicule" %}{% endblock %}
+{% block content %}
+<br><br>
+<div class="max-w-2xl mx-auto p-6 bg-white rounded shadow">
+    <div class="flex items-center gap-4 mb-4">
+        {% include "voiture_exemplaire/finances/_icone.html" with classe="w-[60px] h-[60px]" %}
+        <h1 class="text-2xl font-bold">{% trans "Financement du véhicule" %}</h1>
+    </div>
+    <div class="mb-4 flex justify-center">{% include "maintenance/partials/plaque.html" %}</div>
+    {% include "voiture_exemplaire/finances/_messages.html" %}
+
+    <div class="mb-4 rounded-lg border px-4 py-3 text-sm {% if comptabilise %}border-sky-300 bg-sky-50 text-sky-900{% else %}border-amber-300 bg-amber-50 text-amber-900{% endif %}">
+        <strong>{{ usage }}</strong> –
+        {% if comptabilise %}
+            {% blocktrans with tva=tva_auto|floatformat:"0" pays=pays %}comptabilisé : immobilisation et amortissement (achat, crédit, leasing financier) ou loyers en charge (renting). TVA déductible par défaut : {{ tva }} % ({{ pays }}).{% endblocktrans %}
+        {% else %}
+            {% trans "véhicule privé : suivi des coûts et de l'amortissement économique uniquement, aucune écriture comptable." %}
+        {% endif %}
+        <span class="block text-xs mt-1">{% trans "L'usage se modifie dans la fiche du véhicule (type d'utilisation)." %}</span>
+    </div>
+
+    {% if form.non_field_errors %}<div class="mb-4 bg-red-100 text-red-800 border border-red-300 p-3 rounded">{{ form.non_field_errors }}</div>{% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div id="bloc_{{ field.name }}">{% include "voiture_exemplaire/finances/_champ.html" %}</div>
+        {% endfor %}
+        <div class="flex flex-wrap gap-3 mt-6">
+            <button type="submit" class="bg-green-600 hover:bg-green-500 text-white px-5 py-2 rounded font-semibold">{% trans "Enregistrer" %}</button>
+            <a href="{% url 'voiture_exemplaire:finances_detail' exemplaire.id %}#financement" class="bg-gray-300 hover:bg-gray-400 text-black px-5 py-2 rounded font-semibold">{% trans "Annuler" %}</a>
+        </div>
+    </form>
+    {% if financement %}
+    <form method="post" class="mt-4" onsubmit="return confirm('{% trans "Supprimer le financement et l'immobilisation liée ?" %}');">
+        {% csrf_token %}<input type="hidden" name="action" value="supprimer">
+        <button type="submit" class="bg-red-700 hover:bg-red-500 text-white px-5 py-2 rounded font-semibold">{% trans "Supprimer le financement" %}</button>
+    </form>
+    {% endif %}
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const mode = document.getElementById("id_mode");
+    const visibles = {
+        achat:   ["valeur_htva", "taux_tva", "tva_deductible", "duree_amortissement_annees", "compte_paiement"],
+        credit:  ["organisme", "valeur_htva", "taux_tva", "tva_deductible", "apport", "duree_mois", "taux_interet", "mensualite_htva", "duree_amortissement_annees", "compte_paiement"],
+        leasing: ["organisme", "valeur_htva", "taux_tva", "tva_deductible", "apport", "duree_mois", "taux_interet", "mensualite_htva", "valeur_residuelle", "duree_amortissement_annees", "compte_paiement"],
+        renting: ["organisme", "taux_tva", "tva_deductible", "apport", "duree_mois", "mensualite_htva", "compte_paiement"],
+    };
+    const variables = ["organisme", "valeur_htva", "taux_tva", "tva_deductible", "apport", "duree_mois", "taux_interet", "mensualite_htva", "valeur_residuelle", "duree_amortissement_annees", "compte_paiement"];
+    function maj() {
+        const liste = visibles[mode.value] || [];
+        variables.forEach(n => { const b = document.getElementById("bloc_" + n); if (b) b.style.display = liste.includes(n) ? "" : "none"; });
+    }
+    mode.addEventListener("change", maj); maj();
+});
+</script>
+{% endblock %}

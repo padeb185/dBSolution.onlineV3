@@ -15,6 +15,7 @@ from decimal import Decimal
 from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.db import models
+from core.pays import taux_tva_defaut
 from django.db.models import Q, Sum
 from django.utils.translation import gettext_lazy as _
 
@@ -26,6 +27,7 @@ COMPTES_CONTREPARTIE = [
     ("130000", _("Réserves")),
     ("140000", _("Bénéfice (perte) reporté(e)")),
     ("170000", _("Dettes à plus d'un an")),
+    ("172000", _("Dettes de location-financement")),
     ("173000", _("Emprunts auprès d'établissements de crédit")),
     ("210000", _("Immobilisations incorporelles")),
     ("280000", _("Immobilisations financières")),
@@ -386,7 +388,7 @@ class ProfilInstructeur(models.Model):
     )
     regime_tva = models.CharField(_("Régime TVA"), max_length=10, choices=RegimeTVAInstructeur.choices,
                                   default=RegimeTVAInstructeur.ASSUJETTI)
-    taux_tva = models.DecimalField(_("Taux de TVA (%)"), max_digits=5, decimal_places=2, default=Decimal("21.00"))
+    taux_tva = models.DecimalField(_("Taux de TVA (%)"), max_digits=5, decimal_places=2, default=taux_tva_defaut)
     tarif_horaire_htva = models.DecimalField(
         _("Tarif horaire de l'instructeur HTVA (€)"), max_digits=10, decimal_places=2, null=True, blank=True,
         validators=[MinValueValidator(Decimal("0"))],
@@ -461,7 +463,7 @@ class FactureInstructeur(models.Model):
 
     regime_tva = models.CharField(_("Régime TVA"), max_length=10, choices=RegimeTVAInstructeur.choices,
                                   default=RegimeTVAInstructeur.ASSUJETTI)
-    taux_tva = models.DecimalField(_("Taux de TVA (%)"), max_digits=5, decimal_places=2, default=Decimal("21.00"))
+    taux_tva = models.DecimalField(_("Taux de TVA (%)"), max_digits=5, decimal_places=2, default=taux_tva_defaut)
     montant_htva = models.DecimalField(_("Total HTVA"), max_digits=12, decimal_places=2, default=ZERO)
     montant_tva = models.DecimalField(_("TVA"), max_digits=12, decimal_places=2, default=ZERO)
     montant_tvac = models.DecimalField(_("Total TVAC"), max_digits=12, decimal_places=2, default=ZERO)
@@ -600,6 +602,7 @@ class CategorieImmobilisation(models.TextChoices):
     INSTALLATIONS = "INSTALLATIONS", _("Installations, machines et outillage")
     MOBILIER_BUREAU = "MOBILIER_BUREAU", _("Mobilier et matériel de bureau")
     MATERIEL_ROULANT = "MATERIEL_ROULANT", _("Matériel roulant")
+    LOCATION_FINANCEMENT = "LOCATION_FIN", _("Location-financement (leasing financier)")
     AUTRES = "AUTRES", _("Autres immobilisations corporelles")
 
 
@@ -610,6 +613,7 @@ COMPTES_IMMOBILISATIONS = {
     CategorieImmobilisation.INSTALLATIONS: ("230000", "230900", 10),
     CategorieImmobilisation.MOBILIER_BUREAU: ("240000", "240900", 5),
     CategorieImmobilisation.MATERIEL_ROULANT: ("241000", "241900", 5),
+    CategorieImmobilisation.LOCATION_FINANCEMENT: ("252000", "252900", 5),
     CategorieImmobilisation.AUTRES: ("260000", "260900", 5),
 }
 
@@ -623,6 +627,8 @@ INTITULES_COMPTES_IMMO = {
     "240900": _("Mobilier et matériel de bureau – amortissements actés"),
     "241000": _("Matériel roulant"),
     "241900": _("Matériel roulant – amortissements actés"),
+    "252000": _("Location-financement – matériel roulant"),
+    "252900": _("Location-financement – amortissements actés"),
     "260000": _("Autres immobilisations corporelles"),
     "260900": _("Autres immobilisations corporelles – amortissements actés"),
     COMPTE_DOTATIONS: _("Dotations aux amortissements sur immobilisations corporelles"),
@@ -657,7 +663,7 @@ class Immobilisation(models.Model):
         validators=[MinValueValidator(Decimal("0"))],
         help_text=_("Transport, installation, frais d'acte… et part de TVA non déductible (ex. 50 % sur une voiture)."),
     )
-    taux_tva = models.DecimalField(_("Taux de TVA (%)"), max_digits=5, decimal_places=2, default=Decimal("21.00"))
+    taux_tva = models.DecimalField(_("Taux de TVA (%)"), max_digits=5, decimal_places=2, default=taux_tva_defaut)
     tva_deductible = models.DecimalField(_("TVA déductible (%)"), max_digits=5, decimal_places=2, default=Decimal("100.00"))
     valeur_residuelle = models.DecimalField(_("Valeur résiduelle"), max_digits=12, decimal_places=2, default=ZERO,
                                             validators=[MinValueValidator(Decimal("0"))])

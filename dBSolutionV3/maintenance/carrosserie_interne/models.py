@@ -900,7 +900,8 @@ class CarrosserieInterne(models.Model):
         peinture = sum(item.montant_htva for item in getattr(self, "peinture", []))
 
         htva = pieces + main_oeuvre + peinture
-        tva = htva * Decimal("0.21")
+        from core.pays import pays_societe, taux_tva_normal
+        tva = htva * Decimal(str(taux_tva_normal(pays_societe(getattr(self, "societe", None))))) / 100
 
         self.total_pieces = pieces
         self.total_main_oeuvre = main_oeuvre

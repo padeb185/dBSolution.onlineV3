@@ -319,6 +319,17 @@ def rentabilite(ex):
         "taxe_mise_en_circulation": r2(ex.taxe_mise_en_circulation),
         "frais_achat": r2(ex.frais_achat),
     }
+    # Financement : crédit (+ intérêts échus) ; leasing / renting : loyers échus au lieu du prix d'achat
+    financement = None
+    fv = getattr(ex, "financement", None) if hasattr(ex, "financement") else None
+    if fv is not None:
+        from .financement import cout_rentabilite
+        financement = cout_rentabilite(fv)
+        financement["objet"] = fv
+        if financement["remplace_prix"]:
+            acquisition["prix_achat"] = ZERO
+        acquisition["loyers"] = r2(financement["lignes"].get("loyers"))
+        acquisition["interets"] = r2(financement["lignes"].get("interets"))
     acquisition["total"] = r2(sum(acquisition.values(), ZERO))
 
     km = max(int(ex.kilometres_chassis or 0) - int(ex.kilometrage_achat or 0), 0)
@@ -345,6 +356,7 @@ def rentabilite(ex):
 
     return {
         "acquisition": acquisition,
+        "financement": financement,
         "energie": en,
         "carburant_estime": estimation,
         "total_energie": total_energie,

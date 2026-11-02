@@ -1,4 +1,5 @@
 from django.db import models
+from core.pays import taux_tva_defaut
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from fournisseur.models import Fournisseur
@@ -60,7 +61,7 @@ class Outillage(FactureAchatMixin, DocumentAchatModel):
     taux_tva = models.DecimalField(
         max_digits=5,
         decimal_places=2,
-        default=21.00,
+        default=taux_tva_defaut,
         verbose_name=_("Taux de TVA (%)")
     )
 

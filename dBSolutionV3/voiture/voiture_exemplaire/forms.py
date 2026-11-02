@@ -327,3 +327,43 @@ class CoutAnnuelVehiculeForm(forms.ModelForm):
         if montant is not None and montant < 0:
             raise forms.ValidationError(_("Le montant ne peut pas être négatif."))
         return montant
+
+
+class FinancementVehiculeForm(forms.ModelForm):
+    """Financement du véhicule : achat comptant, crédit, leasing financier, renting."""
+
+    class Meta:
+        from .models import FinancementVehicule
+        model = FinancementVehicule
+        fields = [
+            "mode", "organisme", "contrat", "date_debut", "valeur_htva", "taux_tva", "tva_deductible",
+            "apport", "duree_mois", "taux_interet", "mensualite_htva", "valeur_residuelle",
+            "duree_amortissement_annees", "compte_paiement", "remarques",
+        ]
+        widgets = {
+            "date_debut": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+            "remarques": forms.Textarea(attrs={"rows": 3}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        societe = kwargs.pop("societe", None)
+        super().__init__(*args, **kwargs)
+        from compta.models import CompteTresorerie
+        self.fields["compte_paiement"].queryset = (
+            CompteTresorerie.objects.filter(societe=societe) if societe is not None else CompteTresorerie.objects.none()
+        )
+        self.fields["compte_paiement"].required = False
+
+    def clean(self):
+        c = super().clean()
+        mode = c.get("mode")
+        from .models import FinancementVehicule as F
+        if mode in (F.Mode.ACHAT, F.Mode.CREDIT, F.Mode.LEASING) and not c.get("valeur_htva"):
+            self.add_error("valeur_htva", _("Indiquez la valeur du véhicule HTVA."))
+        if mode in (F.Mode.CREDIT, F.Mode.LEASING, F.Mode.RENTING) and not c.get("duree_mois"):
+            self.add_error("duree_mois", _("Indiquez la durée du contrat."))
+        if mode == F.Mode.RENTING and not c.get("mensualite_htva"):
+            self.add_error("mensualite_htva", _("Indiquez le loyer mensuel HTVA."))
+        if mode == F.Mode.LEASING and c.get("valeur_htva") and (c.get("valeur_residuelle") or 0) > c["valeur_htva"]:
+            self.add_error("valeur_residuelle", _("L'option d'achat ne peut pas dépasser la valeur du véhicule."))
+        return c

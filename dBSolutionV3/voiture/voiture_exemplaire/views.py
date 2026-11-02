@@ -1041,3 +1041,47 @@ def delier_composant(request, exemplaire_id, type_composant, composant_id):
         "url_detail": reverse(conf["detail"][0], kwargs={conf["detail"][1]: composant.pk}),
         "retour": retour,
     })
+
+
+@login_required
+def finances_financement(request, exemplaire_id):
+    """Financement du véhicule (achat, crédit, leasing financier, renting) : création, modification, suppression."""
+    from .forms import FinancementVehiculeForm
+    from .models import FinancementVehicule
+
+    if not _finance_autorise(request.user):
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    exemplaire = get_object_or_404(_finance_queryset(request), id=exemplaire_id)
+    financement = FinancementVehicule.objects.filter(exemplaire=exemplaire).first()
+    retour = f"{reverse('voiture_exemplaire:finances_detail', kwargs={'exemplaire_id': exemplaire.id})}#financement"
+
+    if request.method == "POST" and request.POST.get("action") == "supprimer" and financement:
+        financement.delete()
+        messages.success(request, _("Financement supprimé (et immobilisation liée)."))
+        return redirect(retour)
+
+    if request.method == "POST":
+        form = FinancementVehiculeForm(request.POST, instance=financement, societe=request.user.societe)
+        if form.is_valid():
+            f = form.save(commit=False)
+            f.exemplaire = exemplaire
+            f.save()
+            messages.success(request, _("Financement du véhicule enregistré."))
+            return redirect(retour)
+    else:
+        initial = {}
+        if financement is None:
+            initial = {"date_debut": exemplaire.date_achat or timezone.localdate(),
+                       "valeur_htva": exemplaire.prix_achat}
+        form = FinancementVehiculeForm(instance=financement, initial=initial, societe=request.user.societe)
+
+    from .financement import comptabilise, libelle_usage, tva_deductible_auto, usage
+    from core.pays import pays_societe
+    pays = pays_societe(exemplaire.societe)
+    return render(request, "voiture_exemplaire/finances/financement_form.html", {
+        "form": form, "exemplaire": exemplaire, "financement": financement,
+        "usage": libelle_usage(usage(exemplaire)), "comptabilise": comptabilise(exemplaire),
+        "tva_auto": tva_deductible_auto(exemplaire, pays), "pays": pays,
+    })

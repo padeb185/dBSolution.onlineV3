@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.db import models
+from core.pays import taux_tva_defaut
 import uuid
 from django.utils.translation import gettext_lazy as _
 from stdnum import iban
@@ -112,7 +113,7 @@ class SocieteCliente(models.Model):
         _("Taux de tva"),
         max_digits=5,
         decimal_places=2,
-        default=21.00,
+        default=taux_tva_defaut,
 
     )
 

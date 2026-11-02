@@ -1,4 +1,5 @@
 import uuid
+from decimal import Decimal
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 from django.utils.translation import gettext_lazy as _
@@ -7,6 +8,7 @@ from django.conf import settings
 from maintenance.choices import CoteConduite
 from societe.models import Societe
 from voiture.voiture_exemplaire.utils_vin import VinDecoderService
+from core.pays import taux_tva_defaut
 
 
 class TypeUtilisation(models.TextChoices):
@@ -724,3 +726,115 @@ class CoutAnnuelVehicule(models.Model):
     def __str__(self):
         return f"{self.exemplaire} – {self.annee} – {self.get_type_cout_display()} : {self.montant} €"
 
+
+
+# ======================================================================
+# FINANCEMENT DU VÉHICULE (achat, crédit, leasing financier, renting)
+# ======================================================================
+class FinancementVehicule(models.Model):
+    class Mode(models.TextChoices):
+        ACHAT = "achat", _("Achat comptant")
+        CREDIT = "credit", _("Achat financé par crédit")
+        LEASING = "leasing", _("Leasing financier (location-financement)")
+        RENTING = "renting", _("Renting / leasing opérationnel")
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    exemplaire = models.OneToOneField(VoitureExemplaire, on_delete=models.CASCADE, related_name="financement",
+                                      verbose_name=_("Véhicule"))
+    mode = models.CharField(_("Mode de financement"), max_length=10, choices=Mode.choices, default=Mode.ACHAT)
+    organisme = models.CharField(_("Organisme (banque, société de leasing)"), max_length=120, blank=True)
+    contrat = models.CharField(_("Référence du contrat / de la facture"), max_length=100, blank=True)
+    date_debut = models.DateField(_("Date d'achat / de début du contrat"))
+    valeur_htva = models.DecimalField(
+        _("Valeur du véhicule HTVA"), max_digits=12, decimal_places=2, validators=[MinValueValidator(0)],
+        help_text=_("Prix d'achat HTVA (achat, crédit) ou valeur financée du véhicule (leasing). Renting : facultatif."),
+        null=True, blank=True,
+    )
+    taux_tva = models.DecimalField(_("Taux de TVA (%)"), max_digits=5, decimal_places=2, default=taux_tva_defaut)
+    tva_deductible = models.DecimalField(
+        _("TVA déductible (%)"), max_digits=5, decimal_places=2, null=True, blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        help_text=_("Vide : selon l'usage et le pays (location 100 %, voiture de société 50 % en Belgique, "
+                    "100 % en Allemagne, 0 % en France ; véhicule privé : non comptabilisé)."),
+    )
+    apport = models.DecimalField(
+        _("Apport / acompte / premier loyer majoré"), max_digits=12, decimal_places=2, default=0,
+        validators=[MinValueValidator(0)],
+        help_text=_("Crédit : montant payé comptant (TVAC). Leasing / renting : premier loyer majoré HTVA."),
+    )
+    duree_mois = models.PositiveSmallIntegerField(_("Durée du contrat (mois)"), null=True, blank=True)
+    taux_interet = models.DecimalField(_("Taux d'intérêt annuel (%)"), max_digits=6, decimal_places=3, default=0,
+                                       validators=[MinValueValidator(0)])
+    mensualite_htva = models.DecimalField(
+        _("Mensualité / loyer mensuel"), max_digits=12, decimal_places=2, null=True, blank=True,
+        validators=[MinValueValidator(0)],
+        help_text=_("Leasing : loyer HTVA ; crédit : mensualité. Vide : calculée (annuité constante). "
+                    "Renting : obligatoire (loyer HTVA)."),
+    )
+    valeur_residuelle = models.DecimalField(
+        _("Option d'achat / valeur résiduelle HTVA"), max_digits=12, decimal_places=2, default=0,
+        validators=[MinValueValidator(0)], help_text=_("Leasing financier : montant de la levée d'option en fin de contrat."),
+    )
+    duree_amortissement_annees = models.PositiveSmallIntegerField(
+        _("Durée d'amortissement (années)"), null=True, blank=True,
+        help_text=_("Vide : durée usuelle du pays (Belgique 5 ans, Allemagne 6 ans…)."),
+    )
+    compte_paiement = models.ForeignKey("compta.CompteTresorerie", on_delete=models.SET_NULL, null=True, blank=True,
+                                        related_name="financements_vehicules", verbose_name=_("Payé depuis le compte"))
+    immobilisation = models.ForeignKey("compta.Immobilisation", on_delete=models.SET_NULL, null=True, blank=True,
+                                       editable=False, related_name="financements_vehicules")
+    remarques = models.TextField(_("Remarques"), blank=True)
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("Financement de véhicule")
+        verbose_name_plural = _("Financements de véhicules")
+
+    def __str__(self):
+        return f"{self.exemplaire} – {self.get_mode_display()}"
+
+    @property
+    def pays(self):
+        from core.pays import pays_societe
+        return pays_societe(self.exemplaire.societe)
+
+    @property
+    def usage(self):
+        from .financement import usage
+        return usage(self.exemplaire)
+
+    @property
+    def usage_display(self):
+        from .financement import libelle_usage
+        return libelle_usage(self.usage)
+
+    @property
+    def comptabilise(self):
+        from .financement import comptabilise
+        return comptabilise(self.exemplaire)
+
+    @property
+    def tva_deductible_effective(self):
+        from .financement import tva_deductible_auto
+        if self.tva_deductible is not None:
+            return Decimal(self.tva_deductible)
+        return tva_deductible_auto(self.exemplaire, self.pays)
+
+    @property
+    def valeur_revente_estimee(self):
+        return self.exemplaire.valeur_revente or Decimal("0")
+
+    def save(self, *args, **kwargs):
+        from .financement import duree_amortissement_auto
+        if not self.duree_amortissement_annees:
+            self.duree_amortissement_annees = duree_amortissement_auto(self.pays)
+        super().save(*args, **kwargs)
+        from .financement import synchroniser_immobilisation
+        synchroniser_immobilisation(self)
+
+    def delete(self, *args, **kwargs):
+        immo = self.immobilisation
+        super().delete(*args, **kwargs)
+        if immo:
+            immo.delete()

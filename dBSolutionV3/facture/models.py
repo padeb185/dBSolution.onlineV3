@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from adresse.models import Adresse
-from core.pays import pays_tenant_defaut
+from core.pays import pays_tenant_defaut, taux_tva_defaut
 from societe_cliente.models import SocieteCliente
 
 DEUX_DECIMALES = Decimal("0.01")
@@ -831,8 +831,8 @@ class FactureLine(models.Model):
         _("Taux de TVA"),
         max_digits=4,
         decimal_places=2,
-        default=Decimal("21.00"),
-        help_text=_("Taux de TVA : 6, 12, 21")
+        default=taux_tva_defaut,
+        help_text=_("Taux de TVA en % (par défaut : taux normal du pays de la société)")
     )
 
     class Meta:
