@@ -64,6 +64,7 @@ urlpatterns += i18n_patterns(
 
     # Monitoring serveur (superadministrateurs)
     path("monitoring/", include(("monitoring.urls", "monitoring"), namespace="monitoring")),
+    path("notifications/", include(("notifications.urls", "notifications"), namespace="notifications")),
 
     path(
         "utilisateurs/",

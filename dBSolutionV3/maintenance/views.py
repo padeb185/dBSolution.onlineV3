@@ -472,10 +472,14 @@ def maintenance_detail_view(request, maintenance_id):
 
     # Récupère la maintenance uniquement si elle appartient au tenant
     maintenance = get_object_or_404(
-        Maintenance.objects.filter(
-            Q(exemplaire__client__societe=tenant) |
-            Q(exemplaire__client__isnull=True, exemplaire__societe=tenant)
-        ),
+        Maintenance.objects.select_related(
+            "voiture_exemplaire", "voiture_exemplaire__voiture_marque", "voiture_exemplaire__voiture_modele",
+            "mecanicien", "chef_mecanicien",
+        ).filter(
+            Q(societe=tenant) |
+            Q(voiture_exemplaire__client__societe=tenant) |
+            Q(voiture_exemplaire__client__isnull=True, voiture_exemplaire__societe=tenant)
+        ).distinct(),
         id=maintenance_id
     )
 

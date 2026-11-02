@@ -1,14 +1,49 @@
 {% extends 'base.html' %}
-{% load i18n widget_tweaks static %}
+{% load i18n static %}
 {% block title %}{% trans "Financement du véhicule" %}{% endblock %}
 {% block content %}
-<br><br>
-<div class="max-w-2xl mx-auto p-6 bg-white rounded shadow">
-    <div class="flex items-center gap-4 mb-4">
-        {% include "voiture_exemplaire/finances/_icone.html" with classe="w-[60px] h-[60px]" %}
-        <h1 class="text-2xl font-bold">{% trans "Financement du véhicule" %}</h1>
+<style>
+    .fin-carte { background: #fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08); padding: 20px; margin-bottom: 18px; }
+    .fin-titre { font-size: 1.05rem; font-weight: 700; margin: 0 0 14px; color: #1e3a8a; display: flex; align-items: center; gap: 8px; }
+    .fin-titre .note { font-size: .75rem; font-weight: 400; color: #6b7280; }
+    .fin-titre span.num { background: #DBDFFD; color: #1e3a8a; border-radius: 9999px; width: 26px; height: 26px; display: inline-flex; align-items: center; justify-content: center; font-size: .85rem; }
+    .fin-grille { display: grid; grid-template-columns: 1fr; gap: 14px 20px; }
+    @media (min-width: 768px) { .fin-grille { grid-template-columns: 1fr 1fr; } .fin-large { grid-column: 1 / -1; } }
+    .fin-label { display: block; font-weight: 600; font-size: .9rem; margin-bottom: 4px; color: #111827; }
+    .fin-saisie { position: relative; display: flex; align-items: stretch; }
+    .fin-saisie input, .fin-saisie select, .fin-saisie textarea { width: 100%; border: 1px solid #d1d5db; border-radius: 8px; padding: 9px 11px; font-size: .95rem; background: #fff; }
+    .fin-saisie input:focus, .fin-saisie select:focus, .fin-saisie textarea:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,.15); }
+    .fin-saisie .fin-unite { display: flex; align-items: center; padding: 0 12px; background: #f3f4f6; border: 1px solid #d1d5db; border-left: 0; border-radius: 0 8px 8px 0; color: #4b5563; font-size: .85rem; white-space: nowrap; }
+    .fin-saisie:has(.fin-unite) input { border-radius: 8px 0 0 8px; }
+    .fin-erreur input, .fin-erreur select { border-color: #dc2626; }
+    .fin-aide { color: #6b7280; font-size: .8rem; margin-top: 4px; }
+    .fin-msg-erreur { color: #dc2626; font-size: .8rem; margin-top: 4px; }
+    /* Choix du mode : cartes */
+    .fin-modes ul, .fin-modes div[id^="id_mode"] { display: grid; grid-template-columns: 1fr; gap: 10px; list-style: none; padding: 0; margin: 0; }
+    @media (min-width: 640px) { .fin-modes ul, .fin-modes div[id^="id_mode"] { grid-template-columns: 1fr 1fr; } }
+    .fin-modes label { display: flex; flex-wrap: wrap; column-gap: 10px; align-items: flex-start; border: 2px solid #e5e7eb; border-radius: 10px; padding: 12px; cursor: pointer; font-weight: 600; transition: border-color .15s, background .15s; }
+    .fin-modes label:hover { border-color: #93c5fd; }
+    .fin-modes label:has(input:checked) { border-color: #16a34a; background: #f0fdf4; }
+    .fin-modes input { margin-top: 3px; accent-color: #16a34a; }
+    .fin-mode-desc { display: block; flex-basis: 100%; padding-left: 24px; font-weight: 400; font-size: .8rem; color: #6b7280; margin-top: 2px; }
+    .fin-simu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    @media (min-width: 768px) { .fin-simu { grid-template-columns: repeat(4, 1fr); } }
+    .fin-simu div { background: #f9fafb; border-radius: 8px; padding: 10px 12px; }
+    .fin-simu dt { font-size: .75rem; color: #6b7280; }
+    .fin-simu dd { font-size: 1.05rem; font-weight: 700; margin: 2px 0 0; }
+</style>
+
+<div class="max-w-4xl mx-auto py-6">
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <div class="flex items-center gap-4">
+            {% include "voiture_exemplaire/finances/_icone.html" with classe="w-[56px] h-[56px]" %}
+            <div>
+                <h1 class="text-2xl font-bold">{% trans "Financement du véhicule" %}</h1>
+                <p class="text-gray-600">{{ exemplaire.voiture_marque }} {{ exemplaire.voiture_modele.nom_modele }}</p>
+            </div>
+        </div>
+        {% include "maintenance/partials/plaque.html" %}
     </div>
-    <div class="mb-4 flex justify-center">{% include "maintenance/partials/plaque.html" %}</div>
     {% include "voiture_exemplaire/finances/_messages.html" %}
 
     <div class="mb-4 rounded-lg border px-4 py-3 text-sm {% if comptabilise %}border-sky-300 bg-sky-50 text-sky-900{% else %}border-amber-300 bg-amber-50 text-amber-900{% endif %}">
@@ -23,38 +58,135 @@
 
     {% if form.non_field_errors %}<div class="mb-4 bg-red-100 text-red-800 border border-red-300 p-3 rounded">{{ form.non_field_errors }}</div>{% endif %}
 
-    <form method="post">
+    <form method="post" novalidate>
         {% csrf_token %}
-        {% for field in form %}
-            <div id="bloc_{{ field.name }}">{% include "voiture_exemplaire/finances/_champ.html" %}</div>
-        {% endfor %}
-        <div class="flex flex-wrap gap-3 mt-6">
-            <button type="submit" class="bg-green-600 hover:bg-green-500 text-white px-5 py-2 rounded font-semibold">{% trans "Enregistrer" %}</button>
-            <a href="{% url 'voiture_exemplaire:finances_detail' exemplaire.id %}#financement" class="bg-gray-300 hover:bg-gray-400 text-black px-5 py-2 rounded font-semibold">{% trans "Annuler" %}</a>
+
+        <!-- 1. Mode -->
+        <div class="fin-carte">
+            <h2 class="fin-titre"><span class="num">1</span>{% trans "Mode de financement" %}</h2>
+            <div class="fin-modes">{{ form.mode }}</div>
+            {% for e in form.mode.errors %}<p class="fin-msg-erreur">{{ e }}</p>{% endfor %}
+        </div>
+
+        <!-- 2. Contrat -->
+        <div class="fin-carte">
+            <h2 class="fin-titre"><span class="num">2</span>{% trans "Contrat" %}</h2>
+            <div class="fin-grille">
+                {% include "voiture_exemplaire/finances/_champ_financement.html" with field=form.date_debut %}
+                {% include "voiture_exemplaire/finances/_champ_financement.html" with field=form.organisme %}
+                {% include "voiture_exemplaire/finances/_champ_financement.html" with field=form.contrat %}
+                {% include "voiture_exemplaire/finances/_champ_financement.html" with field=form.compte_paiement %}
+            </div>
+        </div>
+
+        <!-- 3. Montants -->
+        <div class="fin-carte">
+            <h2 class="fin-titre"><span class="num">3</span>{% trans "Montants" %}</h2>
+            <div class="fin-grille">
+                {% include "voiture_exemplaire/finances/_champ_financement.html" with field=form.valeur_htva unite="€" %}
+                {% include "voiture_exemplaire/finances/_champ_financement.html" with field=form.apport unite="€" %}
+                {% include "voiture_exemplaire/finances/_champ_financement.html" with field=form.duree_mois unite=form.UNITES.duree_mois %}
+                {% include "voiture_exemplaire/finances/_champ_financement.html" with field=form.taux_interet unite="%" %}
+                {% include "voiture_exemplaire/finances/_champ_financement.html" with field=form.mensualite_htva unite="€/mois" %}
+                {% include "voiture_exemplaire/finances/_champ_financement.html" with field=form.valeur_residuelle unite="€" %}
+            </div>
+            <datalist id="durees-usuelles"><option value="12"><option value="24"><option value="36"><option value="48"><option value="60"><option value="72"><option value="84"></datalist>
+        </div>
+
+        <!-- 4. TVA et comptabilité -->
+        <div class="fin-carte">
+            <h2 class="fin-titre"><span class="num">4</span>{% trans "TVA et amortissement" %}</h2>
+            <div class="fin-grille">
+                {% include "voiture_exemplaire/finances/_champ_financement.html" with field=form.taux_tva unite="%" %}
+                {% include "voiture_exemplaire/finances/_champ_financement.html" with field=form.tva_deductible unite="%" %}
+                {% include "voiture_exemplaire/finances/_champ_financement.html" with field=form.duree_amortissement_annees unite=form.UNITES.duree_amortissement_annees %}
+                {% include "voiture_exemplaire/finances/_champ_financement.html" with field=form.remarques classe="fin-large" %}
+            </div>
+        </div>
+
+        <!-- Simulation -->
+        <div class="fin-carte" id="bloc_simulation">
+            <h2 class="fin-titre">{% trans "Simulation" %} <span class="note">{% trans "calcul indicatif, mis à jour pendant la saisie" %}</span></h2>
+            <dl class="fin-simu">
+                <div><dt id="simu_label_mensualite">{% trans "Mensualité" %}</dt><dd id="simu_mensualite">—</dd></div>
+                <div><dt>{% trans "Capital financé" %}</dt><dd id="simu_capital">—</dd></div>
+                <div><dt>{% trans "Total des intérêts" %}</dt><dd id="simu_interets">—</dd></div>
+                <div><dt>{% trans "Coût total du contrat" %}</dt><dd id="simu_total">—</dd></div>
+            </dl>
+            <p class="fin-aide mt-2" id="simu_note"></p>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+            <button type="submit" class="bg-green-600 hover:bg-green-500 text-white px-6 py-2 rounded-md font-semibold">{% trans "Enregistrer" %}</button>
+            <a href="{% url 'voiture_exemplaire:finances_detail' exemplaire.id %}#financement" class="bg-gray-300 hover:bg-gray-400 text-black px-6 py-2 rounded-md font-semibold">{% trans "Annuler" %}</a>
         </div>
     </form>
+
     {% if financement %}
-    <form method="post" class="mt-4" onsubmit="return confirm('{% trans "Supprimer le financement et l'immobilisation liée ?" %}');">
+    <form method="post" class="mt-4" onsubmit="return confirm('{% trans "Supprimer le financement et l’immobilisation liée ?" %}');">
         {% csrf_token %}<input type="hidden" name="action" value="supprimer">
-        <button type="submit" class="bg-red-700 hover:bg-red-500 text-white px-5 py-2 rounded font-semibold">{% trans "Supprimer le financement" %}</button>
+        <button type="submit" class="text-red-700 hover:text-red-500 font-semibold text-sm underline">{% trans "Supprimer le financement" %}</button>
     </form>
     {% endif %}
 </div>
+
+{{ textes_js|json_script:"fin-textes" }}
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const mode = document.getElementById("id_mode");
+    const T = JSON.parse(document.getElementById("fin-textes").textContent);
+    const radios = document.querySelectorAll('input[name="mode"]');
+    const val = id => { const e = document.getElementById("id_" + id); return e ? parseFloat(String(e.value).replace(",", ".")) || 0 : 0; };
+    const fmt = n => n.toLocaleString(document.documentElement.lang || "fr", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+
+    // Descriptions sous chaque mode
+    radios.forEach(r => {
+        const d = document.createElement("span"); d.className = "fin-mode-desc"; d.textContent = T.desc[r.value] || "";
+        r.parentElement.appendChild(d);
+    });
+
     const visibles = {
-        achat:   ["valeur_htva", "taux_tva", "tva_deductible", "duree_amortissement_annees", "compte_paiement"],
-        credit:  ["organisme", "valeur_htva", "taux_tva", "tva_deductible", "apport", "duree_mois", "taux_interet", "mensualite_htva", "duree_amortissement_annees", "compte_paiement"],
-        leasing: ["organisme", "valeur_htva", "taux_tva", "tva_deductible", "apport", "duree_mois", "taux_interet", "mensualite_htva", "valeur_residuelle", "duree_amortissement_annees", "compte_paiement"],
-        renting: ["organisme", "taux_tva", "tva_deductible", "apport", "duree_mois", "mensualite_htva", "compte_paiement"],
+        achat:   ["valeur_htva", "taux_tva", "tva_deductible", "duree_amortissement_annees", "compte_paiement", "contrat"],
+        credit:  ["organisme", "contrat", "valeur_htva", "taux_tva", "tva_deductible", "apport", "duree_mois", "taux_interet", "mensualite_htva", "duree_amortissement_annees", "compte_paiement"],
+        leasing: ["organisme", "contrat", "valeur_htva", "taux_tva", "tva_deductible", "apport", "duree_mois", "taux_interet", "mensualite_htva", "valeur_residuelle", "duree_amortissement_annees", "compte_paiement"],
+        renting: ["organisme", "contrat", "taux_tva", "tva_deductible", "apport", "duree_mois", "mensualite_htva", "compte_paiement"],
     };
-    const variables = ["organisme", "valeur_htva", "taux_tva", "tva_deductible", "apport", "duree_mois", "taux_interet", "mensualite_htva", "valeur_residuelle", "duree_amortissement_annees", "compte_paiement"];
-    function maj() {
-        const liste = visibles[mode.value] || [];
+    const variables = ["organisme", "contrat", "valeur_htva", "taux_tva", "tva_deductible", "apport", "duree_mois", "taux_interet", "mensualite_htva", "valeur_residuelle", "duree_amortissement_annees", "compte_paiement"];
+    const mode = () => (document.querySelector('input[name="mode"]:checked') || {}).value || "achat";
+
+    function majChamps() {
+        const m = mode(), liste = visibles[m] || [];
         variables.forEach(n => { const b = document.getElementById("bloc_" + n); if (b) b.style.display = liste.includes(n) ? "" : "none"; });
+        // Libellés et aides selon le mode
+        Object.entries(T.labels[m] || {}).forEach(([n, txt]) => { const l = document.querySelector('[data-label="' + n + '"]'); if (l) l.firstChild.textContent = txt; });
+        Object.entries(T.aides[m] || {}).forEach(([n, txt]) => { const a = document.querySelector('[data-aide="' + n + '"]'); if (a) a.textContent = txt; });
+        document.getElementById("bloc_simulation").style.display = m === "achat" ? "none" : "";
+        simuler();
     }
-    mode.addEventListener("change", maj); maj();
+
+    function simuler() {
+        const m = mode(), n = Math.round(val("duree_mois")), r = val("taux_interet") / 1200, tva = val("taux_tva") / 100;
+        const valeur = val("valeur_htva"), apport = val("apport"), rv = m === "leasing" ? val("valeur_residuelle") : 0;
+        let capital = 0, mens = val("mensualite_htva"), interets = 0, total = 0, note = "";
+        if (m === "credit") capital = Math.max(valeur * (1 + tva) - apport, 0);
+        if (m === "leasing") capital = Math.max(valeur - apport, 0);
+        if ((m === "credit" || m === "leasing") && n > 0 && !mens) {
+            mens = r === 0 ? (capital - rv) / n : (capital - rv / Math.pow(1 + r, n)) * r / (1 - Math.pow(1 + r, -n));
+            note = T.calculee;
+        }
+        if (m === "credit" || m === "leasing") { total = mens * n + rv; interets = Math.max(total - capital, 0); }
+        if (m === "renting") { total = mens * n + apport; }
+        document.getElementById("simu_label_mensualite").textContent = m === "credit" ? T.mens_credit : T.mens_loyer;
+        document.getElementById("simu_mensualite").textContent = n && mens ? fmt(mens) + (m === "credit" ? "" : " " + T.htva) : "—";
+        document.getElementById("simu_capital").textContent = capital ? fmt(capital) : "—";
+        document.getElementById("simu_interets").textContent = (m === "credit" || m === "leasing") && n ? fmt(interets) : "—";
+        document.getElementById("simu_total").textContent = total ? fmt(total) + (m === "credit" ? "" : " " + T.htva) : "—";
+        if (m !== "credit" && mens) note += (note ? " · " : "") + T.tva_loyer.replace("%s", fmt(mens * tva));
+        document.getElementById("simu_note").textContent = note;
+    }
+
+    radios.forEach(r => r.addEventListener("change", majChamps));
+    document.querySelectorAll(".fin-saisie input").forEach(i => i.addEventListener("input", simuler));
+    majChamps();
 });
 </script>
 {% endblock %}

@@ -8,7 +8,7 @@ from utils.securite import peut_supprimer, refuser_suppression, roles_requis
 from .forms import RemorqueForm
 from .models import Remorque, TypeRemorque
 
-ROLES_REMORQUES = ("chef_mecanicien", "direction", "mecanicien", "magasinier")
+ROLES_REMORQUES = ("chef_mecanicien", "chef_atelier", "direction", "mecanicien", "magasinier")
 ROLES_GESTION = ("chef_mecanicien", "direction")
 
 

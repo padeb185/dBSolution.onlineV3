@@ -130,6 +130,7 @@ SHARED_APPS = (
 
 TENANT_APPS = (
 
+    'notifications',
     'agenda',
     'piece',
     'panier',
@@ -456,6 +457,8 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
+    # Utilisateur courant (émetteur des notifications internes)
+    "notifications.middleware.UtilisateurCourantMiddleware",
 
     # Ces middlewares nécessitent request.user et messages.
     "dBSolutionV3.middleware.tenant_required.TenantRequiredMiddleware",
@@ -490,6 +493,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 'core.context_processors.pays_tenant',
+                'notifications.context_processors.notifications',
             ],
         },
     },
@@ -558,13 +562,24 @@ EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
 EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
 EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", default=False)
 EMAIL_TIMEOUT = 20
+# Service d'envoi Brevo (API, via django-anymail) : prioritaire si BREVO_API_KEY est défini.
+# Alternative sans API : relais SMTP Brevo (EMAIL_HOST=smtp-relay.brevo.com, port 587, identifiants SMTP Brevo).
+BREVO_API_KEY = env("BREVO_API_KEY", default="")
+if BREVO_API_KEY:
+    ANYMAIL = {"BREVO_API_KEY": BREVO_API_KEY}
 EMAIL_BACKEND = env(
     "EMAIL_BACKEND",
-    default=("django.core.mail.backends.smtp.EmailBackend" if EMAIL_HOST
+    default=("anymail.backends.brevo.EmailBackend" if BREVO_API_KEY
+             else "django.core.mail.backends.smtp.EmailBackend" if EMAIL_HOST
              else "django.core.mail.backends.console.EmailBackend"),
 )
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="CarsCosts <no-reply@carscosts.com>")
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+# Liens absolus dans les e-mails (notifications)
+SITE_URL = env("SITE_URL", default="https://carscosts.com")
+# Copie des notifications internes par e-mail (False : notifications uniquement dans l'application)
+NOTIFICATIONS_EMAIL = env.bool("NOTIFICATIONS_EMAIL", default=False)
 
 # ------------------------------------------------------------------------------
 # I18N

@@ -26,7 +26,7 @@ from .models import (CategoriePiece, Fabricant, InventaireStock, LigneInventaire
                      PieceUtilisee)
 
 # Gestion du stock (catalogue, mouvements, inventaires)
-ROLES_STOCK = ["direction", "chef_mecanicien", "magasinier", "comptable"]
+ROLES_STOCK = ["direction", "chef_mecanicien", "chef_atelier", "magasinier", "comptable"]
 # Encodage des pièces utilisées dans une maintenance
 ROLES_ATELIER = ROLES_STOCK + ["mecanicien", "apprentis", "carrossier", "instructeur"]
 

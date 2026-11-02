@@ -1,0 +1,10 @@
+{% load i18n widget_tweaks %}
+<div id="bloc_{{ field.name }}" class="fin-champ {{ classe|default:'' }}">
+    <label for="{{ field.id_for_label }}" class="fin-label" data-label="{{ field.name }}">{{ field.label }}{% if field.field.required %} <span class="text-red-600">*</span>{% endif %}</label>
+    <div class="fin-saisie{% if field.errors %} fin-erreur{% endif %}">
+        {{ field }}
+        {% if unite %}<span class="fin-unite">{{ unite }}</span>{% endif %}
+    </div>
+    {% if field.help_text %}<p class="fin-aide" data-aide="{{ field.name }}">{{ field.help_text }}</p>{% endif %}
+    {% for e in field.errors %}<p class="fin-msg-erreur">{{ e }}</p>{% endfor %}
+</div>

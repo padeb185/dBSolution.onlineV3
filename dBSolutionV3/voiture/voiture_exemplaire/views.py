@@ -5,7 +5,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.views.decorators.cache import never_cache
-from .forms import VoitureExemplaireForm, VoitureExemplaireFinanceForm, FINANCE_FIELDS, FINANCE_FIELDS_OPTIONNELS
+from .forms import VoitureExemplaireForm, VoitureExemplaireFinanceForm, FINANCE_FIELDS, FINANCE_FIELDS_OPTIONNELS, \
+    FINANCE_FIELDS_USAGE
 from .models import VoitureExemplaire
 from ..voiture_modele.models import VoitureModele
 from ..voiture_moteur.models import MoteurVoiture
@@ -806,7 +807,8 @@ def finances_detail(request, exemplaire_id):
     manquants = _finance_manquants(exemplaire)
 
     labels = VoitureExemplaireFinanceForm().fields
-    champs = []
+    champs = [{"nom": "type_utilisation", "label": labels["type_utilisation"].label,
+               "valeur": exemplaire.get_type_utilisation_display()}]
     for f in FINANCE_FIELDS:
         valeur = getattr(exemplaire, f)
         if f == "etat_achat" and valeur is not None:
@@ -874,7 +876,14 @@ def finances_modifier(request, exemplaire_id):
             VoitureExemplaire.objects.filter(pk=exemplaire.pk).update(
                 updated_at=timezone.now(),
                 **{f: form.cleaned_data.get(f) for f in FINANCE_FIELDS + FINANCE_FIELDS_OPTIONNELS},
+                **{f: form.cleaned_data.get(f) or getattr(exemplaire, f) for f in FINANCE_FIELDS_USAGE},
             )
+            # L'usage détermine la TVA déductible et la comptabilisation : financement / immobilisation recalculés
+            from .models import FinancementVehicule
+            fv = FinancementVehicule.objects.filter(exemplaire_id=exemplaire.pk).select_related("exemplaire").first()
+            if fv:
+                fv.exemplaire.refresh_from_db()
+                fv.save()
             messages.success(
                 request,
                 _("Données financières de '%(vehicule)s' enregistrées.") % {
@@ -1043,6 +1052,13 @@ def delier_composant(request, exemplaire_id, type_composant, composant_id):
     })
 
 
+def _options_form_financement(exemplaire):
+    from .financement import duree_amortissement_auto, tva_deductible_auto
+    from core.pays import pays_societe
+    pays = pays_societe(exemplaire.societe)
+    return {"tva_auto": tva_deductible_auto(exemplaire, pays), "duree_auto": duree_amortissement_auto(pays)}
+
+
 @login_required
 def finances_financement(request, exemplaire_id):
     """Financement du véhicule (achat, crédit, leasing financier, renting) : création, modification, suppression."""
@@ -1063,7 +1079,8 @@ def finances_financement(request, exemplaire_id):
         return redirect(retour)
 
     if request.method == "POST":
-        form = FinancementVehiculeForm(request.POST, instance=financement, societe=request.user.societe)
+        form = FinancementVehiculeForm(request.POST, instance=financement, societe=request.user.societe,
+                                       **_options_form_financement(exemplaire))
         if form.is_valid():
             f = form.save(commit=False)
             f.exemplaire = exemplaire
@@ -1075,7 +1092,8 @@ def finances_financement(request, exemplaire_id):
         if financement is None:
             initial = {"date_debut": exemplaire.date_achat or timezone.localdate(),
                        "valeur_htva": exemplaire.prix_achat}
-        form = FinancementVehiculeForm(instance=financement, initial=initial, societe=request.user.societe)
+        form = FinancementVehiculeForm(instance=financement, initial=initial, societe=request.user.societe,
+                                       **_options_form_financement(exemplaire))
 
     from .financement import comptabilise, libelle_usage, tva_deductible_auto, usage
     from core.pays import pays_societe
@@ -1084,4 +1102,31 @@ def finances_financement(request, exemplaire_id):
         "form": form, "exemplaire": exemplaire, "financement": financement,
         "usage": libelle_usage(usage(exemplaire)), "comptabilise": comptabilise(exemplaire),
         "tva_auto": tva_deductible_auto(exemplaire, pays), "pays": pays,
+        "textes_js": {
+            "desc": {
+                "achat": _("Payé comptant : immobilisation et amortissement."),
+                "credit": _("Prêt bancaire : le véhicule vous appartient, mensualités capital + intérêts."),
+                "leasing": _("Location-financement : loyers puis option d'achat en fin de contrat."),
+                "renting": _("Location longue durée : loyers en charge, pas de propriété."),
+            },
+            "labels": {
+                "achat": {"valeur_htva": _("Prix d'achat HTVA"), "date_debut": _("Date d'achat"), "contrat": _("N° de facture")},
+                "credit": {"valeur_htva": _("Prix d'achat HTVA"), "date_debut": _("Date d'achat"), "mensualite_htva": _("Mensualité (TVAC)"),
+                           "apport": _("Apport payé comptant (TVAC)"), "organisme": _("Banque")},
+                "leasing": {"valeur_htva": _("Valeur financée HTVA"), "date_debut": _("Début du contrat"), "mensualite_htva": _("Loyer mensuel HTVA"),
+                            "apport": _("Premier loyer majoré HTVA"), "organisme": _("Société de leasing")},
+                "renting": {"date_debut": _("Début du contrat"), "mensualite_htva": _("Loyer mensuel HTVA"),
+                            "apport": _("Premier loyer majoré HTVA"), "organisme": _("Société de renting")},
+            },
+            "aides": {
+                "credit": {"mensualite_htva": _("Laisser vide pour la calculer à partir du taux et de la durée.")},
+                "leasing": {"mensualite_htva": _("Laisser vide pour le calculer à partir du taux, de la durée et de l'option d'achat.")},
+                "renting": {"mensualite_htva": _("Loyer hors TVA indiqué au contrat (entretien, assurance… compris le cas échéant).")},
+            },
+            "calculee": _("Mensualité calculée (annuité constante)."),
+            "mens_credit": _("Mensualité"),
+            "mens_loyer": _("Loyer mensuel"),
+            "htva": _("HTVA"),
+            "tva_loyer": _("TVA par loyer : %s"),
+        },
     })

@@ -512,7 +512,7 @@ def adblue_delete(request, adblue_id):
     # ==========================================================
     # AUTORISATIONS
     # ==========================================================
-    roles_autorises = ["direction", "chef_mecanicien"]
+    roles_autorises = ["direction", "chef_mecanicien", "chef_atelier"]
 
     if request.user.role not in roles_autorises and not request.user.is_superuser:
         messages.error(request, _("Accès refusé"))

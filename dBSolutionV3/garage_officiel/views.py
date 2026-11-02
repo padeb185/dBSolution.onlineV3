@@ -8,7 +8,7 @@ from django.views.decorators.cache import never_cache
 from .forms import GarageOfficielForm
 from .models import GarageOfficiel
 
-ROLES_AUTORISES = ["chef_mecanicien", "direction"]
+ROLES_AUTORISES = ["chef_mecanicien", "chef_atelier", "direction"]
 
 
 def _autorise(user):

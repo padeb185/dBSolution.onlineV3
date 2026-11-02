@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-02 12:09+0100\n"
+"POT-Creation-Date: 2026-11-02 12:58+0100\n"
 "PO-Revision-Date: 2025-12-13 12:10+0100\n"
 "Last-Translator: Pierre de Bournonville [EMAIL@ADDRESS](mailto:EMAIL@ADDRESS)\n"
 "Language-Team: English [en@li.org](mailto:en@li.org)\n"
@@ -25,7 +25,7 @@ msgstr "Purchases of goods / parts"
 msgid "Frais accessoires d'achat – transport"
 msgstr "Incidental purchase costs – transport"
 
-#: achat_mds/comptabilite.py:72 achat_mds/documents.py:19 compta/journal.py:64
+#: achat_mds/comptabilite.py:72 achat_mds/documents.py:19 compta/journal.py:65
 #: facture/models.py:80 facture/templates/facture/tva.html:301
 msgid "Note de crédit"
 msgstr "Credit note"
@@ -37,19 +37,21 @@ msgstr "Debit note"
 
 #: achat_mds/comptabilite.py:92
 #: achat_mds/templates/achat_mds/_montants_ecritures.html:11
-#: compta/models.py:39 compta/models.py:544 compta/models.py:813
+#: compta/models.py:41 compta/models.py:546 compta/models.py:819
 #: facture/templates/facture/tva.html:231
 #: facture/templates/facture/tva.html:354 facture/views.py:967
-#: fuel/totaux_energie.py:41 outillage/models.py:78
+#: fuel/totaux_energie.py:41 outillage/models.py:79
 #: outillage/templates/outillage/delete_outillage.html:97
+#: voiture/voiture_exemplaire/financement.py:48
 msgid "TVA à récupérer"
 msgstr "Recoverable VAT"
 
 #: achat_mds/comptabilite.py:93 achat_mds/comptabilite.py:100
-#: compta/models.py:40 compta/models.py:546 compta/models.py:550
-#: compta/models.py:815 compta/models.py:819 fournisseur/models.py:103
+#: compta/models.py:42 compta/models.py:548 compta/models.py:552
+#: compta/models.py:821 compta/models.py:825 fournisseur/models.py:104
 #: fournisseur/templates/fournisseur/fournisseur_dashboard.html:17
 #: theme/templates/dashboard.html:611
+#: voiture/voiture_exemplaire/financement.py:51
 msgid "Fournisseurs"
 msgstr "Suppliers"
 
@@ -73,7 +75,7 @@ msgstr "Bank – current account"
 #: maintenance/maintenance_externe/templates/maintenance_externe/carrosserie_detail.html:37
 #: maintenance/maintenance_externe/templates/maintenance_externe/carrosserie_form.html:79
 #: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:85
-#: piece/models.py:419 piece/models.py:451
+#: piece/models.py:420 piece/models.py:452
 #: piece/templates/piece/stock/pieces_maintenance.html:29
 #: piece/views_stock.py:230
 #: voiture/voiture_location/templates/voiture_location/location_detail.html:180
@@ -157,16 +159,16 @@ msgstr ""
 msgid "Le montant de la note doit être supérieur à zéro."
 msgstr "The note amount must be greater than zero."
 
-#: achat_mds/forms.py:13 achat_mds/models.py:26
-#: achat_mds/templates/achat_mds/achat_detail.html:37 compta/models.py:646
+#: achat_mds/forms.py:13 achat_mds/models.py:27
+#: achat_mds/templates/achat_mds/achat_detail.html:37 compta/models.py:652
 #: compta/templates/compta/immo/immobilisation_detail.html:12
 #: facture/templates/facture/factures_a_payer.html:59
 #: facture/templates/facture/factures_a_payer.html:117
 #: facture/templates/facture/factures_a_payer.html:143
 #: facture/templates/facture/tva.html:350 facture/views.py:966
-#: fournisseur/models.py:102
+#: fournisseur/models.py:103
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:60
-#: investissements/models.py:19 outillage/forms.py:32 outillage/models.py:34
+#: investissements/models.py:19 outillage/forms.py:32 outillage/models.py:35
 #: outillage/templates/outillage/outillage_detail.html:38
 #: outillage/templates/outillage/outillage_list.html:32
 #: outillage/templates/outillage/outillage_list.html:65
@@ -180,11 +182,11 @@ msgstr "Supplier"
 msgid "Libellé facture"
 msgstr "Invoice label"
 
-#: achat_mds/forms.py:42 achat_mds/models.py:37
+#: achat_mds/forms.py:42 achat_mds/models.py:38
 #: achat_mds/templates/achat_mds/achat_detail.html:51
 #: achat_mds/templates/achat_mds/delete_achat.html:42
 #: facture/templates/facture/factures_a_payer.html:60 outillage/forms.py:39
-#: outillage/models.py:91
+#: outillage/models.py:92
 #: outillage/templates/outillage/outillage_detail.html:53
 msgid "Référence facture"
 msgstr "Invoice reference"
@@ -197,7 +199,7 @@ msgstr "Purchase amount excl. VAT"
 msgid "Montant transport HTVA"
 msgstr "Transport amount excl. VAT"
 
-#: achat_mds/forms.py:45 piece/models.py:223
+#: achat_mds/forms.py:45 piece/models.py:224
 msgid "TVA (%)"
 msgstr "VAT (%)"
 
@@ -205,23 +207,23 @@ msgstr "VAT (%)"
 msgid "TVA du transport (%)"
 msgstr "Transport VAT (%)"
 
-#: achat_mds/forms.py:47 achat_mds/models.py:76
+#: achat_mds/forms.py:47 achat_mds/models.py:77
 #: achat_mds/templates/achat_mds/achat_detail.html:56
 #: achat_mds/templates/achat_mds/delete_achat.html:45
 #: facture/templates/facture/factures_a_payer.html:57
 #: maintenance/maintenance_externe/models.py:54
 #: maintenance/maintenance_externe/models.py:344 outillage/forms.py:38
-#: outillage/models.py:83
+#: outillage/models.py:84
 #: outillage/templates/outillage/outillage_detail.html:49
 msgid "Date de la facture"
 msgstr "Invoice date"
 
-#: achat_mds/forms.py:48 achat_mds/models.py:80
-#: achat_mds/templates/achat_mds/delete_achat.html:48 compta/models.py:672
+#: achat_mds/forms.py:48 achat_mds/models.py:81
+#: achat_mds/templates/achat_mds/delete_achat.html:48 compta/models.py:678
 #: facture/models.py:299 facture/templates/facture/factures_a_payer.html:142
 #: maintenance/maintenance_externe/models.py:94
 #: maintenance/maintenance_externe/models.py:375 outillage/forms.py:42
-#: outillage/models.py:114 voiture/voiture_exemplaire/models.py:714
+#: outillage/models.py:115 voiture/voiture_exemplaire/models.py:716
 msgid "Date de paiement"
 msgstr "Payment date"
 
@@ -249,12 +251,12 @@ msgstr "Same rate as the purchase"
 msgid "21"
 msgstr "21"
 
-#: achat_mds/models.py:30 achat_mds/templates/achat_mds/achat_detail.html:46
+#: achat_mds/models.py:31 achat_mds/templates/achat_mds/achat_detail.html:46
 #: achat_mds/templates/achat_mds/achat_list.html:35
 #: achat_mds/templates/achat_mds/achat_list.html:60
 #: achat_mds/templates/achat_mds/delete_achat.html:39 compta/forms.py:88
-#: compta/models.py:324 compta/models.py:644 compta/models.py:1080
-#: compta/models.py:1116 compta/templates/compta/bilan/od_form.html:19
+#: compta/models.py:326 compta/models.py:650 compta/models.py:1086
+#: compta/models.py:1122 compta/templates/compta/bilan/od_form.html:19
 #: compta/templates/compta/compte_journal.html:73
 #: compta/templates/compta/immo/_ecritures.html:10
 #: compta/templates/compta/immo/immobilisations_liste.html:71
@@ -266,7 +268,7 @@ msgstr "21"
 #: fuel/templates/fuel/totaux/energie_totaux.html:316
 #: fuel/templates/fuel/totaux/energie_totaux_pdf.html:223
 #: fuel/views_totaux.py:92 investissements/models.py:40 outillage/forms.py:33
-#: outillage/models.py:39
+#: outillage/models.py:40
 #: outillage/templates/outillage/delete_outillage.html:74
 #: outillage/templates/outillage/outillage_detail.html:41
 #: outillage/templates/outillage/outillage_list.html:36
@@ -275,14 +277,14 @@ msgstr "21"
 #: utilisateurs/templates/utilisateurs/paie/_ecritures.html:8
 #: utilisateurs/templates/utilisateurs/paie/_ecritures_conges.html:8
 #: utilisateurs/templates/utilisateurs/paie/paie_pdf.html:121
-#: utilisateurs/views_paie.py:606 voiture/voiture_exemplaire/models.py:712
+#: utilisateurs/views_paie.py:606 voiture/voiture_exemplaire/models.py:714
 #: voiture/voiture_location/models.py:1246
 msgid "Libellé"
 msgstr "Label"
 
-#: achat_mds/models.py:44 achat_mds/templates/achat_mds/achat_list.html:39
+#: achat_mds/models.py:45 achat_mds/templates/achat_mds/achat_list.html:39
 #: achat_mds/templates/achat_mds/achat_list.html:62
-#: achat_mds/templates/achat_mds/delete_achat.html:65 compta/models.py:576
+#: achat_mds/templates/achat_mds/delete_achat.html:65 compta/models.py:578
 #: compta/templates/compta/instructeurs/facture_detail.html:37
 #: compta/templates/compta/instructeurs/facture_form.html:45
 #: compta/templates/compta/instructeurs/facture_form.html:72
@@ -291,22 +293,23 @@ msgstr "Label"
 msgid "Montant HTVA"
 msgstr "Amount excl. VAT"
 
-#: achat_mds/models.py:50 outillage/models.py:99
+#: achat_mds/models.py:51 outillage/models.py:100
 msgid "Montant HTVA du transport"
 msgstr "Transport amount excl. VAT"
 
-#: achat_mds/models.py:58 compta/models.py:389 compta/models.py:464
-#: compta/models.py:660 fournisseur/models.py:42
+#: achat_mds/models.py:59 compta/models.py:391 compta/models.py:466
+#: compta/models.py:666 fournisseur/models.py:43
 #: maintenance/maintenance_externe/models.py:65
-#: maintenance/maintenance_externe/models.py:331 outillage/models.py:64
+#: maintenance/maintenance_externe/models.py:331 outillage/models.py:65
+#: voiture/voiture_exemplaire/models.py:753
 msgid "Taux de TVA (%)"
 msgstr "VAT rate (%)"
 
-#: achat_mds/models.py:67 outillage/models.py:107
+#: achat_mds/models.py:68 outillage/models.py:108
 msgid "Taux de TVA du transport (%)"
 msgstr "Transport VAT rate (%)"
 
-#: achat_mds/models.py:72 outillage/models.py:108
+#: achat_mds/models.py:73 outillage/models.py:109
 msgid ""
 "Laisser vide : même taux que la marchandise (frais accessoires facturés par "
 "le fournisseur)."
@@ -314,7 +317,7 @@ msgstr ""
 "Leave empty: same rate as the goods (incidental costs invoiced by the "
 "supplier)."
 
-#: achat_mds/models.py:89 facture/views.py:1254
+#: achat_mds/models.py:90 facture/views.py:1254
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:92
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:93
 #: voiture/voiture_jantes/forms.py:26
@@ -322,7 +325,7 @@ msgstr ""
 msgid "Achat"
 msgstr "Purchase"
 
-#: achat_mds/models.py:90 compta/journal.py:19
+#: achat_mds/models.py:91 compta/journal.py:19
 #: facture/templates/facture/factures_a_payer.html:22
 msgid "Achats"
 msgstr "Purchases"
@@ -350,7 +353,7 @@ msgid "Montants et TVA à récupérer"
 msgstr "Amounts and recoverable VAT"
 
 #: achat_mds/templates/achat_mds/_montants_ecritures.html:8
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:84
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:143
 msgid "Poste"
 msgstr "Item"
 
@@ -364,8 +367,9 @@ msgstr "Item"
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:137
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:311
 #: utilisateurs/templates/utilisateurs/mon_compte.html:198
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:339
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:347
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:400
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:408
+#: voiture/voiture_exemplaire/views.py:1120
 #: voiture/voiture_location/templates/voiture_location/location_list.html:123
 #: voiture/voiture_location/templates/voiture_location/statistiques_ventes.html:140
 #: voiture/voiture_location/templates/voiture_location/statistiques_ventes.html:236
@@ -410,7 +414,7 @@ msgstr "Rate"
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:98
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:139
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:313
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:348
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:409
 #: voiture/voiture_location/templates/voiture_location/location_detail.html:125
 #: voiture/voiture_location/templates/voiture_location/location_detail.html:131
 #: voiture/voiture_location/templates/voiture_location/location_detail.html:138
@@ -466,8 +470,8 @@ msgstr "Transport costs"
 #: utilisateurs/templates/utilisateurs/paie/paie_comptabilite.html:262
 #: utilisateurs/templates/utilisateurs/paie/paie_panneau.html:156
 #: utilisateurs/views_paie.py:665 utilisateurs/views_paie.py:670
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:219
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:257
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:280
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:318
 #: voiture/voiture_location/templates/voiture_location/_boxes_form.html:28
 #: voiture/voiture_location/templates/voiture_location/_boxes_form.html:46
 #: voiture/voiture_location/templates/voiture_location/location_detail_pdf.html:390
@@ -498,7 +502,7 @@ msgstr ""
 " 411000 and appears on the VAT page (source “Transport costs on purchases”)."
 
 #: achat_mds/templates/achat_mds/_montants_ecritures.html:49
-#: compta/models.py:1077 compta/templates/compta/compte_journal.html:11
+#: compta/models.py:1083 compta/templates/compta/compte_journal.html:11
 #: compta/templates/compta/immo/_ecritures.html:6
 #: compta/templates/compta/instructeurs/facture_detail.html:103
 #: compta/templates/compta/tableau_de_bord.html:81 compta/views.py:202
@@ -518,8 +522,8 @@ msgstr "Journal"
 #: assurance_police/templates/assurance_police/sinistre_confirm_delete.html:12
 #: assurance_police/templates/assurance_police/sinistre_list.html:29
 #: client_pilotage/templates/client_pilotage/_historique_locations.html:49
-#: compta/forms.py:86 compta/models.py:320 compta/models.py:570
-#: compta/models.py:1078 compta/templates/compta/compte_journal.html:71
+#: compta/forms.py:86 compta/models.py:322 compta/models.py:572
+#: compta/models.py:1084 compta/templates/compta/compte_journal.html:71
 #: compta/templates/compta/immo/_ecritures.html:5
 #: compta/templates/compta/immo/stock.html:29
 #: compta/templates/compta/instructeurs/facture_detail.html:33
@@ -839,7 +843,7 @@ msgstr "Journal"
 #: maintenance/systeme_freinage/tambours/models.py:300
 #: maintenance/systeme_freinage/tambours/templates/tambours/tambours_detail_pdf.html:326
 #: maintenance/systeme_freinage/tambours/templates/tambours/tambours_list.html:98
-#: piece/models.py:366 piece/models.py:423 piece/models.py:479
+#: piece/models.py:367 piece/models.py:424 piece/models.py:480
 #: piece/piece_fluides/models.py:194
 #: piece/templates/piece/stock/inventaire_detail.html:13
 #: piece/templates/piece/stock/inventaires.html:30
@@ -856,8 +860,9 @@ msgstr "Journal"
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:114
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:22
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:52
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:252
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:344
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:87
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:313
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:405
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/remplacer_train_pneus.html:90
 #: voiture/voiture_location/models.py:1110
 #: voiture/voiture_location/models.py:1286
@@ -873,7 +878,7 @@ msgid "Date"
 msgstr "Date"
 
 #: achat_mds/templates/achat_mds/_montants_ecritures.html:51
-#: compta/models.py:319 compta/templates/compta/compte_supprimer.html:10
+#: compta/models.py:321 compta/templates/compta/compte_supprimer.html:10
 #: compta/templates/compta/immo/_ecritures.html:8
 #: compta/templates/compta/immo/immobilisations_liste.html:32
 #: compta/templates/compta/immo/journal_general.html:39
@@ -902,7 +907,7 @@ msgid "Intitulé du compte"
 msgstr "Account name"
 
 #: achat_mds/templates/achat_mds/_montants_ecritures.html:53
-#: compta/models.py:1117 compta/templates/compta/bilan/od_form.html:20
+#: compta/models.py:1123 compta/templates/compta/bilan/od_form.html:20
 #: compta/templates/compta/immo/_ecritures.html:11
 #: compta/templates/compta/immo/journal_general.html:41
 #: compta/templates/compta/instructeurs/facture_detail.html:107
@@ -921,7 +926,7 @@ msgid "Débit"
 msgstr "Debit"
 
 #: achat_mds/templates/achat_mds/_montants_ecritures.html:54
-#: compta/models.py:1119 compta/templates/compta/bilan/od_form.html:21
+#: compta/models.py:1125 compta/templates/compta/bilan/od_form.html:21
 #: compta/templates/compta/immo/_ecritures.html:12
 #: compta/templates/compta/immo/journal_general.html:42
 #: compta/templates/compta/instructeurs/facture_detail.html:108
@@ -954,7 +959,7 @@ msgid "Motif"
 msgstr "Reason"
 
 #: achat_mds/templates/achat_mds/_notes_achat.html:36 compta/forms.py:87
-#: compta/models.py:322 compta/models.py:919
+#: compta/models.py:324 compta/models.py:925
 #: compta/templates/compta/mouvement_supprimer.html:13 facture/models.py:1020
 #: facture/templates/facture/facture_detail.html:101
 #: facture/templates/facture/facture_detail.html:153
@@ -962,8 +967,9 @@ msgstr "Reason"
 #: utilisateurs/templates/utilisateurs/paie/paie_comptabilite.html:146
 #: utilisateurs/templates/utilisateurs/paie/paie_comptabilite.html:172
 #: utilisateurs/templates/utilisateurs/paie/paie_pdf.html:124
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:85
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:179
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:88
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:144
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:240
 #: voiture/voiture_location/templates/voiture_location/_ventilation.html:56
 #: voiture/voiture_location/templates/voiture_location/objectifs_ventes.html:43
 msgid "Montant"
@@ -995,7 +1001,7 @@ msgstr ""
 
 #: achat_mds/templates/achat_mds/_notes_achat.html:56
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:83
-#: compta/models.py:79 compta/models.py:916 compta/models.py:976
+#: compta/models.py:81 compta/models.py:922 compta/models.py:982
 #: compta/templates/compta/instructeurs/facture_detail.html:19
 #: compta/templates/compta/tableau_de_bord.html:57 facture/models.py:1079
 #: facture/templates/facture/_entete_facture.html:6
@@ -1015,7 +1021,7 @@ msgstr ""
 #: maintenance/autres_interventions/fusibles/templates/fusibles/fusibles_detail_pdf.html:683
 #: maintenance/autres_interventions/plan_cablage/templates/plan_cablage/liste.html:20
 #: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:60
-#: piece/forms_stock.py:117 piece/models.py:410
+#: piece/forms_stock.py:117 piece/models.py:411
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:41
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:54
 #: piece/templates/piece/stock/mouvements.html:21
@@ -1029,7 +1035,7 @@ msgstr ""
 #: utilisateurs/templates/utilisateurs/mon_compte.html:210
 #: utilisateurs/templates/utilisateurs/paie/conges_travailleur.html:211
 #: utilisateurs/templates/utilisateurs/paie/paie_comptabilite.html:108
-#: voiture/voiture_exemplaire/models.py:710
+#: voiture/voiture_exemplaire/models.py:712
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:284
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:45
 #: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:45
@@ -1055,7 +1061,7 @@ msgstr "Type"
 #: maintenance/autres_interventions/bte_vitesse_auto/remplacement_bte_auto/templates/remplacement_bte_auto/remplacement_bte_auto_detail_pdf.html:690
 #: maintenance/autres_interventions/moteur/allumage/models.py:149
 #: maintenance/autres_interventions/moteur/allumage/models.py:186
-#: outillage/forms.py:34 outillage/models.py:46
+#: outillage/forms.py:34 outillage/models.py:47
 #: outillage/templates/outillage/delete_outillage.html:77
 #: outillage/templates/outillage/outillage_detail.html:45
 #: piece/piece_fluides/forms.py:22 piece/piece_fluides/forms.py:56
@@ -1071,7 +1077,7 @@ msgstr "Reference"
 #: agenda/templates/agenda/agenda_detail.html:82
 #: agenda/templates/agenda/delete_agenda.html:86
 #: assurance_police/templates/assurance_police/delete_assurance_police.html:69
-#: compta/models.py:469 compta/models.py:977
+#: compta/models.py:471 compta/models.py:983
 #: compta/templates/compta/instructeurs/facture_detail.html:23
 #: compta/templates/compta/instructeurs/factures_liste.html:18
 #: compta/templates/compta/instructeurs/factures_liste.html:42
@@ -1082,7 +1088,7 @@ msgstr "Reference"
 #: maintenance/maintenance_externe/templates/maintenance_externe/carrosserie_confirm_delete.html:17
 #: maintenance/maintenance_externe/templates/maintenance_externe/carrosserie_list.html:43
 #: maintenance/maintenance_externe/templates/maintenance_externe/carrosserie_list.html:57
-#: monitoring/templates/monitoring/tenant.html:80 piece/models.py:482
+#: monitoring/templates/monitoring/tenant.html:80 piece/models.py:483
 #: piece/templates/piece/stock/inventaire_detail.html:26
 #: piece/templates/piece/stock/inventaires.html:32
 #: piece/templates/piece/stock/piece_fiche.html:127 utilisateurs/forms.py:365
@@ -1115,7 +1121,7 @@ msgstr "Offset"
 msgid "Remboursée"
 msgstr "Refunded"
 
-#: achat_mds/templates/achat_mds/_notes_achat.html:74 compta/models.py:444
+#: achat_mds/templates/achat_mds/_notes_achat.html:74 compta/models.py:446
 #: maintenance/maintenance_externe/templates/maintenance_externe/carrosserie_list.html:62
 #: utilisateurs/templates/utilisateurs/paie/conges_travailleur.html:155
 #: voiture/voiture_location/models.py:374
@@ -1201,7 +1207,7 @@ msgstr "PEPPOL informations"
 #: carrosserie/templates/carrosserie/carrosserie_detail.html:70
 #: carrosserie/templates/carrosserie/delete_carrosserie.html:75
 #: facture/models.py:42 facture/templates/facture/facture_detail.html:32
-#: fournisseur/models.py:49
+#: fournisseur/models.py:50
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:73
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:60
 #: garage_officiel/models.py:55
@@ -1360,7 +1366,7 @@ msgstr "Delete the purchase"
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:68
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:47
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:81
-#: facture/models.py:29 fournisseur/models.py:27
+#: facture/models.py:29 fournisseur/models.py:28
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:79
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:90
 #: garage_officiel/models.py:50
@@ -1375,7 +1381,7 @@ msgstr "Delete the purchase"
 #: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:107
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:52
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:71
-#: societe_cliente/models.py:95
+#: societe_cliente/models.py:96
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:47
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:85
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:109
@@ -1459,12 +1465,12 @@ msgstr "Metadata"
 #: client_particulier/templates/client_particulier/delete_client.html:132
 #: client_pilotage/models.py:72
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:141
-#: compta/models.py:107 compta/models.py:338 compta/models.py:406
-#: compta/models.py:481 compta/models.py:678 compta/models.py:866
-#: compta/models.py:924 compta/models.py:1000 compta/models.py:1083
-#: compta/models.py:1152 facture/models.py:53 facture/models.py:315
+#: compta/models.py:109 compta/models.py:340 compta/models.py:408
+#: compta/models.py:483 compta/models.py:684 compta/models.py:872
+#: compta/models.py:930 compta/models.py:1006 compta/models.py:1089
+#: compta/models.py:1158 facture/models.py:53 facture/models.py:315
 #: facture/models.py:964 facture/models.py:1048
-#: facture/templates/facture/delete_facture.html:73 fournisseur/models.py:97
+#: facture/templates/facture/delete_facture.html:73 fournisseur/models.py:98
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:105
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:113
 #: fuel/models.py:215 fuel/templates/fuel/fuel_detail.html:121
@@ -1568,7 +1574,7 @@ msgstr "Metadata"
 #: maintenance/systeme_freinage/renovation_machoires/models.py:297
 #: maintenance/systeme_freinage/tambours/models.py:302
 #: maintenance/templates/maintenance/partials/intervention_detail.html:268
-#: outillage/models.py:123
+#: outillage/models.py:124
 #: outillage/templates/outillage/delete_outillage.html:113
 #: outillage/templates/outillage/outillage_detail.html:124
 #: parking/models.py:145 proprietaire/models.py:83 proprietaire/models.py:187
@@ -1578,7 +1584,7 @@ msgstr "Metadata"
 #: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:126
 #: recharge/models.py:211
 #: recharge/templates/recharge/electricite_detail.html:119
-#: societe_cliente/models.py:132
+#: societe_cliente/models.py:133
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:145
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:128
 #: utilisateurs/templates/utilisateurs/tenants/tenant_detail.html:53
@@ -1591,7 +1597,8 @@ msgstr "Metadata"
 #: voiture/voiture_embrayage/models.py:137
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:86
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:109
-#: voiture/voiture_exemplaire/models.py:415
+#: voiture/voiture_exemplaire/models.py:417
+#: voiture/voiture_exemplaire/models.py:787
 #: voiture/voiture_freins_ar/models.py:82
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:98
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:118
@@ -1638,12 +1645,12 @@ msgstr "Created at"
 #: client_particulier/templates/client_particulier/delete_client.html:133
 #: client_pilotage/models.py:73
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:145
-#: compta/models.py:108 compta/models.py:339 compta/models.py:407
-#: compta/models.py:482 compta/models.py:679 compta/models.py:1153
+#: compta/models.py:110 compta/models.py:341 compta/models.py:409
+#: compta/models.py:484 compta/models.py:685 compta/models.py:1159
 #: compta/templates/compta/bilan/references_liste.html:24 facture/models.py:54
 #: facture/models.py:316 facture/models.py:965 facture/models.py:1085
 #: facture/templates/facture/conditions_generales.html:34
-#: facture/templates/facture/delete_facture.html:74 fournisseur/models.py:98
+#: facture/templates/facture/delete_facture.html:74 fournisseur/models.py:99
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:106
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:118
 #: fuel/models.py:216 garage_officiel/models.py:80 maindoeuvre/models.py:74
@@ -1747,7 +1754,7 @@ msgstr "Created at"
 #: maintenance/systeme_freinage/renovation_machoires/models.py:298
 #: maintenance/systeme_freinage/tambours/models.py:303
 #: maintenance/templates/maintenance/partials/intervention_detail.html:269
-#: outillage/models.py:124
+#: outillage/models.py:125
 #: outillage/templates/outillage/delete_outillage.html:114
 #: outillage/templates/outillage/outillage_detail.html:129
 #: parking/models.py:146 proprietaire/models.py:84 proprietaire/models.py:188
@@ -1757,7 +1764,7 @@ msgstr "Created at"
 #: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:130
 #: recharge/models.py:212
 #: recharge/templates/recharge/electricite_detail.html:123
-#: societe_cliente/models.py:133
+#: societe_cliente/models.py:134
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:146
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:132
 #: voiture/voiture_boite/models.py:72
@@ -1768,7 +1775,8 @@ msgstr "Created at"
 #: voiture/voiture_embrayage/models.py:138
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:87
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:113
-#: voiture/voiture_exemplaire/models.py:416
+#: voiture/voiture_exemplaire/models.py:418
+#: voiture/voiture_exemplaire/models.py:788
 #: voiture/voiture_freins_ar/models.py:83
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:99
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:122
@@ -2059,6 +2067,7 @@ msgstr "Goods purchase"
 #: voiture/voiture_embrayage/templates/voiture_embrayage/ajouter_embrayage.html:81
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:93
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/ajouter_exemplaire_all.html:89
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:120
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:140
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/modifier_exemplaire.html:87
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/ajouter_freins_ar_simple.html:78
@@ -2684,6 +2693,7 @@ msgstr "Save"
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:97
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/ajouter_exemplaire_all.html:94
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/delier_composant.html:34
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:121
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:145
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:25
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/modifier_exemplaire.html:92
@@ -2726,7 +2736,7 @@ msgstr "Invoices list"
 msgid "Encoder un achat"
 msgstr "Create purchase"
 
-#: achat_mds/templates/achat_mds/achat_list.html:31 fournisseur/models.py:20
+#: achat_mds/templates/achat_mds/achat_list.html:31 fournisseur/models.py:21
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:62
 #: fournisseur/templates/fournisseur/fournisseur_list.html:36
 msgid "Nom du fournisseur"
@@ -2741,6 +2751,7 @@ msgstr "Supplier name"
 #: outillage/templates/outillage/outillage_list.html:53
 #: outillage/templates/outillage/outillage_list.html:70
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:77
+#: voiture/voiture_exemplaire/forms.py:354
 msgid "Taux de TVA"
 msgstr "VAT rate"
 
@@ -2787,7 +2798,7 @@ msgstr "Invoice date"
 
 #: achat_mds/templates/achat_mds/achat_list.html:68
 #: assurance_police/templates/assurance_police/delete_assurance_police.html:88
-#: compta/models.py:1054 compta/models.py:1055
+#: compta/models.py:1060 compta/models.py:1061
 #: facture/templates/facture/facture_detail.html:53
 #: facture/templates/facture/facture_detail.html:64
 #: facture/templates/facture/facture_list.html:63
@@ -3634,7 +3645,7 @@ msgstr "Last"
 #: voiture/voiture_boite/templates/voiture_boite/list.html:104
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:132
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:112
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:302
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:363
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:115
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:120
 #: voiture/voiture_location/templates/voiture_location/location_list.html:175
@@ -3775,7 +3786,7 @@ msgstr "Next"
 #: voiture/voiture_boite/templates/voiture_boite/list.html:105
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:133
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:113
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:292
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:353
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:116
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:121
 #: voiture/voiture_location/templates/voiture_location/location_list.html:176
@@ -3807,6 +3818,7 @@ msgstr "Unpaid"
 #: outillage/templates/outillage/delete_outillage.html:89
 #: utilisateurs/templates/utilisateurs/paie/delete_paie.html:31
 #: utilisateurs/templates/utilisateurs/paie/paiement_conges_form.html:49
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:84
 msgid "Montants"
 msgstr "Amounts"
 
@@ -3816,7 +3828,7 @@ msgstr "Amounts"
 msgid "Montant TVA"
 msgstr "VAT amount"
 
-#: achat_mds/templates/achat_mds/delete_achat.html:83 compta/models.py:467
+#: achat_mds/templates/achat_mds/delete_achat.html:83 compta/models.py:469
 #: compta/templates/compta/instructeurs/facture_detail.html:55
 #: compta/templates/compta/instructeurs/facture_form.html:91
 #: compta/templates/compta/instructeurs/factures_liste.html:29
@@ -3994,8 +4006,8 @@ msgstr "Total (incl. VAT)"
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_detail.html:159
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:101
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:399
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:209
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:376
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:270
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:437
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:99
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/supprimer_exemplaire_all.html:38
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:118
@@ -4056,7 +4068,7 @@ msgstr "The purchase “%(ref)s” has been successfully deleted."
 
 #: adblue/forms.py:15 fuel/forms.py:15 garage_officiel/models.py:67
 #: maintenance/templates/maintenance/creer_maintenance.html:24
-#: piece/models.py:166 piece/models.py:255 piece/piece_fluides/forms.py:41
+#: piece/models.py:167 piece/models.py:256 piece/piece_fluides/forms.py:41
 #: piece/piece_fluides/forms.py:60
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:45
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:56
@@ -4079,7 +4091,7 @@ msgstr "Brand"
 #: adblue/forms.py:21 fuel/forms.py:21
 #: maintenance/autres_interventions/plan_cablage/templates/plan_cablage/connecteur_form.html:37
 #: maintenance/templates/maintenance/creer_maintenance.html:25
-#: piece/models.py:157 piece/templates/piece/piece_detail.html:8
+#: piece/models.py:158 piece/templates/piece/piece_detail.html:8
 #: recharge/models.py:116
 #: voiture/voiture_jantes/templates/voiture_jantes/list.html:32
 #: voiture/voiture_modele/templates/voiture_modele/ajouter_modele.html:75
@@ -4309,8 +4321,8 @@ msgstr "Bulk / tank"
 #: maintenance/autres_interventions/models.py:26
 #: maintenance/autres_interventions/moteur/allumage/models.py:385
 #: maintenance/choices.py:1791 recharge/models.py:17
-#: voiture/voiture_exemplaire/models.py:30
-#: voiture/voiture_exemplaire/models.py:688
+#: voiture/voiture_exemplaire/models.py:32
+#: voiture/voiture_exemplaire/models.py:690
 msgid "Autriche"
 msgstr "Austria"
 
@@ -4320,7 +4332,7 @@ msgstr "Austria"
 #: maintenance/autres_interventions/models.py:27
 #: maintenance/autres_interventions/moteur/allumage/models.py:386
 #: maintenance/choices.py:1792 piece/piece_roue_rechange/models.py:8
-#: recharge/models.py:18 voiture/voiture_exemplaire/models.py:24
+#: recharge/models.py:18 voiture/voiture_exemplaire/models.py:26
 msgid "Belgique"
 msgstr "Belgium"
 
@@ -4328,8 +4340,8 @@ msgstr "Belgium"
 #: maintenance/autres_interventions/models.py:28
 #: maintenance/autres_interventions/moteur/allumage/models.py:387
 #: maintenance/choices.py:1793 recharge/models.py:19
-#: voiture/voiture_exemplaire/models.py:54
-#: voiture/voiture_exemplaire/models.py:700
+#: voiture/voiture_exemplaire/models.py:56
+#: voiture/voiture_exemplaire/models.py:702
 msgid "Bulgarie"
 msgstr "Bulgaria"
 
@@ -4337,7 +4349,7 @@ msgstr "Bulgaria"
 #: maintenance/autres_interventions/models.py:38
 #: maintenance/autres_interventions/moteur/allumage/models.py:397
 #: maintenance/choices.py:1803 recharge/models.py:20
-#: voiture/voiture_exemplaire/models.py:52
+#: voiture/voiture_exemplaire/models.py:54
 msgid "Croatie"
 msgstr "Croatia"
 
@@ -4345,7 +4357,7 @@ msgstr "Croatia"
 #: maintenance/autres_interventions/models.py:29
 #: maintenance/autres_interventions/moteur/allumage/models.py:388
 #: maintenance/choices.py:1794 recharge/models.py:21
-#: voiture/voiture_exemplaire/models.py:37
+#: voiture/voiture_exemplaire/models.py:39
 msgid "Chypre"
 msgstr "Cyprus"
 
@@ -4353,8 +4365,8 @@ msgstr "Cyprus"
 #: maintenance/autres_interventions/models.py:30
 #: maintenance/autres_interventions/moteur/allumage/models.py:389
 #: maintenance/choices.py:1795 recharge/models.py:22
-#: voiture/voiture_exemplaire/models.py:48
-#: voiture/voiture_exemplaire/models.py:696
+#: voiture/voiture_exemplaire/models.py:50
+#: voiture/voiture_exemplaire/models.py:698
 msgid "Tchéquie"
 msgstr "Czech Republic"
 
@@ -4362,7 +4374,7 @@ msgstr "Czech Republic"
 #: maintenance/autres_interventions/models.py:32
 #: maintenance/autres_interventions/moteur/allumage/models.py:391
 #: maintenance/choices.py:1797 recharge/models.py:23
-#: voiture/voiture_exemplaire/models.py:40
+#: voiture/voiture_exemplaire/models.py:42
 msgid "Danemark"
 msgstr "Denmark"
 
@@ -4370,7 +4382,7 @@ msgstr "Denmark"
 #: maintenance/autres_interventions/models.py:33
 #: maintenance/autres_interventions/moteur/allumage/models.py:392
 #: maintenance/choices.py:1798 recharge/models.py:24
-#: voiture/voiture_exemplaire/models.py:43
+#: voiture/voiture_exemplaire/models.py:45
 msgid "Estonie"
 msgstr "Estonia"
 
@@ -4378,7 +4390,7 @@ msgstr "Estonia"
 #: maintenance/autres_interventions/models.py:35
 #: maintenance/autres_interventions/moteur/allumage/models.py:394
 #: maintenance/choices.py:1800 recharge/models.py:25
-#: voiture/voiture_exemplaire/models.py:42
+#: voiture/voiture_exemplaire/models.py:44
 msgid "Finlande"
 msgstr "Finland"
 
@@ -4386,7 +4398,7 @@ msgstr "Finland"
 #: maintenance/autres_interventions/models.py:36
 #: maintenance/autres_interventions/moteur/allumage/models.py:395
 #: maintenance/choices.py:1801 recharge/models.py:26
-#: voiture/voiture_exemplaire/models.py:29
+#: voiture/voiture_exemplaire/models.py:31
 msgid "France"
 msgstr "France"
 
@@ -4396,7 +4408,7 @@ msgstr "France"
 #: maintenance/autres_interventions/models.py:31
 #: maintenance/autres_interventions/moteur/allumage/models.py:390
 #: maintenance/choices.py:1796 piece/piece_roue_rechange/models.py:9
-#: recharge/models.py:27 voiture/voiture_exemplaire/models.py:28
+#: recharge/models.py:27 voiture/voiture_exemplaire/models.py:30
 msgid "Allemagne"
 msgstr "Germany"
 
@@ -4404,7 +4416,7 @@ msgstr "Germany"
 #: maintenance/autres_interventions/models.py:37
 #: maintenance/autres_interventions/moteur/allumage/models.py:396
 #: maintenance/choices.py:1802 recharge/models.py:28
-#: voiture/voiture_exemplaire/models.py:36
+#: voiture/voiture_exemplaire/models.py:38
 msgid "Grèce"
 msgstr "Greece"
 
@@ -4412,8 +4424,8 @@ msgstr "Greece"
 #: maintenance/autres_interventions/models.py:39
 #: maintenance/autres_interventions/moteur/allumage/models.py:398
 #: maintenance/choices.py:1804 recharge/models.py:29
-#: voiture/voiture_exemplaire/models.py:50
-#: voiture/voiture_exemplaire/models.py:698
+#: voiture/voiture_exemplaire/models.py:52
+#: voiture/voiture_exemplaire/models.py:700
 msgid "Hongrie"
 msgstr "Hungary"
 
@@ -4421,7 +4433,7 @@ msgstr "Hungary"
 #: maintenance/autres_interventions/models.py:40
 #: maintenance/autres_interventions/moteur/allumage/models.py:399
 #: maintenance/choices.py:1805 recharge/models.py:30
-#: voiture/voiture_exemplaire/models.py:31
+#: voiture/voiture_exemplaire/models.py:33
 msgid "Irlande"
 msgstr "Ireland"
 
@@ -4429,8 +4441,8 @@ msgstr "Ireland"
 #: maintenance/autres_interventions/models.py:41
 #: maintenance/autres_interventions/moteur/allumage/models.py:400
 #: maintenance/choices.py:1806 recharge/models.py:31
-#: voiture/voiture_exemplaire/models.py:33
-#: voiture/voiture_exemplaire/models.py:694
+#: voiture/voiture_exemplaire/models.py:35
+#: voiture/voiture_exemplaire/models.py:696
 msgid "Italie"
 msgstr "Italy"
 
@@ -4438,7 +4450,7 @@ msgstr "Italy"
 #: maintenance/autres_interventions/models.py:44
 #: maintenance/autres_interventions/moteur/allumage/models.py:403
 #: maintenance/choices.py:1809 recharge/models.py:32
-#: voiture/voiture_exemplaire/models.py:44
+#: voiture/voiture_exemplaire/models.py:46
 msgid "Lettonie"
 msgstr "Latvia"
 
@@ -4446,7 +4458,7 @@ msgstr "Latvia"
 #: maintenance/autres_interventions/models.py:42
 #: maintenance/autres_interventions/moteur/allumage/models.py:401
 #: maintenance/choices.py:1807 recharge/models.py:33
-#: voiture/voiture_exemplaire/models.py:45
+#: voiture/voiture_exemplaire/models.py:47
 msgid "Lituanie"
 msgstr "Lithuania"
 
@@ -4456,8 +4468,8 @@ msgstr "Lithuania"
 #: maintenance/autres_interventions/models.py:43
 #: maintenance/autres_interventions/moteur/allumage/models.py:402
 #: maintenance/choices.py:1808 recharge/models.py:34
-#: voiture/voiture_exemplaire/models.py:25
-#: voiture/voiture_exemplaire/models.py:693
+#: voiture/voiture_exemplaire/models.py:27
+#: voiture/voiture_exemplaire/models.py:695
 msgid "Luxembourg"
 msgstr "Luxembourg"
 
@@ -4465,7 +4477,7 @@ msgstr "Luxembourg"
 #: maintenance/autres_interventions/models.py:45
 #: maintenance/autres_interventions/moteur/allumage/models.py:404
 #: maintenance/choices.py:1810 recharge/models.py:35
-#: voiture/voiture_exemplaire/models.py:38
+#: voiture/voiture_exemplaire/models.py:40
 msgid "Malte"
 msgstr "Malta"
 
@@ -4473,8 +4485,8 @@ msgstr "Malta"
 #: maintenance/autres_interventions/models.py:46
 #: maintenance/autres_interventions/moteur/allumage/models.py:405
 #: maintenance/choices.py:1811 recharge/models.py:36
-#: voiture/voiture_exemplaire/models.py:26
-#: voiture/voiture_exemplaire/models.py:692
+#: voiture/voiture_exemplaire/models.py:28
+#: voiture/voiture_exemplaire/models.py:694
 msgid "Pays-Bas"
 msgstr "Netherlands"
 
@@ -4482,7 +4494,7 @@ msgstr "Netherlands"
 #: maintenance/autres_interventions/models.py:47
 #: maintenance/autres_interventions/moteur/allumage/models.py:406
 #: maintenance/choices.py:1812 recharge/models.py:37
-#: voiture/voiture_exemplaire/models.py:47
+#: voiture/voiture_exemplaire/models.py:49
 msgid "Pologne"
 msgstr "Poland"
 
@@ -4490,7 +4502,7 @@ msgstr "Poland"
 #: maintenance/autres_interventions/models.py:48
 #: maintenance/autres_interventions/moteur/allumage/models.py:407
 #: maintenance/choices.py:1813 recharge/models.py:38
-#: voiture/voiture_exemplaire/models.py:35
+#: voiture/voiture_exemplaire/models.py:37
 msgid "Portugal"
 msgstr "Portugal"
 
@@ -4498,8 +4510,8 @@ msgstr "Portugal"
 #: maintenance/autres_interventions/models.py:49
 #: maintenance/autres_interventions/moteur/allumage/models.py:408
 #: maintenance/choices.py:1814 recharge/models.py:39
-#: voiture/voiture_exemplaire/models.py:53
-#: voiture/voiture_exemplaire/models.py:699
+#: voiture/voiture_exemplaire/models.py:55
+#: voiture/voiture_exemplaire/models.py:701
 msgid "Roumanie"
 msgstr "Romania"
 
@@ -4507,8 +4519,8 @@ msgstr "Romania"
 #: maintenance/autres_interventions/models.py:52
 #: maintenance/autres_interventions/moteur/allumage/models.py:411
 #: maintenance/choices.py:1817 recharge/models.py:40
-#: voiture/voiture_exemplaire/models.py:49
-#: voiture/voiture_exemplaire/models.py:697
+#: voiture/voiture_exemplaire/models.py:51
+#: voiture/voiture_exemplaire/models.py:699
 msgid "Slovaquie"
 msgstr "Slovakia"
 
@@ -4516,8 +4528,8 @@ msgstr "Slovakia"
 #: maintenance/autres_interventions/models.py:51
 #: maintenance/autres_interventions/moteur/allumage/models.py:410
 #: maintenance/choices.py:1816 recharge/models.py:41
-#: voiture/voiture_exemplaire/models.py:51
-#: voiture/voiture_exemplaire/models.py:695
+#: voiture/voiture_exemplaire/models.py:53
+#: voiture/voiture_exemplaire/models.py:697
 msgid "Slovénie"
 msgstr "Slovenia"
 
@@ -4525,7 +4537,7 @@ msgstr "Slovenia"
 #: maintenance/autres_interventions/models.py:34
 #: maintenance/autres_interventions/moteur/allumage/models.py:393
 #: maintenance/choices.py:1799 recharge/models.py:42
-#: voiture/voiture_exemplaire/models.py:34
+#: voiture/voiture_exemplaire/models.py:36
 msgid "Espagne"
 msgstr "Spain"
 
@@ -4533,12 +4545,12 @@ msgstr "Spain"
 #: maintenance/autres_interventions/models.py:50
 #: maintenance/autres_interventions/moteur/allumage/models.py:409
 #: maintenance/choices.py:1815 recharge/models.py:43
-#: voiture/voiture_exemplaire/models.py:41
+#: voiture/voiture_exemplaire/models.py:43
 msgid "Suède"
 msgstr "Sweden"
 
 #: adblue/models.py:50 fuel/models.py:55 recharge/models.py:44
-#: voiture/voiture_exemplaire/models.py:56
+#: voiture/voiture_exemplaire/models.py:58
 msgid "Royaume-Uni"
 msgstr "United Kingdom"
 
@@ -4559,7 +4571,7 @@ msgstr "Company"
 #: maintenance/jeux_pieces/models.py:1113
 #: maintenance/nettoyage_interieur/models.py:200
 #: monitoring/templates/monitoring/tableau.html:129
-#: monitoring/templates/monitoring/tenant.html:78 piece/models.py:422
+#: monitoring/templates/monitoring/tenant.html:78 piece/models.py:423
 #: piece/templates/piece/stock/inventaires.html:33
 #: piece/templates/piece/stock/mouvements.html:68
 #: piece/templates/piece/stock/piece_fiche.html:91 piece/views_stock.py:231
@@ -4813,7 +4825,7 @@ msgstr "User"
 #: maintenance/systeme_freinage/renovation_machoires/templates/renovation_machoires/renovation_machoires_list.html:94
 #: maintenance/systeme_freinage/tambours/templates/tambours/tambours_detail_pdf.html:341
 #: maintenance/systeme_freinage/tambours/templates/tambours/tambours_list.html:94
-#: parking/models.py:346 piece/models.py:175
+#: parking/models.py:346 piece/models.py:176
 #: piece/templates/piece/piece_detail.html:10
 #: proprietaire/templates/proprietaire/choisir_vehicule.html:22
 #: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:97
@@ -4828,7 +4840,8 @@ msgstr "User"
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:34
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:51
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_pdf.html:65
-#: voiture/voiture_exemplaire/models.py:707
+#: voiture/voiture_exemplaire/models.py:709
+#: voiture/voiture_exemplaire/models.py:743
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:20
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:50
 #: voiture/voiture_location/models.py:152
@@ -5039,7 +5052,7 @@ msgstr "Chassis mileage"
 #: maintenance/systeme_freinage/nettoyage_freins/models.py:86
 #: maintenance/systeme_freinage/renovation_machoires/models.py:83
 #: maintenance/systeme_freinage/tambours/models.py:81 recharge/models.py:163
-#: voiture/voiture_exemplaire/models.py:195
+#: voiture/voiture_exemplaire/models.py:197
 msgid "Kilomètres rollback"
 msgstr "Rollback mileage"
 
@@ -5138,8 +5151,8 @@ msgstr "Rollback mileage"
 #: maintenance/systeme_freinage/nettoyage_freins/models.py:96
 #: maintenance/systeme_freinage/renovation_machoires/models.py:93
 #: maintenance/systeme_freinage/tambours/models.py:91 recharge/models.py:172
-#: voiture/voiture_exemplaire/models.py:237
-#: voiture/voiture_exemplaire/models.py:247
+#: voiture/voiture_exemplaire/models.py:239
+#: voiture/voiture_exemplaire/models.py:249
 msgid "Kilomètres rollback boite"
 msgstr "Gearbox rollback mileage"
 
@@ -5336,7 +5349,7 @@ msgstr "Engine rollback mileage"
 #: maintenance/systeme_freinage/nettoyage_freins/models.py:114
 #: maintenance/systeme_freinage/renovation_machoires/models.py:111
 #: maintenance/systeme_freinage/tambours/models.py:109 recharge/models.py:190
-#: voiture/voiture_exemplaire/models.py:225
+#: voiture/voiture_exemplaire/models.py:227
 msgid "Kilomètres rollback embrayage"
 msgstr "Clutch rollback mileage"
 
@@ -5584,7 +5597,7 @@ msgstr "Clutch rollback mileage"
 #: maintenance/systeme_freinage/tambours/templates/tambours/tambours_list.html:93
 #: maintenance/templates/maintenance/creer_maintenance.html:18
 #: maintenance/templates/maintenance/partials/intervention_detail.html:56
-#: parking/models.py:348 piece/models.py:205
+#: parking/models.py:348 piece/models.py:206
 #: piece/templates/piece/piece_detail.html:28
 #: piece/templates/piece/stock/piece_fiche.html:125
 #: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:43
@@ -5656,7 +5669,7 @@ msgstr "Country of the station"
 msgid "Montant HT"
 msgstr "Amount excl. VAT"
 
-#: adblue/models.py:202 compta/models.py:466
+#: adblue/models.py:202 compta/models.py:468
 #: compta/templates/compta/immo/immobilisation_detail.html:17
 #: compta/templates/compta/instructeurs/facture_detail.html:54
 #: compta/templates/compta/instructeurs/facture_form.html:90
@@ -5702,7 +5715,8 @@ msgstr "Amount excl. VAT"
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:138
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:312
 #: utilisateurs/templates/utilisateurs/tenants/tenant_detail.html:28
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:147
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:89
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:208
 #: voiture/voiture_location/templates/voiture_location/location_detail.html:166
 #: voiture/voiture_location/templates/voiture_location/location_detail_pdf.html:327
 #: voiture/voiture_location/templates/voiture_location/location_form.html:122
@@ -5730,9 +5744,9 @@ msgstr "VAT"
 #: client_particulier/templates/client_particulier/client_detail.html:76
 #: client_particulier/templates/client_particulier/delete_client.html:126
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:86
-#: compta/models.py:105 compta/models.py:330 compta/models.py:404
-#: compta/models.py:477 compta/models.py:676 compta/models.py:865
-#: compta/models.py:997 compta/models.py:1149
+#: compta/models.py:107 compta/models.py:332 compta/models.py:406
+#: compta/models.py:479 compta/models.py:682 compta/models.py:871
+#: compta/models.py:1003 compta/models.py:1155
 #: compta/templates/compta/instructeurs/facture_detail.html:59
 #: facture/models.py:289 facture/templates/facture/facture_pdf.html:302
 #: fuel/models.py:210 fuel/templates/fuel/fuel_detail.html:74
@@ -6099,7 +6113,7 @@ msgstr "VAT"
 #: maintenance/systeme_freinage/tambours/views.py:532
 #: maintenance/systeme_freinage/tambours/views.py:871
 #: maintenance/templates/maintenance/partials/intervention_detail.html:249
-#: outillage/models.py:118
+#: outillage/models.py:119
 #: outillage/templates/outillage/delete_outillage.html:107
 #: outillage/templates/outillage/outillage_detail.html:82 parking/models.py:144
 #: proprietaire/models.py:78 proprietaire/models.py:182
@@ -6108,7 +6122,7 @@ msgstr "VAT"
 #: proprietaire/templates/proprietaire/parts_vehicule.html:49
 #: proprietaire/templates/proprietaire/proprietaire_detail.html:70
 #: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:75
-#: societe_cliente/models.py:127
+#: societe_cliente/models.py:128
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:139
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:80
 #: voiture/voiture_boite/forms.py:41
@@ -6117,6 +6131,8 @@ msgstr "VAT"
 #: voiture/voiture_embrayage/forms.py:28
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:80
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:73
+#: voiture/voiture_exemplaire/forms.py:363
+#: voiture/voiture_exemplaire/models.py:786
 #: voiture/voiture_freins_ar/forms.py:46 voiture/voiture_freins_ar/models.py:80
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:92
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:79
@@ -6767,12 +6783,12 @@ msgstr "Price per liter (€)"
 #: maintenance/systeme_freinage/renovation_machoires/views.py:865
 #: maintenance/systeme_freinage/tambours/models.py:48
 #: maintenance/systeme_freinage/tambours/views.py:527
-#: maintenance/systeme_freinage/tambours/views.py:865 piece/models.py:126
-#: piece/models.py:208 piece/templates/piece/piece_detail.html:31
+#: maintenance/systeme_freinage/tambours/views.py:865 piece/models.py:127
+#: piece/models.py:209 piece/templates/piece/piece_detail.html:31
 #: societe/models.py:67 utilisateurs/forms.py:115
 #: utilisateurs/forms_tenants.py:27
 #: utilisateurs/templates/utilisateurs/tenants/tenant_detail.html:26
-#: voiture/voiture_exemplaire/models.py:711
+#: voiture/voiture_exemplaire/models.py:713
 msgid "Pays"
 msgstr "Country"
 
@@ -6964,7 +6980,7 @@ msgstr "Per year"
 #: fuel/templates/fuel/fuel_stat.html:300
 #: fuel/templates/fuel/totaux/energie_totaux.html:22
 #: fuel/templates/fuel/totaux/energie_totaux.html:26
-#: maintenance/templates/maintenance/list.html:62 piece/models.py:206
+#: maintenance/templates/maintenance/list.html:62 piece/models.py:207
 #: piece/templates/piece/piece_detail.html:29
 #: recharge/templates/recharge/electricite_exemplaire_stat.html:114
 #: recharge/templates/recharge/electricite_exemplaire_stat.html:190
@@ -6977,7 +6993,7 @@ msgstr "Per year"
 #: utilisateurs/templates/utilisateurs/paie/conges_liste.html:14
 #: utilisateurs/templates/utilisateurs/paie/conges_travailleur.html:20
 #: utilisateurs/templates/utilisateurs/paie/paie_panneau.html:16
-#: voiture/voiture_exemplaire/models.py:709
+#: voiture/voiture_exemplaire/models.py:711
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/list.html:71
 #: voiture/voiture_location/models.py:987
 #: voiture/voiture_location/templates/voiture_location/objectifs_ventes.html:17
@@ -6999,7 +7015,7 @@ msgstr "Year"
 #: fuel/templates/fuel/fuel_stat.html:280
 #: recharge/templates/recharge/electricite_exemplaire_stat.html:169
 #: recharge/templates/recharge/electricite_stat.html:165
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:131
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:192
 msgid "Consommation moyenne"
 msgstr "Average consumption"
 
@@ -8772,6 +8788,7 @@ msgstr "Edit a fuel refuelling"
 #: voiture/voiture_exemplaire/views.py:904
 #: voiture/voiture_exemplaire/views.py:936
 #: voiture/voiture_exemplaire/views.py:1015
+#: voiture/voiture_exemplaire/views.py:1060
 #: voiture/voiture_freins_ar/views.py:230
 #: voiture/voiture_freins_av/views.py:210 voiture/voiture_jantes/views.py:134
 #: voiture/voiture_location/views.py:67 voiture/voiture_location/views.py:81
@@ -8912,7 +8929,7 @@ msgstr "Street"
 #: adresse/forms.py:25 adresse/models.py:21
 #: adresse/templates/adresse/adresse_detail.html:35
 #: adresse/templates/adresse/delete_adresse.html:68 assurance/forms.py:25
-#: client_atelier/forms.py:121 compta/models.py:455
+#: client_atelier/forms.py:121 compta/models.py:457
 #: compta/templates/compta/instructeurs/facture_detail.html:20
 #: compta/templates/compta/instructeurs/facture_pdf.html:71
 #: compta/templates/compta/instructeurs/factures_liste.html:36
@@ -8963,7 +8980,7 @@ msgstr "City"
 #: adresse/forms.py:30 adresse/models.py:27
 #: adresse/templates/adresse/adresse_detail.html:60 assurance/forms.py:66
 #: client_atelier/forms.py:162 facture/models.py:48 fournisseur/forms.py:65
-#: fournisseur/models.py:55
+#: fournisseur/models.py:56
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:76
 msgid "Code pays"
 msgstr "Country code"
@@ -9216,7 +9233,7 @@ msgstr "Describe the problem found."
 msgid "À faire"
 msgstr "To do"
 
-#: agenda/models.py:13 piece/models.py:474
+#: agenda/models.py:13 piece/models.py:475
 msgid "En cours"
 msgstr "In progress"
 
@@ -9260,7 +9277,7 @@ msgstr "Done"
 #: maintenance/eclairage/models.py:52 maintenance/entretien/models.py:53
 #: maintenance/freins/models.py:38 maintenance/jeux_pieces/models.py:65
 #: maintenance/models.py:225 maintenance/pneus/crevaison/models.py:68
-#: maintenance/pneus/models.py:84 piece/models.py:417 piece/models.py:442
+#: maintenance/pneus/models.py:84 piece/models.py:418 piece/models.py:443
 #: piece/views_stock.py:230 theme/templates/dashboard.html:68
 #: theme/templates/dashboard.html:80 theme/templates/dashboard.html:232
 msgid "Maintenance"
@@ -10112,13 +10129,13 @@ msgstr "E.g.: track day at Spa-Francorchamps on 18/10"
 #: agenda/templates/agenda/agenda_detail.html:74
 #: agenda/templates/agenda/agenda_location_controle.html:4
 #: agenda/templates/agenda/agenda_location_controle.html:21
-#: agenda/templates/agenda/partials/table_locations.html:9 compta/models.py:569
+#: agenda/templates/agenda/partials/table_locations.html:9 compta/models.py:571
 #: compta/templates/compta/instructeurs/facture_form.html:42
 #: facture/models.py:738 facture/models.py:774 facture/views.py:927
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:24
 #: maintenance/autres_interventions/bte_vitesse_auto/remplacement_bte_auto/models.py:24
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:23
-#: theme/templates/dashboard.html:799 voiture/voiture_exemplaire/models.py:16
+#: theme/templates/dashboard.html:799 voiture/voiture_exemplaire/models.py:18
 #: voiture/voiture_location/models.py:393
 #: voiture/voiture_location/models.py:934
 #: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:9
@@ -10346,13 +10363,13 @@ msgstr "Rental"
 #: utilisateurs/templates/utilisateurs/mon_compte.html:75
 #: utilisateurs/templates/utilisateurs/tenants/tenant_detail.html:23
 #: utilisateurs/templates/utilisateurs/tenants/tenants_liste.html:29
-#: voiture/voiture_exemplaire/models.py:13
+#: voiture/voiture_exemplaire/models.py:15
 #: voiture/voiture_location/models.py:979
 msgid "Société"
 msgstr "Company"
 
 #: agenda/models.py:88 agenda/templates/agenda/agenda_detail.html:150
-#: agenda/templates/agenda/delete_agenda.html:117 compta/models.py:999
+#: agenda/templates/agenda/delete_agenda.html:117 compta/models.py:1005
 msgid "Créé par"
 msgstr "Created by"
 
@@ -10664,7 +10681,7 @@ msgid "Mes maintenances à faire"
 msgstr "My maintenance to do"
 
 #: agenda/templates/agenda/agenda_dashboard.html:35
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:111
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:172
 msgid "location(s)"
 msgstr "rental(s)"
 
@@ -11200,7 +11217,7 @@ msgstr "State"
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/_actions_composant.html:5
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/_actions_composant.html:8
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/_actions_composant.html:11
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:178
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:239
 msgid "Détail"
 msgstr "Detail"
 
@@ -11321,7 +11338,7 @@ msgstr ""
 #: maintenance/systeme_freinage/nettoyage_freins/models.py:265
 #: maintenance/systeme_freinage/renovation_machoires/models.py:234
 #: maintenance/systeme_freinage/tambours/models.py:239
-#: voiture/voiture_exemplaire/models.py:403
+#: voiture/voiture_exemplaire/models.py:405
 msgid "Vert"
 msgstr "Green"
 
@@ -11426,7 +11443,7 @@ msgstr "available all day."
 #: maintenance/systeme_freinage/nettoyage_freins/models.py:266
 #: maintenance/systeme_freinage/renovation_machoires/models.py:235
 #: maintenance/systeme_freinage/tambours/models.py:240
-#: voiture/voiture_exemplaire/models.py:404
+#: voiture/voiture_exemplaire/models.py:406
 msgid "Jaune"
 msgstr "Yellow"
 
@@ -11535,7 +11552,7 @@ msgstr ""
 #: maintenance/systeme_freinage/nettoyage_freins/models.py:267
 #: maintenance/systeme_freinage/renovation_machoires/models.py:236
 #: maintenance/systeme_freinage/tambours/models.py:241
-#: voiture/voiture_exemplaire/models.py:405
+#: voiture/voiture_exemplaire/models.py:407
 msgid "Rouge"
 msgstr "Red"
 
@@ -11605,7 +11622,7 @@ msgstr "No maintenance scheduled for this day."
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:21
 #: panier/models.py:33
 #: societe_cliente/templates/societe_cliente/societe_cliente_form.html:13
-#: theme/templates/dashboard.html:733 voiture/voiture_exemplaire/models.py:14
+#: theme/templates/dashboard.html:733 voiture/voiture_exemplaire/models.py:16
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:35
 #: voiture/voiture_location/forms.py:75 voiture/voiture_location/models.py:161
 #: voiture/voiture_location/templates/voiture_location/_facture_location.html:15
@@ -11645,7 +11662,7 @@ msgstr "Petrol"
 #: agenda/templates/agenda/partials/table_locations.html:59
 #: compta/templates/compta/compte_supprimer.html:21
 #: piece/templates/piece/stock/pieces_maintenance.html:14
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:380
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:441
 msgid "Retour"
 msgstr "Back"
 
@@ -12049,13 +12066,13 @@ msgstr "Company name"
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:70
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:78
 #: facture/templates/facture/facture_detail.html:30
-#: facture/templates/facture/facture_pdf.html:179 fournisseur/models.py:64
+#: facture/templates/facture/facture_pdf.html:179 fournisseur/models.py:65
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:90
 #: fournisseur/templates/fournisseur/fournisseur_list.html:67
 #: proprietaire/forms.py:275 proprietaire/models.py:65
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:106
 #: proprietaire/templates/proprietaire/proprietaire_detail.html:31
-#: societe_cliente/models.py:50
+#: societe_cliente/models.py:51
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:102
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:49
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:71
@@ -12065,7 +12082,7 @@ msgstr "Company name"
 msgid "Email"
 msgstr "Email"
 
-#: assurance/models.py:28 carrosserie/models.py:44 fournisseur/models.py:51
+#: assurance/models.py:28 carrosserie/models.py:44 fournisseur/models.py:52
 msgid "Identifiant Peppol, ex : 0208:BE0123456789"
 msgstr "Peppol identifier, e.g.: 0208:BE0123456789"
 
@@ -12076,7 +12093,7 @@ msgstr "Peppol identifier, e.g.: 0208:BE0123456789"
 #: maintenance/maintenance_externe/templates/maintenance_externe/carrosserie_detail.html:61
 #: maintenance/maintenance_externe/templates/maintenance_externe/carrosserie_form.html:106
 #: maintenance/maintenance_externe/templates/maintenance_externe/carrosserie_list.html:60
-#: theme/templates/dashboard.html:943 voiture/voiture_exemplaire/models.py:679
+#: theme/templates/dashboard.html:943 voiture/voiture_exemplaire/models.py:681
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:107
 #: voiture/voiture_location/models.py:1229
 #: voiture/voiture_remorque/templates/voiture_remorque/remorque_detail.html:55
@@ -12291,7 +12308,7 @@ msgstr "Company concerned"
 
 #: assurance/templates/assurance/delete_assurance.html:40
 #: carrosserie/templates/carrosserie/delete_carrosserie.html:78
-#: compta/models.py:87 compta/models.py:395
+#: compta/models.py:89 compta/models.py:397
 #: compta/templates/compta/instructeurs/facture_detail.html:14
 #: compta/templates/compta/instructeurs/facture_pdf.html:55
 #: compta/templates/compta/tableau_de_bord.html:59 societe/models.py:54
@@ -12361,7 +12378,7 @@ msgstr "Claim date"
 
 #: assurance_police/forms.py:187
 #: assurance_police/templates/assurance_police/sinistre_list.html:32
-#: compta/models.py:571
+#: compta/models.py:573
 #: compta/templates/compta/instructeurs/facture_detail.html:34
 #: compta/templates/compta/instructeurs/facture_form.html:69
 #: compta/templates/compta/instructeurs/facture_pdf.html:83
@@ -12525,7 +12542,7 @@ msgstr "Report a claim"
 
 #: assurance_police/templates/assurance_police/assurance_police_detail.html:152
 #: assurance_police/templates/assurance_police/sinistre_list.html:49
-#: piece/models.py:475
+#: piece/models.py:476
 msgid "Clôturé"
 msgstr "Closed"
 
@@ -12573,9 +12590,10 @@ msgstr "Open"
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:357
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:377
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:392
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:160
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:208
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:372
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:61
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:221
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:269
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:433
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:95
 #: voiture/voiture_jantes/templates/voiture_jantes/detail.html:70
 #: voiture/voiture_location/templates/voiture_location/interdictions_liste.html:55
@@ -12708,6 +12726,7 @@ msgid "clôturé"
 msgstr "closed"
 
 #: assurance_police/templates/assurance_police/delete_assurance_police.html:49
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:73
 msgid "Contrat"
 msgstr "Contract"
 
@@ -12716,7 +12735,7 @@ msgid "N° de contrat"
 msgstr "Contract number"
 
 #: assurance_police/templates/assurance_police/delete_assurance_police.html:63
-#: compta/models.py:917
+#: compta/models.py:923
 #: compta/templates/compta/instructeurs/facture_detail.html:22
 #: compta/templates/compta/instructeurs/facture_pdf.html:75
 #: compta/templates/compta/instructeurs/factures_liste.html:39
@@ -12745,7 +12764,7 @@ msgid "Expirée"
 msgstr "Expired"
 
 #: assurance_police/templates/assurance_police/delete_assurance_police.html:76
-#: piece/models.py:195 voiture/voiture_location/models.py:1051
+#: piece/models.py:196 voiture/voiture_location/models.py:1051
 #: voiture/voiture_location/templates/voiture_location/interdictions_liste.html:52
 msgid "Active"
 msgstr "Active"
@@ -13063,7 +13082,7 @@ msgstr "Responsible person's first name"
 #: carrosserie/templates/carrosserie/carrosserie_detail.html:51
 #: carrosserie/templates/carrosserie/delete_carrosserie.html:72
 #: facture/templates/facture/facture_detail.html:28
-#: facture/templates/facture/facture_pdf.html:122 fournisseur/models.py:36
+#: facture/templates/facture/facture_pdf.html:122 fournisseur/models.py:37
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:65
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:38
 #: fuel/templates/fuel/totaux/energie_totaux_pdf.html:53
@@ -13193,7 +13212,7 @@ msgstr "VAT number"
 #: maintenance/esthetique/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:358
 #: maintenance/maintenance_externe/models.py:386
 #: maintenance/maintenance_externe/models.py:472
-#: maintenance/templates/maintenance/choisir_type.html:157 piece/models.py:37
+#: maintenance/templates/maintenance/choisir_type.html:157 piece/models.py:38
 #: theme/templates/dashboard.html:532 utilisateurs/libelles_journal.py:18
 #: voiture/voiture_exemplaire/rentabilite.py:238
 msgid "Carrosserie"
@@ -13220,7 +13239,7 @@ msgstr "BodyShop details:"
 #: garage_officiel/models.py:42
 #: garage_officiel/templates/garage_officiel/garage_list.html:32
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:344
-#: piece/models.py:125 proprietaire/forms.py:270
+#: piece/models.py:126 proprietaire/forms.py:270
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:83
 #: proprietaire/templates/proprietaire/proprietaire_list.html:40
 #: proprietaire/templates/proprietaire/proprietaire_list.html:61
@@ -13267,7 +13286,7 @@ msgstr "BE45 5454 6565 5656"
 #: carrosserie/templates/carrosserie/carrosserie_list.html:69
 #: fournisseur/templates/fournisseur/fournisseur_list.html:40
 #: fournisseur/templates/fournisseur/fournisseur_list.html:65
-#: societe_cliente/models.py:57
+#: societe_cliente/models.py:58
 msgid "Numero de TVA"
 msgstr "VAT number"
 
@@ -13411,7 +13430,7 @@ msgstr "Age"
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:69
 #: proprietaire/forms.py:280 proprietaire/models.py:30
 #: proprietaire/templates/proprietaire/proprietaire_detail.html:36
-#: societe/models.py:40 societe_cliente/models.py:43
+#: societe/models.py:40 societe_cliente/models.py:44
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:54
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:70
 #: utilisateurs/forms_tenants.py:23
@@ -13430,9 +13449,9 @@ msgstr "National registration number"
 
 #: client_atelier/forms.py:91 client_particulier/forms.py:53
 #: client_particulier/models.py:67 client_pilotage/forms.py:39
-#: fournisseur/models.py:88
+#: fournisseur/models.py:89
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:99
-#: proprietaire/models.py:51 societe_cliente/models.py:80
+#: proprietaire/models.py:51 societe_cliente/models.py:81
 msgid "Numéro de compte bancaire"
 msgstr "Bank account number"
 
@@ -13444,7 +13463,7 @@ msgstr "Bank account number"
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:57
 #: proprietaire/forms.py:292 proprietaire/models.py:58
 #: proprietaire/templates/proprietaire/proprietaire_detail.html:52
-#: societe_cliente/models.py:88
+#: societe_cliente/models.py:89
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:65
 msgid "Numéro de carte bancaire"
 msgstr "Credit card number"
@@ -13710,7 +13729,7 @@ msgid "Numéro de permis"
 msgstr "Driver's license number"
 
 #: client_particulier/templates/client_particulier/client_detail.html:71
-#: societe_cliente/models.py:120
+#: societe_cliente/models.py:121
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:132
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:74
 msgid "Historique"
@@ -13761,6 +13780,8 @@ msgstr ""
 #: client_particulier/templates/client_particulier/delete_client.html:78
 #: compta/templates/compta/immo/immobilisation_detail.html:24
 #: compta/templates/compta/immo/immobilisations_liste.html:86
+#: voiture/voiture_exemplaire/forms.py:376
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:78
 msgid "ans"
 msgstr "years old"
 
@@ -13940,7 +13961,7 @@ msgid "Détail des locations"
 msgstr "Rental details"
 
 #: client_pilotage/templates/client_pilotage/_historique_locations.html:50
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:345
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:406
 #: voiture/voiture_location/templates/voiture_location/location_list.html:67
 #: voiture/voiture_location/templates/voiture_location/location_list.html:82
 #: voiture/voiture_location/templates/voiture_location/statistiques_ventes.html:398
@@ -13949,7 +13970,7 @@ msgid "Circuit / route"
 msgstr "Circuit / road"
 
 #: client_pilotage/templates/client_pilotage/_historique_locations.html:54
-#: compta/models.py:381 compta/models.py:449 compta/models.py:536
+#: compta/models.py:383 compta/models.py:451 compta/models.py:538
 #: compta/templates/compta/instructeurs/facture_choisir.html:11
 #: compta/templates/compta/instructeurs/facture_detail.html:11
 #: compta/templates/compta/instructeurs/facture_form.html:10
@@ -14589,12 +14610,12 @@ msgstr "The end of the period must be after the start."
 msgid "Pas d'accord d'autofacturation enregistré pour cet instructeur."
 msgstr "No self-billing agreement recorded for this instructor."
 
-#: compta/forms_instructeur.py:74 compta/models.py:918 compta/models.py:992
+#: compta/forms_instructeur.py:74 compta/models.py:924 compta/models.py:998
 #: facture/models.py:1019 facture/templates/facture/facture_detail.html:158
 msgid "Date du paiement"
 msgstr "Payment date"
 
-#: compta/forms_instructeur.py:77 compta/models.py:474 compta/models.py:671
+#: compta/forms_instructeur.py:77 compta/models.py:476 compta/models.py:677
 msgid "Payée depuis le compte"
 msgstr "Paid from account"
 
@@ -14620,7 +14641,7 @@ msgstr "Salaries"
 msgid "Paiement des salaires"
 msgstr "Salary payments"
 
-#: compta/journal.py:22 compta/models.py:928
+#: compta/journal.py:22 compta/models.py:934
 msgid "Versements ONSS / précompte"
 msgstr "NSSO / withholding tax payments"
 
@@ -14640,7 +14661,11 @@ msgstr "Payouts to owners (rentals)"
 msgid "Immobilisations et amortissements"
 msgstr "Fixed assets and depreciation"
 
-#: compta/journal.py:26 compta/templates/compta/immo/_nav.html:10
+#: compta/journal.py:26
+msgid "Financement des véhicules (crédit, leasing, renting)"
+msgstr "Vehicle financing (loan, leasing, renting)"
+
+#: compta/journal.py:27 compta/templates/compta/immo/_nav.html:10
 #: compta/templates/compta/tableau_de_bord.html:126
 #: maintenance/templates/maintenance/partials/intervention_detail.html:224
 #: piece/templates/piece/stock/_nav.html:9
@@ -14651,220 +14676,227 @@ msgstr "Fixed assets and depreciation"
 msgid "Stock"
 msgstr "Stock"
 
-#: compta/journal.py:27
+#: compta/journal.py:28
 msgid "Trésorerie (mouvements manuels)"
 msgstr "Cash (manual entries)"
 
-#: compta/journal.py:28
+#: compta/journal.py:29
 msgid "Soldes d'ouverture des comptes de trésorerie"
 msgstr "Opening balances of cash accounts"
 
-#: compta/journal.py:29 compta/templates/compta/bilan/od_liste.html:6
+#: compta/journal.py:30 compta/templates/compta/bilan/od_liste.html:6
 msgid "Opérations diverses (OD)"
 msgstr "Miscellaneous operations (MO)"
 
-#: compta/journal.py:66 compta/journal.py:71 compta/models.py:38
+#: compta/journal.py:67 compta/journal.py:72 compta/models.py:40
 #: facture/forms.py:89 facture/paiements.py:85
 #: theme/templates/dashboard.html:721 voiture/voiture_location/forms.py:166
 #: voiture/voiture_location/forms.py:175
 msgid "Clients"
 msgstr "Customers"
 
-#: compta/journal.py:67 compta/journal.py:72 compta/models.py:60
+#: compta/journal.py:68 compta/journal.py:73 compta/models.py:62
 msgid "Chiffre d'affaires – ventes"
 msgstr "Turnover – sales"
 
-#: compta/journal.py:69 compta/journal.py:74 compta/models.py:41
+#: compta/journal.py:70 compta/journal.py:75 compta/models.py:43
 #: facture/tva.py:580
 msgid "TVA à payer"
 msgstr "VAT payable"
 
-#: compta/journal.py:191
+#: compta/journal.py:202
 msgid "Solde d’ouverture"
 msgstr "Opening balance"
 
-#: compta/models.py:25
+#: compta/models.py:26
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:89
 msgid "Capital"
 msgstr "Capital"
 
-#: compta/models.py:26
+#: compta/models.py:27
 msgid "Réserves"
 msgstr "Reserves"
 
-#: compta/models.py:27
+#: compta/models.py:28
 msgid "Bénéfice (perte) reporté(e)"
 msgstr "Accumulated profit (loss)"
 
-#: compta/models.py:28
+#: compta/models.py:29
 msgid "Dettes à plus d'un an"
 msgstr "Amounts payable after more than one year"
 
-#: compta/models.py:29
+#: compta/models.py:30 voiture/voiture_exemplaire/financement.py:45
+msgid "Dettes de location-financement"
+msgstr "Finance lease liabilities"
+
+#: compta/models.py:31 voiture/voiture_exemplaire/financement.py:46
 msgid "Emprunts auprès d'établissements de crédit"
 msgstr "Loans from credit institutions"
 
-#: compta/models.py:30
+#: compta/models.py:32
 msgid "Immobilisations incorporelles"
 msgstr "Intangible fixed assets"
 
-#: compta/models.py:31
+#: compta/models.py:33
 msgid "Immobilisations financières"
 msgstr "Financial fixed assets"
 
-#: compta/models.py:32 compta/models.py:598 compta/models.py:617
+#: compta/models.py:34 compta/models.py:600 compta/models.py:621
 msgid "Terrains"
 msgstr "Land"
 
-#: compta/models.py:33 compta/models.py:618
+#: compta/models.py:35 compta/models.py:622
 msgid "Constructions"
 msgstr "Buildings"
 
-#: compta/models.py:34 compta/models.py:600 compta/models.py:620
+#: compta/models.py:36 compta/models.py:602 compta/models.py:624
 msgid "Installations, machines et outillage"
 msgstr "Installations, machinery and equipment"
 
-#: compta/models.py:35 compta/models.py:601 compta/models.py:622
+#: compta/models.py:37 compta/models.py:603 compta/models.py:626
 msgid "Mobilier et matériel de bureau"
 msgstr "Furniture and office equipment"
 
-#: compta/models.py:36 compta/models.py:602 compta/models.py:624
+#: compta/models.py:38 compta/models.py:604 compta/models.py:628
 msgid "Matériel roulant"
 msgstr "Vehicles"
 
-#: compta/models.py:37 compta/models.py:894 compta/models.py:898
+#: compta/models.py:39 compta/models.py:900 compta/models.py:904
 msgid "Marchandises (stock)"
 msgstr "Goods (stock)"
 
-#: compta/models.py:42 utilisateurs/paie_belgique.py:638
+#: compta/models.py:44 utilisateurs/paie_belgique.py:638
 msgid "Précomptes retenus"
 msgstr "Withholding taxes withheld"
 
-#: compta/models.py:43 utilisateurs/paie_belgique.py:639
+#: compta/models.py:45 utilisateurs/paie_belgique.py:639
 msgid "Office National de Sécurité Sociale"
 msgstr "National Social Security Office"
 
-#: compta/models.py:44 utilisateurs/paie_belgique.py:640
+#: compta/models.py:46 utilisateurs/paie_belgique.py:640
 msgid "ONSS – cotisation annuelle vacances ouvriers (caisse de vacances)"
 msgstr "NSSO – annual blue-collar holiday contribution (holiday fund)"
 
-#: compta/models.py:45 utilisateurs/paie_belgique.py:643
+#: compta/models.py:47 utilisateurs/paie_belgique.py:643
 msgid "Autres dettes sociales – caisse d'assurances sociales (dirigeant)"
 msgstr "Other social debts – social insurance fund (director)"
 
-#: compta/models.py:46 utilisateurs/paie_belgique.py:641
+#: compta/models.py:48 utilisateurs/paie_belgique.py:641
 msgid "Rémunérations"
 msgstr "Remuneration payable"
 
-#: compta/models.py:47
+#: compta/models.py:49
 msgid "Dettes financières à court terme"
 msgstr "Short-term financial debts"
 
-#: compta/models.py:48
+#: compta/models.py:50
 msgid "Dettes diverses"
 msgstr "Miscellaneous debts"
 
-#: compta/models.py:49 facture/paiements.py:86
+#: compta/models.py:51 facture/paiements.py:86
 msgid "Acomptes reçus sur commandes"
 msgstr "Advances received on orders"
 
-#: compta/models.py:50
+#: compta/models.py:52
 msgid "Dettes envers les propriétaires (reversements de locations)"
 msgstr "Amounts owed to owners (rental payouts)"
 
-#: compta/models.py:51
+#: compta/models.py:53
 msgid "Charges à reporter"
 msgstr "Deferred charges"
 
-#: compta/models.py:52
+#: compta/models.py:54
 msgid "Charges à imputer"
 msgstr "Accrued charges"
 
-#: compta/models.py:53
+#: compta/models.py:55
 msgid "Compte d'attente"
 msgstr "Suspense account"
 
-#: compta/models.py:54
+#: compta/models.py:56
 msgid "Virements internes"
 msgstr "Internal transfers"
 
-#: compta/models.py:55
+#: compta/models.py:57
 msgid "Achats de marchandises"
 msgstr "Purchases of goods"
 
-#: compta/models.py:56
+#: compta/models.py:58
 msgid "Services et biens divers"
 msgstr "Services and miscellaneous goods"
 
-#: compta/models.py:57
+#: compta/models.py:59
 msgid "Rétributions de tiers – honoraires"
 msgstr "Third-party fees"
 
-#: compta/models.py:58
+#: compta/models.py:60
 msgid "Autres charges d'exploitation"
 msgstr "Other operating expenses"
 
-#: compta/models.py:59
+#: compta/models.py:61
 msgid "Charges financières"
 msgstr "Financial expenses"
 
-#: compta/models.py:61
+#: compta/models.py:63
 msgid "Impôts sur le résultat"
 msgstr "Income taxes"
 
-#: compta/models.py:62
+#: compta/models.py:64
 msgid "Produits financiers"
 msgstr "Financial income"
 
-#: compta/models.py:70
+#: compta/models.py:72
 msgid "Caisse"
 msgstr "Cash register"
 
-#: compta/models.py:71 compta/models.py:86 compta/models.py:552
-#: compta/models.py:821 compta/models.py:943 compta/models.py:1056
+#: compta/models.py:73 compta/models.py:88 compta/models.py:554
+#: compta/models.py:827 compta/models.py:949 compta/models.py:1062
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:120
 #: utilisateurs/templates/utilisateurs/paie/conges_travailleur.html:234
+#: voiture/voiture_exemplaire/financement.py:52
+#: voiture/voiture_exemplaire/views.py:1106
 msgid "Banque"
 msgstr "Banking"
 
-#: compta/models.py:80
+#: compta/models.py:82
 msgid "Nom du compte"
 msgstr "Account name"
 
-#: compta/models.py:81
+#: compta/models.py:83
 msgid "Ex. : Caisse atelier, KBC compte courant…"
 msgstr "E.g. Workshop cash register, KBC current account…"
 
-#: compta/models.py:83
+#: compta/models.py:85
 msgid "Compte comptable (PCMN)"
 msgstr "Ledger account (Belgian chart)"
 
-#: compta/models.py:84
+#: compta/models.py:86
 msgid ""
 "570000 pour la caisse, 550000 pour la banque (ou un sous-compte : 550100…)."
 msgstr "570000 for cash, 550000 for bank (or a sub-account: 550100…)."
 
-#: compta/models.py:88
+#: compta/models.py:90
 msgid "BIC"
 msgstr "BIC"
 
-#: compta/models.py:90
+#: compta/models.py:92
 msgid "Date d'ouverture"
 msgstr "Opening date"
 
-#: compta/models.py:92 compta/models.py:147
+#: compta/models.py:94 compta/models.py:149
 #: compta/templates/compta/compte_supprimer.html:12
 msgid "Solde d'ouverture"
 msgstr "Opening balance"
 
-#: compta/models.py:93
+#: compta/models.py:95
 msgid "Montant présent dans la caisse / sur le compte à la date d'ouverture."
 msgstr "Amount in the cash register / on the account on the opening date."
 
-#: compta/models.py:96
+#: compta/models.py:98
 msgid "Contrepartie de l'ouverture (PCMN)"
 msgstr "Opening offset account (Belgian chart)"
 
-#: compta/models.py:97
+#: compta/models.py:99
 msgid ""
 "Compte crédité par l'écriture d'ouverture (499000 compte d'attente, 100000 "
 "capital…)."
@@ -14872,11 +14904,11 @@ msgstr ""
 "Account credited by the opening entry (499000 suspense account, 100000 "
 "capital…)."
 
-#: compta/models.py:100
+#: compta/models.py:102
 msgid "Compte par défaut"
 msgstr "Default account"
 
-#: compta/models.py:101
+#: compta/models.py:103
 msgid ""
 "Reçoit automatiquement les encaissements des factures (espèces pour une "
 "caisse, autres modes pour une banque) et les salaires payés (banque)."
@@ -14884,30 +14916,30 @@ msgstr ""
 "Automatically receives invoice payments (cash for a cash register, other "
 "methods for a bank) and paid salaries (bank)."
 
-#: compta/models.py:104 maintenance/autres_interventions/fusibles/models.py:868
+#: compta/models.py:106 maintenance/autres_interventions/fusibles/models.py:868
 #: piece/piece_fluides/forms.py:62
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:58
 #: utilisateurs/templates/utilisateurs/tenants/tenant_detail.html:88
 msgid "Actif"
 msgstr "Active"
 
-#: compta/models.py:111
+#: compta/models.py:113
 msgid "Compte de trésorerie"
 msgstr "Treasury account"
 
-#: compta/models.py:112 compta/templates/compta/tableau_de_bord.html:50
+#: compta/models.py:114 compta/templates/compta/tableau_de_bord.html:50
 msgid "Comptes de trésorerie"
 msgstr "Treasury accounts"
 
-#: compta/models.py:217
+#: compta/models.py:219
 msgid "Remboursement note de crédit"
 msgstr "Credit note refund"
 
-#: compta/models.py:218
+#: compta/models.py:220
 msgid "Encaissement facture"
 msgstr "Invoice payment received"
 
-#: compta/models.py:249 facture/paiements.py:106 facture/paiements.py:137
+#: compta/models.py:251 facture/paiements.py:106 facture/paiements.py:137
 #: facture/paiements.py:154 facture/paiements.py:162 facture/services.py:1174
 #: facture/templates/facture/caisse_banque.html:71
 #: facture/templates/facture/tva.html:299 facture/views.py:954
@@ -14915,81 +14947,81 @@ msgstr "Invoice payment received"
 msgid "Acompte location"
 msgstr "Rental deposit"
 
-#: compta/models.py:270 utilisateurs/templates/utilisateurs/mon_compte.html:253
+#: compta/models.py:272 utilisateurs/templates/utilisateurs/mon_compte.html:253
 #: utilisateurs/templates/utilisateurs/mon_compte.html:288
 msgid "Salaire net"
 msgstr "Net salary"
 
-#: compta/models.py:314
+#: compta/models.py:316
 msgid "Entrée (recette)"
 msgstr "Inflow (receipt)"
 
-#: compta/models.py:315
+#: compta/models.py:317
 msgid "Sortie (dépense)"
 msgstr "Outflow (expense)"
 
-#: compta/models.py:321
+#: compta/models.py:323
 msgid "Sens"
 msgstr "Direction"
 
-#: compta/models.py:326
+#: compta/models.py:328
 msgid "Compte de contrepartie (PCMN)"
 msgstr "Offset account (Belgian chart)"
 
-#: compta/models.py:327
+#: compta/models.py:329
 msgid ""
 "Ex. : 440000 fournisseurs, 610000 services et biens divers, 700000 ventes…"
 msgstr ""
 "E.g. 440000 suppliers, 610000 services and miscellaneous goods, 700000 sales…"
 
-#: compta/models.py:329
+#: compta/models.py:331
 msgid "Pièce / référence"
 msgstr "Document / reference"
 
-#: compta/models.py:342
+#: compta/models.py:344
 msgid "Mouvement de trésorerie"
 msgstr "Treasury transaction"
 
-#: compta/models.py:343
+#: compta/models.py:345
 msgid "Mouvements de trésorerie"
 msgstr "Treasury transactions"
 
-#: compta/models.py:365
+#: compta/models.py:367
 msgid "Assujetti à la TVA"
 msgstr "VAT registered"
 
-#: compta/models.py:366
+#: compta/models.py:368
 msgid "Franchise des petites entreprises (art. 56bis CTVA)"
 msgstr "Small business VAT exemption scheme (art. 56bis VAT Code)"
 
-#: compta/models.py:367
+#: compta/models.py:369
 msgid "Exonéré de TVA (art. 44 CTVA)"
 msgstr "VAT exempt (art. 44 VAT Code)"
 
-#: compta/models.py:371
+#: compta/models.py:373
 msgid "Régime particulier de franchise des petites entreprises"
 msgstr "Special small business exemption scheme"
 
-#: compta/models.py:372
+#: compta/models.py:374
 msgid "Exemption de TVA – article 44 du Code de la TVA"
 msgstr "VAT exemption – article 44 of the VAT Code"
 
-#: compta/models.py:382
+#: compta/models.py:384
 msgid "Nom commercial / dénomination"
 msgstr "Trade name"
 
-#: compta/models.py:384
+#: compta/models.py:386
 #: compta/templates/compta/instructeurs/facture_detail.html:13
 #: compta/templates/compta/instructeurs/facture_form.html:11
 #: compta/templates/compta/instructeurs/instructeurs_liste.html:17
 msgid "Numéro d'entreprise (BCE) / TVA"
 msgstr "Company number (CBE) / VAT"
 
-#: compta/models.py:385
+#: compta/models.py:387
 msgid "Ex. : BE0123456789"
 msgstr "E.g. BE0123456789"
 
-#: compta/models.py:387 compta/models.py:462
+#: compta/models.py:389 compta/models.py:464
 #: compta/templates/compta/instructeurs/facture_detail.html:15
 #: compta/templates/compta/instructeurs/facture_form.html:12
 #: compta/templates/compta/instructeurs/instructeurs_liste.html:18
@@ -14998,11 +15030,11 @@ msgstr "E.g. BE0123456789"
 msgid "Régime TVA"
 msgstr "VAT treatment"
 
-#: compta/models.py:391
+#: compta/models.py:393
 msgid "Tarif horaire de l'instructeur HTVA (€)"
 msgstr "Instructor hourly rate excl. VAT (€)"
 
-#: compta/models.py:393
+#: compta/models.py:395
 msgid ""
 "Ce que l'entreprise paie à l'instructeur. Vide : prix facturé au client "
 "(HTVA)."
@@ -15010,38 +15042,38 @@ msgstr ""
 "What the company pays the instructor. Empty: price charged to the customer "
 "(excl. VAT)."
 
-#: compta/models.py:396
+#: compta/models.py:398
 msgid "Vide : compte bancaire de la fiche utilisateur."
 msgstr "Empty: bank account from the user record."
 
-#: compta/models.py:397
+#: compta/models.py:399
 msgid "Délai de paiement (jours)"
 msgstr "Payment term (days)"
 
-#: compta/models.py:400
+#: compta/models.py:402
 msgid "Accord d'autofacturation signé"
 msgstr "Signed self-billing agreement"
 
-#: compta/models.py:401
+#: compta/models.py:403
 msgid ""
 "L'autofacturation n'est permise qu'avec un accord préalable écrit de "
 "l'instructeur."
 msgstr ""
 "Self-billing is only allowed with the instructor's prior written agreement."
 
-#: compta/models.py:403
+#: compta/models.py:405
 msgid "Date de l'accord d'autofacturation"
 msgstr "Self-billing agreement date"
 
-#: compta/models.py:410 compta/templates/compta/instructeurs/profil_form.html:3
+#: compta/models.py:412 compta/templates/compta/instructeurs/profil_form.html:3
 msgid "Profil d'instructeur indépendant"
 msgstr "Freelance instructor profile"
 
-#: compta/models.py:411
+#: compta/models.py:413
 msgid "Profils d'instructeurs indépendants"
 msgstr "Freelance instructor profiles"
 
-#: compta/models.py:442 compta/models.py:490
+#: compta/models.py:444 compta/models.py:492
 #: compta/templates/compta/instructeurs/facture_pdf.html:71
 #: facture/models.py:75 facture/templates/facture/_entete_facture.html:90
 #: facture/templates/facture/_notes.html:44
@@ -15055,17 +15087,17 @@ msgstr "Freelance instructor profiles"
 msgid "Brouillon"
 msgstr "Draft"
 
-#: compta/models.py:443
+#: compta/models.py:445
 msgid "Émise – à payer"
 msgstr "Issued – to pay"
 
-#: compta/models.py:451
+#: compta/models.py:453
 #: compta/templates/compta/instructeurs/facture_pdf.html:111
 #: compta/templates/compta/instructeurs/instructeurs_liste.html:19
 msgid "Autofacturation"
 msgstr "Self-billing"
 
-#: compta/models.py:452
+#: compta/models.py:454
 msgid ""
 "Coché : l'entreprise établit la facture au nom et pour le compte de "
 "l'instructeur. Décoché : facture reçue de l'instructeur."
@@ -15073,23 +15105,23 @@ msgstr ""
 "Checked: the company issues the invoice in the name and on behalf of the "
 "instructor. Unchecked: invoice received from the instructor."
 
-#: compta/models.py:456
+#: compta/models.py:458
 msgid "Numéro de la facture de l'instructeur"
 msgstr "Instructor's invoice number"
 
-#: compta/models.py:457
+#: compta/models.py:459
 #: compta/templates/compta/instructeurs/facture_detail.html:21
 #: compta/templates/compta/instructeurs/facture_pdf.html:72
 msgid "Date de facture"
 msgstr "Invoice date"
 
-#: compta/models.py:458
+#: compta/models.py:460
 #: compta/templates/compta/instructeurs/facture_choisir.html:18
 #: compta/templates/compta/instructeurs/facture_form.html:18
 msgid "Période du"
 msgstr "Period from"
 
-#: compta/models.py:459
+#: compta/models.py:461
 #: compta/templates/compta/instructeurs/facture_choisir.html:19
 #: compta/templates/compta/instructeurs/facture_form.html:19
 #: facture/templates/facture/tva.html:15 facture/views.py:894
@@ -15098,7 +15130,7 @@ msgstr "Period from"
 msgid "au"
 msgstr "to"
 
-#: compta/models.py:460
+#: compta/models.py:462
 #: compta/templates/compta/instructeurs/facture_detail.html:21
 #: compta/templates/compta/instructeurs/facture_pdf.html:76
 #: utilisateurs/templates/utilisateurs/paie/paie_comptabilite.html:145
@@ -15106,7 +15138,7 @@ msgstr "to"
 msgid "Échéance"
 msgstr "Due date"
 
-#: compta/models.py:465
+#: compta/models.py:467
 #: compta/templates/compta/instructeurs/facture_detail.html:53
 #: compta/templates/compta/instructeurs/facture_form.html:89
 #: compta/templates/compta/instructeurs/facture_pdf.html:102
@@ -15233,42 +15265,42 @@ msgstr "Due date"
 msgid "Total HTVA"
 msgstr "Total (excl. VAT)"
 
-#: compta/models.py:470 facture/models.py:306
+#: compta/models.py:472 facture/models.py:306
 msgid "Émise le"
 msgstr "Issued on"
 
-#: compta/models.py:471
+#: compta/models.py:473
 #: compta/templates/compta/immo/immobilisation_detail.html:19
 #: compta/templates/compta/instructeurs/facture_detail.html:25
 #: compta/templates/compta/instructeurs/facture_pdf.html:118
 msgid "Payée le"
 msgstr "Paid on"
 
-#: compta/models.py:475 compta/models.py:922 compta/models.py:996
+#: compta/models.py:477 compta/models.py:928 compta/models.py:1002
 msgid "Vide : compte bancaire par défaut."
 msgstr "Empty: default bank account."
 
-#: compta/models.py:485
+#: compta/models.py:487
 #: compta/templates/compta/instructeurs/facture_detail.html:3
 #: compta/templates/compta/instructeurs/facture_form.html:3
 msgid "Facture d'instructeur"
 msgstr "Instructor invoice"
 
-#: compta/models.py:486 compta/templates/compta/instructeurs/_entete.html:9
+#: compta/models.py:488 compta/templates/compta/instructeurs/_entete.html:9
 #: compta/templates/compta/instructeurs/factures_liste.html:3
 #: compta/templates/compta/instructeurs/factures_liste.html:6
 msgid "Factures d'instructeurs"
 msgstr "Instructor invoices"
 
-#: compta/models.py:539
+#: compta/models.py:541
 msgid "Rétributions de tiers – honoraires (instructeurs)"
 msgstr "Third-party fees (instructors)"
 
-#: compta/models.py:558
+#: compta/models.py:560
 msgid "Facture instructeur"
 msgstr "Instructor invoice"
 
-#: compta/models.py:572
+#: compta/models.py:574
 #: compta/templates/compta/instructeurs/facture_detail.html:35
 #: compta/templates/compta/instructeurs/facture_form.html:43
 #: compta/templates/compta/instructeurs/facture_pdf.html:84
@@ -15470,80 +15502,92 @@ msgstr "Instructor invoice"
 msgid "Heures"
 msgstr "Hours"
 
-#: compta/models.py:574
+#: compta/models.py:576
 #: compta/templates/compta/instructeurs/facture_detail.html:36
 #: compta/templates/compta/instructeurs/facture_form.html:44
 #: compta/templates/compta/instructeurs/facture_pdf.html:85
 msgid "Prix / heure HTVA"
 msgstr "Price / hour excl. VAT"
 
-#: compta/models.py:579
+#: compta/models.py:581
 msgid "Ligne de facture d'instructeur"
 msgstr "Instructor invoice line"
 
-#: compta/models.py:580
+#: compta/models.py:582
 msgid "Lignes de facture d'instructeur"
 msgstr "Instructor invoice lines"
 
-#: compta/models.py:599
+#: compta/models.py:601
 msgid "Constructions / immeubles"
 msgstr "Buildings / property"
 
-#: compta/models.py:603 compta/models.py:626
+#: compta/models.py:605
+msgid "Location-financement (leasing financier)"
+msgstr "Finance lease"
+
+#: compta/models.py:606 compta/models.py:632
 msgid "Autres immobilisations corporelles"
 msgstr "Other tangible fixed assets"
 
-#: compta/models.py:619
+#: compta/models.py:623
 msgid "Constructions – amortissements actés"
 msgstr "Buildings – accumulated depreciation"
 
-#: compta/models.py:621
+#: compta/models.py:625
 msgid "Installations, machines et outillage – amortissements actés"
 msgstr "Installations, machinery and equipment – accumulated depreciation"
 
-#: compta/models.py:623
+#: compta/models.py:627
 msgid "Mobilier et matériel de bureau – amortissements actés"
 msgstr "Furniture and office equipment – accumulated depreciation"
 
-#: compta/models.py:625
+#: compta/models.py:629
 msgid "Matériel roulant – amortissements actés"
 msgstr "Vehicles – accumulated depreciation"
 
-#: compta/models.py:627
+#: compta/models.py:630
+msgid "Location-financement – matériel roulant"
+msgstr "Finance lease – vehicles"
+
+#: compta/models.py:631
+msgid "Location-financement – amortissements actés"
+msgstr "Finance lease – accumulated depreciation"
+
+#: compta/models.py:633
 msgid "Autres immobilisations corporelles – amortissements actés"
 msgstr "Other tangible fixed assets – accumulated depreciation"
 
-#: compta/models.py:628
+#: compta/models.py:634
 msgid "Dotations aux amortissements sur immobilisations corporelles"
 msgstr "Depreciation of tangible fixed assets"
 
-#: compta/models.py:629
+#: compta/models.py:635
 msgid "Plus-values sur réalisation d'immobilisations corporelles"
 msgstr "Gains on disposal of tangible fixed assets"
 
-#: compta/models.py:630
+#: compta/models.py:636
 msgid "Moins-values sur réalisation d'immobilisations corporelles"
 msgstr "Losses on disposal of tangible fixed assets"
 
-#: compta/models.py:631
+#: compta/models.py:637
 msgid "Créances diverses"
 msgstr "Other receivables"
 
-#: compta/models.py:637 investissements/models.py:55
+#: compta/models.py:643 investissements/models.py:55
 #: maintenance/autres_interventions/geometrie_course/models.py:32
 msgid "Linéaire"
 msgstr "Straight-line"
 
-#: compta/models.py:638 investissements/models.py:56
+#: compta/models.py:644 investissements/models.py:56
 msgid "Dégressif"
 msgstr "Declining"
 
-#: compta/models.py:642
+#: compta/models.py:648
 #: compta/templates/compta/immo/immobilisation_detail.html:11
 #: compta/templates/compta/immo/immobilisations_liste.html:18
 #: compta/templates/compta/immo/immobilisations_liste.html:33
 #: compta/templates/compta/immo/immobilisations_liste.html:72
-#: piece/forms_stock.py:138 piece/models.py:189
+#: piece/forms_stock.py:138 piece/models.py:190
 #: piece/templates/piece/stock/catalogue.html:39
 #: piece/templates/piece/stock/catalogue.html:72
 #: piece/templates/piece/stock/inventaires.html:31
@@ -15553,43 +15597,43 @@ msgstr "Declining"
 msgid "Catégorie"
 msgstr "Category"
 
-#: compta/models.py:644
+#: compta/models.py:650
 msgid "Ex. : pont élévateur, camionnette, bâtiment atelier…"
 msgstr "E.g. vehicle lift, van, workshop building…"
 
-#: compta/models.py:647
+#: compta/models.py:653
 msgid "Référence de la facture"
 msgstr "Invoice reference"
 
-#: compta/models.py:648
+#: compta/models.py:654
 #: compta/templates/compta/immo/immobilisation_detail.html:13
 msgid "Immatriculation / n° de série"
 msgstr "Registration / serial no."
 
-#: compta/models.py:650
+#: compta/models.py:656
 #: compta/templates/compta/immo/immobilisation_detail.html:14
 msgid "Date d'acquisition"
 msgstr "Acquisition date"
 
-#: compta/models.py:651
+#: compta/models.py:657
 msgid "Date de mise en service"
 msgstr "Commissioning date"
 
-#: compta/models.py:652
+#: compta/models.py:658
 msgid "Vide : date d'acquisition."
 msgstr "Empty: acquisition date."
 
-#: compta/models.py:653
+#: compta/models.py:659
 #: compta/templates/compta/immo/immobilisation_detail.html:15
 msgid "Valeur d'acquisition HTVA"
 msgstr "Acquisition value excl. VAT"
 
-#: compta/models.py:656
+#: compta/models.py:662
 #: compta/templates/compta/immo/immobilisation_detail.html:16
 msgid "Frais accessoires et TVA non déductible"
 msgstr "Ancillary costs and non-deductible VAT"
 
-#: compta/models.py:658
+#: compta/models.py:664
 msgid ""
 "Transport, installation, frais d'acte… et part de TVA non déductible (ex. 50 "
 "% sur une voiture)."
@@ -15597,20 +15641,20 @@ msgstr ""
 "Transport, installation, deed fees… and non-deductible VAT share (e.g. 50 % "
 "on a car)."
 
-#: compta/models.py:661
+#: compta/models.py:667 voiture/voiture_exemplaire/models.py:755
 msgid "TVA déductible (%)"
 msgstr "Deductible VAT (%)"
 
-#: compta/models.py:662
+#: compta/models.py:668
 #: compta/templates/compta/immo/immobilisation_detail.html:27
 msgid "Valeur résiduelle"
 msgstr "Residual value"
 
-#: compta/models.py:665
+#: compta/models.py:671
 msgid "Méthode d'amortissement"
 msgstr "Depreciation method"
 
-#: compta/models.py:667
+#: compta/models.py:673
 msgid ""
 "Le dégressif n'est plus admis fiscalement pour les sociétés (acquisitions "
 "depuis 2020) ni pour les voitures."
@@ -15618,142 +15662,143 @@ msgstr ""
 "Declining balance is no longer allowed for tax purposes for companies "
 "(acquisitions since 2020) nor for cars."
 
-#: compta/models.py:668
+#: compta/models.py:674 voiture/voiture_exemplaire/models.py:779
 msgid "Durée d'amortissement (années)"
 msgstr "Depreciation period (years)"
 
-#: compta/models.py:669
+#: compta/models.py:675
 #: compta/templates/compta/immo/immobilisation_detail.html:26
 msgid "Prorata temporis la première année"
 msgstr "Pro rata temporis in the first year"
 
-#: compta/models.py:674
+#: compta/models.py:680
 msgid "Date de cession / mise hors service"
 msgstr "Disposal / retirement date"
 
-#: compta/models.py:675
+#: compta/models.py:681
 msgid "Prix de cession HTVA"
 msgstr "Disposal price excl. VAT"
 
-#: compta/models.py:682 compta/templates/compta/immo/immobilisation_form.html:3
+#: compta/models.py:688 compta/templates/compta/immo/immobilisation_form.html:3
 #: utilisateurs/libelles_journal.py:70
 msgid "Immobilisation"
 msgstr "Fixed asset"
 
-#: compta/models.py:683 compta/templates/compta/immo/_nav.html:9
+#: compta/models.py:689 compta/templates/compta/immo/_nav.html:9
 msgid "Immobilisations"
 msgstr "Fixed assets"
 
-#: compta/models.py:825
+#: compta/models.py:831
 #: compta/templates/compta/immo/immobilisation_detail.html:22
 msgid "Amortissement"
 msgstr "Depreciation"
 
-#: compta/models.py:832
+#: compta/models.py:838
 msgid "Cession"
 msgstr "Disposal"
 
-#: compta/models.py:846 investissements/models.py:67
+#: compta/models.py:852 investissements/models.py:67
 msgid "Investissement"
 msgstr "Investment"
 
-#: compta/models.py:862
+#: compta/models.py:868
 msgid "Date de l'inventaire"
 msgstr "Inventory date"
 
-#: compta/models.py:863
+#: compta/models.py:869
 msgid "Pièces (quantité × prix d'achat)"
 msgstr "Parts (quantity × purchase price)"
 
-#: compta/models.py:864
+#: compta/models.py:870
 msgid "Autres stocks (fluides, pneus…)"
 msgstr "Other stock (fluids, tyres…)"
 
-#: compta/models.py:869 utilisateurs/libelles_journal.py:333
+#: compta/models.py:875 utilisateurs/libelles_journal.py:333
 msgid "Valorisation du stock"
 msgstr "Stock valuation"
 
-#: compta/models.py:870
+#: compta/models.py:876
 msgid "Valorisations du stock"
 msgstr "Stock valuations"
 
-#: compta/models.py:891
+#: compta/models.py:897
 msgid "Variation de stock"
 msgstr "Stock change"
 
-#: compta/models.py:891
+#: compta/models.py:897
 msgid "inventaire du"
 msgstr "inventory of"
 
-#: compta/models.py:895 compta/models.py:897
+#: compta/models.py:901 compta/models.py:903
 msgid "Variation de stock de marchandises"
 msgstr "Change in stock of goods"
 
-#: compta/models.py:907
+#: compta/models.py:913
 #: utilisateurs/templates/utilisateurs/paie/paie_comptabilite.html:165
 msgid "ONSS (cotisations sociales)"
 msgstr "NSSO (social contributions)"
 
-#: compta/models.py:908
+#: compta/models.py:914
 #: utilisateurs/templates/utilisateurs/paie/paie_comptabilite.html:139
 msgid "Précompte professionnel (SPF Finances)"
 msgstr "Withholding tax (FPS Finance)"
 
-#: compta/models.py:909
+#: compta/models.py:915
 msgid "Cotisation annuelle vacances ouvriers (ONSS / caisse de vacances)"
 msgstr "Annual blue-collar holiday contribution (NSSO / holiday fund)"
 
-#: compta/models.py:910
+#: compta/models.py:916
 msgid "Cotisations sociales du dirigeant (caisse d'assurances sociales)"
 msgstr "Director's social contributions (social insurance fund)"
 
-#: compta/models.py:917
+#: compta/models.py:923
 msgid "Ex. : 10/2026 ou T3/2026"
 msgstr "E.g. 10/2026 or Q3/2026"
 
-#: compta/models.py:921 compta/models.py:995
+#: compta/models.py:927 compta/models.py:1001
+#: voiture/voiture_exemplaire/models.py:783
 msgid "Payé depuis le compte"
 msgstr "Paid from account"
 
-#: compta/models.py:923
+#: compta/models.py:929
 msgid "Référence / communication"
 msgstr "Reference / communication"
 
-#: compta/models.py:927 compta/templates/compta/immo/salaires.html:75
+#: compta/models.py:933 compta/templates/compta/immo/salaires.html:75
 msgid "Versement ONSS / précompte"
 msgstr "NSSO / withholding tax payment"
 
-#: compta/models.py:963
+#: compta/models.py:969
 msgid "Double pécule de vacances"
 msgstr "Double holiday pay"
 
-#: compta/models.py:964
+#: compta/models.py:970
 msgid "Jours de congé payés (simple pécule)"
 msgstr "Paid leave days (single holiday pay)"
 
-#: compta/models.py:965
+#: compta/models.py:971
 msgid "Pécule de sortie (fin de contrat)"
 msgstr "Exit holiday pay (end of contract)"
 
-#: compta/models.py:966
+#: compta/models.py:972
 msgid "Autre paiement de vacances"
 msgstr "Other holiday payment"
 
-#: compta/models.py:969 utilisateurs/models.py:407
+#: compta/models.py:975 utilisateurs/models.py:407
 #: utilisateurs/templates/utilisateurs/paie/_conges_regles.html:17
 #: utilisateurs/templates/utilisateurs/paie/conges_liste.html:58
 #: utilisateurs/templates/utilisateurs/paie/conges_travailleur.html:13
 msgid "Employé"
 msgstr "Employee (white-collar)"
 
-#: compta/models.py:970 utilisateurs/models.py:408
+#: compta/models.py:976 utilisateurs/models.py:408
 #: utilisateurs/templates/utilisateurs/paie/_conges_regles.html:19
 #: utilisateurs/templates/utilisateurs/paie/conges_liste.html:58
 #: utilisateurs/templates/utilisateurs/paie/conges_travailleur.html:13
 msgid "Ouvrier"
 msgstr "Worker (blue-collar)"
 
-#: compta/models.py:975 compta/templates/compta/immo/salaires.html:51
+#: compta/models.py:981 compta/templates/compta/immo/salaires.html:51
 #: utilisateurs/forms.py:338
 #: utilisateurs/templates/utilisateurs/paie/conges_liste.html:39
 #: utilisateurs/templates/utilisateurs/paie/delete_paie.html:19
@@ -15767,44 +15812,44 @@ msgstr "Worker (blue-collar)"
 msgid "Travailleur"
 msgstr "Worker"
 
-#: compta/models.py:978
+#: compta/models.py:984
 msgid "Année des vacances"
 msgstr "Holiday year"
 
-#: compta/models.py:979
+#: compta/models.py:985
 msgid "Date de l'écriture"
 msgstr "Entry date"
 
-#: compta/models.py:980
+#: compta/models.py:986
 msgid "Jours de congé"
 msgstr "Leave days"
 
-#: compta/models.py:982
+#: compta/models.py:988
 msgid ""
 "Jours de congé payés (comptés comme pris) ou non pris payés à la sortie."
 msgstr "Paid leave days (counted as taken) or untaken days paid on leaving."
 
-#: compta/models.py:983
+#: compta/models.py:989
 msgid "Montant brut"
 msgstr "Gross amount"
 
-#: compta/models.py:985 compta/models.py:1049
+#: compta/models.py:991 compta/models.py:1055
 msgid "Retenue ONSS travailleur"
 msgstr "Employee social security deduction"
 
-#: compta/models.py:987 compta/models.py:1050 utilisateurs/models.py:906
+#: compta/models.py:993 compta/models.py:1056 utilisateurs/models.py:906
 #: utilisateurs/models.py:1434 utilisateurs/paie_belgique.py:699
 #: utilisateurs/templates/utilisateurs/paie/paie_detail.html:36
 #: utilisateurs/templates/utilisateurs/paie/paie_panneau.html:67
 msgid "Précompte professionnel"
 msgstr "Withholding tax"
 
-#: compta/models.py:989 compta/models.py:1047 compta/models.py:1048
+#: compta/models.py:995 compta/models.py:1053 compta/models.py:1054
 #: utilisateurs/paie_belgique.py:690
 msgid "Cotisations patronales ONSS"
 msgstr "Employer NSSO contributions"
 
-#: compta/models.py:991 compta/models.py:1051
+#: compta/models.py:997 compta/models.py:1057
 #: compta/templates/compta/immo/salaires.html:52
 #: utilisateurs/templates/utilisateurs/paie/paie_comptabilite.html:65
 #: utilisateurs/templates/utilisateurs/paie/paie_comptabilite.html:110
@@ -15815,19 +15860,19 @@ msgstr "Employer NSSO contributions"
 msgid "Net à payer"
 msgstr "Net payable"
 
-#: compta/models.py:993
+#: compta/models.py:999
 msgid "Vide : pas encore payé (dette envers le travailleur)."
 msgstr "Empty: not paid yet (debt to the worker)."
 
-#: compta/models.py:1003
+#: compta/models.py:1009
 msgid "Paiement de congés / pécule"
 msgstr "Leave / holiday pay payment"
 
-#: compta/models.py:1004
+#: compta/models.py:1010
 msgid "Paiements de congés / pécules"
 msgstr "Leave / holiday pay payments"
 
-#: compta/models.py:1046
+#: compta/models.py:1052
 #: utilisateurs/templates/utilisateurs/paie/conges_travailleur.html:142
 #: utilisateurs/templates/utilisateurs/paie/conges_travailleur.html:162
 #: utilisateurs/templates/utilisateurs/paie/conges_travailleur.html:213
@@ -15840,22 +15885,22 @@ msgstr "Leave / holiday pay payments"
 msgid "Brut"
 msgstr "Gross"
 
-#: compta/models.py:1071
+#: compta/models.py:1077
 msgid "Écriture d'ouverture (bilan d'ouverture)"
 msgstr "Opening entry (opening balance)"
 
-#: compta/models.py:1072 compta/models.py:1086
+#: compta/models.py:1078 compta/models.py:1092
 #: compta/templates/compta/bilan/bilan.html:27
 #: compta/templates/compta/bilan/od_form.html:3
 #: utilisateurs/libelles_journal.py:192
 msgid "Opération diverse"
 msgstr "Miscellaneous operation"
 
-#: compta/models.py:1073
+#: compta/models.py:1079
 msgid "Écriture de clôture / affectation du résultat"
 msgstr "Closing entry / appropriation of result"
 
-#: compta/models.py:1079 compta/templates/compta/compte_journal.html:72
+#: compta/models.py:1085 compta/templates/compta/compte_journal.html:72
 #: compta/templates/compta/immo/_ecritures.html:7 compta/views.py:202
 #: compta/views_immo.py:305 facture/services.py:151
 #: facture/templates/facture/tva.html:280
@@ -15909,49 +15954,49 @@ msgstr "Closing entry / appropriation of result"
 #: maintenance/pneus/crevaison/templates/crevaison/crevaison_detail_pdf.html:247
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:598
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:738
-#: panier/models.py:93 piece/models.py:258 piece/models.py:271
-#: piece/models.py:360 piece/models.py:409 piece/models.py:443
+#: panier/models.py:93 piece/models.py:259 piece/models.py:272
+#: piece/models.py:361 piece/models.py:410 piece/models.py:444
 #: piece/templates/piece/piece_detail.html:5
 #: piece/templates/piece/stock/inventaire_detail.html:45
 #: piece/templates/piece/stock/mouvements.html:62
 #: piece/templates/piece/stock/pieces_maintenance.html:91
 #: utilisateurs/templates/utilisateurs/paie/paie_detail.html:123
 #: utilisateurs/views_paie.py:605
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:253
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:314
 msgid "Pièce"
 msgstr "Part"
 
-#: compta/models.py:1087 compta/templates/compta/bilan/od_liste.html:3
+#: compta/models.py:1093 compta/templates/compta/bilan/od_liste.html:3
 #: compta/templates/compta/immo/_nav.html:13
 #: compta/templates/compta/tableau_de_bord.html:138
 msgid "Opérations diverses"
 msgstr "Miscellaneous operations"
 
-#: compta/models.py:1115 compta/templates/compta/bilan/od_form.html:18
+#: compta/models.py:1121 compta/templates/compta/bilan/od_form.html:18
 msgid "Compte (PCMN)"
 msgstr "Account (PCMN)"
 
-#: compta/models.py:1123
+#: compta/models.py:1129
 msgid "Ligne d'opération diverse"
 msgstr "Miscellaneous operation line"
 
-#: compta/models.py:1124
+#: compta/models.py:1130
 msgid "Lignes d'opérations diverses"
 msgstr "Miscellaneous operation lines"
 
-#: compta/models.py:1139
+#: compta/models.py:1145
 msgid "Schéma abrégé"
 msgstr "Abbreviated format"
 
-#: compta/models.py:1140
+#: compta/models.py:1146
 msgid "Schéma complet"
 msgstr "Full format"
 
-#: compta/models.py:1144
+#: compta/models.py:1150
 msgid "Exercice clôturé au 31/12 de"
 msgstr "Financial year closed on 31/12 of"
 
-#: compta/models.py:1145 compta/templates/compta/bilan/bilan.html:20
+#: compta/models.py:1151 compta/templates/compta/bilan/bilan.html:20
 #: compta/templates/compta/bilan/references_liste.html:21
 #: monitoring/models.py:11 monitoring/templates/monitoring/tenant.html:14
 #: utilisateurs/forms.py:80
@@ -15960,31 +16005,31 @@ msgstr "Financial year closed on 31/12 of"
 msgid "Schéma"
 msgstr "Schema"
 
-#: compta/models.py:1146
+#: compta/models.py:1152
 msgid "Établi par (comptable / fiduciaire)"
 msgstr "Prepared by (accountant / firm)"
 
-#: compta/models.py:1147
+#: compta/models.py:1153
 msgid "Date de dépôt à la BNB"
 msgstr "NBB filing date"
 
-#: compta/models.py:1148
+#: compta/models.py:1154
 msgid "Montants par rubrique"
 msgstr "Amounts per heading"
 
-#: compta/models.py:1156 utilisateurs/libelles_journal.py:17
+#: compta/models.py:1162 utilisateurs/libelles_journal.py:17
 msgid "Bilan de référence"
 msgstr "Reference balance sheet"
 
-#: compta/models.py:1157
+#: compta/models.py:1163
 msgid "Bilans de référence"
 msgstr "Reference balance sheets"
 
-#: compta/models.py:1164
+#: compta/models.py:1170
 msgid "Bilan"
 msgstr "Balance sheet"
 
-#: compta/plans_comptables.py:111 core/pays.py:26
+#: compta/plans_comptables.py:115 core/pays.py:26
 msgid "SKR03 (DATEV Standardkontenrahmen 03)"
 msgstr "SKR03 (DATEV standard chart of accounts 03)"
 
@@ -16269,7 +16314,7 @@ msgid "Rubrique"
 msgstr "Heading"
 
 #: compta/templates/compta/bilan/reference_form.html:43
-#: voiture/voiture_exemplaire/models.py:713
+#: voiture/voiture_exemplaire/models.py:715
 msgid "Montant (€)"
 msgstr "Amount (€)"
 
@@ -16413,6 +16458,7 @@ msgstr "Offset account"
 #: utilisateurs/templates/utilisateurs/paie/conges_travailleur.html:79
 #: utilisateurs/templates/utilisateurs/paie/paie_comptabilite.html:243
 #: utilisateurs/templates/utilisateurs/paie/paie_detail.html:53
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:90
 msgid "Solde"
 msgstr "Balance"
 
@@ -16517,7 +16563,7 @@ msgid "Bilan et résultats"
 msgstr "Balance sheet and results"
 
 #: compta/templates/compta/immo/immobilisation_detail.html:10
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:90
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:149
 msgid "Acquisition"
 msgstr "Acquisition"
 
@@ -16843,7 +16889,7 @@ msgstr ""
 
 #: compta/templates/compta/immo/stock.html:30
 #: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_form.html:100
-#: piece/models.py:259
+#: piece/models.py:260
 msgid "Pièces"
 msgstr "Parts"
 
@@ -16853,7 +16899,7 @@ msgstr "Other"
 
 #: compta/templates/compta/immo/stock.html:33
 #: maintenance/templates/maintenance/partials/intervention_detail.html:66
-#: piece/models.py:363 piece/piece_fluides/models.py:182
+#: piece/models.py:364 piece/piece_fluides/models.py:182
 msgid "Variation"
 msgstr "Change"
 
@@ -17127,8 +17173,8 @@ msgstr "Hours / quantity"
 #: maintenance/systeme_freinage/renovation_machoires/templates/renovation_machoires/renovation_machoires_detail_pdf.html:578
 #: maintenance/systeme_freinage/tambours/templates/tambours/tambours_detail_pdf.html:594
 #: outillage/templates/outillage/delete_outillage.html:91
-#: piece/forms_stock.py:121 piece/forms_stock.py:144 piece/models.py:415
-#: piece/models.py:447 piece/templates/piece/stock/mouvements.html:66
+#: piece/forms_stock.py:121 piece/forms_stock.py:144 piece/models.py:416
+#: piece/models.py:448 piece/templates/piece/stock/mouvements.html:66
 #: piece/templates/piece/stock/piece_fiche.html:89 piece/views_stock.py:230
 msgid "Prix unitaire HTVA"
 msgstr "Unit price (excl. VAT)"
@@ -17940,8 +17986,8 @@ msgstr "Invoice type"
 #: garage_officiel/templates/garage_officiel/garage_list.html:37
 #: maintenance/autres_interventions/models.py:152 maintenance/models.py:226
 #: theme/templates/dashboard.html:220
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:104
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:245
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:165
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:306
 msgid "Maintenances"
 msgstr "Maintenance records"
 
@@ -17954,7 +18000,7 @@ msgstr "Diagnostics"
 
 #: facture/models.py:187 facture/templates/facture/tva.html:163
 #: theme/templates/dashboard.html:787
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:339
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:400
 #: voiture/voiture_location/models.py:394
 #: voiture/voiture_location/templates/voiture_location/location_list.html:4
 #: voiture/voiture_location/templates/voiture_location/trackday/liste.html:26
@@ -18087,7 +18133,7 @@ msgstr "draft"
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:25
 #: maintenance/autres_interventions/bte_vitesse_auto/remplacement_bte_auto/models.py:25
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:24
-#: voiture/voiture_exemplaire/models.py:17
+#: voiture/voiture_exemplaire/models.py:19
 msgid "Interne"
 msgstr "Internal"
 
@@ -18276,10 +18322,10 @@ msgstr "Labor"
 #: maintenance/choices.py:2392 maintenance/choices.py:2428
 #: maintenance/choices.py:2496 maintenance/choices.py:2529
 #: maintenance/choices.py:2570 maintenance/pneus/models.py:61
-#: piece/models.py:41 piece/models.py:60 piece/models.py:81 piece/models.py:94
-#: piece/models.py:121 piece/piece_roue_rechange/models.py:10
+#: piece/models.py:42 piece/models.py:61 piece/models.py:82 piece/models.py:95
+#: piece/models.py:122 piece/piece_roue_rechange/models.py:10
 #: voiture/voiture_diagnostic/pieces_defaut.py:506
-#: voiture/voiture_exemplaire/models.py:683 voiture/voiture_jantes/models.py:46
+#: voiture/voiture_exemplaire/models.py:685 voiture/voiture_jantes/models.py:46
 #: voiture/voiture_location/models.py:1029
 #: voiture/voiture_location/models.py:1237
 #: voiture/voiture_remorque/models.py:21
@@ -18311,7 +18357,7 @@ msgstr "Other"
 msgid "Diagnostic"
 msgstr "Diagnosis"
 
-#: facture/models.py:784 piece/models.py:457
+#: facture/models.py:784 piece/models.py:458
 msgid "Pièce utilisée"
 msgstr "Used part"
 
@@ -19327,12 +19373,12 @@ msgstr "Order"
 #: maintenance/systeme_freinage/tambours/templates/tambours/tambours_detail_pdf.html:593
 #: maintenance/templates/maintenance/partials/intervention_detail.html:180
 #: maintenance/templates/maintenance/partials/intervention_detail.html:221
-#: outillage/forms.py:35 outillage/forms.py:87 outillage/models.py:51
+#: outillage/forms.py:35 outillage/forms.py:87 outillage/models.py:52
 #: outillage/templates/outillage/delete_outillage.html:80
 #: outillage/templates/outillage/outillage_detail.html:57
 #: outillage/templates/outillage/outillage_list.html:45
 #: outillage/templates/outillage/outillage_list.html:68 panier/models.py:98
-#: piece/forms_stock.py:118 piece/forms_stock.py:142 piece/models.py:446
+#: piece/forms_stock.py:118 piece/forms_stock.py:142 piece/models.py:447
 #: piece/piece_roue_rechange/models.py:26
 #: piece/templates/piece/stock/_pieces_utilisees_pdf.html:13
 #: piece/templates/piece/stock/mouvements.html:64
@@ -19355,8 +19401,8 @@ msgid "Marge (%)"
 msgstr "Margin (%)"
 
 #: facture/models.py:835
-msgid "Taux de TVA : 6, 12, 21"
-msgstr "VAT rate: 6, 12, 21"
+msgid "Taux de TVA en % (par défaut : taux normal du pays de la société)"
+msgstr "VAT rate in % (default: standard rate of the company's country)"
 
 #: facture/models.py:839
 msgid "Ligne de facture"
@@ -19912,7 +19958,7 @@ msgstr "assigned upon issuance"
 #: voiture/voiture_diagnostic/models.py:42
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_detail.html:49
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_pdf.html:60
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:346
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:407
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/list.html:79
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/liste_exemplaires.html:53
 #: voiture/voiture_location/models.py:235
@@ -20902,7 +20948,7 @@ msgstr "All suppliers"
 
 #: facture/templates/facture/factures_a_payer.html:23
 #: facture/templates/facture/factures_a_payer.html:177 facture/tva.py:34
-#: facture/views.py:1254 outillage/models.py:13 outillage/models.py:127
+#: facture/views.py:1254 outillage/models.py:14 outillage/models.py:128
 #: outillage/templates/outillage/delete_outillage.html:72
 #: outillage/templates/outillage/outillage_detail.html:114
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:325
@@ -20924,7 +20970,7 @@ msgstr "External maintenance"
 #: maintenance/maintenance_externe/templates/maintenance_externe/carrosserie_detail.html:4
 #: maintenance/maintenance_externe/templates/maintenance_externe/carrosserie_detail.html:11
 #: maintenance/maintenance_externe/templates/maintenance_externe/carrosserie_list.html:4
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:271
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:332
 msgid "Carrosserie externe"
 msgstr "External bodywork"
 
@@ -21633,8 +21679,8 @@ msgstr "Parts VAT (recovered via purchases)"
 #: maintenance/systeme_freinage/renovation_machoires/templates/renovation_machoires/renovation_machoires_detail_pdf.html:681
 #: maintenance/systeme_freinage/tambours/templates/tambours/tambours_detail_pdf.html:664
 #: maintenance/systeme_freinage/tambours/templates/tambours/tambours_detail_pdf.html:697
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:256
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:324
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:317
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:385
 msgid "Main-d'œuvre HTVA"
 msgstr "Labour (excl. VAT)"
 
@@ -21719,6 +21765,8 @@ msgstr "VAT due"
 #: facture/tva.py:573 facture/tva.py:611 facture/views.py:901
 #: facture/views.py:946 fuel/templates/fuel/totaux/energie_totaux.html:190
 #: fuel/templates/fuel/totaux/energie_totaux_pdf.html:142
+#: voiture/voiture_exemplaire/forms.py:355
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:72
 msgid "TVA déductible"
 msgstr "Deductible VAT"
 
@@ -22364,33 +22412,33 @@ msgstr "General terms and conditions updated"
 msgid "Conditions générales de vente enregistrées."
 msgstr "General terms and conditions saved."
 
-#: fournisseur/models.py:58
+#: fournisseur/models.py:59
 msgid "ISO 3166-1 alpha-2"
 msgstr "ISO 3166-1 alpha-2"
 
-#: fournisseur/models.py:68
+#: fournisseur/models.py:69
 msgid "Email du fournisseur"
 msgstr "Supplier email"
 
-#: fournisseur/models.py:72
+#: fournisseur/models.py:73
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:93
 msgid "Téléphone fixe"
 msgstr "Landline"
 
-#: fournisseur/models.py:76
+#: fournisseur/models.py:77
 msgid "Numéro de téléphone fixe"
 msgstr "Landline number"
 
-#: fournisseur/models.py:80
+#: fournisseur/models.py:81
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:96
 msgid "GSM"
 msgstr "GSM"
 
-#: fournisseur/models.py:84
+#: fournisseur/models.py:85
 msgid "Numéro de téléphone mobile"
 msgstr "Mobile phone number"
 
-#: fournisseur/models.py:110
+#: fournisseur/models.py:111
 #, python-format
 msgid "%(nom)s"
 msgstr "%(nom)s"
@@ -23238,7 +23286,7 @@ msgstr "Diagnostic device"
 msgid "Détails"
 msgstr "Details"
 
-#: investissements/models.py:49
+#: investissements/models.py:49 voiture/voiture_exemplaire/forms.py:361
 msgid "Durée d'amortissement"
 msgstr "Depreciation period"
 
@@ -25881,7 +25929,7 @@ msgstr "ABS pump"
 #: maintenance/systeme_freinage/tambours/templates/tambours/tambours_detail_pdf.html:592
 #: maintenance/templates/maintenance/partials/intervention_detail.html:179
 #: maintenance/templates/maintenance/partials/intervention_detail.html:219
-#: piece/forms_stock.py:11 piece/forms_stock.py:136 piece/models.py:191
+#: piece/forms_stock.py:11 piece/forms_stock.py:136 piece/models.py:192
 #: piece/templates/piece/stock/_pieces_utilisees_pdf.html:11
 #: piece/templates/piece/stock/catalogue.html:75
 #: piece/templates/piece/stock/piece_fiche.html:29
@@ -26358,7 +26406,7 @@ msgstr "Wheel Torque Check"
 #: maintenance/systeme_freinage/nettoyage_freins/models.py:274
 #: maintenance/systeme_freinage/renovation_machoires/models.py:243
 #: maintenance/systeme_freinage/tambours/models.py:248
-#: voiture/voiture_exemplaire/models.py:412
+#: voiture/voiture_exemplaire/models.py:414
 msgid "État visuel / Tag"
 msgstr "Visual state / Tag"
 
@@ -26852,7 +26900,7 @@ msgstr "Hourly rate excl. VAT"
 #: maintenance/systeme_freinage/renovation_machoires/templates/renovation_machoires/renovation_machoires_detail_pdf.html:547
 #: maintenance/systeme_freinage/tambours/templates/tambours/tambours_detail_pdf.html:563
 #: maintenance/templates/maintenance/partials/intervention_detail.html:181
-#: outillage/forms.py:36 outillage/models.py:57
+#: outillage/forms.py:36 outillage/models.py:58
 #: outillage/templates/outillage/outillage_list.html:49
 #: outillage/templates/outillage/outillage_list.html:69
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_detail.html:119
@@ -28815,7 +28863,7 @@ msgstr "Front axle"
 #: maintenance/autres_interventions/accident/models.py:58
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2245
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:534
-#: piece/models.py:29
+#: piece/models.py:30
 msgid "Train arrière"
 msgstr "Rear axle"
 
@@ -29125,7 +29173,7 @@ msgstr "Radiator fan"
 #: maintenance/autres_interventions/moteur/casse_moteur/templates/casse_moteur/casse_form.html:100
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:143
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:156
-#: piece/models.py:20
+#: piece/models.py:21
 msgid "Échappement"
 msgstr "Exhaust systems"
 
@@ -29145,7 +29193,7 @@ msgstr "Engine block"
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:94
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:61
 #: maintenance/autres_interventions/bte_vitesse_auto/remplacement_bte_auto/models.py:94
-#: maintenance/autres_interventions/embrayage/models.py:63 piece/models.py:22
+#: maintenance/autres_interventions/embrayage/models.py:63 piece/models.py:23
 msgid "Boîte de vitesses"
 msgstr "Gearbox"
 
@@ -30477,6 +30525,8 @@ msgstr "Severity"
 #: maintenance/systeme_freinage/tambours/models.py:217 piece/forms_stock.py:29
 #: piece/templates/piece/stock/catalogue.html:79
 #: piece/templates/piece/stock/piece_fiche.html:33
+#: voiture/voiture_exemplaire/views.py:1104
+#: voiture/voiture_exemplaire/views.py:1105
 #: voiture/voiture_remorque/models.py:63
 #: voiture/voiture_remorque/templates/voiture_remorque/remorque_detail.html:56
 msgid "Prix d'achat HTVA"
@@ -35004,7 +35054,7 @@ msgstr ""
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:23
 #: maintenance/autres_interventions/bte_vitesse_auto/remplacement_bte_auto/models.py:23
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:22
-#: voiture/voiture_exemplaire/models.py:15
+#: voiture/voiture_exemplaire/models.py:17
 msgid "Privé"
 msgstr "Private"
 
@@ -35560,7 +35610,7 @@ msgstr "Gearbox inspection"
 #: maintenance/autres_interventions/embrayage/views.py:900
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:191
 #: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_form.html:74
-#: maintenance/models.py:55 piece/models.py:21
+#: maintenance/models.py:55 piece/models.py:22
 #: piece/piece_embrayage/models.py:72 theme/templates/dashboard.html:458
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:40
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/delier_composant.html:17
@@ -37115,7 +37165,7 @@ msgstr "Air outlet temperature (°C)"
 #: maintenance/autres_interventions/preparation_course/demontage/views.py:861
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:111
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:124
-#: maintenance/models.py:52 piece/models.py:36
+#: maintenance/models.py:52 piece/models.py:37
 msgid "Climatisation"
 msgstr "Air conditioning"
 
@@ -39560,7 +39610,7 @@ msgstr "Alignment mileage"
 #: maintenance/autres_interventions/models.py:12 maintenance/models.py:18
 #: maintenance/pneus/views.py:952
 #: maintenance/templates/maintenance/choisir_type.html:86
-#: maintenance/types_maintenances.py:8 piece/models.py:25
+#: maintenance/types_maintenances.py:8 piece/models.py:26
 #: piece/piece_pneus/models.py:55 theme/templates/dashboard.html:483
 #: theme/templates/dashboard.html:495
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:227
@@ -39626,7 +39676,7 @@ msgstr "Rear thrust"
 #: maintenance/autres_interventions/suspension/templates/suspension/dashboard_suspension.html:10
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:366
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:375
-#: piece/models.py:27
+#: piece/models.py:28
 msgid "Suspension"
 msgstr "Suspension"
 
@@ -40355,7 +40405,7 @@ msgid "Marque / référence"
 msgstr "Brand / reference"
 
 #: maintenance/autres_interventions/geometrie_course/templates/geometrie_course/geocourse_detail_pdf.html:278
-#: piece/models.py:243 piece/views_stock.py:110
+#: piece/models.py:244 piece/views_stock.py:110
 msgid "Longueur"
 msgstr "Length"
 
@@ -40474,7 +40524,7 @@ msgstr "Service"
 #: maintenance/freins/views.py:842 maintenance/models.py:17
 #: maintenance/systeme_freinage/templates/systeme_freinage/dashboard_freinage.html:15
 #: maintenance/templates/maintenance/choisir_type.html:75
-#: maintenance/types_maintenances.py:7 piece/models.py:24
+#: maintenance/types_maintenances.py:7 piece/models.py:25
 #: theme/templates/dashboard.html:468 theme/templates/dashboard.html:473
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:160
 msgid "Freins"
@@ -40636,7 +40686,7 @@ msgstr "Mileage cannot decrease."
 #: maintenance/templates/maintenance/partials/intervention_detail.html:70
 #: maintenance/templates/maintenance/partials/intervention_detail.html:74
 #: maintenance/templates/maintenance/partials/moteur_lie.html:10
-#: piece/models.py:12 theme/templates/dashboard.html:414
+#: piece/models.py:13 theme/templates/dashboard.html:414
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/delier_composant.html:17
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:74
 #: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:81
@@ -40689,7 +40739,7 @@ msgstr "Intake manifold"
 #: maintenance/autres_interventions/moteur/turbo/views.py:113
 #: maintenance/autres_interventions/moteur/turbo/views.py:712
 #: maintenance/autres_interventions/moteur/turbo/views.py:984
-#: maintenance/models.py:31 piece/models.py:18 piece/piece_moteur/models.py:44
+#: maintenance/models.py:31 piece/models.py:19 piece/piece_moteur/models.py:44
 #: voiture/voiture_moteur/models.py:12
 msgid "Turbo"
 msgstr "Turbocharger"
@@ -41483,7 +41533,7 @@ msgstr "Quantity (L)"
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:855
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:355
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:513
-#: piece/models.py:215 piece/templates/piece/piece_detail.html:33
+#: piece/models.py:216 piece/templates/piece/piece_detail.html:33
 #: piece/templates/piece/stock/piece_fiche.html:43 piece/views_stock.py:112
 msgid "Qualité"
 msgstr "Quality"
@@ -44511,7 +44561,7 @@ msgstr "Not applicable"
 #: maintenance/autres_interventions/moteur/montage_turbo/models.py:59
 #: monitoring/templates/monitoring/tableau.html:63
 #: monitoring/templates/monitoring/tenant.html:30
-#: voiture/voiture_exemplaire/models.py:686
+#: voiture/voiture_exemplaire/models.py:688
 msgid "—"
 msgstr "—"
 
@@ -44755,7 +44805,7 @@ msgstr "Bearing type"
 #: maintenance/check_up/admin.py:109
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:773
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:896
-#: maintenance/models.py:54 piece/models.py:19
+#: maintenance/models.py:54 piece/models.py:20
 #: voiture/voiture_diagnostic/pieces_defaut.py:157
 msgid "Refroidissement"
 msgstr "Cooling system"
@@ -46507,7 +46557,7 @@ msgstr "CAN bus 2 wires: CAN H / CAN L"
 #: maintenance/autres_interventions/plan_cablage/templates/plan_cablage/connecteur_form.html:46
 #: piece/templates/piece/stock/pieces_maintenance.html:82
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:383
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:233
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:294
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:95
 #: voiture/voiture_location/templates/voiture_location/trackday/detail.html:137
 msgid "Ajouter"
@@ -47536,12 +47586,12 @@ msgid "Suppression de l'intervention : Démontage et allègement"
 msgstr "Intervention deleted: Stripping and weight reduction"
 
 #: maintenance/autres_interventions/preparation_course/echappement_course/models.py:46
-#: piece/models.py:119
+#: piece/models.py:120
 msgid "Inox"
 msgstr "Stainless steel"
 
 #: maintenance/autres_interventions/preparation_course/echappement_course/models.py:47
-#: piece/models.py:120
+#: piece/models.py:121
 msgid "Titane"
 msgstr "Titanium"
 
@@ -48470,7 +48520,7 @@ msgid "Température de protection"
 msgstr "Protection temperature"
 
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:779
-#: piece/models.py:229 piece/templates/piece/piece_detail.html:44
+#: piece/models.py:230 piece/templates/piece/piece_detail.html:44
 #: piece/templates/piece/stock/piece_fiche.html:59
 msgid "Quantité utilisée"
 msgstr "Quantity used"
@@ -51509,7 +51559,7 @@ msgstr "Rear stabilizer bar"
 
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1777
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:846
-#: piece/models.py:30
+#: piece/models.py:31
 msgid "Roulements"
 msgstr "Bearings"
 
@@ -56871,7 +56921,7 @@ msgid "Kilométrage du contrôle de l'éclairage"
 msgstr "Mileage at lighting inspection"
 
 #: maintenance/eclairage/models.py:116 maintenance/entretien/models.py:118
-#: voiture/voiture_exemplaire/models.py:215
+#: voiture/voiture_exemplaire/models.py:217
 msgid "Kilomètres rollback entretien"
 msgstr "Service rollback mileage"
 
@@ -57095,7 +57145,7 @@ msgstr "Drain Plug Gasket"
 #: maintenance/entretien/templates/entretien/entretien_check.html:421
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:576
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:428
-#: piece/models.py:14 piece/piece_filtres/models.py:27
+#: piece/models.py:15 piece/piece_filtres/models.py:27
 msgid "Filtres"
 msgstr "Filters"
 
@@ -57368,7 +57418,7 @@ msgstr ""
 
 #: maintenance/essuyage/models.py:937 maintenance/essuyage/views.py:1342
 #: maintenance/models.py:57
-#: maintenance/templates/maintenance/choisir_type.html:167 piece/models.py:35
+#: maintenance/templates/maintenance/choisir_type.html:167 piece/models.py:36
 msgid "Essuyage"
 msgstr "Wiper system"
 
@@ -58792,8 +58842,8 @@ msgstr "Open the quote"
 
 #: maintenance/maintenance_externe/templates/maintenance_externe/carrosserie_detail.html:40
 #: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:39
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:255
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:324
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:316
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:385
 msgid "Pièces HTVA"
 msgstr "Parts excl. VAT"
 
@@ -60044,7 +60094,7 @@ msgstr "Pendulum engine silent block"
 
 #: maintenance/silent_blocs/models.py:721
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:349
-#: maintenance/silent_blocs/views.py:832 piece/models.py:31
+#: maintenance/silent_blocs/views.py:832 piece/models.py:32
 #: piece/piece_echappement/models.py:16
 msgid "Silent blocs"
 msgstr "Bushings"
@@ -60925,7 +60975,7 @@ msgid "Guidage et fixation"
 msgstr "Guiding and mounting"
 
 #: maintenance/systeme_freinage/renovation_machoires/templates/renovation_machoires/renovation_machoires_detail_pdf.html:496
-#: piece/models.py:251 piece/templates/piece/stock/piece_fiche.html:44
+#: piece/models.py:252 piece/templates/piece/stock/piece_fiche.html:44
 msgid "Finition"
 msgstr "Finishing"
 
@@ -61240,7 +61290,7 @@ msgid "Exemplaire"
 msgstr "Item"
 
 #: maintenance/templates/maintenance/detail.html:32 panier/models.py:47
-#: piece/models.py:233 piece/templates/piece/piece_detail.html:46
+#: piece/models.py:234 piece/templates/piece/piece_detail.html:46
 #: voiture/voiture_boite/forms.py:38
 msgid "Date de création"
 msgstr "Creation date"
@@ -62055,27 +62105,27 @@ msgstr "Select a supplier"
 msgid "La quantité doit être au moins égale à 1."
 msgstr "Quantity must be at least 1."
 
-#: outillage/models.py:15
+#: outillage/models.py:16
 msgid "Outillage – frais de transport"
 msgstr "Tools – transport costs"
 
-#: outillage/models.py:19 panier/models.py:16 panier/models.py:79
+#: outillage/models.py:20 panier/models.py:16 panier/models.py:79
 msgid "Identifiant"
 msgstr "Identifier"
 
-#: outillage/models.py:71
+#: outillage/models.py:72
 msgid "Montant calculé"
 msgstr "Calculated amount"
 
-#: outillage/models.py:128 theme/templates/dashboard.html:655
+#: outillage/models.py:129 theme/templates/dashboard.html:655
 msgid "Outillages"
 msgstr "Tools"
 
-#: outillage/models.py:147
+#: outillage/models.py:148
 msgid "Sans référence"
 msgstr "No reference"
 
-#: outillage/models.py:148
+#: outillage/models.py:149
 #, python-format
 msgid "%(libelle)s (%(reference)s) – %(quantite)s pcs"
 msgstr "%(libelle)s (%(reference)s) – %(quantite)s pcs"
@@ -62360,7 +62410,7 @@ msgid "Pays de la plaque"
 msgstr "Plate country"
 
 #: parking/models.py:351
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:169
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:230
 msgid "Depuis le"
 msgstr "Since"
 
@@ -62718,7 +62768,7 @@ msgstr "One EAN per line (or comma-separated). Scan them one after another."
 msgid "Stock initial"
 msgstr "Initial stock"
 
-#: piece/forms_stock.py:28 piece/models.py:187 piece/piece_fluides/forms.py:27
+#: piece/forms_stock.py:28 piece/models.py:188 piece/piece_fluides/forms.py:27
 #: piece/piece_fluides/forms.py:57
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:37
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:53
@@ -62781,8 +62831,8 @@ msgstr "Enter at least a description or an OEM code."
 msgid "Correction : quantité signée (+ ou −). Autres : quantité positive."
 msgstr "Correction: signed quantity (+ or −). Others: positive quantity."
 
-#: piece/forms_stock.py:123 piece/models.py:365 piece/models.py:420
-#: piece/models.py:483 piece/piece_fluides/models.py:190
+#: piece/forms_stock.py:123 piece/models.py:366 piece/models.py:421
+#: piece/models.py:484 piece/piece_fluides/models.py:190
 #: piece/templates/piece/stock/inventaires.html:34
 #: piece/templates/piece/stock/mouvements.html:69
 #: piece/templates/piece/stock/piece_fiche.html:92 piece/views_stock.py:231
@@ -62799,7 +62849,7 @@ msgstr "Scan or enter the code"
 msgid "Intitulé de la pièce"
 msgstr "Part name"
 
-#: piece/forms_stock.py:140 piece/models.py:194
+#: piece/forms_stock.py:140 piece/models.py:195
 msgid "Unité"
 msgstr "Unit"
 
@@ -62807,244 +62857,244 @@ msgstr "Unit"
 msgid "Scannez un code OEM / EAN ou indiquez la pièce."
 msgstr "Scan an OEM / EAN code or enter the part."
 
-#: piece/models.py:13 piece/piece_moteur/models.py:29
+#: piece/models.py:14 piece/piece_moteur/models.py:29
 #: voiture/voiture_moteur/forms.py:25
 #: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:95
 #: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:69
 msgid "Distribution"
 msgstr "Timing system"
 
-#: piece/models.py:15
+#: piece/models.py:16
 msgid "Fluides (huiles, liquides)"
 msgstr "Fluids (oils, liquids)"
 
-#: piece/models.py:16
+#: piece/models.py:17
 msgid "Allumage / bougies"
 msgstr "Ignition / spark plugs"
 
-#: piece/models.py:17
+#: piece/models.py:18
 msgid "Injection / admission"
 msgstr "Injection / intake"
 
-#: piece/models.py:23
+#: piece/models.py:24
 msgid "Transmission / cardans"
 msgstr "Transmission / drive shafts"
 
-#: piece/models.py:26
+#: piece/models.py:27
 msgid "Jantes / roues"
 msgstr "Rims / wheels"
 
-#: piece/models.py:28
+#: piece/models.py:29
 msgid "Train avant / direction"
 msgstr "Front axle / steering"
 
-#: piece/models.py:32
+#: piece/models.py:33
 msgid "Électricité / batterie / démarreur"
 msgstr "Electrics / battery / starter"
 
-#: piece/models.py:33
+#: piece/models.py:34
 msgid "Électronique / capteurs"
 msgstr "Electronics / sensors"
 
-#: piece/models.py:34
+#: piece/models.py:35
 msgid "Éclairage / ampoules"
 msgstr "Lighting / bulbs"
 
-#: piece/models.py:38
+#: piece/models.py:39
 msgid "Habitacle"
 msgstr "Interior"
 
-#: piece/models.py:39
+#: piece/models.py:40
 msgid "Esthétique / produits d'entretien"
 msgstr "Detailing / care products"
 
-#: piece/models.py:40
+#: piece/models.py:41
 msgid "Visserie (vis, écrous, rondelles)"
 msgstr "Fasteners (bolts, nuts, washers)"
 
-#: piece/models.py:45
+#: piece/models.py:46
 msgid "Pièce(s)"
 msgstr "Piece(s)"
 
-#: piece/models.py:46
+#: piece/models.py:47
 msgid "Litre(s)"
 msgstr "Litre(s)"
 
-#: piece/models.py:47
+#: piece/models.py:48
 msgid "Kilo(s)"
 msgstr "Kilo(s)"
 
-#: piece/models.py:48
+#: piece/models.py:49
 msgid "Mètre(s)"
 msgstr "Metre(s)"
 
-#: piece/models.py:49
+#: piece/models.py:50
 msgid "Kit(s)"
 msgstr "Kit(s)"
 
-#: piece/models.py:56
+#: piece/models.py:57
 msgid "Vis"
 msgstr "Bolt / screw"
 
-#: piece/models.py:57 piece/models.py:305
+#: piece/models.py:58 piece/models.py:306
 #: piece/templates/piece/stock/piece_fiche.html:42
 #: piece/templates/piece/stock/piece_form.html:85
 msgid "Écrou"
 msgstr "Nut"
 
-#: piece/models.py:58
+#: piece/models.py:59
 msgid "Rondelle"
 msgstr "Washer"
 
-#: piece/models.py:59
+#: piece/models.py:60
 msgid "Goujon"
 msgstr "Stud"
 
-#: piece/models.py:74
+#: piece/models.py:75
 msgid "Hexagonale (H)"
 msgstr "Hex (H)"
 
-#: piece/models.py:75
+#: piece/models.py:76
 msgid "Hexagonale à embase"
 msgstr "Hex flange"
 
-#: piece/models.py:76
+#: piece/models.py:77
 msgid "Cylindrique 6 pans creux (CHC / Allen)"
 msgstr "Socket head cap (Allen)"
 
-#: piece/models.py:77
+#: piece/models.py:78
 msgid "Torx"
 msgstr "Torx"
 
-#: piece/models.py:78
+#: piece/models.py:79
 msgid "Fraisée 6 pans creux"
 msgstr "Countersunk socket"
 
-#: piece/models.py:79
+#: piece/models.py:80
 msgid "Bombée 6 pans creux"
 msgstr "Button head socket"
 
-#: piece/models.py:80
+#: piece/models.py:81
 msgid "Cruciforme"
 msgstr "Phillips"
 
-#: piece/models.py:85
+#: piece/models.py:86
 msgid "Hexagonal"
 msgstr "Hex"
 
-#: piece/models.py:86
+#: piece/models.py:87
 msgid "Nylstop (frein nylon)"
 msgstr "Nyloc (nylon insert)"
 
-#: piece/models.py:87
+#: piece/models.py:88
 msgid "À embase"
 msgstr "Flange"
 
-#: piece/models.py:88
+#: piece/models.py:89
 msgid "À embase crantée"
 msgstr "Serrated flange"
 
-#: piece/models.py:89
+#: piece/models.py:90
 msgid "Borgne"
 msgstr "Dome / acorn"
 
-#: piece/models.py:90
+#: piece/models.py:91
 msgid "Autofreiné tout métal"
 msgstr "All-metal lock nut"
 
-#: piece/models.py:91
+#: piece/models.py:92
 msgid "Papillon"
 msgstr "Wing"
 
-#: piece/models.py:92
+#: piece/models.py:93
 msgid "Cage"
 msgstr "Cage"
 
-#: piece/models.py:93
+#: piece/models.py:94
 msgid "À souder"
 msgstr "Weld"
 
-#: piece/models.py:104
+#: piece/models.py:105
 msgid "Classe 6 (écrou)"
 msgstr "Class 6 (nut)"
 
-#: piece/models.py:105
+#: piece/models.py:106
 msgid "Classe 8 (écrou)"
 msgstr "Class 8 (nut)"
 
-#: piece/models.py:106
+#: piece/models.py:107
 msgid "Classe 10 (écrou)"
 msgstr "Class 10 (nut)"
 
-#: piece/models.py:107
+#: piece/models.py:108
 msgid "Classe 12 (écrou)"
 msgstr "Class 12 (nut)"
 
-#: piece/models.py:108
+#: piece/models.py:109
 msgid "Inox A2-70"
 msgstr "Stainless A2-70"
 
-#: piece/models.py:109
+#: piece/models.py:110
 msgid "Inox A4-70"
 msgstr "Stainless A4-70"
 
-#: piece/models.py:110
+#: piece/models.py:111
 msgid "Inox A4-80"
 msgstr "Stainless A4-80"
 
-#: piece/models.py:111
+#: piece/models.py:112
 msgid "Titane grade 5"
 msgstr "Titanium grade 5"
 
-#: piece/models.py:115
+#: piece/models.py:116
 msgid "Zingué"
 msgstr "Zinc plated"
 
-#: piece/models.py:116
+#: piece/models.py:117
 msgid "Noir / brut"
 msgstr "Black / plain"
 
-#: piece/models.py:117
+#: piece/models.py:118
 msgid "Galvanisé"
 msgstr "Hot-dip galvanised"
 
-#: piece/models.py:118
+#: piece/models.py:119
 msgid "Zinc lamellaire (Géomet)"
 msgstr "Zinc flake (Geomet)"
 
-#: piece/models.py:133
+#: piece/models.py:134
 msgid "Code-barre"
 msgstr "Barcode"
 
-#: piece/models.py:183 piece/templates/piece/piece_detail.html:12
+#: piece/models.py:184 piece/templates/piece/piece_detail.html:12
 #: piece/templates/piece/piece_form.html:31
 msgid "Fabricants"
 msgstr "Manufacturers"
 
-#: piece/models.py:192 piece/templates/piece/stock/piece_fiche.html:30
+#: piece/models.py:193 piece/templates/piece/stock/piece_fiche.html:30
 msgid "Référence fabricant"
 msgstr "Manufacturer reference"
 
-#: piece/models.py:201 piece/templates/piece/piece_detail.html:20
+#: piece/models.py:202 piece/templates/piece/piece_detail.html:20
 #: piece/templates/piece/piece_form.html:54
 msgid "Codes-barres"
 msgstr "Barcodes"
 
-#: piece/models.py:207 piece/piece_roue_rechange/models.py:23
+#: piece/models.py:208 piece/piece_roue_rechange/models.py:23
 #: piece/templates/piece/piece_detail.html:30
 msgid "Site"
 msgstr "Location"
 
-#: piece/models.py:212
+#: piece/models.py:213
 msgid "A-Z / 1-4 / 1-50"
 msgstr "A-Z / 1-4 / 1-50"
 
-#: piece/models.py:213 piece/templates/piece/piece_detail.html:32
+#: piece/models.py:214 piece/templates/piece/piece_detail.html:32
 #: piece/templates/piece/piece_form.html:68
 msgid "Emplacement étagère"
 msgstr "Shelf location"
 
-#: piece/models.py:218 piece/templates/piece/piece_detail.html:34
+#: piece/models.py:219 piece/templates/piece/piece_detail.html:34
 #: piece/templates/piece/stock/catalogue.html:73
 #: piece/templates/piece/stock/inventaire_detail.html:46
 #: piece/templates/piece/stock/piece_fiche.html:26
@@ -63053,144 +63103,144 @@ msgstr "Shelf location"
 msgid "Code OEM"
 msgstr "OEM code"
 
-#: piece/models.py:221 piece/templates/piece/piece_detail.html:35
+#: piece/models.py:222 piece/templates/piece/piece_detail.html:35
 #: piece/templates/piece/piece_form.html:84
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:91
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:150
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:53
 msgid "Prix d'achat"
 msgstr "Purchase price"
 
-#: piece/models.py:222
+#: piece/models.py:223
 msgid "Majoration (%)"
 msgstr "Markup (%)"
 
-#: piece/models.py:224 piece/templates/piece/piece_form.html:108
+#: piece/models.py:225 piece/templates/piece/piece_form.html:108
 msgid "Prix de vente"
 msgstr "Sale price"
 
-#: piece/models.py:228 piece/templates/piece/piece_detail.html:43
+#: piece/models.py:229 piece/templates/piece/piece_detail.html:43
 #: piece/templates/piece/piece_form.html:76
 #: piece/templates/piece/piece_list.html:57
 msgid "Quantité en stock"
 msgstr "Stock quantity"
 
-#: piece/models.py:230 piece/templates/piece/piece_detail.html:45
+#: piece/models.py:231 piece/templates/piece/piece_detail.html:45
 msgid "Quantité minimale"
 msgstr "Minimum quantity"
 
-#: piece/models.py:237
+#: piece/models.py:238
 msgid "Type de visserie"
 msgstr "Fastener type"
 
-#: piece/models.py:239
+#: piece/models.py:240
 msgid "Diamètre (M)"
 msgstr "Diameter (M)"
 
-#: piece/models.py:241
+#: piece/models.py:242
 msgid "Pas de vis"
 msgstr "Thread pitch"
 
-#: piece/models.py:245
+#: piece/models.py:246
 msgid "Tête de vis"
 msgstr "Head type"
 
-#: piece/models.py:247 piece/views_stock.py:111
+#: piece/models.py:248 piece/views_stock.py:111
 msgid "Type d'écrou"
 msgstr "Nut type"
 
-#: piece/models.py:249
+#: piece/models.py:250
 msgid "Qualité / classe"
 msgstr "Grade / class"
 
-#: piece/models.py:254
+#: piece/models.py:255
 msgid "Organe"
 msgstr "Component"
 
-#: piece/models.py:363
+#: piece/models.py:364
 msgid "+ entrée / - sortie"
 msgstr "+ in / - out"
 
-#: piece/models.py:364 piece/models.py:413 piece/piece_fluides/models.py:186
+#: piece/models.py:365 piece/models.py:414 piece/piece_fluides/models.py:186
 #: piece/templates/piece/stock/mouvements.html:65
 #: piece/templates/piece/stock/piece_fiche.html:88 piece/views_stock.py:230
 msgid "Stock après"
 msgstr "Stock after"
 
-#: piece/models.py:369 piece/templates/piece/stock/inventaire_detail.html:4
+#: piece/models.py:370 piece/templates/piece/stock/inventaire_detail.html:4
 #: piece/templates/piece/stock/inventaire_detail.html:8
 msgid "Inventaire"
 msgstr "Inventory"
 
-#: piece/models.py:370 piece/templates/piece/stock/_nav.html:12
+#: piece/models.py:371 piece/templates/piece/stock/_nav.html:12
 #: piece/templates/piece/stock/inventaires.html:4
 #: piece/templates/piece/stock/inventaires.html:8
 msgid "Inventaires"
 msgstr "Inventories"
 
-#: piece/models.py:373
+#: piece/models.py:374
 #, python-format
 msgid "%(piece)s : %(variation)d"
 msgstr "%(piece)s: %(variation)d"
 
-#: piece/models.py:401
+#: piece/models.py:402
 msgid "Entrée (achat / réception)"
 msgstr "Receipt (purchase / delivery)"
 
-#: piece/models.py:402
+#: piece/models.py:403
 msgid "Sortie (utilisation / facture)"
 msgstr "Issue (use / invoice)"
 
-#: piece/models.py:403
+#: piece/models.py:404
 msgid "Régularisation d'inventaire"
 msgstr "Inventory adjustment"
 
-#: piece/models.py:404
+#: piece/models.py:405
 msgid "Correction manuelle"
 msgstr "Manual correction"
 
-#: piece/models.py:405
+#: piece/models.py:406
 msgid "Retour fournisseur / annulation"
 msgstr "Supplier return / cancellation"
 
-#: piece/models.py:411
+#: piece/models.py:412
 msgid "Quantité (+/-)"
 msgstr "Quantity (+/-)"
 
-#: piece/models.py:412 piece/templates/piece/stock/piece_fiche.html:87
+#: piece/models.py:413 piece/templates/piece/stock/piece_fiche.html:87
 #: piece/views_stock.py:230
 msgid "Stock avant"
 msgstr "Stock before"
 
-#: piece/models.py:426 piece/templates/piece/stock/piece_fiche.html:64
+#: piece/models.py:427 piece/templates/piece/stock/piece_fiche.html:64
 msgid "Mouvement de stock"
 msgstr "Stock movement"
 
-#: piece/models.py:427
+#: piece/models.py:428
 msgid "Mouvements de stock"
 msgstr "Stock movements"
 
-#: piece/models.py:445
+#: piece/models.py:446
 msgid "Ligne de l'intervention"
 msgstr "Intervention line"
 
-#: piece/models.py:449
+#: piece/models.py:450
 msgid "Sortie de stock"
 msgstr "Stock issue"
 
-#: piece/models.py:458 piece/templates/piece/stock/pieces_maintenance.html:4
+#: piece/models.py:459 piece/templates/piece/stock/pieces_maintenance.html:4
 #: piece/templates/piece/stock/pieces_maintenance.html:11
 msgid "Pièces utilisées"
 msgstr "Used parts"
 
-#: piece/models.py:481
+#: piece/models.py:482
 msgid "Catégorie (vide = toutes)"
 msgstr "Category (empty = all)"
 
-#: piece/models.py:489
+#: piece/models.py:490
 msgid "Inventaire de stock"
 msgstr "Stock inventory"
 
-#: piece/models.py:490
+#: piece/models.py:491
 msgid "Inventaires de stock"
 msgstr "Stock inventories"
 
@@ -66216,30 +66266,30 @@ msgstr ""
 "The VAT number must start with a valid European country code (e.g., BE, FR, "
 "DE...)."
 
-#: societe_cliente/models.py:29
+#: societe_cliente/models.py:30
 msgid "Nom de la societe"
 msgstr "Company name"
 
-#: societe_cliente/models.py:36
+#: societe_cliente/models.py:37
 msgid "Nom du Directeur"
 msgstr "Director's last name"
 
-#: societe_cliente/models.py:64
+#: societe_cliente/models.py:65
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:105
 #: utilisateurs/forms_tenants.py:25
 #: utilisateurs/templates/utilisateurs/tenants/tenant_detail.html:36
 msgid "Site internet"
 msgstr "Website"
 
-#: societe_cliente/models.py:72
+#: societe_cliente/models.py:73
 msgid "Peppol id"
 msgstr "Peppol ID"
 
-#: societe_cliente/models.py:105
+#: societe_cliente/models.py:106
 msgid "Numero d'entreprise"
 msgstr "Company number"
 
-#: societe_cliente/models.py:112
+#: societe_cliente/models.py:113
 msgid "Taux de tva"
 msgstr "VAT rate"
 
@@ -69357,6 +69407,7 @@ msgid "Caisse de vacances"
 msgstr "Holiday fund"
 
 #: utilisateurs/templates/utilisateurs/paie/conges_liste.html:81
+#: voiture/voiture_exemplaire/forms.py:375
 msgid "mois"
 msgstr "months"
 
@@ -72904,6 +72955,69 @@ msgstr "Unable to delete this clutch: it is still referenced by other data."
 msgid "Embrayage supprimé avec succès."
 msgstr "Clutch system deleted successfully."
 
+#: voiture/voiture_exemplaire/financement.py:47
+msgid "Charges financières – intérêts"
+msgstr "Financial charges – interest"
+
+#: voiture/voiture_exemplaire/financement.py:49
+msgid "TVA non déductible (véhicules)"
+msgstr "Non-deductible VAT (vehicles)"
+
+#: voiture/voiture_exemplaire/financement.py:50
+msgid "Locations de véhicules (renting / leasing opérationnel)"
+msgstr "Vehicle rentals (renting / operating lease)"
+
+#: voiture/voiture_exemplaire/financement.py:81
+msgid "Véhicule de location"
+msgstr "Rental vehicle"
+
+#: voiture/voiture_exemplaire/financement.py:81
+msgid "Véhicule de société"
+msgstr "Company vehicle"
+
+#: voiture/voiture_exemplaire/financement.py:82
+msgid "Véhicule privé"
+msgstr "Private vehicle"
+
+#: voiture/voiture_exemplaire/financement.py:260
+#: voiture/voiture_exemplaire/financement.py:261
+msgid "Versement du prêt"
+msgstr "Loan disbursement"
+
+#: voiture/voiture_exemplaire/financement.py:263
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:73
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:111
+#: voiture/voiture_exemplaire/views.py:1118
+msgid "Mensualité"
+msgstr "Monthly instalment"
+
+#: voiture/voiture_exemplaire/financement.py:270
+msgid "Contrat de location-financement"
+msgstr "Finance lease contract"
+
+#: voiture/voiture_exemplaire/financement.py:275
+msgid "Premier loyer / apport"
+msgstr "First payment / down payment"
+
+#: voiture/voiture_exemplaire/financement.py:282
+msgid "Levée d’option"
+msgstr "Exercise of the purchase option"
+
+#: voiture/voiture_exemplaire/financement.py:283
+#: voiture/voiture_exemplaire/financement.py:297
+msgid "Loyer"
+msgstr "Lease payment"
+
+#: voiture/voiture_exemplaire/financement.py:291
+msgid "Premier loyer majoré"
+msgstr "Increased first payment"
+
+#: voiture/voiture_exemplaire/financement.py:341
+msgid ""
+"Créée automatiquement depuis le financement du véhicule (ne pas modifier "
+"ici)."
+msgstr "Created automatically from the vehicle financing (do not edit here)."
+
 #: voiture/voiture_exemplaire/forms.py:22
 msgid "Indiquez le kilométrage de départ du véhicule d'occasion."
 msgstr "Enter the starting mileage of the used vehicle."
@@ -72921,13 +73035,15 @@ msgstr "Date of first registration"
 
 #: voiture/voiture_exemplaire/forms.py:86
 #: voiture/voiture_exemplaire/forms.py:250
-#: voiture/voiture_exemplaire/models.py:283
+#: voiture/voiture_exemplaire/models.py:285
 msgid "Véhicule acheté"
 msgstr "Vehicle bought"
 
 #: voiture/voiture_exemplaire/forms.py:87
 #: voiture/voiture_exemplaire/forms.py:256
-#: voiture/voiture_exemplaire/models.py:325
+#: voiture/voiture_exemplaire/models.py:327
+#: voiture/voiture_exemplaire/views.py:1104
+#: voiture/voiture_exemplaire/views.py:1105
 #: voiture/voiture_jantes/models.py:209
 #: voiture/voiture_jantes/templates/voiture_jantes/detail.html:52
 #: voiture/voiture_remorque/models.py:65
@@ -72990,12 +73106,12 @@ msgid "Kilométrage à la création du véhicule (km)"
 msgstr "Mileage when the vehicle was created (km)"
 
 #: voiture/voiture_exemplaire/forms.py:262
-#: voiture/voiture_exemplaire/models.py:359
+#: voiture/voiture_exemplaire/models.py:361
 msgid "Consommation moyenne (L/100 km)"
 msgstr "Average consumption (L/100 km)"
 
 #: voiture/voiture_exemplaire/forms.py:263
-#: voiture/voiture_exemplaire/models.py:366
+#: voiture/voiture_exemplaire/models.py:368
 msgid "Prix approximatif du carburant (€/L TVAC)"
 msgstr "Approximate fuel price (€/L incl. VAT)"
 
@@ -73043,6 +73159,130 @@ msgid ""
 "Le kilométrage à la création ne peut pas dépasser le kilométrage actuel "
 "(%(km)s km)."
 msgstr "The mileage at creation cannot exceed the current mileage (%(km)s km)."
+
+#: voiture/voiture_exemplaire/forms.py:350
+msgid "Banque / société de leasing"
+msgstr "Bank / leasing company"
+
+#: voiture/voiture_exemplaire/forms.py:351
+msgid "N° de contrat ou de facture"
+msgstr "Contract or invoice number"
+
+#: voiture/voiture_exemplaire/forms.py:352
+msgid "Date d'achat / début du contrat"
+msgstr "Purchase date / contract start"
+
+#: voiture/voiture_exemplaire/forms.py:353
+msgid "Prix du véhicule HTVA"
+msgstr "Vehicle price excl. VAT"
+
+#: voiture/voiture_exemplaire/forms.py:356
+msgid "Apport / premier loyer"
+msgstr "Down payment / first payment"
+
+#: voiture/voiture_exemplaire/forms.py:357
+msgid "Durée"
+msgstr "Term"
+
+#: voiture/voiture_exemplaire/forms.py:358
+msgid "Taux d'intérêt annuel"
+msgstr "Annual interest rate"
+
+#: voiture/voiture_exemplaire/forms.py:359
+msgid "Mensualité / loyer"
+msgstr "Monthly instalment / lease payment"
+
+#: voiture/voiture_exemplaire/forms.py:360
+msgid "Option d'achat (fin de contrat)"
+msgstr "Purchase option (end of contract)"
+
+#: voiture/voiture_exemplaire/forms.py:362
+msgid "Compte de paiement"
+msgstr "Payment account"
+
+#: voiture/voiture_exemplaire/forms.py:366
+msgid "Prix catalogue remisé, options comprises, hors TVA."
+msgstr "Discounted list price, options included, excl. VAT."
+
+#: voiture/voiture_exemplaire/forms.py:367
+msgid ""
+"Crédit : montant payé comptant (TVAC). Leasing / renting : premier loyer "
+"majoré (HTVA)."
+msgstr ""
+"Loan: amount paid in cash (incl. VAT). Leasing / renting: increased first "
+"payment (excl. VAT)."
+
+#: voiture/voiture_exemplaire/forms.py:368
+msgid ""
+"Laisser vide pour la calculer (annuité constante). Obligatoire en renting "
+"(HTVA)."
+msgstr ""
+"Leave empty to calculate it (constant annuity). Required for renting (excl. "
+"VAT)."
+
+#: voiture/voiture_exemplaire/forms.py:369
+msgid "Montant HTVA payé pour devenir propriétaire en fin de leasing."
+msgstr "Amount excl. VAT paid to become the owner at the end of the lease."
+
+#: voiture/voiture_exemplaire/forms.py:370
+msgid "Compte débité des paiements (domiciliation). Vide : banque par défaut."
+msgstr "Account debited for the payments (direct debit). Empty: default bank."
+
+#: voiture/voiture_exemplaire/forms.py:389
+msgid "— Banque par défaut —"
+msgstr "— Default bank —"
+
+#: voiture/voiture_exemplaire/forms.py:396
+msgid "calculée"
+msgstr "calculated"
+
+#: voiture/voiture_exemplaire/forms.py:407
+#, python-format
+msgid "auto : %(t)s"
+msgstr "auto: %(t)s"
+
+#: voiture/voiture_exemplaire/forms.py:408
+#, python-format
+msgid "Vide = automatique selon l'usage et le pays (%(t)s %%)."
+msgstr "Empty = automatic based on use and country (%(t)s %%)."
+
+#: voiture/voiture_exemplaire/forms.py:412
+#, python-format
+msgid "auto : %(d)s"
+msgstr "auto: %(d)s"
+
+#: voiture/voiture_exemplaire/forms.py:413
+#, python-format
+msgid "Vide = durée usuelle du pays (%(d)s ans)."
+msgstr "Empty = usual period in the country (%(d)s years)."
+
+#: voiture/voiture_exemplaire/forms.py:415
+msgid "ex. BNP Paribas Fortis, Arval, ING Lease…"
+msgstr "e.g. BNP Paribas Fortis, Arval, ING Lease…"
+
+#: voiture/voiture_exemplaire/forms.py:416
+msgid "ex. LS-2026-00123"
+msgstr "e.g. LS-2026-00123"
+
+#: voiture/voiture_exemplaire/forms.py:417
+msgid "Kilométrage annuel prévu, entretien inclus, pneus…"
+msgstr "Planned annual mileage, maintenance included, tyres…"
+
+#: voiture/voiture_exemplaire/forms.py:427
+msgid "Indiquez la valeur du véhicule HTVA."
+msgstr "Enter the vehicle value excl. VAT."
+
+#: voiture/voiture_exemplaire/forms.py:429
+msgid "Indiquez la durée du contrat."
+msgstr "Enter the contract term."
+
+#: voiture/voiture_exemplaire/forms.py:431
+msgid "Indiquez le loyer mensuel HTVA."
+msgstr "Enter the monthly lease payment excl. VAT."
+
+#: voiture/voiture_exemplaire/forms.py:433
+msgid "L'option d'achat ne peut pas dépasser la valeur du véhicule."
+msgstr "The purchase option cannot exceed the vehicle value."
 
 #: voiture/voiture_exemplaire/immatriculation.py:51
 msgid "Standard (1-ABC-123)"
@@ -73143,65 +73383,65 @@ msgstr ""
 msgid "L'immatriculation ne peut pas dépasser %(max)s caractères."
 msgstr "The registration number cannot exceed %(max)s characters."
 
-#: voiture/voiture_exemplaire/models.py:18
+#: voiture/voiture_exemplaire/models.py:20
 msgid "Véhicule utilitaire (société)"
 msgstr "Commercial vehicle (company)"
 
-#: voiture/voiture_exemplaire/models.py:57
+#: voiture/voiture_exemplaire/models.py:59
 msgid "Norvège"
 msgstr "Norway"
 
-#: voiture/voiture_exemplaire/models.py:58
-#: voiture/voiture_exemplaire/models.py:689
+#: voiture/voiture_exemplaire/models.py:60
+#: voiture/voiture_exemplaire/models.py:691
 msgid "Suisse"
 msgstr "Switzerland"
 
-#: voiture/voiture_exemplaire/models.py:62
+#: voiture/voiture_exemplaire/models.py:64
 msgid "1000 km"
 msgstr "1000 km"
 
-#: voiture/voiture_exemplaire/models.py:63
+#: voiture/voiture_exemplaire/models.py:65
 msgid "2000 km"
 msgstr "2000 km"
 
-#: voiture/voiture_exemplaire/models.py:64
+#: voiture/voiture_exemplaire/models.py:66
 msgid "3000 km"
 msgstr "3000 km"
 
-#: voiture/voiture_exemplaire/models.py:65
+#: voiture/voiture_exemplaire/models.py:67
 msgid "4000 km"
 msgstr "4000 km"
 
-#: voiture/voiture_exemplaire/models.py:66
-#: voiture/voiture_exemplaire/models.py:69
+#: voiture/voiture_exemplaire/models.py:68
+#: voiture/voiture_exemplaire/models.py:71
 msgid "5000 km"
 msgstr "5000 km"
 
-#: voiture/voiture_exemplaire/models.py:70
+#: voiture/voiture_exemplaire/models.py:72
 msgid "7500 km"
 msgstr "7500 km"
 
-#: voiture/voiture_exemplaire/models.py:71
+#: voiture/voiture_exemplaire/models.py:73
 msgid "10000 km"
 msgstr "10000 km"
 
-#: voiture/voiture_exemplaire/models.py:72
+#: voiture/voiture_exemplaire/models.py:74
 msgid "12500 km"
 msgstr "12500 km"
 
-#: voiture/voiture_exemplaire/models.py:73
+#: voiture/voiture_exemplaire/models.py:75
 msgid "15000 km"
 msgstr "15000 km"
 
-#: voiture/voiture_exemplaire/models.py:74
+#: voiture/voiture_exemplaire/models.py:76
 msgid "20000 km"
 msgstr "20000 km"
 
-#: voiture/voiture_exemplaire/models.py:75
+#: voiture/voiture_exemplaire/models.py:77
 msgid "25000 km"
 msgstr "25000 km"
 
-#: voiture/voiture_exemplaire/models.py:135
+#: voiture/voiture_exemplaire/models.py:137
 msgid ""
 "Le numéro VIN doit contenir exactement 17 caractères alphanumériques (lettres"
 " A-H, J-N, P, R-Z et chiffres)."
@@ -73209,91 +73449,199 @@ msgstr ""
 "The VIN must contain exactly 17 alphanumeric characters (letters A-H, J-N, P,"
 " R-Z and digits)."
 
-#: voiture/voiture_exemplaire/models.py:183
+#: voiture/voiture_exemplaire/models.py:185
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:60
 msgid "Coté conducteur"
 msgstr "Driver's side"
 
-#: voiture/voiture_exemplaire/models.py:201
+#: voiture/voiture_exemplaire/models.py:203
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:55
 msgid "Kilométrage de rodage"
 msgstr "Running-in Mileage"
 
-#: voiture/voiture_exemplaire/models.py:207
+#: voiture/voiture_exemplaire/models.py:209
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:55
 msgid "Intervalle d'entretien"
 msgstr "Service interval"
 
-#: voiture/voiture_exemplaire/models.py:274
+#: voiture/voiture_exemplaire/models.py:276
 msgid "Neuf"
 msgstr "New"
 
-#: voiture/voiture_exemplaire/models.py:275
+#: voiture/voiture_exemplaire/models.py:277
 msgid "Occasion"
 msgstr "Used"
 
-#: voiture/voiture_exemplaire/models.py:290
+#: voiture/voiture_exemplaire/models.py:292
 msgid "Kilométrage de départ"
 msgstr "Starting mileage"
 
-#: voiture/voiture_exemplaire/models.py:334
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:93
+#: voiture/voiture_exemplaire/models.py:336
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:152
 msgid "Autres frais d'achat"
 msgstr "Other purchase costs"
 
-#: voiture/voiture_exemplaire/models.py:342
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:109
+#: voiture/voiture_exemplaire/models.py:344
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:170
 msgid "Valeur de revente"
 msgstr "Resale value"
 
-#: voiture/voiture_exemplaire/models.py:350
+#: voiture/voiture_exemplaire/models.py:352
 msgid "Kilométrage à la création du véhicule"
 msgstr "Mileage when the vehicle was created"
 
-#: voiture/voiture_exemplaire/models.py:680
+#: voiture/voiture_exemplaire/models.py:682
 msgid "Taxe de circulation"
 msgstr "Road tax"
 
-#: voiture/voiture_exemplaire/models.py:681
+#: voiture/voiture_exemplaire/models.py:683
 msgid "Vignette / péage"
 msgstr "Vignette / toll"
 
-#: voiture/voiture_exemplaire/models.py:682
+#: voiture/voiture_exemplaire/models.py:684
 #: voiture/voiture_remorque/templates/voiture_remorque/remorque_list.html:55
 msgid "Contrôle technique"
 msgstr "Technical inspection"
 
-#: voiture/voiture_exemplaire/models.py:687
+#: voiture/voiture_exemplaire/models.py:689
 msgid "Allemagne (Umweltplakette)"
 msgstr "Germany (Umweltplakette)"
 
-#: voiture/voiture_exemplaire/models.py:690
+#: voiture/voiture_exemplaire/models.py:692
 msgid "France (Crit'Air)"
 msgstr "France (Crit'Air)"
 
-#: voiture/voiture_exemplaire/models.py:691
+#: voiture/voiture_exemplaire/models.py:693
 msgid "Belgique (LEZ)"
 msgstr "Belgium (LEZ)"
 
-#: voiture/voiture_exemplaire/models.py:701
+#: voiture/voiture_exemplaire/models.py:703
 msgid "Autre pays"
 msgstr "Other country"
 
-#: voiture/voiture_exemplaire/models.py:720
+#: voiture/voiture_exemplaire/models.py:722
 msgid "Coût annuel du véhicule"
 msgstr "Annual vehicle cost"
 
-#: voiture/voiture_exemplaire/models.py:721
+#: voiture/voiture_exemplaire/models.py:723
 msgid "Coûts annuels du véhicule"
 msgstr "Annual vehicle costs"
+
+#: voiture/voiture_exemplaire/models.py:736
+msgid "Achat comptant"
+msgstr "Cash purchase"
+
+#: voiture/voiture_exemplaire/models.py:737
+msgid "Achat financé par crédit"
+msgstr "Loan-financed purchase"
+
+#: voiture/voiture_exemplaire/models.py:738
+msgid "Leasing financier (location-financement)"
+msgstr "Finance lease"
+
+#: voiture/voiture_exemplaire/models.py:739
+msgid "Renting / leasing opérationnel"
+msgstr "Renting / operating lease"
+
+#: voiture/voiture_exemplaire/models.py:744
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:66
+msgid "Mode de financement"
+msgstr "Financing method"
+
+#: voiture/voiture_exemplaire/models.py:745
+msgid "Organisme (banque, société de leasing)"
+msgstr "Provider (bank, leasing company)"
+
+#: voiture/voiture_exemplaire/models.py:746
+msgid "Référence du contrat / de la facture"
+msgstr "Contract / invoice reference"
+
+#: voiture/voiture_exemplaire/models.py:747
+msgid "Date d'achat / de début du contrat"
+msgstr "Purchase date / contract start date"
+
+#: voiture/voiture_exemplaire/models.py:749
+msgid "Valeur du véhicule HTVA"
+msgstr "Vehicle value excl. VAT"
+
+#: voiture/voiture_exemplaire/models.py:750
+msgid ""
+"Prix d'achat HTVA (achat, crédit) ou valeur financée du véhicule (leasing). "
+"Renting : facultatif."
+msgstr ""
+"Purchase price excl. VAT (purchase, loan) or financed value of the vehicle "
+"(leasing). Renting: optional."
+
+#: voiture/voiture_exemplaire/models.py:757
+msgid ""
+"Vide : selon l'usage et le pays (location 100 %, voiture de société 50 % en "
+"Belgique, 100 % en Allemagne, 0 % en France ; véhicule privé : non "
+"comptabilisé)."
+msgstr ""
+"Empty: based on use and country (rental 100%, company car 50% in Belgium, "
+"100% in Germany, 0% in France; private vehicle: not booked)."
+
+#: voiture/voiture_exemplaire/models.py:761
+msgid "Apport / acompte / premier loyer majoré"
+msgstr "Down payment / deposit / increased first payment"
+
+#: voiture/voiture_exemplaire/models.py:763
+msgid ""
+"Crédit : montant payé comptant (TVAC). Leasing / renting : premier loyer "
+"majoré HTVA."
+msgstr ""
+"Loan: amount paid in cash (incl. VAT). Leasing / renting: increased first "
+"payment excl. VAT."
+
+#: voiture/voiture_exemplaire/models.py:765
+msgid "Durée du contrat (mois)"
+msgstr "Contract term (months)"
+
+#: voiture/voiture_exemplaire/models.py:766
+msgid "Taux d'intérêt annuel (%)"
+msgstr "Annual interest rate (%)"
+
+#: voiture/voiture_exemplaire/models.py:769
+msgid "Mensualité / loyer mensuel"
+msgstr "Monthly instalment / monthly lease payment"
+
+#: voiture/voiture_exemplaire/models.py:771
+msgid ""
+"Leasing : loyer HTVA ; crédit : mensualité. Vide : calculée (annuité "
+"constante). Renting : obligatoire (loyer HTVA)."
+msgstr ""
+"Leasing: lease payment excl. VAT; loan: monthly instalment. Empty: calculated"
+" (constant annuity). Renting: required (excl. VAT)."
+
+#: voiture/voiture_exemplaire/models.py:775
+msgid "Option d'achat / valeur résiduelle HTVA"
+msgstr "Purchase option / residual value excl. VAT"
+
+#: voiture/voiture_exemplaire/models.py:776
+msgid "Leasing financier : montant de la levée d'option en fin de contrat."
+msgstr ""
+"Finance lease: amount of the purchase option at the end of the contract."
+
+#: voiture/voiture_exemplaire/models.py:780
+msgid "Vide : durée usuelle du pays (Belgique 5 ans, Allemagne 6 ans…)."
+msgstr ""
+"Empty: usual period in the country (Belgium 5 years, Germany 6 years…)."
+
+#: voiture/voiture_exemplaire/models.py:791
+msgid "Financement de véhicule"
+msgstr "Vehicle financing"
+
+#: voiture/voiture_exemplaire/models.py:792
+msgid "Financements de véhicules"
+msgstr "Vehicle financings"
 
 #: voiture/voiture_exemplaire/rentabilite.py:287
 #, python-format
 msgid "montant annuel par défaut (%(mois)s/12 mois)"
 msgstr "default annual amount (%(mois)s/12 months)"
 
-#: voiture/voiture_exemplaire/rentabilite.py:330
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:124
+#: voiture/voiture_exemplaire/rentabilite.py:341
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:185
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:129
 msgid "Carburant non encodé (estimation)"
 msgstr "Unrecorded fuel (estimate)"
@@ -73485,7 +73833,7 @@ msgid "Compétition"
 msgstr "Competition"
 
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:348
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:254
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:315
 #: voiture/voiture_jantes/templates/voiture_jantes/partials/badges.html:3
 msgid "Origine"
 msgstr "Origin"
@@ -73553,30 +73901,107 @@ msgstr "Finances"
 msgid "Manquant"
 msgstr "Missing"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:59
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:60
+msgid "Financement"
+msgstr "Financing"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:61
+msgid "Ajouter un financement"
+msgstr "Add financing"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:67
+msgid "Mode"
+msgstr "Method"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:68
+msgid "Usage"
+msgstr "Use"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:68
+msgid "non comptabilisé"
+msgstr "not booked"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:69
+msgid "Organisme"
+msgstr "Provider"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:70
+msgid "Début"
+msgstr "Start"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:71
+msgid "Valeur HTVA"
+msgstr "Value excl. VAT"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:74
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:112
+msgid "Capital financé"
+msgstr "Financed capital"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:75
+msgid "Intérêts (total / échus)"
+msgstr "Interest (total / due)"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:76
+msgid "Payé à ce jour"
+msgstr "Paid to date"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:77
+msgid "Capital restant dû"
+msgstr "Outstanding capital"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:78
+msgid "Amortissement annuel"
+msgstr "Annual depreciation"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:79
+msgid "Immobilisation comptable"
+msgstr "Fixed asset (accounting)"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:83
+msgid "Échéancier"
+msgstr "Payment schedule"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:88
+msgid "Intérêts"
+msgstr "Interest"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:95
+msgid "Option"
+msgstr "Option"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:111
+msgid ""
+"Aucun financement encodé : le prix d'achat de la fiche est utilisé comme coût"
+" d'acquisition."
+msgstr ""
+"No financing recorded: the purchase price on the vehicle record is used as "
+"acquisition cost."
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:118
 msgid "Rentabilité du véhicule"
 msgstr "Vehicle profitability"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:62
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:94
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:121
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:155
 msgid "Coût d'acquisition"
 msgstr "Acquisition cost"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:66
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:106
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:125
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:167
 msgid "Coûts d'utilisation"
 msgstr "Running costs"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:70
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:111
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:129
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:172
 msgid "Revenus des locations (HTVA)"
 msgstr "Rental income (excl. VAT)"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:74
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:133
 msgid "Résultat net du véhicule"
 msgstr "Vehicle net result"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:78
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:137
 msgid ""
 "Montants HTVA (énergie, maintenances, locations). Résultat net = revenus des "
 "locations + valeur de revente − coût d'acquisition − coûts d'utilisation."
@@ -73584,125 +74009,133 @@ msgstr ""
 "Amounts excl. VAT (energy, maintenance, rentals). Net result = rental income "
 "+ resale value − acquisition cost − running costs."
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:86
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:145
 msgid "Par km"
 msgstr "Per km"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:92
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:151
 msgid "Taxe de mise en circulation"
 msgstr "Registration tax"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:96
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:153
+msgid "Loyers de leasing / renting échus (HTVA + TVA non déductible)"
+msgstr "Lease / renting payments due (excl. VAT + non-deductible VAT)"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:154
+msgid "Intérêts échus (crédit / leasing)"
+msgstr "Interest due (loan / leasing)"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:157
 msgid "Utilisation"
 msgstr "Use"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:103
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:164
 msgid "Énergie"
 msgstr "Energy"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:104
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:165
 msgid "internes"
 msgstr "in-house"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:104
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:165
 msgid "garages"
 msgstr "garages"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:105
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:166
 msgid "Assurance, taxes, vignettes…"
 msgstr "Insurance, taxes, vignettes…"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:108
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:169
 msgid "Coût total (acquisition + utilisation)"
 msgstr "Total cost (acquisition + use)"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:110
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:171
 msgid "Coût net (après revente)"
 msgstr "Net cost (after resale)"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:112
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:173
 msgid "Résultat net"
 msgstr "Net result"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:116
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:177
 msgid "Kilomètres parcourus depuis l'achat"
 msgstr "Kilometres driven since purchase"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:117
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:178
 msgid "km châssis"
 msgstr "chassis km"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:117
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:178
 msgid "km de départ"
 msgstr "starting km"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:118
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:179
 msgid "Coût au kilomètre indisponible : complétez le kilométrage de départ."
 msgstr "Cost per km unavailable: enter the starting mileage."
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:128
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:189
 msgid "Kilomètres entre l'achat et la création du véhicule"
 msgstr "Kilometres between purchase and vehicle creation"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:129
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:190
 msgid "kilométrage à la création"
 msgstr "mileage at creation"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:129
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:190
 msgid "premier kilométrage connu"
 msgstr "first known mileage"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:132
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:193
 msgid "saisie"
 msgstr "entered"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:132
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:193
 msgid "moyenne des pleins encodés"
 msgstr "average of recorded fill-ups"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:134
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:195
 msgid "Litres nécessaires"
 msgstr "Litres needed"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:137
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:198
 msgid "Litres des pleins encodés sur cette période"
 msgstr "Litres of fill-ups recorded in this period"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:140
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:201
 msgid "Litres non encodés"
 msgstr "Unrecorded litres"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:142
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:203
 msgid "Prix approximatif du carburant"
 msgstr "Approximate fuel price"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:143
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:204
 msgid "saisi"
 msgstr "entered"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:143
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:204
 msgid "prix moyen des pleins encodés"
 msgstr "average price of recorded fill-ups"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:143
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:204
 msgid "valeur par défaut"
 msgstr "default value"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:145
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:206
 msgid "Coût estimé TVAC"
 msgstr "Estimated cost incl. VAT"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:147
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:208
 msgid "Coût estimé HTVA (repris dans la rentabilité)"
 msgstr "Estimated cost excl. VAT (included in profitability)"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:152
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:213
 msgid ""
 "Complétez le kilométrage de départ (achat) pour estimer le carburant non "
 "encodé."
 msgstr "Fill in the starting (purchase) mileage to estimate unrecorded fuel."
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:154
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:215
 #, python-format
 msgid ""
 "Aucun kilomètre entre l'achat (%(achat)s km) et la création du véhicule "
@@ -73711,7 +74144,7 @@ msgstr ""
 "No kilometres between purchase (%(achat)s km) and vehicle creation "
 "(%(creation)s km)."
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:156
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:217
 msgid ""
 "Indiquez une consommation moyenne (L/100 km) dans les données financières "
 "pour estimer le carburant non encodé."
@@ -73719,18 +74152,18 @@ msgstr ""
 "Enter an average consumption (L/100 km) in the financial data to estimate "
 "unrecorded fuel."
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:159
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:220
 msgid ""
 "Approximation : consommation et prix modifiables dans les données "
 "financières."
 msgstr ""
 "Approximation: consumption and price can be changed in the financial data."
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:167
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:228
 msgid "Assurance, taxe de circulation et vignettes par année"
 msgstr "Insurance, road tax and vignettes per year"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:170
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:231
 msgid ""
 "Sans montant saisi pour une année, l'assurance et la taxe de circulation "
 "reprennent le montant annuel par défaut, au prorata des mois de détention. "
@@ -73739,19 +74172,19 @@ msgstr ""
 "Without an amount entered for a year, insurance and road tax use the default "
 "annual amount, pro rata to the months owned. Enter a line to replace it."
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:196
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:257
 msgid "Fixer"
 msgstr "Set"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:237
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:298
 msgid "Police d'assurance active"
 msgstr "Active insurance policy"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:238
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:299
 msgid "prime annuelle"
 msgstr "annual premium"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:246
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:307
 msgid ""
 "Entretien interne au coût de revient HTVA (pièces au prix d'achat + "
 "main-d'œuvre) et factures des garages externes HTVA."
@@ -73759,54 +74192,110 @@ msgstr ""
 "In-house maintenance at cost excl. VAT (parts at purchase price + labour) and"
 " external garage invoices excl. VAT."
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:269
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:312
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:330
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:373
 msgid "Entretien interne"
 msgstr "In-house maintenance"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:270
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:316
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:331
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:377
 msgid "Maintenance interne"
 msgstr "In-house maintenance"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:270
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:316
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:331
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:377
 msgid "non facturée"
 msgstr "not invoiced"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:271
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:332
 msgid "reste à charge après assurance"
 msgstr "remaining cost after insurance"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:272
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:333
 msgid "Garage externe"
 msgstr "External garage"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:287
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:348
 #, python-format
 msgid "%(debut)s à %(fin)s sur %(total)s maintenances"
 msgstr "%(debut)s to %(fin)s of %(total)s maintenance records"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:320
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:381
 msgid "Garages externes"
 msgstr "External garages"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:328
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:389
 msgid "Total maintenances HTVA"
 msgstr "Total maintenance excl. VAT"
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:333
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:394
 msgid "Aucune maintenance chiffrée pour ce véhicule."
 msgstr "No costed maintenance for this vehicle."
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:364
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:425
 msgid "Aucune location pour ce véhicule."
 msgstr "No rental for this vehicle."
 
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:372
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:433
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:95
 msgid "Compléter"
 msgstr "Complete"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:3
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:41
+msgid "Financement du véhicule"
+msgstr "Vehicle financing"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:52
+#, python-format
+msgid ""
+"comptabilisé : immobilisation et amortissement (achat, crédit, leasing "
+"financier) ou loyers en charge (renting). TVA déductible par défaut : %(tva)s"
+" %% (%(pays)s)."
+msgstr ""
+"booked: fixed asset and depreciation (purchase, loan, finance lease) or "
+"payments as expenses (renting). Default deductible VAT: %(tva)s %% "
+"(%(pays)s)."
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:54
+msgid ""
+"véhicule privé : suivi des coûts et de l'amortissement économique uniquement,"
+" aucune écriture comptable."
+msgstr ""
+"private vehicle: tracking of costs and economic depreciation only, no "
+"accounting entry."
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:56
+msgid "L'usage se modifie dans la fiche du véhicule (type d'utilisation)."
+msgstr "The use is changed on the vehicle record (type of use)."
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:98
+msgid "TVA et amortissement"
+msgstr "VAT and depreciation"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:109
+msgid "Simulation"
+msgstr "Simulation"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:109
+msgid "calcul indicatif, mis à jour pendant la saisie"
+msgstr "indicative calculation, updated as you type"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:113
+msgid "Total des intérêts"
+msgstr "Total interest"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:114
+msgid "Coût total du contrat"
+msgstr "Total contract cost"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:126
+msgid "Supprimer le financement et l’immobilisation liée ?"
+msgstr "Delete the financing and the linked fixed asset?"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/financement_form.html:128
+msgid "Supprimer le financement"
+msgstr "Delete financing"
 
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:19
 msgid "Compléter les données financières"
@@ -74389,6 +74878,105 @@ msgid ""
 msgstr ""
 "The link with “%(composant)s” has been removed from vehicle "
 "%(immatriculation)s. The component stays in the catalogue."
+
+#: voiture/voiture_exemplaire/views.py:1069
+msgid "Financement supprimé (et immobilisation liée)."
+msgstr "Financing deleted (and linked fixed asset)."
+
+#: voiture/voiture_exemplaire/views.py:1079
+msgid "Financement du véhicule enregistré."
+msgstr "Vehicle financing saved."
+
+#: voiture/voiture_exemplaire/views.py:1098
+msgid "Payé comptant : immobilisation et amortissement."
+msgstr "Paid in cash: fixed asset and depreciation."
+
+#: voiture/voiture_exemplaire/views.py:1099
+msgid ""
+"Prêt bancaire : le véhicule vous appartient, mensualités capital + intérêts."
+msgstr ""
+"Bank loan: you own the vehicle, monthly instalments of capital + interest."
+
+#: voiture/voiture_exemplaire/views.py:1100
+msgid "Location-financement : loyers puis option d'achat en fin de contrat."
+msgstr ""
+"Finance lease: lease payments, then purchase option at the end of the "
+"contract."
+
+#: voiture/voiture_exemplaire/views.py:1101
+msgid "Location longue durée : loyers en charge, pas de propriété."
+msgstr "Long-term rental: payments as expenses, no ownership."
+
+#: voiture/voiture_exemplaire/views.py:1104
+msgid "N° de facture"
+msgstr "Invoice number"
+
+#: voiture/voiture_exemplaire/views.py:1105
+msgid "Mensualité (TVAC)"
+msgstr "Monthly instalment (incl. VAT)"
+
+#: voiture/voiture_exemplaire/views.py:1106
+msgid "Apport payé comptant (TVAC)"
+msgstr "Down payment in cash (incl. VAT)"
+
+#: voiture/voiture_exemplaire/views.py:1107
+msgid "Valeur financée HTVA"
+msgstr "Financed value excl. VAT"
+
+#: voiture/voiture_exemplaire/views.py:1107
+#: voiture/voiture_exemplaire/views.py:1109
+msgid "Début du contrat"
+msgstr "Contract start"
+
+#: voiture/voiture_exemplaire/views.py:1107
+#: voiture/voiture_exemplaire/views.py:1109
+msgid "Loyer mensuel HTVA"
+msgstr "Monthly lease payment excl. VAT"
+
+#: voiture/voiture_exemplaire/views.py:1108
+#: voiture/voiture_exemplaire/views.py:1110
+msgid "Premier loyer majoré HTVA"
+msgstr "Increased first payment excl. VAT"
+
+#: voiture/voiture_exemplaire/views.py:1108
+msgid "Société de leasing"
+msgstr "Leasing company"
+
+#: voiture/voiture_exemplaire/views.py:1110
+msgid "Société de renting"
+msgstr "Renting company"
+
+#: voiture/voiture_exemplaire/views.py:1113
+msgid "Laisser vide pour la calculer à partir du taux et de la durée."
+msgstr "Leave empty to calculate it from the rate and the term."
+
+#: voiture/voiture_exemplaire/views.py:1114
+msgid ""
+"Laisser vide pour le calculer à partir du taux, de la durée et de l'option "
+"d'achat."
+msgstr ""
+"Leave empty to calculate it from the rate, the term and the purchase option."
+
+#: voiture/voiture_exemplaire/views.py:1115
+msgid ""
+"Loyer hors TVA indiqué au contrat (entretien, assurance… compris le cas "
+"échéant)."
+msgstr ""
+"Lease payment excl. VAT stated in the contract (maintenance, insurance… "
+"included where applicable)."
+
+#: voiture/voiture_exemplaire/views.py:1117
+msgid "Mensualité calculée (annuité constante)."
+msgstr "Calculated monthly instalment (constant annuity)."
+
+#: voiture/voiture_exemplaire/views.py:1119
+msgid "Loyer mensuel"
+msgstr "Monthly lease payment"
+
+#: voiture/voiture_exemplaire/views.py:1121
+#, python-format
+msgid "TVA par loyer : %s"
+msgstr "VAT per payment: %s"
 
 #: voiture/voiture_freins_ar/forms.py:35
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:61
@@ -78077,6 +78665,23 @@ msgstr "The trailer has been saved."
 #, python-format
 msgid "La remorque %(immat)s a été supprimée."
 msgstr "Trailer %(immat)s has been deleted."
+
+msgid "Utilisation du véhicule"
+msgstr "Vehicle use"
+
+msgid ""
+"Location : véhicule loué (TVA déductible 100 %). Société / utilitaire / "
+"interne : véhicule de la société (TVA selon le pays). Privé / client : aucune"
+" écriture comptable. Le financement et l'immobilisation liée sont recalculés "
+"à l'enregistrement."
+msgstr ""
+"Rental: rented-out vehicle (VAT 100% deductible). Company / utility / "
+"internal: company vehicle (VAT according to the country). Private / customer:"
+" no accounting entry. The financing and the linked fixed asset are "
+"recalculated when saving."
+
+#~ msgid "Taux de TVA : 6, 12, 21"
+#~ msgstr "VAT rate: 6, 12, 21"
 
 #, python-format
 #~ msgid ""

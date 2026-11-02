@@ -88,6 +88,9 @@ class VoitureExemplaireForm(forms.ModelForm):
             "kilometrage_achat": _("Kilométrage de départ (km)"),
         }
         help_texts = {
+            "type_utilisation": _("Location : véhicule loué (TVA déductible 100 %). Société / utilitaire / interne : "
+                                  "véhicule de la société (TVA selon le pays). Privé / client : aucune écriture comptable. "
+                                  "Le financement et l'immobilisation liée sont recalculés à l'enregistrement."),
             "kilometrage_achat": _("Neuf : 0 km. Occasion : kilométrage du véhicule au moment de l'achat."),
         }
 
@@ -224,6 +227,9 @@ FINANCE_FIELDS = (
 )
 
 # Champs financiers facultatifs (non comptés dans « données incomplètes »)
+# Usage du véhicule : modifiable avec les données financières (détermine la TVA déductible et la comptabilisation)
+FINANCE_FIELDS_USAGE = ("type_utilisation",)
+
 FINANCE_FIELDS_OPTIONNELS = (
     "frais_achat",
     "valeur_revente",
@@ -245,8 +251,9 @@ class VoitureExemplaireFinanceForm(forms.ModelForm):
 
     class Meta:
         model = VoitureExemplaire
-        fields = FINANCE_FIELDS + FINANCE_FIELDS_OPTIONNELS
+        fields = FINANCE_FIELDS_USAGE + FINANCE_FIELDS + FINANCE_FIELDS_OPTIONNELS
         labels = {
+            "type_utilisation": _("Type d'utilisation"),
             "etat_achat": _("Véhicule acheté"),
             "kilometrage_achat": _("Kilométrage de départ (km)"),
             "prix_achat": _("Prix d'achat (€)"),
@@ -345,14 +352,79 @@ class FinancementVehiculeForm(forms.ModelForm):
             "remarques": forms.Textarea(attrs={"rows": 3}),
         }
 
+    # Libellés courts (le texte d'aide détaillé est affiché sous le champ)
+    LIBELLES = {
+        "organisme": _("Banque / société de leasing"),
+        "contrat": _("N° de contrat ou de facture"),
+        "date_debut": _("Date d'achat / début du contrat"),
+        "valeur_htva": _("Prix du véhicule HTVA"),
+        "taux_tva": _("Taux de TVA"),
+        "tva_deductible": _("TVA déductible"),
+        "apport": _("Apport / premier loyer"),
+        "duree_mois": _("Durée"),
+        "taux_interet": _("Taux d'intérêt annuel"),
+        "mensualite_htva": _("Mensualité / loyer"),
+        "valeur_residuelle": _("Option d'achat (fin de contrat)"),
+        "duree_amortissement_annees": _("Durée d'amortissement"),
+        "compte_paiement": _("Compte de paiement"),
+        "remarques": _("Remarques"),
+    }
+    AIDES = {
+        "valeur_htva": _("Prix catalogue remisé, options comprises, hors TVA."),
+        "apport": _("Crédit : montant payé comptant (TVAC). Leasing / renting : premier loyer majoré (HTVA)."),
+        "mensualite_htva": _("Laisser vide pour la calculer (annuité constante). Obligatoire en renting (HTVA)."),
+        "valeur_residuelle": _("Montant HTVA payé pour devenir propriétaire en fin de leasing."),
+        "compte_paiement": _("Compte débité des paiements (domiciliation). Vide : banque par défaut."),
+    }
+    # Unité affichée à droite du champ
+    UNITES = {
+        "valeur_htva": "€", "apport": "€", "mensualite_htva": "€/mois", "valeur_residuelle": "€",
+        "taux_tva": "%", "tva_deductible": "%", "taux_interet": "%", "duree_mois": _("mois"),
+        "duree_amortissement_annees": _("ans"),
+    }
+
     def __init__(self, *args, **kwargs):
         societe = kwargs.pop("societe", None)
+        tva_auto = kwargs.pop("tva_auto", None)
+        duree_auto = kwargs.pop("duree_auto", None)
         super().__init__(*args, **kwargs)
         from compta.models import CompteTresorerie
         self.fields["compte_paiement"].queryset = (
             CompteTresorerie.objects.filter(societe=societe) if societe is not None else CompteTresorerie.objects.none()
         )
         self.fields["compte_paiement"].required = False
+        self.fields["compte_paiement"].empty_label = _("— Banque par défaut —")
+        self.fields["mode"].widget = forms.RadioSelect(choices=self.fields["mode"].choices)
+
+        for nom, libelle in self.LIBELLES.items():
+            if nom in self.fields:
+                self.fields[nom].label = libelle
+                self.fields[nom].help_text = self.AIDES.get(nom, "")
+        montants = {"valeur_htva": "25 000,00", "apport": "0,00", "mensualite_htva": _("calculée"),
+                    "valeur_residuelle": "0,00"}
+        for nom, exemple in montants.items():
+            self.fields[nom].widget.attrs.update({"step": "0.01", "min": "0", "placeholder": exemple,
+                                                  "inputmode": "decimal"})
+        self.fields["taux_tva"].widget.attrs.update({"step": "0.01", "min": "0", "max": "100"})
+        self.fields["taux_interet"].widget.attrs.update({"step": "0.001", "min": "0", "placeholder": "0,000"})
+        self.fields["duree_mois"].widget.attrs.update({"min": "1", "max": "120", "placeholder": "48",
+                                                       "list": "durees-usuelles"})
+        self.fields["tva_deductible"].widget.attrs.update({"step": "1", "min": "0", "max": "100"})
+        if tva_auto is not None:
+            self.fields["tva_deductible"].widget.attrs["placeholder"] = _("auto : %(t)s") % {"t": f"{tva_auto:.0f}"}
+            self.fields["tva_deductible"].help_text = _("Vide = automatique selon l'usage et le pays (%(t)s %%).") % {
+                "t": f"{tva_auto:.0f}"}
+        self.fields["duree_amortissement_annees"].widget.attrs.update({"min": "1", "max": "20"})
+        if duree_auto:
+            self.fields["duree_amortissement_annees"].widget.attrs["placeholder"] = _("auto : %(d)s") % {"d": duree_auto}
+            self.fields["duree_amortissement_annees"].help_text = _("Vide = durée usuelle du pays (%(d)s ans).") % {
+                "d": duree_auto}
+        self.fields["organisme"].widget.attrs["placeholder"] = _("ex. BNP Paribas Fortis, Arval, ING Lease…")
+        self.fields["contrat"].widget.attrs["placeholder"] = _("ex. LS-2026-00123")
+        self.fields["remarques"].widget.attrs["placeholder"] = _("Kilométrage annuel prévu, entretien inclus, pneus…")
+
+    def unite(self, nom):
+        return self.UNITES.get(nom, "")
 
     def clean(self):
         c = super().clean()

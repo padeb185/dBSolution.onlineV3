@@ -85,6 +85,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         ('magasinier', _('Magasinier')),
         ('carrossier', _('Carrossier')),
         ('chef_mecanicien', _('Chef Mécanicien')),
+        ('chef_atelier', _("Chef d'atelier")),
         ('instructeur', _('Instructeur')),
         ('instructeur externe', _('Instructeur Externe')),
         ('vendeur', _('Vendeur')),

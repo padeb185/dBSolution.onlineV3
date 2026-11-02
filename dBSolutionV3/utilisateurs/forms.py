@@ -186,23 +186,6 @@ class UtilisateurCreationForm(forms.ModelForm):
 
         super().__init__(*args, **kwargs)
 
-        # Pays de la paie = nationalité (pays) de la société
-        from core.pays import pays_societe
-        self.pays = pays_societe(societe)
-        self.est_allemagne = self.pays == "DE"
-        for nom in (self.CHAMPS_BELGIQUE if self.est_allemagne else self.CHAMPS_ALLEMAGNE):
-            self.fields.pop(nom, None)
-        if self.est_allemagne:
-            for nom, libelle in self.LIBELLES_ALLEMAGNE.items():
-                if nom in self.fields:
-                    self.fields[nom].label = libelle
-                    self.fields[nom].help_text = ""
-            if "statut_travailleur" in self.fields:
-                self.fields["statut_travailleur"].help_text = _(
-                    "Employé et ouvrier sont traités de la même façon. « Dirigeant » = gérant associé majoritaire "
-                    "(Geschäftsführer), non soumis aux assurances sociales."
-                )
-
         self.fields["email_entreprise"].label = _("E-mail entreprise (récupération du mot de passe)")
         self.fields["email_entreprise"].help_text = _(
             "Le lien « Mot de passe oublié » est envoyé à cette adresse ; à défaut, à l'e-mail de connexion."
@@ -426,6 +409,23 @@ class PaieUtilisateurForm(forms.ModelForm):
         societe = kwargs.pop("societe", None)
 
         super().__init__(*args, **kwargs)
+
+        # Pays de la paie = nationalité (pays) de la société
+        from core.pays import pays_societe
+        self.pays = pays_societe(societe)
+        self.est_allemagne = self.pays == "DE"
+        for nom in (self.CHAMPS_BELGIQUE if self.est_allemagne else self.CHAMPS_ALLEMAGNE):
+            self.fields.pop(nom, None)
+        if self.est_allemagne:
+            for nom, libelle in self.LIBELLES_ALLEMAGNE.items():
+                if nom in self.fields:
+                    self.fields[nom].label = libelle
+                    self.fields[nom].help_text = ""
+            if "statut_travailleur" in self.fields:
+                self.fields["statut_travailleur"].help_text = _(
+                    "Employé et ouvrier sont traités de la même façon. « Dirigeant » = gérant associé majoritaire "
+                    "(Geschäftsführer), non soumis aux assurances sociales."
+                )
 
         for nom in self.CHAMPS_CALCULES:
             if nom in self.fields:

@@ -12,7 +12,7 @@ from maintenance.choices import TVAConfig
 from .forms import MaintenanceExterneForm
 from .models import MaintenanceExterne
 
-ROLES_AUTORISES = ["chef_mecanicien", "direction"]
+ROLES_AUTORISES = ["chef_mecanicien", "chef_atelier", "direction"]
 
 
 def _autorise(user):

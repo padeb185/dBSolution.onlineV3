@@ -19,9 +19,9 @@ from .forms import AgendaTacheForm, AgendaTacheRapideForm, cle_alphabetique
 from .models import AgendaTache
 
 # Qui peut consulter l'agenda et mettre à jour tag / statut / prête pour
-ROLES_AGENDA = ["mecanicien", "apprenti", "apprentis", "magasinier", "chef_mecanicien", "direction"]
+ROLES_AGENDA = ["mecanicien", "apprenti", "apprentis", "magasinier", "chef_mecanicien", "chef_atelier", "direction"]
 # Qui peut planifier (ajouter, modifier, supprimer)
-ROLES_PLANIFICATION = ["chef_mecanicien", "direction", "magasinier"]
+ROLES_PLANIFICATION = ["chef_mecanicien", "chef_atelier", "direction", "magasinier"]
 # Qui peut supprimer (+ super admin via _peut)
 ROLES_SUPPRESSION = ["chef_mecanicien", "direction"]
 

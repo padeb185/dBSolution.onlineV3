@@ -26,7 +26,7 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from .forms import PieceAccidentFormSet, RapportAccidentForm
 from .models import RapportAccident
 
-ROLES_AUTORISES = ["mecanicien", "apprenti", "apprentis", "magasinier", "chef_mecanicien", "direction"]
+ROLES_AUTORISES = ["mecanicien", "apprenti", "apprentis", "magasinier", "chef_mecanicien", "chef_atelier", "direction"]
 ROLES_SUPPRESSION = ["direction", "chef_mecanicien"]
 
 

@@ -87,7 +87,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
         id=exemplaire_id
     )
 
-    roles_autorises = ["mecanicien", "apprenti", "apprentis", "magasinier", "chef_mecanicien", "direction"]
+    roles_autorises = ["mecanicien", "apprenti", "apprentis", "magasinier", "chef_mecanicien", "chef_atelier", "direction"]
 
     if role not in roles_autorises:
         messages.error(request, _("Accès refusé"))
@@ -516,7 +516,7 @@ def delete_moteur_view(request, remplacement_moteur_id):
     tenant = request.user.societe
     role = request.user.role
 
-    roles_autorises = ["direction", "chef_mecanicien"]
+    roles_autorises = ["direction", "chef_mecanicien", "chef_atelier"]
 
     if role not in roles_autorises and not request.user.is_superuser:
         messages.error(request, _("Accès refusé"))

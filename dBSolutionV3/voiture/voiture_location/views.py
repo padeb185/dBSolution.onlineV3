@@ -12,7 +12,7 @@ from django.views.decorators.http import require_POST
 from .forms import LocationBoxFormSet, LocationForm, LocationVehiculeSupForm
 from .models import Location, ObjectifVente, Trackday
 
-ROLES_AUTORISES = ["vendeur", "direction", "chef_mecanicien"]
+ROLES_AUTORISES = ["vendeur", "direction", "chef_mecanicien", "chef_atelier"]
 # Suppression : direction, chef mécanicien (+ super admin)
 ROLES_SUPPRESSION = ["direction", "chef_mecanicien"]
 

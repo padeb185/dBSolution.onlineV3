@@ -87,6 +87,12 @@
 
         {% csrf_token %}
 
+        <!-- Utilisation -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Utilisation du véhicule" %}</h2>
+        {% include "voiture_exemplaire/finances/_champ.html" with field=form.type_utilisation manquant_label="" %}
+
+        <br>
+
         <!-- Achat -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/achatmds.png' %}" alt="{% trans 'Achat' %}" class="w-20 h-20">

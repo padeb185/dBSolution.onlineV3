@@ -46,7 +46,7 @@ def refuser_suppression(request):
 # Interventions (maintenances) : création / modification réservées à l'atelier
 # (même liste que les vues de création ; « apprentis » est la valeur réelle du rôle en base)
 # ------------------------------------------------------------
-ROLES_ATELIER = ("mecanicien", "apprenti", "apprentis", "magasinier", "chef_mecanicien", "direction")
+ROLES_ATELIER = ("mecanicien", "apprenti", "apprentis", "magasinier", "chef_mecanicien", "chef_atelier", "direction")
 
 
 def roles_requis(*roles):
