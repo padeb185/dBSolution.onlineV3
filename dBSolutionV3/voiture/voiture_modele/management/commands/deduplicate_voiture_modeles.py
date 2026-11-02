@@ -1,59 +1,70 @@
-from django.core.management.base import BaseCommand
-from django.db.models import Count, ForeignKey, OneToOneField
 from django.apps import apps
-from django_tenants.utils import tenant_context
+from django.core.management.base import BaseCommand
+from django.db import transaction
+from django.db.models import Count, ForeignKey, ManyToManyField, OneToOneField
+from django_tenants.utils import get_public_schema_name, tenant_context
+
 from societe.models import Societe
 from voiture.voiture_modele.models import VoitureModele
 
+CLE = ("voiture_marque", "nom_modele", "generation", "phase", "nom_variante")
+
 
 class Command(BaseCommand):
-    help = "Supprime les doublons de VoitureModele en réassignant automatiquement toutes les FK"
+    help = ("Supprime les doublons de VoitureModele (marque, modèle, génération, phase, variante) "
+            "en réassignant les FK et les liens M2M (moteurs…) vers le modèle conservé.")
 
-    def handle(self, *args, **options):
+    def add_arguments(self, parser):
+        parser.add_argument("--tenant", action="append", dest="tenants", default=[])
+        parser.add_argument("--dry-run", action="store_true")
 
-        related_fields = []
-
-        # 🔍 uniquement les vraies FK/O2O
+    def handle(self, *args, **opts):
+        fk, m2m = [], []
         for model in apps.get_models():
             for field in model._meta.get_fields():
-                if isinstance(field, (ForeignKey, OneToOneField)) and field.related_model == VoitureModele:
-                    related_fields.append((model, field.name))
+                if getattr(field, "related_model", None) is not VoitureModele or field.auto_created:
+                    continue
+                if isinstance(field, (ForeignKey, OneToOneField)):
+                    fk.append((model, field.name))
+                elif isinstance(field, ManyToManyField):
+                    m2m.append((model, field.name))
+        self.stdout.write(f"{len(fk)} FK et {len(m2m)} M2M vers VoitureModele")
 
-        self.stdout.write(self.style.WARNING(f"{len(related_fields)} FK trouvées"))
+        tenants = Societe.objects.exclude(schema_name=get_public_schema_name())
+        if opts["tenants"]:
+            tenants = tenants.filter(schema_name__in=opts["tenants"])
 
-        for tenant in Societe.objects.exclude(schema_name="public"):
-            self.stdout.write(self.style.WARNING(f"Tenant: {tenant.schema_name}"))
+        for tenant in tenants:
+            with tenant_context(tenant), transaction.atomic():
+                total = 0
+                groupes = (VoitureModele.objects.values(*CLE).annotate(nb=Count("id")).filter(nb__gt=1))
+                for g in groupes:
+                    ids = list(
+                        VoitureModele.objects.filter(**{
+                            (f"{c}__isnull" if g[c] is None else c): (True if g[c] is None else g[c]) for c in CLE
+                        }).order_by("created_at", "id").values_list("id", flat=True)
+                    )
+                    keep, doublons = ids[0], ids[1:]
+                    for dup in doublons:
+                        for model, name in fk:
+                            model.objects.filter(**{f"{name}_id": dup}).update(**{name: keep})
+                        for model, name in m2m:
+                            through = getattr(model, name).through
+                            src = [f.name for f in through._meta.fields
+                                   if f.is_relation and f.related_model is model][0]
+                            proprietaires = through.objects.filter(**{self._col(through): dup}) \
+                                .values_list(f"{src}_id", flat=True)
+                            for obj_id in list(proprietaires):
+                                getattr(model.objects.only("pk").get(pk=obj_id), name).add(keep)
+                        VoitureModele.objects.filter(id=dup).only("id").delete()
+                        total += 1
+                if opts["dry_run"]:
+                    transaction.set_rollback(True)
+                self.stdout.write(self.style.SUCCESS(
+                    f"[{tenant.schema_name}] doublons supprimés : {total}" + (" (simulation)" if opts["dry_run"] else "")
+                ))
 
-            with tenant_context(tenant):
-
-                doublons = (
-                    VoitureModele.objects
-                    .values("nom_modele", "nom_variante", "voiture_marque", "societe")
-                    .annotate(nb=Count("id"))
-                    .filter(nb__gt=1)
-                )
-
-                total_deleted = 0
-
-                for d in doublons:
-                    qs = VoitureModele.objects.filter(
-                        nom_modele=d["nom_modele"],
-                        nom_variante=d["nom_variante"],
-                        voiture_marque=d["voiture_marque"],
-                        societe=d["societe"],
-                    ).order_by("id")
-
-                    keep = qs.first()
-                    duplicates = qs.exclude(id=keep.id)
-
-                    for dup in duplicates:
-
-                        for model, field_name in related_fields:
-                            model.objects.filter(**{field_name: dup}).update(**{field_name: keep})
-
-                        dup.delete()
-                        total_deleted += 1
-
-                self.stdout.write(
-                    self.style.SUCCESS(f"Doublons supprimés: {total_deleted}")
-                )
+    @staticmethod
+    def _col(through):
+        f = [f for f in through._meta.fields if f.is_relation and f.related_model is VoitureModele][0]
+        return f"{f.name}_id"

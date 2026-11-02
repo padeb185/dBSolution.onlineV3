@@ -9,6 +9,8 @@ class VoitureModeleAdmin(admin.ModelAdmin):
 
     list_display = (
         "nom_modele",
+        "generation",
+        "phase",
         "nom_variante",
         "voiture_marque",
         "nombre_portes",
@@ -26,7 +28,8 @@ class VoitureModeleAdmin(admin.ModelAdmin):
     search_fields = (
         "nom_modele",
         "nom_variante",
-        "voiture_marque__nom",
+        "generation",
+        "voiture_marque__nom_marque",
     )
 
     ordering = (
@@ -48,8 +51,14 @@ class VoitureModeleAdmin(admin.ModelAdmin):
         ("Informations du modèle", {
             "fields": (
                 "nom_modele",
+                "generation",
+                "phase",
                 "nom_variante",
                 "nombre_portes",
+                "annee_debut",
+                "mois_debut",
+                "annee_fin",
+                "mois_fin",
                 "nbre_places",
                 "taille_reservoir",
             )

@@ -8,15 +8,15 @@ from datetime import date
 
 class VoitureModeleForm(forms.ModelForm):
     # 🔹 Choix pour les mois
-    MOIS_CHOICES = [(i, str(i)) for i in range(1, 13)]
+    MOIS_CHOICES = [("", "—")] + [(i, str(i)) for i in range(1, 13)]
 
-    # 🔹 Choix pour les années (1850 → année actuelle)
-    ANNEE_CHOICES = [(i, str(i)) for i in range(1900, date.today().year + 10)]
+    # 🔹 Choix pour les années (1860 → année actuelle) — vide autorisé
+    ANNEE_CHOICES = [("", "—")] + [(i, str(i)) for i in range(1860, date.today().year + 1)]
 
     mois_debut = forms.ChoiceField(
         choices=MOIS_CHOICES,
         widget=forms.Select(attrs={"class": "form-select"}),
-        required=True,
+        required=False,
     )
     mois_fin = forms.ChoiceField(
         choices=MOIS_CHOICES,
@@ -27,7 +27,7 @@ class VoitureModeleForm(forms.ModelForm):
         choices=ANNEE_CHOICES,
         widget=forms.Select(attrs={"class": "form-select"}),
         initial=2020,
-        required=True,
+        required=False,
     )
     annee_fin = forms.ChoiceField(
         choices= ANNEE_CHOICES,
@@ -41,6 +41,8 @@ class VoitureModeleForm(forms.ModelForm):
         fields = [
             "voiture_marque",
             "nom_modele",
+            "generation",
+            "phase",
             "nom_variante",
             "nombre_portes",
             "nbre_places",
@@ -55,6 +57,8 @@ class VoitureModeleForm(forms.ModelForm):
         widgets = {
             "voiture_marque": forms.Select(attrs={"class": "form-select"}),
             "nom_modele": forms.TextInput(attrs={"class": "form-control"}),
+            "generation": forms.TextInput(attrs={"class": "form-control", "placeholder": "R50, E46, Mk2…"}),
+            "phase": forms.TextInput(attrs={"class": "form-control", "placeholder": "1, 2, Facelift…"}),
             "nom_variante": forms.TextInput(attrs={"class": "form-control"}),
             "nombre_portes": forms.Select(attrs={"class": "form-select"}),
             "nbre_places": forms.NumberInput(attrs={"class": "form-control", "min": 1}),
@@ -99,6 +103,8 @@ class VoitureModeleForm(forms.ModelForm):
 
     def clean_mois_debut(self):
         mois = self.cleaned_data.get("mois_debut")
+        if not mois:
+            return None
         if mois is not None:
             mois = int(mois)
             if not (1 <= mois <= 12):
@@ -126,12 +132,14 @@ class VoitureModeleForm(forms.ModelForm):
 
     def clean_annee_debut(self):
         annee = self.cleaned_data.get("annee_debut")
+        if not annee:
+            return None
         if annee:
             annee = int(annee)
             annee_actuelle = date.today().year
-            if not (1850 <= annee <= annee_actuelle):
+            if not (1860 <= annee <= annee_actuelle):
                 raise ValidationError(
-                    _("L’année de début doit être comprise entre 1850 et %(annee)s."),
+                    _("L’année de début doit être comprise entre 1860 et %(annee)s."),
                     params={"annee": annee_actuelle},
                 )
         return annee
@@ -146,9 +154,9 @@ class VoitureModeleForm(forms.ModelForm):
 
         annee_actuelle = date.today().year
 
-        if not 1850 <= annee_fin <= annee_actuelle:
+        if not 1860 <= annee_fin <= annee_actuelle:
             raise ValidationError(
-                _("L’année de fin doit être comprise entre 1850 et %(annee)s."),
+                _("L’année de fin doit être comprise entre 1860 et %(annee)s."),
                 params={"annee": annee_actuelle},
             )
 

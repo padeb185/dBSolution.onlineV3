@@ -33,6 +33,14 @@ class VoitureModele(models.Model):
     societe = models.ForeignKey(Societe, on_delete=models.CASCADE)
 
     nom_modele = models.CharField(max_length=100)
+    generation = models.CharField(
+        max_length=50, blank=True, null=True,
+        help_text=_("Code génération / châssis (ex. R50, E46, Mk2)")
+    )
+    phase = models.CharField(
+        max_length=30, blank=True, null=True,
+        help_text=_("Phase de production (ex. 1, 2, 3, Facelift, LCI)")
+    )
     nom_variante = models.CharField(max_length=100, blank=True, null=True)
     nombre_portes = models.IntegerField(choices=NombrePortes.choices)
     nbre_places = models.PositiveSmallIntegerField()
@@ -57,8 +65,9 @@ class VoitureModele(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=["voiture_marque", "nom_modele", "nom_variante"],
-                name="unique_modele_variante_par_marque"
+                fields=["voiture_marque", "nom_modele", "generation", "phase", "nom_variante"],
+                name="unique_modele_generation_phase_variante",
+                nulls_distinct=False,
             ),
             models.CheckConstraint(
                 check=Q(mois_debut__gte=1, mois_debut__lte=12) | Q(mois_debut__isnull=True),
@@ -71,9 +80,9 @@ class VoitureModele(models.Model):
                 name="mois_fin_entre_1_12",
             ),
 
-            # Année début entre 1850 et année actuelle
+            # Année début entre 1860 (premiers véhicules, ex. Bollée 1873) et année actuelle
             models.CheckConstraint(
-                check=Q(annee_debut__gte=1940, annee_debut__lte=now().year) | Q(annee_debut__isnull=True),
+                check=Q(annee_debut__gte=1860, annee_debut__lte=now().year) | Q(annee_debut__isnull=True),
                 name="annee_debut_valide",
             ),
 
@@ -96,7 +105,9 @@ class VoitureModele(models.Model):
         ]
 
     def __str__(self):
-        return f"{self.nom_modele} {self.nom_variante or ''}".strip()
+        return " ".join(
+            p for p in (self.nom_modele, self.generation, self.phase and f"Ph.{self.phase}", self.nom_variante) if p
+        )
 
     def clean(self):
         super().clean()
@@ -105,16 +116,18 @@ class VoitureModele(models.Model):
                 voiture_marque=self.voiture_marque,
                 nom_modele__iexact=self.nom_modele,
             )
-            if self.nom_variante:
-                qs = qs.filter(nom_variante__iexact=self.nom_variante)
-            else:
-                qs = qs.filter(nom_variante__isnull=True)
+            for champ in ("generation", "phase", "nom_variante"):
+                valeur = getattr(self, champ)
+                if valeur:
+                    qs = qs.filter(**{f"{champ}__iexact": valeur})
+                else:
+                    qs = qs.filter(Q(**{f"{champ}__isnull": True}) | Q(**{champ: ""}))
 
             if self.pk:
                 qs = qs.exclude(pk=self.pk)
 
             if qs.exists():
-                raise ValidationError(_("Ce modèle avec cette variante existe déjà pour cette marque."))
+                raise ValidationError(_("Ce modèle (génération, phase, variante) existe déjà pour cette marque."))
 
     def save(self, *args, **kwargs):
         self.full_clean()  # Valide l’instance avant sauvegarde
