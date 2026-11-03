@@ -18,6 +18,9 @@ class ParametresNotificationsForm(forms.Form):
     email_reponse = forms.EmailField(label=_("Adresse de réponse"), required=False,
                                      help_text=ParametresNotifications._meta.get_field("email_reponse").help_text)
 
+    notifier_auteur = forms.BooleanField(label=_("Notifier aussi l'auteur de l'action"), required=False, widget=CASE,
+                                         help_text=ParametresNotifications._meta.get_field("notifier_auteur").help_text)
+
     def __init__(self, *args, regles=None, **kwargs):
         super().__init__(*args, **kwargs)
         roles = get_user_model().ROLE_CHOICES

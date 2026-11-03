@@ -12,7 +12,7 @@ from utils.securite import roles_requis
 from .forms import ParametresNotificationsForm, PreferencesNotificationsForm
 from .models import (Notification, ParametresNotifications, PreferenceNotification, RegleNotification,
                      TYPES_PARAMETRABLES)
-from .services import adresse_email
+from .services import adresse_email, diagnostic, expediteur
 
 
 @login_required
@@ -75,10 +75,12 @@ def parametres(request):
     param = ParametresNotifications.charger()
     form = ParametresNotificationsForm(
         request.POST or None, regles=regles,
-        initial={"nom_expediteur": param.nom_expediteur, "email_reponse": param.email_reponse})
+        initial={"nom_expediteur": param.nom_expediteur, "email_reponse": param.email_reponse,
+                 "notifier_auteur": param.notifier_auteur})
     if request.method == "POST" and form.is_valid():
         d = form.cleaned_data
         param.nom_expediteur, param.email_reponse = d["nom_expediteur"].strip(), d["email_reponse"]
+        param.notifier_auteur = d["notifier_auteur"]
         param.save()
         for t, r in regles.items():
             r.actif, r.canal_app, r.canal_email = d[f"{t}_actif"], d[f"{t}_app"], d[f"{t}_email"]
@@ -86,7 +88,35 @@ def parametres(request):
             r.save()
         messages.success(request, _("Paramètres des notifications enregistrés."))
         return redirect("notifications:parametres")
-    return render(request, "notifications/parametres.html", {"form": form})
+    return render(request, "notifications/parametres.html", {
+        "form": form, "diag": diagnostic(request.user, getattr(request, "tenant", None)),
+        "adresse": adresse_email(request.user)})
+
+
+@login_required
+@roles_requis("direction")
+@require_POST
+def tester(request):
+    """Envoie une notification de test à l'utilisateur connecté (application + e-mail)."""
+    from django.conf import settings
+    from django.core.mail import EmailMessage
+    n = Notification.objects.create(
+        destinataire=request.user, emetteur=None, type=Notification.Type.AUTRE,
+        titre=_("Notification de test"), message=_("Si vous voyez ceci, les notifications fonctionnent."),
+        url_name="notifications:parametres")
+    adresse = adresse_email(request.user)
+    if adresse:
+        param = ParametresNotifications.charger()
+        try:
+            EmailMessage(f"[CarsCosts] {n.titre}", n.message, expediteur(param), [adresse],
+                         reply_to=[param.email_reponse] if param.email_reponse else None).send()
+            Notification.objects.filter(pk=n.pk).update(email_envoye=True)
+            messages.success(request, _("Notification de test créée et e-mail envoyé à %(adresse)s.") % {"adresse": adresse})
+        except Exception as exc:
+            messages.error(request, _("Notification créée, mais l'e-mail n'est pas parti : %(erreur)s") % {"erreur": exc})
+    else:
+        messages.success(request, _("Notification de test créée (aucune adresse e-mail sur votre profil)."))
+    return redirect("notifications:parametres")
 
 
 @login_required

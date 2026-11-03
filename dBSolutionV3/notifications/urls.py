@@ -11,4 +11,5 @@ urlpatterns = [
     path("tout-lire/", views.tout_lire, name="tout_lire"),
     path("parametres/", views.parametres, name="parametres"),
     path("preferences/", views.preferences, name="preferences"),
+    path("tester/", views.tester, name="tester"),
 ]

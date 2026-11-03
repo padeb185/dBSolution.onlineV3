@@ -29,6 +29,9 @@
                 </div>
                 {% endif %}{% endfor %}
             </div>
+            <label class="flex items-start gap-2 mt-4 text-sm">{{ form.notifier_auteur }}
+                <span><strong>{{ form.notifier_auteur.label }}</strong><br><span class="text-xs text-gray-500">{{ form.notifier_auteur.help_text }}</span></span>
+            </label>
         </section>
 
         <section class="bg-white rounded-lg shadow-sm p-5 mb-5">
@@ -58,5 +61,36 @@
             <button class="bg-green-600 hover:bg-green-500 text-white px-6 py-2 rounded font-semibold">{% trans "Enregistrer" %}</button>
         </div>
     </form>
+
+    <section class="bg-white rounded-lg shadow-sm p-5 mt-6">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+            <h2 class="text-lg font-semibold">{% trans "Vérification pour votre compte" %}</h2>
+            <form method="post" action="{% url 'notifications:tester' %}">{% csrf_token %}
+                <button class="bg-blue-700 hover:bg-blue-500 text-white px-4 py-2 rounded font-semibold text-sm">{% trans "M'envoyer une notification de test" %}</button>
+            </form>
+        </div>
+        <p class="text-sm text-gray-500 mb-3">
+            {% if adresse %}{% blocktrans %}E-mails envoyés à {{ adresse }}.{% endblocktrans %}{% else %}<span class="text-red-600">{% trans "Aucune adresse e-mail sur votre profil." %}</span>{% endif %}
+            {% if diag.auteur_exclu %}<br><strong>{% trans "Vous ne recevez rien pour les actions que vous faites vous-même" %}</strong> {% trans "(option « Notifier aussi l'auteur de l'action » décochée)." %}{% endif %}
+        </p>
+        <table class="w-full text-sm">
+            <thead><tr class="text-left text-gray-500 border-b">
+                <th class="py-2">{% trans "Événement" %}</th>
+                <th class="py-2 text-center">{% trans "Application" %}</th>
+                <th class="py-2 text-center">{% trans "E-mail" %}</th>
+                <th class="py-2">{% trans "Pourquoi" %}</th>
+            </tr></thead>
+            <tbody>
+            {% for l in diag.lignes %}
+                <tr class="border-b last:border-0">
+                    <td class="py-2 font-medium">{{ l.nom }}</td>
+                    <td class="py-2 text-center">{% if l.app %}<span class="text-green-600 font-bold">✓</span>{% else %}<span class="text-gray-400">—</span>{% endif %}</td>
+                    <td class="py-2 text-center">{% if l.email %}<span class="text-green-600 font-bold">✓</span>{% else %}<span class="text-gray-400">—</span>{% endif %}</td>
+                    <td class="py-2 text-xs text-red-600">{{ l.raisons|join:" ; " }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
 </div>
 {% endblock %}

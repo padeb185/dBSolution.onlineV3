@@ -58,6 +58,35 @@ def _envoyer_email(destinataire, titre, message, lien, nom_emetteur, parametres,
         type(notif).objects.filter(pk=notif.pk).update(email_envoye=True)
 
 
+def diagnostic(utilisateur, societe):
+    """Pour chaque type : ce que l'utilisateur recevrait, et sinon pourquoi (page Paramètres)."""
+    from .forms import libelle_type
+    from .models import ParametresNotifications, PreferenceNotification, RegleNotification, TYPES_PARAMETRABLES
+    param = ParametresNotifications.charger()
+    prefs = {p.type: p for p in PreferenceNotification.objects.filter(utilisateur=utilisateur)}
+    lignes = []
+    for t in TYPES_PARAMETRABLES:
+        regle = RegleNotification.pour(t)
+        app, email = canaux(regle, prefs.get(t))
+        raisons = []
+        if not regle.actif:
+            raisons.append(_("type désactivé"))
+        if utilisateur.role not in regle.roles:
+            raisons.append(_("votre rôle (%(role)s) n'est pas coché") % {"role": utilisateur.get_role_display()})
+        if not utilisateur.is_active:
+            raisons.append(_("compte inactif"))
+        if societe is not None and getattr(utilisateur, "societe_id", None) != getattr(societe, "pk", None) and \
+                str(getattr(utilisateur, "societe_id", "")) != str(getattr(societe, "id_societe", "")):
+            raisons.append(_("votre compte est rattaché à une autre société"))
+        if regle.actif and not (app or email):
+            raisons.append(_("vous avez coupé ce type dans vos préférences"))
+        if email and not adresse_email(utilisateur):
+            raisons.append(_("pas d'adresse e-mail sur votre profil"))
+        lignes.append({"nom": libelle_type(t), "app": app and not raisons, "email": email and not raisons,
+                       "raisons": raisons})
+    return {"lignes": lignes, "auteur_exclu": not param.notifier_auteur}
+
+
 def canaux(regle, preference):
     """(application, e-mail) pour un destinataire : la règle de la direction, puis son choix personnel."""
     app = regle.canal_app and (preference is None or preference.recevoir_app)
@@ -68,8 +97,11 @@ def canaux(regle, preference):
 def notifier(societe, roles=None, type="autre", titre="", message="", url_name="", url_kwargs=None, url="",
              destinataires_explicites=None):
     """Crée une notification par destinataire (après validation de la transaction), selon les paramètres."""
-    if societe is None:
-        return
+    if societe is None:  # une société = un tenant
+        from django.db import connection
+        societe = getattr(connection, "tenant", None)
+        if societe is None or getattr(societe, "schema_name", "public") == "public":
+            return
 
     emetteur = utilisateur_courant()
 
@@ -79,10 +111,11 @@ def notifier(societe, roles=None, type="autre", titre="", message="", url_name="
             regle = RegleNotification.pour(type)
             if not regle.actif:
                 return
-            liste = destinataires_explicites or destinataires(societe, roles or regle.roles, exclure=emetteur)
+            parametres = ParametresNotifications.charger()
+            exclure = None if parametres.notifier_auteur else emetteur
+            liste = destinataires_explicites or destinataires(societe, roles or regle.roles, exclure=exclure)
             if not liste:
                 return
-            parametres = ParametresNotifications.charger()
             prefs = {p.utilisateur_id: p for p in PreferenceNotification.objects.filter(
                 type=type, utilisateur__in=[d.pk for d in liste])}
             lien = ""

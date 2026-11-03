@@ -80,6 +80,9 @@ class ParametresNotifications(models.Model):
     email_reponse = models.EmailField(
         _("Adresse de réponse"), blank=True,
         help_text=_("Les réponses aux e-mails arrivent à cette adresse (Reply-To). Vide : pas de réponse possible."))
+    notifier_auteur = models.BooleanField(
+        _("Notifier aussi l'auteur de l'action"), default=False,
+        help_text=_("Par défaut, la personne qui crée la facture, la maintenance… n'est pas notifiée de sa propre action."))
     modifie_le = models.DateTimeField(auto_now=True)
 
     class Meta:
