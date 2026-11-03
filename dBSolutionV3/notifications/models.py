@@ -12,6 +12,7 @@ class Notification(models.Model):
         VENTE = "vente", _("Vente / facture émise")
         PAIEMENT = "paiement", _("Paiement reçu")
         ACHAT = "achat", _("Facture d'achat")
+        LOCATION = "location", _("Nouvelle location")
         AUTRE = "autre", _("Information")
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -67,9 +68,11 @@ ROLES_PAR_DEFAUT = {
     "vente": ["direction", "comptable"],
     "paiement": ["comptable"],
     "achat": ["comptable"],
+    # Nouvelle location : la direction et l'atelier (préparation du véhicule, checkup piste)
+    "location": ["direction", "chef_atelier", "chef_mecanicien"],
     "autre": ["direction"],
 }
-TYPES_PARAMETRABLES = ["maintenance", "vente", "paiement", "achat"]
+TYPES_PARAMETRABLES = ["maintenance", "location", "vente", "paiement", "achat"]
 
 
 class ParametresNotifications(models.Model):

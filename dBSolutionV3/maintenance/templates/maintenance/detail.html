@@ -4,12 +4,30 @@
 {% block content %}
 <div class="p-6 max-w-4xl mx-auto">
     {% with ex=maintenance.voiture_exemplaire %}
-    <h1 class="text-3xl font-bold mb-6 flex items-center gap-3">
+    <h1 class="text-3xl font-bold mb-4 flex items-center gap-3">
         <img src="{% static 'icons/checkup.png' %}" alt="" class="w-12 h-12">
-        <span>{% trans "Détail de la maintenance" %} –
-            {% if ex %}{{ ex.voiture_marque.nom_marque }} {{ ex.voiture_modele.nom_modele }}{% endif %}
-            ({{ maintenance.immatriculation|default:ex.immatriculation }})</span>
+        <span>{% trans "Détail de la maintenance" %}</span>
     </h1>
+
+    {# Véhicule : logo de la marque, modèle et plaque d'immatriculation #}
+    {% firstof ex.voiture_marque.nom_marque ex.voiture_modele.voiture_marque.nom_marque "" as marque %}
+    <div class="bg-white shadow rounded p-4 mb-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+        {% if marque %}
+        <div class="flex items-center gap-3">
+            <img src="{% static 'images/marques/' %}{{ marque|lower }}.png" alt="{{ marque }}" title="{{ marque }}"
+                 class="w-16 h-16 object-contain"
+                 onerror="this.onerror=null;this.replaceWith(Object.assign(document.createElement('span'),{className:'text-xl font-bold',textContent:'{{ marque|escapejs }}'}));">
+            <p class="text-xl font-semibold leading-tight">{{ ex.voiture_modele.nom_modele }}{% if ex.voiture_modele.nom_variante %} {{ ex.voiture_modele.nom_variante }}{% endif %}</p>
+        </div>
+        {% endif %}
+        {% if maintenance.immatriculation or ex.immatriculation %}
+        <div style="margin-bottom:-1rem">
+            {% with exemplaire=ex immat_plaque=maintenance.immatriculation %}
+                {% include "maintenance/partials/plaque.html" %}
+            {% endwith %}
+        </div>
+        {% endif %}
+    </div>
 
     {% if messages %}
     <ul class="mb-4">{% for message in messages %}<li class="p-2 rounded bg-gray-200">{{ message }}</li>{% endfor %}</ul>
@@ -20,7 +38,7 @@
         <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-gray-700">
             <dt class="font-semibold">{% trans "Type" %}</dt><dd>{{ maintenance.get_type_maintenance_display|default:"—" }}</dd>
             <dt class="font-semibold">{% trans "Date d'intervention" %}</dt><dd>{{ maintenance.date_intervention|date:"d/m/Y" }}</dd>
-            <dt class="font-semibold">{% trans "Kilométrage total" %}</dt><dd>{{ maintenance.kilometres_total }} km</dd>
+            {% with km=maintenance.kilometrage_intervention %}<dt class="font-semibold">{% trans "Kilométrage châssis" %}</dt><dd>{% if km %}{{ km|milliers }} km{% else %}—{% endif %}</dd>{% endwith %}
             {% if maintenance.mecanicien %}<dt class="font-semibold">{% trans "Mécanicien" %}</dt><dd>{{ maintenance.mecanicien }}</dd>{% endif %}
             {% if maintenance.chef_mecanicien %}<dt class="font-semibold">{% trans "Chef mécanicien" %}</dt><dd>{{ maintenance.chef_mecanicien }}</dd>{% endif %}
             {% if maintenance.tech_nom_technicien %}<dt class="font-semibold">{% trans "Technicien" %}</dt><dd>{{ maintenance.tech_nom_technicien }}</dd>{% endif %}

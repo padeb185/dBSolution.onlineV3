@@ -1,0 +1,66 @@
+{% load i18n %}
+<script>
+/* Recherche instantanée : filtre les lignes dès le premier caractère, sans recharger la page.
+   Lignes : <tr data-recherche="…">. Champ : input[name=q] du formulaire de filtres.
+   Les liens (jours, tris, fiches) et les formulaires gardent la recherche en cours. */
+(function () {
+    var champ = document.querySelector('form input[type=search][name=q]');
+    var lignes = Array.prototype.slice.call(document.querySelectorAll('tr[data-recherche]'));
+    if (!champ || !lignes.length) return;
+    var corps = lignes[0].parentNode;
+    var compteur = document.getElementById('compte-recherche');
+    var vide = document.createElement('tr');
+    vide.innerHTML = '<td colspan="20" class="text-center py-6 text-gray-500">{{ texte_vide|default:_("Aucun résultat pour cette recherche.")|escapejs }}</td>';
+    vide.style.display = 'none';
+    corps.appendChild(vide);
+
+    function norm(t) {
+        return (t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+    }
+    function compact(t) { return t.replace(/[\s\-\.\/·]/g, ''); }
+    lignes.forEach(function (tr) {
+        var t = norm(tr.getAttribute('data-recherche'));
+        tr._txt = t; tr._compact = compact(t);
+    });
+
+    function majLiens(q) {
+        var ici = window.location.pathname + window.location.search;
+        document.querySelectorAll('a[href]').forEach(function (a) {
+            var h = a.getAttribute('href');
+            if (!h || h.charAt(0) === '#' || h.indexOf('javascript:') === 0) return;
+            var u;
+            try { u = new URL(h, window.location.href); } catch (e) { return; }
+            if (u.origin !== window.location.origin) return;
+            if (u.searchParams.has('retour')) { u.searchParams.set('retour', ici); }
+            else if (a.classList.contains('js-garde-q')) {
+                if (q) u.searchParams.set('q', q); else u.searchParams.delete('q');
+            } else return;
+            a.setAttribute('href', u.pathname + u.search);
+        });
+        document.querySelectorAll('input[name=retour]').forEach(function (i) { i.value = ici; });
+        document.querySelectorAll('form.js-garde-q').forEach(function (f) {
+            var i = f.querySelector('input[name=q]');
+            if (!i) { i = document.createElement('input'); i.type = 'hidden'; i.name = 'q'; f.appendChild(i); }
+            i.value = q;
+        });
+    }
+
+    function filtrer() {
+        var q = champ.value.trim(), nq = norm(q), cq = compact(nq), n = 0;
+        lignes.forEach(function (tr) {
+            var ok = !nq || tr._txt.indexOf(nq) !== -1 || (cq && tr._compact.indexOf(cq) !== -1);
+            tr.style.display = ok ? '' : 'none';
+            if (ok) n++;
+        });
+        vide.style.display = n ? 'none' : '';
+        if (compteur) compteur.textContent = nq ? n + ' / ' + lignes.length : '';
+        var u = new URL(window.location.href);
+        if (q) u.searchParams.set('q', q); else u.searchParams.delete('q');
+        history.replaceState(null, '', u.pathname + u.search);
+        majLiens(q);
+    }
+    champ.addEventListener('input', filtrer);
+    champ.setAttribute('autocomplete', 'off');
+    if (champ.value) filtrer();
+})();
+</script>

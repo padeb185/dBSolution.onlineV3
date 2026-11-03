@@ -17,6 +17,7 @@ from voiture.voiture_location.models import Location
 from .disponibilite import disponibilites
 from .forms import AgendaLocationRetourForm, AgendaLocationSortieForm
 from .models import AgendaLocation, AgendaTache
+from .forms import cle_alphabetique
 from .views import ROLES_AGENDA, _jour_depuis_requete, _peut, _taches_societe, _url_jour
 
 # Agenda des locations : l'atelier + les vendeurs
@@ -202,17 +203,111 @@ def agenda_location_view(request, annee=None, mois=None, jour=None):
         return _refuser(request)
 
     jour_affiche = _jour_depuis_requete(request, annee, mois, jour)
-    lignes = _lignes(_locations_societe(request).filter(_filtre_jour(jour_affiche)), jour_affiche)
+    toutes = _lignes(_locations_societe(request).filter(_filtre_jour(jour_affiche)), jour_affiche)
+    f = _filtres_location(request)
+    lignes = [l for l in toutes if _garder(l, f)]
+    if f["tri"]:
+        cle = TRIS_LOCATION[f["tri"]]
+        # Valeurs vides (km non encodés…) toujours en fin de liste
+        pleines = [l for l in lignes if cle(l) is not None]
+        vides = [l for l in lignes if cle(l) is None]
+        lignes = sorted(pleines, key=cle, reverse=f["ordre"] == "desc") + vides
+
+    params = request.GET.copy()
+    params.pop("date", None)
+    suffixe = f"?{params.urlencode()}" if params else ""
+    entetes = {}
+    for col in TRIS_LOCATION:
+        p = params.copy()
+        p["tri"] = col
+        p["ordre"] = "desc" if f["tri"] == col and f["ordre"] == "asc" else "asc"
+        entetes[col] = {"url": f"?{p.urlencode()}", "actif": f["tri"] == col, "ordre": f["ordre"]}
 
     return render(request, "agenda/agenda_location_list.html", {
         "jour": jour_affiche,
         "aujourdhui": timezone.localdate(),
-        "url_veille": _url_jour_location(jour_affiche - timedelta(days=1)),
-        "url_lendemain": _url_jour_location(jour_affiche + timedelta(days=1)),
-        "url_aujourdhui": _url_jour_location(timezone.localdate()),
+        "url_veille": _url_jour_location(jour_affiche - timedelta(days=1)) + suffixe,
+        "url_lendemain": _url_jour_location(jour_affiche + timedelta(days=1)) + suffixe,
+        "url_aujourdhui": _url_jour_location(timezone.localdate()) + suffixe,
+        "url_sans_filtre": _url_jour_location(jour_affiche),
         "url_maintenances": _url_jour(jour_affiche),
         "lignes": lignes,
+        "nb_total": len(toutes),
+        "filtres": f,
+        "filtres_actifs": any(f[k] for k in ("q", "etat", "mouvement", "type", "checkup")),
+        "params_caches": list(params.items()),
+        "entetes": entetes,
+        "retour_liste": request.get_full_path(),
+        "etats": list(AgendaLocation.ETATS.items()),
+        "mouvements": MOUVEMENTS,
+        "types_location": Location._meta.get_field("type_location").choices,
+        "tags_checkup": list(Maintenance.Tag.choices) + [("aucun", _("Sans checkup"))],
     })
+
+
+MOUVEMENTS = [
+    ("depart", _("Départs du jour")),
+    ("retour", _("Retours prévus du jour")),
+    ("en_cours", _("En cours (ni départ ni retour)")),
+    ("retard", _("Retours en retard")),
+]
+ORDRE_ETAT = {"OK_SORTIE": 0, "PREPARATION": 1, "EN_LOCATION": 2, "PROBLEME": 3, "RETOUR": 4}
+ORDRE_TAG = {"ROUGE": 0, "JAUNE": 1, "VERT": 2}
+
+
+def _vehicule_txt(l):
+    e = l["exemplaire"]
+    modele = getattr(e, "voiture_modele", None)
+    marque = getattr(modele, "voiture_marque", None) or getattr(e, "voiture_marque", None)
+    return cle_alphabetique(f"{getattr(marque, 'nom_marque', '')} {getattr(modele, 'nom_modele', '')}")
+
+
+TRIS_LOCATION = {
+    "immatriculation": lambda l: cle_alphabetique(getattr(l["exemplaire"], "immatriculation", "") or ""),
+    "vehicule": _vehicule_txt,
+    "client": lambda l: cle_alphabetique(l["client"]),
+    "location": lambda l: (l["location"].date_debut, l["location"].date_fin or l["location"].date_debut),
+    "checkup": lambda l: ORDRE_TAG.get(l["checkup"].tag, 9) if l["checkup"] else 9,
+    "etat": lambda l: (not l["en_retard"], ORDRE_ETAT.get(l["suivi"].etat, 9)),
+    "km_avant": lambda l: l["suivi"].kilometrage_avant,
+    "km_apres": lambda l: l["suivi"].kilometrage_apres,
+}
+
+
+def _filtres_location(request):
+    g = request.GET
+    val = lambda k, ok: g.get(k, "") if g.get(k, "") in ok else ""
+    return {
+        "q": g.get("q", "").strip()[:100],
+        "etat": val("etat", AgendaLocation.ETATS),
+        "mouvement": val("mouvement", dict(MOUVEMENTS)),
+        "type": val("type", dict(Location._meta.get_field("type_location").choices)),
+        "checkup": val("checkup", list(Maintenance.Tag.values) + ["aucun"]),
+        "tri": val("tri", TRIS_LOCATION),
+        "ordre": "desc" if g.get("ordre") == "desc" else "asc",
+    }
+
+
+def _garder(l, f):
+    loc, suivi = l["location"], l["suivi"]
+    if f["etat"] and suivi.etat != f["etat"]:
+        return False
+    if f["type"] and loc.type_location != f["type"]:
+        return False
+    if f["checkup"]:
+        tag = l["checkup"].tag if l["checkup"] else "aucun"
+        if tag != f["checkup"]:
+            return False
+    m = f["mouvement"]
+    if m == "depart" and not l["depart"]:
+        return False
+    if m == "retour" and not l["retour_prevu"]:
+        return False
+    if m == "en_cours" and (l["depart"] or l["retour_prevu"]):
+        return False
+    if m == "retard" and not l["en_retard"]:
+        return False
+    return True
 
 
 # =====================================================================
@@ -252,6 +347,11 @@ def agenda_location_controle_view(request, location_id):
     suivi = _suivi(location)
     jour = _jour_depuis_requete(request)
     url_retour = _url_jour_location(jour if request.GET.get("date") else location.date_debut)
+    from django.utils.http import url_has_allowed_host_and_scheme
+    retour = request.GET.get("retour", "")
+    if retour and url_has_allowed_host_and_scheme(retour, allowed_hosts={request.get_host()},
+                                                   require_https=request.is_secure()):
+        url_retour = retour
 
     form_sortie = form_retour = None
 

@@ -21,19 +21,19 @@
 
     <!-- Navigation entre les jours -->
     <div class="flex flex-wrap items-center gap-2">
-        <a href="{{ url_veille }}{% if mes_taches %}?moi=1{% endif %}"
-           class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">← {% trans "Veille" %}</a>
+        <a href="{{ url_veille }}"
+           class="js-garde-q bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">← {% trans "Veille" %}</a>
 
-        <a href="{{ url_aujourdhui }}{% if mes_taches %}?moi=1{% endif %}"
-           class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Aujourd'hui" %}</a>
+        <a href="{{ url_aujourdhui }}"
+           class="js-garde-q bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Aujourd'hui" %}</a>
 
-        <a href="{{ url_lendemain }}{% if mes_taches %}?moi=1{% endif %}"
-           class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Lendemain" %} →</a>
+        <a href="{{ url_lendemain }}"
+           class="js-garde-q bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Lendemain" %} →</a>
 
-        <form method="get" action="{% url 'agenda:agenda_jour' %}" class="flex items-center gap-2">
+        <form method="get" action="{% url 'agenda:agenda_jour' %}" class="js-garde-q flex items-center gap-2">
             <input type="date" name="date" value="{{ jour|date:'Y-m-d' }}"
                    class="border rounded px-3 py-2" onchange="this.form.submit()">
-            {% if mes_taches %}<input type="hidden" name="moi" value="1">{% endif %}
+            {% for k, v in params_caches %}<input type="hidden" name="{{ k }}" value="{{ v }}">{% endfor %}
         </form>
     </div>
 </div>
@@ -47,21 +47,13 @@
 </div>
 
 <!-- Barre d'actions -->
-<div class="flex flex-wrap items-center justify-between gap-3 mb-4">
-    <div class="flex items-center gap-3">
-        {% if mes_taches %}
-            <a href="?" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Toutes les maintenances" %}</a>
-            <span class="font-semibold text-blue-800">{% trans "Mes maintenances" %}</span>
-        {% else %}
-            <span class="font-semibold text-blue-800">{% trans "Toutes les maintenances" %}</span>
-            <a href="?moi=1" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Mes maintenances" %}</a>
+<div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+    <span class="text-gray-600">
+        {{ nb_faites }} / {{ lignes|length }} {% trans "terminée(s)" %}
+        {% if lignes|length != nb_total %}
+            · {% blocktrans with n=lignes|length total=nb_total %}{{ n }} affichée(s) sur {{ total }}{% endblocktrans %}
         {% endif %}
-
-        <span class="text-gray-600">
-            {{ nb_faites }} / {{ lignes|length }} {% trans "terminée(s)" %}
-        </span>
-    </div>
-
+    </span>
     {% if peut_planifier %}
         <a href="{% url 'agenda:ajouter_tache' %}?date={{ jour|date:'Y-m-d' }}"
            class="bg-blue-700 hover:bg-blue-400 text-white px-5 py-3 rounded font-semibold">
@@ -70,24 +62,82 @@
     {% endif %}
 </div>
 
+<!-- Filtres -->
+<form method="get" class="bg-white shadow-sm rounded-lg p-4 mb-4 flex flex-wrap items-end gap-3 text-sm">
+    <input type="hidden" name="tri" value="{{ filtres.tri }}">
+    <input type="hidden" name="ordre" value="{{ filtres.ordre }}">
+    <div>
+        <label class="block font-semibold text-gray-600 mb-1">{% trans "Rechercher" %}</label>
+        <input type="search" name="q" value="{{ filtres.q }}" placeholder="{% trans 'Plaque, marque, modèle, remarque…' %}"
+               class="border rounded px-3 py-2 w-56">
+    </div>
+    <div>
+        <label class="block font-semibold text-gray-600 mb-1">{% trans "Maintenance" %}</label>
+        <select name="type" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            <option value="">{% trans "Toutes" %}</option>
+            {% for valeur, libelle in types_maintenance %}
+                <option value="{{ valeur }}" {% if valeur == filtres.type %}selected{% endif %}>{{ libelle }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label class="block font-semibold text-gray-600 mb-1">{% trans "Technicien" %}</label>
+        <select name="tech" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            <option value="">{% trans "Tous" %}</option>
+            <option value="aucun" {% if filtres.tech == "aucun" %}selected{% endif %}>{% trans "Non assigné" %}</option>
+            {% for t in techniciens %}
+                <option value="{{ t.pk }}" {% if filtres.tech == t.pk|stringformat:"s" %}selected{% endif %}>{{ t.prenom }} {{ t.nom }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label class="block font-semibold text-gray-600 mb-1">{% trans "Tag" %}</label>
+        <select name="tag" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            <option value="">{% trans "Tous" %}</option>
+            {% for valeur, libelle in tags %}
+                <option value="{{ valeur }}" {% if valeur == filtres.tag %}selected{% endif %}>{{ libelle }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label class="block font-semibold text-gray-600 mb-1">{% trans "Statut" %}</label>
+        <select name="statut" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            <option value="">{% trans "Tous" %}</option>
+            {% for valeur, libelle in statuts %}
+                <option value="{{ valeur }}" {% if valeur == filtres.statut %}selected{% endif %}>{{ libelle }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <label class="flex items-center gap-2 py-2 font-semibold text-blue-800">
+        <input type="checkbox" name="moi" value="1" class="h-4 w-4" {% if mes_taches %}checked{% endif %} onchange="this.form.submit()">
+        {% trans "Mes maintenances" %}
+    </label>
+    <button class="bg-blue-700 hover:bg-blue-500 text-white px-4 py-2 rounded font-semibold">{% trans "Filtrer" %}</button>
+    <span id="compte-recherche" class="py-2 font-semibold text-blue-800"></span>
+    {% if filtres_actifs or mes_taches %}
+        <a href="{{ url_sans_filtre }}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Réinitialiser" %}</a>
+    {% endif %}
+</form>
+
 <!-- Liste des maintenances du jour -->
 <div class="overflow-x-auto bg-white shadow-md rounded-lg">
 <table class="min-w-full table-auto border-collapse border border-gray-200">
     <thead>
         <tr class="bg-gray-100">
-            <th class="border px-4 py-2 text-left">{% trans "Maintenance" %}</th>
-            <th class="border px-4 py-2 text-left">{% trans "Immatriculation" %}</th>
-            <th class="border px-4 py-2 text-left">{% trans "Véhicule" %}</th>
-            <th class="border px-4 py-2 text-left">{% trans "Technicien" %}</th>
-            <th class="border px-4 py-2 text-left">{% trans "Tag" %}</th>
-            <th class="border px-4 py-2 text-left">{% trans "Statut / Prête pour" %}</th>
+            <th class="border px-4 py-2 text-left">{% with e=entetes.maintenance %}<a href="{{ e.url }}" class="js-garde-q inline-flex items-center gap-1 hover:text-blue-700 {% if e.actif %}text-blue-800{% endif %}" title="{% trans 'Trier' %}">{% trans "Maintenance" %} <span aria-hidden="true">{% if e.actif %}{% if e.ordre == "asc" %}▲{% else %}▼{% endif %}{% else %}<span class="text-gray-300">↕</span>{% endif %}</span></a>{% endwith %}</th>
+            <th class="border px-4 py-2 text-left">{% with e=entetes.immatriculation %}<a href="{{ e.url }}" class="js-garde-q inline-flex items-center gap-1 hover:text-blue-700 {% if e.actif %}text-blue-800{% endif %}" title="{% trans 'Trier' %}">{% trans "Immatriculation" %} <span aria-hidden="true">{% if e.actif %}{% if e.ordre == "asc" %}▲{% else %}▼{% endif %}{% else %}<span class="text-gray-300">↕</span>{% endif %}</span></a>{% endwith %}</th>
+            <th class="border px-4 py-2 text-left">{% with e=entetes.vehicule %}<a href="{{ e.url }}" class="js-garde-q inline-flex items-center gap-1 hover:text-blue-700 {% if e.actif %}text-blue-800{% endif %}" title="{% trans 'Trier' %}">{% trans "Véhicule" %} <span aria-hidden="true">{% if e.actif %}{% if e.ordre == "asc" %}▲{% else %}▼{% endif %}{% else %}<span class="text-gray-300">↕</span>{% endif %}</span></a>{% endwith %}</th>
+            <th class="border px-4 py-2 text-left">{% with e=entetes.technicien %}<a href="{{ e.url }}" class="js-garde-q inline-flex items-center gap-1 hover:text-blue-700 {% if e.actif %}text-blue-800{% endif %}" title="{% trans 'Trier' %}">{% trans "Technicien" %} <span aria-hidden="true">{% if e.actif %}{% if e.ordre == "asc" %}▲{% else %}▼{% endif %}{% else %}<span class="text-gray-300">↕</span>{% endif %}</span></a>{% endwith %}</th>
+            <th class="border px-4 py-2 text-left">{% with e=entetes.tag %}<a href="{{ e.url }}" class="js-garde-q inline-flex items-center gap-1 hover:text-blue-700 {% if e.actif %}text-blue-800{% endif %}" title="{% trans 'Trier' %}">{% trans "Tag" %} <span aria-hidden="true">{% if e.actif %}{% if e.ordre == "asc" %}▲{% else %}▼{% endif %}{% else %}<span class="text-gray-300">↕</span>{% endif %}</span></a>{% endwith %}</th>
+            <th class="border px-4 py-2 text-left">{% with e=entetes.statut %}<a href="{{ e.url }}" class="js-garde-q inline-flex items-center gap-1 hover:text-blue-700 {% if e.actif %}text-blue-800{% endif %}" title="{% trans 'Trier' %}">{% trans "Statut / Prête pour" %} <span aria-hidden="true">{% if e.actif %}{% if e.ordre == "asc" %}▲{% else %}▼{% endif %}{% else %}<span class="text-gray-300">↕</span>{% endif %}</span></a>{% endwith %}</th>
             <th class="border px-4 py-2 text-center">{% trans "Info" %}</th>
         </tr>
     </thead>
     <tbody>
     {% for ligne in lignes %}
         {% with tache=ligne.tache form=ligne.form exemplaire=ligne.tache.voiture_exemplaire %}
-        <tr class="{% if tache.est_terminee %}bg-gray-50 text-gray-500{% endif %}">
+        <tr class="{% if tache.est_terminee %}bg-gray-50 text-gray-500{% endif %}"
+            data-recherche="{{ tache.immatriculation }} {{ tache.get_type_maintenance_display }} {{ exemplaire.voiture_modele.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }} {{ exemplaire.voiture_modele.nom_variante|default:'' }} {{ tache.technicien.prenom }} {{ tache.technicien.nom }} {{ tache.remarques }} {{ tache.prete_pour }}">
 
             <td class="border px-4 py-2 font-semibold">
                 {% with url_m=tache.url_maintenance %}
@@ -178,7 +228,8 @@
     {% empty %}
         <tr>
             <td colspan="7" class="text-center py-6 text-gray-500">
-                {% trans "Aucune maintenance planifiée ce jour." %}
+                {% if nb_total %}{% trans "Aucune maintenance ne correspond aux filtres." %}
+                {% else %}{% trans "Aucune maintenance planifiée ce jour." %}{% endif %}
             </td>
         </tr>
     {% endfor %}
@@ -190,9 +241,10 @@
 {% for ligne in lignes %}
     <form id="maj-{{ ligne.tache.pk }}" method="post" action="{% url 'agenda:maj_rapide_tache' ligne.tache.pk %}" class="hidden">
         {% csrf_token %}
-        {% if mes_taches %}<input type="hidden" name="moi" value="1">{% endif %}
+        <input type="hidden" name="retour" value="{{ request.get_full_path }}">
     </form>
 {% endfor %}
 
+{% include "agenda/partials/recherche_live.html" %}
 <br>
 {% endblock %}

@@ -71,35 +71,124 @@ def agenda_jour_view(request, annee=None, mois=None, jour=None):
     taches = (
         _taches_societe(request)
         .filter(date=jour_affiche)
-        .select_related("voiture_exemplaire", "voiture_exemplaire__voiture_modele", "technicien")
+        .select_related("voiture_exemplaire", "voiture_exemplaire__voiture_modele",
+                        "voiture_exemplaire__voiture_modele__voiture_marque", "technicien")
     )
+    nb_total = taches.count()
 
-    # Filtre « mes tâches »
-    mes_taches = request.GET.get("moi") == "1"
-    if mes_taches:
+    f = _filtres_agenda(request)
+    if f["moi"]:
         taches = taches.filter(technicien=request.user)
+    if f["type"]:
+        taches = taches.filter(type_maintenance=f["type"])
+    if f["tag"]:
+        taches = taches.filter(tag=f["tag"])
+    if f["tech"] == "aucun":
+        taches = taches.filter(technicien__isnull=True)
+    elif f["tech"]:
+        taches = taches.filter(technicien_id=f["tech"])
 
-    # Maintenances du jour par ordre alphabétique, puis par immatriculation
-    taches_triees = sorted(
-        taches,
-        key=lambda t: (cle_alphabetique(t.get_type_maintenance_display()), cle_alphabetique(t.immatriculation)),
-    )
+    taches = list(taches)
+    if f["statut"]:
+        taches = [t for t in taches if _statut_filtre(t) == f["statut"]
+                  or (f["statut"] == "non_terminees" and not t.est_terminee)]
+    # Recherche texte : instantanée dans la page (agenda/partials/recherche_live.html)
+
+    # Tri (par défaut : maintenance puis immatriculation)
+    cle = TRIS_AGENDA.get(f["tri"], TRIS_AGENDA["maintenance"])
+    taches_triees = sorted(taches, key=lambda t: (cle(t), cle_alphabetique(t.immatriculation)),
+                           reverse=f["ordre"] == "desc")
     lignes = [
         {"tache": t, "form": AgendaTacheRapideForm(instance=t, prefix=f"t{t.pk}")}
         for t in taches_triees
     ]
 
+    # Liens : on garde les filtres en changeant de jour ou de tri
+    params = request.GET.copy()
+    params.pop("date", None)
+    suffixe = f"?{params.urlencode()}" if params else ""
+    entetes = {}
+    for col in TRIS_AGENDA:
+        p = params.copy()
+        p["tri"] = col
+        p["ordre"] = "desc" if f["tri"] == col and f["ordre"] == "asc" else "asc"
+        entetes[col] = {"url": f"?{p.urlencode()}", "actif": f["tri"] == col, "ordre": f["ordre"]}
+
+    from django.contrib.auth import get_user_model
+    techniciens = get_user_model().objects.filter(
+        societe=request.user.societe, is_active=True, role__in=ROLES_AGENDA).order_by("prenom", "nom")
+
     return render(request, "agenda/agenda_list.html", {
         "jour": jour_affiche,
         "aujourdhui": timezone.localdate(),
-        "url_veille": _url_jour(jour_affiche - timedelta(days=1)),
-        "url_lendemain": _url_jour(jour_affiche + timedelta(days=1)),
-        "url_aujourdhui": _url_jour(timezone.localdate()),
+        "url_veille": _url_jour(jour_affiche - timedelta(days=1)) + suffixe,
+        "url_lendemain": _url_jour(jour_affiche + timedelta(days=1)) + suffixe,
+        "url_aujourdhui": _url_jour(timezone.localdate()) + suffixe,
+        "url_sans_filtre": _url_jour(jour_affiche),
         "lignes": lignes,
-        "mes_taches": mes_taches,
+        "mes_taches": f["moi"],
+        "filtres": f,
+        "filtres_actifs": any(f[k] for k in ("type", "tag", "tech", "statut", "q")),
+        "params_caches": [(k, v) for k, v in params.items() if k not in ("date",)],
+        "entetes": entetes,
+        "nb_total": nb_total,
+        "types_maintenance": sorted(Maintenance.TypeMaintenance.choices, key=lambda c: cle_alphabetique(c[1])),
+        "tags": Maintenance.Tag.choices,
+        "statuts": [("non_terminees", _("Non terminées")), ("A_FAIRE", _("À faire")),
+                    ("EN_COURS", _("En cours")), ("FAIT", _("Terminées"))],
+        "techniciens": techniciens,
         "peut_planifier": _peut(request.user, ROLES_PLANIFICATION),
         "nb_faites": sum(1 for t in taches if t.est_terminee),
     })
+
+
+ORDRE_TAG = {"ROUGE": 0, "JAUNE": 1, "VERT": 2}
+ORDRE_STATUT = {"A_FAIRE": 0, "EN_COURS": 1, "FAIT": 2}
+
+
+def _statut_filtre(t):
+    """Statut comparable pour toutes les tâches (checkup piste : terminé quand le tag est vert)."""
+    if t.est_checkup_track:
+        return "FAIT" if t.est_terminee else "A_FAIRE"
+    return t.statut
+
+
+TRIS_AGENDA = {
+    "maintenance": lambda t: cle_alphabetique(t.get_type_maintenance_display()),
+    "immatriculation": lambda t: cle_alphabetique(t.immatriculation),
+    "vehicule": lambda t: cle_alphabetique(" ".join(str(x or "") for x in (
+        getattr(getattr(getattr(t.voiture_exemplaire, "voiture_modele", None), "voiture_marque", None), "nom_marque", ""),
+        getattr(getattr(t.voiture_exemplaire, "voiture_modele", None), "nom_modele", "")))),
+    # Non assigné en premier : c'est ce qui reste à organiser
+    "technicien": lambda t: cle_alphabetique(f"{t.technicien.prenom} {t.technicien.nom}") if t.technicien else "",
+    "tag": lambda t: ORDRE_TAG.get(t.tag, 9),
+    "statut": lambda t: ORDRE_STATUT.get(_statut_filtre(t), 9),
+}
+
+
+def _filtres_agenda(request):
+    g = request.GET
+    tri = g.get("tri", "maintenance")
+    return {
+        "moi": g.get("moi") == "1",
+        "type": g.get("type", "") if g.get("type", "") in Maintenance.TypeMaintenance.values else "",
+        "tag": g.get("tag", "") if g.get("tag", "") in Maintenance.Tag.values else "",
+        "tech": g.get("tech", "") if g.get("tech", "") == "aucun" or g.get("tech", "").isdigit()
+                or _est_uuid(g.get("tech", "")) else "",
+        "statut": g.get("statut", "") if g.get("statut", "") in ("non_terminees", "A_FAIRE", "EN_COURS", "FAIT") else "",
+        "q": g.get("q", "").strip()[:100],
+        "tri": tri if tri in TRIS_AGENDA else "maintenance",
+        "ordre": "desc" if g.get("ordre") == "desc" else "asc",
+    }
+
+
+def _est_uuid(valeur):
+    import uuid
+    try:
+        uuid.UUID(str(valeur))
+        return True
+    except ValueError:
+        return False
 
 
 # -----------------------------
@@ -221,6 +310,11 @@ def maj_rapide_tache_view(request, tache_id):
     else:
         messages.error(request, _("Mise à jour impossible."))
 
+    from django.utils.http import url_has_allowed_host_and_scheme
+    retour = request.POST.get("retour", "")
+    if retour and url_has_allowed_host_and_scheme(retour, allowed_hosts={request.get_host()},
+                                                   require_https=request.is_secure()):
+        return redirect(retour)
     url = _url_jour(tache.date)
     if request.POST.get("moi") == "1":
         url += "?moi=1"

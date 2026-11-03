@@ -45,30 +45,63 @@
 <br>
 <br>
 
-<div class="bg-white shadow-md rounded-lg p-4 mb-4">
-    <div class="grid grid-cols-1 md:grid-cols-5 gap-3 items-end">
-        <input id="search-immatriculation" type="text"
-               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Immatriculation' %}">
-
-        <input id="search-vehicule" type="text"
-               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Véhicule' %}">
-
-        <select id="search-type"
-                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option value="">{% trans "Circuit et route" %}</option>
-            <option value="{% trans 'Circuit' %}">{% trans "Circuit" %}</option>
-            <option value="{% trans 'Route' %}">{% trans "Route" %}</option>
-        </select>
-
-        <input id="search-lieu" type="text"
-               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Circuit / route' %}">
-
-        <input id="search-client" type="search"
-               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Client (nom, société)' %}">
+<!-- Filtres : appliqués dès le premier caractère, conservés dans l'adresse de la page -->
+<div id="filtres-locations" class="bg-white shadow-md rounded-lg p-4 mb-4 text-sm">
+    <div class="flex flex-wrap items-end gap-3">
+        <div>
+            <label for="f-q" class="block font-semibold text-gray-600 mb-1">{% trans "Rechercher" %}</label>
+            <input id="f-q" data-param="q" type="search" autocomplete="off"
+                   class="border rounded px-3 py-2 w-72 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                   placeholder="{% trans 'Plaque, véhicule, client, circuit, n° facture…' %}">
+        </div>
+        <div>
+            <label for="f-type" class="block font-semibold text-gray-600 mb-1">{% trans "Type" %}</label>
+            <select id="f-type" data-param="type" class="border rounded px-3 py-2">
+                <option value="">{% trans "Circuit et route" %}</option>
+                <option value="circuit">{% trans "Circuit" %}</option>
+                <option value="route">{% trans "Route" %}</option>
+            </select>
+        </div>
+        <div>
+            <label for="f-periode" class="block font-semibold text-gray-600 mb-1">{% trans "Période" %}</label>
+            <select id="f-periode" data-param="periode" class="border rounded px-3 py-2">
+                <option value="">{% trans "Toutes" %}</option>
+                <option value="avenir">{% trans "À venir" %}</option>
+                <option value="encours">{% trans "En cours aujourd'hui" %}</option>
+                <option value="passees">{% trans "Passées" %}</option>
+                <option value="mois">{% trans "Ce mois-ci" %}</option>
+            </select>
+        </div>
+        <div>
+            <label for="f-du" class="block font-semibold text-gray-600 mb-1">{% trans "Du" %}</label>
+            <input id="f-du" data-param="du" type="date" class="border rounded px-3 py-2">
+        </div>
+        <div>
+            <label for="f-au" class="block font-semibold text-gray-600 mb-1">{% trans "Au" %}</label>
+            <input id="f-au" data-param="au" type="date" class="border rounded px-3 py-2">
+        </div>
+        <div>
+            <label for="f-paiement" class="block font-semibold text-gray-600 mb-1">{% trans "Paiement" %}</label>
+            <select id="f-paiement" data-param="paiement" class="border rounded px-3 py-2">
+                <option value="">{% trans "Tous" %}</option>
+                <option value="non_solde">{% trans "Pas entièrement payé" %}</option>
+                <option value="A_PAYER">{% trans "À payer" %}</option>
+                <option value="ACOMPTE">{% trans "Acompte" %}</option>
+                <option value="KM_A_PAYER">{% trans "Km supplémentaires à payer" %}</option>
+                <option value="PAYE">{% trans "Payé" %}</option>
+            </select>
+        </div>
+        <div>
+            <label for="f-facture" class="block font-semibold text-gray-600 mb-1">{% trans "Facture" %}</label>
+            <select id="f-facture" data-param="facture" class="border rounded px-3 py-2">
+                <option value="">{% trans "Toutes" %}</option>
+                <option value="aucune">{% trans "Non facturée" %}</option>
+                <option value="brouillon">{% trans "Brouillon" %}</option>
+                <option value="emise">{% trans "Émise" %}</option>
+            </select>
+        </div>
+        <button type="button" id="f-reset" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Réinitialiser" %}</button>
+        <span id="f-compte" class="ml-auto py-2 font-semibold text-blue-800"></span>
     </div>
 </div>
 
@@ -91,11 +124,13 @@
     </thead>
     <tbody>
     {% for loc in locations %}
-        <tr>
+        {% with facture=loc.facture exemplaire=loc.voiture_exemplaire %}
+        <tr data-recherche="{{ exemplaire.immatriculation }} {{ exemplaire.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }} {{ exemplaire.voiture_modele.nom_variante|default:'' }} {{ loc.get_type_location_display }} {{ loc.lieu }} {{ loc.locataire|default:'' }} {{ loc.nom_locataire|default:'' }} {{ facture.numero|default:'' }}"
+            data-type="{{ loc.type_location }}" data-paiement="{{ loc.statut_paiement }}"
+            data-facture="{% if not facture %}aucune{% elif facture.est_emise %}emise{% else %}brouillon{% endif %}"
+            data-debut="{{ loc.date_debut|date:'Y-m-d' }}" data-fin="{{ loc.date_fin|default:loc.date_debut|date:'Y-m-d' }}">
             <td class="border px-4 py-2">
-                {% with exemplaire=loc.voiture_exemplaire %}
-                    {% include "maintenance/partials/plaque.html" with taille="petite" %}
-                {% endwith %}
+                {% include "maintenance/partials/plaque.html" with taille="petite" %}
             </td>
             <td class="border px-4 py-2">
                 <div class="flex items-center gap-2">
@@ -139,6 +174,7 @@
                 </a>
             </td>
         </tr>
+        {% endwith %}
     {% endfor %}
     </tbody>
 </table>
@@ -159,15 +195,52 @@
 function sansAccents(texte) {
     return String(texte || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
+function compact(texte) { return texte.replace(/[\s\-\.\/·]/g, ""); }
 
 $(document).ready(function () {
+    const AUJOURDHUI = "{% now 'Y-m-d' %}";
+    const MOIS = AUJOURDHUI.slice(0, 7);
+    const champs = $('#filtres-locations [data-param]');
+
+    // Valeurs reprises de l'adresse (lien partagé, retour arrière)
+    const params = new URLSearchParams(window.location.search);
+    champs.each(function () { if (params.has(this.dataset.param)) this.value = params.get(this.dataset.param); });
+
+    // Texte de recherche de chaque ligne, préparé une seule fois
+    $('#locations-table tbody tr[data-recherche]').each(function () {
+        const t = sansAccents(this.dataset.recherche);
+        this._txt = t; this._compact = compact(t);
+    });
+
+    function val(id) { return $('#' + id).val() || ""; }
+
+    $.fn.dataTable.ext.search.push(function (settings, data, index, rowData, counter) {
+        if (settings.nTable.id !== 'locations-table') return true;
+        const tr = settings.aoData[index].nTr, d = tr.dataset;
+        const q = sansAccents(val('f-q').trim()), cq = compact(q);
+        if (q && tr._txt.indexOf(q) === -1 && !(cq && tr._compact.indexOf(cq) !== -1)) return false;
+        if (val('f-type') && d.type !== val('f-type')) return false;
+        const p = val('f-paiement');
+        if (p === 'non_solde' ? d.paiement === 'PAYE' : (p && d.paiement !== p)) return false;
+        if (val('f-facture') && d.facture !== val('f-facture')) return false;
+        const per = val('f-periode');
+        if (per === 'avenir' && !(d.debut > AUJOURDHUI)) return false;
+        if (per === 'encours' && !(d.debut <= AUJOURDHUI && d.fin >= AUJOURDHUI)) return false;
+        if (per === 'passees' && !(d.fin < AUJOURDHUI)) return false;
+        if (per === 'mois' && !(d.debut.slice(0, 7) <= MOIS && d.fin.slice(0, 7) >= MOIS)) return false;
+        if (val('f-du') && d.fin < val('f-du')) return false;
+        if (val('f-au') && d.debut > val('f-au')) return false;
+        return true;
+    });
+
     const table = $('#locations-table').DataTable({
+        dom: 'lrtip',  // recherche faite par les filtres ci-dessus
         language: {
             emptyTable: "{% trans 'Aucune location enregistrée.' %}",
-            search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
             info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ locations' %}",
             infoEmpty: "{% trans 'Aucune location trouvée' %}",
+            infoFiltered: "{% trans '(filtrées sur _MAX_)' %}",
             zeroRecords: "{% trans 'Aucune location trouvée' %}",
             paginate: {
                 first: "{% trans 'Premier' %}",
@@ -179,17 +252,26 @@ $(document).ready(function () {
         order: [[7, 'desc']],
         columnDefs: [
             { targets: 10, orderable: false, searchable: false },
-            { targets: [5, 6], type: 'num' },
-            // Client : recherche sans tenir compte des accents ni des majuscules
-            { targets: 4, render: function (data, type) { return type === 'filter' ? sansAccents(data) : data; } }
+            { targets: [5, 6], type: 'num' }
         ]
     });
 
-    $('#search-immatriculation').on('keyup change', function () { table.column(0).search(this.value).draw(); });
-    $('#search-vehicule').on('keyup change', function () { table.column(1).search(this.value).draw(); });
-    $('#search-type').on('change', function () { table.column(2).search(this.value).draw(); });
-    $('#search-lieu').on('keyup change', function () { table.column(3).search(this.value).draw(); });
-    $('#search-client').on('keyup change search', function () { table.column(4).search(sansAccents(this.value)).draw(); });
+    function appliquer() {
+        table.draw();
+        const actif = champs.filter(function () { return this.value; }).length > 0;
+        const n = table.rows({ search: 'applied' }).count(), total = table.rows().count();
+        $('#f-compte').text(actif ? n + ' / ' + total : '');
+        const u = new URL(window.location.href);
+        champs.each(function () {
+            if (this.value) u.searchParams.set(this.dataset.param, this.value); else u.searchParams.delete(this.dataset.param);
+        });
+        history.replaceState(null, '', u.pathname + u.search);
+    }
+
+    $('#f-q').on('input', appliquer);
+    champs.not('#f-q').on('change input', appliquer);
+    $('#f-reset').on('click', function () { champs.val(''); appliquer(); $('#f-q').trigger('focus'); });
+    appliquer();
 });
 </script>
 {% endblock %}

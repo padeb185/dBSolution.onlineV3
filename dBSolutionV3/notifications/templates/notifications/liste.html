@@ -30,7 +30,7 @@
 
     <ul class="space-y-2">
     {% for n in page %}
-        <li class="bg-white rounded-lg shadow-sm border-l-4 {% if n.lue %}border-gray-300{% elif n.type == 'maintenance' %}border-orange-500{% elif n.type == 'vente' %}border-green-600{% elif n.type == 'paiement' %}border-emerald-500{% elif n.type == 'achat' %}border-purple-600{% else %}border-blue-600{% endif %}">
+        <li class="bg-white rounded-lg shadow-sm border-l-4 {% if n.lue %}border-gray-300{% elif n.type == 'maintenance' %}border-orange-500{% elif n.type == 'vente' %}border-green-600{% elif n.type == 'paiement' %}border-emerald-500{% elif n.type == 'achat' %}border-purple-600{% elif n.type == 'location' %}border-blue-500{% else %}border-blue-600{% endif %}">
             <div class="flex items-start gap-3 p-4">
                 <div class="flex-1 min-w-0">
                     <a href="{% url 'notifications:ouvrir' n.pk %}" class="block {% if not n.lue %}font-bold{% else %}font-medium text-gray-700{% endif %} hover:underline">{{ n.titre }}</a>

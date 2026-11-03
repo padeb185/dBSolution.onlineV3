@@ -3,14 +3,14 @@
 <table class="min-w-full table-auto border-collapse border border-gray-200">
     <thead>
         <tr class="bg-gray-100">
-            <th class="border px-3 py-2 text-left">{% trans "Immatriculation" %}</th>
-            <th class="border px-3 py-2 text-left">{% trans "Véhicule" %}</th>
-            <th class="border px-3 py-2 text-left">{% trans "Client" %}</th>
-            <th class="border px-3 py-2 text-left">{% trans "Location" %}</th>
-            <th class="border px-3 py-2 text-left">{% trans "Checkup piste" %}</th>
-            <th class="border px-3 py-2 text-left">{% trans "État" %}</th>
-            <th class="border px-3 py-2 text-right">{% trans "Km avant" %}</th>
-            <th class="border px-3 py-2 text-right">{% trans "Km après" %}</th>
+            {% trans "Immatriculation" as lib %}{% include "agenda/partials/th_tri.html" with e=entetes.immatriculation libelle=lib align="left" %}
+            {% trans "Véhicule" as lib %}{% include "agenda/partials/th_tri.html" with e=entetes.vehicule libelle=lib align="left" %}
+            {% trans "Client" as lib %}{% include "agenda/partials/th_tri.html" with e=entetes.client libelle=lib align="left" %}
+            {% trans "Location" as lib %}{% include "agenda/partials/th_tri.html" with e=entetes.location libelle=lib align="left" %}
+            {% trans "Checkup piste" as lib %}{% include "agenda/partials/th_tri.html" with e=entetes.checkup libelle=lib align="left" %}
+            {% trans "État" as lib %}{% include "agenda/partials/th_tri.html" with e=entetes.etat libelle=lib align="left" %}
+            {% trans "Km avant" as lib %}{% include "agenda/partials/th_tri.html" with e=entetes.km_avant libelle=lib align="right" %}
+            {% trans "Km après" as lib %}{% include "agenda/partials/th_tri.html" with e=entetes.km_apres libelle=lib align="right" %}
             <th class="border px-3 py-2 text-left">{% trans "Retour" %}</th>
             <th class="border px-3 py-2 text-center">{% trans "Action" %}</th>
         </tr>
@@ -18,7 +18,8 @@
     <tbody>
     {% for l in lignes %}
         {% with loc=l.location suivi=l.suivi exemplaire=l.exemplaire %}
-        <tr class="{% if l.en_retard %}bg-red-50{% elif suivi.etat == 'RETOUR' %}text-gray-500{% endif %}">
+        <tr class="{% if l.en_retard %}bg-red-50{% elif suivi.etat == 'RETOUR' %}text-gray-500{% endif %}"
+            data-recherche="{{ exemplaire.immatriculation }} {{ exemplaire.voiture_modele.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }} {{ exemplaire.voiture_modele.nom_variante|default:'' }} {{ l.client }} {{ loc.lieu }} {{ loc.get_type_location_display }} {{ suivi.remarques }}">
             <td class="border px-3 py-2">{% include "maintenance/partials/plaque.html" with taille="petite" %}</td>
             <td class="border px-3 py-2">{% include "agenda/partials/vehicule.html" %}</td>
             <td class="border px-3 py-2 font-semibold">{{ l.client }}</td>
@@ -50,7 +51,7 @@
                 {% else %}—{% endif %}
             </td>
             <td class="border px-3 py-2 text-center whitespace-nowrap">
-                <a href="{% url 'agenda:agenda_location_controle' loc.pk %}{% if jour %}?date={{ jour|date:'Y-m-d' }}{% endif %}"
+                <a href="{% url 'agenda:agenda_location_controle' loc.pk %}{% if jour %}?date={{ jour|date:'Y-m-d' }}{% if retour_liste %}&amp;retour={{ retour_liste|urlencode }}{% endif %}{% endif %}"
                    class="inline-block px-3 py-1 rounded text-white font-semibold
                    {% if suivi.etat == 'OK_SORTIE' %}bg-green-600 hover:bg-green-700
                    {% elif suivi.etat == 'EN_LOCATION' %}bg-blue-700 hover:bg-blue-500
@@ -63,7 +64,7 @@
         </tr>
         {% endwith %}
     {% empty %}
-        <tr><td colspan="10" class="text-center py-6 text-gray-500">{% trans "Aucune location." %}</td></tr>
+        <tr><td colspan="10" class="text-center py-6 text-gray-500">{% if nb_total %}{% trans "Aucune location ne correspond aux filtres." %}{% else %}{% trans "Aucune location." %}{% endif %}</td></tr>
     {% endfor %}
     </tbody>
 </table>

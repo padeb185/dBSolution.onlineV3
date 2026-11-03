@@ -230,6 +230,36 @@ class Maintenance(models.Model):
         """Pièces ajoutées via « Pièces utilisées » (stock), hors lignes de pièces de l'intervention."""
         return self.pieces_utilisees.filter(prefixe="").select_related("piece", "piece__fabricant")
 
+    def kilometrage_intervention(self):
+        """
+        Kilométrage châssis relevé pendant la maintenance : celui de la fiche d'intervention liée
+        (checkup, décontamination, embrayage…), mis à jour pendant l'intervention ; sinon la copie
+        enregistrée sur la maintenance. None si rien n'est connu.
+        """
+        if hasattr(self, "_km_intervention"):
+            return self._km_intervention
+        valeurs = []
+        if self.pk:
+            from django.db import transaction
+            requetes = []
+            for rel in self._meta.related_objects:
+                if not (rel.one_to_one or rel.one_to_many):
+                    continue
+                modele = rel.related_model
+                if not any(f.name == "kilometres_chassis" for f in modele._meta.concrete_fields):
+                    continue
+                requetes.append(modele._base_manager.filter(**{rel.field.name: self}, kilometres_chassis__isnull=False)
+                                .values_list("kilometres_chassis", flat=True).order_by())
+            if requetes:
+                try:
+                    with transaction.atomic():  # une seule requête (UNION) ; une erreur ne casse pas la page
+                        valeurs = [v for v in requetes[0].union(*requetes[1:], all=True) if v]
+                except Exception:
+                    valeurs = []
+        km = max(valeurs) if valeurs else (self.kilometres_chassis or self.kilometres_total or None)
+        self._km_intervention = km
+        return km
+
     @property
     def kilometres_calcules(self):
         if self.kilometres_dernier_entretien is not None:

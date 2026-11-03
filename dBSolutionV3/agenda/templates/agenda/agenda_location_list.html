@@ -18,11 +18,12 @@
     </h1>
 
     <div class="flex flex-wrap items-center gap-2">
-        <a href="{{ url_veille }}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">← {% trans "Veille" %}</a>
-        <a href="{{ url_aujourdhui }}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Aujourd'hui" %}</a>
-        <a href="{{ url_lendemain }}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Lendemain" %} →</a>
-        <form method="get" action="{% url 'agenda:agenda_location' %}">
+        <a href="{{ url_veille }}" class="js-garde-q bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">← {% trans "Veille" %}</a>
+        <a href="{{ url_aujourdhui }}" class="js-garde-q bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Aujourd'hui" %}</a>
+        <a href="{{ url_lendemain }}" class="js-garde-q bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Lendemain" %} →</a>
+        <form method="get" action="{% url 'agenda:agenda_location' %}" class="js-garde-q">
             <input type="date" name="date" value="{{ jour|date:'Y-m-d' }}" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            {% for k, v in params_caches %}<input type="hidden" name="{{ k }}" value="{{ v }}">{% endfor %}
         </form>
     </div>
 </div>
@@ -36,6 +37,55 @@
     <span class="text-gray-600 text-sm">{% trans "Sortie possible uniquement quand le checkup piste est au vert." %}</span>
 </div>
 
+<!-- Filtres -->
+<form method="get" class="bg-white shadow-sm rounded-lg p-4 mb-4 flex flex-wrap items-end gap-3 text-sm">
+    <input type="hidden" name="tri" value="{{ filtres.tri }}">
+    <input type="hidden" name="ordre" value="{{ filtres.ordre }}">
+    <div>
+        <label class="block font-semibold text-gray-600 mb-1">{% trans "Rechercher" %}</label>
+        <input type="search" name="q" value="{{ filtres.q }}" placeholder="{% trans 'Plaque, véhicule, client, lieu…' %}"
+               class="border rounded px-3 py-2 w-56">
+    </div>
+    <div>
+        <label class="block font-semibold text-gray-600 mb-1">{% trans "Mouvement" %}</label>
+        <select name="mouvement" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            <option value="">{% trans "Tous" %}</option>
+            {% for valeur, libelle in mouvements %}<option value="{{ valeur }}" {% if valeur == filtres.mouvement %}selected{% endif %}>{{ libelle }}</option>{% endfor %}
+        </select>
+    </div>
+    <div>
+        <label class="block font-semibold text-gray-600 mb-1">{% trans "État" %}</label>
+        <select name="etat" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            <option value="">{% trans "Tous" %}</option>
+            {% for valeur, libelle in etats %}<option value="{{ valeur }}" {% if valeur == filtres.etat %}selected{% endif %}>{{ libelle }}</option>{% endfor %}
+        </select>
+    </div>
+    <div>
+        <label class="block font-semibold text-gray-600 mb-1">{% trans "Checkup piste" %}</label>
+        <select name="checkup" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            <option value="">{% trans "Tous" %}</option>
+            {% for valeur, libelle in tags_checkup %}<option value="{{ valeur }}" {% if valeur == filtres.checkup %}selected{% endif %}>{{ libelle }}</option>{% endfor %}
+        </select>
+    </div>
+    <div>
+        <label class="block font-semibold text-gray-600 mb-1">{% trans "Type" %}</label>
+        <select name="type" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            <option value="">{% trans "Tous" %}</option>
+            {% for valeur, libelle in types_location %}<option value="{{ valeur }}" {% if valeur == filtres.type %}selected{% endif %}>{{ libelle }}</option>{% endfor %}
+        </select>
+    </div>
+    <button class="bg-blue-700 hover:bg-blue-500 text-white px-4 py-2 rounded font-semibold">{% trans "Filtrer" %}</button>
+    {% if filtres_actifs or filtres.tri %}
+        <a href="{{ url_sans_filtre }}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Réinitialiser" %}</a>
+    {% endif %}
+    <span id="compte-recherche" class="py-2 font-semibold text-blue-800"></span>
+    <span class="ml-auto py-2 text-gray-600">
+        {% if lignes|length != nb_total %}{% blocktrans with n=lignes|length total=nb_total %}{{ n }} affichée(s) sur {{ total }}{% endblocktrans %}
+        {% else %}{% blocktrans count n=nb_total %}{{ n }} location{% plural %}{{ n }} locations{% endblocktrans %}{% endif %}
+    </span>
+</form>
+
 {% include "agenda/partials/table_locations.html" %}
+{% include "agenda/partials/recherche_live.html" %}
 <br>
 {% endblock %}

@@ -113,6 +113,27 @@ def outillage_cree(sender, instance, created, **kwargs):
              url_name="outillage:outillage_detail", url_kwargs={"outillage_id": instance.pk})
 
 
+# ---------------------------------------------------------------- locations
+@securise
+def location_creee(sender, instance, created, **kwargs):
+    if not created or kwargs.get("raw"):
+        return
+    debut, fin = instance.date_debut, instance.date_fin
+    periode = debut.strftime("%d/%m/%Y") if hasattr(debut, "strftime") else str(debut or "")
+    if fin and fin != debut and hasattr(fin, "strftime"):
+        periode += " → " + fin.strftime("%d/%m/%Y")
+    try:
+        client = instance.nom_locataire or str(instance.locataire or "")
+    except Exception:
+        client = ""
+    titre = _("Nouvelle location : %(vehicule)s – %(client)s") % {
+        "vehicule": instance.voiture_exemplaire, "client": client or "—"}
+    message = _("%(type)s %(lieu)s, du %(periode)s.") % {
+        "type": instance.get_type_location_display(), "lieu": instance.lieu or "", "periode": periode}
+    notifier(instance.societe, type="location", titre=titre, message=" ".join(message.split()),
+             url_name="voiture_location:location_detail", url_kwargs={"location_id": str(instance.pk)})
+
+
 def brancher():
     def modele(label):
         try:
@@ -133,6 +154,9 @@ def brancher():
     a = modele("achat_mds.AchatMds")
     if a:
         post_save.connect(achat_mds_cree, sender=a, dispatch_uid="notif_achat_mds")
+    loc = modele("voiture_location.Location")
+    if loc:
+        post_save.connect(location_creee, sender=loc, dispatch_uid="notif_location")
     o = modele("outillage.Outillage")
     if o:
         post_save.connect(outillage_cree, sender=o, dispatch_uid="notif_outillage")
