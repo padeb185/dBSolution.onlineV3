@@ -7,7 +7,12 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
-from .models import Notification
+from utils.securite import roles_requis
+
+from .forms import ParametresNotificationsForm, PreferencesNotificationsForm
+from .models import (Notification, ParametresNotifications, PreferenceNotification, RegleNotification,
+                     TYPES_PARAMETRABLES)
+from .services import adresse_email
 
 
 @login_required
@@ -22,6 +27,7 @@ def liste(request):
     return render(request, "notifications/liste.html", {
         "page": page, "filtre": filtre, "types": Notification.Type.choices,
         "nb_non_lues": Notification.objects.filter(destinataire=request.user, lue=False).count(),
+        "peut_parametrer": _peut_parametrer(request.user),
     })
 
 
@@ -55,3 +61,53 @@ def tout_lire(request):
     nb = Notification.objects.filter(destinataire=request.user, lue=False).update(lue=True, lue_le=timezone.now())
     messages.success(request, _("%(n)s notification(s) marquée(s) comme lue(s).") % {"n": nb})
     return redirect("notifications:liste")
+
+
+def _peut_parametrer(user):
+    return getattr(user, "is_superuser", False) or getattr(user, "role", None) == "direction"
+
+
+@login_required
+@roles_requis("direction")
+def parametres(request):
+    """Direction : qui reçoit quoi, par quel canal, et expéditeur des e-mails."""
+    regles = {t: RegleNotification.pour(t) for t in TYPES_PARAMETRABLES}
+    param = ParametresNotifications.charger()
+    form = ParametresNotificationsForm(
+        request.POST or None, regles=regles,
+        initial={"nom_expediteur": param.nom_expediteur, "email_reponse": param.email_reponse})
+    if request.method == "POST" and form.is_valid():
+        d = form.cleaned_data
+        param.nom_expediteur, param.email_reponse = d["nom_expediteur"].strip(), d["email_reponse"]
+        param.save()
+        for t, r in regles.items():
+            r.actif, r.canal_app, r.canal_email = d[f"{t}_actif"], d[f"{t}_app"], d[f"{t}_email"]
+            r.roles = list(d[f"{t}_roles"])
+            r.save()
+        messages.success(request, _("Paramètres des notifications enregistrés."))
+        return redirect("notifications:parametres")
+    return render(request, "notifications/parametres.html", {"form": form})
+
+
+@login_required
+def preferences(request):
+    """Chaque utilisateur : couper l'application ou l'e-mail pour les types qui le concernent."""
+    role = getattr(request.user, "role", None)
+    types = [(t, r) for t, r in ((t, RegleNotification.pour(t)) for t in TYPES_PARAMETRABLES)
+             if r.actif and role in r.roles and (r.canal_app or r.canal_email)]
+    prefs = {p.type: p for p in PreferenceNotification.objects.filter(utilisateur=request.user)}
+    form = PreferencesNotificationsForm(request.POST or None, types=types, prefs=prefs)
+    if request.method == "POST" and form.is_valid():
+        d = form.cleaned_data
+        for t, regle in types:
+            p = prefs.get(t) or PreferenceNotification(utilisateur=request.user, type=t)
+            if regle.canal_app:
+                p.recevoir_app = d.get(f"{t}_app", False)
+            if regle.canal_email:
+                p.recevoir_email = d.get(f"{t}_email", False)
+            p.save()
+        messages.success(request, _("Vos préférences ont été enregistrées."))
+        return redirect("notifications:preferences")
+    return render(request, "notifications/preferences.html", {
+        "form": form, "adresse": adresse_email(request.user), "peut_parametrer": _peut_parametrer(request.user),
+    })

@@ -56,3 +56,76 @@ class Notification(models.Model):
         nom = f"{getattr(self.emetteur, 'prenom', '')} {getattr(self.emetteur, 'nom', '')}".strip()
         role = self.emetteur.get_role_display() if hasattr(self.emetteur, "get_role_display") else ""
         return f"{nom or self.emetteur} ({role})" if role else (nom or str(self.emetteur))
+
+
+# ------------------------------------------------------------------------------
+# Paramétrage (une société = un tenant)
+# ------------------------------------------------------------------------------
+# Rôles qui reçoivent chaque type tant que la direction n'a rien modifié
+ROLES_PAR_DEFAUT = {
+    "maintenance": ["chef_atelier", "direction", "chef_mecanicien"],
+    "vente": ["direction", "comptable"],
+    "paiement": ["comptable"],
+    "achat": ["comptable"],
+    "autre": ["direction"],
+}
+TYPES_PARAMETRABLES = ["maintenance", "vente", "paiement", "achat"]
+
+
+class ParametresNotifications(models.Model):
+    """Réglages de la société (une seule ligne par tenant)."""
+    nom_expediteur = models.CharField(
+        _("Nom de l'expéditeur"), max_length=100, blank=True,
+        help_text=_("Nom affiché dans la boîte de réception (ex. : Garage Dupont). Vide : CarsCosts."))
+    email_reponse = models.EmailField(
+        _("Adresse de réponse"), blank=True,
+        help_text=_("Les réponses aux e-mails arrivent à cette adresse (Reply-To). Vide : pas de réponse possible."))
+    modifie_le = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _("Paramètres des notifications")
+        verbose_name_plural = _("Paramètres des notifications")
+
+    @classmethod
+    def charger(cls):
+        obj, _cree = cls.objects.get_or_create(pk=1)
+        return obj
+
+
+class RegleNotification(models.Model):
+    """Réglage de la direction pour un type : actif, rôles destinataires, canaux."""
+    type = models.CharField(_("Type"), max_length=20, choices=Notification.Type.choices, unique=True)
+    actif = models.BooleanField(_("Actif"), default=True)
+    roles = models.JSONField(_("Rôles destinataires"), default=list, blank=True)
+    canal_app = models.BooleanField(_("Dans l'application"), default=True)
+    canal_email = models.BooleanField(_("Par e-mail"), default=False)
+
+    class Meta:
+        verbose_name = _("Règle de notification")
+        verbose_name_plural = _("Règles de notification")
+
+    def __str__(self):
+        return self.get_type_display()
+
+    @classmethod
+    def pour(cls, type_):
+        """Règle du type (non enregistrée si la direction n'a encore rien réglé)."""
+        regle = cls.objects.filter(type=type_).first()
+        return regle or cls(type=type_, roles=list(ROLES_PAR_DEFAUT.get(type_, ["direction"])))
+
+
+class PreferenceNotification(models.Model):
+    """Choix personnel d'un utilisateur pour un type (dans les limites fixées par la direction)."""
+    utilisateur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+                                    related_name="preferences_notifications", verbose_name=_("Utilisateur"))
+    type = models.CharField(_("Type"), max_length=20, choices=Notification.Type.choices)
+    recevoir_app = models.BooleanField(_("Dans l'application"), default=True)
+    recevoir_email = models.BooleanField(_("Par e-mail"), default=True)
+
+    class Meta:
+        verbose_name = _("Préférence de notification")
+        verbose_name_plural = _("Préférences de notification")
+        constraints = [models.UniqueConstraint(fields=["utilisateur", "type"], name="notif_pref_unique_utilisateur_type")]
+
+    def __str__(self):
+        return f"{self.utilisateur} – {self.get_type_display()}"

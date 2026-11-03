@@ -578,8 +578,8 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 # Liens absolus dans les e-mails (notifications)
 SITE_URL = env("SITE_URL", default="https://carscosts.com")
-# Copie des notifications internes par e-mail (False : notifications uniquement dans l'application)
-NOTIFICATIONS_EMAIL = env.bool("NOTIFICATIONS_EMAIL", default=False)
+# Envoi des notifications par e-mail : réglé par la direction dans l'application
+# (Notifications → Paramètres), plus par le .env.
 
 # ------------------------------------------------------------------------------
 # I18N

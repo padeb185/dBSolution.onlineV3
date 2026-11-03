@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Paramètres des notifications" %}{% endblock %}
+{% block content %}
+<div class="max-w-5xl mx-auto py-6">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <h1 class="text-2xl font-bold">{% trans "Paramètres des notifications" %}</h1>
+        <div class="flex gap-2 text-sm">
+            <a href="{% url 'notifications:preferences' %}" class="px-4 py-2 rounded border bg-white hover:bg-gray-50 font-semibold">{% trans "Mes préférences" %}</a>
+            <a href="{% url 'notifications:liste' %}" class="px-4 py-2 rounded border bg-white hover:bg-gray-50 font-semibold">{% trans "Retour aux notifications" %}</a>
+        </div>
+    </div>
+
+    {% if messages %}{% for m in messages %}<div class="mb-3 rounded bg-green-100 border border-green-300 text-green-800 px-4 py-2 text-sm">{{ m }}</div>{% endfor %}{% endif %}
+    {% if form.non_field_errors %}<div class="mb-3 rounded bg-red-100 border border-red-300 text-red-800 px-4 py-2 text-sm">{{ form.non_field_errors }}</div>{% endif %}
+
+    <form method="post">{% csrf_token %}
+        <section class="bg-white rounded-lg shadow-sm p-5 mb-5">
+            <h2 class="text-lg font-semibold mb-1">{% trans "Expéditeur des e-mails" %}</h2>
+            <p class="text-sm text-gray-500 mb-4">{% trans "Les e-mails partent toujours de no-reply@carscosts.com ; vous choisissez le nom affiché et l'adresse qui reçoit les réponses." %}</p>
+            <div class="grid md:grid-cols-2 gap-4">
+                {% for champ in form %}{% if champ.name == "nom_expediteur" or champ.name == "email_reponse" %}
+                <div>
+                    <label for="{{ champ.id_for_label }}" class="block text-sm font-medium mb-1">{{ champ.label }}</label>
+                    <input type="{% if champ.name == 'email_reponse' %}email{% else %}text{% endif %}" name="{{ champ.html_name }}" id="{{ champ.id_for_label }}"
+                           value="{{ champ.value|default_if_none:'' }}" class="w-full border rounded px-3 py-2">
+                    <p class="text-xs text-gray-500 mt-1">{{ champ.help_text }}</p>
+                    {% for e in champ.errors %}<p class="text-xs text-red-600 mt-1">{{ e }}</p>{% endfor %}
+                </div>
+                {% endif %}{% endfor %}
+            </div>
+        </section>
+
+        <section class="bg-white rounded-lg shadow-sm p-5 mb-5">
+            <h2 class="text-lg font-semibold mb-1">{% trans "Qui reçoit quoi" %}</h2>
+            <p class="text-sm text-gray-500 mb-4">{% trans "Pour chaque événement : activez-le, choisissez les rôles destinataires et le canal. Chaque utilisateur peut ensuite couper l'application ou l'e-mail pour lui-même. L'auteur de l'action n'est jamais notifié." %}</p>
+
+            <div class="space-y-4">
+            {% for l in form.lignes %}
+                <div class="border rounded-lg p-4">
+                    <div class="flex flex-wrap items-center gap-x-6 gap-y-2 mb-3">
+                        <label class="flex items-center gap-2 font-semibold text-base">{{ l.actif }} {{ l.nom }}</label>
+                        <label class="flex items-center gap-2 text-sm">{{ l.app }} {% trans "Dans l'application" %}</label>
+                        <label class="flex items-center gap-2 text-sm">{{ l.email }} {% trans "Par e-mail" %}</label>
+                    </div>
+                    {% for e in l.app.errors %}<p class="text-xs text-red-600 mb-2">{{ e }}</p>{% endfor %}
+                    <p class="text-xs uppercase tracking-wide text-gray-500 mb-1">{% trans "Rôles destinataires" %}</p>
+                    <div class="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+                        {% for c in l.roles %}<label class="flex items-center gap-1">{{ c.tag }} {{ c.choice_label }}</label>{% endfor %}
+                    </div>
+                    {% for e in l.roles.errors %}<p class="text-xs text-red-600 mt-1">{{ e }}</p>{% endfor %}
+                </div>
+            {% endfor %}
+            </div>
+        </section>
+
+        <div class="flex justify-end">
+            <button class="bg-green-600 hover:bg-green-500 text-white px-6 py-2 rounded font-semibold">{% trans "Enregistrer" %}</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

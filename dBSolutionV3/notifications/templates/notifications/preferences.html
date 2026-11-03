@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Mes préférences de notification" %}{% endblock %}
+{% block content %}
+<div class="max-w-3xl mx-auto py-6">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <h1 class="text-2xl font-bold">{% trans "Mes préférences de notification" %}</h1>
+        <div class="flex gap-2 text-sm">
+            {% if peut_parametrer %}<a href="{% url 'notifications:parametres' %}" class="px-4 py-2 rounded border bg-white hover:bg-gray-50 font-semibold">{% trans "Paramètres de la société" %}</a>{% endif %}
+            <a href="{% url 'notifications:liste' %}" class="px-4 py-2 rounded border bg-white hover:bg-gray-50 font-semibold">{% trans "Retour aux notifications" %}</a>
+        </div>
+    </div>
+
+    {% if messages %}{% for m in messages %}<div class="mb-3 rounded bg-green-100 border border-green-300 text-green-800 px-4 py-2 text-sm">{{ m }}</div>{% endfor %}{% endif %}
+
+    {% if form.lignes %}
+    <form method="post" class="bg-white rounded-lg shadow-sm p-5">{% csrf_token %}
+        <p class="text-sm text-gray-500 mb-4">
+            {% trans "Choisissez comment vous recevez les notifications qui concernent votre rôle." %}
+            {% if adresse %}{% blocktrans %}Les e-mails sont envoyés à {{ adresse }}.{% endblocktrans %}
+            {% else %}<span class="text-red-600">{% trans "Aucune adresse e-mail n'est enregistrée sur votre profil : vous ne recevrez pas d'e-mail." %}</span>{% endif %}
+        </p>
+        <table class="w-full text-sm">
+            <thead><tr class="text-left text-gray-500 border-b">
+                <th class="py-2">{% trans "Événement" %}</th>
+                <th class="py-2 text-center">{% trans "Application" %}</th>
+                <th class="py-2 text-center">{% trans "E-mail" %}</th>
+            </tr></thead>
+            <tbody>
+            {% for l in form.lignes %}
+                <tr class="border-b last:border-0">
+                    <td class="py-3 font-medium">{{ l.nom }}</td>
+                    <td class="py-3 text-center">{% if l.app %}{{ l.app }}{% else %}<span class="text-gray-400" title="{% trans 'Désactivé par la direction' %}">—</span>{% endif %}</td>
+                    <td class="py-3 text-center">{% if l.email %}{{ l.email }}{% else %}<span class="text-gray-400" title="{% trans 'Désactivé par la direction' %}">—</span>{% endif %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <p class="text-xs text-gray-500 mt-3">{% trans "— : canal désactivé par la direction." %}</p>
+        <div class="flex justify-end mt-4">
+            <button class="bg-green-600 hover:bg-green-500 text-white px-6 py-2 rounded font-semibold">{% trans "Enregistrer" %}</button>
+        </div>
+    </form>
+    {% else %}
+    <div class="bg-white rounded-lg shadow-sm p-6 text-center text-gray-500">{% trans "Aucune notification n'est prévue pour votre rôle. La direction peut modifier cela dans les paramètres de la société." %}</div>
+    {% endif %}
+</div>
+{% endblock %}
