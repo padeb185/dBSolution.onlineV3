@@ -8,7 +8,11 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
     <div class="bg-white shadow rounded p-5 space-y-1">
         <h2 class="text-lg font-semibold mb-2">{% trans "Acquisition" %}</h2>
+        {% if immo.nature %}<p>{% trans "Nature du bien" %} : <strong>{{ immo.get_nature_display }}</strong></p>{% endif %}
         <p>{% trans "Catégorie" %} : <strong>{{ immo.get_categorie_display }}</strong> <span class="font-mono text-sm">({{ immo.compte_actif }})</span></p>
+        {% if immo.duree_usuelle is not None and immo.duree_usuelle != immo.duree_annees %}
+        <p class="text-sm text-orange-700">{% blocktrans with u=immo.duree_usuelle d=immo.duree_annees %}Durée choisie : {{ d }} ans (usuelle en Belgique : {{ u }} ans).{% endblocktrans %}</p>
+        {% endif %}
         {% if immo.fournisseur %}<p>{% trans "Fournisseur" %} : {{ immo.fournisseur }}{% if immo.reference_facture %} – {{ immo.reference_facture }}{% endif %}</p>{% endif %}
         {% if immo.immatriculation %}<p>{% trans "Immatriculation / n° de série" %} : {{ immo.immatriculation }}</p>{% endif %}
         <p>{% trans "Date d'acquisition" %} : {{ immo.date_acquisition|date:"d/m/Y" }} — {% trans "Mise en service" %} : {{ immo.debut|date:"d/m/Y" }}</p>

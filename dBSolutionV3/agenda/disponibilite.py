@@ -13,11 +13,11 @@ plus tout véhicule de la société ayant déjà été loué.
   VERT   : disponible toute la journée.
 
 Après un retour de location, le véhicule passe en JAUNE (ROUGE si un problème a été signalé
-au retour). Dès qu'une maintenance est faite après ce retour, l'état suit l'étiquette de la
-dernière maintenance (étiquette figée au moment de la maintenance, Maintenance.tag_enregistre,
+au retour). Dès qu'une maintenance est faite après ce retour – ou, sans retour de location, dès
+qu'une maintenance existe – l'état suit l'étiquette de la dernière maintenance (étiquette figée au moment de la maintenance, Maintenance.tag_enregistre,
 ou checkup piste vert de l'agenda).
 """
-from datetime import datetime, time, timedelta
+from datetime import date, datetime, time, timedelta
 
 from django.db.models import Q
 from django.utils import timezone
@@ -166,6 +166,16 @@ def disponibilites(societe, jour):
         retour = derniers_retours.get(v.pk)
         checkup = checkups_verts.get(v.pk)
         maintenance_apres = None
+        if not (retour and retour.retour_le):
+            # Pas de retour de location : l'état suit la dernière maintenance (s'il y en a une)
+            maintenance_apres = _maintenance_apres(v.pk, date.min)
+            if maintenance_apres is not None:
+                details = {"type": maintenance_apres["libelle"],
+                           "date": maintenance_apres["date"].strftime("%d/%m/%Y")}
+                if maintenance_apres["tag"] == ROUGE:
+                    motifs_rouge.append(_("Dernière maintenance (%(type)s, %(date)s) : tag rouge") % details)
+                elif maintenance_apres["tag"] == JAUNE:
+                    motifs_jaune.append(_("Dernière maintenance (%(type)s, %(date)s) : tag jaune") % details)
         if retour and retour.retour_le:
             date_retour = timezone.localtime(retour.retour_le).date()
             maintenance_apres = _maintenance_apres(v.pk, date_retour)

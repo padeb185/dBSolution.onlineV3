@@ -47952,6 +47952,451 @@ msgstr "disponibile con riserva (noleggiato o bloccato per una fascia oraria, pa
 msgid "indisponible (loué ou interdit toute la journée, problème au dernier retour sans maintenance depuis, maintenance après retour au tag rouge, véhicule au tag rouge)."
 msgstr "non disponibile (noleggiato o bloccato tutto il giorno, problema all'ultimo rientro senza manutenzione da allora, manutenzione dopo il rientro con etichetta rossa, veicolo con etichetta rossa)."
 
+#: piece/views_stock.py
+msgid "(nouvel onglet), puis recherchez-la ici."
+msgstr "(nuova scheda), poi cercalo qui."
+
+#: piece/views_stock.py
+msgid "Ajouter une ligne"
+msgstr "Aggiungi una riga"
+
+#: piece/views_stock.py
+msgid "Ajoutez au moins une ligne."
+msgstr "Aggiungi almeno una riga."
+
+#: piece/views_stock.py
+msgid "Aucune facture d'achat réceptionnée."
+msgstr "Nessuna fattura d'acquisto ricevuta."
+
+#: piece/views_stock.py
+msgid "Cette facture de ce fournisseur a déjà été réceptionnée."
+msgstr "Questa fattura di questo fornitore è già stata ricevuta."
+
+#: piece/views_stock.py
+msgid "Corrigez les lignes en erreur."
+msgstr "Correggi le righe con errori."
+
+#: piece/views_stock.py
+msgid "Créer la pièce"
+msgstr "Crea il ricambio"
+
+#: piece/views_stock.py
+msgid "Enregistrer et entrer en stock"
+msgstr "Salva e carica a magazzino"
+
+#: piece/views_stock.py
+#, python-format
+msgid "Facture d'achat %(numero)s"
+msgstr "Fattura d'acquisto %(numero)s"
+
+#: piece/views_stock.py
+msgid "Facture d'achat (stock)"
+msgstr "Fattura d'acquisto (magazzino)"
+
+#: piece/views_stock.py
+#, python-format
+msgid "Facture réceptionnée : %(n)s ligne(s) entrée(s) en stock, total TVAC %(t)s €."
+msgstr "Fattura ricevuta: %(n)s riga/e caricata/e a magazzino, totale IVA inclusa %(t)s €."
+
+#: piece/views_stock.py
+msgid "Factures d'achat"
+msgstr "Fatture d'acquisto"
+
+#: piece/views_stock.py
+msgid "Factures d'achat (stock)"
+msgstr "Fatture d'acquisto (magazzino)"
+
+#: piece/views_stock.py
+msgid "Fournisseur introuvable."
+msgstr "Fornitore non trovato."
+
+#: piece/views_stock.py
+msgid "Indiquez le numéro de la facture."
+msgstr "Indica il numero della fattura."
+
+#: piece/views_stock.py
+msgid "Ligne de facture d'achat"
+msgstr "Riga di fattura d'acquisto"
+
+#: piece/views_stock.py
+msgid "Lignes de facture d'achat"
+msgstr "Righe di fattura d'acquisto"
+
+#: piece/views_stock.py
+msgid "N° de facture, fournisseur, commentaire"
+msgstr "N° fattura, fornitore, commento"
+
+#: piece/views_stock.py
+msgid "Pièce (OEM / EAN ou désignation)"
+msgstr "Ricambio (OEM / EAN o descrizione)"
+
+#: piece/views_stock.py
+msgid "Pièce absente du catalogue ?"
+msgstr "Ricambio non presente nel catalogo?"
+
+#: piece/views_stock.py
+msgid "Pièce introuvable : choisissez-la dans la liste ou créez-la au catalogue."
+msgstr "Ricambio non trovato: sceglilo dall'elenco o crealo nel catalogo."
+
+#: piece/views_stock.py
+msgid "Pièce introuvable : choisissez-la dans la liste."
+msgstr "Ricambio non trovato: sceglilo dall'elenco."
+
+#: piece/views_stock.py
+msgid "Prix unitaire invalide."
+msgstr "Prezzo unitario non valido."
+
+#: piece/views_stock.py
+msgid "Quantité invalide."
+msgstr "Quantità non valida."
+
+#: piece/views_stock.py
+msgid "Retour aux factures d'achat"
+msgstr "Torna alle fatture d'acquisto"
+
+#: piece/views_stock.py
+msgid "Réceptionner une facture d'achat"
+msgstr "Ricevi una fattura d'acquisto"
+
+#: piece/views_stock.py
+msgid "Réceptionnée par"
+msgstr "Ricevuta da"
+
+#: piece/views_stock.py
+msgid "Stock actuel :"
+msgstr "Giacenza attuale:"
+
+#: piece/views_stock.py
+msgid "Supprimer la ligne"
+msgstr "Elimina la riga"
+
+#: piece/views_stock.py
+msgid "Taux de TVA invalide."
+msgstr "Aliquota IVA non valida."
+
+#: compta/models.py
+msgid "Petit outillage"
+msgstr "Piccola utensileria"
+
+#: compta/models.py
+msgid "Outillage d'atelier"
+msgstr "Attrezzatura d'officina"
+
+#: compta/models.py
+msgid "Machine d'atelier (pont, géométrie, démonte-pneus, équilibreuse, compresseur…)"
+msgstr "Macchina d'officina (ponte, assetto, smontagomme, equilibratrice, compressore…)"
+
+#: compta/models.py
+msgid "Appareil de diagnostic électronique"
+msgstr "Strumento di diagnosi elettronica"
+
+#: compta/models.py
+msgid "Installation technique (électricité, air comprimé, chauffage, extraction)"
+msgstr "Impianto tecnico (elettricità, aria compressa, riscaldamento, aspirazione)"
+
+#: compta/models.py
+msgid "Matériel de bureau"
+msgstr "Attrezzature d'ufficio"
+
+#: compta/models.py
+msgid "Matériel informatique (ordinateur, imprimante, serveur)"
+msgstr "Materiale informatico (computer, stampante, server)"
+
+#: compta/models.py
+msgid "Téléphonie mobile (GSM, smartphone, tablette)"
+msgstr "Telefonia mobile (cellulare, smartphone, tablet)"
+
+#: compta/models.py
+msgid "Téléphonie fixe (central, postes, réseau)"
+msgstr "Telefonia fissa (centralino, apparecchi, rete)"
+
+#: compta/models.py
+msgid "Voiture (de société / de service)"
+msgstr "Auto (aziendale / di servizio)"
+
+#: compta/models.py
+msgid "Voiture de location"
+msgstr "Auto a noleggio"
+
+#: compta/models.py
+msgid "Camionnette / utilitaire"
+msgstr "Furgone / veicolo commerciale"
+
+#: compta/models.py
+msgid "Camion, dépanneuse, remorque"
+msgstr "Camion, carro attrezzi, rimorchio"
+
+#: compta/models.py
+msgid "Bâtiment de bureau / commercial"
+msgstr "Edificio per uffici / commerciale"
+
+#: compta/models.py
+msgid "Bâtiment industriel / atelier"
+msgstr "Edificio industriale / officina"
+
+#: compta/models.py
+msgid "Aménagement de locaux loués"
+msgstr "Allestimento di locali in affitto"
+
+#: compta/models.py
+msgid "Terrain"
+msgstr "Terreno"
+
+#: compta/models.py
+msgid "33 % par an. Un petit outil de faible valeur peut aussi être pris en charge directement."
+msgstr "33% annuo. Un piccolo utensile di basso valore può anche essere spesato direttamente."
+
+#: compta/models.py
+msgid "20 % par an."
+msgstr "20% annuo."
+
+#: compta/models.py
+msgid "10 % par an (5 à 10 ans selon l'usure)."
+msgstr "10% annuo (da 5 a 10 anni secondo l'usura)."
+
+#: compta/models.py
+msgid "33 % par an : matériel électronique vite dépassé (logiciel, protocoles)."
+msgstr "33% annuo: materiale elettronico rapidamente obsoleto (software, protocolli)."
+
+#: compta/models.py
+msgid "10 % par an."
+msgstr "10% annuo."
+
+#: compta/models.py
+msgid "33 % par an."
+msgstr "33% annuo."
+
+#: compta/models.py
+msgid "33 % par an. Usage privé : seule la part professionnelle est amortissable."
+msgstr "33% annuo. Uso privato: solo la quota professionale è ammortizzabile."
+
+#: compta/models.py
+msgid "20 % par an, linéaire uniquement. La TVA non déductible (50 % maximum récupérable) est amortie avec la voiture ; déductibilité fiscale limitée selon le CO2."
+msgstr "20% annuo, solo lineare. L'IVA indetraibile (massimo 50% recuperabile) è ammortizzata con l'auto; deducibilità fiscale limitata in base al CO2."
+
+#: compta/models.py
+msgid "Durée de détention réelle dans la flotte (souvent 2 à 4 ans), linéaire uniquement. Indiquez une valeur résiduelle (prix de revente estimé)."
+msgstr "Durata effettiva di detenzione nella flotta (spesso 2-4 anni), solo lineare. Indica un valore residuo (prezzo di rivendita stimato)."
+
+#: compta/models.py
+msgid "20 % par an (jusqu'à 8 ans pour un camion lourd)."
+msgstr "20% annuo (fino a 8 anni per un camion pesante)."
+
+#: compta/models.py
+msgid "3 % par an. Le terrain n'est pas amortissable : encodez-le séparément."
+msgstr "3% annuo. Il terreno non è ammortizzabile: registralo a parte."
+
+#: compta/models.py
+msgid "5 % par an. Le terrain n'est pas amortissable : encodez-le séparément."
+msgstr "5% annuo. Il terreno non è ammortizzabile: registralo a parte."
+
+#: compta/models.py
+msgid "Sur la durée du bail si elle est plus courte."
+msgstr "Sulla durata del contratto d'affitto se più breve."
+
+#: compta/models.py
+msgid "Pas d'amortissement."
+msgstr "Nessun ammortamento."
+
+#: compta/models.py
+msgid "Nature du bien"
+msgstr "Natura del bene"
+
+#: compta/models.py
+msgid "Propose la catégorie et la durée d'amortissement usuelles en Belgique."
+msgstr "Propone la categoria e la durata di ammortamento usuali in Belgio."
+
+#: compta/models.py
+msgid "Une voiture ne peut pas être amortie en dégressif : choisissez le linéaire."
+msgstr "Un'auto non può essere ammortizzata a quote decrescenti: scegli il lineare."
+
+#: compta/models.py
+#, python-format
+msgid "Cette catégorie ne correspond pas à la nature du bien (%(cat)s attendu)."
+msgstr "Questa categoria non corrisponde alla natura del bene (atteso %(cat)s)."
+
+#: compta/models.py
+msgid "Choisissez d'abord la nature du bien : la catégorie et la durée d'amortissement usuelles en Belgique sont proposées (modifiables)."
+msgstr "Scegli prima la natura del bene: vengono proposte la categoria e la durata di ammortamento usuali in Belgio (modificabili)."
+
+#: compta/models.py
+msgid "Règles d'amortissement en Belgique"
+msgstr "Regole di ammortamento in Belgio"
+
+#: compta/models.py
+msgid "Il n'existe pas de barème légal : la durée doit correspondre à la durée d'utilisation probable du bien. Les durées ci-dessus sont celles couramment admises par l'administration fiscale."
+msgstr "Non esiste una tabella legale: la durata deve corrispondere alla vita utile probabile del bene. Le durate sopra sono quelle comunemente ammesse dall'amministrazione fiscale."
+
+#: compta/models.py
+msgid "Sociétés : amortissement linéaire et prorata temporis obligatoire la première année (acquisitions depuis le 1er janvier 2020) ; les frais accessoires suivent le rythme du bien."
+msgstr "Società: ammortamento lineare e pro rata temporis obbligatorio il primo anno (acquisti dal 1° gennaio 2020); gli oneri accessori seguono il ritmo del bene."
+
+#: compta/models.py
+msgid "Voitures : jamais en dégressif ; la TVA non déductible fait partie de la valeur amortissable."
+msgstr "Auto: mai a quote decrescenti; l'IVA indetraibile fa parte del valore ammortizzabile."
+
+#: compta/models.py
+msgid "Faites valider les durées par votre comptable."
+msgstr "Fai convalidare le durate dal tuo commercialista."
+
+#: compta/models.py
+#, python-format
+msgid "Durée choisie : %(d)s ans (usuelle en Belgique : %(u)s ans)."
+msgstr "Durata scelta: %(d)s anni (usuale in Belgio: %(u)s anni)."
+
+#: fuel/templates/fuel/fuel_exemplaire_stat.html
+msgid "L/100 km"
+msgstr "L/100 km"
+
+#: fuel/templates/fuel/fuel_exemplaire_stat.html
+msgid "€/km"
+msgstr "€/km"
+
+#: fuel/templates/fuel/fuel_exemplaire_stat.html
+msgid "Un seul plein ce mois : calcul depuis le dernier plein du mois précédent"
+msgstr "Un solo rifornimento questo mese: calcolo dall'ultimo rifornimento del mese precedente"
+
+#: fuel/templates/fuel/fuel_exemplaire_stat.html
+msgid "Un seul plein ce mois : calcul depuis le dernier plein du mois précédent."
+msgstr "Un solo rifornimento questo mese: calcolo dall'ultimo rifornimento del mese precedente."
+
+#: fuel/templates/fuel/fuel_exemplaire_stat.html
+msgid "Graphiques"
+msgstr "Grafici"
+
+#: fuel/templates/fuel/fuel_exemplaire_stat.html
+msgid "Coût au kilomètre (€/km)"
+msgstr "Costo al chilometro (€/km)"
+
+#: fuel/templates/fuel/fuel_exemplaire_stat.html
+msgid "Coût total (€)"
+msgstr "Costo totale (€)"
+
+#: fuel/templates/fuel/fuel_exemplaire_stat.html
+msgid "Litres et nombre de pleins"
+msgstr "Litri e numero di rifornimenti"
+
+#: fuel/templates/fuel/fuel_stat.html
+msgid "Prix moyen au litre (€)"
+msgstr "Prezzo medio al litro (€)"
+
+#: fuel/templates/fuel/fuel_stat.html
+msgid "Coût par véhicule (€)"
+msgstr "Costo per veicolo (€)"
+
+#: fuel/templates/fuel/fuel_stat.html
+msgid "TVA par pays (€)"
+msgstr "IVA per paese (€)"
+
+#: recharge/templates/recharge/electricite_stat.html
+msgid "Consommation moyenne (kWh/100 km)"
+msgstr "Consumo medio (kWh/100 km)"
+
+#: recharge/templates/recharge/electricite_stat.html
+msgid "kWh et nombre de recharges"
+msgstr "kWh e numero di ricariche"
+
+#: recharge/templates/recharge/electricite_stat.html
+msgid "Prix moyen du kWh (€)"
+msgstr "Prezzo medio del kWh (€)"
+
+#: recharge/templates/recharge/electricite_stat.html
+msgid "kWh"
+msgstr "kWh"
+
+#: recharge/templates/recharge/electricite_stat.html
+msgid "kWh/100 km"
+msgstr "kWh/100 km"
+
+#: recharge/templates/recharge/electricite_stat.html
+msgid "Une seule recharge ce mois : calcul depuis la dernière recharge du mois précédent"
+msgstr "Una sola ricarica questo mese: calcolo dall'ultima ricarica del mese precedente"
+
+#: recharge/templates/recharge/electricite_stat.html
+msgid "Une seule recharge ce mois : calcul depuis la dernière recharge du mois précédent."
+msgstr "Una sola ricarica questo mese: calcolo dall'ultima ricarica del mese precedente."
+
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html
+#, python-format
+msgid "Achats HTVA par mois – %(a)s"
+msgstr "Acquisti IVA esclusa per mese – %(a)s"
+
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html
+msgid "Aucun achat sur cette période."
+msgstr "Nessun acquisto in questo periodo."
+
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html
+msgid "Classement des fournisseurs"
+msgstr "Classifica dei fornitori"
+
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html
+msgid "Dernière facture"
+msgstr "Ultima fattura"
+
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html
+msgid "Moyenne par facture (HTVA)"
+msgstr "Media per fattura (IVA esclusa)"
+
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html
+#, python-format
+msgid "Par mois – %(a)s"
+msgstr "Per mese – %(a)s"
+
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html
+msgid "Par type d'achat"
+msgstr "Per tipo di acquisto"
+
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html
+msgid "Part des achats"
+msgstr "Quota degli acquisti"
+
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html
+msgid "Répartition par type d'achat"
+msgstr "Ripartizione per tipo di acquisto"
+
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html
+msgid "Stock pièces"
+msgstr "Magazzino ricambi"
+
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html
+msgid "Top 10 des fournisseurs (HTVA)"
+msgstr "Top 10 fornitori (IVA esclusa)"
+
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html
+msgid "Types d'achats"
+msgstr "Tipi di acquisto"
+
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html
+msgid "note de crédit"
+msgstr "nota di credito"
+
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html
+msgid "tous les fournisseurs"
+msgstr "tutti i fornitori"
+
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html
+#, python-format
+msgid "vs %(a)s"
+msgstr "rispetto al %(a)s"
+
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html
+msgid "Évolution annuelle"
+msgstr "Andamento annuale"
+
+#: agenda/disponibilite.py
+#, python-format
+msgid "Dernière maintenance (%(type)s, %(date)s) : tag rouge"
+msgstr "Ultima manutenzione (%(type)s, %(date)s): etichetta rossa"
+
+#: agenda/disponibilite.py
+#, python-format
+msgid "Dernière maintenance (%(type)s, %(date)s) : tag jaune"
+msgstr "Ultima manutenzione (%(type)s, %(date)s): etichetta gialla"
+
+#: agenda/disponibilite.py
+msgid "Dernière maintenance"
+msgstr "Ultima manutenzione"
+
 #~ msgid "Toutes les maintenances"
 #~ msgstr "Tutti gli interventi di manutenzione"
 

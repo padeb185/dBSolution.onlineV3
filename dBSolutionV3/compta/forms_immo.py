@@ -1,8 +1,8 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import (COMPTES_IMMOBILISATIONS, CategorieImmobilisation, CompteTresorerie, Immobilisation,
-                     ValorisationStock, VersementSocial)
+from .models import (COMPTES_IMMOBILISATIONS, NATURES_SANS_DEGRESSIF, REGLES_AMORTISSEMENT_BE,
+                     CategorieImmobilisation, CompteTresorerie, Immobilisation, ValorisationStock, VersementSocial)
 
 DATE = {"type": "date"}
 NOMBRE = {"step": "0.01", "min": "0"}
@@ -19,7 +19,7 @@ class _ComptesMixin:
 class ImmobilisationForm(_ComptesMixin, forms.ModelForm):
     class Meta:
         model = Immobilisation
-        fields = ["categorie", "libelle", "fournisseur", "reference_facture", "immatriculation",
+        fields = ["nature", "categorie", "libelle", "fournisseur", "reference_facture", "immatriculation",
                   "date_acquisition", "date_mise_en_service", "valeur_acquisition", "frais_accessoires",
                   "taux_tva", "tva_deductible", "valeur_residuelle", "methode", "duree_annees", "prorata_temporis",
                   "date_paiement", "compte_paiement", "date_cession", "prix_cession", "remarques"]
@@ -51,6 +51,12 @@ class ImmobilisationForm(_ComptesMixin, forms.ModelForm):
     def clean(self):
         cleaned = super().clean()
         cat = cleaned.get("categorie")
+        nature = cleaned.get("nature")
+        if nature in NATURES_SANS_DEGRESSIF and cleaned.get("methode") == Immobilisation.Methode.DEGRESSIF:
+            self.add_error("methode", _("Une voiture ne peut pas être amortie en dégressif : choisissez le linéaire."))
+        if nature in REGLES_AMORTISSEMENT_BE and cat and REGLES_AMORTISSEMENT_BE[nature][0] != cat:
+            self.add_error("categorie", _("Cette catégorie ne correspond pas à la nature du bien (%(cat)s attendu).")
+                           % {"cat": CategorieImmobilisation(REGLES_AMORTISSEMENT_BE[nature][0]).label})
         if cat == CategorieImmobilisation.TERRAIN:
             cleaned["duree_annees"] = 0
         elif not cleaned.get("duree_annees"):

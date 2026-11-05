@@ -4,9 +4,9 @@
 Chaque intervention (check-up, polish, freins…) porte son propre champ « tag »
 (ou « tag_xxx ») et une ForeignKey « maintenance ». L'étiquette de l'intervention
 peut être modifiée plus tard ; on veut garder celle enregistrée au moment de la
-maintenance. Au premier enregistrement d'une intervention liée, on copie donc son
-étiquette dans Maintenance.tag_enregistre — une seule fois : si une valeur est
-déjà présente, elle n'est plus jamais écrasée.
+maintenance. À l'enregistrement d'une intervention liée, on copie donc son étiquette
+dans Maintenance.tag_enregistre ; elle suit la fiche jusqu'à la fin du jour de la
+maintenance, puis elle est figée (une modification ultérieure ne la change plus).
 """
 from django.db.models import ForeignKey
 
@@ -47,8 +47,14 @@ def figer_tag(instance, nom_tag):
     valeur = getattr(instance, nom_tag, None)
     if not maintenance_id or valeur not in Maintenance.Tag.values:
         return
-    # update() : pas de signal ; le filtre isnull garantit qu'on ne réécrit jamais
-    Maintenance.objects.filter(pk=maintenance_id, tag_enregistre__isnull=True).update(tag_enregistre=valeur)
+    # update() : pas de signal. L'étiquette suit la fiche tant que la maintenance est en cours
+    # (jusqu'à la fin du jour de la maintenance : fiche remplie en plusieurs étapes, correction
+    # immédiate) ; ensuite elle est figée et une modification ultérieure ne la change plus.
+    from django.db.models import Q
+    from django.utils import timezone
+    Maintenance.objects.filter(pk=maintenance_id).filter(
+        Q(tag_enregistre__isnull=True) | Q(date_intervention__gte=timezone.localdate())
+    ).exclude(tag_enregistre=valeur).update(tag_enregistre=valeur)
 
 
 def connecter_signaux():

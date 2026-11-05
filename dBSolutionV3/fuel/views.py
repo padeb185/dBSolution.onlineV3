@@ -867,6 +867,7 @@ class FuelStatView(LoginRequiredMixin, TemplateView):
                 total_litres=Sum("litres"),
                 total_cout=Sum("prix_refuelling"),
                 total_tva=Sum("montant_tva"),
+                prix_moyen_litre=Avg("prix_litre"),
                 km_min=Min("kilometrage_fuel"),
                 km_max=Max("kilometrage_fuel"),
             )
@@ -885,6 +886,7 @@ class FuelStatView(LoginRequiredMixin, TemplateView):
                 total_litres=Sum("litres"),
                 total_cout=Sum("prix_refuelling"),
                 total_tva=Sum("montant_tva"),
+                prix_moyen_litre=Avg("prix_litre"),
                 km_min=Min("kilometrage_fuel"),
                 km_max=Max("kilometrage_fuel"),
             )
@@ -910,6 +912,10 @@ class FuelStatView(LoginRequiredMixin, TemplateView):
                 "km": Decimal("0.0"),
             }
         )
+
+        # Pour les graphiques : (année, mois) -> litres / km / coût des pleins comptés
+        stats_graph_mois = defaultdict(lambda: {"litres": Decimal("0"), "km": Decimal("0"), "cout": Decimal("0")})
+        stats_graph_an = defaultdict(lambda: {"litres": Decimal("0"), "km": Decimal("0"), "cout": Decimal("0")})
 
         vehicule_ids = (
             fuels
@@ -973,6 +979,14 @@ class FuelStatView(LoginRequiredMixin, TemplateView):
                             stats_an[annee]["litres"] += litres
                             stats_an[annee]["km"] += km_parcourus
 
+                            date_locale = timezone.localtime(fuel.date) if timezone.is_aware(fuel.date) else fuel.date
+                            cout = Decimal(str(fuel.prix_refuelling or 0))
+                            for cle, cible in (((date_locale.year, date_locale.month), stats_graph_mois),
+                                               (date_locale.year, stats_graph_an)):
+                                cible[cle]["litres"] += litres
+                                cible[cle]["km"] += km_parcourus
+                                cible[cle]["cout"] += cout
+
                 ancien_km = km_actuel
 
         context["conso_moyenne"] = (
@@ -1001,6 +1015,62 @@ class FuelStatView(LoginRequiredMixin, TemplateView):
             )
             for annee, data in stats_an.items()
             if data["km"] > 0
+        }
+
+        # ==========================================================
+        # DONNÉES DES GRAPHIQUES (Chart.js)
+        # ==========================================================
+        def _f(valeur, decimales=2):
+            return float(round(Decimal(str(valeur or 0)), decimales))
+
+        def _ratios(stats):
+            conso = stats["litres"] * 100 / stats["km"] if stats["km"] > 0 else None
+            cout_km = stats["cout"] / stats["km"] if stats["km"] > 0 else None
+            return (_f(conso) if conso is not None else None,
+                    _f(cout_km, 3) if cout_km is not None else None)
+
+        g_mois = {"labels": [], "litres": [], "cout": [], "pleins": [], "prix_litre": [], "conso": [], "cout_km": []}
+        for m in context["par_mois"]:
+            if m["mois"] is None:
+                continue
+            d = timezone.localtime(m["mois"]) if timezone.is_aware(m["mois"]) else m["mois"]
+            conso, cout_km = _ratios(stats_graph_mois.get((d.year, d.month), {"litres": 0, "km": 0, "cout": 0}))
+            g_mois["labels"].append(d.strftime("%m/%Y"))
+            g_mois["litres"].append(_f(m["total_litres"]))
+            g_mois["cout"].append(_f(m["total_cout"]))
+            g_mois["pleins"].append(m["nb_pleins"])
+            g_mois["prix_litre"].append(_f(m["prix_moyen_litre"], 3) or None)
+            g_mois["conso"].append(conso)
+            g_mois["cout_km"].append(cout_km)
+
+        g_an = {"labels": [], "litres": [], "cout": [], "pleins": [], "prix_litre": [], "conso": [], "cout_km": []}
+        for a in context["par_an"]:
+            if a["an"] is None:
+                continue
+            conso, cout_km = _ratios(stats_graph_an.get(a["an"], {"litres": 0, "km": 0, "cout": 0}))
+            g_an["labels"].append(str(a["an"]))
+            g_an["litres"].append(_f(a["total_litres"]))
+            g_an["cout"].append(_f(a["total_cout"]))
+            g_an["pleins"].append(a["nb_pleins"])
+            g_an["prix_litre"].append(_f(a["prix_moyen_litre"], 3) or None)
+            g_an["conso"].append(conso)
+            g_an["cout_km"].append(cout_km)
+
+        vehicules = []
+        for ligne in context["par_voiture"]:
+            nom = " ".join(filter(None, [
+                ligne["voiture_exemplaire__voiture_modele__voiture_marque__nom_marque"],
+                ligne["voiture_exemplaire__voiture_modele__nom_modele"],
+            ]))
+            immat = ligne["voiture_exemplaire__immatriculation"] or ""
+            vehicules.append({"label": f"{nom} ({immat})" if immat else (nom or "—"),
+                              "cout": _f(ligne["total_cout"]), "litres": _f(ligne["total_litres"])})
+
+        context["graphiques"] = {
+            "mois": g_mois,
+            "annees": g_an,
+            "vehicules": vehicules[:15],
+            "tva_pays": [{"label": p["nom"], "tva": _f(p["tva"])} for p in totaux_par_pays_affichage],
         }
 
         return context
@@ -1219,6 +1289,12 @@ class FuelExemplaireStatView(LoginRequiredMixin, TemplateView):
             total_litres_mois = Decimal("0.0")
             total_km_mois = Decimal("0.0")
             kilometrage_precedent = None
+            base_mois_precedent = False
+
+            # Un seul plein dans le mois : on part du dernier plein du mois précédent
+            if mois_data["nb_pleins"] < 2:
+                kilometrage_precedent = _dernier_km_avant(mois)
+                base_mois_precedent = kilometrage_precedent is not None
 
             for fuel in fuels_mois:
                 kilometrage = fuel.kilometrage_fuel
@@ -1288,6 +1364,7 @@ class FuelExemplaireStatView(LoginRequiredMixin, TemplateView):
                     or Decimal("0.0"),
                     "conso_moyenne": consommation_mois,
                     "cout_km": cout_km_mois,
+                    "base_mois_precedent": base_mois_precedent,
                 }
             )
 
@@ -1332,6 +1409,10 @@ class FuelExemplaireStatView(LoginRequiredMixin, TemplateView):
             total_litres_annee = Decimal("0.0")
             total_km_annee = Decimal("0.0")
             kilometrage_precedent = None
+
+            # Un seul plein dans l'année : on part du dernier plein de l'année précédente
+            if an_data["nb_pleins"] < 2:
+                kilometrage_precedent = _dernier_km_avant(annee)
 
             for fuel in fuels_annee:
                 kilometrage = fuel.kilometrage_fuel
@@ -1405,6 +1486,31 @@ class FuelExemplaireStatView(LoginRequiredMixin, TemplateView):
         context["conso_moyenne_an"] = (
             conso_moyenne_an
         )
+
+        # ==========================================================
+        # DONNÉES DES GRAPHIQUES (Chart.js)
+        # ==========================================================
+        def _f(valeur, decimales=2):
+            return float(round(Decimal(str(valeur or 0)), decimales))
+
+        context["graphiques"] = {
+            "mois": {
+                "labels": [m["mois"].strftime("%m/%Y") for m in par_mois],
+                "litres": [_f(m["total_litres"]) for m in par_mois],
+                "cout": [_f(m["total_cout"]) for m in par_mois],
+                "conso": [_f(m["conso_moyenne"]) or None for m in par_mois],
+                "cout_km": [_f(m["cout_km"], 3) or None for m in par_mois],
+                "pleins": [m["nb_pleins"] for m in par_mois],
+            },
+            "annees": {
+                "labels": [str(a["an"].year) for a in par_an],
+                "litres": [_f(a["total_litres"]) for a in par_an],
+                "cout": [_f(a["total_cout"]) for a in par_an],
+                "conso": [_f(a["conso_moyenne"]) or None for a in par_an],
+                "cout_km": [_f(a["cout_km"], 3) or None for a in par_an],
+                "pleins": [a["nb_pleins"] for a in par_an],
+            },
+        }
 
         return context
 

@@ -77,6 +77,20 @@
 
 </div>
 
+<!-- 📈 Graphiques -->
+<h2 class="text-xl font-semibold mb-3">{% trans "Graphiques" %}</h2>
+<div class="flex flex-wrap gap-2 mb-4" id="onglets-graph">
+    <button type="button" data-vue="mois" class="onglet px-4 py-2 rounded font-semibold bg-blue-700 text-white">{% trans "Par mois" %}</button>
+    <button type="button" data-vue="annees" class="onglet px-4 py-2 rounded font-semibold bg-gray-200 hover:bg-gray-300">{% trans "Par année" %}</button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+    <div class="bg-white shadow rounded p-4"><h3 class="font-semibold mb-2">{% trans "Consommation moyenne (kWh/100 km)" %}</h3><div style="height:280px"><canvas id="graph-conso"></canvas></div></div>
+    <div class="bg-white shadow rounded p-4"><h3 class="font-semibold mb-2">{% trans "Coût au kilomètre (€/km)" %}</h3><div style="height:280px"><canvas id="graph-cout-km"></canvas></div></div>
+    <div class="bg-white shadow rounded p-4"><h3 class="font-semibold mb-2">{% trans "Coût total (€)" %}</h3><div style="height:280px"><canvas id="graph-cout"></canvas></div></div>
+    <div class="bg-white shadow rounded p-4"><h3 class="font-semibold mb-2">{% trans "kWh et nombre de recharges" %}</h3><div style="height:280px"><canvas id="graph-kwh"></canvas></div></div>
+    <div class="bg-white shadow rounded p-4 lg:col-span-2"><h3 class="font-semibold mb-2">{% trans "Prix moyen du kWh (€)" %}</h3><div style="height:240px"><canvas id="graph-prix"></canvas></div></div>
+</div>
+
 <!-- 📅 Par mois -->
 <h2 class="text-xl font-semibold mb-3">{% trans "Par mois" %}</h2>
 
@@ -87,6 +101,8 @@
             <th class="border px-4 py-2 text-center">{% trans "Recharges" %}</th>
             <th class="border px-4 py-2 text-center">{% trans "kW" %}</th>
             <th class="border px-4 py-2 text-center">{% trans "Coût total" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Coût / km" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "kWh/100 km" %}</th>
         </tr>
     </thead>
     <tbody>
@@ -96,14 +112,18 @@
             <td class="border px-4 py-2 text-center">{{ m.nb_recharges }}</td>
             <td class="border px-4 py-2 text-center">{{ m.total_kW|floatformat:"2g" }}</td>
             <td class="border px-4 py-2 text-center">{{ m.total_cout|floatformat:"2g" }} €</td>
+            <td class="border px-4 py-2 text-center">{% if m.cout_km %}{{ m.cout_km|floatformat:"3g" }} €{% else %}—{% endif %}</td>
+            <td class="border px-4 py-2 text-center">{% if m.conso_moyenne %}{{ m.conso_moyenne|floatformat:"2g" }}{% if m.base_mois_precedent %} <span class="text-blue-700" title="{% trans 'Une seule recharge ce mois : calcul depuis la dernière recharge du mois précédent' %}">*</span>{% endif %}{% else %}—{% endif %}</td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="4" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
+            <td colspan="6" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
+<p class="text-sm text-gray-600 -mt-6 mb-8"><span class="text-blue-700">*</span> {% trans "Une seule recharge ce mois : calcul depuis la dernière recharge du mois précédent." %}</p>
 
 <!-- 📅 Par année -->
 <h2 class="text-xl font-semibold mt-8 mb-3">{% trans "Par année" %}</h2>
@@ -115,6 +135,8 @@
             <th class="border px-4 py-2 text-center">{% trans "Recharges" %}</th>
             <th class="border px-4 py-2 text-center">{% trans "kW" %}</th>
             <th class="border px-4 py-2 text-center">{% trans "Coût total" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Coût / km" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "kWh/100 km" %}</th>
         </tr>
     </thead>
     <tbody>
@@ -124,10 +146,12 @@
             <td class="border px-4 py-2 text-center">{{ a.nb_recharges }}</td>
             <td class="border px-4 py-2 text-center">{{ a.total_kW|floatformat:"2g" }}</td>
             <td class="border px-4 py-2 text-center">{{ a.total_cout|floatformat:"2g" }} €</td>
+            <td class="border px-4 py-2 text-center">{% if a.cout_km %}{{ a.cout_km|floatformat:"3g" }} €{% else %}—{% endif %}</td>
+            <td class="border px-4 py-2 text-center">{% if a.conso_moyenne %}{{ a.conso_moyenne|floatformat:"2g" }}{% else %}—{% endif %}</td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="4" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
+            <td colspan="6" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -153,7 +177,7 @@
             <td class="border px-4 py-2 text-center">{{ m.nb_recharges }}</td>
             <td class="border px-4 py-2 text-center">{{ m.total_kW|floatformat:"2g" }}</td>
             <td class="border px-4 py-2 text-center">{{ m.total_cout|floatformat:"2g" }} €</td>
-            <td class="border px-4 py-2 text-center">{{ m.conso_moyenne|floatformat:"2g" }} kWh/100km</td>
+            <td class="border px-4 py-2 text-center">{{ m.conso_moyenne|floatformat:"2g" }} kWh/100km{% if m.base_mois_precedent %} <span class="text-blue-700">*</span>{% endif %}</td>
             <td class="border px-4 py-2 text-center">{{ m.cout_km|floatformat:"2g" }} €/km</td>
         </tr>
         {% empty %}
@@ -194,4 +218,78 @@
 </div>
 
 
+{{ graphiques|json_script:"donnees-graphiques" }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+(function () {
+    if (typeof Chart === "undefined") { return; }
+    const D = JSON.parse(document.getElementById("donnees-graphiques").textContent);
+    const T = {
+        cout: "{% trans 'Coût total' %}", kwh: "{% trans 'kWh' %}", recharges: "{% trans 'Recharges' %}",
+        aucune: "{% trans 'Aucune donnée' %}"
+    };
+    const COULEURS = ["#2563eb", "#16a34a", "#f59e0b", "#dc2626", "#7c3aed", "#0891b2", "#db2777", "#65a30d", "#ea580c", "#4f46e5", "#0d9488", "#be123c", "#a16207", "#475569", "#9333ea"];
+    const nf = (v, d) => v == null ? "—" : Number(v).toLocaleString(document.documentElement.lang || "fr", {minimumFractionDigits: d, maximumFractionDigits: d});
+    const base = (d, suffixe) => ({
+        responsive: true, maintainAspectRatio: false, spanGaps: true,
+        plugins: {legend: {display: false}, tooltip: {callbacks: {label: c => " " + nf(c.parsed.y, d) + suffixe}}},
+        scales: {y: {beginAtZero: true}}
+    });
+    const ligne = (couleur, data) => ({data: data, borderColor: couleur, backgroundColor: couleur + "26", fill: true, tension: .3, pointRadius: 4});
+    const graphs = {};
+
+    function dessiner(vue) {
+        const v = D[vue];
+        Object.values(graphs).forEach(g => g.destroy());
+        graphs.conso = new Chart(document.getElementById("graph-conso"), {type: "line", data: {labels: v.labels, datasets: [ligne("#16a34a", v.conso)]}, options: base(2, " kWh/100 km")});
+        graphs.coutKm = new Chart(document.getElementById("graph-cout-km"), {type: "line", data: {labels: v.labels, datasets: [ligne("#7c3aed", v.cout_km)]}, options: base(3, " €/km")});
+        graphs.cout = new Chart(document.getElementById("graph-cout"), {type: "bar", data: {labels: v.labels, datasets: [{data: v.cout, backgroundColor: "#2563eb", borderRadius: 4}]}, options: base(2, " €")});
+        const optKwh = base(2, "");
+        optKwh.plugins.legend = {display: true};
+        optKwh.plugins.tooltip = {};
+        optKwh.scales = {y: {beginAtZero: true, position: "left"}, y2: {beginAtZero: true, position: "right", grid: {drawOnChartArea: false}, ticks: {precision: 0}}};
+        graphs.kwh = new Chart(document.getElementById("graph-kwh"), {
+            data: {labels: v.labels, datasets: [
+                {type: "bar", label: T.kwh, data: v.kwh, backgroundColor: "#f59e0b", borderRadius: 4, yAxisID: "y"},
+                {type: "line", label: T.recharges, data: v.recharges, borderColor: "#dc2626", backgroundColor: "#dc2626", tension: .3, yAxisID: "y2"}
+            ]},
+            options: optKwh
+        });
+        const optPrix = base(3, " €/kWh");
+        optPrix.scales = {y: {beginAtZero: false}};
+        graphs.prix = new Chart(document.getElementById("graph-prix"), {type: "line", data: {labels: v.labels, datasets: [{data: v.prix_kwh, borderColor: "#0891b2", backgroundColor: "#0891b2", tension: .3, pointRadius: 4}]}, options: optPrix});
+    }
+
+    if (D.vehicules && D.vehicules.length && document.getElementById("graph-vehicules")) {
+        document.getElementById("boite-vehicules").style.height = Math.max(220, D.vehicules.length * 30 + 60) + "px";
+        const optVeh = base(2, " €");
+        optVeh.indexAxis = "y";
+        optVeh.scales = {x: {beginAtZero: true}};
+        optVeh.plugins.tooltip = {callbacks: {label: c => " " + nf(c.parsed.x, 2) + " € · " + nf(D.vehicules[c.dataIndex].kwh, 2) + " kWh"}};
+        new Chart(document.getElementById("graph-vehicules"), {
+            type: "bar",
+            data: {labels: D.vehicules.map(x => x.label), datasets: [{data: D.vehicules.map(x => x.cout), backgroundColor: D.vehicules.map((x, i) => COULEURS[i % COULEURS.length]), borderRadius: 4}]},
+            options: optVeh
+        });
+    }
+    if (D.tva_pays && document.getElementById("graph-tva")) {
+        if (D.tva_pays.length) {
+            new Chart(document.getElementById("graph-tva"), {
+                type: "doughnut",
+                data: {labels: D.tva_pays.map(x => x.label), datasets: [{data: D.tva_pays.map(x => x.tva), backgroundColor: D.tva_pays.map((x, i) => COULEURS[i % COULEURS.length])}]},
+                options: {responsive: true, maintainAspectRatio: false, plugins: {legend: {position: "bottom"}, tooltip: {callbacks: {label: c => " " + c.label + " : " + nf(c.parsed, 2) + " €"}}}}
+            });
+        } else {
+            document.getElementById("graph-tva").replaceWith(Object.assign(document.createElement("p"), {className: "text-gray-500 text-sm", textContent: T.aucune}));
+        }
+    }
+
+    document.querySelectorAll("#onglets-graph .onglet").forEach(b => b.addEventListener("click", () => {
+        document.querySelectorAll("#onglets-graph .onglet").forEach(x => x.className = "onglet px-4 py-2 rounded font-semibold bg-gray-200 hover:bg-gray-300");
+        b.className = "onglet px-4 py-2 rounded font-semibold bg-blue-700 text-white";
+        dessiner(b.dataset.vue);
+    }));
+    dessiner("mois");
+})();
+</script>
 {% endblock %}

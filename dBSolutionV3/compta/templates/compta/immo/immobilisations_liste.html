@@ -81,7 +81,7 @@
     {% for l in lignes %}
         <tr class="{% if l.cedee %}text-gray-400{% endif %}">
             <td class="border px-4 py-2 font-semibold">{{ l.immo.libelle }}{% if l.cedee %} <span class="text-xs">({% trans "cédée" %})</span>{% endif %}</td>
-            <td class="border px-4 py-2">{{ l.immo.get_categorie_display }}</td>
+            <td class="border px-4 py-2">{{ l.immo.get_categorie_display }}{% if l.immo.nature %}<div class="text-xs text-gray-500">{{ l.immo.get_nature_display }}</div>{% endif %}</td>
             <td class="border px-4 py-2">{{ l.immo.debut|date:"d/m/Y" }}</td>
             <td class="border px-4 py-2">{% if l.immo.amortissable %}{{ l.immo.get_methode_display }} – {{ l.immo.duree_annees }} {% trans "ans" %}{% else %}{% trans "Non amortissable" %}{% endif %}</td>
             <td class="border px-4 py-2 text-right">{{ l.immo.valeur_comptable_brute|floatformat:"2g" }} €</td>

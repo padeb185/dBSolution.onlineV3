@@ -12,7 +12,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db import transaction
-from django.db.models import DecimalField, ExpressionWrapper, F, Q, Sum
+from django.db.models import Count, DecimalField, ExpressionWrapper, F, Q, Sum
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -22,8 +22,8 @@ from django.views.decorators.cache import never_cache
 
 from . import stock
 from .forms_stock import InventaireForm, MouvementForm, PieceStockForm, PieceUtiliseeForm
-from .models import (CategoriePiece, Fabricant, InventaireStock, LigneInventaire, MouvementStock, Piece,
-                     PieceUtilisee)
+from .models import (CategoriePiece, Fabricant, FactureAchatStock, InventaireStock, LigneFactureAchatStock,
+                     LigneInventaire, MouvementStock, Piece, PieceUtilisee)
 
 # Gestion du stock (catalogue, mouvements, inventaires)
 ROLES_STOCK = ["direction", "chef_mecanicien", "chef_atelier", "magasinier", "comptable"]
@@ -440,7 +440,7 @@ def api_recherche(request):
             "fabricant": p.nom_fabricant, "categorie": p.categorie, "unite": p.unite,
             "prix_achat": str(p.prix_achat), "prix_vente": str(p.prix_vente),
             "prix_vente_effectif": str(stock.prix_vente_effectif(p)), "stock": str(p.quantite_stock),
-            "emplacement": p.emplacement_etagere or "",
+            "emplacement": p.emplacement_etagere or "", "tva": str(p.tva),
         }
 
     if code:
@@ -493,3 +493,137 @@ def api_codes_intervention(request):
             "debitee": pu.debitee, "stock": str(p.quantite_stock),
         }
     return JsonResponse({"lignes": lignes})
+
+
+
+# ---------------------------------------------------------------- factures d'achat (réception en stock)
+def _decimal(valeur):
+    try:
+        return Decimal(str(valeur).replace(",", ".").strip())
+    except Exception:
+        return None
+
+
+def _lignes_postees(request):
+    """Lignes saisies : [{piece, quantite, prix, tva, erreurs}] (les lignes vides sont ignorées)."""
+    pieces = {str(p.pk): p for p in _pieces(request).filter(pk__in=[i for i in request.POST.getlist("piece_id") if i])}
+    lignes = []
+    for piece_id, qte, prix, tva in zip(request.POST.getlist("piece_id"), request.POST.getlist("quantite"),
+                                        request.POST.getlist("prix_unitaire"), request.POST.getlist("taux_tva")):
+        if not (piece_id or (qte or "").strip() or (prix or "").strip()):
+            continue
+        ligne = {"piece": pieces.get(piece_id), "quantite": _decimal(qte), "prix": _decimal(prix),
+                 "tva": _decimal(tva), "brut": {"quantite": qte, "prix_unitaire": prix, "taux_tva": tva}}
+        if ligne["piece"] is None:
+            ligne["erreur"] = _("Pièce introuvable : choisissez-la dans la liste.")
+        elif ligne["quantite"] is None or ligne["quantite"] <= 0:
+            ligne["erreur"] = _("Quantité invalide.")
+        elif ligne["prix"] is None or ligne["prix"] < 0:
+            ligne["erreur"] = _("Prix unitaire invalide.")
+        elif ligne["tva"] is None or not (0 <= ligne["tva"] < 100):
+            ligne["erreur"] = _("Taux de TVA invalide.")
+        lignes.append(ligne)
+    return lignes
+
+
+@never_cache
+@login_required
+def factures_achat_view(request):
+    if not _peut(request.user, ROLES_STOCK):
+        return _refuser(request)
+    qs = (FactureAchatStock.objects.filter(societe=request.user.societe)
+          .select_related("fournisseur", "utilisateur").annotate(nb_lignes=Count("lignes")))
+    du = parse_date(request.GET.get("du") or "")
+    au = parse_date(request.GET.get("au") or "")
+    q = (request.GET.get("q") or "").strip()
+    if du:
+        qs = qs.filter(date_facture__gte=du)
+    if au:
+        qs = qs.filter(date_facture__lte=au)
+    if q:
+        qs = qs.filter(Q(numero_facture__icontains=q) | Q(fournisseur__nom__icontains=q) | Q(commentaire__icontains=q))
+    totaux = qs.aggregate(htva=Sum("total_htva"), tva=Sum("total_tva"), tvac=Sum("total_tvac"))
+    page = Paginator(qs, 50).get_page(request.GET.get("page"))
+    params = request.GET.copy()
+    params.pop("page", None)
+    return render(request, "piece/stock/factures_achat.html", {
+        "page": page, "factures": page.object_list, "filtres": {"du": du, "au": au, "q": q},
+        "totaux": {k: v or Decimal("0") for k, v in totaux.items()}, "params": params.urlencode(),
+    })
+
+
+@never_cache
+@login_required
+def facture_achat_form_view(request):
+    """Réception d'une facture d'achat : en-tête + lignes ; chaque ligne entre en stock."""
+    if not _peut(request.user, ROLES_STOCK):
+        return _refuser(request)
+    from fournisseur.models import Fournisseur
+
+    societe = request.user.societe
+    fournisseurs = Fournisseur.objects.filter(societe=societe).order_by("nom")
+    entete = {"fournisseur": "", "numero_facture": "", "date_facture": timezone.localdate().isoformat(),
+              "commentaire": ""}
+    lignes, erreurs = [], []
+
+    if request.method == "POST":
+        entete = {k: (request.POST.get(k) or "").strip() for k in entete}
+        lignes = _lignes_postees(request)
+        fournisseur = fournisseurs.filter(pk=entete["fournisseur"]).first() if entete["fournisseur"] else None
+        date_facture = parse_date(entete["date_facture"])
+        if not entete["numero_facture"]:
+            erreurs.append(_("Indiquez le numéro de la facture."))
+        if not date_facture:
+            erreurs.append(_("Indiquez la date de la facture."))
+        if entete["fournisseur"] and fournisseur is None:
+            erreurs.append(_("Fournisseur introuvable."))
+        if not lignes:
+            erreurs.append(_("Ajoutez au moins une ligne."))
+        if any(l.get("erreur") for l in lignes):
+            erreurs.append(_("Corrigez les lignes en erreur."))
+        if (fournisseur and FactureAchatStock.objects.filter(
+                societe=societe, fournisseur=fournisseur, numero_facture__iexact=entete["numero_facture"]).exists()):
+            erreurs.append(_("Cette facture de ce fournisseur a déjà été réceptionnée."))
+
+        if not erreurs:
+            with transaction.atomic():
+                facture = FactureAchatStock.objects.create(
+                    societe=societe, fournisseur=fournisseur, numero_facture=entete["numero_facture"],
+                    date_facture=date_facture, commentaire=entete["commentaire"], utilisateur=request.user,
+                )
+                libelle = _("Facture d'achat %(numero)s") % {"numero": facture.numero_facture}
+                if fournisseur:
+                    libelle += f" – {fournisseur.nom}"
+                for l in lignes:
+                    ligne = LigneFactureAchatStock.objects.create(
+                        facture=facture, piece=l["piece"], quantite=l["quantite"],
+                        prix_unitaire_htva=l["prix"], taux_tva=l["tva"],
+                    )
+                    ligne.mouvement = stock.mouvement(
+                        l["piece"], l["quantite"], MouvementStock.Type.ENTREE, utilisateur=request.user,
+                        prix_unitaire=l["prix"], commentaire=libelle,
+                    )
+                    ligne.save(update_fields=["mouvement"])
+                facture.recalculer_totaux()
+            messages.success(request, _("Facture réceptionnée : %(n)s ligne(s) entrée(s) en stock, total TVAC %(t)s €.")
+                             % {"n": len(lignes), "t": facture.total_tvac})
+            return redirect("piece:facture_achat_detail", pk=facture.pk)
+
+    return render(request, "piece/stock/facture_achat_form.html", {
+        "fournisseurs": fournisseurs, "entete": entete, "lignes": lignes, "erreurs": erreurs,
+    })
+
+
+@never_cache
+@login_required
+def facture_achat_detail_view(request, pk):
+    if not _peut(request.user, ROLES_STOCK):
+        return _refuser(request)
+    facture = get_object_or_404(
+        FactureAchatStock.objects.filter(societe=request.user.societe).select_related("fournisseur", "utilisateur"),
+        pk=pk,
+    )
+    lignes = facture.lignes.select_related("piece", "piece__fabricant", "mouvement")
+    return render(request, "piece/stock/facture_achat_detail.html", {
+        "facture": facture, "lignes": lignes, "totaux_par_taux": facture.totaux_par_taux(),
+    })

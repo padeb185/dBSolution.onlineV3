@@ -60,6 +60,24 @@
 
 </div>
 
+<!-- 📈 Graphiques -->
+<h2 class="text-xl font-semibold mb-3">{% trans "Graphiques" %}</h2>
+<div class="flex flex-wrap gap-2 mb-4" id="onglets-graph">
+    <button type="button" data-vue="mois" class="onglet px-4 py-2 rounded font-semibold bg-blue-700 text-white">{% trans "Par mois" %}</button>
+    <button type="button" data-vue="annees" class="onglet px-4 py-2 rounded font-semibold bg-gray-200 hover:bg-gray-300">{% trans "Par année" %}</button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+    <div class="bg-white shadow rounded p-4"><h3 class="font-semibold mb-2">{% trans "Coût total (€)" %}</h3><div style="height:280px"><canvas id="graph-cout"></canvas></div></div>
+    <div class="bg-white shadow rounded p-4"><h3 class="font-semibold mb-2">{% trans "Litres et nombre de pleins" %}</h3><div style="height:280px"><canvas id="graph-litres"></canvas></div></div>
+    <div class="bg-white shadow rounded p-4"><h3 class="font-semibold mb-2">{% trans "Consommation moyenne (L/100 km)" %}</h3><div style="height:280px"><canvas id="graph-conso"></canvas></div></div>
+    <div class="bg-white shadow rounded p-4"><h3 class="font-semibold mb-2">{% trans "Coût au kilomètre (€/km)" %}</h3><div style="height:280px"><canvas id="graph-cout-km"></canvas></div></div>
+    <div class="bg-white shadow rounded p-4 lg:col-span-2"><h3 class="font-semibold mb-2">{% trans "Prix moyen au litre (€)" %}</h3><div style="height:240px"><canvas id="graph-prix"></canvas></div></div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+    <div class="bg-white shadow rounded p-4 lg:col-span-2"><h3 class="font-semibold mb-2">{% trans "Coût par véhicule (€)" %}</h3><div id="boite-vehicules" style="height:320px"><canvas id="graph-vehicules"></canvas></div></div>
+    <div class="bg-white shadow rounded p-4"><h3 class="font-semibold mb-2">{% trans "TVA par pays (€)" %}</h3><div style="height:320px"><canvas id="graph-tva"></canvas></div></div>
+</div>
+
 <!-- 🔎 Recherche Fuel -->
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="flex flex-wrap items-end gap-3">
@@ -263,7 +281,7 @@
     <tbody>
         {% for a in par_an %}
         <tr>
-            <td class="border px-4 py-2">{{ a.an|date:"Y" }}</td>
+            <td class="border px-4 py-2">{{ a.an }}</td>
             <td class="border px-4 py-2 text-center">{{ a.nb_pleins }}</td>
             <td class="border px-4 py-2 text-center">{{ a.total_litres|floatformat:"2g" }}</td>
             <td class="border px-4 py-2 text-center">{{ a.total_cout|floatformat:"2g" }} €</td>
@@ -367,5 +385,92 @@ $(document).ready(function() {
     });
 
 });
+</script>
+{{ graphiques|json_script:"donnees-graphiques" }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+(function () {
+    if (typeof Chart === "undefined") { return; }
+    const D = JSON.parse(document.getElementById("donnees-graphiques").textContent);
+    const T = {
+        conso: "{% trans 'L/100 km' %}", coutKm: "{% trans '€/km' %}", cout: "{% trans 'Coût total' %}",
+        litres: "{% trans 'Litres' %}", pleins: "{% trans 'Pleins' %}", prix: "{% trans 'Prix moyen / L' %}",
+        aucune: "{% trans 'Aucune donnée' %}"
+    };
+    const COULEURS = ["#2563eb", "#16a34a", "#f59e0b", "#dc2626", "#7c3aed", "#0891b2", "#db2777", "#65a30d", "#ea580c", "#4f46e5", "#0d9488", "#be123c", "#a16207", "#475569", "#9333ea"];
+    const nf = (v, d) => v == null ? "—" : Number(v).toLocaleString(document.documentElement.lang || "fr", {minimumFractionDigits: d, maximumFractionDigits: d});
+    const base = (d, suffixe) => ({
+        responsive: true, maintainAspectRatio: false, spanGaps: true,
+        plugins: {legend: {display: false}, tooltip: {callbacks: {label: c => " " + nf(c.parsed.y, d) + suffixe}}},
+        scales: {y: {beginAtZero: true}}
+    });
+    const graphs = {};
+
+    function dessiner(vue) {
+        const v = D[vue];
+        ["cout", "litres", "conso", "coutKm", "prix"].forEach(k => graphs[k] && graphs[k].destroy());
+        graphs.cout = new Chart(document.getElementById("graph-cout"), {
+            type: "bar", data: {labels: v.labels, datasets: [{label: T.cout, data: v.cout, backgroundColor: "#2563eb", borderRadius: 4}]},
+            options: base(2, " €")
+        });
+        const optLitres = base(2, "");
+        optLitres.plugins.legend = {display: true};
+        optLitres.plugins.tooltip = {};
+        optLitres.scales = {y: {beginAtZero: true, position: "left"}, y2: {beginAtZero: true, position: "right", grid: {drawOnChartArea: false}, ticks: {precision: 0}}};
+        graphs.litres = new Chart(document.getElementById("graph-litres"), {
+            data: {labels: v.labels, datasets: [
+                {type: "bar", label: T.litres, data: v.litres, backgroundColor: "#f59e0b", borderRadius: 4, yAxisID: "y"},
+                {type: "line", label: T.pleins, data: v.pleins, borderColor: "#dc2626", backgroundColor: "#dc2626", tension: .3, yAxisID: "y2"}
+            ]},
+            options: optLitres
+        });
+        graphs.conso = new Chart(document.getElementById("graph-conso"), {
+            type: "line", data: {labels: v.labels, datasets: [{label: T.conso, data: v.conso, borderColor: "#16a34a", backgroundColor: "rgba(22,163,74,.15)", fill: true, tension: .3, pointRadius: 4}]},
+            options: base(2, " L/100 km")
+        });
+        graphs.coutKm = new Chart(document.getElementById("graph-cout-km"), {
+            type: "line", data: {labels: v.labels, datasets: [{label: T.coutKm, data: v.cout_km, borderColor: "#7c3aed", backgroundColor: "rgba(124,58,237,.15)", fill: true, tension: .3, pointRadius: 4}]},
+            options: base(3, " €/km")
+        });
+        const optPrix = base(3, " €");
+        optPrix.scales = {y: {beginAtZero: false}};
+        graphs.prix = new Chart(document.getElementById("graph-prix"), {
+            type: "line", data: {labels: v.labels, datasets: [{label: T.prix, data: v.prix_litre, borderColor: "#0891b2", backgroundColor: "#0891b2", tension: .3, pointRadius: 4}]},
+            options: optPrix
+        });
+    }
+
+    // Coût par véhicule (barres horizontales, hauteur selon le nombre de véhicules)
+    if (D.vehicules.length) {
+        document.getElementById("boite-vehicules").style.height = Math.max(220, D.vehicules.length * 30 + 60) + "px";
+        const optVeh = base(2, " €");
+        optVeh.indexAxis = "y";
+        optVeh.scales = {x: {beginAtZero: true}};
+        optVeh.plugins.tooltip = {callbacks: {label: c => " " + nf(c.parsed.x, 2) + " € · " + nf(D.vehicules[c.dataIndex].litres, 2) + " L"}};
+        new Chart(document.getElementById("graph-vehicules"), {
+            type: "bar",
+            data: {labels: D.vehicules.map(x => x.label), datasets: [{label: T.cout, data: D.vehicules.map(x => x.cout), backgroundColor: D.vehicules.map((x, i) => COULEURS[i % COULEURS.length]), borderRadius: 4}]},
+            options: optVeh
+        });
+    }
+
+    // TVA par pays (anneau)
+    if (D.tva_pays.length) {
+        new Chart(document.getElementById("graph-tva"), {
+            type: "doughnut",
+            data: {labels: D.tva_pays.map(x => x.label), datasets: [{data: D.tva_pays.map(x => x.tva), backgroundColor: D.tva_pays.map((x, i) => COULEURS[i % COULEURS.length])}]},
+            options: {responsive: true, maintainAspectRatio: false, plugins: {legend: {position: "bottom"}, tooltip: {callbacks: {label: c => " " + c.label + " : " + nf(c.parsed, 2) + " €"}}}}
+        });
+    } else {
+        document.getElementById("graph-tva").replaceWith(Object.assign(document.createElement("p"), {className: "text-gray-500 text-sm", textContent: T.aucune}));
+    }
+
+    document.querySelectorAll("#onglets-graph .onglet").forEach(b => b.addEventListener("click", () => {
+        document.querySelectorAll("#onglets-graph .onglet").forEach(x => x.className = "onglet px-4 py-2 rounded font-semibold bg-gray-200 hover:bg-gray-300");
+        b.className = "onglet px-4 py-2 rounded font-semibold bg-blue-700 text-white";
+        dessiner(b.dataset.vue);
+    }));
+    dessiner("mois");
+})();
 </script>
 {% endblock %}

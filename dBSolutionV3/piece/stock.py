@@ -68,8 +68,18 @@ def rechercher(societe, texte, limite=20):
         ).distinct()
     if not texte:
         return qs[:limite]
-    # pertinence : code exact, puis code qui commence par la saisie, puis le reste
-    pieces = list(qs.prefetch_related("codes_barres")[:limite * 3])
+    # pertinence : code exact, puis code qui commence par la saisie, puis le reste.
+    # Les codes qui commencent par la saisie sont chargés en premier pour ne pas être
+    # coupés par la limite quand beaucoup de pièces contiennent ces chiffres.
+    base = Piece.objects.filter(societe=societe, actif=True).select_related("fabricant")
+    debut = list(
+        base.filter(Q(oem__istartswith=code) | Q(codes_barres__code__startswith=code)
+                    | Q(reference_fabricant__istartswith=code))
+        .distinct().prefetch_related("codes_barres").order_by("oem")[:limite * 3]
+    )
+    deja = {p.pk for p in debut}
+    reste = [p for p in qs.prefetch_related("codes_barres")[:limite * 3] if p.pk not in deja]
+    pieces = debut + reste
 
     def rang(p):
         codes = [p.oem.upper(), (p.reference_fabricant or "").upper()] + [c.upper() for c in p.eans]

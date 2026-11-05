@@ -1,0 +1,330 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Réceptionner une facture d'achat" %}{% endblock %}
+
+{% block content %}
+<br>
+{% trans "Réceptionner une facture d'achat" as titre %}
+{% include "piece/stock/_nav.html" with titre=titre actif="factures_achat" %}
+
+{% if erreurs %}
+<div class="mb-4 px-4 py-3 rounded bg-red-100 text-red-800 border border-red-300">
+    <ul class="list-disc ml-5">{% for e in erreurs %}<li>{{ e }}</li>{% endfor %}</ul>
+</div>
+{% endif %}
+
+<form method="post" id="form-facture" autocomplete="off">
+    {% csrf_token %}
+
+    <!-- En-tête -->
+    <div class="bg-white shadow-md rounded-lg p-5 mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div>
+            <label class="block text-sm text-gray-600 mb-1">{% trans "Fournisseur" %}</label>
+            <select name="fournisseur" class="border rounded px-3 py-2 w-full">
+                <option value="">—</option>
+                {% for f in fournisseurs %}
+                <option value="{{ f.pk }}" {% if entete.fournisseur == f.pk|stringformat:"s" %}selected{% endif %}>{{ f.nom }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label class="block text-sm text-gray-600 mb-1">{% trans "N° de facture" %} *</label>
+            <input type="text" name="numero_facture" value="{{ entete.numero_facture }}" required class="border rounded px-3 py-2 w-full font-mono">
+        </div>
+        <div>
+            <label class="block text-sm text-gray-600 mb-1">{% trans "Date de la facture" %} *</label>
+            <input type="date" name="date_facture" value="{{ entete.date_facture }}" required class="border rounded px-3 py-2 w-full">
+        </div>
+        <div>
+            <label class="block text-sm text-gray-600 mb-1">{% trans "Commentaire" %}</label>
+            <input type="text" name="commentaire" value="{{ entete.commentaire }}" maxlength="255" class="border rounded px-3 py-2 w-full">
+        </div>
+    </div>
+
+    <!-- Lignes -->
+    <div class="overflow-x-auto bg-white shadow-md rounded-lg mb-4">
+    <table class="min-w-full table-auto border-collapse border border-gray-200" id="table-lignes">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border px-3 py-2 text-left min-w-[320px]">{% trans "Pièce (OEM / EAN ou désignation)" %}</th>
+                <th class="border px-3 py-2 text-right w-28">{% trans "Quantité" %}</th>
+                <th class="border px-3 py-2 text-right w-32">{% trans "Prix unitaire HTVA" %}</th>
+                <th class="border px-3 py-2 text-right w-24">{% trans "TVA (%)" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Montant HTVA" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Montant TVA" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Montant TVAC" %}</th>
+                <th class="border px-3 py-2 w-10"></th>
+            </tr>
+        </thead>
+        <tbody id="lignes">
+        {% for l in lignes %}
+            <tr class="ligne{% if l.erreur %} bg-red-50{% endif %}">
+                <td class="border px-2 py-1 relative">
+                    <input type="hidden" name="piece_id" value="{{ l.piece.pk|default:'' }}">
+                    <input type="text" class="recherche border rounded px-2 py-1 w-full font-mono"
+                           value="{% if l.piece %}{{ l.piece.designation|default:l.piece }}{% if l.piece.oem %} [{{ l.piece.oem }}]{% endif %}{% endif %}"
+                           placeholder="{% trans 'Scanner ou saisir le code' %}">
+                    <div class="etat text-xs mt-1 {% if l.erreur %}text-red-700{% else %}text-gray-500{% endif %}">{{ l.erreur|default:"" }}</div>
+                </td>
+                <td class="border px-2 py-1"><input type="number" name="quantite" step="0.01" min="0.01" value="{{ l.brut.quantite }}" class="qte border rounded px-2 py-1 w-full text-right"></td>
+                <td class="border px-2 py-1"><input type="number" name="prix_unitaire" step="0.01" min="0" value="{{ l.brut.prix_unitaire }}" class="prix border rounded px-2 py-1 w-full text-right"></td>
+                <td class="border px-2 py-1"><input type="number" name="taux_tva" step="0.01" min="0" max="99.99" value="{{ l.brut.taux_tva }}" class="tva border rounded px-2 py-1 w-full text-right"></td>
+                <td class="border px-4 py-1 text-right whitespace-nowrap tabular-nums m-htva" style="min-width:7rem">—</td>
+                <td class="border px-4 py-1 text-right whitespace-nowrap tabular-nums m-tva" style="min-width:7rem">—</td>
+                <td class="border px-4 py-1 text-right whitespace-nowrap tabular-nums font-semibold m-tvac" style="min-width:8rem">—</td>
+                <td class="border px-2 py-1 text-center"><button type="button" class="supprimer text-red-600 hover:text-red-800 font-bold" title="{% trans 'Supprimer la ligne' %}">✕</button></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+    <button type="button" id="ajouter-ligne" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-500 font-semibold mb-6">
+        + {% trans "Ajouter une ligne" %}
+    </button>
+    <p class="text-sm text-gray-500 mb-6">
+        {% trans "Pièce absente du catalogue ?" %}
+        <a href="{% url 'piece:add' %}" target="_blank" class="text-blue-700 hover:underline">{% trans "Créer la pièce" %}</a>
+        {% trans "(nouvel onglet), puis recherchez-la ici." %}
+    </p>
+
+    <!-- Totaux -->
+    <div class="flex flex-col md:flex-row md:justify-end gap-6 mb-6">
+        <table class="table-auto border-collapse border border-gray-200 bg-white shadow-md hidden" id="table-taux">
+            <thead><tr class="bg-gray-100">
+                <th class="border px-3 py-2">{% trans "TVA (%)" %}</th><th class="border px-3 py-2 text-right">{% trans "Base HTVA" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "TVA" %}</th><th class="border px-3 py-2 text-right">{% trans "TVAC" %}</th>
+            </tr></thead>
+            <tbody></tbody>
+        </table>
+        <div class="bg-white shadow-md rounded-lg p-6 w-full md:w-auto md:min-w-[420px] text-xl" style="font-size:1.25rem;min-width:min(100%,420px)">
+            <div class="flex justify-between items-baseline gap-10 py-2" style="column-gap:2.5rem"><span class="text-gray-600">{% trans "Total HTVA" %}</span><span class="font-semibold whitespace-nowrap tabular-nums" id="total-htva">0,00 €</span></div>
+            <div class="flex justify-between items-baseline gap-10 py-2" style="column-gap:2.5rem"><span class="text-gray-600">{% trans "Total TVA" %}</span><span class="font-semibold whitespace-nowrap tabular-nums" id="total-tva">0,00 €</span></div>
+            <div class="flex justify-between items-baseline gap-10 pt-3 mt-2 border-t-2 text-3xl" style="font-size:1.875rem;column-gap:2.5rem"><span class="font-bold">{% trans "Total TVAC" %}</span><span class="font-bold whitespace-nowrap tabular-nums text-green-700" id="total-tvac">0,00 €</span></div>
+        </div>
+    </div>
+
+    <div class="flex flex-wrap gap-3">
+        <button type="submit" class="bg-green-600 text-white px-5 py-3 rounded hover:bg-green-500 font-semibold">
+            {% trans "Enregistrer et entrer en stock" %}
+        </button>
+        <a href="{% url 'piece:factures_achat' %}" class="bg-gray-600 text-white px-5 py-3 rounded hover:bg-gray-700 font-semibold">{% trans "Annuler" %}</a>
+    </div>
+</form>
+<br>
+
+<template id="modele-ligne">
+    <tr class="ligne">
+        <td class="border px-2 py-1 relative">
+            <input type="hidden" name="piece_id" value="">
+            <input type="text" class="recherche border rounded px-2 py-1 w-full font-mono" placeholder="{% trans 'Scanner ou saisir le code' %}">
+            <div class="etat text-xs mt-1 text-gray-500"></div>
+        </td>
+        <td class="border px-2 py-1"><input type="number" name="quantite" step="0.01" min="0.01" value="1" class="qte border rounded px-2 py-1 w-full text-right"></td>
+        <td class="border px-2 py-1"><input type="number" name="prix_unitaire" step="0.01" min="0" class="prix border rounded px-2 py-1 w-full text-right"></td>
+        <td class="border px-2 py-1"><input type="number" name="taux_tva" step="0.01" min="0" max="99.99" class="tva border rounded px-2 py-1 w-full text-right"></td>
+        <td class="border px-4 py-1 text-right whitespace-nowrap tabular-nums m-htva" style="min-width:7rem">—</td>
+        <td class="border px-4 py-1 text-right whitespace-nowrap tabular-nums m-tva" style="min-width:7rem">—</td>
+        <td class="border px-4 py-1 text-right whitespace-nowrap tabular-nums font-semibold m-tvac" style="min-width:8rem">—</td>
+        <td class="border px-2 py-1 text-center"><button type="button" class="supprimer text-red-600 hover:text-red-800 font-bold" title="{% trans 'Supprimer la ligne' %}">✕</button></td>
+    </tr>
+</template>
+
+<script>
+(function () {
+    var url = "{% url 'piece:api_recherche' %}";
+    var txtStock = "{% trans 'Stock actuel :' %}";
+    var txtInconnue = "{% trans 'Pièce introuvable : choisissez-la dans la liste ou créez-la au catalogue.' %}";
+    var corps = document.getElementById('lignes');
+
+    function libelle(p) { return p.designation + (p.oem ? ' [' + p.oem + ']' : ''); }
+    function num(v) { var n = parseFloat(String(v || '').replace(',', '.')); return isNaN(n) ? 0 : n; }
+    function cents(n) { return Math.round((n + Number.EPSILON) * 100) / 100; }
+    function euros(n) {
+        return n.toLocaleString(document.documentElement.lang || 'fr', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' €';
+    }
+
+    // Même calcul que le serveur : HTVA = qté × PU (arrondi), TVA = HTVA × taux (arrondi), TVAC = HTVA + TVA
+    function recalculer() {
+        var totalHtva = 0, totalTva = 0, parTaux = {};
+        corps.querySelectorAll('tr.ligne').forEach(function (tr) {
+            var q = num(tr.querySelector('.qte').value), pu = num(tr.querySelector('.prix').value),
+                taux = num(tr.querySelector('.tva').value);
+            var htva = cents(q * pu), tva = cents(htva * taux / 100);
+            tr.querySelector('.m-htva').textContent = euros(htva);
+            tr.querySelector('.m-tva').textContent = euros(tva);
+            tr.querySelector('.m-tvac').textContent = euros(htva + tva);
+            totalHtva += htva; totalTva += tva;
+            var cle = taux.toFixed(2);
+            parTaux[cle] = parTaux[cle] || [0, 0];
+            parTaux[cle][0] += htva; parTaux[cle][1] += tva;
+        });
+        document.getElementById('total-htva').textContent = euros(totalHtva);
+        document.getElementById('total-tva').textContent = euros(totalTva);
+        document.getElementById('total-tvac').textContent = euros(totalHtva + totalTva);
+
+        var cles = Object.keys(parTaux).sort(function (a, b) { return a - b; });
+        var tableTaux = document.getElementById('table-taux');
+        tableTaux.classList.toggle('hidden', cles.length < 2);
+        tableTaux.querySelector('tbody').innerHTML = cles.map(function (c) {
+            var b = parTaux[c][0], t = parTaux[c][1];
+            return '<tr><td class="border px-3 py-2 text-right">' + num(c) + ' %</td>'
+                + '<td class="border px-3 py-2 text-right">' + euros(b) + '</td>'
+                + '<td class="border px-3 py-2 text-right">' + euros(t) + '</td>'
+                + '<td class="border px-3 py-2 text-right">' + euros(b + t) + '</td></tr>';
+        }).join('');
+    }
+
+    function choisir(tr, p) {
+        fermer(tr);
+        tr.querySelector('[name=piece_id]').value = p.id;
+        tr.querySelector('.recherche').value = libelle(p);
+        if (!tr.querySelector('.prix').value) { tr.querySelector('.prix').value = p.prix_achat; }
+        if (!tr.querySelector('.tva').value) { tr.querySelector('.tva').value = p.tva; }
+        var etat = tr.querySelector('.etat');
+        etat.className = 'etat text-xs mt-1 text-green-700';
+        etat.textContent = txtStock + ' ' + p.stock + (p.emplacement ? ' · ' + p.emplacement : '');
+        tr.classList.remove('bg-red-50');
+        recalculer();
+        tr.querySelector('.qte').focus(); tr.querySelector('.qte').select();
+    }
+
+    function chercherCode(tr) {
+        var champ = tr.querySelector('.recherche'), v = champ.value.trim();
+        tr.querySelector('[name=piece_id]').value = '';
+        if (!v) { return; }
+        fetch(url + '?code=' + encodeURIComponent(v), {credentials: 'same-origin'})
+            .then(function (r) { return r.json(); })
+            .then(function (d) {
+                if (d.found) { choisir(tr, d.piece); }
+                else {
+                    var etat = tr.querySelector('.etat');
+                    etat.className = 'etat text-xs mt-1 text-orange-600';
+                    etat.textContent = txtInconnue;
+                }
+            });
+    }
+
+    // ----- Suggestions : dès le premier caractère, codes OEM / EAN qui commencent par la saisie en tête
+    var minuterie, requete = 0;
+    function echapper(t) { return String(t || '').replace(/[&<>"]/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]; }); }
+    function surligner(texte, saisie) {
+        texte = String(texte || '');
+        if (saisie && texte.toUpperCase().indexOf(saisie.toUpperCase()) === 0) {
+            return '<mark class="bg-yellow-200">' + echapper(texte.slice(0, saisie.length)) + '</mark>' + echapper(texte.slice(saisie.length));
+        }
+        return echapper(texte);
+    }
+    // La liste est attachée au <body> en position fixe : le tableau (overflow-x-auto) la couperait sinon
+    function fermer(tr) { if (tr._liste) { tr._liste.remove(); tr._liste = null; } }
+    function placer(tr) {
+        if (!tr._liste) { return; }
+        var r = tr.querySelector('.recherche').getBoundingClientRect();
+        tr._liste.style.left = r.left + 'px';
+        tr._liste.style.top = r.bottom + 'px';
+        tr._liste.style.width = Math.max(r.width, 420) + 'px';
+    }
+    window.addEventListener('scroll', function () { corps.querySelectorAll('tr.ligne').forEach(placer); }, true);
+    window.addEventListener('resize', function () { corps.querySelectorAll('tr.ligne').forEach(placer); });
+
+    function afficher(tr, pieces, saisie) {
+        fermer(tr);
+        if (!pieces.length) { return; }
+        var liste = document.createElement('div');
+        liste.className = 'suggestions bg-white border border-gray-300 rounded shadow-lg';
+        liste.style.cssText = 'position:fixed;z-index:1000;max-height:18rem;overflow-y:auto';
+        pieces.forEach(function (p, i) {
+            var item = document.createElement('div');
+            item.className = 'item px-3 py-2 cursor-pointer hover:bg-blue-50 border-b last:border-b-0' + (i === 0 ? ' bg-blue-50' : '');
+            item.innerHTML = '<div class="flex justify-between gap-4"><span class="font-mono font-semibold">' + surligner(p.oem || (p.eans[0] || ''), saisie) + '</span>'
+                + '<span class="text-xs text-gray-500 whitespace-nowrap">' + echapper(txtStock) + ' ' + echapper(p.stock) + '</span></div>'
+                + '<div class="text-sm">' + echapper(p.designation) + (p.fabricant ? ' <span class="text-gray-500">· ' + echapper(p.fabricant) + '</span>' : '') + '</div>';
+            item.addEventListener('mousedown', function (e) { e.preventDefault(); fermer(tr); choisir(tr, p); });
+            liste.appendChild(item);
+        });
+        document.body.appendChild(liste);
+        tr._liste = liste;
+        placer(tr);
+    }
+
+    function suggerer(tr, texte) {
+        clearTimeout(minuterie);
+        if (!texte) { fermer(tr); return; }
+        minuterie = setTimeout(function () {
+            var n = ++requete;
+            fetch(url + '?q=' + encodeURIComponent(texte), {credentials: 'same-origin'})
+                .then(function (r) { return r.json(); })
+                .then(function (d) { if (n === requete) { afficher(tr, d.results || [], texte); } });
+        }, 150);
+    }
+
+    function deplacer(tr, sens) {
+        if (!tr._liste) { return false; }
+        var items = tr._liste.querySelectorAll('.item');
+        if (!items.length) { return false; }
+        var i = Array.prototype.findIndex.call(items, function (x) { return x.classList.contains('bg-blue-50'); });
+        items.forEach(function (x) { x.classList.remove('bg-blue-50'); });
+        i = (i + sens + items.length) % items.length;
+        items[i].classList.add('bg-blue-50');
+        items[i].scrollIntoView({block: 'nearest'});
+        return true;
+    }
+
+    function brancher(tr) {
+        var champ = tr.querySelector('.recherche');
+        champ.addEventListener('input', function () {
+            tr.querySelector('[name=piece_id]').value = '';
+            suggerer(tr, champ.value.trim());
+        });
+        champ.addEventListener('focus', function () { if (champ.value.trim() && !tr.querySelector('[name=piece_id]').value) { suggerer(tr, champ.value.trim()); } });
+        champ.addEventListener('blur', function () { setTimeout(function () { fermer(tr); }, 150); });
+        champ.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowDown') { if (deplacer(tr, 1)) { e.preventDefault(); } return; }
+            if (e.key === 'ArrowUp') { if (deplacer(tr, -1)) { e.preventDefault(); } return; }
+            if (e.key === 'Escape') { fermer(tr); return; }
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                var actif = tr._liste && tr._liste.querySelector('.item.bg-blue-50');
+                if (actif) { actif.dispatchEvent(new MouseEvent('mousedown')); }
+                else { chercherCode(tr); }   // scan d'un code complet
+            }
+        });
+        tr.querySelectorAll('.qte, .prix, .tva').forEach(function (i) {
+            i.addEventListener('input', recalculer);
+            i.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') { e.preventDefault(); ajouterLigne(); }
+            });
+        });
+        tr.querySelector('.supprimer').addEventListener('click', function () {
+            fermer(tr);
+            tr.remove();
+            if (!corps.querySelector('tr.ligne')) { ajouterLigne(); }
+            recalculer();
+        });
+    }
+
+    function ajouterLigne() {
+        var tr = document.getElementById('modele-ligne').content.firstElementChild.cloneNode(true);
+        corps.appendChild(tr);
+        brancher(tr);
+        tr.querySelector('.recherche').focus();
+        recalculer();
+        return tr;
+    }
+
+    corps.querySelectorAll('tr.ligne').forEach(brancher);
+    if (!corps.querySelector('tr.ligne')) { ajouterLigne(); }
+    document.getElementById('ajouter-ligne').addEventListener('click', ajouterLigne);
+    recalculer();
+
+    // Une ligne sans pièce ni quantité ni prix est ignorée à l'enregistrement
+    document.getElementById('form-facture').addEventListener('submit', function () {
+        corps.querySelectorAll('tr.ligne').forEach(function (tr) {
+            if (!tr.querySelector('[name=piece_id]').value && !tr.querySelector('.recherche').value.trim()
+                && !tr.querySelector('.prix').value) { tr.remove(); }
+        });
+    });
+})();
+</script>
+{% endblock %}

@@ -506,3 +506,87 @@ class LigneInventaire(models.Model):
         if self.quantite_comptee is None:
             return None
         return self.quantite_comptee - self.stock_theorique
+
+
+# ======================================================================
+# FACTURE D'ACHAT : réception en stock (pièces, lubrifiants, pneus…)
+# ======================================================================
+DEUX_DECIMALES = Decimal("0.01")
+ZERO_DEC = Decimal("0.00")
+
+
+class FactureAchatStock(models.Model):
+    """
+    Facture d'achat fournisseur réceptionnée en stock. Chaque ligne crée une entrée de stock ;
+    les totaux HTVA / TVA / TVAC sont calculés et figés à l'enregistrement.
+    """
+    societe = models.ForeignKey("societe.Societe", on_delete=models.CASCADE, null=True, blank=True,
+                                related_name="factures_achat_stock")
+    fournisseur = models.ForeignKey("fournisseur.Fournisseur", on_delete=models.SET_NULL, null=True, blank=True,
+                                    related_name="factures_achat_stock", verbose_name=_("Fournisseur"))
+    numero_facture = models.CharField(max_length=100, verbose_name=_("N° de facture"))
+    date_facture = models.DateField(default=timezone.localdate, verbose_name=_("Date de la facture"))
+    commentaire = models.CharField(max_length=255, blank=True, verbose_name=_("Commentaire"))
+    total_htva = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Total HTVA"))
+    total_tva = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Total TVA"))
+    total_tvac = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Total TVAC"))
+    utilisateur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,
+                                    related_name="factures_achat_stock", verbose_name=_("Utilisateur"))
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("Facture d'achat (stock)")
+        verbose_name_plural = _("Factures d'achat (stock)")
+        ordering = ["-date_facture", "-created_at"]
+
+    def __str__(self):
+        return f"{self.numero_facture} – {self.fournisseur or ''}".strip(" –")
+
+    def recalculer_totaux(self, enregistrer=True):
+        htva = tva = ZERO_DEC
+        for ligne in self.lignes.all():
+            htva += ligne.montant_htva
+            tva += ligne.montant_tva
+        self.total_htva, self.total_tva, self.total_tvac = htva, tva, htva + tva
+        if enregistrer:
+            self.save(update_fields=["total_htva", "total_tva", "total_tvac"])
+
+    def totaux_par_taux(self):
+        """[(taux, base HTVA, TVA, TVAC)] trié par taux."""
+        groupes = {}
+        for ligne in self.lignes.all():
+            g = groupes.setdefault(ligne.taux_tva, [ZERO_DEC, ZERO_DEC])
+            g[0] += ligne.montant_htva
+            g[1] += ligne.montant_tva
+        return [(taux, b, t, b + t) for taux, (b, t) in sorted(groupes.items())]
+
+
+
+class LigneFactureAchatStock(models.Model):
+    facture = models.ForeignKey(FactureAchatStock, on_delete=models.CASCADE, related_name="lignes")
+    piece = models.ForeignKey(Piece, on_delete=models.PROTECT, related_name="lignes_achat", verbose_name=_("Pièce"))
+    quantite = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Quantité"))
+    prix_unitaire_htva = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Prix unitaire HTVA"))
+    taux_tva = models.DecimalField(max_digits=4, decimal_places=2, verbose_name=_("TVA (%)"))
+    montant_htva = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Montant HTVA"))
+    montant_tva = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Montant TVA"))
+    montant_tvac = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Montant TVAC"))
+    mouvement = models.OneToOneField(MouvementStock, on_delete=models.SET_NULL, null=True, blank=True,
+                                     related_name="ligne_achat", verbose_name=_("Mouvement de stock"))
+
+    class Meta:
+        verbose_name = _("Ligne de facture d'achat")
+        verbose_name_plural = _("Lignes de facture d'achat")
+
+    def calculer(self):
+        """HTVA = quantité × prix unitaire ; TVA = HTVA × taux ; TVAC = HTVA + TVA (arrondis au cent)."""
+        q = Decimal(self.quantite or 0)
+        pu = Decimal(self.prix_unitaire_htva or 0)
+        taux = Decimal(self.taux_tva or 0)
+        self.montant_htva = (q * pu).quantize(DEUX_DECIMALES)
+        self.montant_tva = (self.montant_htva * taux / 100).quantize(DEUX_DECIMALES)
+        self.montant_tvac = self.montant_htva + self.montant_tva
+
+    def save(self, *args, **kwargs):
+        self.calculer()
+        super().save(*args, **kwargs)

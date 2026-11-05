@@ -9,6 +9,8 @@
         <a href="{{ u_cat }}" class="px-4 py-2 rounded font-semibold {% if actif == 'catalogue' %}bg-blue-700 text-white{% else %}bg-gray-200 hover:bg-gray-300{% endif %}">{% trans "Stock" %}</a>
         {% if peut_gerer is not False %}
         <a href="{{ u_mvt }}" class="px-4 py-2 rounded font-semibold {% if actif == 'mouvements' %}bg-blue-700 text-white{% else %}bg-gray-200 hover:bg-gray-300{% endif %}">{% trans "Variations de stock" %}</a>
+        {% url 'piece:factures_achat' as u_fac %}
+        <a href="{{ u_fac }}" class="px-4 py-2 rounded font-semibold {% if actif == 'factures_achat' %}bg-blue-700 text-white{% else %}bg-gray-200 hover:bg-gray-300{% endif %}">{% trans "Factures d'achat" %}</a>
         <a href="{{ u_inv }}" class="px-4 py-2 rounded font-semibold {% if actif == 'inventaires' %}bg-blue-700 text-white{% else %}bg-gray-200 hover:bg-gray-300{% endif %}">{% trans "Inventaires" %}</a>
         <a href="{% url 'piece:add' %}" class="px-4 py-2 rounded font-semibold bg-green-600 text-white hover:bg-green-500">+ {% trans "Nouvelle pièce" %}</a>
         {% endif %}

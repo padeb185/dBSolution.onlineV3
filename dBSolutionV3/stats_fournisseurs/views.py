@@ -7,59 +7,91 @@ from django.utils.text import slugify
 from weasyprint import HTML
 from django.contrib.auth.decorators import login_required
 from .forms import StatsFournisseurForm
+from . import calculs
 from .models import StatsFournisseur
 
 
 @login_required
 def stats_fournisseur_view(request):
+    """
+    Sans fournisseur : vue d'ensemble (classement des fournisseurs, évolution des achats).
+    Avec fournisseur : tableau de bord du fournisseur (KPI, graphiques, factures).
+    """
+    societe = request.user.societe
+    form = StatsFournisseurForm(request.GET or None, societe=societe)
+    aujourd_hui = timezone.localdate()
 
-    form = StatsFournisseurForm(request.GET or None)
-
-    stats = None
-    stats_mois = []
-    stats_annees = []
-
-    total_htva = Decimal("0.00")
-    total_tva = Decimal("0.00")
-    total_tvac = Decimal("0.00")
-    nb_factures = 0
-
+    fournisseur = annee = mois = None
+    sources = list(calculs.SOURCES)
     if form.is_valid():
-
         fournisseur = form.cleaned_data.get("fournisseur")
         annee = form.cleaned_data.get("annee")
-        mois = form.cleaned_data.get("mois")
+        mois = int(form.cleaned_data["mois"]) if form.cleaned_data.get("mois") else None
+        sources = form.cleaned_data.get("sources") or sources
+    if not request.GET:
+        form = StatsFournisseurForm(initial={"sources": sources}, societe=societe)
 
-        if mois:
-            mois = int(mois)
+    # Toutes les années (évolution) puis la période filtrée
+    toutes = calculs.lignes_achats(societe, fournisseur=fournisseur, sources=sources)
+    periode = [l for l in toutes
+               if (not annee or l["date"].year == annee) and (not mois or l["date"].month == mois)]
+    annee_graph = annee or (max((l["date"].year for l in toutes), default=aujourd_hui.year))
 
-        if fournisseur:
+    kpi = calculs.totaux(periode)
+    comparaison = None
+    if annee:
+        precedente = [l for l in toutes
+                      if l["date"].year == annee - 1 and (not mois or l["date"].month == mois)]
+        t_prec = calculs.totaux(precedente)
+        comparaison = {
+            "annee": annee - 1, "htva": t_prec["htva"],
+            "evolution": (calculs.q((kpi["htva"] - t_prec["htva"]) * 100 / t_prec["htva"])
+                          if t_prec["htva"] else None),
+        }
 
-            stats, _ = StatsFournisseur.objects.get_or_create(
-                societe=request.user.societe,
-                fournisseur=fournisseur
-            )
+    stats_mois = calculs.par_mois(toutes, annee_graph)
+    stats_mois_prec = calculs.par_mois(toutes, annee_graph - 1)
+    stats_annees = calculs.par_annee(toutes)
+    stats_sources = [s for s in calculs.par_source(periode) if s["source"] in sources]
+    classement = calculs.par_fournisseur(periode) if fournisseur is None else []
 
-            stats_mois = stats.stats_par_mois(annee) or []
-            stats_annees = stats.stats_par_annee() or []
+    def f(v):
+        return float(v or 0)
 
-            if mois:
-                stats_mois = [r for r in stats_mois if r["mois"] == mois]
+    graphiques = {
+        "annee": annee_graph,
+        "mois": {
+            "labels": [str(m["nom"])[:3] + "." for m in stats_mois],
+            "htva": [f(m["htva"]) for m in stats_mois],
+            "htva_prec": [f(m["htva"]) for m in stats_mois_prec],
+            "nb": [m["nb"] for m in stats_mois],
+        },
+        "annees": {
+            "labels": [str(a["annee"]) for a in stats_annees],
+            "htva": [f(a["htva"]) for a in stats_annees],
+            "tva": [f(a["tva"]) for a in stats_annees],
+        },
+        "sources": [{"label": str(s["libelle"]), "htva": f(s["htva"])} for s in stats_sources if s["htva"]],
+        "fournisseurs": [{"label": str(c["fournisseur"]), "htva": f(c["htva"])} for c in classement[:10]],
+    }
 
-            total_htva = stats.total_achats_htva
-            total_tva = stats.total_tva
-            total_tvac = stats.total_tvac
-            nb_factures = stats.nb_factures
-
+    params = request.GET.copy()
     return render(request, "stats_fournisseurs/statistiques.html", {
         "form": form,
-        "stats": stats,
+        "fournisseur": fournisseur,
+        "annee": annee,
+        "annee_graph": annee_graph,
+        "mois": mois,
+        "mois_nom": calculs.NOMS_MOIS[mois - 1] if mois else None,
+        "kpi": kpi,
+        "comparaison": comparaison,
         "stats_mois": stats_mois,
         "stats_annees": stats_annees,
-        "total_htva": total_htva,
-        "total_tva": total_tva,
-        "total_tvac": total_tvac,
-        "nb_factures": nb_factures,
+        "stats_sources": stats_sources,
+        "classement": classement,
+        "factures": list(reversed(periode)) if fournisseur else [],
+        "graphiques": graphiques,
+        "query": params.urlencode(),
     })
 
 
@@ -69,7 +101,7 @@ def stats_fournisseur_pdf_view(request):
     PDF du détail des factures d'un fournisseur
     (mêmes filtres que la page statistiques : fournisseur, année, mois).
     """
-    form = StatsFournisseurForm(request.GET or None)
+    form = StatsFournisseurForm(request.GET or None, societe=request.user.societe)
 
     if not form.is_valid() or not form.cleaned_data.get("fournisseur"):
         return HttpResponse(status=400)

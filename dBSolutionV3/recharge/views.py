@@ -532,6 +532,23 @@ def electricite_delete(request, electricite_id):
         "exemplaire": exemplaire,
     })
 
+def _f(valeur, decimales=2):
+    return float(round(Decimal(str(valeur or 0)), decimales))
+
+
+def _series(lignes):
+    """[(libellé, stats)] -> séries pour les graphiques (None = pas de valeur, la courbe saute le point)."""
+    return {
+        "labels": [lib for lib, _x in lignes],
+        "kwh": [_f(x["total_kW"]) for _lib, x in lignes],
+        "cout": [_f(x["total_cout"]) for _lib, x in lignes],
+        "recharges": [x["nb_recharges"] for _lib, x in lignes],
+        "conso": [_f(x["conso_moyenne"]) or None for _lib, x in lignes],
+        "cout_km": [_f(x["cout_km"], 3) or None for _lib, x in lignes],
+        "prix_kwh": [_f(x["prix_moyen_kW"], 3) or None for _lib, x in lignes],
+    }
+
+
 @method_decorator([login_required, never_cache], name="dispatch")
 class ElectriciteStatView(TemplateView):
     template_name = "recharge/electricite_stat.html"
@@ -776,6 +793,18 @@ class ElectriciteStatView(TemplateView):
 
         context["par_voiture"] = par_voiture
 
+        def _dernier_km_avant(vehicule_id, date_debut):
+            """Dernier kilométrage relevé pour ce véhicule avant date_debut (ou None)."""
+            km = (
+                electricites
+                .filter(voiture_exemplaire_id=vehicule_id, date__lt=date_debut,
+                        kilometrage_electricite__isnull=False)
+                .order_by("-date", "-kilometrage_electricite")
+                .values_list("kilometrage_electricite", flat=True)
+                .first()
+            )
+            return Decimal(str(km)) if km is not None else None
+
         # ==========================================================
         # STATISTIQUES PAR MOIS
         # ==========================================================
@@ -839,14 +868,20 @@ class ElectriciteStatView(TemplateView):
                 km_max = Decimal(str(voiture["km_max"] or 0))
                 km_total = km_max - km_min
 
-                if km_total <= 0:
-                    continue
-
                 recharges_voiture = electricites_mois.filter(
                     voiture_exemplaire_id=voiture_id,
                 )
 
-                if km_min != km_max:
+                if km_total <= 0:
+                    # Une seule recharge sur la période : on part de la dernière
+                    # recharge de la période précédente (toutes les recharges comptent)
+                    km_reference = _dernier_km_avant(voiture_id, mois)
+                    if km_reference is None or voiture["km_max"] is None:
+                        continue
+                    km_total = km_max - km_reference
+                    if km_total <= 0:
+                        continue
+                elif km_min != km_max:
                     recharges_voiture = recharges_voiture.exclude(
                         kilometrage_electricite=km_min,
                     )
@@ -959,14 +994,20 @@ class ElectriciteStatView(TemplateView):
                 km_max = Decimal(str(voiture["km_max"] or 0))
                 km_total = km_max - km_min
 
-                if km_total <= 0:
-                    continue
-
                 recharges_voiture = electricites_annee.filter(
                     voiture_exemplaire_id=voiture_id,
                 )
 
-                if km_min != km_max:
+                if km_total <= 0:
+                    # Une seule recharge sur la période : on part de la dernière
+                    # recharge de la période précédente (toutes les recharges comptent)
+                    km_reference = _dernier_km_avant(voiture_id, annee)
+                    if km_reference is None or voiture["km_max"] is None:
+                        continue
+                    km_total = km_max - km_reference
+                    if km_total <= 0:
+                        continue
+                elif km_min != km_max:
                     recharges_voiture = recharges_voiture.exclude(
                         kilometrage_electricite=km_min,
                     )
@@ -1016,6 +1057,26 @@ class ElectriciteStatView(TemplateView):
             )
 
         context["par_an"] = par_an
+
+        # ==========================================================
+        # DONNÉES DES GRAPHIQUES (Chart.js)
+        # ==========================================================
+        context["graphiques"] = {
+            "mois": _series([(m["mois"].strftime("%m/%Y"), m) for m in par_mois]),
+            "annees": _series([(str(a["an"].year), a) for a in par_an]),
+            "vehicules": [
+                {
+                    "label": " ".join(filter(None, [
+                        v["voiture_exemplaire__voiture_modele__voiture_marque__nom_marque"],
+                        v["voiture_exemplaire__voiture_modele__nom_modele"],
+                    ])) + (f' ({v["voiture_exemplaire__immatriculation"]})' if v["voiture_exemplaire__immatriculation"] else ""),
+                    "cout": _f(v["total_cout"]),
+                    "kwh": _f(v["total_kW"]),
+                }
+                for v in par_voiture[:15]
+            ],
+            "tva_pays": [{"label": p["nom"], "tva": _f(p["tva"])} for p in totaux_par_pays_affichage],
+        }
 
         return context
 
@@ -1169,6 +1230,17 @@ class ElectriciteExemplaireStatView(
 
         context["total_global"] = total_tva
 
+        def _dernier_km_avant(date_debut):
+            """Dernier kilométrage relevé avant date_debut (ou None)."""
+            km = (
+                recharges
+                .filter(date__lt=date_debut, kilometrage_electricite__isnull=False)
+                .order_by("-date", "-kilometrage_electricite")
+                .values_list("kilometrage_electricite", flat=True)
+                .first()
+            )
+            return Decimal(str(km)) if km is not None else None
+
         # ==========================================================
         # STATISTIQUES PAR MOIS
         # ==========================================================
@@ -1236,9 +1308,21 @@ class ElectriciteExemplaireStatView(
                 str(agregats_mois["total_tva"] or 0)
             )
 
+            # Une seule recharge dans le mois : on part de la dernière recharge
+            # du mois précédent ; toutes les recharges du mois sont alors comptées
+            nb_recharges_mois = e_mois.count()
+            base_mois_precedent = False
+            if nb_recharges_mois < 2 or km_total_mois <= 0:
+                km_reference = _dernier_km_avant(mois)
+                if km_reference is not None and agregats_mois["km_max"] is not None:
+                    km_total_mois = km_max_mois - km_reference
+                    total_kW_mois_consommation = total_kW_mois_all
+                    base_mois_precedent = km_total_mois > 0
+
             context["par_mois"].append(
                 {
                     "mois": mois,
+                    "base_mois_precedent": base_mois_precedent,
                     "nb_recharges": e_mois.count(),
                     "total_kW": total_kW_mois_all,
                     "total_cout": total_cout_mois,
@@ -1328,6 +1412,13 @@ class ElectriciteExemplaireStatView(
                 str(agregats_an["total_tva"] or 0)
             )
 
+            # Une seule recharge dans l'année : on part de la dernière recharge de l'année précédente
+            if e_an.count() < 2 or km_total_an <= 0:
+                km_reference = _dernier_km_avant(annee)
+                if km_reference is not None and agregats_an["km_max"] is not None:
+                    km_total_an = km_max_an - km_reference
+                    total_kW_an_consommation = total_kW_an_all
+
             context["par_an"].append(
                 {
                     "an": annee,
@@ -1354,6 +1445,14 @@ class ElectriciteExemplaireStatView(
                     ),
                 }
             )
+
+        # ==========================================================
+        # DONNÉES DES GRAPHIQUES (Chart.js)
+        # ==========================================================
+        context["graphiques"] = {
+            "mois": _series([(m["mois"].strftime("%m/%Y"), m) for m in context["par_mois"]]),
+            "annees": _series([(str(a["an"].year), a) for a in context["par_an"]]),
+        }
 
         return context
 

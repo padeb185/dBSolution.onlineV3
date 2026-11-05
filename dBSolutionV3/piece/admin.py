@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import InventaireStock, LigneInventaire, MouvementStock, PieceUtilisee
+from .models import FactureAchatStock, InventaireStock, LigneFactureAchatStock, LigneInventaire, MouvementStock, PieceUtilisee
 
 
 @admin.register(MouvementStock)
@@ -23,3 +23,16 @@ class LigneInventaireInline(admin.TabularInline):
 class InventaireStockAdmin(admin.ModelAdmin):
     list_display = ("date", "categorie", "statut")
     inlines = [LigneInventaireInline]
+
+
+class LigneFactureAchatStockInline(admin.TabularInline):
+    model = LigneFactureAchatStock
+    extra = 0
+    readonly_fields = ("montant_htva", "montant_tva", "montant_tvac", "mouvement")
+
+
+@admin.register(FactureAchatStock)
+class FactureAchatStockAdmin(admin.ModelAdmin):
+    list_display = ("date_facture", "numero_facture", "fournisseur", "total_htva", "total_tva", "total_tvac")
+    readonly_fields = ("total_htva", "total_tva", "total_tvac")
+    inlines = [LigneFactureAchatStockInline]

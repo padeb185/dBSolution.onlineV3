@@ -14,8 +14,8 @@ from django.views.decorators.cache import never_cache
 
 from .forms_immo import ImmobilisationForm, ValorisationStockForm, VersementSocialForm
 from .journal import SOURCES, balance, ecritures_societe
-from .models import (COMPTES_IMMOBILISATIONS, CategorieImmobilisation, Immobilisation, ValorisationStock,
-                     VersementSocial)
+from .models import (COMPTES_IMMOBILISATIONS, REGLES_AMORTISSEMENT_BE, CategorieImmobilisation, Immobilisation,
+                     NatureImmobilisation, ValorisationStock, VersementSocial)
 from .views import _autorise, _log, _refus
 
 ZERO = Decimal("0.00")
@@ -85,13 +85,35 @@ def _form_immo(request, immo=None):
     else:
         initial = {}
         cat = request.GET.get("categorie")
-        if not immo and cat in COMPTES_IMMOBILISATIONS:
+        nature = request.GET.get("nature")
+        if not immo and nature in REGLES_AMORTISSEMENT_BE:
+            regle = REGLES_AMORTISSEMENT_BE[nature]
+            initial = {"nature": nature, "categorie": regle[0], "duree_annees": regle[1]}
+        elif not immo and cat in COMPTES_IMMOBILISATIONS:
             initial = {"categorie": cat, "duree_annees": COMPTES_IMMOBILISATIONS[cat][2]}
         form = ImmobilisationForm(instance=immo, societe=societe, initial=initial)
     return render(request, "compta/immo/immobilisation_form.html", {
         "form": form, "immo": immo,
         "durees": {k: v[2] for k, v in COMPTES_IMMOBILISATIONS.items()},
+        "regles": _regles_belges(),
+        "regles_js": {str(n): {"categorie": str(r[0]), "duree": r[1], "note": str(r[2])}
+                      for n, r in REGLES_AMORTISSEMENT_BE.items()},
     })
+
+
+def _regles_belges():
+    """Tableau des durées usuelles en Belgique, groupé par catégorie PCMN."""
+    lignes = []
+    for nature, (categorie, duree, note) in REGLES_AMORTISSEMENT_BE.items():
+        lignes.append({
+            "nature": NatureImmobilisation(nature).label,
+            "categorie": CategorieImmobilisation(categorie).label,
+            "compte": COMPTES_IMMOBILISATIONS[categorie][0],
+            "duree": duree,
+            "taux": (Decimal("100") / duree).quantize(Decimal("0.01")) if duree else None,
+            "note": note,
+        })
+    return lignes
 
 
 @never_cache

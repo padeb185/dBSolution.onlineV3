@@ -644,6 +644,60 @@ COMPTES_IMMOBILISATIONS = {
     CategorieImmobilisation.AUTRES: ("260000", "260900", 5),
 }
 
+class NatureImmobilisation(models.TextChoices):
+    """Nature du bien : fixe la catégorie PCMN et la durée d'amortissement usuelle en Belgique."""
+    # Outillage et équipements d'atelier
+    PETIT_OUTILLAGE = "PETIT_OUTILLAGE", _("Petit outillage")
+    OUTILLAGE = "OUTILLAGE", _("Outillage d'atelier")
+    MACHINE_ATELIER = "MACHINE_ATELIER", _("Machine d'atelier (pont, géométrie, démonte-pneus, équilibreuse, compresseur…)")
+    DIAGNOSTIC = "DIAGNOSTIC", _("Appareil de diagnostic électronique")
+    INSTALLATION_TECHNIQUE = "INSTALLATION_TECHNIQUE", _("Installation technique (électricité, air comprimé, chauffage, extraction)")
+    # Bureau, informatique, téléphonie
+    MOBILIER = "MOBILIER", _("Mobilier")
+    MATERIEL_BUREAU = "MATERIEL_BUREAU", _("Matériel de bureau")
+    INFORMATIQUE = "INFORMATIQUE", _("Matériel informatique (ordinateur, imprimante, serveur)")
+    TELEPHONIE_MOBILE = "TELEPHONIE_MOBILE", _("Téléphonie mobile (GSM, smartphone, tablette)")
+    TELEPHONIE_FIXE = "TELEPHONIE_FIXE", _("Téléphonie fixe (central, postes, réseau)")
+    # Matériel roulant
+    VOITURE = "VOITURE", _("Voiture (de société / de service)")
+    VOITURE_LOCATION = "VOITURE_LOCATION", _("Voiture de location")
+    UTILITAIRE = "UTILITAIRE", _("Camionnette / utilitaire")
+    CAMION = "CAMION", _("Camion, dépanneuse, remorque")
+    # Immobilier
+    BATIMENT_BUREAU = "BATIMENT_BUREAU", _("Bâtiment de bureau / commercial")
+    BATIMENT_INDUSTRIEL = "BATIMENT_INDUSTRIEL", _("Bâtiment industriel / atelier")
+    AMENAGEMENT = "AMENAGEMENT", _("Aménagement de locaux loués")
+    TERRAIN = "TERRAIN", _("Terrain")
+
+
+C = CategorieImmobilisation
+# nature : (catégorie, durée usuelle en années, remarque)
+# Durées couramment admises par l'administration fiscale belge (pas de barème légal : la durée doit
+# correspondre à la durée d'utilisation probable du bien – à faire valider par le comptable).
+REGLES_AMORTISSEMENT_BE = {
+    NatureImmobilisation.PETIT_OUTILLAGE: (C.INSTALLATIONS, 3, _("33 % par an. Un petit outil de faible valeur peut aussi être pris en charge directement.")),
+    NatureImmobilisation.OUTILLAGE: (C.INSTALLATIONS, 5, _("20 % par an.")),
+    NatureImmobilisation.MACHINE_ATELIER: (C.INSTALLATIONS, 10, _("10 % par an (5 à 10 ans selon l'usure).")),
+    NatureImmobilisation.DIAGNOSTIC: (C.INSTALLATIONS, 3, _("33 % par an : matériel électronique vite dépassé (logiciel, protocoles).")),
+    NatureImmobilisation.INSTALLATION_TECHNIQUE: (C.INSTALLATIONS, 10, _("10 % par an.")),
+    NatureImmobilisation.MOBILIER: (C.MOBILIER_BUREAU, 10, _("10 % par an.")),
+    NatureImmobilisation.MATERIEL_BUREAU: (C.MOBILIER_BUREAU, 5, _("20 % par an.")),
+    NatureImmobilisation.INFORMATIQUE: (C.MOBILIER_BUREAU, 3, _("33 % par an.")),
+    NatureImmobilisation.TELEPHONIE_MOBILE: (C.MOBILIER_BUREAU, 3, _("33 % par an. Usage privé : seule la part professionnelle est amortissable.")),
+    NatureImmobilisation.TELEPHONIE_FIXE: (C.MOBILIER_BUREAU, 5, _("20 % par an.")),
+    NatureImmobilisation.VOITURE: (C.MATERIEL_ROULANT, 5, _("20 % par an, linéaire uniquement. La TVA non déductible (50 % maximum récupérable) est amortie avec la voiture ; déductibilité fiscale limitée selon le CO2.")),
+    NatureImmobilisation.VOITURE_LOCATION: (C.MATERIEL_ROULANT, 3, _("Durée de détention réelle dans la flotte (souvent 2 à 4 ans), linéaire uniquement. Indiquez une valeur résiduelle (prix de revente estimé).")),
+    NatureImmobilisation.UTILITAIRE: (C.MATERIEL_ROULANT, 5, _("20 % par an.")),
+    NatureImmobilisation.CAMION: (C.MATERIEL_ROULANT, 5, _("20 % par an (jusqu'à 8 ans pour un camion lourd).")),
+    NatureImmobilisation.BATIMENT_BUREAU: (C.IMMEUBLE, 33, _("3 % par an. Le terrain n'est pas amortissable : encodez-le séparément.")),
+    NatureImmobilisation.BATIMENT_INDUSTRIEL: (C.IMMEUBLE, 20, _("5 % par an. Le terrain n'est pas amortissable : encodez-le séparément.")),
+    NatureImmobilisation.AMENAGEMENT: (C.AUTRES, 10, _("Sur la durée du bail si elle est plus courte.")),
+    NatureImmobilisation.TERRAIN: (C.TERRAIN, 0, _("Pas d'amortissement.")),
+}
+# Natures pour lesquelles l'amortissement dégressif est exclu (voitures)
+NATURES_SANS_DEGRESSIF = {NatureImmobilisation.VOITURE, NatureImmobilisation.VOITURE_LOCATION}
+
+
 INTITULES_COMPTES_IMMO = {
     "220000": _("Terrains"),
     "221000": _("Constructions"),
@@ -672,6 +726,8 @@ class Immobilisation(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     societe = models.ForeignKey("societe.Societe", on_delete=models.CASCADE, related_name="immobilisations")
+    nature = models.CharField(_("Nature du bien"), max_length=30, choices=NatureImmobilisation.choices, blank=True,
+                              help_text=_("Propose la catégorie et la durée d'amortissement usuelles en Belgique."))
     categorie = models.CharField(_("Catégorie"), max_length=20, choices=CategorieImmobilisation.choices,
                                  default=CategorieImmobilisation.INSTALLATIONS)
     libelle = models.CharField(_("Libellé"), max_length=200, help_text=_("Ex. : pont élévateur, camionnette, bâtiment atelier…"))
@@ -720,6 +776,15 @@ class Immobilisation(models.Model):
         return f"{self.libelle} ({self.get_categorie_display()})"
 
     # ------------------------------------------------------------------
+    @property
+    def regle_belge(self):
+        """(catégorie, durée usuelle, remarque) de la nature du bien, ou None."""
+        return REGLES_AMORTISSEMENT_BE.get(self.nature) if self.nature else None
+
+    @property
+    def duree_usuelle(self):
+        return self.regle_belge[1] if self.regle_belge else None
+
     @property
     def compte_actif(self):
         return COMPTES_IMMOBILISATIONS[self.categorie][0]

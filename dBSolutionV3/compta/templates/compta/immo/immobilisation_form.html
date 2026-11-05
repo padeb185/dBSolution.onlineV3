@@ -6,9 +6,41 @@
 <div class="max-w-3xl mx-auto p-6 bg-white rounded shadow">
     {% if immo %}{% trans "Modifier l'immobilisation" as titre %}{% else %}{% trans "Nouvelle immobilisation" as titre %}{% endif %}
     {% include "compta/immo/_nav.html" with icone="icons/immobilisations.png" %}
-    <p class="text-sm bg-blue-50 border border-blue-200 rounded p-3 mb-4">
-        {% trans "Durées indicatives : constructions 33 ans (3 %), installations et machines 10 ans, mobilier et matériel de bureau 5 à 10 ans (informatique 3 ans), matériel roulant 4 à 5 ans. Terrains : pas d'amortissement. Faites valider les durées par votre comptable." %}
-    </p>
+    <div class="text-sm bg-blue-50 border border-blue-200 rounded p-3 mb-4">
+        <p>{% trans "Choisissez d'abord la nature du bien : la catégorie et la durée d'amortissement usuelles en Belgique sont proposées (modifiables)." %}</p>
+        <p id="note-nature" class="mt-2 font-semibold text-blue-900" style="display:none"></p>
+        <details class="mt-2">
+            <summary class="cursor-pointer text-blue-800 font-semibold">{% trans "Règles d'amortissement en Belgique" %}</summary>
+            <div class="overflow-x-auto mt-2">
+            <table class="min-w-full text-xs border-collapse bg-white">
+                <thead><tr class="bg-gray-100">
+                    <th class="border px-2 py-1 text-left">{% trans "Nature du bien" %}</th>
+                    <th class="border px-2 py-1 text-left">{% trans "Catégorie" %}</th>
+                    <th class="border px-2 py-1 text-right">{% trans "Durée" %}</th>
+                    <th class="border px-2 py-1 text-right">{% trans "Taux" %}</th>
+                    <th class="border px-2 py-1 text-left">{% trans "Remarque" %}</th>
+                </tr></thead>
+                <tbody>
+                {% for r in regles %}
+                    <tr>
+                        <td class="border px-2 py-1">{{ r.nature }}</td>
+                        <td class="border px-2 py-1">{{ r.compte }} – {{ r.categorie }}</td>
+                        <td class="border px-2 py-1 text-right whitespace-nowrap">{% if r.duree %}{{ r.duree }} {% trans "ans" %}{% else %}—{% endif %}</td>
+                        <td class="border px-2 py-1 text-right whitespace-nowrap">{% if r.taux %}{{ r.taux|floatformat:"-2" }} %{% else %}—{% endif %}</td>
+                        <td class="border px-2 py-1">{{ r.note }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+            <ul class="list-disc ml-5 mt-2 space-y-1">
+                <li>{% trans "Il n'existe pas de barème légal : la durée doit correspondre à la durée d'utilisation probable du bien. Les durées ci-dessus sont celles couramment admises par l'administration fiscale." %}</li>
+                <li>{% trans "Sociétés : amortissement linéaire et prorata temporis obligatoire la première année (acquisitions depuis le 1er janvier 2020) ; les frais accessoires suivent le rythme du bien." %}</li>
+                <li>{% trans "Voitures : jamais en dégressif ; la TVA non déductible fait partie de la valeur amortissable." %}</li>
+                <li>{% trans "Faites valider les durées par votre comptable." %}</li>
+            </ul>
+        </details>
+    </div>
     <form method="post">
         {% csrf_token %}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6">
@@ -22,6 +54,7 @@
 </div>
 <br>
 {{ durees|json_script:"durees-immo" }}
+{{ regles_js|json_script:"regles-immo" }}
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const durees = JSON.parse(document.getElementById("durees-immo").textContent);
@@ -34,6 +67,24 @@ document.addEventListener("DOMContentLoaded", function () {
         if (changement && duree && durees[cat.value]) duree.value = durees[cat.value];
     }
     if (cat) { cat.addEventListener("change", () => maj(true)); maj(false); }
+
+    // Nature du bien → catégorie + durée usuelle en Belgique (+ remarque)
+    const regles = JSON.parse(document.getElementById("regles-immo").textContent);
+    const nature = document.getElementById("id_nature");
+    const note = document.getElementById("note-nature");
+    const methode = document.getElementById("id_methode");
+    function majNature(changement) {
+        const r = regles[nature.value];
+        note.style.display = r ? "" : "none";
+        if (!r) return;
+        note.textContent = (r.duree ? r.duree + " " + "{% trans 'ans' %}" + " – " : "") + r.note;
+        if (changement) {
+            if (cat) { cat.value = r.categorie; maj(false); }
+            if (duree) duree.value = r.duree;
+            if (methode && (nature.value === "VOITURE" || nature.value === "VOITURE_LOCATION")) methode.value = "LINEAIRE";
+        }
+    }
+    if (nature) { nature.addEventListener("change", () => majNature(true)); majNature(false); }
 });
 </script>
 {% endblock %}

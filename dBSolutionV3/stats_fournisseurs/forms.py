@@ -1,6 +1,7 @@
 from django import forms
 from django.db.models.functions import Lower
 from django.utils.translation import gettext_lazy as _
+from .calculs import SOURCES
 from .models import StatsFournisseur
 
 
@@ -43,6 +44,13 @@ class StatsFournisseurForm(forms.ModelForm):
         })
     )
 
+    sources = forms.MultipleChoiceField(
+        label=_("Types d'achats"),
+        required=False,
+        choices=list(SOURCES.items()),
+        widget=forms.CheckboxSelectMultiple,
+    )
+
     class Meta:
         model = StatsFournisseur
         fields = [
@@ -68,3 +76,5 @@ class StatsFournisseurForm(forms.ModelForm):
         if societe:
             qs = qs.filter(societe=societe)
         self.fields["fournisseur"].queryset = qs.order_by(Lower("nom"), "nom")
+        self.fields["fournisseur"].required = False
+        self.fields["fournisseur"].empty_label = _("Tous les fournisseurs")

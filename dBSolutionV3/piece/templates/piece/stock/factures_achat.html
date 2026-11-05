@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Factures d'achat" %}{% endblock %}
+
+{% block content %}
+<br>
+{% trans "Factures d'achat" as titre %}
+{% include "piece/stock/_nav.html" with titre=titre actif="factures_achat" %}
+
+<div class="flex flex-wrap gap-3 mb-6">
+    <a href="{% url 'piece:facture_achat_form' %}" class="bg-green-600 text-white px-5 py-3 rounded hover:bg-green-500 font-semibold">
+        + {% trans "Réceptionner une facture d'achat" %}
+    </a>
+</div>
+
+<form method="get" class="bg-white shadow-md rounded-lg p-4 mb-6 flex flex-wrap items-end gap-3">
+    <div>
+        <label class="block text-sm text-gray-600 mb-1">{% trans "Du" %}</label>
+        <input type="date" name="du" value="{{ filtres.du|date:'Y-m-d' }}" class="border rounded px-3 py-2">
+    </div>
+    <div>
+        <label class="block text-sm text-gray-600 mb-1">{% trans "Au" %}</label>
+        <input type="date" name="au" value="{{ filtres.au|date:'Y-m-d' }}" class="border rounded px-3 py-2">
+    </div>
+    <div class="flex-1 min-w-[200px]">
+        <label class="block text-sm text-gray-600 mb-1">{% trans "N° de facture, fournisseur, commentaire" %}</label>
+        <input type="text" name="q" value="{{ filtres.q }}" class="border rounded px-3 py-2 w-full">
+    </div>
+    <button class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">{% trans "Filtrer" %}</button>
+</form>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-blue-600">
+        <p class="text-gray-500 text-sm">{% trans "Total HTVA" %}</p>
+        <p class="text-2xl font-bold">{{ totaux.htva|floatformat:"2g" }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-orange-500">
+        <p class="text-gray-500 text-sm">{% trans "Total TVA" %}</p>
+        <p class="text-2xl font-bold">{{ totaux.tva|floatformat:"2g" }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-green-600">
+        <p class="text-gray-500 text-sm">{% trans "Total TVAC" %}</p>
+        <p class="text-2xl font-bold">{{ totaux.tvac|floatformat:"2g" }} €</p>
+    </div>
+</div>
+
+<div class="overflow-x-auto bg-white shadow-md rounded-lg">
+<table class="min-w-full table-auto border-collapse border border-gray-200">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-3 py-2 text-left">{% trans "Date" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "N° de facture" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Fournisseur" %}</th>
+            <th class="border px-3 py-2 text-center">{% trans "Lignes" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Total HTVA" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Total TVA" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Total TVAC" %}</th>
+            <th class="border px-3 py-2 text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for f in factures %}
+        <tr class="hover:bg-blue-50">
+            <td class="border px-3 py-2">{{ f.date_facture|date:"d/m/Y" }}</td>
+            <td class="border px-3 py-2 font-mono">{{ f.numero_facture }}</td>
+            <td class="border px-3 py-2">{{ f.fournisseur|default:"—" }}</td>
+            <td class="border px-3 py-2 text-center">{{ f.nb_lignes }}</td>
+            <td class="border px-3 py-2 text-right whitespace-nowrap">{{ f.total_htva|floatformat:"2g" }} €</td>
+            <td class="border px-3 py-2 text-right whitespace-nowrap">{{ f.total_tva|floatformat:"2g" }} €</td>
+            <td class="border px-3 py-2 text-right whitespace-nowrap font-semibold">{{ f.total_tvac|floatformat:"2g" }} €</td>
+            <td class="border px-3 py-2 text-center">
+                <a href="{% url 'piece:facture_achat_detail' f.pk %}" class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700">{% trans "Info" %}</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="8" class="border px-3 py-4 text-center text-gray-500">{% trans "Aucune facture d'achat réceptionnée." %}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+{% if page.has_other_pages %}
+<div class="flex justify-center gap-2 mt-4">
+    {% if page.has_previous %}<a href="?{{ params }}&page={{ page.previous_page_number }}" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">‹ {% trans "Précédent" %}</a>{% endif %}
+    <span class="px-3 py-1">{{ page.number }} / {{ page.paginator.num_pages }}</span>
+    {% if page.has_next %}<a href="?{{ params }}&page={{ page.next_page_number }}" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">{% trans "Suivant" %} ›</a>{% endif %}
+</div>
+{% endif %}
+<br>
+{% endblock %}
