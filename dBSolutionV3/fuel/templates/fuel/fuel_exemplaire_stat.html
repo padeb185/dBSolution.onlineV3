@@ -103,7 +103,7 @@
         </tr>
         {% empty %}
         <tr>
-            <td colspan="4" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
+            <td colspan="5" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -119,6 +119,7 @@
             <th class="border px-4 py-2 text-center">{% trans "Pleins" %}</th>
             <th class="border px-4 py-2 text-center">{% trans "Litres" %}</th>
             <th class="border px-4 py-2 text-center">{% trans "Coût total" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Coût/Km" %}</th>
         </tr>
     </thead>
     <tbody>
@@ -128,10 +129,11 @@
             <td class="border px-4 py-2 text-center">{{ a.nb_pleins }}</td>
             <td class="border px-4 py-2 text-center">{{ a.total_litres|floatformat:"2g" }}</td>
             <td class="border px-4 py-2 text-center">{{ a.total_cout|floatformat:"2g" }} €</td>
+            <td class="border px-4 py-2 text-center">{{ a.cout_km|floatformat:"2g" }} €</td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="4" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
+            <td colspan="5" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
         </tr>
         {% endfor %}
     </tbody>

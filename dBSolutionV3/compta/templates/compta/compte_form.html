@@ -16,6 +16,13 @@
         <div class="bg-red-100 text-red-800 border border-red-300 p-4 rounded mb-6">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}</div>
     {% endif %}
 
+    {% if plan_national %}
+    <p class="text-sm bg-yellow-50 border border-yellow-300 rounded p-3 mb-4">
+        {% blocktrans %}Comptes saisis dans le plan {{ plan_code }} (Kasse 1000–1099, Bank 1200–1299).{% endblocktrans %}
+        {% if gobd %}{% trans "GoBD : une fois des mouvements encodés, le numéro de compte et l'ouverture ne peuvent plus être modifiés." %}{% endif %}
+    </p>
+    {% endif %}
+
     {% if not compte %}
     <p class="text-sm bg-blue-50 border border-blue-200 rounded p-3 mb-4">
         {% trans "L'ouverture enregistre le montant présent dans la caisse ou sur le compte bancaire à la date choisie. Les mouvements sont ensuite encodés à partir de cette date." %}
@@ -38,16 +45,18 @@
 <br>
 
 <script>
-// Caisse : masque les champs bancaires et propose 570000 ; banque : 550000
+// Caisse : masque les champs bancaires et propose le compte de caisse du plan du pays (570000 / SKR03 1000) ;
+// banque : 550000 / SKR03 1200
 document.addEventListener("DOMContentLoaded", function () {
+    const CAISSE = "{{ compte_caisse_defaut|escapejs }}", BANQUE = "{{ compte_banque_defaut|escapejs }}";
     const type = document.getElementById("id_type");
     const pcmn = document.getElementById("id_compte_pcmn");
     const bancaires = ["banque", "iban", "bic"];
     function maj(changement) {
         const caisse = type && type.value === "CAISSE";
         bancaires.forEach(n => { const b = document.getElementById("bloc-" + n); if (b) b.style.display = caisse ? "none" : ""; });
-        if (pcmn && (changement || !pcmn.value) && (!pcmn.value || pcmn.value === "570000" || pcmn.value === "550000")) {
-            pcmn.value = caisse ? "570000" : "550000";
+        if (pcmn && !pcmn.disabled && (changement || !pcmn.value) && (!pcmn.value || pcmn.value === CAISSE || pcmn.value === BANQUE)) {
+            pcmn.value = caisse ? CAISSE : BANQUE;
         }
     }
     if (type) type.addEventListener("change", () => maj(true));

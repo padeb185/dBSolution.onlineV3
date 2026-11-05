@@ -249,6 +249,7 @@ DESCRIPTIFS_TRADUISIBLES = [
     "Démontage et allègement",
     "Air jack (vérins pneumatiques)",
     "Boîtes à fusibles",
+    "Boîtier électronique",
     "Démarreur",
     "Suspension d'origine",
     "Suspension sport",

@@ -10,7 +10,7 @@
         <img src="{% static 'icons/comptabilite.png' %}" alt="" class="w-16 h-16">
         <span>{% if mouvement %}{% trans "Modifier le mouvement" %}{% else %}{% trans "Nouveau mouvement" %}{% endif %}</span>
     </h1>
-    <p class="text-gray-600 mb-6">{{ compte }} · {% trans "PCMN" %} <span class="font-mono">{{ compte.compte_pcmn }}</span></p>
+    <p class="text-gray-600 mb-6">{{ compte }} · {{ plan_code }} <span class="font-mono">{{ compte.compte_affiche }}</span></p>
 
     {% include "partials/messages.html" %}
     {% if form.non_field_errors %}

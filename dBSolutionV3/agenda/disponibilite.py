@@ -9,8 +9,13 @@ plus tout véhicule de la société ayant déjà été loué.
            problème signalé au dernier retour (tag rouge) sans checkup piste vert depuis,
            ou véhicule au tag rouge ;
   JAUNE  : disponible sous réserve – loué ou interdit sur un créneau seulement, départ / retour
-           prévu ce jour, ou véhicule rentré (tag jaune) à contrôler (pas de checkup piste vert depuis) ;
+           prévu ce jour, ou véhicule rentré de location sans maintenance depuis ;
   VERT   : disponible toute la journée.
+
+Après un retour de location, le véhicule passe en JAUNE (ROUGE si un problème a été signalé
+au retour). Dès qu'une maintenance est faite après ce retour, l'état suit l'étiquette de la
+dernière maintenance (étiquette figée au moment de la maintenance, Maintenance.tag_enregistre,
+ou checkup piste vert de l'agenda).
 """
 from datetime import datetime, time, timedelta
 
@@ -97,6 +102,34 @@ def disponibilites(societe, jour):
               .order_by("date")):
         checkups_verts[t.voiture_exemplaire_id] = t
 
+    # Maintenances réalisées jusqu'au jour inclus (étiquette figée au moment de la maintenance)
+    maintenances_par_vehicule = {}
+    for m in (Maintenance.objects.filter(voiture_exemplaire_id__in=ids, date_intervention__lte=jour,
+                                         tag_enregistre__isnull=False)
+              .only("id", "voiture_exemplaire_id", "date_intervention", "tag_enregistre", "type_maintenance")):
+        maintenances_par_vehicule.setdefault(m.voiture_exemplaire_id, []).append({
+            "date": m.date_intervention,
+            "tag": m.tag_enregistre,
+            "libelle": m.get_type_maintenance_display() or _("Maintenance"),
+            "maintenance": m,
+            "tache": None,
+        })
+    for t in checkups_verts.values():
+        maintenances_par_vehicule.setdefault(t.voiture_exemplaire_id, []).append({
+            "date": t.date,
+            "tag": VERT,
+            "libelle": _("Checkup piste (agenda)"),
+            "maintenance": None,
+            "tache": t,
+        })
+
+    def _maintenance_apres(vehicule_id, date_retour):
+        """Dernière maintenance faite depuis le retour ; le même jour, la plus sévère l'emporte."""
+        candidats = [c for c in maintenances_par_vehicule.get(vehicule_id, []) if c["date"] >= date_retour]
+        if not candidats:
+            return None
+        return max(candidats, key=lambda c: (c["date"], ORDRE_TAG.get(c["tag"], 0)))
+
     resultat = []
     for v in vehicules:
         motifs_rouge, motifs_jaune = [], []
@@ -132,13 +165,24 @@ def disponibilites(societe, jour):
 
         retour = derniers_retours.get(v.pk)
         checkup = checkups_verts.get(v.pk)
+        maintenance_apres = None
         if retour and retour.retour_le:
-            controle_depuis = checkup is not None and checkup.date >= timezone.localtime(retour.retour_le).date()
-            if not controle_depuis:
+            date_retour = timezone.localtime(retour.retour_le).date()
+            maintenance_apres = _maintenance_apres(v.pk, date_retour)
+            if maintenance_apres is None:
+                # Retour de location sans maintenance depuis : jaune (rouge si problème signalé)
                 if retour.tag_retour == ROUGE:
-                    motifs_rouge.append(_("Problème signalé au dernier retour (tag rouge), pas de checkup piste vert depuis"))
+                    motifs_rouge.append(_("Problème signalé au dernier retour (tag rouge), pas de maintenance depuis"))
                 else:
-                    motifs_jaune.append(_("Rentré de location, checkup piste à faire"))
+                    motifs_jaune.append(_("Rentré de location, maintenance à faire"))
+            else:
+                # L'état suit l'étiquette de la maintenance faite après le retour
+                details = {"type": maintenance_apres["libelle"],
+                           "date": maintenance_apres["date"].strftime("%d/%m/%Y")}
+                if maintenance_apres["tag"] == ROUGE:
+                    motifs_rouge.append(_("Maintenance après retour (%(type)s, %(date)s) : tag rouge") % details)
+                elif maintenance_apres["tag"] == JAUNE:
+                    motifs_jaune.append(_("Maintenance après retour (%(type)s, %(date)s) : tag jaune") % details)
 
         if v.tag == ROUGE:
             motifs_rouge.append(_("Véhicule au tag rouge"))
@@ -156,6 +200,7 @@ def disponibilites(societe, jour):
             "locations": locs,
             "dernier_retour": retour,
             "dernier_checkup_vert": checkup,
+            "maintenance_apres_retour": maintenance_apres,
         })
 
     resultat.sort(key=lambda r: (ORDRE_TAG[r["tag"]], str(r["exemplaire"])))

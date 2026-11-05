@@ -38,6 +38,7 @@ from maintenance.autres_interventions.moteur.chaine_distribution.models import C
 from maintenance.autres_interventions.moteur.culasse.models import Culasse
 from maintenance.autres_interventions.moteur.bas_moteur.models import BasMoteur
 from maintenance.autres_interventions.esp.models import Esp
+from maintenance.autres_interventions.boitier_electronique.models import BoitierElectronique
 from maintenance.autres_interventions.aide_stationnement.models import AideStationnement
 from maintenance.autres_interventions.ventilation.models import Ventilation
 from maintenance.autres_interventions.securite.models import Securite
@@ -139,6 +140,7 @@ admin.site.register(ChaineDistribution)
 admin.site.register(Culasse)
 admin.site.register(BasMoteur)
 admin.site.register(Esp)
+admin.site.register(BoitierElectronique)
 admin.site.register(AideStationnement)
 admin.site.register(Ventilation)
 admin.site.register(Securite)

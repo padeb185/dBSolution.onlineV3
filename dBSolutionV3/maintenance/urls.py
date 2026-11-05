@@ -1,7 +1,7 @@
 from django.urls import path
 from . import entretien
 from .check_up.views import controle_total_view
-from .views import maintenance_detail_view, maintenance_liste_view
+from .views import maintenance_detail_view, maintenance_liste_view, mes_maintenances_list
 from .views import (
     liste_maintenance_all,
     choisir_type_maintenance,
@@ -24,4 +24,7 @@ urlpatterns = [
     path("maintenance/<uuid:exemplaire_id>/checkup/", controle_total_view, name="controle_total_view"),
 
     path("liste/", maintenance_liste_view, name="maintenance_liste"),
+
+    # Maintenances effectuées par l'utilisateur connecté (carte du tableau de bord)
+    path("mes-maintenances/", mes_maintenances_list, name="mes_maintenances"),
 ]

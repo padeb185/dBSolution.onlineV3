@@ -247,6 +247,7 @@ urlpatterns += i18n_patterns(
     path("suspension/sport/", include(("maintenance.autres_interventions.suspension.suspension_sport.urls", "suspension_sport"), namespace="suspension_sport")),
     path("demarreur/", include(("maintenance.autres_interventions.demarreur.urls", "demarreur"), namespace="demarreur")),
     path("esp/", include(("maintenance.autres_interventions.esp.urls", "esp"), namespace="esp")),
+    path("boitier-electronique/", include(("maintenance.autres_interventions.boitier_electronique.urls", "boitier_electronique"), namespace="boitier_electronique")),
     path("aide-stationnement/", include(("maintenance.autres_interventions.aide_stationnement.urls", "aide_stationnement"), namespace="aide_stationnement")),
     path("ventilation/", include(("maintenance.autres_interventions.ventilation.urls", "ventilation"), namespace="ventilation")),
     path("securite/", include(("maintenance.autres_interventions.securite.urls", "securite"), namespace="securite")),

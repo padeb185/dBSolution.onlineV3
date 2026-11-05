@@ -307,6 +307,7 @@ TENANT_APPS = (
     "maintenance.autres_interventions.moteur.metrologie_moteur.apps.MetrologieMoteurConfig",
     "maintenance.autres_interventions.moteur.casse_moteur.apps.CasseMoteurConfig",
     "maintenance.autres_interventions.esp.apps.EspConfig",
+    "maintenance.autres_interventions.boitier_electronique.apps.BoitierElectroniqueConfig",
     "maintenance.autres_interventions.aide_stationnement.apps.AideStationnementConfig",
     "maintenance.autres_interventions.ventilation.apps.VentilationConfig",
     "maintenance.autres_interventions.securite.apps.SecuriteConfig",

@@ -1,5 +1,6 @@
 
 from django.contrib import messages
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models import Q
@@ -60,6 +61,7 @@ from maintenance.autres_interventions.aide_stationnement.models import AideStati
 from maintenance.autres_interventions.ventilation.models import Ventilation
 from maintenance.autres_interventions.securite.models import Securite
 from maintenance.autres_interventions.fusibles.models import Fusibles
+from maintenance.autres_interventions.boitier_electronique.models import BoitierElectronique
 from maintenance.autres_interventions.demarreur.models import Demarreur
 from maintenance.autres_interventions.suspension.composants import total_suspension
 from maintenance.autres_interventions.preparation_course.composants import total_preparation_course
@@ -288,6 +290,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             + Securite.objects.filter(voiture_exemplaire=exemplaire).count()
             + total_preparation_course(exemplaire)
             + Fusibles.objects.filter(voiture_exemplaire=exemplaire).count()
+            + BoitierElectronique.objects.filter(voiture_exemplaire=exemplaire).count()
             + Demarreur.objects.filter(voiture_exemplaire=exemplaire).count()
             + courroie_access.count()
             + echappement.count()
@@ -474,7 +477,7 @@ def maintenance_detail_view(request, maintenance_id):
     maintenance = get_object_or_404(
         Maintenance.objects.select_related(
             "voiture_exemplaire", "voiture_exemplaire__voiture_marque", "voiture_exemplaire__voiture_modele",
-            "mecanicien", "chef_mecanicien",
+            "mecanicien", "chef_mecanicien", "apprentis",
         ).filter(
             Q(societe=tenant) |
             Q(voiture_exemplaire__client__societe=tenant) |
@@ -504,3 +507,51 @@ def maintenance_liste_view(request):
     }
 
     return render(request, "maintenance/liste.html", context)
+
+
+@never_cache
+@login_required
+def mes_maintenances_list(request):
+    """
+    Maintenances effectuées par l'utilisateur connecté (mécanicien,
+    chef mécanicien, apprenti ou technicien) — même critère que la carte
+    « Maintenance / Effectuées » du tableau de bord.
+    """
+    tenant = request.user.societe
+    user_id = request.user.id
+
+    with tenant_context(tenant):
+        maintenances = list(
+            Maintenance.objects
+            .filter(societe=tenant)
+            .filter(
+                Q(mecanicien_id=user_id)
+                | Q(chef_mecanicien_id=user_id)
+                | Q(apprentis_id=user_id)
+                | Q(tech_technicien_id=user_id)
+            )
+            .select_related(
+                "voiture_exemplaire",
+                "voiture_exemplaire__voiture_marque",
+                "voiture_exemplaire__voiture_modele",
+                "voiture_exemplaire__voiture_modele__voiture_marque",
+            )
+            .distinct()
+            .order_by("-date_intervention")
+        )
+
+        for m in maintenances:
+            if m.chef_mecanicien_id == user_id:
+                m.mon_role = _("Chef mécanicien")
+            elif m.mecanicien_id == user_id:
+                m.mon_role = _("Mécanicien")
+            elif m.apprentis_id == user_id:
+                m.mon_role = _("Apprenti")
+            else:
+                m.mon_role = m.tech_role_technicien or _("Technicien")
+
+    return render(
+        request,
+        "maintenance/mes_maintenances_list.html",
+        {"maintenances": maintenances},
+    )

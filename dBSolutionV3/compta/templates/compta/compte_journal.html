@@ -21,16 +21,29 @@
         </select>
         <a href="?annee={{ annee }}{% if mois %}&mois={{ mois }}{% endif %}&export=csv"
            class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-500 font-semibold">{% trans "Exporter (CSV)" %}</a>
+        {% if plan_national %}
+        <a href="?annee={{ annee }}{% if mois %}&mois={{ mois }}{% endif %}&export=datev"
+           class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-500 font-semibold"
+           title="{% trans 'Colonnes du Buchungsstapel DATEV, comptes SKR03, encodage Windows-1252' %}">{% trans "Export DATEV" %}</a>
+        {% endif %}
     </form>
 </div>
 <p class="text-gray-600 mb-6">
-    {{ compte.get_type_display }} · {% trans "PCMN" %} <span class="font-mono">{{ compte.compte_pcmn }}</span>
+    {{ compte.get_type_display }} · {{ plan_code }} <span class="font-mono">{{ compte.compte_affiche }}</span>
     {% if compte.iban %}· <span class="font-mono">{{ compte.iban }}</span>{% endif %}
     · {% trans "ouvert le" %} {{ compte.date_ouverture|date:"d/m/Y" }}
     {% if compte.par_defaut %}· <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 text-xs">{% trans "par défaut" %}</span>{% endif %}
 </p>
 
 {% include "partials/messages.html" %}
+
+{% if gobd %}
+<p class="text-sm bg-yellow-50 border border-yellow-300 rounded p-3 mb-6">
+    {% if compte.type == "CAISSE" %}{% trans "Kassenbuch (GoBD) : chaque recette et dépense est enregistrée au jour le jour, avec son justificatif (Beleg), sous un numéro continu. Une écriture ne se modifie pas et ne se supprime pas : elle s'extourne (Storno). La caisse ne peut jamais être négative." %}
+    {% else %}{% trans "Bankbuch (GoBD) : écritures numérotées en continu, avec leur justificatif (Beleg). Une écriture ne se modifie pas et ne se supprime pas : elle s'extourne (Storno)." %}{% endif %}
+    {% trans "Comptes en SKR03." %}
+</p>
+{% endif %}
 
 <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
     <div class="bg-white shadow-md rounded-lg p-4">
@@ -68,6 +81,7 @@
     <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
         <thead>
             <tr class="bg-gray-100">
+                {% if gobd %}<th class="border px-3 py-2 text-right">{% trans "N°" %}</th>{% endif %}
                 <th class="border px-3 py-2 text-left">{% trans "Date" %}</th>
                 <th class="border px-3 py-2 text-left">{% trans "Pièce" %}</th>
                 <th class="border px-3 py-2 text-left">{% trans "Libellé" %}</th>
@@ -80,16 +94,20 @@
         </thead>
         <tbody>
             <tr class="bg-gray-50 italic">
-                <td class="border px-3 py-2" colspan="6">{% trans "Report" %}</td>
+                <td class="border px-3 py-2" colspan="{% if gobd %}7{% else %}6{% endif %}">{% trans "Report" %}</td>
                 <td class="border px-3 py-2 text-right font-semibold">{{ report|floatformat:"2g" }}</td>
                 <td class="border px-3 py-2"></td>
             </tr>
             {% for l in lignes %}
             <tr class="{% if l.source == 'ouverture' %}bg-yellow-50 font-semibold{% elif l.source == 'facture' or l.source == 'paie' or l.source == 'instructeur' or l.source == 'immobilisation' or l.source == 'versement_social' or l.source == 'reversement' or l.source == 'acompte' %}bg-blue-50{% endif %}">
+                {% if gobd %}<td class="border px-3 py-2 text-right font-mono">{{ l.numero|default:"" }}</td>{% endif %}
                 <td class="border px-3 py-2 whitespace-nowrap">{{ l.date|date:"d/m/Y" }}</td>
                 <td class="border px-3 py-2">{{ l.piece|default:"" }}</td>
                 <td class="border px-3 py-2">
-                    {{ l.libelle }}
+                    {% if l.extourne and l.objet.est_extourne %}<span class="line-through text-gray-500">{{ l.libelle }}</span>
+                        <span class="text-xs text-orange-700">({% trans "extourné" %})</span>
+                    {% else %}{{ l.libelle }}{% endif %}
+                    {% if l.objet.extourne_de_id %}<span class="text-xs text-orange-700">(Storno)</span>{% endif %}
                     {% if l.source == 'facture' %}<span class="text-xs text-blue-700">({% trans "facture" %})</span>
                     {% elif l.source == 'paie' %}<span class="text-xs text-blue-700">({% trans "salaire" %})</span>
                     {% elif l.source == 'immobilisation' %}<a href="{% url 'compta:immobilisation_detail' l.objet.pk %}" class="text-xs text-blue-700 hover:underline">({% trans "investissement" %})</a>
@@ -104,23 +122,26 @@
                 <td class="border px-3 py-2 text-right text-red-700">{% if l.sortie %}{{ l.sortie|floatformat:"2g" }}{% endif %}</td>
                 <td class="border px-3 py-2 text-right font-semibold">{{ l.solde|floatformat:"2g" }}</td>
                 <td class="border px-3 py-2 text-center whitespace-nowrap">
-                    {% if l.source == 'manuel' %}
-                        <a href="{% url 'compta:mouvement_modifier' l.objet.pk %}" class="text-blue-700 hover:underline">{% trans "Modifier" %}</a>
-                        · <a href="{% url 'compta:mouvement_supprimer' l.objet.pk %}" class="text-red-700 hover:underline">{% trans "Supprimer" %}</a>
-                    {% elif l.source == 'virement' %}
-                        <a href="{% url 'compta:mouvement_supprimer' l.objet.pk %}" class="text-red-700 hover:underline">{% trans "Supprimer" %}</a>
+                    {% if l.source == 'manuel' or l.source == 'virement' %}
+                        {% if not gobd and not l.extourne %}
+                            {% if l.source == 'manuel' %}<a href="{% url 'compta:mouvement_modifier' l.objet.pk %}" class="text-blue-700 hover:underline">{% trans "Modifier" %}</a> · {% endif %}
+                            <a href="{% url 'compta:mouvement_supprimer' l.objet.pk %}" class="text-red-700 hover:underline">{% trans "Supprimer" %}</a> ·
+                        {% endif %}
+                        {% if not l.extourne %}
+                            <a href="{% url 'compta:mouvement_extourner' l.objet.pk %}" class="text-orange-700 hover:underline">{% trans "Extourner (Storno)" %}</a>
+                        {% endif %}
                     {% elif l.source == 'ouverture' %}
                         <a href="{% url 'compta:compte_modifier' compte.pk %}" class="text-blue-700 hover:underline">{% trans "Modifier" %}</a>
                     {% endif %}
                 </td>
             </tr>
             {% empty %}
-            <tr><td colspan="8" class="border px-3 py-2 text-gray-500">{% trans "Aucun mouvement pour cette période." %}</td></tr>
+            <tr><td colspan="{% if gobd %}9{% else %}8{% endif %}" class="border px-3 py-2 text-gray-500">{% trans "Aucun mouvement pour cette période." %}</td></tr>
             {% endfor %}
         </tbody>
         <tfoot>
             <tr class="bg-blue-50 font-bold">
-                <td class="border px-3 py-2" colspan="4">{% trans "Total de la période" %}</td>
+                <td class="border px-3 py-2" colspan="{% if gobd %}5{% else %}4{% endif %}">{% trans "Total de la période" %}</td>
                 <td class="border px-3 py-2 text-right">{{ total_entrees|floatformat:"2g" }}</td>
                 <td class="border px-3 py-2 text-right">{{ total_sorties|floatformat:"2g" }}</td>
                 <td class="border px-3 py-2 text-right">{{ solde_fin|floatformat:"2g" }}</td>

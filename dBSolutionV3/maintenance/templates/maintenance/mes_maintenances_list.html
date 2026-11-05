@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Mes maintenances effectuées" %}{% endblock %}
+
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/gestion-de-projet.png' %}" alt="{% trans 'Maintenance' %}"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Mes maintenances effectuées" %}
+    <span class="ml-3 text-base font-semibold bg-blue-100 text-blue-800 px-3 py-1 rounded-full">{{ maintenances|length }}</span>
+</h1>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded
+            {% if message.tags == 'success' %}bg-green-100 text-green-800 border border-green-300
+            {% else %}bg-red-100 text-red-800 border border-red-300{% endif %}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<!-- Filtres -->
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-3 items-end">
+        <input id="search-immatriculation" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Immatriculation' %}">
+        <input id="search-vehicule" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Véhicule' %}">
+        <input id="search-type" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Type de maintenance' %}">
+        <input id="search-role" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Mon rôle' %}">
+        <input id="search-date" type="date"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+</div>
+
+<!-- Tableau -->
+<table id="maintenances-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2">{% trans "Date" %}</th>
+            <th class="border px-4 py-2">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2">{% trans "Véhicule" %}</th>
+            <th class="border px-4 py-2">{% trans "Type de maintenance" %}</th>
+            <th class="border px-4 py-2">{% trans "Kilométrage" %}</th>
+            <th class="border px-4 py-2">{% trans "Mon rôle" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Étiquette" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for m in maintenances %}
+        {% with ex=m.voiture_exemplaire %}
+        {% firstof ex.voiture_marque.nom_marque ex.voiture_modele.voiture_marque.nom_marque "" as marque %}
+        {% firstof m.immatriculation ex.immatriculation "" as immat %}
+        <tr>
+            <!-- 0 Date -->
+            <td class="border px-4 py-2" data-order="{{ m.date_intervention|date:'Y-m-d' }}">
+                {{ m.date_intervention|date:"d/m/Y" }}
+            </td>
+
+            <!-- 1 Immatriculation -->
+            <td class="border px-4 py-2" data-search="{{ immat }}">
+                {% if immat %}
+                    {% include "maintenance/partials/plaque.html" with exemplaire=ex immat_plaque=m.immatriculation taille="petite" %}
+                {% else %}—{% endif %}
+            </td>
+
+            <!-- 2 Véhicule -->
+            <td class="border px-4 py-2" data-search="{{ marque }} {{ ex.voiture_modele.nom_modele }} {{ ex.voiture_modele.nom_variante|default:'' }}">
+                {% if ex %}
+                <div class="flex items-center gap-2">
+                    {% if marque %}
+                    <img src="{% static 'images/marques/' %}{{ marque|lower }}.png"
+                         alt="{{ marque }}" title="{{ marque }}"
+                         class="w-10 h-10 object-contain"
+                         onerror="this.onerror=null;this.replaceWith(document.createTextNode('{{ marque|escapejs }}'));">
+                    {% endif %}
+                    <span>{{ ex.voiture_modele.nom_modele }}{% if ex.voiture_modele.nom_variante %} {{ ex.voiture_modele.nom_variante }}{% endif %}</span>
+                </div>
+                {% else %}—{% endif %}
+            </td>
+
+            <!-- 3 Type -->
+            <td class="border px-4 py-2">{{ m.get_type_maintenance_display|default:"—" }}</td>
+
+            <!-- 4 Kilométrage -->
+            {% with km=m.kilometrage_intervention %}
+            <td class="border px-4 py-2 text-right" data-order="{{ km|default:0 }}">
+                {% if km %}{{ km|milliers }} km{% else %}—{% endif %}
+            </td>
+            {% endwith %}
+
+            <!-- 5 Mon rôle -->
+            <td class="border px-4 py-2">{{ m.mon_role }}</td>
+
+            <!-- 6 Étiquette -->
+            <td class="border px-4 py-2 text-center" data-search="{{ m.get_tag_enregistre_display|default:'' }}">
+                {% include "maintenance/partials/tag_badge.html" with tag=m.tag_enregistre label=m.get_tag_enregistre_display %}
+            </td>
+
+            <!-- 7 Info -->
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'maintenance:maintenance_detail' m.id %}?from=mes"
+                   class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                    {% trans "Info" %}
+                </a>
+            </td>
+        </tr>
+        {% endwith %}
+    {% endfor %}
+    </tbody>
+</table>
+
+<br><br>
+<div>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+<br><br>
+
+<script>
+$(document).ready(function () {
+    const table = $('#maintenances-table').DataTable({
+        language: {
+            emptyTable: "{% trans 'Aucune maintenance effectuée.' %}",
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ maintenances' %}",
+            infoEmpty: "{% trans 'Aucune maintenance trouvée' %}",
+            zeroRecords: "{% trans 'Aucune maintenance trouvée' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, 'desc']],
+        columnDefs: [
+            { targets: 7, orderable: false, searchable: false },
+            { targets: 4, type: 'num' }
+        ]
+    });
+
+    $('#search-immatriculation').on('keyup change', function () { table.column(1).search(this.value).draw(); });
+    $('#search-vehicule').on('keyup change', function () { table.column(2).search(this.value).draw(); });
+    $('#search-type').on('keyup change', function () { table.column(3).search(this.value).draw(); });
+    $('#search-role').on('keyup change', function () { table.column(5).search(this.value).draw(); });
+    $('#search-date').on('change', function () {
+        let date = this.value;
+        if (date) {
+            const p = date.split('-');
+            date = p[2] + '/' + p[1] + '/' + p[0];
+        }
+        table.column(0).search(date).draw();
+    });
+});
+</script>
+{% endblock %}

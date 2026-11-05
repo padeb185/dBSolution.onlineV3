@@ -38,9 +38,11 @@
         <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-gray-700">
             <dt class="font-semibold">{% trans "Type" %}</dt><dd>{{ maintenance.get_type_maintenance_display|default:"—" }}</dd>
             <dt class="font-semibold">{% trans "Date d'intervention" %}</dt><dd>{{ maintenance.date_intervention|date:"d/m/Y" }}</dd>
+            <dt class="font-semibold">{% trans "Étiquette" %}</dt><dd>{% include "maintenance/partials/tag_badge.html" with tag=maintenance.tag_enregistre label=maintenance.get_tag_enregistre_display %}</dd>
             {% with km=maintenance.kilometrage_intervention %}<dt class="font-semibold">{% trans "Kilométrage châssis" %}</dt><dd>{% if km %}{{ km|milliers }} km{% else %}—{% endif %}</dd>{% endwith %}
             {% if maintenance.mecanicien %}<dt class="font-semibold">{% trans "Mécanicien" %}</dt><dd>{{ maintenance.mecanicien }}</dd>{% endif %}
             {% if maintenance.chef_mecanicien %}<dt class="font-semibold">{% trans "Chef mécanicien" %}</dt><dd>{{ maintenance.chef_mecanicien }}</dd>{% endif %}
+            {% if maintenance.apprentis %}<dt class="font-semibold">{% trans "Apprenti" %}</dt><dd>{{ maintenance.apprentis }}</dd>{% endif %}
             {% if maintenance.tech_nom_technicien %}<dt class="font-semibold">{% trans "Technicien" %}</dt><dd>{{ maintenance.tech_nom_technicien }}</dd>{% endif %}
         </dl>
     </div>
@@ -51,7 +53,11 @@
         <a href="{% url 'maintenance:choisir_type' ex.id %}" class="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-500">{% trans "Créer une nouvelle maintenance" %}</a>
         {% endif %}
         <a href="{% url 'piece:pieces_maintenance' maintenance.pk %}?next={{ request.path|urlencode }}" class="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-500">{% trans "Pièces utilisées (stock)" %}</a>
+        {% if request.GET.from == "mes" %}
+        <a href="{% url 'maintenance:mes_maintenances' %}" class="bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700">{% trans "Retour à mes maintenances" %}</a>
+        {% else %}
         <a href="{% url 'maintenance:liste_maintenance_all' %}" class="bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700">{% trans "Retour à la liste des maintenances" %}</a>
+        {% endif %}
     </div>
     {% endwith %}
 </div>

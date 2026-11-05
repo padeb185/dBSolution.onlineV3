@@ -85,6 +85,7 @@ URLS_MAINTENANCE = {
     "PC_DEMONTAGE": ["pc_demontage:pc_demontage_form", "pc_demontage:pc_demontage_list"],
     "PC_AIR_JACK": ["pc_air_jack:pc_air_jack_form", "pc_air_jack:pc_air_jack_list"],
     "FUSIBLES": ["fusibles:fusibles_form", "fusibles:fusibles_list"],
+    "BOITIER_ELECTRONIQUE": ["boitier_electronique:boitier_form", "boitier_electronique:boitier_list"],
     "DEMARREUR": ["demarreur:demarreur_form", "demarreur:demarreur_list"],
     "SUSPENSION_ORIGINE": ["suspension_origine:suspension_origine_form", "suspension:dashboard_suspension"],
     "SUSPENSION_SPORT": ["suspension_sport:suspension_sport_form", "suspension:dashboard_suspension"],

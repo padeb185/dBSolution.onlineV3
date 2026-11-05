@@ -1184,6 +1184,24 @@ class FuelExemplaireStatView(LoginRequiredMixin, TemplateView):
             .order_by("mois")
         )
 
+        def _dernier_km_avant(date_debut):
+            """Dernier kilométrage relevé avant date_debut (ou None)."""
+            precedent = (
+                fuels
+                .filter(
+                    date__lt=date_debut,
+                    kilometrage_fuel__isnull=False,
+                )
+                .order_by("-date", "-kilometrage_fuel")
+                .values_list("kilometrage_fuel", flat=True)
+                .first()
+            )
+            return (
+                Decimal(str(precedent))
+                if precedent is not None
+                else None
+            )
+
         par_mois = []
         conso_moyenne_mois = {}
 
@@ -1238,6 +1256,14 @@ class FuelExemplaireStatView(LoginRequiredMixin, TemplateView):
             )
 
             km_mois = km_max_mois - km_min_mois
+
+            # Moins de deux pleins dans le mois : on reprend le dernier
+            # kilométrage relevé avant ce mois (mois précédent) comme
+            # point de départ pour calculer les km parcourus.
+            if mois_data["nb_pleins"] < 2 or km_mois <= 0:
+                km_reference = _dernier_km_avant(mois)
+                if km_reference is not None and mois_data["km_max"] is not None:
+                    km_mois = km_max_mois - km_reference
 
             total_cout_mois = Decimal(
                 str(mois_data["total_prix"] or 0)
@@ -1334,9 +1360,30 @@ class FuelExemplaireStatView(LoginRequiredMixin, TemplateView):
                 else Decimal("0.0")
             )
 
+            # Coût au kilomètre de l'année
+            km_min_annee = Decimal(str(an_data["km_min"] or 0))
+            km_max_annee = Decimal(str(an_data["km_max"] or 0))
+            km_annee = km_max_annee - km_min_annee
+
+            if an_data["nb_pleins"] < 2 or km_annee <= 0:
+                km_reference = _dernier_km_avant(annee)
+                if km_reference is not None and an_data["km_max"] is not None:
+                    km_annee = km_max_annee - km_reference
+
+            total_cout_annee = Decimal(
+                str(an_data["total_prix"] or 0)
+            )
+
+            cout_km_annee = (
+                total_cout_annee / km_annee
+                if km_annee > 0
+                else Decimal("0.0")
+            )
+
             par_an.append(
                 {
                     "an": annee,
+                    "cout_km": cout_km_annee,
                     "nb_pleins": an_data["nb_pleins"],
                     "total_litres": an_data[
                         "total_litres"

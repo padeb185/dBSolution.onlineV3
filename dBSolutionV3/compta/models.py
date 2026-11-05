@@ -335,6 +335,13 @@ class MouvementTresorerie(models.Model):
     virement_lie = models.OneToOneField("self", on_delete=models.SET_NULL, null=True, blank=True,
                                         related_name="+", editable=False)
 
+    # Numéro séquentiel par compte (Kassenbuch / Bankbuch : numérotation continue, sans trou – GoBD)
+    numero = models.PositiveIntegerField(_("N°"), null=True, blank=True, editable=False)
+    # Extourne (Storno) : mouvement inverse qui annule celui-ci sans le modifier ni le supprimer
+    extourne_de = models.OneToOneField("self", on_delete=models.PROTECT, null=True, blank=True,
+                                       related_name="extourne_par", editable=False,
+                                       verbose_name=_("Extourne du mouvement"))
+
     cree_par = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,
                                  related_name="mouvements_tresorerie", editable=False)
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
@@ -348,9 +355,29 @@ class MouvementTresorerie(models.Model):
     def __str__(self):
         return f"{self.compte} – {self.date} – {self.libelle} – {self.montant} €"
 
+    def save(self, *args, **kwargs):
+        if self.numero is None:
+            # Numéro suivant du compte (verrou sur le compte pour éviter deux numéros identiques)
+            from django.db import transaction
+            with transaction.atomic():
+                CompteTresorerie.objects.select_for_update().filter(pk=self.compte_id).first()
+                dernier = MouvementTresorerie.objects.filter(compte_id=self.compte_id).aggregate(
+                    m=models.Max("numero"))["m"] or 0
+                self.numero = dernier + 1
+                return super().save(*args, **kwargs)
+        return super().save(*args, **kwargs)
+
     @property
     def intitule_contrepartie(self):
         return INTITULES_CONTREPARTIE.get(self.compte_contrepartie, "")
+
+    @property
+    def est_extourne(self):
+        """Mouvement annulé par une extourne (Storno)."""
+        try:
+            return self.extourne_par is not None
+        except MouvementTresorerie.DoesNotExist:
+            return False
 
 
 # ======================================================================

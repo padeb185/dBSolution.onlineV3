@@ -121,12 +121,39 @@ def plan_du_pays(pays):
     return PLANS.get((pays or "").upper())
 
 
+# Comptes de trésorerie : sous-comptes PCMN 55xx00 / 57xx00 ↔ SKR03 12xx (Bank) / 10xx (Kasse).
+# 550000 ↔ 1200, 550100 ↔ 1201, 570000 ↔ 1000, 570100 ↔ 1001… (une banque / caisse = un compte distinct).
+TRESORERIE = {
+    "DE": {"55": ("12", "Bank"), "57": ("10", "Kasse")},
+}
+
+# SKR03 → PCMN interne quand plusieurs comptes PCMN partagent le même compte SKR03
+SKR03_INVERSE_PREFERE = {
+    "1700": "480000", "1742": "454000", "0320": "241000", "0420": "240000", "0400": "260000",
+    "0090": "221000", "0210": "230000", "3400": "600000", "4500": "612700", "4120": "620200",
+    "1500": "416000", "4900": "610000",
+}
+
+
+def _tresorerie_national(compte_pcmn, pays):
+    regles = TRESORERIE.get((pays or "").upper())
+    if not regles or len(compte_pcmn) != 6 or not compte_pcmn.isdigit() or compte_pcmn[4:] != "00":
+        return None
+    regle = regles.get(compte_pcmn[:2])
+    if not regle:
+        return None
+    return f"{regle[0]}{compte_pcmn[2:4]}", regle[1]
+
+
 def compte_national(compte_pcmn, pays):
     """(compte national, intitulé national) ou (compte_pcmn, '') si pas de plan national."""
     plan = plan_du_pays(pays)
     compte_pcmn = str(compte_pcmn or "")
     if not plan:
         return compte_pcmn, ""
+    tresorerie = _tresorerie_national(compte_pcmn, pays)
+    if tresorerie:
+        return tresorerie
     if compte_pcmn in plan["comptes"]:
         return plan["comptes"][compte_pcmn]
     for prefixe, valeur in plan["defaut"]:
@@ -144,3 +171,50 @@ def convertir_ecritures(ecritures, pays):
         compte, intitule = compte_national(e["compte"], pays)
         resultat.append(dict(e, compte_pcmn=e["compte"], compte=compte, intitule=intitule or e.get("intitule", "")))
     return resultat
+
+
+def compte_interne(code, pays):
+    """
+    Compte saisi dans le plan national → compte interne (PCMN). Retourne None si le compte national
+    n'est pas reconnu. Sans plan national (Belgique, autres pays), le code est rendu tel quel.
+        compte_interne("1200", "DE") → "550000"     compte_interne("1001", "DE") → "570100"
+        compte_interne("4900", "DE") → "610000"     compte_interne("610000", "BE") → "610000"
+    """
+    code = str(code or "").strip()
+    plan = plan_du_pays(pays)
+    if not plan:
+        return code
+    if not code.isdigit():
+        return None
+    for prefixe_pcmn, (prefixe_national, _nom) in TRESORERIE.get(pays.upper(), {}).items():
+        if len(code) == 4 and code.startswith(prefixe_national):
+            return f"{prefixe_pcmn}{code[2:]}00"
+    if plan["code"] == "SKR03" and code in SKR03_INVERSE_PREFERE:
+        return SKR03_INVERSE_PREFERE[code]
+    for pcmn, (national, _nom) in plan["comptes"].items():
+        if national == code:
+            return pcmn
+    return None
+
+
+def comptes_proposes(comptes_pcmn, pays):
+    """
+    Liste (code, intitulé) des comptes de contrepartie proposés, dans le plan du pays.
+    DE : codes SKR03 avec l'intitulé allemand officiel (doublons fusionnés).
+    """
+    if not plan_du_pays(pays):
+        return list(comptes_pcmn)
+    vus, resultat = set(), []
+    for pcmn, _intitule in comptes_pcmn:
+        code = compte_national(pcmn, pays)[0]
+        interne = compte_interne(code, pays)
+        if code not in vus and interne:
+            vus.add(code)
+            resultat.append((code, compte_national(interne, pays)[1]))
+    return sorted(resultat)
+
+
+def code_plan(pays):
+    """'SKR03' (Allemagne) ou 'PCMN'."""
+    plan = plan_du_pays(pays)
+    return plan["code"] if plan else "PCMN"

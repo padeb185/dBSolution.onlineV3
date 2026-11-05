@@ -55,7 +55,7 @@
                 <tr class="bg-gray-100">
                     <th class="border px-3 py-2 text-left">{% trans "Compte" %}</th>
                     <th class="border px-3 py-2 text-left">{% trans "Type" %}</th>
-                    <th class="border px-3 py-2 text-left">{% trans "PCMN" %}</th>
+                    <th class="border px-3 py-2 text-left">{{ plan_code }}</th>
                     <th class="border px-3 py-2 text-left">{% trans "IBAN" %}</th>
                     <th class="border px-3 py-2 text-left">{% trans "Ouverture" %}</th>
                     <th class="border px-3 py-2 text-right">{% trans "Solde actuel" %}</th>
@@ -71,7 +71,7 @@
                         {% if not c.actif %}<span class="ml-1 text-xs">({% trans "inactif" %})</span>{% endif %}
                     </td>
                     <td class="border px-3 py-2">{{ c.get_type_display }}</td>
-                    <td class="border px-3 py-2 font-mono">{{ c.compte_pcmn }}</td>
+                    <td class="border px-3 py-2 font-mono">{{ c.compte_affiche }}</td>
                     <td class="border px-3 py-2 font-mono">{{ c.iban|default:"—" }}</td>
                     <td class="border px-3 py-2">{{ c.date_ouverture|date:"d/m/Y" }} · {{ c.solde_ouverture|floatformat:"2g" }} €</td>
                     <td class="border px-3 py-2 text-right font-bold {% if c.solde_actuel < 0 %}text-red-700{% endif %}">{{ c.solde_actuel|floatformat:"2g" }} €</td>

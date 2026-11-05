@@ -63,7 +63,7 @@
             <th class="border px-3 py-2 text-left">{% trans "Véhicule" %}</th>
             <th class="border px-3 py-2 text-left">{% trans "Détail" %}</th>
             <th class="border px-3 py-2 text-left">{% trans "Dernier retour" %}</th>
-            <th class="border px-3 py-2 text-left">{% trans "Dernier checkup piste vert" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Maintenance après retour" %}</th>
             <th class="border px-3 py-2 text-right">{% trans "Kilomètres" %}</th>
         </tr>
     </thead>
@@ -90,9 +90,19 @@
                 {% else %}—{% endif %}
             </td>
             <td class="border px-3 py-2 text-sm whitespace-nowrap">
-                {% if l.dernier_checkup_vert %}
-                    <a href="{% url 'agenda:detail_tache' l.dernier_checkup_vert.pk %}" class="text-blue-700 hover:underline">{{ l.dernier_checkup_vert.date|date:"d/m/Y" }}</a>
+                {% with ma=l.maintenance_apres_retour %}
+                {% if ma %}
+                    {% if ma.maintenance %}
+                        <a href="{% url 'maintenance:maintenance_detail' ma.maintenance.pk %}" class="text-blue-700 hover:underline">{{ ma.date|date:"d/m/Y" }}</a>
+                    {% elif ma.tache %}
+                        <a href="{% url 'agenda:detail_tache' ma.tache.pk %}" class="text-blue-700 hover:underline">{{ ma.date|date:"d/m/Y" }}</a>
+                    {% endif %}
+                    {% include "agenda/partials/tag.html" with tag=ma.tag %}
+                    <div class="text-xs text-gray-600">{{ ma.libelle }}</div>
+                {% elif l.dernier_retour %}
+                    <span class="text-yellow-700">{% trans "En attente" %}</span>
                 {% else %}—{% endif %}
+                {% endwith %}
             </td>
             <td class="border px-3 py-2 text-right">{{ exemplaire.kilometres_chassis|default_if_none:"—" }}</td>
         </tr>
@@ -108,8 +118,8 @@
 
 <p class="text-sm text-gray-600 mt-4">
     <strong>{% trans "Vert" %}</strong> : {% trans "disponible toute la journée." %}
-    <strong>{% trans "Jaune" %}</strong> : {% trans "disponible sous réserve (loué ou interdit sur un créneau, départ / retour ce jour, checkup piste à faire après un retour)." %}
-    <strong>{% trans "Rouge" %}</strong> : {% trans "indisponible (loué ou interdit toute la journée, problème au dernier retour, véhicule au tag rouge)." %}
+    <strong>{% trans "Jaune" %}</strong> : {% trans "disponible sous réserve (loué ou interdit sur un créneau, départ / retour ce jour, rentré de location sans maintenance depuis, ou maintenance après retour au tag jaune)." %}
+    <strong>{% trans "Rouge" %}</strong> : {% trans "indisponible (loué ou interdit toute la journée, problème au dernier retour sans maintenance depuis, maintenance après retour au tag rouge, véhicule au tag rouge)." %}
 </p>
 <br>
 

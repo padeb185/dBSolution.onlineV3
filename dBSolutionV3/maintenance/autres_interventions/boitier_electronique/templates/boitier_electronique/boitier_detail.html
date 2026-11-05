@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Boîtier électronique" %}{% endblock %}
+
+{% block content %}
+    {% url 'boitier_electronique:modifier_boitier' boitier.pk as url_modifier %}
+    {% url 'boitier_electronique:boitier_detail_pdf' boitier.pk as url_pdf %}
+    {% url 'boitier_electronique:delete_boitier' boitier.pk as url_delete %}
+    {% if exemplaire %}{% url 'boitier_electronique:boitier_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Boîtier électronique" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=boitier km_controle=boitier.kilometrage_boitier icone="boitier_electronique.png" %}
+{% endblock %}

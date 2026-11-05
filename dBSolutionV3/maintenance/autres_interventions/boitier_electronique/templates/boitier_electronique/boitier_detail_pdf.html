@@ -1,0 +1,751 @@
+{% load i18n static format_numbers %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    </style>
+</head>
+<body>
+{% if boitier.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ boitier.tech_societe.nom }}
+            </div>
+
+            {% if boitier.tech_societe.adresse %}
+                <div>
+                    {{ boitier.tech_societe.adresse.rue }}
+                    {{ boitier.tech_societe.adresse.numero }}
+                    {% if boitier.tech_societe.adresse.boite %}
+                        / {{ boitier.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ boitier.tech_societe.adresse.code_postal }}
+                    {{ boitier.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if boitier.tech_societe.adresse.pays %}
+                <div>{{ boitier.tech_societe.adresse.pays }}
+                    {{ boitier.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if boitier.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ boitier.tech_societe.numero_tva|format_tva }}
+                </div>
+            {% endif %}
+             {% if boitier.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ boitier.tech_societe.iban|format_iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ boitier.tech_societe.nom }}.png"
+                alt="{{ boitier.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+<h1>{% trans "Boîtier électronique" %}</h1>
+
+<!-- ================= INFOS ================= -->
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ boitier.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ boitier.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ boitier.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ boitier.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage véhicule" %} :</span>
+            {{ boitier.kilometres_chassis|milliers }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage de l'intervention" %} :</span>
+            {{ boitier.kilometrage_boitier|milliers }} km
+        </div>
+
+
+
+<!-- ================= TAG ================= -->
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if boitier.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ boitier.get_tag_display }}
+                </span>
+
+            {% elif boitier.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ boitier.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ boitier.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= BOÎTIERS ÉLECTRONIQUES ================= -->
+<h2>{% trans "Boîtier électronique" %}</h2>
+
+<div>
+
+    <table class="table-2-cols">
+
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>{% trans "Boîtier de servitude moteur (BSM)" %}</td>
+                <td>
+                    {% if boitier.boitier_servitude_moteur == "OK" %}<span class="ok">{{ boitier.get_boitier_servitude_moteur_display }}</span>
+                    {% elif boitier.boitier_servitude_moteur == "NOT_OK" %}<span class="not-ok">{{ boitier.get_boitier_servitude_moteur_display }}</span>
+                    {% elif boitier.boitier_servitude_moteur == "REMPLACE" %}<span class="remplace">{{ boitier.get_boitier_servitude_moteur_display }}</span>
+                    {% else %}<span>{{ boitier.get_boitier_servitude_moteur_display }}</span>{% endif %}
+                    {% if boitier.boitier_servitude_moteur_fabricant and boitier.boitier_servitude_moteur_fabricant != "CHOISIR" %} — {{ boitier.get_boitier_servitude_moteur_fabricant_display }}{% endif %}
+                    {% if boitier.boitier_servitude_moteur_reference %} — {% trans "Réf." %} {{ boitier.boitier_servitude_moteur_reference }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Boîtier de servitude intelligent (BSI / BCM)" %}</td>
+                <td>
+                    {% if boitier.boitier_servitude_intelligent == "OK" %}<span class="ok">{{ boitier.get_boitier_servitude_intelligent_display }}</span>
+                    {% elif boitier.boitier_servitude_intelligent == "NOT_OK" %}<span class="not-ok">{{ boitier.get_boitier_servitude_intelligent_display }}</span>
+                    {% elif boitier.boitier_servitude_intelligent == "REMPLACE" %}<span class="remplace">{{ boitier.get_boitier_servitude_intelligent_display }}</span>
+                    {% else %}<span>{{ boitier.get_boitier_servitude_intelligent_display }}</span>{% endif %}
+                    {% if boitier.boitier_servitude_intelligent_fabricant and boitier.boitier_servitude_intelligent_fabricant != "CHOISIR" %} — {{ boitier.get_boitier_servitude_intelligent_fabricant_display }}{% endif %}
+                    {% if boitier.boitier_servitude_intelligent_reference %} — {% trans "Réf." %} {{ boitier.boitier_servitude_intelligent_reference }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Boîtier additionnel (puissance / piggyback)" %}</td>
+                <td>
+                    {% if boitier.boitier_additionnel == "OK" %}<span class="ok">{{ boitier.get_boitier_additionnel_display }}</span>
+                    {% elif boitier.boitier_additionnel == "NOT_OK" %}<span class="not-ok">{{ boitier.get_boitier_additionnel_display }}</span>
+                    {% elif boitier.boitier_additionnel == "REMPLACE" %}<span class="remplace">{{ boitier.get_boitier_additionnel_display }}</span>
+                    {% else %}<span>{{ boitier.get_boitier_additionnel_display }}</span>{% endif %}
+                    {% if boitier.boitier_additionnel_fabricant and boitier.boitier_additionnel_fabricant != "CHOISIR" %} — {{ boitier.get_boitier_additionnel_fabricant_display }}{% endif %}
+                    {% if boitier.boitier_additionnel_reference %} — {% trans "Réf." %} {{ boitier.boitier_additionnel_reference }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Boîtier ABS (calculateur)" %}</td>
+                <td>
+                    {% if boitier.boitier_abs == "OK" %}<span class="ok">{{ boitier.get_boitier_abs_display }}</span>
+                    {% elif boitier.boitier_abs == "NOT_OK" %}<span class="not-ok">{{ boitier.get_boitier_abs_display }}</span>
+                    {% elif boitier.boitier_abs == "REMPLACE" %}<span class="remplace">{{ boitier.get_boitier_abs_display }}</span>
+                    {% else %}<span>{{ boitier.get_boitier_abs_display }}</span>{% endif %}
+                    {% if boitier.boitier_abs_fabricant and boitier.boitier_abs_fabricant != "CHOISIR" %} — {{ boitier.get_boitier_abs_fabricant_display }}{% endif %}
+                    {% if boitier.boitier_abs_reference %} — {% trans "Réf." %} {{ boitier.boitier_abs_reference }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Boîtier ESP (calculateur)" %}</td>
+                <td>
+                    {% if boitier.boitier_esp == "OK" %}<span class="ok">{{ boitier.get_boitier_esp_display }}</span>
+                    {% elif boitier.boitier_esp == "NOT_OK" %}<span class="not-ok">{{ boitier.get_boitier_esp_display }}</span>
+                    {% elif boitier.boitier_esp == "REMPLACE" %}<span class="remplace">{{ boitier.get_boitier_esp_display }}</span>
+                    {% else %}<span>{{ boitier.get_boitier_esp_display }}</span>{% endif %}
+                    {% if boitier.boitier_esp_fabricant and boitier.boitier_esp_fabricant != "CHOISIR" %} — {{ boitier.get_boitier_esp_fabricant_display }}{% endif %}
+                    {% if boitier.boitier_esp_reference %} — {% trans "Réf." %} {{ boitier.boitier_esp_reference }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Boîtier Carpark (aide au stationnement)" %}</td>
+                <td>
+                    {% if boitier.boitier_carpark == "OK" %}<span class="ok">{{ boitier.get_boitier_carpark_display }}</span>
+                    {% elif boitier.boitier_carpark == "NOT_OK" %}<span class="not-ok">{{ boitier.get_boitier_carpark_display }}</span>
+                    {% elif boitier.boitier_carpark == "REMPLACE" %}<span class="remplace">{{ boitier.get_boitier_carpark_display }}</span>
+                    {% else %}<span>{{ boitier.get_boitier_carpark_display }}</span>{% endif %}
+                    {% if boitier.boitier_carpark_fabricant and boitier.boitier_carpark_fabricant != "CHOISIR" %} — {{ boitier.get_boitier_carpark_fabricant_display }}{% endif %}
+                    {% if boitier.boitier_carpark_reference %} — {% trans "Réf." %} {{ boitier.boitier_carpark_reference }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Boîtier d'attelage (module remorque)" %}</td>
+                <td>
+                    {% if boitier.boitier_attelage == "OK" %}<span class="ok">{{ boitier.get_boitier_attelage_display }}</span>
+                    {% elif boitier.boitier_attelage == "NOT_OK" %}<span class="not-ok">{{ boitier.get_boitier_attelage_display }}</span>
+                    {% elif boitier.boitier_attelage == "REMPLACE" %}<span class="remplace">{{ boitier.get_boitier_attelage_display }}</span>
+                    {% else %}<span>{{ boitier.get_boitier_attelage_display }}</span>{% endif %}
+                    {% if boitier.boitier_attelage_fabricant and boitier.boitier_attelage_fabricant != "CHOISIR" %} — {{ boitier.get_boitier_attelage_fabricant_display }}{% endif %}
+                    {% if boitier.boitier_attelage_reference %} — {% trans "Réf." %} {{ boitier.boitier_attelage_reference }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Boîtier airbag (calculateur SRS)" %}</td>
+                <td>
+                    {% if boitier.boitier_airbag == "OK" %}<span class="ok">{{ boitier.get_boitier_airbag_display }}</span>
+                    {% elif boitier.boitier_airbag == "NOT_OK" %}<span class="not-ok">{{ boitier.get_boitier_airbag_display }}</span>
+                    {% elif boitier.boitier_airbag == "REMPLACE" %}<span class="remplace">{{ boitier.get_boitier_airbag_display }}</span>
+                    {% else %}<span>{{ boitier.get_boitier_airbag_display }}</span>{% endif %}
+                    {% if boitier.boitier_airbag_fabricant and boitier.boitier_airbag_fabricant != "CHOISIR" %} — {{ boitier.get_boitier_airbag_fabricant_display }}{% endif %}
+                    {% if boitier.boitier_airbag_reference %} — {% trans "Réf." %} {{ boitier.boitier_airbag_reference }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Boîtier de boîte automatique (TCU)" %}</td>
+                <td>
+                    {% if boitier.boitier_boite_auto == "OK" %}<span class="ok">{{ boitier.get_boitier_boite_auto_display }}</span>
+                    {% elif boitier.boitier_boite_auto == "NOT_OK" %}<span class="not-ok">{{ boitier.get_boitier_boite_auto_display }}</span>
+                    {% elif boitier.boitier_boite_auto == "REMPLACE" %}<span class="remplace">{{ boitier.get_boitier_boite_auto_display }}</span>
+                    {% else %}<span>{{ boitier.get_boitier_boite_auto_display }}</span>{% endif %}
+                    {% if boitier.boitier_boite_auto_fabricant and boitier.boitier_boite_auto_fabricant != "CHOISIR" %} — {{ boitier.get_boitier_boite_auto_fabricant_display }}{% endif %}
+                    {% if boitier.boitier_boite_auto_reference %} — {% trans "Réf." %} {{ boitier.boitier_boite_auto_reference }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Passerelle / gateway (réseau CAN)" %}</td>
+                <td>
+                    {% if boitier.boitier_passerelle == "OK" %}<span class="ok">{{ boitier.get_boitier_passerelle_display }}</span>
+                    {% elif boitier.boitier_passerelle == "NOT_OK" %}<span class="not-ok">{{ boitier.get_boitier_passerelle_display }}</span>
+                    {% elif boitier.boitier_passerelle == "REMPLACE" %}<span class="remplace">{{ boitier.get_boitier_passerelle_display }}</span>
+                    {% else %}<span>{{ boitier.get_boitier_passerelle_display }}</span>{% endif %}
+                    {% if boitier.boitier_passerelle_fabricant and boitier.boitier_passerelle_fabricant != "CHOISIR" %} — {{ boitier.get_boitier_passerelle_fabricant_display }}{% endif %}
+                    {% if boitier.boitier_passerelle_reference %} — {% trans "Réf." %} {{ boitier.boitier_passerelle_reference }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Autre boîtier électronique (préciser en remarques)" %}</td>
+                <td>
+                    {% if boitier.autre_boitier == "OK" %}<span class="ok">{{ boitier.get_autre_boitier_display }}</span>
+                    {% elif boitier.autre_boitier == "NOT_OK" %}<span class="not-ok">{{ boitier.get_autre_boitier_display }}</span>
+                    {% elif boitier.autre_boitier == "REMPLACE" %}<span class="remplace">{{ boitier.get_autre_boitier_display }}</span>
+                    {% else %}<span>{{ boitier.get_autre_boitier_display }}</span>{% endif %}
+                    {% if boitier.autre_boitier_fabricant and boitier.autre_boitier_fabricant != "CHOISIR" %} — {{ boitier.get_autre_boitier_fabricant_display }}{% endif %}
+                    {% if boitier.autre_boitier_reference %} — {% trans "Réf." %} {{ boitier.autre_boitier_reference }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Faisceau et connecteurs des boîtiers" %}</td>
+                <td>
+                    {% if boitier.faisceau_connecteurs_boitiers == "OK" %}<span class="ok">{{ boitier.get_faisceau_connecteurs_boitiers_display }}</span>
+                    {% elif boitier.faisceau_connecteurs_boitiers == "NOT_OK" %}<span class="not-ok">{{ boitier.get_faisceau_connecteurs_boitiers_display }}</span>
+                    {% elif boitier.faisceau_connecteurs_boitiers == "REMPLACE" %}<span class="remplace">{{ boitier.get_faisceau_connecteurs_boitiers_display }}</span>
+                    {% else %}<span>{{ boitier.get_faisceau_connecteurs_boitiers_display }}</span>{% endif %}
+                    {% if boitier.faisceau_connecteurs_boitiers_fabricant and boitier.faisceau_connecteurs_boitiers_fabricant != "CHOISIR" %} — {{ boitier.get_faisceau_connecteurs_boitiers_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Programmation, codage et mise à jour logicielle" %}</td>
+                <td>
+                    {% if boitier.programmation_codage_boitiers == "OK" %}<span class="ok">{{ boitier.get_programmation_codage_boitiers_display }}</span>
+                    {% elif boitier.programmation_codage_boitiers == "NOT_OK" %}<span class="not-ok">{{ boitier.get_programmation_codage_boitiers_display }}</span>
+                    {% elif boitier.programmation_codage_boitiers == "REMPLACE" %}<span class="remplace">{{ boitier.get_programmation_codage_boitiers_display }}</span>
+                    {% else %}<span>{{ boitier.get_programmation_codage_boitiers_display }}</span>{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Diagnostic (lecture et effacement des défauts)" %}</td>
+                <td>
+                    {% if boitier.diagnostic_boitiers == "OK" %}<span class="ok">{{ boitier.get_diagnostic_boitiers_display }}</span>
+                    {% elif boitier.diagnostic_boitiers == "NOT_OK" %}<span class="not-ok">{{ boitier.get_diagnostic_boitiers_display }}</span>
+                    {% elif boitier.diagnostic_boitiers == "REMPLACE" %}<span class="remplace">{{ boitier.get_diagnostic_boitiers_display }}</span>
+                    {% else %}<span>{{ boitier.get_diagnostic_boitiers_display }}</span>{% endif %}
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
+</div>
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ boitier.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if boitier.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire HTVA" %} :</span>
+                {{ boitier.main_oeuvre.taux_horaire|floatformat:"2g" }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
+                {{ boitier.main_oeuvre.prix_facture|floatformat:"2g" }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ boitier.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div>
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        <td class="text-right">
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:"2g" }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:"2g" }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:"2g" }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ boitier.cout_main_oeuvre|default:0|floatformat:"2g" }} €
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ boitier.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
+
+        <table class="table-2-cols">
+            <tbody>
+
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ boitier.cout_main_oeuvre|default:0|floatformat:"2g" }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ boitier.total_general_avec_main_oeuvre|default:0|floatformat:"2g" }} €
+                        </strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    {% endif %}
+
+</div>
+
+<br>
+{% include "piece/stock/_pieces_utilisees_pdf.html" with maintenance=boitier.maintenance %}
+<!-- ================= REMARQUES ================= -->
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ boitier.remarques|default:_("Aucune remarque.") }}
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

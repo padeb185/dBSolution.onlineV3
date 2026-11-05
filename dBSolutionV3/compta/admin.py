@@ -13,7 +13,7 @@ class CompteTresorerieAdmin(admin.ModelAdmin):
 
 @admin.register(MouvementTresorerie)
 class MouvementTresorerieAdmin(admin.ModelAdmin):
-    list_display = ("date", "compte", "sens", "montant", "libelle", "compte_contrepartie", "piece")
+    list_display = ("numero", "date", "compte", "sens", "montant", "libelle", "compte_contrepartie", "piece", "extourne_de")
     list_filter = ("sens", "compte")
     search_fields = ("libelle", "piece")
     date_hierarchy = "date"

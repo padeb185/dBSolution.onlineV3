@@ -13,6 +13,7 @@ urlpatterns = [
     path("comptes/<uuid:pk>/mouvement/", views.mouvement_ajouter, name="mouvement_ajouter"),
     path("mouvements/<uuid:pk>/modifier/", views.mouvement_modifier, name="mouvement_modifier"),
     path("mouvements/<uuid:pk>/supprimer/", views.mouvement_supprimer, name="mouvement_supprimer"),
+    path("mouvements/<uuid:pk>/extourner/", views.mouvement_extourner, name="mouvement_extourner"),
     path("virement/", views.virement_interne, name="virement_interne"),
 
     # Immobilisations / amortissements, stock, salaires, journal général

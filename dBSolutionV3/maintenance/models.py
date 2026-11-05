@@ -84,6 +84,7 @@ class Maintenance(models.Model):
         PC_DEMONTAGE = "PC_DEMONTAGE", _("Démontage et allègement")
         PC_AIR_JACK = "PC_AIR_JACK", _("Air jack (vérins pneumatiques)")
         FUSIBLES = "FUSIBLES", _("Boîtes à fusibles")
+        BOITIER_ELECTRONIQUE = "BOITIER_ELECTRONIQUE", _("Boîtier électronique")
         DEMARREUR = "DEMARREUR", _("Démarreur")
         SUSPENSION_ORIGINE = "SUSPENSION_ORIGINE", _("Suspension d'origine")
         SUSPENSION_SPORT = "SUSPENSION_SPORT", _("Suspension sport")
@@ -195,6 +196,18 @@ class Maintenance(models.Model):
         max_length=10,
         choices=Tag.choices,
         default=Tag.JAUNE
+    )
+
+    # Étiquette figée au moment de la maintenance : copiée depuis la fiche
+    # d'intervention à son premier enregistrement, jamais mise à jour ensuite
+    # (voir maintenance/tag_fige.py).
+    tag_enregistre = models.CharField(
+        _("Étiquette à la maintenance"),
+        max_length=10,
+        choices=Tag.choices,
+        null=True,
+        blank=True,
+        editable=False,
     )
 
     # Kilométrage général
