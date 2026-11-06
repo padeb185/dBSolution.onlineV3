@@ -71,6 +71,14 @@ class Societe(TenantMixin):
         help_text=_("Pays d'établissement de la société (TVA, factures, comptabilité)."),
     )
 
+    # Modules activés (societe/modules.py) : vide (null) = tous les modules
+    modules = models.JSONField(
+        _("Modules activés"),
+        null=True,
+        blank=True,
+        help_text=_("Vide : tous les modules. Sinon, liste des modules activés pour ce tenant."),
+    )
+
     class Meta:
         verbose_name = "Société"
         verbose_name_plural = "Sociétés"
@@ -86,6 +94,17 @@ class Societe(TenantMixin):
 
     def __str__(self):
         return self.nom
+
+    # ------------------------------------------------------------
+    # Modules
+    # ------------------------------------------------------------
+    def module_actif(self, code):
+        return self.modules is None or code in self.modules
+
+    @property
+    def modules_actifs(self):
+        from .modules import ModulesActifs
+        return ModulesActifs(self)
 
     # ------------------------------------------------------------
     # Pays

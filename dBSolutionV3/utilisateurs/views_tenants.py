@@ -90,6 +90,7 @@ def tenant_creer(request):
                     paid_until=d["paid_until"],
                     on_trial=d["on_trial"],
                     adresse=adresse,
+                    modules=form.modules_choisis(),
                 )
                 societe.save()   # crée le schéma PostgreSQL + migrations
 
@@ -132,6 +133,7 @@ def tenant_creer(request):
 @login_required
 @user_passes_test(is_admin)
 def tenant_detail(request, pk):
+    from societe.modules import MODULES
     societe = get_object_or_404(_tenants(), pk=pk)
     utilisateurs = (
         Utilisateur.objects.filter(societe=societe)
@@ -141,6 +143,7 @@ def tenant_detail(request, pk):
         "societe": societe,
         "utilisateurs": utilisateurs,
         "domaines": Domain.objects.filter(tenant=societe),
+        "modules_libelles": [str(MODULES[c][0]) for c in (societe.modules or []) if c in MODULES],
         "places_restantes": max(0, societe.max_utilisateurs - societe.nb_actifs),
     })
 

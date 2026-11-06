@@ -15,7 +15,42 @@ SCHEMAS_RESERVES = {"public", "information_schema", "pg_catalog", "pg_toast", "t
 from .mot_de_passe import ComplexiteValidator, verifier_confirmation, widget_confirmation, widget_nouveau  # noqa: E402
 
 
-class TenantCreationForm(forms.Form):
+class ModulesTenantMixin:
+    """Profil (garage, flotte, particulier…) et cases des modules activés (societe/modules.py)."""
+
+    def ajouter_champs_modules(self, actifs=None):
+        from societe import modules as M
+        actifs = M.TOUS if actifs is None else actifs
+        self.fields["profil"] = forms.ChoiceField(
+            label=_("Profil"), choices=M.choix_profils(), required=False, initial=M.profil_de(actifs),
+            help_text=_("Coche les modules usuels du profil ; la sélection reste modifiable."),
+        )
+        self.fields["modules"] = forms.MultipleChoiceField(
+            label=_("Modules activés"), choices=M.choix_modules(), required=False, initial=list(actifs),
+            widget=forms.CheckboxSelectMultiple,
+            help_text=_("Le socle (véhicules, maintenances, agenda, utilisateurs) est toujours actif."),
+        )
+
+    def modules_choisis(self):
+        from societe.modules import normaliser
+        return normaliser(self.cleaned_data.get("modules") or [])
+
+    def modules_infos(self):
+        """[(case, description, dépendances)] pour l'affichage des cases."""
+        from societe.modules import DEPENDANCES, MODULES
+        infos = []
+        for case in self["modules"]:
+            code = case.data["value"]
+            requis = [str(MODULES[r][0]) for r in DEPENDANCES.get(code, [])]
+            infos.append((case, MODULES[code][1], ", ".join(requis)))
+        return infos
+
+    def profils_js(self):
+        from societe.modules import PROFILS
+        return {code: list(mods) for code, (_l, mods) in PROFILS.items()}
+
+
+class TenantCreationForm(ModulesTenantMixin, forms.Form):
     # ---------------- Société
     nom = forms.CharField(label=_("Nom de la société"), max_length=100)
     directeur = forms.CharField(label=_("Directeur"), max_length=100)
@@ -69,6 +104,10 @@ class TenantCreationForm(forms.Form):
         (_("Premier utilisateur (direction) – facultatif"), ["admin_prenom", "admin_nom", "admin_email", "admin_password",
                                                                  "admin_password_confirmation"]),
     ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.ajouter_champs_modules()
 
     def sections(self):
         return [(titre, [self[n] for n in noms]) for titre, noms in self.SECTIONS]
@@ -143,7 +182,7 @@ class TenantCreationForm(forms.Form):
         return cleaned
 
 
-class TenantModificationForm(forms.ModelForm):
+class TenantModificationForm(ModulesTenantMixin, forms.ModelForm):
     class Meta:
         model = Societe
         fields = ["nom", "directeur", "pays", "numero_tva", "numero_tel", "iban", "site",
@@ -153,6 +192,14 @@ class TenantModificationForm(forms.ModelForm):
             "pays": _("Changer de pays modifie la TVA par défaut (taux, déclaration), les factures / Peppol et les "
                       "plafonds de paiement en espèces. Les documents déjà émis ne sont pas recalculés."),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.ajouter_champs_modules(self.instance.modules if self.instance.pk else None)
+
+    def save(self, commit=True):
+        self.instance.modules = self.modules_choisis()
+        return super().save(commit)
 
     def sections(self):
         return [

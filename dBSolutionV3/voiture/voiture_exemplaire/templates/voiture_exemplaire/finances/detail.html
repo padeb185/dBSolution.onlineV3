@@ -113,6 +113,7 @@
         {% endwith %}
     </div>
 
+    {% if modules.revente %}
     <!-- ================= REVENTE ================= -->
     <style>
         .vv-btn-revente { display: inline-block; background: #059669; color: #fff; padding: 4px 12px; border-radius: 4px; font-size: .875rem; font-weight: 600; text-decoration: none; transition: background-color .15s; }
@@ -133,6 +134,7 @@
             <a href="{% url 'voiture_vente:nouvelle' %}?exemplaire={{ exemplaire.id }}" class="vv-btn-revente">{% trans "Vendre ce véhicule" %}</a>
         {% endif %}
     </div>
+    {% endif %}
 
     {% with r=rent %}
     <!-- ================= SYNTHÈSE ================= -->

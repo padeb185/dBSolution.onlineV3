@@ -8,7 +8,7 @@
 {% if piece %}{% trans "Modifier la pièce" as titre %}{% else %}{% trans "Nouvelle pièce" as titre %}{% endif %}
 {% include "piece/stock/_nav.html" with titre=titre actif="" %}
 
-<form method="post" class="bg-white shadow-md rounded-lg p-6 max-w-5xl">
+<form method="post" class="bg-white shadow-md rounded-lg p-6 max-w-5xl mx-auto">
     {% csrf_token %}
     {% if form.non_field_errors %}
     <div class="bg-red-100 text-red-800 rounded p-3 mb-4">{{ form.non_field_errors }}</div>

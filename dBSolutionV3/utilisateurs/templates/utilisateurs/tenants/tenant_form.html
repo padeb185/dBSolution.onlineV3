@@ -50,6 +50,27 @@
             {% endfor %}
         {% endfor %}
 
+        <!-- ================= MODULES ================= -->
+        <h2 class="text-xl font-semibold mb-4 mt-8 border-b pb-1">{% trans "Modules" %}</h2>
+        <div class="mb-4">
+            <label class="block font-semibold mb-1" for="{{ form.profil.id_for_label }}">{{ form.profil.label }}</label>
+            {{ form.profil|add_class:"input" }}
+            <p class="text-gray-500 text-sm mt-1">{{ form.profil.help_text }}</p>
+        </div>
+        <p class="text-gray-500 text-sm mb-2">{{ form.modules.help_text }}</p>
+        <div class="tm-modules">
+            {% for case, description, requis in form.modules_infos %}
+            <label class="tm-module" for="{{ case.id_for_label }}">
+                {{ case.tag }}
+                <span>
+                    <span class="tm-nom">{{ case.choice_label }}</span>
+                    <span class="tm-desc">{{ description }}{% if requis %} <em>({% trans "nécessite" %} : {{ requis }})</em>{% endif %}</span>
+                </span>
+            </label>
+            {% endfor %}
+        </div>
+        {% if form.modules.errors %}<p class="text-red-600 text-sm mt-1">{{ form.modules.errors|striptags }}</p>{% endif %}
+
         <div class="flex gap-3 mt-6">
             <button type="submit" id="tenant-submit"
                     class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
@@ -65,9 +86,36 @@
 <br>
 
 <style>
+.tm-modules { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.tm-module { display: flex; gap: 10px; align-items: flex-start; border: 2px solid #e5e7eb; border-radius: 8px; padding: 8px 10px; cursor: pointer; transition: border-color .15s, background .15s; }
+.tm-module:hover { border-color: #93c5fd; }
+.tm-module:has(input:checked) { border-color: #16a34a; background: #f0fdf4; }
+.tm-module input { margin-top: 3px; width: 18px; height: 18px; accent-color: #16a34a; flex-shrink: 0; }
+.tm-nom { display: block; font-weight: 600; }
+.tm-desc { display: block; font-size: .8rem; color: #6b7280; }
 .input { width: 100% !important; border: 1px solid #ccc !important; border-radius: 6px !important; padding: 8px !important; box-sizing: border-box !important; }
 </style>
 
+{{ form.profils_js|json_script:"profils-modules" }}
+<script>
+(function () {
+    const profils = JSON.parse(document.getElementById("profils-modules").textContent);
+    const choix = document.getElementById("{{ form.profil.id_for_label }}");
+    const cases = document.querySelectorAll('input[name="modules"]');
+    // Profil choisi → cocher ses modules
+    choix.addEventListener("change", function () {
+        const mods = profils[choix.value];
+        if (!mods) return;
+        cases.forEach(c => { c.checked = mods.includes(c.value); });
+    });
+    // Case modifiée → le profil devient « Personnalisé » s'il ne correspond plus
+    cases.forEach(c => c.addEventListener("change", function () {
+        const coches = Array.from(cases).filter(x => x.checked).map(x => x.value).sort().join(",");
+        const trouve = Object.keys(profils).find(k => profils[k].slice().sort().join(",") === coches);
+        choix.value = trouve || "";
+    }));
+})();
+</script>
 <script>
 document.getElementById("tenant-form").addEventListener("submit", function () {
     const b = document.getElementById("tenant-submit");

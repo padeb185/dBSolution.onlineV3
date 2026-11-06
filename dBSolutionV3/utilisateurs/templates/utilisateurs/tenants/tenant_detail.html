@@ -49,6 +49,8 @@
                 <dt class="text-gray-600">{% trans "Utilisateurs actifs / max" %}</dt>
                 <dd class="{% if not places_restantes %}text-red-700 font-semibold{% endif %}">{{ societe.nb_actifs }} / {{ societe.max_utilisateurs }}</dd>
                 <dt class="text-gray-600">{% trans "Période d'essai" %}</dt><dd>{{ societe.on_trial|yesno:_("Oui,Non") }}</dd>
+                <dt class="text-gray-600">{% trans "Modules" %}</dt>
+                <dd>{% if societe.modules is None %}{% trans "Tous les modules" %}{% else %}{{ modules_libelles|join:", "|default:_("Socle uniquement") }}{% endif %}</dd>
                 <dt class="text-gray-600">{% trans "Abonnement payé jusqu'au" %}</dt><dd>{{ societe.paid_until|date:"d/m/Y"|default:"—" }}</dd>
                 <dt class="text-gray-600">{% trans "Créé le" %}</dt><dd>{{ societe.created_on|date:"d/m/Y" }}</dd>
                 <dt class="text-gray-600">{% trans "Domaine(s)" %}</dt>

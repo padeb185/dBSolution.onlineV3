@@ -8,8 +8,8 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("piece", "0007_taux_tva_defaut_pays_tenant"),
-        ("fournisseur", "__latest__"),
-        ("societe", "__latest__"),
+        ("fournisseur", "0012_taux_tva_defaut_pays_tenant"),
+        ("societe", "0011_societe_pays"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 

@@ -235,6 +235,7 @@
              class="w-[60px] h-[60px]">
     </a>
 
+    {% if modules.parking %}
     <!-- Parking -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/parking/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -256,7 +257,9 @@
              alt="{% trans 'Parking' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.energie %}
     <!-- Carburants -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/fuel/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -278,7 +281,9 @@
              alt="{% trans 'Carburant' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.energie %}
     <!-- AdBlue -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/adblue/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -300,7 +305,9 @@
              alt="{% trans 'AdBlue' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.energie %}
     <!-- Recharges électriques -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/recharge/recharge/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -322,7 +329,9 @@
              alt="{% trans 'Recharge électrique' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.diagnostic %}
     <!-- Diagnostics (codes défaut) -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/diagnostic/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -344,6 +353,7 @@
              alt="{% trans 'Diagnostic' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
 </div>
 
@@ -385,6 +395,7 @@
              class="w-[60px] h-[60px]">
     </a>
 
+    {% if modules.remorques %}
     <!-- Remorques -->
     <a href="{% url 'voiture_remorque:remorque_list' %}"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -394,7 +405,9 @@
         </div>
         <img src="{% static 'icons/remorque.svg' %}" alt="{% trans 'Remorques' %}" class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.composants %}
     <!-- Moteurs -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/moteur/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -416,7 +429,9 @@
              alt="{% trans 'Moteur' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.composants %}
     <!-- Boîtes de vitesses -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/boite/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -438,7 +453,9 @@
              alt="{% trans 'Boîte de vitesse' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.composants %}
     <!-- Embrayages -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/embrayage/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -460,7 +477,9 @@
              alt="{% trans 'Embrayage' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.composants %}
     <!-- Freins -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/freins/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -475,7 +494,9 @@
              alt="{% trans 'Freins' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.composants %}
     <!-- Pneus -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/pneus/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -497,7 +518,9 @@
              alt="{% trans 'Pneus' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.composants %}
     <!-- Jantes -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/jantes/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -519,7 +542,9 @@
              alt="{% trans 'Jantes' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.carrosserie %}
     <!-- Carrosseries -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/carrosserie/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -534,7 +559,9 @@
              alt="{% trans 'Carrosserie' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.garages_externes %}
     <!-- Maintenances externes (garages officiels) -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/maintenance/externe/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -556,7 +583,9 @@
              alt="{% trans 'Maintenances externes' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.garages_externes %}
     <!-- Garages officiels -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/garage_officiel/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -578,6 +607,7 @@
              alt="{% trans 'Garages officiels' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
 </div>
 
@@ -604,6 +634,7 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
+    {% if modules.achats %}
     <!-- Fournisseurs -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/fournisseurs/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -625,7 +656,9 @@
              alt="{% trans 'Fournisseur' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.achats %}
     <!-- Achats marchandises -->
     <a href="{% url 'achat_mds:achat_list' %}"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -647,7 +680,9 @@
              alt="{% trans 'Achats marchandises' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.outillage %}
     <!-- Outillages -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/outillage/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -669,7 +704,9 @@
              alt="{% trans 'Outils' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.stock %}
     <!-- Stock pièces et fluides -->
     <a href="{% url 'piece:list' %}"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -688,6 +725,7 @@
              alt="{% trans 'Stock pièces et fluides' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
 </div>
 
@@ -714,6 +752,7 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
+    {% if modules.clients %}
     <!-- Clients -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/client_atelier/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -735,7 +774,9 @@
              alt="{% trans 'Client' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.clients %}
     <!-- Sociétés clientes -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/societe_cliente/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -757,6 +798,7 @@
              alt="{% trans 'Société cliente' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
     <!-- Adresses -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/adresse/"
@@ -780,6 +822,7 @@
              class="w-[60px] h-[60px]">
     </a>
 
+    {% if modules.location %}
     <!-- Locations (circuit / route) -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/location/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -801,7 +844,9 @@
              alt="{% trans 'Location' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.trackday %}
     <!-- Trackdays -->
     <a href="{% url 'voiture_location:trackday_liste' %}"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -825,7 +870,9 @@
              alt="{% trans 'Trackdays' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.location %}
     <!-- Ventes détails (locations : HTVA / TVA / TVAC) -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/location/ventes/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -853,9 +900,11 @@
              alt="{% trans 'Ventes détails' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
     <!-- Factures des locations (vendeur : consultation, émission et encaissement) -->
     {% if request.user.role == "vendeur" %}
+    {% if modules.facturation %}
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/facture/liste/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
         <div>
@@ -865,9 +914,11 @@
         {% include "facture/_icone.html" with classe="w-[60px] h-[60px]" %}
     </a>
     {% endif %}
+    {% endif %}
 
     <!-- Statistiques des ventes par vendeur : direction uniquement -->
     {% if request.user.role == "direction" or request.user.is_superuser %}
+    {% if modules.location %}
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/location/statistiques/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
 
@@ -886,7 +937,9 @@
              class="w-[60px] h-[60px]">
     </a>
     {% endif %}
+    {% endif %}
 
+    {% if modules.location %}
     <!-- Mes statistiques : ventes de l'utilisateur connecté -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/location/mes-statistiques/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -905,6 +958,7 @@
              alt="{% trans 'Mes statistiques' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
 </div>
 
@@ -931,6 +985,7 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
+    {% if modules.assurances %}
     <!-- Assurances -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/assurance/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -945,7 +1000,9 @@
              alt="{% trans 'Assurance' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.main_oeuvre %}
     <!-- Main d'œuvre -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/maindoeuvre/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -967,7 +1024,9 @@
              alt="{% trans "Main d'oeuvre" %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.proprietaires %}
     <!-- Reversements aux propriétaires (locations de véhicules à plusieurs propriétaires) -->
     <a href="{% url 'voiture_location:reversements_liste' %}"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -980,7 +1039,9 @@
         </div>
         <img src="{% static 'icons/proprietaire.png' %}" alt="{% trans 'Reversements aux propriétaires' %}" class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.facturation %}
     <!-- Conditions générales de vente (atelier / location), imprimées sur les factures -->
     <a href="{% url 'facture:conditions_generales' %}"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -990,7 +1051,9 @@
         </div>
         {% include "facture/_icone.html" with classe="w-[60px] h-[60px]" %}
     </a>
+    {% endif %}
 
+    {% if modules.proprietaires %}
     <!-- Propriétaires -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/proprietaire/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -1012,6 +1075,7 @@
              alt="{% trans 'Propriétaire' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
     <!-- Créer utilisateur -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/creer/"
@@ -1047,6 +1111,7 @@
              class="w-[60px] h-[60px] mr-[10px]">
     </a>
 
+    {% if modules.paie %}
     <!-- Paies mensuelles -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/paie/"
        class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -1061,8 +1126,10 @@
              alt="{% trans 'Paies mensuelles' %}"
              class="w-[60px] h-[60px] mr-[10px]">
     </a>
+    {% endif %}
 
      {% if request.user.is_superuser or request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.role == "comptable" %}
+    {% if modules.facturation %}
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/facture/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
         <div>
@@ -1078,7 +1145,9 @@
         {% include "facture/_icone.html" with classe="w-[60px] h-[60px]" %}
     </a>
     {% endif %}
+    {% endif %}
 
+    {% if modules.comptabilite %}
     <!-- Comptabilité – trésorerie -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/compta/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -1094,7 +1163,9 @@
              alt="{% trans 'Comptabilité' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.finances_vehicules %}
     <!-- Données financières des véhicules -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/exemplaires/finances/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -1109,7 +1180,9 @@
 
         {% include "voiture_exemplaire/finances/_icone.html" with classe="w-[60px] h-[60px]" %}
     </a>
+    {% endif %}
 
+    {% if modules.revente %}
     <!-- Revente des véhicules de la flotte -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/ventes/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -1124,6 +1197,7 @@
 
         {% include "voiture_vente/_icone.html" with classe="w-[60px] h-[60px]" taille="60px" %}
     </a>
+    {% endif %}
 
 </div>
 
@@ -1148,6 +1222,7 @@
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+    {% if modules.comptabilite %}
     <!-- Comptabilité – trésorerie -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/compta/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -1163,7 +1238,9 @@
              alt="{% trans 'Comptabilité' %}"
              class="w-[60px] h-[60px]">
     </a>
+    {% endif %}
 
+    {% if modules.facturation %}
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/facture/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
         <div>
@@ -1172,7 +1249,9 @@
         </div>
         {% include "facture/_icone.html" with classe="w-[60px] h-[60px]" %}
     </a>
+    {% endif %}
 
+    {% if modules.paie %}
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/paie/"
        class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
         <div>
@@ -1180,6 +1259,7 @@
         </div>
         <img src="{% static 'icons/paie.png' %}" alt="{% trans 'Paies mensuelles' %}" class="w-[60px] h-[60px] mr-[10px]">
     </a>
+    {% endif %}
 </div>
 
 {% endif %}

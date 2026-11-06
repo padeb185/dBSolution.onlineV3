@@ -465,6 +465,8 @@ MIDDLEWARE = [
     "dBSolutionV3.middleware.tenant_required.TenantRequiredMiddleware",
     "utilisateurs.middleware.TenantUserAccessMiddleware",
     "utilisateurs.middleware.TOTPRequiredMiddleware",
+    # Modules désactivés pour le tenant (Societe.modules) : URL refusées
+    "dBSolutionV3.middleware.modules_tenant.ModulesTenantMiddleware",
     # Codes OEM / EAN des lignes de pièces des interventions → pièces utilisées (stock)
     "piece.intervention.CodesPiecesInterventionMiddleware",
 
@@ -494,6 +496,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 'core.context_processors.pays_tenant',
+                'core.context_processors.modules_tenant',
                 'notifications.context_processors.notifications',
             ],
         },
