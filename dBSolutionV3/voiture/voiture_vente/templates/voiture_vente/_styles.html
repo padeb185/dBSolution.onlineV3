@@ -34,4 +34,29 @@
     .vv-table th { background: #f3f4f6; text-align: left; padding: 6px 8px; border: 1px solid #e5e7eb; }
     .vv-table td { padding: 6px 8px; border: 1px solid #e5e7eb; }
     .vv-table .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    /* Boutons du module (couleurs absentes du CSS Tailwind compilé) */
+    .vv-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 16px; border-radius: 6px; border: 0;
+              font-weight: 600; font-size: .875rem; line-height: 1.25rem; color: #fff; text-decoration: none; cursor: pointer;
+              transition: background-color .15s, box-shadow .15s; }
+    .vv-btn:hover { color: #fff; text-decoration: none; }
+    .vv-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(37,99,235,.35); }
+    .vv-btn-sm { padding: 4px 12px; border-radius: 4px; }
+    .vv-btn-lg { padding: 8px 24px; font-size: 1rem; }
+    .vv-btn-vente { background: #059669; } .vv-btn-vente:hover { background: #047857; }
+    .vv-btn-valider { background: #16a34a; } .vv-btn-valider:hover { background: #15803d; }
+    .vv-btn-bleu { background: #1d4ed8; } .vv-btn-bleu:hover { background: #1e40af; }
+    .vv-btn-pdf { background: #374151; } .vv-btn-pdf:hover { background: #1f2937; }
+    .vv-btn-rouge { background: #b91c1c; } .vv-btn-rouge:hover { background: #991b1b; }
+    .vv-btn-clair { background: #e5e7eb; color: #111827; } .vv-btn-clair:hover { background: #d1d5db; color: #111827; }
+    .vv-btn:disabled, .vv-btn[disabled] { opacity: .5; cursor: not-allowed; }
+    .vv-btn-vente:disabled:hover { background: #059669; } .vv-btn-valider:disabled:hover { background: #16a34a; }
+    .vv-lien-rouge { color: #b91c1c; font-weight: 600; font-size: .875rem; text-decoration: underline; background: none; border: 0; cursor: pointer; }
+    .vv-lien-rouge:hover { color: #ef4444; }
+    .vv-alerte { margin-bottom: 8px; border: 1px solid; border-radius: 8px; padding: 8px 16px; font-size: .875rem; }
+    .vv-alerte-erreur { border-color: #fca5a5; background: #fef2f2; color: #991b1b; }
+    .vv-alerte-attention { border-color: #fcd34d; background: #fffbeb; color: #78350f; }
+    .vv-alerte-info { border-color: #7dd3fc; background: #f0f9ff; color: #0c4a6e; }
+    .vv-a-encaisser { color: #b45309; font-weight: 600; }
+    .vv-ligne-total { font-weight: 700; background: #eff6ff; }
+    .vv-ligne-clic { cursor: pointer; } .vv-ligne-clic:hover { background: #eff6ff; }
 </style>

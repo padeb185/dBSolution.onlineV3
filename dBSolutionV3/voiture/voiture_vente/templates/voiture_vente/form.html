@@ -7,22 +7,22 @@
 <div class="max-w-4xl mx-auto py-6 px-3">
     <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
         <div class="flex items-center gap-4">
-            {% include "voiture_vente/_icone.html" with classe="w-[56px] h-[56px]" %}
+            {% include "voiture_vente/_icone.html" with classe="w-20 h-20" %}
             <div>
                 <h1 class="text-2xl font-bold">{% if vente %}{% trans "Modifier la vente" %}{% else %}{% trans "Vendre le véhicule" %}{% endif %}</h1>
                 <p class="text-gray-600">{{ exemplaire.voiture_marque }} {{ exemplaire.voiture_modele.nom_modele }} · {{ exemplaire.numero_vin|default:"" }}</p>
             </div>
         </div>
-        {% include "maintenance/partials/plaque.html" with exemplaire=exemplaire %}
+        {% include "maintenance/partials/plaque.html" with exemplaire=exemplaire taille="grande" %}
     </div>
     {% include "voiture_exemplaire/finances/_messages.html" %}
 
     {% if vente and not vente.est_brouillon %}
-    <div class="mb-4 rounded-lg border border-amber-300 bg-amber-50 text-amber-900 px-4 py-3 text-sm">
+    <div class="vv-alerte vv-alerte-attention mb-4">
         {% blocktrans with n=vente.numero %}Facture {{ n }} émise : seuls le paiement et les remarques sont encore modifiables.{% endblocktrans %}
     </div>
     {% endif %}
-    {% if form.non_field_errors %}<div class="mb-4 bg-red-100 text-red-800 border border-red-300 p-3 rounded">{{ form.non_field_errors }}</div>{% endif %}
+    {% if form.non_field_errors %}<div class="vv-alerte vv-alerte-erreur mb-4">{{ form.non_field_errors }}</div>{% endif %}
 
     <form method="post" novalidate>
         {% csrf_token %}
@@ -58,7 +58,7 @@
             {% for e in form.regime_tva.errors %}<p class="vv-msg-erreur">{{ e }}</p>{% endfor %}
             <div class="vv-grille">
                 {% include "voiture_vente/_champ.html" with field=form.montant_saisi unite="€" %}
-                <div class="regime-normal flex items-end pb-2"><label class="vv-coche">{{ form.saisie_tvac }} {{ form.saisie_tvac.label }}</label></div>
+                <div class="regime-normal flex items-end" style="padding-bottom:.5rem"><label class="vv-coche">{{ form.saisie_tvac }} {{ form.saisie_tvac.label }}</label></div>
                 {% include "voiture_vente/_champ.html" with field=form.taux_tva unite="%" classe="regime-taxe" %}
                 {% include "voiture_vente/_champ.html" with field=form.pourcentage_taxable unite="%" classe="regime-normal" %}
                 {% include "voiture_vente/_champ.html" with field=form.prix_achat_marge unite="€" classe="regime-marge" %}
@@ -98,8 +98,8 @@
         </div>
 
         <div class="flex flex-wrap gap-3">
-            <button type="submit" class="bg-green-600 hover:bg-green-500 text-white px-6 py-2 rounded-md font-semibold">{% trans "Enregistrer" %}</button>
-            <a href="{% if vente %}{% url 'voiture_vente:detail' vente.pk %}{% else %}{% url 'voiture_vente:liste' %}{% endif %}" class="bg-gray-300 hover:bg-gray-400 text-black px-6 py-2 rounded-md font-semibold">{% trans "Annuler" %}</a>
+            <button type="submit" class="vv-btn vv-btn-valider vv-btn-lg">{% trans "Enregistrer" %}</button>
+            <a href="{% if vente %}{% url 'voiture_vente:detail' vente.pk %}{% else %}{% url 'voiture_vente:liste' %}{% endif %}" class="vv-btn vv-btn-clair vv-btn-lg">{% trans "Annuler" %}</a>
         </div>
     </form>
 </div>

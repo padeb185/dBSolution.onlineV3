@@ -4,7 +4,7 @@
 {% block content %}
 {% include "voiture_vente/_styles.html" %}
 {% with b=bilan %}
-<div class="max-w-6xl mx-auto py-6 px-3">
+<div class="mx-auto py-6 px-3" style="max-width:72rem">
 
     <!-- En-tête -->
     <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
@@ -18,40 +18,39 @@
                 <p class="text-gray-600">{{ ex.voiture_marque }} {{ ex.voiture_modele.nom_modele }} · {% trans "vendu le" %} {{ vente.date_vente|date:"d/m/Y" }}</p>
             </div>
         </div>
-        {% include "maintenance/partials/plaque.html" with exemplaire=ex %}
+        {% include "maintenance/partials/plaque.html" with exemplaire=ex taille="grande" %}
     </div>
     {% include "voiture_exemplaire/finances/_messages.html" %}
 
     <!-- Actions -->
     <div class="flex flex-wrap gap-2 mb-4">
         {% if not vente.est_annulee %}
-            <a href="{% url 'voiture_vente:modifier' vente.pk %}" class="bg-blue-700 hover:bg-blue-500 text-white px-4 py-2 rounded-md font-semibold text-sm">{% if vente.est_brouillon %}{% trans "Modifier" %}{% else %}{% trans "Paiement / remarques" %}{% endif %}</a>
+            <a href="{% url 'voiture_vente:modifier' vente.pk %}" class="vv-btn vv-btn-bleu">{% if vente.est_brouillon %}{% trans "Modifier" %}{% else %}{% trans "Paiement / remarques" %}{% endif %}</a>
         {% endif %}
         {% if vente.est_brouillon %}
             <form method="post" action="{% url 'voiture_vente:emettre' vente.pk %}" onsubmit="return confirm('{% trans "Émettre la facture ? Elle ne sera plus modifiable et la cession sera comptabilisée." %}');">
                 {% csrf_token %}
                 <button type="submit" {% if bloquant %}disabled title="{% trans 'Corrigez les points bloquants' %}"{% endif %}
-                        class="bg-green-600 hover:bg-green-500 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-md font-semibold text-sm">{% trans "Émettre la facture" %}</button>
+                        class="vv-btn vv-btn-valider">{% trans "Émettre la facture" %}</button>
             </form>
         {% endif %}
-        <a href="{% url 'voiture_vente:pdf' vente.pk 'facture' %}" target="_blank" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-md font-semibold text-sm">PDF {% trans "facture" %}{% if vente.est_brouillon %} ({% trans "brouillon" %}){% endif %}</a>
-        <a href="{% url 'voiture_vente:pdf' vente.pk 'cession' %}" target="_blank" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-md font-semibold text-sm">PDF {% trans "certificat de cession" %}</a>
+        <a href="{% url 'voiture_vente:pdf' vente.pk 'facture' %}" target="_blank" class="vv-btn vv-btn-pdf">PDF {% trans "facture" %}{% if vente.est_brouillon %} ({% trans "brouillon" %}){% endif %}</a>
+        <a href="{% url 'voiture_vente:pdf' vente.pk 'cession' %}" target="_blank" class="vv-btn vv-btn-pdf">PDF {% trans "certificat de cession" %}</a>
         {% if vente.est_annulee %}
-            <a href="{% url 'voiture_vente:pdf' vente.pk 'note-credit' %}" target="_blank" class="bg-red-700 hover:bg-red-600 text-white px-4 py-2 rounded-md font-semibold text-sm">PDF {% trans "note de crédit" %}</a>
+            <a href="{% url 'voiture_vente:pdf' vente.pk 'note-credit' %}" target="_blank" class="vv-btn vv-btn-rouge">PDF {% trans "note de crédit" %}</a>
         {% endif %}
-        <a href="{% url 'voiture_exemplaire:finances_detail' ex.pk %}" class="bg-gray-200 hover:bg-gray-300 text-black px-4 py-2 rounded-md font-semibold text-sm">{% trans "Données financières" %}</a>
-        <a href="{% url 'voiture_vente:liste' %}" class="bg-gray-200 hover:bg-gray-300 text-black px-4 py-2 rounded-md font-semibold text-sm">{% trans "Toutes les ventes" %}</a>
+        <a href="{% url 'voiture_exemplaire:finances_detail' ex.pk %}" class="vv-btn vv-btn-clair">{% trans "Données financières" %}</a>
+        <a href="{% url 'voiture_vente:liste' %}" class="vv-btn vv-btn-clair">{% trans "Toutes les ventes" %}</a>
     </div>
 
     <!-- Alertes -->
     {% for niveau, message in alertes %}
-        <div class="mb-2 rounded-lg border px-4 py-2 text-sm
-            {% if niveau == 'erreur' %}border-red-300 bg-red-50 text-red-800{% elif niveau == 'attention' %}border-amber-300 bg-amber-50 text-amber-900{% else %}border-sky-300 bg-sky-50 text-sky-900{% endif %}">
+        <div class="vv-alerte vv-alerte-{{ niveau }}">
             {% if niveau == 'erreur' %}<strong>{% trans "Bloquant" %} :</strong>{% elif niveau == 'attention' %}<strong>{% trans "Attention" %} :</strong>{% endif %} {{ message }}
         </div>
     {% endfor %}
     {% if vente.est_annulee %}
-        <div class="mb-2 rounded-lg border border-red-300 bg-red-50 text-red-800 px-4 py-2 text-sm">
+        <div class="vv-alerte vv-alerte-erreur">
             {% blocktrans with nc=vente.numero_note_credit d=vente.date_annulation|date:"d/m/Y" %}Vente annulée par la note de crédit {{ nc }} du {{ d }}.{% endblocktrans %}
             {% if vente.motif_annulation %}<br>{{ vente.motif_annulation }}{% endif %}
         </div>
@@ -85,11 +84,11 @@
                 {% else %}
                     <tr><td>{% trans "TVA" %}</td><td class="num">{% trans "exonéré" %}</td></tr>
                 {% endif %}
-                <tr class="font-bold bg-blue-50"><td>{% trans "Total à payer par l'acheteur" %}</td><td class="num">{{ vente.prix_tvac|floatformat:"2g" }} €</td></tr>
+                <tr class="vv-ligne-total"><td>{% trans "Total à payer par l'acheteur" %}</td><td class="num">{{ vente.prix_tvac|floatformat:"2g" }} €</td></tr>
             </table>
             {% if vente.mention_legale %}<p class="vv-aide mt-2">{{ vente.mention_legale }}</p>{% endif %}
             <p class="text-sm mt-2">{% trans "Paiement" %} : {{ vente.get_mode_paiement_display }} –
-                {% if vente.date_paiement %}{% trans "encaissé le" %} {{ vente.date_paiement|date:"d/m/Y" }}{% else %}<span class="text-amber-700 font-semibold">{% trans "à encaisser" %}</span>{% endif %}</p>
+                {% if vente.date_paiement %}{% trans "encaissé le" %} {{ vente.date_paiement|date:"d/m/Y" }}{% else %}<span class="vv-a-encaisser">{% trans "à encaisser" %}</span>{% endif %}</p>
         </div>
     </div>
 
@@ -113,7 +112,7 @@
                 <tr><td>− {% trans "Produit de la vente" %}</td><td class="num">{{ b.produit|floatformat:"2g" }} €</td></tr>
                 <tr class="font-semibold"><td>{% trans "Coût net" %}</td><td class="num">{{ b.cout_net|floatformat:"2g" }} €</td></tr>
                 <tr><td>− {% trans "Revenus des locations" %} ({{ b.rent.locations.nb }})</td><td class="num">{{ b.revenus|floatformat:"2g" }} €</td></tr>
-                <tr class="font-bold bg-blue-50"><td>{% trans "Résultat global" %}</td><td class="num {% if b.resultat >= 0 %}vv-pos{% else %}vv-neg{% endif %}">{{ b.resultat|floatformat:"2g" }} €</td></tr>
+                <tr class="vv-ligne-total"><td>{% trans "Résultat global" %}</td><td class="num {% if b.resultat >= 0 %}vv-pos{% else %}vv-neg{% endif %}">{{ b.resultat|floatformat:"2g" }} €</td></tr>
             </table>
             <table class="vv-table">
                 <tr><td>{% trans "Détention" %}</td><td class="num">{{ b.debut|date:"d/m/Y" }} → {{ vente.date_vente|date:"d/m/Y" }}{% if b.mois is not None %} ({{ b.mois }} {% trans "mois" %}){% endif %}</td></tr>
@@ -176,13 +175,13 @@
             {% csrf_token %}
             {% include "voiture_vente/_champ.html" with field=form_annulation.date_annulation %}
             {% include "voiture_vente/_champ.html" with field=form_annulation.motif classe="vv-large" %}
-            <div><button type="submit" class="bg-red-700 hover:bg-red-600 text-white px-4 py-2 rounded-md font-semibold text-sm">{% trans "Émettre la note de crédit" %}</button></div>
+            <div><button type="submit" class="vv-btn vv-btn-rouge">{% trans "Émettre la note de crédit" %}</button></div>
         </form>
     </details>
     {% elif vente.est_brouillon and peut_supprimer %}
     <form method="post" action="{% url 'voiture_vente:supprimer' vente.pk %}" onsubmit="return confirm('{% trans "Supprimer ce brouillon de vente ?" %}');">
         {% csrf_token %}
-        <button type="submit" class="text-red-700 hover:text-red-500 font-semibold text-sm underline">{% trans "Supprimer le brouillon" %}</button>
+        <button type="submit" class="vv-lien-rouge">{% trans "Supprimer le brouillon" %}</button>
     </form>
     {% endif %}
 </div>

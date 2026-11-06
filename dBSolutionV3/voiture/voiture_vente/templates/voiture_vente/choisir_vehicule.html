@@ -25,11 +25,11 @@
             {% for v in vehicules %}
                 <tr data-texte="{{ v.voiture_marque }} {{ v.voiture_modele.nom_modele }} {{ v.immatriculation }} {{ v.numero_vin }}">
                     <td>{{ v.voiture_marque }} {{ v.voiture_modele.nom_modele }}</td>
-                    <td class="font-mono">{{ v.immatriculation|default:"—" }}</td>
+                    <td>{% if v.immatriculation %}{% include "maintenance/partials/plaque.html" with exemplaire=v taille="petite" %}{% else %}—{% endif %}</td>
                     <td>{{ v.get_type_utilisation_display|default:"—" }}</td>
                     <td class="num">{{ v.kilometres_chassis|default:0|milliers }} km</td>
                     <td class="num">{% if v.valeur_revente %}{{ v.valeur_revente|floatformat:"2g" }} €{% else %}—{% endif %}</td>
-                    <td><a href="?exemplaire={{ v.pk }}" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded text-sm font-semibold">{% trans "Vendre" %}</a></td>
+                    <td><a href="?exemplaire={{ v.pk }}" class="vv-btn vv-btn-vente vv-btn-sm">{% trans "Vendre" %}</a></td>
                 </tr>
             {% endfor %}
             </tbody>
