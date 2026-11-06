@@ -137,6 +137,11 @@ def dashboard_view(request):
 
     schema_name = getattr(societe, "schema_name", None)
 
+    # Tenant des particuliers : la direction arrive sur la gestion des comptes de l'application
+    from django.conf import settings as _settings
+    if schema_name == getattr(_settings, "PARTICULIERS_SCHEMA", "particuliers"):
+        return redirect("particulier_admin:tableau")
+
     # --- Stats initialisées à zéro ---
     total_carburant = 0
     total_adblue = 0

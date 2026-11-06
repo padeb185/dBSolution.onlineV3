@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Particuliers" %}{% endblock %}
+{% block content %}
+{% include "particulier/admin/_styles.html" %}
+<div class="mx-auto py-6 px-3" style="max-width:72rem">
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <div>
+            <h1 class="text-2xl font-bold">{% trans "Particuliers – administration" %}</h1>
+            <p class="text-gray-600">{% trans "Comptes de l'application CarsCosts (iPhone, Android, Mac, Windows)" %}</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+            <a href="{% url 'particulier_admin:monitoring' %}" class="pa-btn pa-btn-bleu">{% trans "Monitoring du serveur" %}</a>
+            {% if request.user.is_staff %}
+            <a href="{% url 'admin:index' %}" class="pa-btn pa-btn-clair">{% trans "Admin Django" %}</a>
+            {% endif %}
+        </div>
+    </div>
+    {% include "partials/messages.html" %}
+
+    <dl class="pa-kpi">
+        <div><dt>{% trans "Comptes" %}</dt><dd>{{ stats.comptes }} <small>({{ stats.actifs }} {% trans "actifs" %})</small></dd></div>
+        <div><dt>{% trans "Nouveaux (30 jours)" %}</dt><dd>{{ stats.nouveaux_30j }}</dd></div>
+        <div><dt>{% trans "Véhicules" %}</dt><dd>{{ stats.vehicules }}</dd></div>
+        <div><dt>{% trans "Pleins" %}</dt><dd>{{ stats.pleins }} <small>({{ stats.pleins_30j }} {% trans "en 30 jours" %})</small></dd></div>
+        <div><dt>{% trans "Entretiens" %}</dt><dd>{{ stats.entretiens }}</dd></div>
+        <div><dt>{% trans "Documents" %}</dt><dd>{{ stats.documents }}</dd></div>
+        <div><dt>{% trans "Rappels actifs" %}</dt><dd>{{ stats.rappels_actifs }}</dd></div>
+    </dl>
+
+    <div class="pa-carte">
+        <form method="get" class="flex flex-wrap gap-3 mb-4">
+            <input type="search" name="q" value="{{ q }}" placeholder="{% trans 'Email, nom, prénom…' %}" class="pa-champ" style="flex:1;min-width:220px">
+            <select name="etat" class="pa-champ" onchange="this.form.submit()">
+                <option value="">{% trans "Tous les comptes" %}</option>
+                <option value="actifs" {% if etat == "actifs" %}selected{% endif %}>{% trans "Actifs" %}</option>
+                <option value="desactives" {% if etat == "desactives" %}selected{% endif %}>{% trans "Désactivés" %}</option>
+            </select>
+            <button class="pa-btn pa-btn-bleu" type="submit">{% trans "Rechercher" %}</button>
+        </form>
+        <div class="overflow-x-auto">
+        <table class="pa-table">
+            <thead><tr>
+                <th>{% trans "Nom" %}</th><th>{% trans "Email" %}</th><th>{% trans "Inscrit le" %}</th>
+                <th>{% trans "Dernière activité" %}</th><th class="num">{% trans "Véhicules" %}</th><th>{% trans "Statut" %}</th>
+            </tr></thead>
+            <tbody>
+            {% for u in page %}
+                <tr class="pa-ligne" onclick="window.location='{% url 'particulier_admin:compte' u.pk %}'">
+                    <td>{{ u.prenom }} {{ u.nom }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>{{ u.created_at|date:"d/m/Y" }}</td>
+                    <td>{{ u.derniere_activite|date:"d/m/Y H:i"|default:"—" }}</td>
+                    <td class="num">{{ u.nb_vehicules }}</td>
+                    <td>{% if u.is_active %}<span class="pa-badge pa-actif">{% trans "Actif" %}</span>{% else %}<span class="pa-badge pa-inactif">{% trans "Désactivé" %}</span>{% endif %}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="6" class="pa-aide">{% trans "Aucun compte." %}</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        {% if page.has_other_pages %}
+        <div class="flex gap-3 items-center mt-3 text-sm">
+            {% if page.has_previous %}<a class="pa-btn pa-btn-clair" href="?page={{ page.previous_page_number }}&q={{ q|urlencode }}&etat={{ etat }}">‹</a>{% endif %}
+            <span>{% blocktrans with n=page.number total=page.paginator.num_pages %}Page {{ n }} sur {{ total }}{% endblocktrans %}</span>
+            {% if page.has_next %}<a class="pa-btn pa-btn-clair" href="?page={{ page.next_page_number }}&q={{ q|urlencode }}&etat={{ etat }}">›</a>{% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

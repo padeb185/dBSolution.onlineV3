@@ -1,7 +1,5 @@
-import shutil
 from datetime import date
 
-from django.conf import settings
 from django.db import transaction
 from django.shortcuts import get_object_or_404
 from django_tenants.utils import get_public_schema_name, schema_context
@@ -13,6 +11,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .. import calculs
+from ..comptes import supprimer_compte
 from ..models import Depense, Document, Entretien, Plein, Rappel, ReleveKilometrique, Vehicule
 from . import serializers as S
 from .base import (ROLE_PARTICULIER, LimiteConnexion, SchemaParticuliersMixin, schema_particuliers,
@@ -23,6 +22,8 @@ from .base import (ROLE_PARTICULIER, LimiteConnexion, SchemaParticuliersMixin, s
 # COMPTES
 # ==================================================================
 def _reponse_connexion(user, statut=status.HTTP_200_OK):
+    from .base import noter_activite
+    noter_activite(user)
     token, _c = Token.objects.get_or_create(user=user)
     return Response({"token": token.key, "utilisateur": S.UtilisateurSerializer(user).data}, status=statut)
 
@@ -92,12 +93,7 @@ class MoiView(SchemaParticuliersMixin, APIView):
         user = request.user
         if not user.check_password(request.data.get("password") or ""):
             return Response({"detail": "Mot de passe incorrect."}, status=status.HTTP_400_BAD_REQUEST)
-        with transaction.atomic():
-            Vehicule.objects.filter(proprietaire=user).delete()
-            Token.objects.filter(user=user).delete()
-            dossier = settings.MEDIA_ROOT / "particuliers" / str(user.pk)
-            user.delete()
-        shutil.rmtree(dossier, ignore_errors=True)
+        supprimer_compte(user)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 

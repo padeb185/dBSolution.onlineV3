@@ -180,7 +180,7 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
             Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: DropdownButtonFormField<String>(
-                value: _energie,
+                initialValue: _energie,
                 decoration: const InputDecoration(labelText: 'Énergie', border: OutlineInputBorder()),
                 items: [for (final e in energies.entries) DropdownMenuItem(value: e.key, child: Text(e.value))],
                 onChanged: (v) => setState(() => _energie = v ?? 'essence'),
@@ -189,7 +189,7 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
             Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: DropdownButtonFormField<String>(
-                value: _pays,
+                initialValue: _pays,
                 decoration: const InputDecoration(labelText: 'Pays d\'immatriculation', border: OutlineInputBorder()),
                 items: const [
                   DropdownMenuItem(value: 'BE', child: Text('Belgique')),

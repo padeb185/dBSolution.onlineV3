@@ -46,6 +46,22 @@ class SchemaParticuliersMixin:
         with schema_context(schema_particuliers()):
             return super().dispatch(request, *args, **kwargs)
 
+    def initial(self, request, *args, **kwargs):
+        super().initial(request, *args, **kwargs)
+        noter_activite(request.user)
+
+
+def noter_activite(user):
+    """Dernière utilisation de l'application (last_login), au plus une écriture toutes les 10 minutes."""
+    from datetime import timedelta
+    from django.utils import timezone
+    if not getattr(user, "is_authenticated", False):
+        return
+    maintenant = timezone.now()
+    if user.last_login is None or maintenant - user.last_login > timedelta(minutes=10):
+        type(user).objects.filter(pk=user.pk).update(last_login=maintenant)
+        user.last_login = maintenant
+
 
 def servir_fichier(champ):
     """Fichier privé (ticket, document) : uniquement via l'API, après contrôle du propriétaire."""

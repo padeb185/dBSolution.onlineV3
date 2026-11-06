@@ -16,6 +16,8 @@ from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from utilisateurs.models import Utilisateur
+
 ZERO = Decimal("0.00")
 
 
@@ -234,3 +236,13 @@ class Depense(models.Model):
         verbose_name = _("Dépense")
         verbose_name_plural = _("Dépenses")
         ordering = ["-date"]
+
+
+
+class CompteParticulier(Utilisateur):
+    """Comptes de l'application (rôle « particulier ») pour l'admin Django – modèle proxy, sans table."""
+
+    class Meta:
+        proxy = True
+        verbose_name = _("Compte particulier")
+        verbose_name_plural = _("Comptes particuliers")

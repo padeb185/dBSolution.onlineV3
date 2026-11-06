@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ compte.prenom }} {{ compte.nom }}{% endblock %}
+{% block content %}
+{% include "particulier/admin/_styles.html" %}
+<div class="mx-auto py-6 px-3" style="max-width:72rem">
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <div>
+            <h1 class="text-2xl font-bold">{{ compte.prenom }} {{ compte.nom }}
+                {% if compte.is_active %}<span class="pa-badge pa-actif">{% trans "Actif" %}</span>{% else %}<span class="pa-badge pa-inactif">{% trans "Désactivé" %}</span>{% endif %}
+            </h1>
+            <p class="text-gray-600">{{ compte.email }} · {% trans "inscrit le" %} {{ compte.created_at|date:"d/m/Y" }}
+                {% if compte.last_login %}· {% trans "dernière connexion" %} {{ compte.last_login|date:"d/m/Y H:i" }}{% endif %}</p>
+        </div>
+        <a href="{% url 'particulier_admin:tableau' %}" class="pa-btn pa-btn-clair">{% trans "Tous les comptes" %}</a>
+    </div>
+    {% include "partials/messages.html" %}
+
+    <div class="pa-carte">
+        <h2 class="text-lg font-semibold mb-3">{% trans "Véhicules" %} ({{ vehicules|length }})</h2>
+        <div class="overflow-x-auto">
+        <table class="pa-table">
+            <thead><tr>
+                <th>{% trans "Véhicule" %}</th><th>{% trans "Immatriculation" %}</th><th>{% trans "VIN" %}</th>
+                <th class="num">{% trans "Kilométrage" %}</th><th class="num">{% trans "Pleins" %}</th><th class="num">{% trans "Entretiens" %}</th>
+                <th class="num">{% trans "Documents" %}</th><th class="num">{% trans "Rappels" %}</th>
+            </tr></thead>
+            <tbody>
+            {% for v in vehicules %}
+                <tr>
+                    <td>{{ v.marque }} {{ v.modele }} {{ v.version }}{% if v.archive %} <em>({% trans "vendu" %})</em>{% endif %}</td>
+                    <td>{{ v.immatriculation|default:"—" }}</td>
+                    <td style="font-family:monospace">{{ v.vin|default:"—" }}</td>
+                    <td class="num">{{ v.kilometrage_actuel|milliers }} km</td>
+                    <td class="num">{{ v.nb_pleins }}</td><td class="num">{{ v.nb_entretiens }}</td>
+                    <td class="num">{{ v.nb_documents }}</td><td class="num">{{ v.nb_rappels }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="8" class="pa-aide">{% trans "Aucun véhicule." %}</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        <p class="pa-aide mt-2">{% blocktrans with n=nb_depenses %}{{ n }} autre(s) dépense(s) encodée(s).{% endblocktrans %}</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-4">
+        <div class="pa-carte">
+            <h2 class="text-lg font-semibold mb-3">{% trans "Derniers documents" %}</h2>
+            <table class="pa-table">
+                {% for d in documents %}
+                <tr>
+                    <td>{{ d.get_type_display }}{% if d.titre %} – {{ d.titre }}{% endif %}<br><span class="pa-aide">{{ d.vehicule }}</span></td>
+                    <td>{{ d.date_expiration|date:"d/m/Y"|default:"" }}</td>
+                    <td>{% if d.fichier %}<a href="{% url 'particulier_admin:fichier' 'document' d.pk 'fichier' %}" target="_blank" class="text-blue-700 underline">{% trans "Fichier" %}</a>{% endif %}</td>
+                </tr>
+                {% empty %}<tr><td class="pa-aide">{% trans "Aucun document." %}</td></tr>{% endfor %}
+            </table>
+        </div>
+        <div class="pa-carte">
+            <h2 class="text-lg font-semibold mb-3">{% trans "Derniers pleins" %}</h2>
+            <table class="pa-table">
+                {% for p in pleins %}
+                <tr>
+                    <td>{{ p.date|date:"d/m/Y" }}<br><span class="pa-aide">{{ p.vehicule }}</span></td>
+                    <td class="num">{{ p.quantite|floatformat:"2g" }} · {{ p.montant|floatformat:"2g" }} €</td>
+                    <td>{% if p.ticket %}<a href="{% url 'particulier_admin:fichier' 'plein' p.pk 'ticket' %}" target="_blank" class="text-blue-700 underline">{% trans "Ticket" %}</a>{% endif %}</td>
+                </tr>
+                {% empty %}<tr><td class="pa-aide">{% trans "Aucun plein." %}</td></tr>{% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <div class="pa-carte">
+        <h2 class="text-lg font-semibold mb-3">{% trans "Actions sur le compte" %}</h2>
+        <form method="post" action="{% url 'particulier_admin:compte_activer' compte.pk %}" class="mb-4">
+            {% csrf_token %}
+            {% if compte.is_active %}
+                <input type="hidden" name="actif" value="0">
+                <button class="pa-btn pa-btn-orange" type="submit">{% trans "Désactiver le compte" %}</button>
+                <span class="pa-aide">{% trans "L'utilisateur est déconnecté et ne peut plus se connecter ; ses données sont conservées." %}</span>
+            {% else %}
+                <input type="hidden" name="actif" value="1">
+                <button class="pa-btn pa-btn-vert" type="submit">{% trans "Réactiver le compte" %}</button>
+            {% endif %}
+        </form>
+        <form method="post" action="{% url 'particulier_admin:compte_supprimer' compte.pk %}" class="flex flex-wrap items-center gap-3"
+              onsubmit="return confirm('{% trans "Supprimer définitivement ce compte et toutes ses données ?" %}');">
+            {% csrf_token %}
+            <input type="text" name="confirmation" class="pa-champ" placeholder="{% trans "Recopiez l'email pour confirmer" %}" style="min-width:280px">
+            <button class="pa-btn pa-btn-rouge" type="submit">{% trans "Supprimer le compte et ses données" %}</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

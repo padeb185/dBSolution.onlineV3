@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load i18n static monitoring_tags %}
+
+{% block title %}{% trans "Monitoring – particuliers" %}{% endblock %}
+
+{% block content %}
+{% include "particulier/admin/_styles.html" %}
+<div class="mx-auto py-6 px-3" style="max-width:80rem">
+<div class="flex flex-wrap justify-between items-center gap-4 mb-2">
+    <div>
+        <h1 class="text-2xl font-bold">{% trans "Monitoring du serveur" %}</h1>
+        <p class="text-gray-600">{% trans "Serveur et trafic de l'application des particuliers" %} · <span class="font-mono">{{ schema }}</span></p>
+    </div>
+    <div class="flex flex-wrap gap-2">
+        <a href="{% url 'particulier_admin:tableau' %}" class="pa-btn pa-btn-clair">{% trans "Comptes" %}</a>
+        {% if request.user.is_superuser %}<a href="{% url 'monitoring:tableau' %}" class="pa-btn pa-btn-clair">{% trans "Monitoring de tous les tenants" %}</a>{% endif %}
+    </div>
+</div>
+<div class="mb-6">{% include "monitoring/_periodes.html" %}</div>
+
+{% if alertes %}
+<div class="mb-6 rounded-lg px-4 py-3" style="border:1px solid #fca5a5;background:#fef2f2;color:#7f1d1d">
+    <strong>{% trans "Alertes" %} :</strong>
+    <ul class="list-disc ml-6">{% for a in alertes %}<li>{{ a }}</li>{% endfor %}</ul>
+</div>
+{% endif %}
+{% if not etat.systeme.psutil and etat.cpu is None %}
+<div class="mb-6 rounded-lg px-4 py-3 text-sm" style="border:1px solid #fcd34d;background:#fffbeb;color:#78350f">
+    {% trans "Mesures système indisponibles sur cette machine : installez psutil (pip install psutil) pour les obtenir hors Linux." %}
+</div>
+{% endif %}
+
+<!-- ================= Serveur ================= -->
+<h2 class="text-xl font-semibold mb-3">{% trans "Serveur" %} <span class="text-sm font-normal text-gray-500">{{ etat.systeme.hote }} · {{ etat.systeme.os }}</span></h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+    {% blocktrans asvar d_cpu with n=etat.systeme.cpu_coeurs %}{{ n }} cœurs{% endblocktrans %}
+    {% include "monitoring/_jauge.html" with titre=_("CPU") cle="cpu" valeur=etat.cpu seuils="70,85" detail=d_cpu %}
+    {% blocktrans asvar d_ram with u=etat.memoire.utilisee|filesizeformat t=etat.memoire.total|filesizeformat %}{{ u }} utilisés sur {{ t }}{% endblocktrans %}
+    {% include "monitoring/_jauge.html" with titre=_("Mémoire (RAM)") cle="ram" valeur=etat.memoire.pourcent seuils="75,90" detail=d_ram %}
+    {% blocktrans asvar d_swap with u=etat.memoire.swap_utilisee|filesizeformat t=etat.memoire.swap_total|filesizeformat %}{{ u }} sur {{ t }}{% endblocktrans %}
+    {% include "monitoring/_jauge.html" with titre=_("Swap") cle="swap" valeur=etat.memoire.swap_pourcent seuils="25,50" detail=d_swap %}
+    {% blocktrans asvar d_disque with l=etat.disque.libre|filesizeformat t=etat.disque.total|filesizeformat %}{{ l }} libres sur {{ t }}{% endblocktrans %}
+    {% include "monitoring/_jauge.html" with titre=_("Disque") cle="disque" valeur=etat.disque.pourcent seuils="75,85" detail=d_disque %}
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+    {% blocktrans asvar v_charge with a=etat.charge.1|default_if_none:"—" b=etat.charge.5|default_if_none:"—" c=etat.charge.15|default_if_none:"—" %}{{ a }} / {{ b }} / {{ c }}{% endblocktrans %}
+    {% include "monitoring/_carte.html" with titre=_("Charge 1 / 5 / 15 min") cle="charge" valeur=v_charge detail=d_cpu %}
+    {% include "monitoring/_carte.html" with titre=_("Mémoire de l'application") cle="app-memoire" valeur=etat.app_memoire|filesizeformat detail=_("gunicorn / daphne, tous les workers") %}
+    {% include "monitoring/_carte.html" with titre=_("Démarré depuis") valeur=etat.systeme.uptime|duree_humaine %}
+    {% include "monitoring/_carte.html" with titre=_("Base de données") valeur=base.taille|filesizeformat detail=base.version %}
+    {% blocktrans asvar d_cnx with a=base.actives m=base.max_connexions %}{{ a }} actives · max {{ m }}{% endblocktrans %}
+    {% include "monitoring/_carte.html" with titre=_("Connexions PostgreSQL") valeur=base.connexions detail=d_cnx %}
+    {% if media.fichiers is not None %}{% blocktrans asvar d_media with n=media.fichiers %}{{ n }} fichiers{% endblocktrans %}{% else %}{% trans "dossier media absent" as d_media %}{% endif %}
+    {% include "monitoring/_carte.html" with titre=_("Fichiers (media)") valeur=media.taille|filesizeformat detail=d_media %}
+</div>
+
+<!-- ================= Application des particuliers ================= -->
+<h2 class="text-xl font-semibold mb-3">{% trans "Application des particuliers" %}</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+    {% include "monitoring/_carte.html" with titre=_("Comptes actifs (24 h)") valeur=comptes_actifs_24h detail=_("ont utilisé l'application") classe="text-green-700" %}
+    {% blocktrans asvar t_req with p=periode.libelle %}Requêtes ({{ p }}){% endblocktrans %}
+    {% blocktrans asvar d_req with p=part_requetes %}{{ p }} % du trafic du serveur{% endblocktrans %}
+    {% include "monitoring/_carte.html" with titre=t_req valeur=trafic.requetes detail=d_req %}
+    {% if trafic.duree_moyenne is not None %}{% blocktrans asvar v_duree with m=trafic.duree_moyenne %}{{ m }} ms{% endblocktrans %}{% else %}{% trans "—" as v_duree %}{% endif %}
+    {% blocktrans asvar d_duree with m=trafic.duree_ms_max %}max {{ m }} ms{% endblocktrans %}
+    {% include "monitoring/_carte.html" with titre=_("Temps de réponse moyen") valeur=v_duree detail=d_duree %}
+    {% blocktrans asvar v_part with p=part_charge %}{{ p }} %{% endblocktrans %}
+    {% include "monitoring/_carte.html" with titre=_("Part de la charge du serveur") valeur=v_part detail=_("temps de traitement des requêtes") %}
+    {% include "monitoring/_carte.html" with titre=_("Erreurs serveur (5xx)") valeur=trafic.erreurs_5xx|default:0 classe=trafic.erreurs_5xx|yesno:"text-red-700," detail=_("API et pages d'administration") %}
+    {% if db %}{% blocktrans asvar d_db with n=db.lignes t=db.tables %}~{{ n }} lignes dans {{ t }} tables{% endblocktrans %}{% endif %}
+    {% include "monitoring/_carte.html" with titre=_("Taille des données") valeur=db.taille|filesizeformat detail=d_db %}
+</div>
+
+<div class="pa-carte">
+    <h3 class="font-semibold mb-2">{% trans "Trafic de l'application" %}</h3>
+    <table class="pa-table">
+        <thead><tr><th></th><th class="num">{% trans "Requêtes" %}</th><th class="num">{% trans "Temps moyen" %}</th><th class="num">{% trans "Max" %}</th><th class="num">{% trans "4xx" %}</th><th class="num">{% trans "5xx" %}</th></tr></thead>
+        <tbody>
+        {% for code, r in resume.items %}
+        <tr>
+            <td><strong>{% if code == "1h" %}{% trans "1 heure" %}{% elif code == "24h" %}{% trans "24 heures" %}{% else %}{% trans "7 jours" %}{% endif %}</strong></td>
+            <td class="num">{{ r.requetes|default:0 }}</td>
+            <td class="num">{% if r.duree_moyenne is not None %}{{ r.duree_moyenne }} ms{% else %}—{% endif %}</td>
+            <td class="num">{% if r.duree_ms_max %}{{ r.duree_ms_max }} ms{% else %}—{% endif %}</td>
+            <td class="num">{{ r.erreurs_4xx|default:0 }}</td>
+            <td class="num" {% if r.erreurs_5xx %}style="color:#b91c1c;font-weight:700"{% endif %}>{{ r.erreurs_5xx|default:0 }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p class="pa-aide mt-2">{% trans "Les requêtes de l'application (API /api/v1/) sont comptées dans le tenant des particuliers. Les 4xx comprennent les jetons expirés et les formulaires refusés." %}</p>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <div class="pa-carte"><h3 class="font-semibold mb-2">{% trans "CPU, mémoire et disque (%)" %}</h3><div style="height:260px"><canvas id="g-serveur"></canvas></div></div>
+    <div class="pa-carte"><h3 class="font-semibold mb-2">{% trans "Requêtes et erreurs de l'application" %}</h3><div style="height:260px"><canvas id="g-trafic"></canvas></div></div>
+    <div class="pa-carte lg:col-span-2"><h3 class="font-semibold mb-2">{% trans "Temps de réponse moyen de l'application (ms)" %}</h3><div style="height:260px"><canvas id="g-duree"></canvas></div></div>
+</div>
+
+<!-- ================= Processus et système ================= -->
+<div class="pa-carte">
+    <h3 class="font-semibold mb-3">{% trans "Processus" %}</h3>
+    <table class="pa-table mb-4">
+        <thead><tr><th>{% trans "Service" %}</th><th class="num">{% trans "Processus" %}</th><th class="num">{% trans "Mémoire" %}</th></tr></thead>
+        <tbody>
+        {% for p in etat.processus %}
+        <tr><td>{{ p.libelle }}</td><td class="num">{{ p.nombre }}</td><td class="num">{{ p.memoire|filesizeformat }}</td></tr>
+        {% empty %}
+        <tr><td colspan="3" class="pa-aide">{% trans "Liste des processus indisponible." %}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <dl class="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+        <dt class="text-gray-600">{% trans "Python" %}</dt><dd>{{ etat.systeme.python }}</dd>
+        <dt class="text-gray-600">{% trans "PostgreSQL" %}</dt><dd>{{ base.version|default:"—" }}</dd>
+        <dt class="text-gray-600">{% trans "Cache PostgreSQL (hit)" %}</dt><dd>{% if base.cache_hit is not None %}{{ base.cache_hit }} %{% else %}—{% endif %}</dd>
+        <dt class="text-gray-600">{% trans "Source des mesures" %}</dt><dd>{% if etat.systeme.psutil %}psutil{% else %}/proc{% endif %}</dd>
+    </dl>
+</div>
+</div>
+
+{{ graphiques|json_script:"graphiques-monitoring" }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+{% url 'particulier_admin:monitoring_api' as url_api %}
+{% include "monitoring/_scripts.html" with url_api=url_api schema=schema %}
+{% endblock %}

@@ -186,6 +186,11 @@ def tenant(request, pk):
 @login_required
 @user_passes_test(is_admin)
 def api(request):
+    return JsonResponse(donnees_api(request))
+
+
+def donnees_api(request):
+    """Mesures instantanées (cartes rafraîchies toutes les 15 s) – aussi utilisées par l'admin des particuliers."""
     etat = etat_serveur(intervalle_cpu=0.2)
     cx = activite.connexions()
     schema = request.GET.get("tenant")
@@ -208,4 +213,4 @@ def api(request):
                 for l in cx["utilisateurs"] if l["schema"] == schema
             ],
         }
-    return JsonResponse(data)
+    return data

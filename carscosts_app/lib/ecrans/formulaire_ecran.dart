@@ -193,7 +193,7 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
         );
       case TypeChamp.choix:
         return DropdownButtonFormField<String>(
-          value: _valeurs[c.nom] as String?,
+          initialValue: _valeurs[c.nom] as String?,
           isExpanded: true,
           decoration: decoration,
           items: [
