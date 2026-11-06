@@ -57,6 +57,7 @@ class TOTPRequiredMiddleware:
         "/media/",
         "/totp/setup/",
         "/i18n/",
+        "/api/",
     )
 
     def __init__(self, get_response):
@@ -167,6 +168,7 @@ class TenantUserAccessMiddleware:
         "/media/",
         "/totp/setup/",
         "/i18n/",
+        "/api/",
     )
 
     def __init__(self, get_response):

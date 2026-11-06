@@ -41,6 +41,8 @@ handler500 = custom_500
 
 urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
+    # API de l'application particuliers (Flutter) – jeton, sans session ni préfixe de langue
+    path("api/v1/", include(("particulier.api.urls", "api_particulier"), namespace="api_particulier")),
 ]
 
 urlpatterns += i18n_patterns(

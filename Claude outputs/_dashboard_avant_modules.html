@@ -1,0 +1,1225 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+{% load i18n_extras %}
+{% load db_translate %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block title %}
+    {% trans "Tableau de bord" %}
+{% endblock %}
+
+{% block content %}
+
+<br>
+
+<h1 class="text-2xl font-bold mb-6">
+    {% trans "Bienvenue sur le tableau de bord" %}
+</h1>
+
+<br>
+<!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mb-3 px-4 py-2 rounded
+                {% if message.tags == 'success' %}
+                    bg-green-100 text-green-800 border border-green-300
+                {% else %}
+                    bg-red-100 text-red-800 border border-red-300
+                {% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+<!-- ================================================== -->
+<!-- CARTES PRINCIPALES -->
+<!-- ================================================== -->
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    <a href="{% url 'utilisateurs:mon_compte' %}"
+       title="{% trans 'Ouvrir mon dashboard utilisateur' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Utilisateur" %}
+            </h2>
+
+            <p class="text-lg font-bold">
+                {{ user_full_name }}
+            </p>
+
+            <p class="text-gray-500 text-sm">
+                {{ role_display }}
+            </p>
+
+            <p class="text-blue-700 text-xs mt-1">
+                {% trans "Mon compte, mot de passe, statistiques" %} →
+            </p>
+        </div>
+
+        <img src="{% static 'icons/equipe.png' %}"
+             alt="{% trans 'Utilisateur' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <a href="{% url 'maintenance:mes_maintenances' %}"
+       title="{% trans 'Voir mes maintenances effectuées' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Maintenance" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Effectuées :" %}
+                <span class="font-bold">
+                    {{ total_maintenances_user }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/gestion-de-projet.png' %}"
+             alt="{% trans 'Maintenance' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/agenda/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Agenda" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Mes maintenances à faire aujourd'hui :" %}
+                <span class="font-bold {% if agenda_a_faire %}text-red-700{% endif %}">{{ agenda_a_faire|default:0 }}</span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/agenda.png' %}"
+             alt="{% trans 'Agenda' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+
+
+</div>
+
+<br>
+
+<!-- ================================================== -->
+<!-- DERNIÈRES ACTIVITÉS -->
+<!-- ================================================== -->
+
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+
+    <h2 class="text-lg font-semibold mb-4">
+        {% trans "Dernières activités" %}
+    </h2>
+
+    <div style="height: 250px; overflow-y: auto;"
+         class="border border-gray-200 rounded-lg">
+
+        <table class="min-w-full border-collapse">
+            <thead>
+                <tr>
+                    <th style="position: sticky; top: 0; background: #f3f4f6; z-index: 10;"
+                        class="border border-gray-200 px-4 py-2 text-left">
+                        {% trans "Date" %}
+                    </th>
+
+                    <th style="position: sticky; top: 0; background: #f3f4f6; z-index: 10;"
+                        class="border border-gray-200 px-4 py-2 text-left">
+                        {% trans "Utilisateur" %}
+                    </th>
+
+                    <th style="position: sticky; top: 0; background: #f3f4f6; z-index: 10;"
+                        class="border border-gray-200 px-4 py-2 text-left">
+                        {% trans "Action" %}
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for log in dernieres_activites %}
+                    <tr>
+                        <td class="border border-gray-200 px-4 py-2">
+                            {{ log.date_action|date:"d/m/Y H:i:s" }}
+                        </td>
+
+                        <td class="border border-gray-200 px-4 py-2">
+                            {{ log.utilisateur.prenom }}
+                            {{ log.utilisateur.nom }}
+
+                            <span class="text-gray-500">
+                                (
+                                {{ log.utilisateur.get_role_display|default:log.utilisateur.role }}
+                                )
+                            </span>
+                        </td>
+
+                        <td class="border border-gray-200 px-4 py-2">
+                            {% if log.immat_plaque %}
+                                {# Texte à gauche, plaque toujours collée à droite de la cellule #}
+                                <div style="display:flex;flex-wrap:nowrap;align-items:center;justify-content:space-between;gap:12px;width:100%">
+                                    <span style="min-width:0;flex:1 1 auto">
+                                        {% if log.avant %}{{ log.avant }}{% endif %}
+                                        {% if log.apres %}<span class="text-gray-600">{{ log.apres }}</span>{% endif %}
+                                    </span>
+                                    <span style="display:flex;flex:0 0 auto;margin-left:auto;line-height:1">
+                                        {% include "maintenance/partials/plaque.html" with immat_plaque=log.immat_plaque pays_plaque=log.pays_plaque taille="petite" %}
+                                    </span>
+                                </div>
+                            {% elif log.avant %}
+                                {{ log.avant }}
+                            {% else %}
+                                {{ log.action|db_trans }}
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                {% empty %}
+                    <tr>
+                        <td colspan="3"
+                            class="border border-gray-200 px-4 py-2 text-center text-gray-500">
+                            {% trans "Aucune activité enregistrée" %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<br>
+<br>
+
+<!-- ================================================== -->
+<!-- SECTION MÉCANICIEN -->
+<!-- ================================================== -->
+
+{% if request.user.role == "mecanicien" or request.user.role == "chef_mecanicien" or request.user.role == "direction" or request.user.role == "magasinier" %}
+
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
+    <img src="{% static 'icons/mecanicien.png' %}"
+         alt="{% trans 'Mécanicien' %}"
+         class="w-[60px] h-[60px] mr-4">
+
+    <h2 class="text-lg font-semibold">
+        {% trans "Mécanicien" %}
+    </h2>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+
+    <!-- Maintenances -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/maintenance/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Maintenances" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_maintenance }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/mecanique.png' %}"
+             alt="{% trans 'Maintenance' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Parking -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/parking/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Parking" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Box occupés :" %}
+                <span class="font-bold">
+                    {{ total_parking_occupes }} / {{ total_parking_box }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/parking.png' %}"
+             alt="{% trans 'Parking' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Carburants -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/fuel/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Carburants" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_carburant }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/pompe-a-essence.png' %}"
+             alt="{% trans 'Carburant' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- AdBlue -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/adblue/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "AdBlue" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_adblue }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/adblue.png' %}"
+             alt="{% trans 'AdBlue' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Recharges électriques -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/recharge/recharge/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Recharges électriques" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_recharge }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/voyage.png' %}"
+             alt="{% trans 'Recharge électrique' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Diagnostics (codes défaut) -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/diagnostic/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Diagnostics" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_diagnostic }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/diagnostic.png' %}"
+             alt="{% trans 'Diagnostic' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+</div>
+
+{% endif %}
+
+<br>
+<br>
+
+<!-- ================================================== -->
+<!-- SECTION CHEF MÉCANICIEN -->
+<!-- ================================================== -->
+
+{% if request.user.role == "chef_mecanicien" or request.user.role == "direction" %}
+
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
+    <img src="{% static 'icons/chef-mecanicien.png' %}"
+         alt="{% trans 'Chef mécanicien' %}"
+         class="w-[60px] h-[60px] mr-4">
+
+    <h2 class="text-lg font-semibold">
+        {% trans "Chef Mécanicien" %}
+    </h2>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+
+    <!-- Voitures -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/marques/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Voitures" %}
+            </h2>
+        </div>
+
+        <img src="{% static 'icons/voiture-de-course.png' %}"
+             alt="{% trans 'Voiture' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Remorques -->
+    <a href="{% url 'voiture_remorque:remorque_list' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">{% trans "Remorques" %}</h2>
+            <p class="text-gray-600 text-sm">{% trans "Plateaux, porte-voitures, essieux, freinage" %}</p>
+        </div>
+        <img src="{% static 'icons/remorque.svg' %}" alt="{% trans 'Remorques' %}" class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Moteurs -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/moteur/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Moteurs" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_moteurs }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/engine.png' %}"
+             alt="{% trans 'Moteur' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Boîtes de vitesses -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/boite/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Boites de vitesses" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_boites }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/boite-de-vitesse.png' %}"
+             alt="{% trans 'Boîte de vitesse' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Embrayages -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/embrayage/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Embrayages" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_embrayages }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/disque-dembrayage.png' %}"
+             alt="{% trans 'Embrayage' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Freins -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/freins/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Freins" %}
+            </h2>
+        </div>
+
+        <img src="{% static 'icons/disque-de-frein.png' %}"
+             alt="{% trans 'Freins' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Pneus -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/pneus/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Pneus" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_pneus }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/pneus.png' %}"
+             alt="{% trans 'Pneus' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Jantes -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/jantes/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Jantes" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_jantes }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/jante.png' %}"
+             alt="{% trans 'Jantes' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Carrosseries -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/carrosserie/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Carrosseries" %}
+            </h2>
+        </div>
+
+        <img src="{% static 'icons/carrosserie.png' %}"
+             alt="{% trans 'Carrosserie' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Maintenances externes (garages officiels) -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/maintenance/externe/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Maintenances externes" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_maintenance_externe }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/entretien.png' %}"
+             alt="{% trans 'Maintenances externes' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Garages officiels -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/garage_officiel/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Garages officiels" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_garage_officiel }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/client_atelier.png' %}"
+             alt="{% trans 'Garages officiels' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+</div>
+
+{% endif %}
+
+<br>
+<br>
+
+<!-- ================================================== -->
+<!-- SECTION MAGASINIER -->
+<!-- ================================================== -->
+
+{% if request.user.role == "chef_mecanicien" or request.user.role == "direction" or request.user.role == "magasinier" %}
+
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
+    <img src="{% static 'icons/magasinier.png' %}"
+         alt="{% trans 'Magasinier' %}"
+         class="w-[60px] h-[60px] mr-4">
+
+    <h2 class="text-lg font-semibold">
+        {% trans "Magasinier" %}
+    </h2>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+
+    <!-- Fournisseurs -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/fournisseurs/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Fournisseurs" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_fournisseur }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/fournisseur.png' %}"
+             alt="{% trans 'Fournisseur' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Achats marchandises -->
+    <a href="{% url 'achat_mds:achat_list' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Achats marchandises" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_achat }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/achatmds.png' %}"
+             alt="{% trans 'Achats marchandises' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Outillages -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/outillage/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Outillages" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_outils }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/outils.png' %}"
+             alt="{% trans 'Outils' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Stock pièces et fluides -->
+    <a href="{% url 'piece:list' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Stock pièces et fluides" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Inventaire, variations de stock" %}
+            </p>
+        </div>
+
+        <img src="{% static 'icons/pieces-de-voiture.png' %}"
+             alt="{% trans 'Stock pièces et fluides' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+</div>
+
+{% endif %}
+
+<br>
+<br>
+
+<!-- ================================================== -->
+<!-- SECTION VENDEUR -->
+<!-- ================================================== -->
+
+{% if request.user.role == "chef_mecanicien" or request.user.role == "direction" or request.user.role == "vendeur" %}
+
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
+    <img src="{% static 'icons/vendeur.png' %}"
+         alt="{% trans 'Vendeur' %}"
+         class="w-[60px] h-[60px] mr-4">
+
+    <h2 class="text-lg font-semibold">
+        {% trans "Vendeur" %}
+    </h2>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+
+    <!-- Clients -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/client_atelier/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Clients" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_client }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/client.png' %}"
+             alt="{% trans 'Client' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Sociétés clientes -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/societe_cliente/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Sociétés clientes" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_societe_cliente }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/societe_cliente.png' %}"
+             alt="{% trans 'Société cliente' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Adresses -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/adresse/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Adresses" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_adresse }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/adresse.png' %}"
+             alt="{% trans 'Adresses' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Locations (circuit / route) -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/location/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Locations" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_location }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/location.png' %}"
+             alt="{% trans 'Location' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Trackdays -->
+    <a href="{% url 'voiture_location:trackday_liste' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Trackdays" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">{{ total_trackday|default:0 }}</span>
+            </p>
+            <p class="text-gray-600 text-sm">
+                {% trans "À venir :" %}
+                <span class="font-bold">{{ trackdays_a_venir|default:0 }}</span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/trackday.png' %}"
+             alt="{% trans 'Trackdays' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Ventes détails (locations : HTVA / TVA / TVAC) -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/location/ventes/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Ventes détails" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Total TVA (année) :" %}
+                <span class="font-bold">
+                    {{ ventes_tva_annee|floatformat:"2g" }} €
+                </span>
+            </p>
+            <p class="text-gray-600 text-sm">
+                {% trans "Total TVAC (année) :" %}
+                <span class="font-bold">
+                    {{ ventes_tvac_annee|floatformat:"2g" }} €
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/ventes_details.png' %}"
+             alt="{% trans 'Ventes détails' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Factures des locations (vendeur : consultation, émission et encaissement) -->
+    {% if request.user.role == "vendeur" %}
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/facture/liste/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">{% trans "Factures des locations" %}</h2>
+            <p class="text-gray-600 text-sm">{% trans "Consultation, émission et encaissement" %}</p>
+        </div>
+        {% include "facture/_icone.html" with classe="w-[60px] h-[60px]" %}
+    </a>
+    {% endif %}
+
+    <!-- Statistiques des ventes par vendeur : direction uniquement -->
+    {% if request.user.role == "direction" or request.user.is_superuser %}
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/location/statistiques/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Statistiques" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Ventes par vendeur" %}
+            </p>
+        </div>
+
+        <img src="{% static 'icons/statistiques_ventes.png' %}"
+             alt="{% trans 'Statistiques' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+    {% endif %}
+
+    <!-- Mes statistiques : ventes de l'utilisateur connecté -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/location/mes-statistiques/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Mes statistiques" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Mes ventes" %}
+            </p>
+        </div>
+
+        <img src="{% static 'icons/mes_statistiques.png' %}"
+             alt="{% trans 'Mes statistiques' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+</div>
+
+{% endif %}
+
+<br>
+<br>
+
+<!-- ================================================== -->
+<!-- SECTION DIRECTION -->
+<!-- ================================================== -->
+
+{% if request.user.role == "direction" %}
+
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
+    <img src="{% static 'icons/directeur.png' %}"
+         alt="{% trans 'Direction' %}"
+         class="w-[60px] h-[60px] mr-4">
+
+    <h2 class="text-lg font-semibold">
+        {% trans "Direction" %}
+    </h2>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+
+    <!-- Assurances -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/assurance/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Assurances" %}
+            </h2>
+        </div>
+
+        <img src="{% static 'icons/assurance-voiture.png' %}"
+             alt="{% trans 'Assurance' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Main d'œuvre -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/maindoeuvre/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Main d'oeuvre" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_main }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/main-doeuvre.png' %}"
+             alt="{% trans "Main d'oeuvre" %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Reversements aux propriétaires (locations de véhicules à plusieurs propriétaires) -->
+    <a href="{% url 'voiture_location:reversements_liste' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">{% trans "Reversements aux propriétaires" %}</h2>
+            <p class="text-gray-600 text-sm">
+                {% trans "À reverser :" %}
+                <span class="font-bold">{{ total_a_reverser|default:0|floatformat:"2g" }} €</span>
+            </p>
+        </div>
+        <img src="{% static 'icons/proprietaire.png' %}" alt="{% trans 'Reversements aux propriétaires' %}" class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Conditions générales de vente (atelier / location), imprimées sur les factures -->
+    <a href="{% url 'facture:conditions_generales' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">{% trans "Conditions générales de vente" %}</h2>
+            <p class="text-gray-600 text-sm">{% trans "Atelier · Location" %}</p>
+        </div>
+        {% include "facture/_icone.html" with classe="w-[60px] h-[60px]" %}
+    </a>
+
+    <!-- Propriétaires -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/proprietaire/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Propriétaires" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_proprietaire }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/proprietaire.png' %}"
+             alt="{% trans 'Propriétaire' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Créer utilisateur -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/creer/"
+       class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Créer un utilisateur" %}
+            </h2>
+
+            <p>
+                {% trans "Ajouter un nouvel employé" %}
+            </p>
+        </div>
+
+        <img src="{% static 'icons/mecanicien.png' %}"
+             alt="{% trans 'Utilisateur' %}"
+             class="w-[60px] h-[60px] mr-[10px]">
+    </a>
+
+    <!-- Liste utilisateurs -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/admin/utilisateurs/"
+       class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Liste des utilisateurs" %}
+            </h2>
+        </div>
+
+        <img src="{% static 'icons/equipe.png' %}"
+             alt="{% trans 'Utilisateur' %}"
+             class="w-[60px] h-[60px] mr-[10px]">
+    </a>
+
+    <!-- Paies mensuelles -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/paie/"
+       class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Paies mensuelles" %}
+            </h2>
+        </div>
+
+        <img src="{% static 'icons/paie.png' %}"
+             alt="{% trans 'Paies mensuelles' %}"
+             class="w-[60px] h-[60px] mr-[10px]">
+    </a>
+
+     {% if request.user.is_superuser or request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.role == "comptable" %}
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/facture/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Facturation" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Factures clients et professionnelles (XML)" %}
+            </p>
+        </div>
+
+        {% include "facture/_icone.html" with classe="w-[60px] h-[60px]" %}
+    </a>
+    {% endif %}
+
+    <!-- Comptabilité – trésorerie -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/compta/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Comptabilité" %}
+            </h2>
+            <p class="text-gray-600 text-sm">
+                {% trans "Caisse, banque, soldes d'ouverture et journaux" %}
+            </p>
+        </div>
+        <img src="{% static 'icons/comptabilite.png' %}"
+             alt="{% trans 'Comptabilité' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Données financières des véhicules -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/exemplaires/finances/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Finances véhicules" %}
+            </h2>
+            <p class="text-gray-600 text-sm">
+                {% trans "Prix d'achat, assurance, taxes" %}
+            </p>
+        </div>
+
+        {% include "voiture_exemplaire/finances/_icone.html" with classe="w-[60px] h-[60px]" %}
+    </a>
+
+    <!-- Revente des véhicules de la flotte -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/ventes/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Revente de véhicules" %}
+            </h2>
+            <p class="text-gray-600 text-sm">
+                {% trans "Facture, cession et bilan des véhicules d'occasion" %}
+            </p>
+        </div>
+
+        {% include "voiture_vente/_icone.html" with classe="w-[60px] h-[60px]" taille="60px" %}
+    </a>
+
+</div>
+
+{% endif %}
+
+<br>
+<br>
+
+<!-- ================================================== -->
+<!-- SECTION COMPTABILITÉ (rôle comptable) -->
+<!-- ================================================== -->
+
+{% if request.user.role == "comptable" %}
+
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
+    <img src="{% static 'icons/comptabilite.png' %}"
+         alt="{% trans 'Comptabilité' %}"
+         class="w-[60px] h-[60px] mr-4">
+    <h2 class="text-lg font-semibold">
+        {% trans "Comptabilité" %}
+    </h2>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+    <!-- Comptabilité – trésorerie -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/compta/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Comptabilité" %}
+            </h2>
+            <p class="text-gray-600 text-sm">
+                {% trans "Caisse, banque, soldes d'ouverture et journaux" %}
+            </p>
+        </div>
+        <img src="{% static 'icons/comptabilite.png' %}"
+             alt="{% trans 'Comptabilité' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/facture/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">{% trans "Facturation" %}</h2>
+            <p class="text-gray-600 text-sm">{% trans "Factures clients et professionnelles (XML)" %}</p>
+        </div>
+        {% include "facture/_icone.html" with classe="w-[60px] h-[60px]" %}
+    </a>
+
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/paie/"
+       class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-2">{% trans "Paies mensuelles" %}</h2>
+        </div>
+        <img src="{% static 'icons/paie.png' %}" alt="{% trans 'Paies mensuelles' %}" class="w-[60px] h-[60px] mr-[10px]">
+    </a>
+</div>
+
+{% endif %}
+
+<br>
+
+<!-- ================================================== -->
+<!-- SECTION ADMINISTRATEUR -->
+<!-- ================================================== -->
+
+{% if user.is_staff and user.is_superuser %}
+
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
+    <img src="{% static 'icons/admin.png' %}"
+         alt="{% trans 'Administrateur' %}"
+         class="w-[60px] h-[60px] mr-[15px]">
+
+    <h2 class="text-lg font-semibold">
+        {% trans "Administrateur" %}
+    </h2>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 mb-8">
+
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/admin/dashboard/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Tableau de bord Admin" %}
+            </h2>
+        </div>
+
+        <img src="{% static 'icons/ingenieur-logiciel.png' %}"
+             alt="{% trans 'Admin' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

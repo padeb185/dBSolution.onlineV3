@@ -91,6 +91,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         ('vendeur', _('Vendeur')),
         ('comptable', _('Comptable')),
         ('direction', _('Direction')),
+        ('particulier', _('Particulier (application)')),
     ]
 
     role = models.CharField(

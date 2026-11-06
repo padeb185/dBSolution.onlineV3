@@ -1,0 +1,240 @@
+import shutil
+from datetime import date
+
+from django.conf import settings
+from django.db import transaction
+from django.shortcuts import get_object_or_404
+from django_tenants.utils import get_public_schema_name, schema_context
+from rest_framework import mixins, status, viewsets
+from rest_framework.authtoken.models import Token
+from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from .. import calculs
+from ..models import Depense, Document, Entretien, Plein, Rappel, ReleveKilometrique, Vehicule
+from . import serializers as S
+from .base import (ROLE_PARTICULIER, LimiteConnexion, SchemaParticuliersMixin, schema_particuliers,
+                   servir_fichier)
+
+
+# ==================================================================
+# COMPTES
+# ==================================================================
+def _reponse_connexion(user, statut=status.HTTP_200_OK):
+    token, _c = Token.objects.get_or_create(user=user)
+    return Response({"token": token.key, "utilisateur": S.UtilisateurSerializer(user).data}, status=statut)
+
+
+class InscriptionView(APIView):
+    authentication_classes = []
+    permission_classes = [AllowAny]
+    throttle_classes = [LimiteConnexion]
+
+    def post(self, request):
+        from societe.models import Societe
+        from utilisateurs.models import Utilisateur
+        ser = S.InscriptionSerializer(data=request.data)
+        ser.is_valid(raise_exception=True)
+        d = ser.validated_data
+        with schema_context(get_public_schema_name()):
+            try:
+                societe = Societe.objects.get(schema_name=schema_particuliers())
+            except Societe.DoesNotExist:
+                return Response({"detail": "Espace particuliers non configuré."}, status=503)
+            with transaction.atomic():
+                user = Utilisateur.objects.create_user(
+                    email=d["email"], password=d["password"], nom=d["nom"], prenom=d["prenom"],
+                    role=ROLE_PARTICULIER, societe=societe, schema_name=societe.schema_name, is_staff=False,
+                )
+            return _reponse_connexion(user, status.HTTP_201_CREATED)
+
+
+class ConnexionView(APIView):
+    authentication_classes = []
+    permission_classes = [AllowAny]
+    throttle_classes = [LimiteConnexion]
+
+    def post(self, request):
+        from utilisateurs.models import Utilisateur
+        email = (request.data.get("email") or "").strip().lower()
+        password = request.data.get("password") or ""
+        erreur = Response({"detail": "Email ou mot de passe incorrect."}, status=status.HTTP_400_BAD_REQUEST)
+        with schema_context(get_public_schema_name()):
+            user = Utilisateur.objects.filter(email__iexact=email).select_related("societe").first()
+            if user is None or not user.is_active or not user.check_password(password):
+                return erreur
+            if user.role != ROLE_PARTICULIER:
+                return Response({"detail": "Ce compte est un compte professionnel : connectez-vous sur le site web."},
+                                status=status.HTTP_403_FORBIDDEN)
+            return _reponse_connexion(user)
+
+
+class DeconnexionView(SchemaParticuliersMixin, APIView):
+    def post(self, request):
+        Token.objects.filter(user=request.user).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class MoiView(SchemaParticuliersMixin, APIView):
+    def get(self, request):
+        return Response(S.UtilisateurSerializer(request.user).data)
+
+    def patch(self, request):
+        ser = S.UtilisateurSerializer(request.user, data=request.data, partial=True)
+        ser.is_valid(raise_exception=True)
+        ser.save()
+        return Response(ser.data)
+
+    def delete(self, request):
+        """Suppression du compte et de toutes ses données (exigence App Store / RGPD)."""
+        user = request.user
+        if not user.check_password(request.data.get("password") or ""):
+            return Response({"detail": "Mot de passe incorrect."}, status=status.HTTP_400_BAD_REQUEST)
+        with transaction.atomic():
+            Vehicule.objects.filter(proprietaire=user).delete()
+            Token.objects.filter(user=user).delete()
+            dossier = settings.MEDIA_ROOT / "particuliers" / str(user.pk)
+            user.delete()
+        shutil.rmtree(dossier, ignore_errors=True)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+# ==================================================================
+# DONNÉES
+# ==================================================================
+class ProprietaireViewSet(SchemaParticuliersMixin, viewsets.ModelViewSet):
+    """Filtre systématique : seules les données des véhicules de l'utilisateur."""
+    model = None
+
+    def get_queryset(self):
+        qs = self.model.objects.filter(vehicule__proprietaire=self.request.user).select_related("vehicule")
+        vehicule = self.request.query_params.get("vehicule")
+        if vehicule:
+            qs = qs.filter(vehicule_id=vehicule)
+        return qs
+
+    def _fichier(self, champ):
+        return servir_fichier(getattr(self.get_object(), champ))
+
+
+class VehiculeViewSet(SchemaParticuliersMixin, viewsets.ModelViewSet):
+    serializer_class = S.VehiculeSerializer
+
+    def get_queryset(self):
+        qs = Vehicule.objects.filter(proprietaire=self.request.user)
+        if self.request.query_params.get("archives") != "1":
+            qs = qs.filter(archive=False)
+        return qs
+
+    def perform_create(self, serializer):
+        serializer.save(proprietaire=self.request.user)
+
+    @action(detail=True)
+    def synthese(self, request, pk=None):
+        return Response(calculs.synthese(self.get_object()))
+
+    @action(detail=True)
+    def consommation(self, request, pk=None):
+        return Response(calculs.consommation(self.get_object()))
+
+    @action(detail=True)
+    def photo(self, request, pk=None):
+        return servir_fichier(self.get_object().photo)
+
+
+class ReleveViewSet(ProprietaireViewSet):
+    model = ReleveKilometrique
+    serializer_class = S.ReleveSerializer
+
+
+class PleinViewSet(ProprietaireViewSet):
+    model = Plein
+    serializer_class = S.PleinSerializer
+
+    @action(detail=True)
+    def ticket(self, request, pk=None):
+        return self._fichier("ticket")
+
+
+class EntretienViewSet(ProprietaireViewSet):
+    model = Entretien
+    serializer_class = S.EntretienSerializer
+
+    def perform_create(self, serializer):
+        entretien = serializer.save()
+        calculs.avancer_rappels_entretien(entretien)
+
+    @action(detail=True)
+    def facture(self, request, pk=None):
+        return self._fichier("facture")
+
+
+class DocumentViewSet(ProprietaireViewSet):
+    model = Document
+    serializer_class = S.DocumentSerializer
+
+    def perform_create(self, serializer):
+        calculs.synchroniser_rappel_document(serializer.save())
+
+    def perform_update(self, serializer):
+        calculs.synchroniser_rappel_document(serializer.save())
+
+    @action(detail=True)
+    def fichier(self, request, pk=None):
+        return self._fichier("fichier")
+
+
+class RappelViewSet(ProprietaireViewSet):
+    model = Rappel
+    serializer_class = S.RappelSerializer
+
+    @action(detail=True, methods=["post"])
+    def fait(self, request, pk=None):
+        rappel = self.get_object()
+        jour = request.data.get("date")
+        km = request.data.get("kilometrage")
+        calculs.marquer_fait(rappel, date.fromisoformat(jour) if jour else None, int(km) if km not in (None, "") else None)
+        return Response(self.get_serializer(rappel).data)
+
+
+class DepenseViewSet(ProprietaireViewSet):
+    model = Depense
+    serializer_class = S.DepenseSerializer
+
+
+# ==================================================================
+# TABLEAU DE BORD ET VIN
+# ==================================================================
+class TableauDeBordView(SchemaParticuliersMixin, APIView):
+    def get(self, request):
+        vehicules = list(Vehicule.objects.filter(proprietaire=request.user, archive=False))
+        km = {v.pk: v.kilometrage_actuel for v in vehicules}
+        rappels = Rappel.objects.filter(vehicule__in=vehicules, actif=True).select_related("vehicule")
+        ctx = {"request": request, "km_par_vehicule": km}
+        alertes = [r for r in S.RappelSerializer(rappels, many=True, context=ctx).data
+                   if r["statut"]["statut"] in ("proche", "en_retard")]
+        debut_mois = date.today().replace(day=1)
+        from django.db.models import Sum
+        depenses_mois = sum(
+            (m.objects.filter(vehicule__in=vehicules, date__gte=debut_mois).aggregate(s=Sum("montant"))["s"] or 0)
+            for m in (Plein, Entretien, Depense))
+        return Response({
+            "vehicules": [dict(S.VehiculeSerializer(v, context=ctx).data) for v in vehicules],
+            "rappels": sorted(alertes, key=lambda r: (r["statut"]["statut"] != "en_retard",
+                                                      r["statut"]["jours_restants"] if r["statut"]["jours_restants"] is not None else 99999)),
+            "depenses_mois": calculs.r2(depenses_mois),
+        })
+
+
+class VinView(SchemaParticuliersMixin, APIView):
+    def get(self, request):
+        from voiture.voiture_exemplaire.utils_vin import VinDecoderService
+        vin = (request.query_params.get("vin") or "").upper().replace(" ", "")
+        if len(vin) != 17 or any(c in vin for c in "IOQ"):
+            return Response({"detail": "VIN invalide : 17 caractères, sans I, O ni Q."}, status=400)
+        try:
+            return Response(VinDecoderService(vin).decode())
+        except Exception as e:
+            return Response({"vin": vin, "detail": str(e)}, status=200)

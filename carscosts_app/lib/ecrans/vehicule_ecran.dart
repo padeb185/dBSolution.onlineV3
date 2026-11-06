@@ -1,0 +1,247 @@
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../api/api_client.dart';
+import '../modeles/ressources.dart';
+import '../widgets/fichiers.dart';
+import '../widgets/format.dart';
+import '../widgets/liste_ressource.dart';
+import 'formulaire_ecran.dart';
+import 'vehicule_form_ecran.dart';
+
+/// Fiche d'un véhicule : synthèse des coûts et onglets (pleins, entretiens, rappels, documents…).
+class VehiculeEcran extends StatefulWidget {
+  const VehiculeEcran({super.key, required this.vehicule});
+
+  final Map<String, dynamic> vehicule;
+
+  @override
+  State<VehiculeEcran> createState() => _VehiculeEcranState();
+}
+
+class _VehiculeEcranState extends State<VehiculeEcran> {
+  late Map<String, dynamic> _vehicule = widget.vehicule;
+  late Future<Map<String, dynamic>> _synthese;
+
+  String get _id => _vehicule['id'] as String;
+
+  @override
+  void initState() {
+    super.initState();
+    _chargerSynthese();
+  }
+
+  void _chargerSynthese() {
+    _synthese = context
+        .read<ApiClient>()
+        .get('vehicules/$_id/synthese/')
+        .then((r) => Map<String, dynamic>.from(r as Map));
+  }
+
+  Future<void> _modifier() async {
+    final ok = await Navigator.push<bool>(
+        context, MaterialPageRoute(builder: (_) => VehiculeFormEcran(vehicule: _vehicule)));
+    if (ok == true && mounted) {
+      final v = await context.read<ApiClient>().get('vehicules/$_id/');
+      setState(() {
+        _vehicule = Map<String, dynamic>.from(v as Map);
+        _chargerSynthese();
+      });
+    }
+  }
+
+  Future<void> _ajouter(Ressource r) async {
+    final ok = await Navigator.push<bool>(
+        context, MaterialPageRoute(builder: (_) => FormulaireEcran(ressource: r, vehiculeId: _id)));
+    if (ok == true) setState(_chargerSynthese);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final titre = '${_vehicule['marque']} ${_vehicule['modele']}';
+    return DefaultTabController(
+      length: ressourcesVehicule.length + 1,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(titre),
+          actions: [IconButton(icon: const Icon(Icons.edit), tooltip: 'Modifier', onPressed: _modifier)],
+          bottom: TabBar(
+            isScrollable: true,
+            tabAlignment: TabAlignment.start,
+            tabs: [
+              const Tab(icon: Icon(Icons.insights), text: 'Résumé'),
+              for (final r in ressourcesVehicule) Tab(icon: Icon(r.icone), text: r.titre),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            _resume(),
+            for (final r in ressourcesVehicule)
+              ListeRessource(ressource: r, vehiculeId: _id, auChangement: () => setState(_chargerSynthese)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ------------------------------------------------------------------ Résumé
+  Widget _resume() {
+    return RefreshIndicator(
+      onRefresh: () async {
+        setState(_chargerSynthese);
+        await _synthese;
+      },
+      child: FutureBuilder<Map<String, dynamic>>(
+        future: _synthese,
+        builder: (context, snap) {
+          if (snap.connectionState != ConnectionState.done) return const Center(child: CircularProgressIndicator());
+          if (snap.hasError) return ListView(children: [Padding(padding: const EdgeInsets.all(24), child: Text('${snap.error}'))]);
+          final s = snap.data!;
+          final electrique = _vehicule['energie'] == 'electrique';
+          return ListView(
+            padding: const EdgeInsets.all(16),
+            children: [
+              if (_vehicule['photo'] != null) ImageProtegee(url: _vehicule['photo'] as String, hauteur: 180),
+              const SizedBox(height: 8),
+              Text([
+                if ((_vehicule['immatriculation'] ?? '').toString().isNotEmpty) _vehicule['immatriculation'],
+                if ((_vehicule['vin'] ?? '').toString().isNotEmpty) 'VIN ${_vehicule['vin']}',
+                energies[_vehicule['energie']],
+              ].join(' · ')),
+              const SizedBox(height: 12),
+              Wrap(spacing: 8, runSpacing: 8, children: [
+                FilledButton.tonalIcon(
+                  onPressed: () => _ajouter(pleins),
+                  icon: const Icon(Icons.local_gas_station),
+                  label: const Text('Plein'),
+                ),
+                FilledButton.tonalIcon(
+                  onPressed: () => _ajouter(kilometrages),
+                  icon: const Icon(Icons.speed),
+                  label: const Text('Kilométrage'),
+                ),
+                FilledButton.tonalIcon(
+                  onPressed: () => _ajouter(entretiens),
+                  icon: const Icon(Icons.build),
+                  label: const Text('Entretien'),
+                ),
+              ]),
+              const SizedBox(height: 16),
+              GridView.count(
+                crossAxisCount: MediaQuery.sizeOf(context).width > 700 ? 4 : 2,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                childAspectRatio: 2.2,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
+                children: [
+                  _kpi('Kilométrage', km(s['kilometrage_actuel'])),
+                  _kpi('Coût total', euros(s['cout_total'])),
+                  _kpi('Coût au km', s['cout_total_km'] == null ? '—' : '${nombre(s['cout_total_km'], decimales: 3)} €'),
+                  _kpi('Coût par mois', euros(s['cout_mois'])),
+                  _kpi('Consommation', s['consommation_moyenne'] == null
+                      ? '—'
+                      : '${nombre(s['consommation_moyenne'])} ${electrique ? 'kWh' : 'L'}/100'),
+                  _kpi('Dépréciation', euros(s['depreciation'])),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Text('Répartition des coûts', style: Theme.of(context).textTheme.titleMedium),
+              Card(
+                child: Column(children: [
+                  for (final p in (s['postes'] as List).cast<Map>())
+                    ListTile(dense: true, title: Text('${p['libelle']}'), trailing: Text(euros(p['montant']))),
+                  if (s['depreciation'] != null)
+                    ListTile(dense: true, title: const Text('Dépréciation (achat − valeur estimée)'), trailing: Text(euros(s['depreciation']))),
+                  ListTile(
+                    title: const Text('Total', style: TextStyle(fontWeight: FontWeight.bold)),
+                    trailing: Text(euros(s['cout_total']), style: const TextStyle(fontWeight: FontWeight.bold)),
+                  ),
+                ]),
+              ),
+              const SizedBox(height: 16),
+              if ((s['par_annee'] as List).isNotEmpty) ...[
+                Text('Dépenses par année', style: Theme.of(context).textTheme.titleMedium),
+                const SizedBox(height: 8),
+                SizedBox(height: 220, child: _graphique((s['par_annee'] as List).cast<Map>())),
+                const SizedBox(height: 8),
+                Wrap(spacing: 12, children: [
+                  for (final l in _legende) Row(mainAxisSize: MainAxisSize.min, children: [
+                    Container(width: 12, height: 12, color: l.$2),
+                    const SizedBox(width: 4),
+                    Text(l.$1, style: const TextStyle(fontSize: 12)),
+                  ]),
+                ]),
+              ],
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _kpi(String libelle, String valeur) => Card(
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.center, children: [
+            Text(libelle, style: Theme.of(context).textTheme.bodySmall),
+            const SizedBox(height: 4),
+            FittedBox(child: Text(valeur, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold))),
+          ]),
+        ),
+      );
+
+  static const _cles = ['energie', 'entretiens', 'documents', 'autres'];
+  static const _legende = [
+    ('Énergie', Color(0xFF2563EB)),
+    ('Entretiens', Color(0xFFF59E0B)),
+    ('Documents / assurance', Color(0xFF10B981)),
+    ('Autres', Color(0xFF8B5CF6)),
+  ];
+
+  Widget _graphique(List<Map> annees) {
+    return BarChart(
+      BarChartData(
+        gridData: const FlGridData(show: true, drawVerticalLine: false),
+        borderData: FlBorderData(show: false),
+        titlesData: FlTitlesData(
+          topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          leftTitles: AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              reservedSize: 48,
+              getTitlesWidget: (v, meta) => Text(nombre(v, decimales: 0), style: const TextStyle(fontSize: 10)),
+            ),
+          ),
+          bottomTitles: AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              getTitlesWidget: (v, meta) => Text('${v.toInt()}', style: const TextStyle(fontSize: 11)),
+            ),
+          ),
+        ),
+        barGroups: [
+          for (final a in annees)
+            () {
+              var cumul = 0.0;
+              final segments = <BarChartRodStackItem>[];
+              for (var i = 0; i < _cles.length; i++) {
+                final v = enDouble(a[_cles[i]]) ?? 0;
+                segments.add(BarChartRodStackItem(cumul, cumul + v, _legende[i].$2));
+                cumul += v;
+              }
+              return BarChartGroupData(
+                x: (a['annee'] as num).toInt(),
+                barRods: [
+                  BarChartRodData(toY: cumul, rodStackItems: segments, width: 22, borderRadius: BorderRadius.circular(4)),
+                ],
+              );
+            }(),
+        ],
+      ),
+    );
+  }
+}

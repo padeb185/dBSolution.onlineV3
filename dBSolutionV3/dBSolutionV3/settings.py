@@ -130,6 +130,9 @@ SHARED_APPS = (
 
 TENANT_APPS = (
 
+    # Espace particuliers (application Flutter, API /api/v1/)
+    'particulier',
+
     'notifications',
     'agenda',
     'piece',
@@ -467,6 +470,8 @@ MIDDLEWARE = [
     "utilisateurs.middleware.TOTPRequiredMiddleware",
     # Modules désactivés pour le tenant (Societe.modules) : URL refusées
     "dBSolutionV3.middleware.modules_tenant.ModulesTenantMiddleware",
+    # Comptes particuliers : application uniquement (pas d'accès aux pages web)
+    "particulier.middleware.ParticulierWebMiddleware",
     # Codes OEM / EAN des lignes de pièces des interventions → pièces utilisées (stock)
     "piece.intervention.CodesPiecesInterventionMiddleware",
 
@@ -635,3 +640,19 @@ TAILWIND_APP_NAME = "theme"
 logging.getLogger('django.server').addFilter(
     lambda record: 'Broken pipe' not in record.getMessage()
 )
+
+
+# ------------------------------------------------------------------------------
+# ESPACE PARTICULIERS (application Flutter) – voir particulier/
+# ------------------------------------------------------------------------------
+# Tenant partagé par tous les particuliers (données filtrées par propriétaire)
+PARTICULIERS_SCHEMA = env("PARTICULIERS_SCHEMA", default="particuliers")
+
+REST_FRAMEWORK = {
+    # Montants en nombres JSON (et non en chaînes) pour l'application
+    "COERCE_DECIMAL_TO_STRING": False,
+    # Par défaut, aucune API n'est ouverte : chaque vue déclare son authentification
+    "DEFAULT_AUTHENTICATION_CLASSES": [],
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
+    "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
+}
