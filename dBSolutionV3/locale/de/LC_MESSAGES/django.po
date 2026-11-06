@@ -48394,6 +48394,103 @@ msgstr "Letzte Wartung (%(type)s, %(date)s): gelbe Kennzeichnung"
 msgid "Dernière maintenance"
 msgstr "Letzte Wartung"
 
+#: piece/compta_achat.py
+msgid "Réception en stock"
+msgstr "Wareneingang"
+
+#: piece/compta_achat.py
+msgid "Choisissez le fournisseur : il est nécessaire pour comptabiliser l'achat."
+msgstr "Wählen Sie den Lieferanten: Er wird für die Verbuchung des Einkaufs benötigt."
+
+#: piece/compta_achat.py
+msgid "Montant du transport invalide."
+msgstr "Ungültiger Transportbetrag."
+
+#: piece/compta_achat.py
+msgid "Date de paiement invalide."
+msgstr "Ungültiges Zahlungsdatum."
+
+#: piece/compta_achat.py
+msgid "Cette facture était déjà encodée dans les achats : elle y a été rattachée (pas de double encodage)."
+msgstr "Diese Rechnung war bereits bei den Einkäufen erfasst: Sie wurde damit verknüpft (keine Doppelerfassung)."
+
+#: piece/compta_achat.py
+#, python-format
+msgid "Écart HTVA de %(e)s € entre la réception en stock et l'achat déjà encodé : vérifiez l'achat."
+msgstr "Nettodifferenz von %(e)s € zwischen Wareneingang und bereits erfasstem Einkauf: prüfen Sie den Einkauf."
+
+#: piece/compta_achat.py
+msgid "Achat comptabilisé automatiquement dans les achats de marchandises."
+msgstr "Einkauf automatisch bei den Wareneinkäufen verbucht."
+
+#: piece/compta_achat.py
+msgid "Comptabiliser l'achat (achats de marchandises)"
+msgstr "Einkauf verbuchen (Wareneinkäufe)"
+
+#: piece/compta_achat.py
+msgid "Pas besoin d'encoder la facture une deuxième fois dans les achats. Si elle y est déjà, elle est simplement rattachée."
+msgstr "Die Rechnung muss nicht ein zweites Mal bei den Einkäufen erfasst werden. Ist sie bereits dort, wird sie einfach verknüpft."
+
+#: piece/compta_achat.py
+msgid "Transport HTVA (facultatif)"
+msgstr "Transport netto (optional)"
+
+#: piece/compta_achat.py
+msgid "Date de paiement (facultatif)"
+msgstr "Zahlungsdatum (optional)"
+
+#: piece/compta_achat.py
+msgid "Comptabilisée dans les achats :"
+msgstr "Bei den Einkäufen verbucht:"
+
+#: piece/compta_achat.py
+msgid "Cette facture n'est pas encore comptabilisée dans les achats."
+msgstr "Diese Rechnung ist noch nicht bei den Einkäufen verbucht."
+
+#: piece/compta_achat.py
+msgid "Comptabiliser l'achat"
+msgstr "Einkauf verbuchen"
+
+#: piece/compta_achat.py
+msgid "Cette facture a déjà été réceptionnée en stock : l'achat y a été rattaché (pas de double encodage)."
+msgstr "Diese Rechnung wurde bereits eingelagert: Der Einkauf wurde damit verknüpft (keine Doppelerfassung)."
+
+#: piece/compta_achat.py
+msgid "Repris de la réception en stock."
+msgstr "Aus dem Wareneingang übernommen."
+
+#: piece/compta_achat.py
+msgid "Facture réceptionnée en stock :"
+msgstr "Rechnung eingelagert:"
+
+#: piece/compta_achat.py
+msgid "voir la réception et ses lignes"
+msgstr "Wareneingang und Zeilen anzeigen"
+
+#: piece/compta_achat.py
+msgid "Les montants et la référence viennent du stock ; seuls le libellé, le transport et le paiement se modifient ici."
+msgstr "Beträge und Referenz stammen aus dem Lager; hier lassen sich nur Bezeichnung, Transport und Zahlung ändern."
+
+#: piece/compta_achat.py
+msgid "Pièces, lubrifiants, pneus… qui entrent en stock ?"
+msgstr "Teile, Schmierstoffe, Reifen … die eingelagert werden?"
+
+#: piece/compta_achat.py
+msgid "Réceptionnez la facture en stock"
+msgstr "Rechnung einlagern"
+
+#: piece/compta_achat.py
+msgid "l'achat est comptabilisé automatiquement, inutile de l'encoder ici."
+msgstr "der Einkauf wird automatisch verbucht, hier nicht erfassen."
+
+#: recharge/templates/recharge/electricite_exemplaire_stat.html
+msgid "Coût Annuel"
+msgstr "Jährliche Kosten"
+
+#: recharge/templates/recharge/electricite_exemplaire_stat.html
+msgid "Une seule recharge cette année : calcul depuis la dernière recharge de l’année précédente"
+msgstr "Nur ein Ladevorgang in diesem Jahr: berechnet ab dem letzten Ladevorgang des Vorjahres"
+
 #~ msgid "Toutes les maintenances"
 #~ msgstr "Alle Wartungsarbeiten"
 

@@ -188,6 +188,40 @@
     </tbody>
 </table>
 
+<h2 class="text-xl font-semibold mt-8 mb-3">{% trans "Coût Annuel" %}</h2>
+<table class="min-w-full table-auto border-collapse border border-gray-200 bg-white mb-8">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2">{% trans "Année" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Recharges" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "kW" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Km parcourus" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Coût total" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Prix moyen / kW" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Conso moyenne kWh/100km" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Coût / km" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for a in par_an %}
+        <tr>
+            <td class="border px-4 py-2">{{ a.an|date:"Y" }}</td>
+            <td class="border px-4 py-2 text-center">{{ a.nb_recharges }}</td>
+            <td class="border px-4 py-2 text-center">{{ a.total_kW|floatformat:"2g" }}</td>
+            <td class="border px-4 py-2 text-center">{% if a.km_parcourus %}{{ a.km_parcourus|floatformat:"0g" }} km{% else %}—{% endif %}</td>
+            <td class="border px-4 py-2 text-center">{{ a.total_cout|floatformat:"2g" }} €</td>
+            <td class="border px-4 py-2 text-center">{{ a.prix_moyen_kW|floatformat:"3g" }} €</td>
+            <td class="border px-4 py-2 text-center">{{ a.conso_moyenne|floatformat:"2g" }} kWh/100km{% if a.base_annee_precedente %} <span class="text-blue-700" title="{% trans "Une seule recharge cette année : calcul depuis la dernière recharge de l’année précédente" %}">*</span>{% endif %}</td>
+            <td class="border px-4 py-2 text-center">{{ a.cout_km|floatformat:"2g" }} €/km</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="8" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 
 <!-- 📊 Consommation moyenne -->
 <h2 class="text-xl font-semibold mt-8 mb-3">{% trans "Consommation moyenne" %}</h2>

@@ -48417,6 +48417,103 @@ msgstr "Último mantenimiento (%(type)s, %(date)s): etiqueta amarilla"
 msgid "Dernière maintenance"
 msgstr "Último mantenimiento"
 
+#: piece/compta_achat.py
+msgid "Réception en stock"
+msgstr "Recepción en stock"
+
+#: piece/compta_achat.py
+msgid "Choisissez le fournisseur : il est nécessaire pour comptabiliser l'achat."
+msgstr "Elija el proveedor: es necesario para contabilizar la compra."
+
+#: piece/compta_achat.py
+msgid "Montant du transport invalide."
+msgstr "Importe del transporte no válido."
+
+#: piece/compta_achat.py
+msgid "Date de paiement invalide."
+msgstr "Fecha de pago no válida."
+
+#: piece/compta_achat.py
+msgid "Cette facture était déjà encodée dans les achats : elle y a été rattachée (pas de double encodage)."
+msgstr "Esta factura ya estaba registrada en las compras: se ha vinculado (sin doble registro)."
+
+#: piece/compta_achat.py
+#, python-format
+msgid "Écart HTVA de %(e)s € entre la réception en stock et l'achat déjà encodé : vérifiez l'achat."
+msgstr "Diferencia sin IVA de %(e)s € entre la recepción en stock y la compra ya registrada: revise la compra."
+
+#: piece/compta_achat.py
+msgid "Achat comptabilisé automatiquement dans les achats de marchandises."
+msgstr "Compra contabilizada automáticamente en las compras de mercaderías."
+
+#: piece/compta_achat.py
+msgid "Comptabiliser l'achat (achats de marchandises)"
+msgstr "Contabilizar la compra (compras de mercaderías)"
+
+#: piece/compta_achat.py
+msgid "Pas besoin d'encoder la facture une deuxième fois dans les achats. Si elle y est déjà, elle est simplement rattachée."
+msgstr "No hace falta registrar la factura una segunda vez en las compras. Si ya está, simplemente se vincula."
+
+#: piece/compta_achat.py
+msgid "Transport HTVA (facultatif)"
+msgstr "Transporte sin IVA (opcional)"
+
+#: piece/compta_achat.py
+msgid "Date de paiement (facultatif)"
+msgstr "Fecha de pago (opcional)"
+
+#: piece/compta_achat.py
+msgid "Comptabilisée dans les achats :"
+msgstr "Contabilizada en las compras:"
+
+#: piece/compta_achat.py
+msgid "Cette facture n'est pas encore comptabilisée dans les achats."
+msgstr "Esta factura aún no está contabilizada en las compras."
+
+#: piece/compta_achat.py
+msgid "Comptabiliser l'achat"
+msgstr "Contabilizar la compra"
+
+#: piece/compta_achat.py
+msgid "Cette facture a déjà été réceptionnée en stock : l'achat y a été rattaché (pas de double encodage)."
+msgstr "Esta factura ya se recibió en stock: la compra se ha vinculado (sin doble registro)."
+
+#: piece/compta_achat.py
+msgid "Repris de la réception en stock."
+msgstr "Tomado de la recepción en stock."
+
+#: piece/compta_achat.py
+msgid "Facture réceptionnée en stock :"
+msgstr "Factura recibida en stock:"
+
+#: piece/compta_achat.py
+msgid "voir la réception et ses lignes"
+msgstr "ver la recepción y sus líneas"
+
+#: piece/compta_achat.py
+msgid "Les montants et la référence viennent du stock ; seuls le libellé, le transport et le paiement se modifient ici."
+msgstr "Los importes y la referencia vienen del stock; aquí solo se modifican la descripción, el transporte y el pago."
+
+#: piece/compta_achat.py
+msgid "Pièces, lubrifiants, pneus… qui entrent en stock ?"
+msgstr "¿Piezas, lubricantes, neumáticos… que entran en stock?"
+
+#: piece/compta_achat.py
+msgid "Réceptionnez la facture en stock"
+msgstr "Reciba la factura en stock"
+
+#: piece/compta_achat.py
+msgid "l'achat est comptabilisé automatiquement, inutile de l'encoder ici."
+msgstr "la compra se contabiliza automáticamente, no hace falta registrarla aquí."
+
+#: recharge/templates/recharge/electricite_exemplaire_stat.html
+msgid "Coût Annuel"
+msgstr "Coste anual"
+
+#: recharge/templates/recharge/electricite_exemplaire_stat.html
+msgid "Une seule recharge cette année : calcul depuis la dernière recharge de l’année précédente"
+msgstr "Una sola recarga este año: cálculo desde la última recarga del año anterior"
+
 #~ msgid "Toutes les maintenances"
 #~ msgstr "Todos los mantenimientos"
 

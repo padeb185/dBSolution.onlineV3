@@ -48397,6 +48397,103 @@ msgstr "Ultima manutenzione (%(type)s, %(date)s): etichetta gialla"
 msgid "Dernière maintenance"
 msgstr "Ultima manutenzione"
 
+#: piece/compta_achat.py
+msgid "Réception en stock"
+msgstr "Ricevimento a magazzino"
+
+#: piece/compta_achat.py
+msgid "Choisissez le fournisseur : il est nécessaire pour comptabiliser l'achat."
+msgstr "Scegli il fornitore: è necessario per contabilizzare l'acquisto."
+
+#: piece/compta_achat.py
+msgid "Montant du transport invalide."
+msgstr "Importo del trasporto non valido."
+
+#: piece/compta_achat.py
+msgid "Date de paiement invalide."
+msgstr "Data di pagamento non valida."
+
+#: piece/compta_achat.py
+msgid "Cette facture était déjà encodée dans les achats : elle y a été rattachée (pas de double encodage)."
+msgstr "Questa fattura era già registrata negli acquisti: è stata collegata (nessuna doppia registrazione)."
+
+#: piece/compta_achat.py
+#, python-format
+msgid "Écart HTVA de %(e)s € entre la réception en stock et l'achat déjà encodé : vérifiez l'achat."
+msgstr "Differenza IVA esclusa di %(e)s € tra il ricevimento a magazzino e l'acquisto già registrato: verifica l'acquisto."
+
+#: piece/compta_achat.py
+msgid "Achat comptabilisé automatiquement dans les achats de marchandises."
+msgstr "Acquisto contabilizzato automaticamente negli acquisti di merci."
+
+#: piece/compta_achat.py
+msgid "Comptabiliser l'achat (achats de marchandises)"
+msgstr "Contabilizza l'acquisto (acquisti di merci)"
+
+#: piece/compta_achat.py
+msgid "Pas besoin d'encoder la facture une deuxième fois dans les achats. Si elle y est déjà, elle est simplement rattachée."
+msgstr "Non serve registrare la fattura una seconda volta negli acquisti. Se è già presente, viene semplicemente collegata."
+
+#: piece/compta_achat.py
+msgid "Transport HTVA (facultatif)"
+msgstr "Trasporto IVA esclusa (facoltativo)"
+
+#: piece/compta_achat.py
+msgid "Date de paiement (facultatif)"
+msgstr "Data di pagamento (facoltativa)"
+
+#: piece/compta_achat.py
+msgid "Comptabilisée dans les achats :"
+msgstr "Contabilizzata negli acquisti:"
+
+#: piece/compta_achat.py
+msgid "Cette facture n'est pas encore comptabilisée dans les achats."
+msgstr "Questa fattura non è ancora contabilizzata negli acquisti."
+
+#: piece/compta_achat.py
+msgid "Comptabiliser l'achat"
+msgstr "Contabilizza l'acquisto"
+
+#: piece/compta_achat.py
+msgid "Cette facture a déjà été réceptionnée en stock : l'achat y a été rattaché (pas de double encodage)."
+msgstr "Questa fattura è già stata ricevuta a magazzino: l'acquisto è stato collegato (nessuna doppia registrazione)."
+
+#: piece/compta_achat.py
+msgid "Repris de la réception en stock."
+msgstr "Ripreso dal ricevimento a magazzino."
+
+#: piece/compta_achat.py
+msgid "Facture réceptionnée en stock :"
+msgstr "Fattura ricevuta a magazzino:"
+
+#: piece/compta_achat.py
+msgid "voir la réception et ses lignes"
+msgstr "vedi il ricevimento e le sue righe"
+
+#: piece/compta_achat.py
+msgid "Les montants et la référence viennent du stock ; seuls le libellé, le transport et le paiement se modifient ici."
+msgstr "Importi e riferimento provengono dal magazzino; qui si modificano solo descrizione, trasporto e pagamento."
+
+#: piece/compta_achat.py
+msgid "Pièces, lubrifiants, pneus… qui entrent en stock ?"
+msgstr "Ricambi, lubrificanti, pneumatici… che entrano a magazzino?"
+
+#: piece/compta_achat.py
+msgid "Réceptionnez la facture en stock"
+msgstr "Ricevi la fattura a magazzino"
+
+#: piece/compta_achat.py
+msgid "l'achat est comptabilisé automatiquement, inutile de l'encoder ici."
+msgstr "l'acquisto è contabilizzato automaticamente, inutile registrarlo qui."
+
+#: recharge/templates/recharge/electricite_exemplaire_stat.html
+msgid "Coût Annuel"
+msgstr "Costo annuale"
+
+#: recharge/templates/recharge/electricite_exemplaire_stat.html
+msgid "Une seule recharge cette année : calcul depuis la dernière recharge de l’année précédente"
+msgstr "Una sola ricarica quest'anno: calcolo dall'ultima ricarica dell'anno precedente"
+
 #~ msgid "Toutes les maintenances"
 #~ msgstr "Tutti gli interventi di manutenzione"
 

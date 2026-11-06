@@ -3,6 +3,14 @@
 
 
 {% block content %}
+{% if achat.facture_stock_id %}
+<div class="max-w-5xl mx-auto mb-4 px-4 py-3 rounded border bg-blue-50 border-blue-300 text-blue-900">
+    {% trans "Facture réceptionnée en stock :" %}
+    <a href="{% url 'piece:facture_achat_detail' achat.facture_stock_id %}" class="font-semibold underline">{% trans "voir la réception et ses lignes" %}</a>.
+    {% trans "Les montants et la référence viennent du stock ; seuls le libellé, le transport et le paiement se modifient ici." %}
+</div>
+{% endif %}
+
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-4">
 
     <div class="flex justify-between items-center mb-6">

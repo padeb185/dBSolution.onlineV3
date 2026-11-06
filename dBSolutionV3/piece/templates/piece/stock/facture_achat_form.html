@@ -40,6 +40,24 @@
             <label class="block text-sm text-gray-600 mb-1">{% trans "Commentaire" %}</label>
             <input type="text" name="commentaire" value="{{ entete.commentaire }}" maxlength="255" class="border rounded px-3 py-2 w-full">
         </div>
+        <!-- Comptabilité : un seul encodage -->
+        <div class="md:col-span-4 border-t pt-4 grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+            <label class="inline-flex items-center gap-2 font-semibold md:col-span-2">
+                <input type="hidden" name="comptabiliser" value="0">
+                <input type="checkbox" name="comptabiliser" value="1" {% if entete.comptabiliser == "1" %}checked{% endif %} class="w-5 h-5">
+                <span>{% trans "Comptabiliser l'achat (achats de marchandises)" %}
+                    <span class="block text-xs font-normal text-gray-500">{% trans "Pas besoin d'encoder la facture une deuxième fois dans les achats. Si elle y est déjà, elle est simplement rattachée." %}</span>
+                </span>
+            </label>
+            <div>
+                <label class="block text-sm text-gray-600 mb-1">{% trans "Transport HTVA (facultatif)" %}</label>
+                <input type="number" name="transport_htva" step="0.01" min="0" value="{{ entete.transport_htva }}" class="border rounded px-3 py-2 w-full text-right" id="transport-htva">
+            </div>
+            <div>
+                <label class="block text-sm text-gray-600 mb-1">{% trans "Date de paiement (facultatif)" %}</label>
+                <input type="date" name="date_paiement" value="{{ entete.date_paiement }}" class="border rounded px-3 py-2 w-full">
+            </div>
+        </div>
     </div>
 
     <!-- Lignes -->

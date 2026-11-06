@@ -18,6 +18,21 @@
     </dl>
 </div>
 
+<div class="mb-6 px-4 py-3 rounded border {% if achats %}bg-green-50 border-green-300{% else %}bg-yellow-50 border-yellow-300{% endif %}">
+    {% if achats %}
+        <span class="font-semibold">{% trans "Comptabilisée dans les achats :" %}</span>
+        {% for a in achats %}
+            <a href="{% url 'achat_mds:achat_detail' a.pk %}" class="text-blue-700 hover:underline">{{ a.reference_facture|default:a.libelle_facture }} – {{ a.total_tvac|floatformat:"2g" }} € {% trans "TVAC" %}{% if a.achat_tva %} ({{ a.achat_tva|floatformat:"-2" }} %){% endif %}</a>{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    {% else %}
+        <form method="post" class="flex flex-wrap items-center gap-3">
+            {% csrf_token %}
+            <span>{% trans "Cette facture n'est pas encore comptabilisée dans les achats." %}</span>
+            <button name="action" value="comptabiliser" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 font-semibold">{% trans "Comptabiliser l'achat" %}</button>
+        </form>
+    {% endif %}
+</div>
+
 <div class="overflow-x-auto bg-white shadow-md rounded-lg mb-6">
 <table class="min-w-full table-auto border-collapse border border-gray-200">
     <thead>

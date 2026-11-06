@@ -48394,6 +48394,103 @@ msgstr "Τελευταία συντήρηση (%(type)s, %(date)s): κίτριν
 msgid "Dernière maintenance"
 msgstr "Τελευταία συντήρηση"
 
+#: piece/compta_achat.py
+msgid "Réception en stock"
+msgstr "Παραλαβή στο απόθεμα"
+
+#: piece/compta_achat.py
+msgid "Choisissez le fournisseur : il est nécessaire pour comptabiliser l'achat."
+msgstr "Επιλέξτε τον προμηθευτή: απαιτείται για τη λογιστική καταχώριση της αγοράς."
+
+#: piece/compta_achat.py
+msgid "Montant du transport invalide."
+msgstr "Μη έγκυρο ποσό μεταφοράς."
+
+#: piece/compta_achat.py
+msgid "Date de paiement invalide."
+msgstr "Μη έγκυρη ημερομηνία πληρωμής."
+
+#: piece/compta_achat.py
+msgid "Cette facture était déjà encodée dans les achats : elle y a été rattachée (pas de double encodage)."
+msgstr "Αυτό το τιμολόγιο ήταν ήδη καταχωρισμένο στις αγορές: συνδέθηκε με αυτό (χωρίς διπλή καταχώριση)."
+
+#: piece/compta_achat.py
+#, python-format
+msgid "Écart HTVA de %(e)s € entre la réception en stock et l'achat déjà encodé : vérifiez l'achat."
+msgstr "Διαφορά χωρίς ΦΠΑ %(e)s € μεταξύ παραλαβής στο απόθεμα και ήδη καταχωρισμένης αγοράς: ελέγξτε την αγορά."
+
+#: piece/compta_achat.py
+msgid "Achat comptabilisé automatiquement dans les achats de marchandises."
+msgstr "Η αγορά καταχωρίστηκε αυτόματα στις αγορές εμπορευμάτων."
+
+#: piece/compta_achat.py
+msgid "Comptabiliser l'achat (achats de marchandises)"
+msgstr "Λογιστική καταχώριση αγοράς (αγορές εμπορευμάτων)"
+
+#: piece/compta_achat.py
+msgid "Pas besoin d'encoder la facture une deuxième fois dans les achats. Si elle y est déjà, elle est simplement rattachée."
+msgstr "Δεν χρειάζεται να καταχωρίσετε το τιμολόγιο δεύτερη φορά στις αγορές. Αν υπάρχει ήδη, απλώς συνδέεται."
+
+#: piece/compta_achat.py
+msgid "Transport HTVA (facultatif)"
+msgstr "Μεταφορά χωρίς ΦΠΑ (προαιρετικό)"
+
+#: piece/compta_achat.py
+msgid "Date de paiement (facultatif)"
+msgstr "Ημερομηνία πληρωμής (προαιρετικό)"
+
+#: piece/compta_achat.py
+msgid "Comptabilisée dans les achats :"
+msgstr "Καταχωρισμένο στις αγορές:"
+
+#: piece/compta_achat.py
+msgid "Cette facture n'est pas encore comptabilisée dans les achats."
+msgstr "Αυτό το τιμολόγιο δεν έχει ακόμη καταχωριστεί στις αγορές."
+
+#: piece/compta_achat.py
+msgid "Comptabiliser l'achat"
+msgstr "Καταχώριση αγοράς"
+
+#: piece/compta_achat.py
+msgid "Cette facture a déjà été réceptionnée en stock : l'achat y a été rattaché (pas de double encodage)."
+msgstr "Αυτό το τιμολόγιο έχει ήδη παραληφθεί στο απόθεμα: η αγορά συνδέθηκε (χωρίς διπλή καταχώριση)."
+
+#: piece/compta_achat.py
+msgid "Repris de la réception en stock."
+msgstr "Από την παραλαβή στο απόθεμα."
+
+#: piece/compta_achat.py
+msgid "Facture réceptionnée en stock :"
+msgstr "Τιμολόγιο παραληφθέν στο απόθεμα:"
+
+#: piece/compta_achat.py
+msgid "voir la réception et ses lignes"
+msgstr "προβολή παραλαβής και γραμμών"
+
+#: piece/compta_achat.py
+msgid "Les montants et la référence viennent du stock ; seuls le libellé, le transport et le paiement se modifient ici."
+msgstr "Τα ποσά και η αναφορά προέρχονται από το απόθεμα· εδώ αλλάζουν μόνο η περιγραφή, η μεταφορά και η πληρωμή."
+
+#: piece/compta_achat.py
+msgid "Pièces, lubrifiants, pneus… qui entrent en stock ?"
+msgstr "Ανταλλακτικά, λιπαντικά, ελαστικά… που μπαίνουν στο απόθεμα;"
+
+#: piece/compta_achat.py
+msgid "Réceptionnez la facture en stock"
+msgstr "Παραλάβετε το τιμολόγιο στο απόθεμα"
+
+#: piece/compta_achat.py
+msgid "l'achat est comptabilisé automatiquement, inutile de l'encoder ici."
+msgstr "η αγορά καταχωρίζεται αυτόματα, δεν χρειάζεται να την καταχωρίσετε εδώ."
+
+#: recharge/templates/recharge/electricite_exemplaire_stat.html
+msgid "Coût Annuel"
+msgstr "Ετήσιο κόστος"
+
+#: recharge/templates/recharge/electricite_exemplaire_stat.html
+msgid "Une seule recharge cette année : calcul depuis la dernière recharge de l’année précédente"
+msgstr "Μόνο μία φόρτιση φέτος: υπολογισμός από την τελευταία φόρτιση του προηγούμενου έτους"
+
 #~ msgid "Toutes les maintenances"
 #~ msgstr "Όλες οι εργασίες συντήρησης"
 

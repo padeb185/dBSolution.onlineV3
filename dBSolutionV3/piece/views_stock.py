@@ -563,7 +563,7 @@ def facture_achat_form_view(request):
     societe = request.user.societe
     fournisseurs = Fournisseur.objects.filter(societe=societe).order_by("nom")
     entete = {"fournisseur": "", "numero_facture": "", "date_facture": timezone.localdate().isoformat(),
-              "commentaire": ""}
+              "commentaire": "", "transport_htva": "", "date_paiement": "", "comptabiliser": "1"}
     lignes, erreurs = [], []
 
     if request.method == "POST":
@@ -577,6 +577,15 @@ def facture_achat_form_view(request):
             erreurs.append(_("Indiquez la date de la facture."))
         if entete["fournisseur"] and fournisseur is None:
             erreurs.append(_("Fournisseur introuvable."))
+        comptabiliser = entete["comptabiliser"] == "1"
+        transport_htva = _decimal(entete["transport_htva"]) if entete["transport_htva"] else None
+        date_paiement = parse_date(entete["date_paiement"]) if entete["date_paiement"] else None
+        if comptabiliser and fournisseur is None:
+            erreurs.append(_("Choisissez le fournisseur : il est nécessaire pour comptabiliser l'achat."))
+        if entete["transport_htva"] and (transport_htva is None or transport_htva < 0):
+            erreurs.append(_("Montant du transport invalide."))
+        if entete["date_paiement"] and not date_paiement:
+            erreurs.append(_("Date de paiement invalide."))
         if not lignes:
             erreurs.append(_("Ajoutez au moins une ligne."))
         if any(l.get("erreur") for l in lignes):
@@ -605,8 +614,19 @@ def facture_achat_form_view(request):
                     )
                     ligne.save(update_fields=["mouvement"])
                 facture.recalculer_totaux()
+                achats, rattache, ecart = ([], False, Decimal("0"))
+                if comptabiliser:
+                    from .compta_achat import comptabiliser as comptabiliser_achat
+                    achats, rattache, ecart = comptabiliser_achat(facture, transport_htva, date_paiement)
             messages.success(request, _("Facture réceptionnée : %(n)s ligne(s) entrée(s) en stock, total TVAC %(t)s €.")
                              % {"n": len(lignes), "t": facture.total_tvac})
+            if rattache:
+                messages.info(request, _("Cette facture était déjà encodée dans les achats : elle y a été rattachée (pas de double encodage)."))
+                if ecart:
+                    messages.warning(request, _("Écart HTVA de %(e)s € entre la réception en stock et l'achat déjà encodé : vérifiez l'achat.")
+                                     % {"e": ecart})
+            elif achats:
+                messages.info(request, _("Achat comptabilisé automatiquement dans les achats de marchandises."))
             return redirect("piece:facture_achat_detail", pk=facture.pk)
 
     return render(request, "piece/stock/facture_achat_form.html", {
@@ -624,6 +644,16 @@ def facture_achat_detail_view(request, pk):
         pk=pk,
     )
     lignes = facture.lignes.select_related("piece", "piece__fabricant", "mouvement")
+    if request.method == "POST" and request.POST.get("action") == "comptabiliser" and not facture.achats_mds.exists():
+        if facture.fournisseur_id is None:
+            messages.error(request, _("Choisissez le fournisseur : il est nécessaire pour comptabiliser l'achat."))
+        else:
+            from .compta_achat import comptabiliser as comptabiliser_achat
+            _achats, rattache, _ecart = comptabiliser_achat(facture)
+            messages.success(request, _("Cette facture était déjà encodée dans les achats : elle y a été rattachée (pas de double encodage).")
+                             if rattache else _("Achat comptabilisé automatiquement dans les achats de marchandises."))
+        return redirect("piece:facture_achat_detail", pk=facture.pk)
     return render(request, "piece/stock/facture_achat_detail.html", {
         "facture": facture, "lignes": lignes, "totaux_par_taux": facture.totaux_par_taux(),
+        "achats": facture.achats_mds.all(),
     })

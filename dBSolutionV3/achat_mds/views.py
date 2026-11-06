@@ -49,6 +49,11 @@ def achat_mds_view(request):
             achat.societe = tenant
             achat.save()
 
+            # Un seul encodage : rattache la réception en stock de la même facture, s'il y en a une
+            from piece.compta_achat import lier_depuis_achat
+            if lier_depuis_achat(achat):
+                messages.info(request, _("Cette facture a déjà été réceptionnée en stock : l'achat y a été rattaché (pas de double encodage)."))
+
             messages.success(
                 request,
                 _("Achat enregistré avec succès.") if achat.est_facture else
@@ -114,7 +119,7 @@ def achat_detail_view(request, achat_id):
     tenant = request.user.societe
 
     achat = get_object_or_404(
-        AchatMds.objects.select_related("fournisseur", "document_origine"),
+        AchatMds.objects.select_related("fournisseur", "document_origine", "facture_stock"),
         id=achat_id,
         societe=tenant   # 🔒 IMPORTANT sécurité multi-tenant
     )
@@ -138,7 +143,7 @@ def modifier_achat_view(request, achat_id):
     tenant = request.user.societe
 
 
-    achat = get_object_or_404(AchatMds, id=achat_id)
+    achat = get_object_or_404(AchatMds, id=achat_id, societe=tenant)
     fournisseurs = Fournisseur.objects.filter(societe=tenant)
 
     if request.method == "POST":

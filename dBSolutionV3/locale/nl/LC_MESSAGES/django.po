@@ -48394,6 +48394,103 @@ msgstr "Laatste onderhoud (%(type)s, %(date)s): geel label"
 msgid "Dernière maintenance"
 msgstr "Laatste onderhoud"
 
+#: piece/compta_achat.py
+msgid "Réception en stock"
+msgstr "Ontvangst in voorraad"
+
+#: piece/compta_achat.py
+msgid "Choisissez le fournisseur : il est nécessaire pour comptabiliser l'achat."
+msgstr "Kies de leverancier: die is nodig om de aankoop te boeken."
+
+#: piece/compta_achat.py
+msgid "Montant du transport invalide."
+msgstr "Ongeldig transportbedrag."
+
+#: piece/compta_achat.py
+msgid "Date de paiement invalide."
+msgstr "Ongeldige betaaldatum."
+
+#: piece/compta_achat.py
+msgid "Cette facture était déjà encodée dans les achats : elle y a été rattachée (pas de double encodage)."
+msgstr "Deze factuur was al ingebracht bij de aankopen: ze werd eraan gekoppeld (geen dubbele invoer)."
+
+#: piece/compta_achat.py
+#, python-format
+msgid "Écart HTVA de %(e)s € entre la réception en stock et l'achat déjà encodé : vérifiez l'achat."
+msgstr "Verschil excl. btw van %(e)s € tussen de ontvangst in voorraad en de reeds ingebrachte aankoop: controleer de aankoop."
+
+#: piece/compta_achat.py
+msgid "Achat comptabilisé automatiquement dans les achats de marchandises."
+msgstr "Aankoop automatisch geboekt bij de aankopen van handelsgoederen."
+
+#: piece/compta_achat.py
+msgid "Comptabiliser l'achat (achats de marchandises)"
+msgstr "Aankoop boeken (aankopen handelsgoederen)"
+
+#: piece/compta_achat.py
+msgid "Pas besoin d'encoder la facture une deuxième fois dans les achats. Si elle y est déjà, elle est simplement rattachée."
+msgstr "De factuur hoeft geen tweede keer bij de aankopen ingebracht te worden. Staat ze er al, dan wordt ze gewoon gekoppeld."
+
+#: piece/compta_achat.py
+msgid "Transport HTVA (facultatif)"
+msgstr "Transport excl. btw (optioneel)"
+
+#: piece/compta_achat.py
+msgid "Date de paiement (facultatif)"
+msgstr "Betaaldatum (optioneel)"
+
+#: piece/compta_achat.py
+msgid "Comptabilisée dans les achats :"
+msgstr "Geboekt bij de aankopen:"
+
+#: piece/compta_achat.py
+msgid "Cette facture n'est pas encore comptabilisée dans les achats."
+msgstr "Deze factuur is nog niet geboekt bij de aankopen."
+
+#: piece/compta_achat.py
+msgid "Comptabiliser l'achat"
+msgstr "Aankoop boeken"
+
+#: piece/compta_achat.py
+msgid "Cette facture a déjà été réceptionnée en stock : l'achat y a été rattaché (pas de double encodage)."
+msgstr "Deze factuur werd al in voorraad ontvangen: de aankoop werd eraan gekoppeld (geen dubbele invoer)."
+
+#: piece/compta_achat.py
+msgid "Repris de la réception en stock."
+msgstr "Overgenomen uit de ontvangst in voorraad."
+
+#: piece/compta_achat.py
+msgid "Facture réceptionnée en stock :"
+msgstr "Factuur ontvangen in voorraad:"
+
+#: piece/compta_achat.py
+msgid "voir la réception et ses lignes"
+msgstr "bekijk de ontvangst en de regels"
+
+#: piece/compta_achat.py
+msgid "Les montants et la référence viennent du stock ; seuls le libellé, le transport et le paiement se modifient ici."
+msgstr "Bedragen en referentie komen uit de voorraad; enkel omschrijving, transport en betaling worden hier aangepast."
+
+#: piece/compta_achat.py
+msgid "Pièces, lubrifiants, pneus… qui entrent en stock ?"
+msgstr "Onderdelen, smeermiddelen, banden… die in voorraad gaan?"
+
+#: piece/compta_achat.py
+msgid "Réceptionnez la facture en stock"
+msgstr "Ontvang de factuur in voorraad"
+
+#: piece/compta_achat.py
+msgid "l'achat est comptabilisé automatiquement, inutile de l'encoder ici."
+msgstr "de aankoop wordt automatisch geboekt, hier invoeren is niet nodig."
+
+#: recharge/templates/recharge/electricite_exemplaire_stat.html
+msgid "Coût Annuel"
+msgstr "Jaarlijkse kosten"
+
+#: recharge/templates/recharge/electricite_exemplaire_stat.html
+msgid "Une seule recharge cette année : calcul depuis la dernière recharge de l’année précédente"
+msgstr "Slechts één laadbeurt dit jaar: berekend vanaf de laatste laadbeurt van het vorige jaar"
+
 #~ msgid "Toutes les maintenances"
 #~ msgstr "Alle onderhoudswerkzaamheden"
 

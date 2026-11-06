@@ -124,8 +124,19 @@ class AchatForm(forms.ModelForm):
 
         super().__init__(*args, **kwargs)
 
-        self.fields["fournisseur"].queryset = Fournisseur.objects.all().order_by("nom")
+        qs = Fournisseur.objects.all()
+        if societe is not None:
+            qs = qs.filter(societe=societe)
+        self.fields["fournisseur"].queryset = qs.order_by("nom")
         appliquer_choix_documents(self, societe, self.instance)
+
+        # Achat issu d'une réception en stock : les montants viennent des lignes du stock
+        if self.instance and self.instance.pk and getattr(self.instance, "facture_stock_id", None):
+            for nom in ("type_document", "document_origine", "fournisseur", "reference_facture",
+                        "achat_montant_htva", "achat_tva", "date_facture"):
+                if nom in self.fields:
+                    self.fields[nom].disabled = True
+                    self.fields[nom].help_text = _("Repris de la réception en stock.")
 
     def get_queryset(self):
         return super().get_queryset().annotate(

@@ -83,6 +83,17 @@ class AchatMds(FactureAchatMixin, DocumentAchatModel):
         blank=True
     )
 
+    # Achat créé (ou rattaché) depuis une réception de facture en stock : un seul encodage
+    facture_stock = models.ForeignKey(
+        "piece.FactureAchatStock",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        editable=False,
+        related_name="achats_mds",
+        verbose_name=_("Réception en stock"),
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

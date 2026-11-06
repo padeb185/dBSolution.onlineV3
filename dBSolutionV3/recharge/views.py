@@ -1413,15 +1413,19 @@ class ElectriciteExemplaireStatView(
             )
 
             # Une seule recharge dans l'année : on part de la dernière recharge de l'année précédente
+            base_annee_precedente = False
             if e_an.count() < 2 or km_total_an <= 0:
                 km_reference = _dernier_km_avant(annee)
                 if km_reference is not None and agregats_an["km_max"] is not None:
                     km_total_an = km_max_an - km_reference
                     total_kW_an_consommation = total_kW_an_all
+                    base_annee_precedente = km_total_an > 0
 
             context["par_an"].append(
                 {
                     "an": annee,
+                    "base_annee_precedente": base_annee_precedente,
+                    "km_parcourus": km_total_an if km_total_an > 0 else None,
                     "nb_recharges": e_an.count(),
                     "total_kW": total_kW_an_all,
                     "total_cout": total_cout_an,

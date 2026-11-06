@@ -74,7 +74,11 @@ def lignes_achats(societe, fournisseur=None, annee=None, mois=None, sources=None
         except ImportError:
             FactureAchatStock = None
         if FactureAchatStock is not None:
-            for f in filtrer(FactureAchatStock.objects.exclude(fournisseur__isnull=True)):
+            # Réceptions déjà comptabilisées dans les achats : comptées côté « Marchandises »
+            qs_stock = FactureAchatStock.objects.exclude(fournisseur__isnull=True)
+            if "mds" in sources:
+                qs_stock = qs_stock.filter(achats_mds__isnull=True)
+            for f in filtrer(qs_stock):
                 lignes.append({
                     "date": f.date_facture, "fournisseur_id": f.fournisseur_id, "fournisseur": f.fournisseur,
                     "reference": f.numero_facture, "libelle": f.commentaire or "",

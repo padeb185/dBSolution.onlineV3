@@ -48388,6 +48388,103 @@ msgstr ""
 msgid "Dernière maintenance"
 msgstr ""
 
+#: piece/compta_achat.py
+msgid "Réception en stock"
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "Choisissez le fournisseur : il est nécessaire pour comptabiliser l'achat."
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "Montant du transport invalide."
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "Date de paiement invalide."
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "Cette facture était déjà encodée dans les achats : elle y a été rattachée (pas de double encodage)."
+msgstr ""
+
+#: piece/compta_achat.py
+#, python-format
+msgid "Écart HTVA de %(e)s € entre la réception en stock et l'achat déjà encodé : vérifiez l'achat."
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "Achat comptabilisé automatiquement dans les achats de marchandises."
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "Comptabiliser l'achat (achats de marchandises)"
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "Pas besoin d'encoder la facture une deuxième fois dans les achats. Si elle y est déjà, elle est simplement rattachée."
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "Transport HTVA (facultatif)"
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "Date de paiement (facultatif)"
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "Comptabilisée dans les achats :"
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "Cette facture n'est pas encore comptabilisée dans les achats."
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "Comptabiliser l'achat"
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "Cette facture a déjà été réceptionnée en stock : l'achat y a été rattaché (pas de double encodage)."
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "Repris de la réception en stock."
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "Facture réceptionnée en stock :"
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "voir la réception et ses lignes"
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "Les montants et la référence viennent du stock ; seuls le libellé, le transport et le paiement se modifient ici."
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "Pièces, lubrifiants, pneus… qui entrent en stock ?"
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "Réceptionnez la facture en stock"
+msgstr ""
+
+#: piece/compta_achat.py
+msgid "l'achat est comptabilisé automatiquement, inutile de l'encoder ici."
+msgstr ""
+
+#: recharge/templates/recharge/electricite_exemplaire_stat.html
+msgid "Coût Annuel"
+msgstr ""
+
+#: recharge/templates/recharge/electricite_exemplaire_stat.html
+msgid "Une seule recharge cette année : calcul depuis la dernière recharge de l’année précédente"
+msgstr ""
+
 #~ msgid "Client (nom, société)"
 #~ msgstr "Client (nom, société)"
 
