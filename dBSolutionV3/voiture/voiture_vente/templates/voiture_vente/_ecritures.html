@@ -1,0 +1,18 @@
+{% load i18n %}
+<table class="vv-table mb-3">
+    <thead><tr>
+        <th>{% trans "Date" %}</th><th>{% trans "Journal" %}</th><th>{% trans "Pièce" %}</th><th>{% trans "Compte" %}</th>
+        <th>{% trans "Libellé" %}</th><th class="num">{% trans "Débit" %}</th><th class="num">{% trans "Crédit" %}</th>
+    </tr></thead>
+    <tbody>
+    {% for l in lignes %}
+        <tr>
+            <td>{{ l.date|date:"d/m/Y" }}</td><td>{{ l.journal }}</td><td class="font-mono text-xs">{{ l.piece|default:"" }}</td>
+            <td class="font-mono">{{ l.compte }} <span class="text-xs text-gray-500">{{ l.intitule }}</span></td>
+            <td class="text-xs">{{ l.libelle }}</td>
+            <td class="num">{% if l.debit %}{{ l.debit|floatformat:"2g" }}{% endif %}</td>
+            <td class="num">{% if l.credit %}{{ l.credit|floatformat:"2g" }}{% endif %}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

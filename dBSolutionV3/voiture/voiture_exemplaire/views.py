@@ -841,7 +841,11 @@ def finances_detail(request, exemplaire_id):
     from django.core.paginator import Paginator
     page_mt = Paginator(rent["maintenances"]["lignes"], 10).get_page(request.GET.get("page_mt"))
 
+    # Revente du véhicule (module voiture_vente) : vente en cours ou émise
+    vente_active = exemplaire.ventes.exclude(statut="ANNULEE").first()
+
     return render(request, "voiture_exemplaire/finances/detail.html", {
+        "vente_active": vente_active,
         "rent": rent,
         "page_mt": page_mt,
         "form_cout": CoutAnnuelVehiculeForm(initial={"annee": _tz.localdate().year}),

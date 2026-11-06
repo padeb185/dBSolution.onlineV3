@@ -113,6 +113,22 @@
         {% endwith %}
     </div>
 
+    <!-- ================= REVENTE ================= -->
+    <div id="revente" class="mb-6 flex flex-wrap items-center justify-between gap-3 rounded border px-4 py-3 {% if vente_active.est_emise %}border-green-300 bg-green-50{% else %}border-gray-200 bg-gray-50{% endif %}">
+        <div class="text-sm">
+            <span class="font-semibold">{% trans "Revente" %}</span> –
+            {% if vente_active %}
+                {% if vente_active.est_emise %}{% blocktrans with n=vente_active.numero d=vente_active.date_vente|date:"d/m/Y" m=vente_active.prix_tvac|floatformat:"2g" %}vendu le {{ d }} (facture {{ n }}, {{ m }} €){% endblocktrans %}
+                {% else %}{% trans "vente en préparation (brouillon)" %}{% endif %}
+            {% else %}{% trans "véhicule non vendu" %}{% endif %}
+        </div>
+        {% if vente_active %}
+            <a href="{% url 'voiture_vente:detail' vente_active.pk %}" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded text-sm font-semibold">{% trans "Voir la vente et le bilan" %}</a>
+        {% elif not exemplaire.client %}
+            <a href="{% url 'voiture_vente:nouvelle' %}?exemplaire={{ exemplaire.id }}" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded text-sm font-semibold">{% trans "Vendre ce véhicule" %}</a>
+        {% endif %}
+    </div>
+
     {% with r=rent %}
     <!-- ================= SYNTHÈSE ================= -->
     <h2 class="text-lg font-semibold mb-2">{% trans "Rentabilité du véhicule" %}</h2>

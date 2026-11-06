@@ -275,6 +275,37 @@ class CalculTVA:
                     "date": ev["date"], "tvac": ev["tvac"], "tva": tva,
                 })
 
+        # 3) Ventes de véhicules de la flotte (module voiture_vente) : TVA exigible à la date de la facture ;
+        #    note de crédit (annulation) à sa date. Régime de la marge : base = marge HTVA.
+        #    Livraisons exonérées (intracommunautaire, exportation, art. 44) : listées, sans TVA.
+        try:
+            from voiture.voiture_vente.models import VenteVehicule
+            ventes = (VenteVehicule.objects.filter(societe=self.societe)
+                      .exclude(statut=VenteVehicule.Statut.BROUILLON)
+                      .filter(Q(date_vente__range=(self.debut, self.fin)) | Q(date_annulation__range=(self.debut, self.fin)))
+                      .select_related("exemplaire"))
+            for v in ventes:
+                evenements = []
+                if self.debut <= v.date_vente <= self.fin:
+                    evenements.append((v.date_vente, v.numero, Decimal("1")))
+                if v.date_annulation and self.debut <= v.date_annulation <= self.fin:
+                    evenements.append((v.date_annulation, v.numero_note_credit, Decimal("-1")))
+                taux = arrondi(v.taux_tva) if v.montant_tva else ZERO
+                for jour, piece, signe in evenements:
+                    base, tva_v = arrondi(v.base_tva * signe), arrondi(v.montant_tva * signe)
+                    if v.montant_tva:
+                        ajouter(taux, base, tva_v)
+                    self._mvts_payer.append({
+                        "date": jour, "piece": str(piece or ""), "tiers": v.acheteur_nom,
+                        "libelle": " – ".join(x for x in [str(v.exemplaire.immatriculation or ""), v.get_regime_tva_display()] if x),
+                        "nature": "note_credit" if signe < 0 else "vente_vehicule",
+                        "taux": taux, "base": base, "tva": tva_v, "autoliquidation": False,
+                    })
+                    if signe > 0:
+                        nb_factures += 1
+        except Exception:
+            pass
+
         lignes = [
             {**l, "base": arrondi(l["base"]), "tva": arrondi(l["tva"])}
             for _t, l in sorted(par_taux.items())

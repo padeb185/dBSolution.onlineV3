@@ -107,6 +107,9 @@ urlpatterns += i18n_patterns(
     # Locations (circuit / route)
     path("location/", include(("voiture.voiture_location.urls", "voiture_location"), namespace="voiture_location")),
 
+    # Revente des véhicules de la flotte (facture, cession, bilan)
+    path("voiture/ventes/", include(("voiture.voiture_vente.urls", "voiture_vente"), namespace="voiture_vente")),
+
     # Moteurs
     path('voiture/moteur/', include('voiture.voiture_moteur.urls', namespace='voiture_moteur')),
 

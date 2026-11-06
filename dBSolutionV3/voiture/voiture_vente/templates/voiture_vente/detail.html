@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Vente du véhicule" %} {{ vente.numero|default:"" }}{% endblock %}
+{% block content %}
+{% include "voiture_vente/_styles.html" %}
+{% with b=bilan %}
+<div class="max-w-6xl mx-auto py-6 px-3">
+
+    <!-- En-tête -->
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <div class="flex items-center gap-4">
+            {% include "voiture_vente/_icone.html" with classe="w-[56px] h-[56px]" %}
+            <div>
+                <h1 class="text-2xl font-bold flex items-center gap-3">
+                    {% if vente.numero %}{% trans "Facture" %} {{ vente.numero }}{% else %}{% trans "Vente en préparation" %}{% endif %}
+                    <span class="vv-badge vv-{{ vente.statut }}">{{ vente.get_statut_display }}</span>
+                </h1>
+                <p class="text-gray-600">{{ ex.voiture_marque }} {{ ex.voiture_modele.nom_modele }} · {% trans "vendu le" %} {{ vente.date_vente|date:"d/m/Y" }}</p>
+            </div>
+        </div>
+        {% include "maintenance/partials/plaque.html" with exemplaire=ex %}
+    </div>
+    {% include "voiture_exemplaire/finances/_messages.html" %}
+
+    <!-- Actions -->
+    <div class="flex flex-wrap gap-2 mb-4">
+        {% if not vente.est_annulee %}
+            <a href="{% url 'voiture_vente:modifier' vente.pk %}" class="bg-blue-700 hover:bg-blue-500 text-white px-4 py-2 rounded-md font-semibold text-sm">{% if vente.est_brouillon %}{% trans "Modifier" %}{% else %}{% trans "Paiement / remarques" %}{% endif %}</a>
+        {% endif %}
+        {% if vente.est_brouillon %}
+            <form method="post" action="{% url 'voiture_vente:emettre' vente.pk %}" onsubmit="return confirm('{% trans "Émettre la facture ? Elle ne sera plus modifiable et la cession sera comptabilisée." %}');">
+                {% csrf_token %}
+                <button type="submit" {% if bloquant %}disabled title="{% trans 'Corrigez les points bloquants' %}"{% endif %}
+                        class="bg-green-600 hover:bg-green-500 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-md font-semibold text-sm">{% trans "Émettre la facture" %}</button>
+            </form>
+        {% endif %}
+        <a href="{% url 'voiture_vente:pdf' vente.pk 'facture' %}" target="_blank" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-md font-semibold text-sm">PDF {% trans "facture" %}{% if vente.est_brouillon %} ({% trans "brouillon" %}){% endif %}</a>
+        <a href="{% url 'voiture_vente:pdf' vente.pk 'cession' %}" target="_blank" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-md font-semibold text-sm">PDF {% trans "certificat de cession" %}</a>
+        {% if vente.est_annulee %}
+            <a href="{% url 'voiture_vente:pdf' vente.pk 'note-credit' %}" target="_blank" class="bg-red-700 hover:bg-red-600 text-white px-4 py-2 rounded-md font-semibold text-sm">PDF {% trans "note de crédit" %}</a>
+        {% endif %}
+        <a href="{% url 'voiture_exemplaire:finances_detail' ex.pk %}" class="bg-gray-200 hover:bg-gray-300 text-black px-4 py-2 rounded-md font-semibold text-sm">{% trans "Données financières" %}</a>
+        <a href="{% url 'voiture_vente:liste' %}" class="bg-gray-200 hover:bg-gray-300 text-black px-4 py-2 rounded-md font-semibold text-sm">{% trans "Toutes les ventes" %}</a>
+    </div>
+
+    <!-- Alertes -->
+    {% for niveau, message in alertes %}
+        <div class="mb-2 rounded-lg border px-4 py-2 text-sm
+            {% if niveau == 'erreur' %}border-red-300 bg-red-50 text-red-800{% elif niveau == 'attention' %}border-amber-300 bg-amber-50 text-amber-900{% else %}border-sky-300 bg-sky-50 text-sky-900{% endif %}">
+            {% if niveau == 'erreur' %}<strong>{% trans "Bloquant" %} :</strong>{% elif niveau == 'attention' %}<strong>{% trans "Attention" %} :</strong>{% endif %} {{ message }}
+        </div>
+    {% endfor %}
+    {% if vente.est_annulee %}
+        <div class="mb-2 rounded-lg border border-red-300 bg-red-50 text-red-800 px-4 py-2 text-sm">
+            {% blocktrans with nc=vente.numero_note_credit d=vente.date_annulation|date:"d/m/Y" %}Vente annulée par la note de crédit {{ nc }} du {{ d }}.{% endblocktrans %}
+            {% if vente.motif_annulation %}<br>{{ vente.motif_annulation }}{% endif %}
+        </div>
+    {% endif %}
+
+    <div class="grid md:grid-cols-2 gap-4 mt-4">
+        <!-- Acheteur -->
+        <div class="vv-carte">
+            <h2 class="vv-titre">{% trans "Acheteur" %} <span class="note">{{ vente.get_type_acheteur_display }}</span></h2>
+            <p class="font-semibold">{{ vente.acheteur_nom|default:"—" }}</p>
+            <p class="text-sm whitespace-pre-line">{{ vente.acheteur_adresse }}</p>
+            <dl class="grid grid-cols-2 gap-x-4 gap-y-1 text-sm mt-2">
+                {% if vente.acheteur_pays %}<dt class="text-gray-600">{% trans "Pays" %}</dt><dd>{{ vente.get_acheteur_pays_display }}</dd>{% endif %}
+                {% if vente.acheteur_tva %}<dt class="text-gray-600">{% trans "TVA" %}</dt><dd>{{ vente.acheteur_tva }}</dd>{% endif %}
+                {% if vente.acheteur_email %}<dt class="text-gray-600">{% trans "Email" %}</dt><dd>{{ vente.acheteur_email }}</dd>{% endif %}
+                {% if vente.acheteur_telephone %}<dt class="text-gray-600">{% trans "Téléphone" %}</dt><dd>{{ vente.acheteur_telephone }}</dd>{% endif %}
+            </dl>
+        </div>
+        <!-- Prix -->
+        <div class="vv-carte">
+            <h2 class="vv-titre">{% trans "Prix et TVA" %} <span class="note">{{ vente.get_regime_tva_display }}</span></h2>
+            <table class="vv-table">
+                <tr><td>{% trans "Prix HTVA (produit de la cession)" %}</td><td class="num">{{ vente.prix_htva|floatformat:"2g" }} €</td></tr>
+                {% if vente.regime_tva == "MARGE" %}
+                    <tr><td>{% trans "Prix d'achat TVAC" %}</td><td class="num">{{ vente.prix_achat_marge|default:0|floatformat:"2g" }} €</td></tr>
+                    <tr><td>{% trans "Marge TVAC" %}</td><td class="num">{{ prix.marge|floatformat:"2g" }} €</td></tr>
+                    <tr><td>{% trans "TVA sur la marge (non mentionnée sur la facture)" %} ({{ vente.taux_tva|floatformat:"-2" }} %)</td><td class="num">{{ vente.montant_tva|floatformat:"2g" }} €</td></tr>
+                {% elif vente.regime_tva == "NORMAL" %}
+                    {% if vente.pourcentage_taxable < 100 %}<tr><td>{% trans "Base imposable" %} ({{ vente.pourcentage_taxable|floatformat:"0" }} %)</td><td class="num">{{ vente.base_tva|floatformat:"2g" }} €</td></tr>{% endif %}
+                    <tr><td>{% trans "TVA" %} ({{ vente.taux_tva|floatformat:"-2" }} %)</td><td class="num">{{ vente.montant_tva|floatformat:"2g" }} €</td></tr>
+                {% else %}
+                    <tr><td>{% trans "TVA" %}</td><td class="num">{% trans "exonéré" %}</td></tr>
+                {% endif %}
+                <tr class="font-bold bg-blue-50"><td>{% trans "Total à payer par l'acheteur" %}</td><td class="num">{{ vente.prix_tvac|floatformat:"2g" }} €</td></tr>
+            </table>
+            {% if vente.mention_legale %}<p class="vv-aide mt-2">{{ vente.mention_legale }}</p>{% endif %}
+            <p class="text-sm mt-2">{% trans "Paiement" %} : {{ vente.get_mode_paiement_display }} –
+                {% if vente.date_paiement %}{% trans "encaissé le" %} {{ vente.date_paiement|date:"d/m/Y" }}{% else %}<span class="text-amber-700 font-semibold">{% trans "à encaisser" %}</span>{% endif %}</p>
+        </div>
+    </div>
+
+    <!-- Bilan financier -->
+    <div class="vv-carte">
+        <h2 class="vv-titre">{% trans "Bilan financier du véhicule" %} <span class="note">{% trans "de l'achat à la revente, montants HTVA" %}</span></h2>
+        <dl class="vv-kpi mb-4">
+            <div><dt>{% trans "Produit de la vente" %}</dt><dd>{{ b.produit|floatformat:"2g" }} €</dd></div>
+            <div><dt>{% trans "Valeur nette comptable" %}</dt><dd>{% if b.vnc is not None %}{{ b.vnc|floatformat:"2g" }} €{% else %}—{% endif %}</dd></div>
+            <div><dt>{% trans "Plus / moins-value comptable" %}</dt><dd class="{% if b.plus_value >= 0 %}vv-pos{% else %}vv-neg{% endif %}">{% if b.plus_value is not None %}{{ b.plus_value|floatformat:"2g" }} €{% else %}—{% endif %}</dd></div>
+            <div><dt>{% trans "Résultat global du véhicule" %}</dt><dd class="{% if b.resultat >= 0 %}vv-pos{% else %}vv-neg{% endif %}">{{ b.resultat|floatformat:"2g" }} €</dd></div>
+        </dl>
+        <div class="grid md:grid-cols-2 gap-6">
+            <table class="vv-table">
+                <tr><td>{% trans "Coût d'acquisition" %}</td><td class="num">{{ b.rent.acquisition.total|floatformat:"2g" }} €</td></tr>
+                <tr><td>{% trans "Énergie" %}</td><td class="num">{{ b.rent.total_energie|floatformat:"2g" }} €</td></tr>
+                <tr><td>{% trans "Maintenances" %}</td><td class="num">{{ b.rent.maintenances.total|floatformat:"2g" }} €</td></tr>
+                <tr><td>{% trans "Coûts annuels (assurance, taxes…)" %}</td><td class="num">{{ b.rent.couts_annuels.total|floatformat:"2g" }} €</td></tr>
+                <tr class="font-semibold"><td>{% trans "Coût total de détention" %}</td><td class="num">{{ b.cout_total|floatformat:"2g" }} €</td></tr>
+                <tr><td>{% trans "Frais de vente" %}</td><td class="num">{{ b.frais|floatformat:"2g" }} €</td></tr>
+                <tr><td>− {% trans "Produit de la vente" %}</td><td class="num">{{ b.produit|floatformat:"2g" }} €</td></tr>
+                <tr class="font-semibold"><td>{% trans "Coût net" %}</td><td class="num">{{ b.cout_net|floatformat:"2g" }} €</td></tr>
+                <tr><td>− {% trans "Revenus des locations" %} ({{ b.rent.locations.nb }})</td><td class="num">{{ b.revenus|floatformat:"2g" }} €</td></tr>
+                <tr class="font-bold bg-blue-50"><td>{% trans "Résultat global" %}</td><td class="num {% if b.resultat >= 0 %}vv-pos{% else %}vv-neg{% endif %}">{{ b.resultat|floatformat:"2g" }} €</td></tr>
+            </table>
+            <table class="vv-table">
+                <tr><td>{% trans "Détention" %}</td><td class="num">{{ b.debut|date:"d/m/Y" }} → {{ vente.date_vente|date:"d/m/Y" }}{% if b.mois is not None %} ({{ b.mois }} {% trans "mois" %}){% endif %}</td></tr>
+                <tr><td>{% trans "Kilomètres parcourus" %}</td><td class="num">{{ b.km|milliers }} km</td></tr>
+                <tr><td>{% trans "Coût net au kilomètre" %}</td><td class="num">{% if b.cout_km is not None %}{{ b.cout_km|floatformat:"3g" }} €/km{% else %}—{% endif %}</td></tr>
+                <tr><td>{% trans "Coût net par mois" %}</td><td class="num">{% if b.cout_mois is not None %}{{ b.cout_mois|floatformat:"2g" }} €{% else %}—{% endif %}</td></tr>
+                <tr><td>{% trans "Valeur de revente estimée" %}</td><td class="num">{% if b.valeur_estimee %}{{ b.valeur_estimee|floatformat:"2g" }} €{% else %}—{% endif %}</td></tr>
+                <tr><td>{% trans "Écart prix réel / estimation" %}</td><td class="num {% if b.ecart_estimation >= 0 %}vv-pos{% else %}vv-neg{% endif %}">{% if b.ecart_estimation is not None %}{{ b.ecart_estimation|floatformat:"2g" }} €{% else %}—{% endif %}</td></tr>
+                {% if revision %}<tr><td>{% trans "Révision de TVA estimée (à reverser)" %}</td><td class="num vv-neg">{{ revision.montant|floatformat:"2g" }} €</td></tr>{% endif %}
+            </table>
+        </div>
+        <p class="vv-aide mt-3">{% trans "Le résultat global additionne les revenus des locations et le produit de la vente, moins le coût total de détention (calcul de rentabilité du véhicule) et les frais de vente. La plus-value comptable compare le prix HTVA à la valeur nette comptable (amortissements actés jusqu'au 31/12 précédant la vente)." %}</p>
+    </div>
+
+    <!-- Comptabilité -->
+    <div class="vv-carte">
+        <h2 class="vv-titre">{% trans "Écritures comptables" %}</h2>
+        {% if vente.est_brouillon %}
+            <p class="vv-aide mb-2">{% trans "Aperçu : écritures passées à l'émission de la facture." %}</p>
+            {% include "voiture_vente/_ecritures.html" with lignes=apercu %}
+        {% else %}
+            {% include "voiture_vente/_ecritures.html" with lignes=ecritures %}
+        {% endif %}
+        {% if ecritures_cession %}
+            <h3 class="font-semibold text-sm mt-4 mb-2">{% trans "Cession de l'immobilisation" %} – {{ vente.immobilisation.libelle }}</h3>
+            {% include "voiture_vente/_ecritures.html" with lignes=ecritures_cession %}
+        {% elif not vente.immobilisation %}
+            <p class="vv-aide">{% trans "Aucune immobilisation liée : le prix HTVA est comptabilisé en plus-value (763000)." %}</p>
+        {% endif %}
+        <p class="vv-aide">{% trans "Estimation à faire valider par le comptable (régime de TVA, révision des déductions, plus-value)." %}</p>
+    </div>
+
+    <!-- Véhicule et documents -->
+    <div class="vv-carte">
+        <h2 class="vv-titre">{% trans "Véhicule et documents remis" %}</h2>
+        <dl class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-1 text-sm">
+            <dt class="text-gray-600">{% trans "VIN" %}</dt><dd class="font-mono">{{ ex.numero_vin|default:"—" }}</dd>
+            <dt class="text-gray-600">{% trans "Mise en circulation" %}</dt><dd>{{ ex.date_mise_en_circulation|date:"d/m/Y"|default:"—" }}</dd>
+            <dt class="text-gray-600">{% trans "Kilométrage à la vente" %}</dt><dd>{% if vente.kilometrage_vente %}{{ vente.kilometrage_vente|milliers }} km{% else %}—{% endif %}</dd>
+            <dt class="text-gray-600">{% trans "Livraison" %}</dt><dd>{{ vente.date_livraison|date:"d/m/Y"|default:"—" }}</dd>
+            <dt class="text-gray-600">{% trans "Clés" %}</dt><dd>{{ vente.nombre_cles }}</dd>
+            <dt class="text-gray-600">{% trans "Garantie" %}</dt><dd>{% if vente.garantie_mois %}{{ vente.garantie_mois }} {% trans "mois" %}{% else %}{% trans "aucune garantie commerciale" %}{% endif %}</dd>
+        </dl>
+        <ul class="text-sm mt-3 grid sm:grid-cols-2 gap-1">
+            <li>{% if vente.doc_certificat_immatriculation %}✔{% else %}✘{% endif %} {% trans "Certificat d'immatriculation" %}</li>
+            <li>{% if vente.doc_coc %}✔{% else %}✘{% endif %} {% trans "Certificat de conformité (COC)" %}</li>
+            <li>{% if vente.doc_carnet_entretien %}✔{% else %}✘{% endif %} {% trans "Carnet d'entretien / historique" %}</li>
+            <li>{% if vente.doc_car_pass %}✔{% else %}✘{% endif %} {% trans "Car-Pass (Belgique)" %}</li>
+            <li>{% if vente.doc_controle_technique %}✔{% else %}✘{% endif %} {% trans "Certificat de contrôle technique" %}</li>
+        </ul>
+        {% if vente.etat_vehicule %}<p class="text-sm mt-3"><strong>{% trans "État / défauts connus" %} :</strong> {{ vente.etat_vehicule|linebreaksbr }}</p>{% endif %}
+        {% if vente.remarques %}<p class="text-sm mt-2"><strong>{% trans "Remarques" %} :</strong> {{ vente.remarques|linebreaksbr }}</p>{% endif %}
+    </div>
+
+    <!-- Annulation / suppression -->
+    {% if vente.est_emise %}
+    <details class="vv-carte">
+        <summary class="cursor-pointer font-semibold text-red-700">{% trans "Annuler la vente (note de crédit)" %}</summary>
+        <form method="post" action="{% url 'voiture_vente:annuler' vente.pk %}" class="mt-3 vv-grille" onsubmit="return confirm('{% trans "Émettre une note de crédit et annuler la vente ?" %}');">
+            {% csrf_token %}
+            {% include "voiture_vente/_champ.html" with field=form_annulation.date_annulation %}
+            {% include "voiture_vente/_champ.html" with field=form_annulation.motif classe="vv-large" %}
+            <div><button type="submit" class="bg-red-700 hover:bg-red-600 text-white px-4 py-2 rounded-md font-semibold text-sm">{% trans "Émettre la note de crédit" %}</button></div>
+        </form>
+    </details>
+    {% elif vente.est_brouillon and peut_supprimer %}
+    <form method="post" action="{% url 'voiture_vente:supprimer' vente.pk %}" onsubmit="return confirm('{% trans "Supprimer ce brouillon de vente ?" %}');">
+        {% csrf_token %}
+        <button type="submit" class="text-red-700 hover:text-red-500 font-semibold text-sm underline">{% trans "Supprimer le brouillon" %}</button>
+    </form>
+    {% endif %}
+</div>
+{% endwith %}
+{% endblock %}

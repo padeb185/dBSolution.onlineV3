@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Ventes de véhicules" %}{% endblock %}
+{% block content %}
+{% include "voiture_vente/_styles.html" %}
+<div class="max-w-6xl mx-auto py-6 px-3">
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <div class="flex items-center gap-4">
+            {% include "voiture_vente/_icone.html" with classe="w-[56px] h-[56px]" %}
+            <div>
+                <h1 class="text-2xl font-bold">{% trans "Ventes de véhicules" %}</h1>
+                <p class="text-gray-600">{% trans "Revente des véhicules de la flotte : facture, cession et bilan" %}</p>
+            </div>
+        </div>
+        <a href="{% url 'voiture_vente:nouvelle' %}" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-md font-semibold">+ {% trans "Vendre un véhicule" %}</a>
+    </div>
+    {% include "voiture_exemplaire/finances/_messages.html" %}
+
+    <form method="get" class="flex flex-wrap gap-3 mb-4">
+        <select name="annee" class="border border-gray-300 rounded-lg px-3 py-2" onchange="this.form.submit()">
+            <option value="">{% trans "Toutes les années" %}</option>
+            {% for a in annees %}<option value="{{ a }}" {% if annee == a|stringformat:"s" %}selected{% endif %}>{{ a }}</option>{% endfor %}
+        </select>
+        <select name="statut" class="border border-gray-300 rounded-lg px-3 py-2" onchange="this.form.submit()">
+            <option value="">{% trans "Tous les statuts" %}</option>
+            {% for v, l in statuts %}<option value="{{ v }}" {% if statut == v %}selected{% endif %}>{{ l }}</option>{% endfor %}
+        </select>
+    </form>
+
+    <dl class="vv-kpi mb-4">
+        <div><dt>{% trans "Ventes émises" %}</dt><dd>{{ totaux.nb|default:0 }}</dd></div>
+        <div><dt>{% trans "Total HTVA" %}</dt><dd>{{ totaux.htva|default:0|floatformat:"2g" }} €</dd></div>
+        <div><dt>{% trans "TVA" %}</dt><dd>{{ totaux.tva|default:0|floatformat:"2g" }} €</dd></div>
+        <div><dt>{% trans "Total TVAC" %}</dt><dd>{{ totaux.tvac|default:0|floatformat:"2g" }} €</dd></div>
+    </dl>
+
+    <div class="vv-carte overflow-x-auto">
+        {% if ventes %}
+        <table class="vv-table">
+            <thead><tr>
+                <th>{% trans "N°" %}</th><th>{% trans "Date" %}</th><th>{% trans "Véhicule" %}</th><th>{% trans "Acheteur" %}</th>
+                <th>{% trans "Régime TVA" %}</th><th class="num">{% trans "HTVA" %}</th><th class="num">{% trans "Total" %}</th>
+                <th>{% trans "Paiement" %}</th><th>{% trans "Statut" %}</th>
+            </tr></thead>
+            <tbody>
+            {% for v in ventes %}
+                <tr class="hover:bg-blue-50 cursor-pointer" onclick="window.location='{% url 'voiture_vente:detail' v.pk %}'">
+                    <td class="font-mono">{{ v.numero|default:"—" }}</td>
+                    <td>{{ v.date_vente|date:"d/m/Y" }}</td>
+                    <td>{{ v.exemplaire.voiture_marque }} {{ v.exemplaire.voiture_modele.nom_modele }}<br><span class="font-mono text-xs text-gray-500">{{ v.exemplaire.immatriculation }}</span></td>
+                    <td>{{ v.acheteur_nom|default:"—" }}</td>
+                    <td class="text-xs">{{ v.get_regime_tva_display }}</td>
+                    <td class="num">{{ v.prix_htva|floatformat:"2g" }} €</td>
+                    <td class="num font-semibold">{{ v.prix_tvac|floatformat:"2g" }} €</td>
+                    <td>{% if v.date_paiement %}<span class="vv-badge vv-EMISE">{{ v.date_paiement|date:"d/m/Y" }}</span>{% else %}<span class="vv-badge vv-BROUILLON">{% trans "À encaisser" %}</span>{% endif %}</td>
+                    <td><span class="vv-badge vv-{{ v.statut }}">{{ v.get_statut_display }}</span></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p class="text-sm text-gray-500">{% trans "Aucune vente de véhicule." %}</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

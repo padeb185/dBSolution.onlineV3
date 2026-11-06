@@ -1,0 +1,74 @@
+{% load i18n static format_numbers %}
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"></head>
+<body>
+{% if vente.est_brouillon %}<div class="brouillon">{% trans "BROUILLON" %}</div>{% endif %}
+{% include "voiture_vente/_pdf_base.html" %}
+
+<h1>
+    {% if note_credit %}{% trans "Note de crédit" %} {{ vente.numero_note_credit }}
+    {% else %}{% trans "Facture" %} {% if vente.numero %}{{ vente.numero }}{% else %}({% trans "brouillon" %}){% endif %}{% endif %}
+</h1>
+
+<div class="deux-colonnes">
+    <div class="colonne">
+        <div class="box">
+            <div><strong>{% trans "Date" %} :</strong> {% if note_credit %}{{ vente.date_annulation|date:"d/m/Y" }}{% else %}{{ vente.date_vente|date:"d/m/Y" }}{% endif %}</div>
+            {% if vente.date_livraison and not note_credit %}<div><strong>{% trans "Date de livraison" %} :</strong> {{ vente.date_livraison|date:"d/m/Y" }}</div>{% endif %}
+            {% if note_credit %}<div><strong>{% trans "Facture d'origine" %} :</strong> {{ vente.numero }} {% trans "du" %} {{ vente.date_vente|date:"d/m/Y" }}</div>{% endif %}
+            <div><strong>{% trans "Mode de paiement" %} :</strong> {{ vente.get_mode_paiement_display }}</div>
+        </div>
+    </div>
+    <div class="colonne">
+        <div class="client">
+            <strong>{{ vente.acheteur_nom }}</strong><br>
+            {{ vente.acheteur_adresse|linebreaksbr }}
+            {% if vente.acheteur_tva %}<br>{% trans "TVA" %} : {{ vente.acheteur_tva }}{% endif %}
+        </div>
+    </div>
+</div>
+
+{% if note_credit and vente.motif_annulation %}<div class="mention"><strong>{% trans "Motif" %} :</strong> {{ vente.motif_annulation }}</div>{% endif %}
+
+<h2>{% trans "Véhicule d'occasion" %}</h2>
+{% include "voiture_vente/_pdf_vehicule.html" %}
+
+<table>
+    <thead><tr>
+        <th>{% trans "Description" %}</th>
+        {% if vente.tva_affichee %}<th class="text-right">{% trans "Prix HTVA" %}</th><th class="text-right">{% trans "TVA" %}</th>{% endif %}
+        <th class="text-right">{% trans "Total" %}</th>
+    </tr></thead>
+    <tbody><tr>
+        <td>{% trans "Vente du véhicule d'occasion" %} {{ ex.voiture_marque }} {{ ex.voiture_modele.nom_modele }} – {% trans "VIN" %} {{ ex.numero_vin|default:"—" }}</td>
+        {% if vente.tva_affichee %}
+            <td class="text-right">{% if note_credit %}-{% endif %}{{ vente.prix_htva|floatformat:"2g" }} €</td>
+            <td class="text-right">{{ vente.taux_tva|floatformat:"-2" }} %</td>
+        {% endif %}
+        <td class="text-right">{% if note_credit %}-{% endif %}{% if vente.tva_affichee %}{{ vente.prix_htva|floatformat:"2g" }}{% else %}{{ vente.prix_tvac|floatformat:"2g" }}{% endif %} €</td>
+    </tr></tbody>
+</table>
+
+<table class="totaux">
+    {% if vente.tva_affichee %}
+        <tr><td>{% trans "Total HTVA" %}</td><td class="text-right">{% if note_credit %}-{% endif %}{{ vente.prix_htva|floatformat:"2g" }} €</td></tr>
+        {% if vente.pourcentage_taxable < 100 %}<tr><td>{% trans "Base imposable" %} ({{ vente.pourcentage_taxable|floatformat:"0" }} %)</td><td class="text-right">{% if note_credit %}-{% endif %}{{ vente.base_tva|floatformat:"2g" }} €</td></tr>{% endif %}
+        <tr><td>{% trans "TVA" %} {{ vente.taux_tva|floatformat:"-2" }} %</td><td class="text-right">{% if note_credit %}-{% endif %}{{ vente.montant_tva|floatformat:"2g" }} €</td></tr>
+    {% endif %}
+    <tr class="total-general"><td>{% if note_credit %}{% trans "Total à rembourser" %}{% else %}{% trans "Total à payer" %}{% endif %}</td><td class="text-right">{% if note_credit %}-{% endif %}{{ vente.prix_tvac|floatformat:"2g" }} €</td></tr>
+</table>
+
+{% if vente.mention_legale %}<div class="mention">{{ vente.mention_legale }}</div>{% endif %}
+
+{% if not note_credit %}
+    {% if vente.date_paiement %}
+        <div class="mention">{% trans "Payé le" %} {{ vente.date_paiement|date:"d/m/Y" }}.</div>
+    {% elif societe.iban and vente.numero %}
+        <div class="mention">{% trans "Merci d'effectuer le paiement sur le compte" %} <strong>{{ societe.iban|format_iban }}</strong> {% trans "en mentionnant la référence" %} <strong>{{ vente.numero }}</strong>. {% trans "Le véhicule reste la propriété du vendeur jusqu'au paiement complet du prix." %}</div>
+    {% endif %}
+    <div class="mention petit">
+        {% if vente.garantie_mois %}{% blocktrans with m=vente.garantie_mois %}Garantie commerciale : {{ m }} mois.{% endblocktrans %}{% else %}{% trans "Véhicule vendu sans garantie commerciale." %}{% endif %}
+        {% if vente.type_acheteur == "PARTICULIER" %}{% trans "La garantie légale de conformité s'applique conformément au droit de la consommation." %}{% endif %}
+    </div>
+{% endif %}
+</body></html>

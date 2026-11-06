@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% if vente %}{% trans "Modifier la vente" %}{% else %}{% trans "Vendre le véhicule" %}{% endif %}{% endblock %}
+{% block content %}
+{% include "voiture_vente/_styles.html" %}
+
+<div class="max-w-4xl mx-auto py-6 px-3">
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <div class="flex items-center gap-4">
+            {% include "voiture_vente/_icone.html" with classe="w-[56px] h-[56px]" %}
+            <div>
+                <h1 class="text-2xl font-bold">{% if vente %}{% trans "Modifier la vente" %}{% else %}{% trans "Vendre le véhicule" %}{% endif %}</h1>
+                <p class="text-gray-600">{{ exemplaire.voiture_marque }} {{ exemplaire.voiture_modele.nom_modele }} · {{ exemplaire.numero_vin|default:"" }}</p>
+            </div>
+        </div>
+        {% include "maintenance/partials/plaque.html" with exemplaire=exemplaire %}
+    </div>
+    {% include "voiture_exemplaire/finances/_messages.html" %}
+
+    {% if vente and not vente.est_brouillon %}
+    <div class="mb-4 rounded-lg border border-amber-300 bg-amber-50 text-amber-900 px-4 py-3 text-sm">
+        {% blocktrans with n=vente.numero %}Facture {{ n }} émise : seuls le paiement et les remarques sont encore modifiables.{% endblocktrans %}
+    </div>
+    {% endif %}
+    {% if form.non_field_errors %}<div class="mb-4 bg-red-100 text-red-800 border border-red-300 p-3 rounded">{{ form.non_field_errors }}</div>{% endif %}
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+
+        <div class="vv-carte">
+            <h2 class="vv-titre"><span class="num">1</span>{% trans "Vente" %}</h2>
+            <div class="vv-grille">
+                {% include "voiture_vente/_champ.html" with field=form.date_vente %}
+                {% include "voiture_vente/_champ.html" with field=form.date_livraison %}
+                {% include "voiture_vente/_champ.html" with field=form.kilometrage_vente unite="km" %}
+                {% include "voiture_vente/_champ.html" with field=form.immobilisation %}
+            </div>
+        </div>
+
+        <div class="vv-carte">
+            <h2 class="vv-titre"><span class="num">2</span>{% trans "Acheteur" %} <span class="note">{% trans "les champs vides sont complétés depuis la fiche client" %}</span></h2>
+            <div class="vv-choix mb-4">{{ form.type_acheteur }}</div>
+            <div class="vv-grille">
+                {% include "voiture_vente/_champ.html" with field=form.client_particulier classe="vv-large acheteur-part" %}
+                {% include "voiture_vente/_champ.html" with field=form.societe_cliente classe="vv-large acheteur-pro" %}
+                {% include "voiture_vente/_champ.html" with field=form.acheteur_nom %}
+                {% include "voiture_vente/_champ.html" with field=form.acheteur_pays %}
+                {% include "voiture_vente/_champ.html" with field=form.acheteur_adresse classe="vv-large" %}
+                {% include "voiture_vente/_champ.html" with field=form.acheteur_tva classe="acheteur-pro" %}
+                {% include "voiture_vente/_champ.html" with field=form.acheteur_email %}
+                {% include "voiture_vente/_champ.html" with field=form.acheteur_telephone %}
+            </div>
+        </div>
+
+        <div class="vv-carte">
+            <h2 class="vv-titre"><span class="num">3</span>{% trans "Prix et TVA" %}</h2>
+            <div class="vv-choix mb-4">{{ form.regime_tva }}</div>
+            {% for e in form.regime_tva.errors %}<p class="vv-msg-erreur">{{ e }}</p>{% endfor %}
+            <div class="vv-grille">
+                {% include "voiture_vente/_champ.html" with field=form.montant_saisi unite="€" %}
+                <div class="regime-normal flex items-end pb-2"><label class="vv-coche">{{ form.saisie_tvac }} {{ form.saisie_tvac.label }}</label></div>
+                {% include "voiture_vente/_champ.html" with field=form.taux_tva unite="%" classe="regime-taxe" %}
+                {% include "voiture_vente/_champ.html" with field=form.pourcentage_taxable unite="%" classe="regime-normal" %}
+                {% include "voiture_vente/_champ.html" with field=form.prix_achat_marge unite="€" classe="regime-marge" %}
+                {% include "voiture_vente/_champ.html" with field=form.frais_vente_htva unite="€" %}
+                {% include "voiture_vente/_champ.html" with field=form.mention_tva classe="vv-large" %}
+            </div>
+            <dl class="vv-kpi mt-4">
+                <div><dt>{% trans "Prix HTVA" %}</dt><dd id="apercu_htva">—</dd></div>
+                <div><dt id="apercu_label_tva">{% trans "TVA" %}</dt><dd id="apercu_tva">—</dd></div>
+                <div><dt>{% trans "Total à payer" %}</dt><dd id="apercu_tvac">—</dd></div>
+                <div class="regime-marge"><dt>{% trans "Marge TVAC" %}</dt><dd id="apercu_marge">—</dd></div>
+            </dl>
+        </div>
+
+        <div class="vv-carte">
+            <h2 class="vv-titre"><span class="num">4</span>{% trans "Paiement" %}</h2>
+            <div class="vv-grille">
+                {% include "voiture_vente/_champ.html" with field=form.mode_paiement %}
+                {% include "voiture_vente/_champ.html" with field=form.date_paiement %}
+                {% include "voiture_vente/_champ.html" with field=form.compte_encaissement classe="vv-large" %}
+            </div>
+        </div>
+
+        <div class="vv-carte">
+            <h2 class="vv-titre"><span class="num">5</span>{% trans "Documents remis, état et garantie" %}</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
+                {% for f in form %}{% if f.name|slice:":4" == "doc_" %}
+                    <label class="vv-coche">{{ f }} {{ f.label }}</label>
+                {% endif %}{% endfor %}
+            </div>
+            <div class="vv-grille">
+                {% include "voiture_vente/_champ.html" with field=form.nombre_cles %}
+                {% include "voiture_vente/_champ.html" with field=form.garantie_mois unite=form.UNITES.garantie_mois %}
+                {% include "voiture_vente/_champ.html" with field=form.etat_vehicule classe="vv-large" %}
+                {% include "voiture_vente/_champ.html" with field=form.remarques classe="vv-large" %}
+            </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+            <button type="submit" class="bg-green-600 hover:bg-green-500 text-white px-6 py-2 rounded-md font-semibold">{% trans "Enregistrer" %}</button>
+            <a href="{% if vente %}{% url 'voiture_vente:detail' vente.pk %}{% else %}{% url 'voiture_vente:liste' %}{% endif %}" class="bg-gray-300 hover:bg-gray-400 text-black px-6 py-2 rounded-md font-semibold">{% trans "Annuler" %}</a>
+        </div>
+    </form>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const coche = n => { const e = document.querySelector('input[name="' + n + '"]:checked'); return e ? e.value : ""; };
+    const val = id => { const e = document.getElementById("id_" + id); return e ? parseFloat(String(e.value).replace(",", ".")) || 0 : 0; };
+    const fmt = n => n.toLocaleString(document.documentElement.lang || "fr", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+    const r2 = n => Math.round(n * 100) / 100;
+    const montrer = (sel, ok) => document.querySelectorAll(sel).forEach(e => e.style.display = ok ? "" : "none");
+
+    function maj() {
+        const regime = coche("regime_tva"), pro = coche("type_acheteur") === "PROFESSIONNEL";
+        montrer(".acheteur-pro", pro);
+        montrer(".acheteur-part", !pro);
+        montrer(".regime-normal", regime === "NORMAL");
+        montrer(".regime-marge", regime === "MARGE");
+        montrer(".regime-taxe", regime === "NORMAL" || regime === "MARGE");
+
+        const m = val("montant_saisi"), t = val("taux_tva") / 100;
+        let htva, tva, tvac, marge = null;
+        if (regime === "NORMAL") {
+            const p = val("pourcentage_taxable") / 100;
+            const ttc = document.getElementById("id_saisie_tvac");
+            htva = ttc && ttc.checked ? r2(m / (1 + t * p)) : r2(m);
+            tva = r2(r2(htva * p) * t); tvac = r2(htva + tva);
+        } else if (regime === "MARGE") {
+            tvac = r2(m); marge = r2(tvac - val("prix_achat_marge"));
+            tva = marge > 0 ? r2(marge * t / (1 + t)) : 0; htva = r2(tvac - tva);
+        } else { htva = tvac = r2(m); tva = 0; }
+        document.getElementById("apercu_htva").textContent = fmt(htva);
+        document.getElementById("apercu_tva").textContent = fmt(tva);
+        document.getElementById("apercu_tvac").textContent = fmt(tvac);
+        document.getElementById("apercu_marge").textContent = marge === null ? "—" : fmt(marge);
+        document.getElementById("apercu_label_tva").textContent = regime === "MARGE" ? "{% trans 'TVA sur la marge (non affichée)' %}" : "{% trans 'TVA' %}";
+    }
+    document.querySelectorAll("form input, form select").forEach(e => { e.addEventListener("input", maj); e.addEventListener("change", maj); });
+    maj();
+});
+</script>
+{% endblock %}

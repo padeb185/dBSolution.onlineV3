@@ -92,6 +92,18 @@ def ecritures_societe(societe, debut=None, fin=None, sources=None):
     except Exception:
         pass
 
+    # ---- Ventes de véhicules de la flotte (facture VH…, encaissement ; la cession est passée par l'immobilisation)
+    if sources & {"vente", "encaissement"}:
+        try:
+            from voiture.voiture_vente.models import VenteVehicule
+            for v in (VenteVehicule.objects.filter(societe=societe).exclude(statut=VenteVehicule.Statut.BROUILLON)
+                      .select_related("exemplaire", "compte_encaissement")):
+                for l in v.ecritures():
+                    if l["source"] in sources and _dans(l["date"], debut, fin):
+                        E.append(_norm(l, l["source"], l["piece"]))
+        except Exception:
+            pass
+
     # ---- Achats (marchandises, outillage)
     if "achat" in sources:
         for chemin, nom in (("achat_mds.models", "AchatMds"), ("outillage.models", "Outillage")):

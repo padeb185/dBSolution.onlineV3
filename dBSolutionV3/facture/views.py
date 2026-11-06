@@ -951,7 +951,8 @@ def _tva_csv(calcul, type_periode, annee, numero, pays, internes, tot_internes):
     w.writerow([])
 
     # Journal des mouvements – TVA à payer
-    natures = {"facture": _("Facture"), "acompte": _("Acompte location"), "location": _("Location réalisée")}
+    natures = {"facture": _("Facture"), "acompte": _("Acompte location"), "location": _("Location réalisée"),
+               "vente_vehicule": _("Vente de véhicule")}
     w.writerow([_("Journal des mouvements – TVA à payer")])
     w.writerow([_("Date"), _("Pièce"), _("Client"), _("Libellé"), _("Nature"), _("Taux"), _("Base HTVA"), _("TVA"),
                 _("Cumul TVA"), _("Autoliquidation")])

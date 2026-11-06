@@ -190,6 +190,18 @@ class CompteTresorerie(models.Model):
             except Exception:
                 pass
 
+        # Ventes de véhicules encaissées sur ce compte (factures émises ou annulées)
+        try:
+            ventes = self.ventes_vehicules.filter(date_paiement__isnull=False).exclude(
+                statut="BROUILLON").select_related("exemplaire")
+            if debut:
+                ventes = ventes.filter(date_paiement__gte=debut)
+            if fin:
+                ventes = ventes.filter(date_paiement__lte=fin)
+            L += [v.ligne_tresorerie() for v in ventes]
+        except Exception:
+            pass
+
         L += self._lignes_automatiques(debut, fin)
         L.sort(key=lambda l: (l["date"], l["ordre"]))
         return L
@@ -223,6 +235,22 @@ class CompteTresorerie(models.Model):
                     "contrepartie": "400000", "piece": p.facture.numero or "",
                     "source": "facture", "objet": p, "ordre": 2,
                 })
+        except Exception:
+            pass
+
+        # Ventes de véhicules encaissées sans compte précisé : caisse (espèces) ou banque
+        try:
+            from voiture.voiture_vente.models import VenteVehicule
+            ventes = VenteVehicule.objects.filter(
+                societe=self.societe, compte_encaissement__isnull=True, date_paiement__isnull=False,
+                date_paiement__gte=bornes_debut).exclude(statut=VenteVehicule.Statut.BROUILLON).select_related("exemplaire")
+            if fin:
+                ventes = ventes.filter(date_paiement__lte=fin)
+            if self.type == self.Type.CAISSE:
+                ventes = ventes.filter(mode_paiement=VenteVehicule.ModePaiement.ESPECES)
+            else:
+                ventes = ventes.exclude(mode_paiement=VenteVehicule.ModePaiement.ESPECES)
+            L += [v.ligne_tresorerie() for v in ventes]
         except Exception:
             pass
 

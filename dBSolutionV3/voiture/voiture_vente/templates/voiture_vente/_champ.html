@@ -1,0 +1,9 @@
+<div id="bloc_{{ field.name }}" class="{{ classe|default:'' }}">
+    <label for="{{ field.id_for_label }}" class="vv-label">{{ field.label }}{% if field.field.required and not field.field.disabled %} <span class="text-red-600">*</span>{% endif %}</label>
+    <div class="vv-saisie{% if field.errors %} vv-erreur{% endif %}">
+        {{ field }}
+        {% if unite %}<span class="vv-unite">{{ unite }}</span>{% endif %}
+    </div>
+    {% if field.help_text %}<p class="vv-aide">{{ field.help_text }}</p>{% endif %}
+    {% for e in field.errors %}<p class="vv-msg-erreur">{{ e }}</p>{% endfor %}
+</div>

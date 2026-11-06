@@ -1,0 +1,9 @@
+{% load i18n %}
+<table>
+    <tr><th style="width:30%">{% trans "Marque / modèle" %}</th><td>{{ ex.voiture_marque }} {{ ex.voiture_modele.nom_modele }} {{ ex.voiture_modele.nom_variante|default:"" }}</td></tr>
+    <tr><th>{% trans "Numéro de châssis (VIN)" %}</th><td>{{ ex.numero_vin|default:"—" }}</td></tr>
+    <tr><th>{% trans "Immatriculation" %}</th><td>{{ ex.immatriculation|default:"—" }}</td></tr>
+    <tr><th>{% trans "Première mise en circulation" %}</th><td>{{ ex.date_mise_en_circulation|date:"d/m/Y"|default:"—" }}</td></tr>
+    <tr><th>{% trans "Kilométrage" %}</th><td>{% if vente.kilometrage_vente %}{{ vente.kilometrage_vente|milliers }} km{% else %}—{% endif %}</td></tr>
+    {% if ex.couleur %}<tr><th>{% trans "Couleur" %}</th><td>{{ ex.couleur }}</td></tr>{% endif %}
+</table>
