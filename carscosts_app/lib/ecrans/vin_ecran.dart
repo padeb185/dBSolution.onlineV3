@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 /// Extraction d'un VIN (17 caractères, sans I, O ni Q) dans un texte lu par OCR ou un code-barres.
@@ -50,7 +48,8 @@ bool cleVinValide(String vin) {
   return vin[8] == (reste == 10 ? 'X' : '$reste');
 }
 
-/// Lecture du VIN : code-barres (pare-brise, montant de porte) ou photo du certificat d'immatriculation (OCR).
+/// Lecture du VIN : code-barres (pare-brise, montant de porte) ou saisie.
+/// (La lecture du texte de la carte grise sera ajoutée avec Apple Vision / ML Kit Android.)
 /// Renvoie le VIN lu (Navigator.pop).
 class VinEcran extends StatefulWidget {
   const VinEcran({super.key});
@@ -97,24 +96,6 @@ class _VinEcranState extends State<VinEcran> {
     }
   }
 
-  Future<void> _photoOcr() async {
-    final photo = await ImagePicker().pickImage(source: ImageSource.camera, maxWidth: 2400);
-    if (photo == null) return;
-    setState(() => _message = 'Lecture en cours…');
-    final lecteur = TextRecognizer(script: TextRecognitionScript.latin);
-    try {
-      final resultat = await lecteur.processImage(InputImage.fromFilePath(photo.path));
-      final vin = extraireVin(resultat.text);
-      if (vin != null) {
-        _trouve(vin);
-      } else {
-        setState(() => _message = 'Aucun VIN trouvé : cadrez la ligne du numéro de châssis (case E de la carte grise).');
-      }
-    } finally {
-      await lecteur.close();
-    }
-  }
-
   void _valider() {
     final vin = _saisie.text.toUpperCase().replaceAll(' ', '');
     if (RegExp(r'^[A-HJ-NPR-Z0-9]{17}$').hasMatch(vin)) {
@@ -137,12 +118,6 @@ class _VinEcranState extends State<VinEcran> {
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: SizedBox(height: 260, child: MobileScanner(controller: _scanner!, onDetect: _codeBarres)),
-            ),
-            const SizedBox(height: 12),
-            OutlinedButton.icon(
-              onPressed: _photoOcr,
-              icon: const Icon(Icons.document_scanner),
-              label: const Text('Photographier la carte grise (lecture du texte)'),
             ),
             const Divider(height: 32),
           ],
