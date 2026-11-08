@@ -24,6 +24,7 @@ urlpatterns = [
     path("moi/email/", views.EmailView.as_view(), name="email"),
     path("tableau-de-bord/", views.TableauDeBordView.as_view(), name="tableau_de_bord"),
     path("vin/", views.VinView.as_view(), name="vin"),
+    path("catalogue/", views.CatalogueView.as_view(), name="catalogue"),
     path("abonnement/", views.AbonnementView.as_view(), name="abonnement"),
     path("abonnement/achat/", views.AchatView.as_view(), name="abonnement_achat"),
     path("abonnement/notifications/apple/", views.NotificationAppleView.as_view(), name="notification_apple"),

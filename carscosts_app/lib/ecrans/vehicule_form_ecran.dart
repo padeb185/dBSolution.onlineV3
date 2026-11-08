@@ -9,8 +9,10 @@ import '../achats/abonnement.dart';
 import '../api/session.dart';
 import '../l10n/langue.dart';
 import '../l10n/unites.dart';
+import '../modeles/catalogue.dart';
 import '../modeles/ressources.dart';
 import '../widgets/champ_pays.dart';
+import '../widgets/champ_suggestions.dart';
 import '../widgets/fichiers.dart';
 import '../widgets/format.dart';
 import '../modeles/pays.dart';
@@ -68,6 +70,10 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
     _miseEnCirculation = v['date_mise_en_circulation'] as String?;
     _dateAchat = v['date_achat'] as String?;
     _archive = v['archive'] == true;
+    // Marques et modèles proposés pendant la saisie
+    Catalogue.charger(context.read<ApiClient>()).then((_) {
+      if (mounted) setState(() {});
+    });
     _uniteDistance = (v['unite_distance'] as String?) ?? '';
     _uniteVolume = (v['unite_volume'] as String?) ?? '';
     // Kilométrage à l'achat affiché dans l'unité du véhicule (enregistré en km)
@@ -205,8 +211,28 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
             _texte('vin', t('VIN (numéro de châssis)'),
                 bouton: IconButton(icon: const Icon(Icons.qr_code_scanner), tooltip: t('Lire le VIN'), onPressed: _lireVin)),
             if (_infoVin != null) Padding(padding: const EdgeInsets.only(bottom: 12), child: Text(_infoVin!)),
-            _texte('marque', t('Marque'), obligatoire: true),
-            _texte('modele', t('Modèle'), obligatoire: true),
+            // Suggestions : marques selon les premières lettres, puis modèles de la marque choisie
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: ChampSuggestions(
+                controleur: _c['marque']!,
+                libelle: t('Marque'),
+                obligatoire: true,
+                erreur: _erreurs['marque'],
+                suggestions: Catalogue.suggestionsMarques,
+                onChoisi: (_) => setState(() {}),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: ChampSuggestions(
+                controleur: _c['modele']!,
+                libelle: t('Modèle'),
+                obligatoire: true,
+                erreur: _erreurs['modele'],
+                suggestions: (saisie) => Catalogue.suggestionsModeles(_c['marque']!.text, saisie),
+              ),
+            ),
             _texte('version', t('Version / finition')),
             _texte('immatriculation', t('Immatriculation')),
             // Aperçu de la plaque (pays choisi ci-dessous)

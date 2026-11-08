@@ -387,3 +387,17 @@ class NotificationGoogleView(APIView):
                 # 5xx : Pub/Sub renverra la notification plus tard
                 return Response({"detail": str(e)}, status=503 if e.statut >= 500 else 200)
         return Response(status=status.HTTP_200_OK)
+
+
+class CatalogueView(SchemaParticuliersMixin, APIView):
+    """Marques et modèles proposés à la saisie d'un véhicule (fichier particulier/donnees/marques_modeles.json).
+    L'application télécharge le catalogue complet et filtre localement (premières lettres)."""
+
+    def get(self, request):
+        from ..catalogue import catalogue
+        donnees = catalogue()
+        if request.headers.get("If-None-Match") == f'"{donnees["version"]}"':
+            return Response(status=status.HTTP_304_NOT_MODIFIED)
+        reponse = Response(donnees)
+        reponse["ETag"] = f'"{donnees["version"]}"'
+        return reponse
