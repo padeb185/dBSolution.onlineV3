@@ -12,7 +12,7 @@ from datetime import date
 from decimal import Decimal
 
 from django.conf import settings
-from django.core.validators import MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -142,7 +142,24 @@ def unite_carburant(carburant):
     return UNITES_CARBURANT.get(carburant, "L")
 
 
+class NiveauCarburant(models.TextChoices):
+    """Carburant restant dans le réservoir au moment du plein."""
+    TROIS_QUARTS = "3/4", _("¾")
+    MOITIE = "1/2", _("½")
+    QUART = "1/4", _("¼")
+    RESERVE = "reserve", _("Réserve")
+    FIN_RESERVE = "fin_reserve", _("Fin de réserve")
+
+
+class LieuRecharge(models.TextChoices):
+    DOMICILE = "domicile", _("Domicile")
+    TRAVAIL = "travail", _("Travail")
+    BORNE_PUBLIQUE = "borne", _("Borne publique (AC)")
+    BORNE_RAPIDE = "rapide", _("Borne rapide (DC)")
+
+
 class Plein(models.Model):
+    """Plein de carburant ou recharge électrique (carburant « electricite », API « recharges »)."""
     vehicule = models.ForeignKey(Vehicule, on_delete=models.CASCADE, related_name="pleins")
     date = models.DateField(_("Date"), default=date.today)
     kilometrage = models.PositiveIntegerField(_("Kilométrage"))
@@ -150,6 +167,14 @@ class Plein(models.Model):
                                    validators=[MinValueValidator(0)])
     montant = models.DecimalField(_("Montant payé TVAC"), max_digits=10, decimal_places=2,
                                   validators=[MinValueValidator(0)])
+    niveau_restant = models.CharField(_("Carburant restant"), max_length=12, choices=NiveauCarburant.choices,
+                                      blank=True)
+    # Recharge électrique
+    lieu_recharge = models.CharField(_("Lieu de recharge"), max_length=10, choices=LieuRecharge.choices, blank=True)
+    batterie_debut = models.PositiveSmallIntegerField(_("Batterie au début (%)"), null=True, blank=True,
+                                                      validators=[MaxValueValidator(100)])
+    batterie_fin = models.PositiveSmallIntegerField(_("Batterie à la fin (%)"), null=True, blank=True,
+                                                    validators=[MaxValueValidator(100)])
     plein_complet = models.BooleanField(_("Plein complet"), default=True,
                                         help_text=_("Nécessaire pour calculer la consommation."))
     carburant = models.CharField(_("Carburant"), max_length=20, choices=Carburant.choices, blank=True)

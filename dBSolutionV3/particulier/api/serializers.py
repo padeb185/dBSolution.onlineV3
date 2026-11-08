@@ -70,11 +70,27 @@ class PleinSerializer(VehiculeChampMixin, FichierMixin, serializers.ModelSeriali
     def validate_pays(self, v):
         return valider_pays(v) if v else v
 
+    def validate_carburant(self, v):
+        if v == "electricite":
+            raise serializers.ValidationError(_("Une recharge électrique s'enregistre dans les recharges."))
+        return v
+
     def validate(self, data):
         # Pays changé sans taux : taux du nouveau pays (recalculé à l'enregistrement)
         if "pays" in data and "taux_tva" not in data:
             data["taux_tva"] = None
         return data
+
+
+class RechargeSerializer(PleinSerializer):
+    """Recharge électrique : même enregistrement qu'un plein, carburant « electricite »."""
+    fichiers = {"ticket": "api_particulier:recharge-ticket"}
+
+    class Meta(PleinSerializer.Meta):
+        read_only_fields = PleinSerializer.Meta.read_only_fields + ["carburant", "niveau_restant"]
+
+    def validate_carburant(self, v):
+        return v
 
 
 class EntretienSerializer(VehiculeChampMixin, FichierMixin, serializers.ModelSerializer):

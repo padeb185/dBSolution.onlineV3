@@ -46,6 +46,10 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
 
   bool _estDistance(Champ c) => c.suffixe == 'km';
 
+  /// Carburant du plein (recharge : électricité, quantité en kWh, jamais convertie en gallons)
+  String? get _carburant =>
+      widget.ressource.chemin == 'recharges' ? 'electricite' : _valeurs['carburant'] as String?;
+
   /// Valeur du serveur (km, litres) → texte dans l'unité du véhicule
   String _texteInitial(Champ c, dynamic existant) {
     if (existant == null) return (c.parDefaut ?? '').toString();
@@ -53,7 +57,7 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
     if (v == null) return existant.toString();
     if (_estDistance(c) && _unites.miles) return _unites.depuisKm(v).round().toString();
     if (c.nom == 'quantite') {
-      final q = _unites.depuisQuantite(v, widget.element?['carburant'] as String?);
+      final q = _unites.depuisQuantite(v, widget.ressource.chemin == 'recharges' ? 'electricite' : widget.element?['carburant'] as String?);
       return q.toStringAsFixed(2).replaceFirst(RegExp(r'\.?0+$'), '');
     }
     return existant.toString();
@@ -132,7 +136,7 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
         final n = double.tryParse(t);
         if (n != null && _estDistance(c)) donnees[c.nom] = _unites.versKm(n).round();
         if (n != null && c.nom == 'quantite') {
-          donnees[c.nom] = _unites.versQuantite(n, _valeurs['carburant'] as String?).toStringAsFixed(2);
+          donnees[c.nom] = _unites.versQuantite(n, _carburant).toStringAsFixed(2);
         }
         if (c.type == TypeChamp.texte && t.isEmpty) donnees[c.nom] = '';
       } else {

@@ -223,12 +223,27 @@ class ReleveViewSet(ProprietaireViewSet):
 
 
 class PleinViewSet(ProprietaireViewSet):
+    """Pleins de carburant (les recharges électriques sont à part : RechargeViewSet)."""
     model = Plein
     serializer_class = S.PleinSerializer
+
+    def get_queryset(self):
+        return super().get_queryset().exclude(carburant="electricite")
 
     @action(detail=True)
     def ticket(self, request, pk=None):
         return self._fichier("ticket")
+
+
+class RechargeViewSet(PleinViewSet):
+    """Recharges électriques (kWh)."""
+    serializer_class = S.RechargeSerializer
+
+    def get_queryset(self):
+        return ProprietaireViewSet.get_queryset(self).filter(carburant="electricite")
+
+    def perform_create(self, serializer):
+        serializer.save(carburant="electricite")
 
 
 class EntretienViewSet(ProprietaireViewSet):

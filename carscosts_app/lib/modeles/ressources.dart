@@ -112,9 +112,29 @@ String carburantParDefaut(String? energie) => switch (energie) {
       'diesel' => 'diesel',
       'gpl' => 'gpl',
       'gnc' => 'gnc',
-      'electrique' => 'electricite',
+      // Véhicule électrique : ses recharges sont à part (ressource « recharges »)
       _ => 'sp95',
     };
+
+/// Carburants proposés pour un plein (la recharge électrique est à part)
+Map<String, String> get carburantsPlein =>
+    {for (final e in carburants.entries) if (e.key != 'electricite') e.key: e.value};
+
+/// Carburant restant dans le réservoir au moment du plein
+Map<String, String> get niveauxCarburant => {
+  '3/4': '¾',
+  '1/2': '½',
+  '1/4': '¼',
+  'reserve': t('Réserve'),
+  'fin_reserve': t('Fin de réserve'),
+};
+
+Map<String, String> get lieuxRecharge => {
+  'domicile': t('Domicile'),
+  'travail': t('Travail'),
+  'borne': t('Borne publique (AC)'),
+  'rapide': t('Borne rapide (DC)'),
+};
 
 Map<String, String> get energies => {
   'essence': t('Essence'),
@@ -136,7 +156,7 @@ Ressource get pleins => Ressource(
   icone: Icons.local_gas_station,
   champs: [
     Champ('date', t('Date'), TypeChamp.date, obligatoire: true),
-    Champ('carburant', t('Carburant'), TypeChamp.choix, obligatoire: true, choix: carburants),
+    Champ('carburant', t('Carburant'), TypeChamp.choix, obligatoire: true, choix: carburantsPlein),
     // Pays de la station : taux de TVA proposé (voir FormulaireEcran)
     Champ('pays', t('Pays de la station'), TypeChamp.choix, obligatoire: true, choix: paysImmatriculation),
     Champ('kilometrage', t('Kilométrage'), TypeChamp.entier, obligatoire: true, suffixe: 'km'),
@@ -145,6 +165,8 @@ Ressource get pleins => Ressource(
     Champ('montant', t('Montant payé TVAC'), TypeChamp.decimal, obligatoire: true, suffixe: '€'),
     Champ('taux_tva', t('Taux de TVA'), TypeChamp.decimal, suffixe: '%',
         aide: t('Taux du pays de la station, modifiable.')),
+    Champ('niveau_restant', t('Carburant restant'), TypeChamp.choix, choix: niveauxCarburant,
+        aide: t('Niveau dans le réservoir avant le plein.')),
     Champ('plein_complet', t('Plein complet'), TypeChamp.booleen,
         parDefaut: true, aide: t('Nécessaire pour calculer la consommation.')),
     Champ('station', t('Station'), TypeChamp.texte),
@@ -155,6 +177,8 @@ Ressource get pleins => Ressource(
       '${u.symboleQuantite(p['carburant'] as String?)} – ${euros(p['montant'])}',
   sousTitreLigne: (p, u) => [
     if (p['carburant'] != null) carburants[p['carburant']] ?? p['carburant'],
+    if ((p['niveau_restant'] ?? '').toString().isNotEmpty)
+      t('restant : {niveau}', {'niveau': niveauxCarburant[p['niveau_restant']] ?? p['niveau_restant']}),
     dateFr(p['date']),
     km(p['kilometrage'], u),
     if ((p['pays'] ?? '').toString().isNotEmpty) p['pays'],
@@ -162,6 +186,43 @@ Ressource get pleins => Ressource(
     if (p['prix_unitaire'] != null)
       '${nombre(u.prixParQuantite(enDouble(p['prix_unitaire']) ?? 0, p['carburant'] as String?), decimales: 3)} '
           '€/${u.symboleQuantite(p['carburant'] as String?)}',
+  ].join(' · '),
+);
+
+/// Recharges électriques (à part des pleins) : kWh, lieu, batterie début / fin
+Ressource get recharges => Ressource(
+  chemin: 'recharges',
+  titre: t('Recharges'),
+  titreNouveau: t('Nouvelle recharge'),
+  titreModifier: t('Modifier la recharge'),
+  texteVide: t('Aucune recharge pour l\'instant.'),
+  texteSupprimer: t('Supprimer cette recharge ?'),
+  icone: Icons.ev_station,
+  champs: [
+    Champ('date', t('Date'), TypeChamp.date, obligatoire: true),
+    Champ('lieu_recharge', t('Lieu de recharge'), TypeChamp.choix, choix: lieuxRecharge),
+    Champ('pays', t('Pays de la recharge'), TypeChamp.choix, obligatoire: true, choix: paysImmatriculation),
+    Champ('kilometrage', t('Kilométrage'), TypeChamp.entier, obligatoire: true, suffixe: 'km'),
+    Champ('quantite', t('Énergie rechargée'), TypeChamp.decimal, obligatoire: true, suffixe: 'kWh'),
+    Champ('montant', t('Montant payé TVAC'), TypeChamp.decimal, obligatoire: true, suffixe: '€'),
+    Champ('taux_tva', t('Taux de TVA'), TypeChamp.decimal, suffixe: '%',
+        aide: t('Taux du pays de la recharge, modifiable.')),
+    Champ('batterie_debut', t('Batterie au début'), TypeChamp.entier, suffixe: '%'),
+    Champ('batterie_fin', t('Batterie à la fin'), TypeChamp.entier, suffixe: '%'),
+    Champ('plein_complet', t('Recharge complète'), TypeChamp.booleen,
+        parDefaut: true, aide: t('Nécessaire pour calculer la consommation.')),
+    Champ('station', t('Borne / opérateur'), TypeChamp.texte),
+    Champ('ticket', t('Photo du ticket'), TypeChamp.image),
+    Champ('remarques', t('Remarques'), TypeChamp.texte),
+  ],
+  titreLigne: (p, u) => '${nombre(p['quantite'])} kWh – ${euros(p['montant'])}',
+  sousTitreLigne: (p, u) => [
+    if ((p['lieu_recharge'] ?? '').toString().isNotEmpty) lieuxRecharge[p['lieu_recharge']] ?? p['lieu_recharge'],
+    dateFr(p['date']),
+    km(p['kilometrage'], u),
+    if (p['batterie_debut'] != null || p['batterie_fin'] != null)
+      '${p['batterie_debut'] ?? '?'} → ${p['batterie_fin'] ?? '?'} %',
+    if (p['prix_unitaire'] != null) '${nombre(p['prix_unitaire'], decimales: 3)} €/kWh',
   ].join(' · '),
 );
 
@@ -281,4 +342,17 @@ Ressource get kilometrages => Ressource(
 );
 
 /// Ressources affichées en onglets dans la fiche d'un véhicule
-List<Ressource> get ressourcesVehicule => [pleins, entretiens, rappels, documents, depenses, kilometrages];
+List<Ressource> get ressourcesVehicule =>
+    [pleins, recharges, entretiens, rappels, documents, depenses, kilometrages];
+
+/// Onglets d'un véhicule selon son énergie : pas de pleins pour un électrique,
+/// recharges seulement pour un électrique ou un hybride rechargeable.
+List<Ressource> ressourcesDe(Map? vehicule) {
+  final energie = vehicule?['energie'];
+  return [
+    for (final r in ressourcesVehicule)
+      if (!(r.chemin == 'pleins' && energie == 'electrique') &&
+          !(r.chemin == 'recharges' && energie != 'electrique' && energie != 'phev'))
+        r,
+  ];
+}

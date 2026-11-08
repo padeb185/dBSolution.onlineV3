@@ -64,7 +64,7 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
   Widget build(BuildContext context) {
     final titre = '${_vehicule['marque']} ${_vehicule['modele']}';
     return DefaultTabController(
-      length: ressourcesVehicule.length + 1,
+      length: ressourcesDe(_vehicule).length + 1,
       child: Scaffold(
         appBar: AppBar(
           title: Text(titre),
@@ -74,14 +74,14 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
             tabAlignment: TabAlignment.start,
             tabs: [
               Tab(icon: const Icon(Icons.insights), text: t('Résumé')),
-              for (final r in ressourcesVehicule) Tab(icon: Icon(r.icone), text: r.titre),
+              for (final r in ressourcesDe(_vehicule)) Tab(icon: Icon(r.icone), text: r.titre),
             ],
           ),
         ),
         body: TabBarView(
           children: [
             _resume(),
-            for (final r in ressourcesVehicule)
+            for (final r in ressourcesDe(_vehicule))
               ListeRessource(
                   ressource: r, vehiculeId: _id, vehicule: _vehicule, auChangement: () => setState(_chargerSynthese)),
           ],
@@ -130,11 +130,18 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
               ].join(' · ')),
               const SizedBox(height: 12),
               Wrap(spacing: 8, runSpacing: 8, children: [
-                FilledButton.tonalIcon(
-                  onPressed: () => _ajouter(pleins),
-                  icon: const Icon(Icons.local_gas_station),
-                  label: Text(t('Plein')),
-                ),
+                if (_vehicule['energie'] != 'electrique')
+                  FilledButton.tonalIcon(
+                    onPressed: () => _ajouter(pleins),
+                    icon: const Icon(Icons.local_gas_station),
+                    label: Text(t('Plein')),
+                  ),
+                if (_vehicule['energie'] == 'electrique' || _vehicule['energie'] == 'phev')
+                  FilledButton.tonalIcon(
+                    onPressed: () => _ajouter(recharges),
+                    icon: const Icon(Icons.ev_station),
+                    label: Text(t('Recharge')),
+                  ),
                 FilledButton.tonalIcon(
                   onPressed: () => _ajouter(kilometrages),
                   icon: const Icon(Icons.speed),
