@@ -9,6 +9,8 @@ import '../l10n/unites.dart';
 import '../widgets/fichiers.dart';
 import '../widgets/format.dart';
 import '../widgets/liste_ressource.dart';
+import '../modeles/catalogue.dart';
+import '../widgets/logo_marque.dart';
 import '../widgets/plaque.dart';
 import 'formules_ecran.dart';
 import 'reglages_ecran.dart';
@@ -30,6 +32,15 @@ class _AccueilEcranState extends State<AccueilEcran> {
   void initState() {
     super.initState();
     _charger();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Logos des marques (catalogue téléchargé une fois par session)
+    Catalogue.charger(context.read<ApiClient>()).then((_) {
+      if (mounted) setState(() {});
+    });
   }
 
   void _charger() {
@@ -73,12 +84,6 @@ class _AccueilEcranState extends State<AccueilEcran> {
       appBar: AppBar(
         title: Text(t('Bonjour {prenom}', {'prenom': session.utilisateur?['prenom'] ?? ''})),
         actions: [
-          ActionChip(
-            avatar: const Icon(Icons.workspace_premium, size: 18),
-            label: Text(context.watch<Abonnement>().libelle),
-            tooltip: t('Formules'),
-            onPressed: _formules,
-          ),
           IconButton(
             icon: const Icon(Icons.settings),
             tooltip: t('Réglages'),
@@ -142,13 +147,6 @@ class _AccueilEcranState extends State<AccueilEcran> {
                   Expanded(child: Text(t('Mes véhicules'), style: Theme.of(context).textTheme.titleMedium)),
                   Text(t('Ce mois-ci : {montant}', {'montant': euros(tableau['depenses_mois'])})),
                 ]),
-                Builder(builder: (context) {
-                  final ab = context.watch<Abonnement>();
-                  return Text(
-                      t('Formule {formule} : {n} / {limite} véhicule(s)',
-                          {'formule': ab.libelle, 'n': ab.vehiculesActifs, 'limite': ab.limite}),
-                      style: Theme.of(context).textTheme.bodySmall);
-                }),
                 const SizedBox(height: 8),
                 if (vehicules.isEmpty)
                   Card(
@@ -172,7 +170,7 @@ class _AccueilEcranState extends State<AccueilEcran> {
                       contentPadding: const EdgeInsets.all(12),
                       leading: v['photo'] != null
                           ? SizedBox(width: 64, height: 64, child: ImageProtegee(url: v['photo'] as String, hauteur: 64))
-                          : const CircleAvatar(radius: 28, child: Icon(Icons.directions_car)),
+                          : LogoMarque(marque: v['marque'] as String?),
                       title: Text('${v['marque']} ${v['modele']}', style: const TextStyle(fontWeight: FontWeight.w600)),
                       subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                         if ((v['immatriculation'] ?? '').toString().isNotEmpty)

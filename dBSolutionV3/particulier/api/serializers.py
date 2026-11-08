@@ -4,7 +4,7 @@ from django.utils.translation import gettext as _
 from django.urls import reverse
 from rest_framework import serializers
 
-from ..models import Depense, Document, Entretien, Plein, Rappel, ReleveKilometrique, Vehicule
+from ..models import Depense, Document, Entretien, Financement, Plein, Rappel, ReleveKilometrique, Vehicule
 from .. import calculs
 
 
@@ -273,3 +273,33 @@ class EmailSerializer(serializers.Serializer):
             if Utilisateur.objects.filter(email__iexact=v).exclude(pk=self.context["request"].user.pk).exists():
                 raise serializers.ValidationError(_("Un compte existe déjà avec cet email."))
         return v
+
+
+class FinancementSerializer(serializers.ModelSerializer):
+    """Type d'achat du véhicule (comptant, prêt, leasing, renting)."""
+
+    class Meta:
+        model = Financement
+        exclude = ["id", "vehicule"]
+        read_only_fields = ["updated_at"]
+
+    def validate(self, data):
+        type_achat = data.get("type_achat", getattr(self.instance, "type_achat", "comptant"))
+        if type_achat in ("pret", "leasing", "renting") and not data.get("duree_mois", getattr(self.instance, "duree_mois", None)):
+            raise serializers.ValidationError({"duree_mois": _("Indiquez la durée du contrat en mois.")})
+        if type_achat in ("leasing", "renting") and data.get("mensualite", getattr(self.instance, "mensualite", None)) is None:
+            raise serializers.ValidationError({"mensualite": _("Indiquez le loyer mensuel.")})
+        if type_achat != "leasing":
+            data["option_levee"] = False
+        # Les champs d'un autre type d'achat sont vidés (changement de type)
+        champs_pret = ("apport", "montant_emprunte", "taux_annuel")
+        champs_location = ("premier_loyer", "km_annuels", "prix_km_supplementaire", "services_inclus")
+        vider = {
+            "comptant": champs_pret + champs_location + ("valeur_residuelle", "mensualite", "duree_mois", "date_debut"),
+            "pret": champs_location + ("valeur_residuelle",),
+            "leasing": champs_pret,
+            "renting": champs_pret + ("valeur_residuelle",),
+        }[type_achat]
+        for champ in vider:
+            data[champ] = "" if champ == "services_inclus" else None
+        return data

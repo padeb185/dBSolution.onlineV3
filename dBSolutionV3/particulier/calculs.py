@@ -142,15 +142,100 @@ def _somme(qs, champ="montant"):
     return r2(qs.aggregate(s=Sum(champ))["s"])
 
 
+# ------------------------------------------------------------------
+# Type d'achat : prêt, leasing, renting
+# ------------------------------------------------------------------
+def mensualite_pret(capital, taux_annuel, duree_mois):
+    """Mensualité constante d'un prêt amortissable (taux annuel en %)."""
+    if not capital or not duree_mois:
+        return None
+    capital, r = D(capital), D(taux_annuel or 0) / D(1200)
+    if r == 0:
+        return r2(capital / duree_mois)
+    return r2(capital * r / (1 - (1 + r) ** -duree_mois))
+
+
+def financement(vehicule, aujourdhui=None):
+    """Mensualités, intérêts, capital restant, loyers payés et kilomètres du contrat, à la date du jour.
+    None si le véhicule n'a pas de type d'achat (comptant implicite)."""
+    from .models import Financement
+    aujourdhui = aujourdhui or date.today()
+    try:
+        f = vehicule.financement
+    except Financement.DoesNotExist:
+        return None
+    debut = f.date_debut or vehicule.date_achat
+    duree = f.duree_mois or 0
+    ecoules = mois_entre(debut, aujourdhui) if debut else 0
+    payes = min(ecoules, duree) if duree else ecoules
+    res = {"type_achat": f.type_achat, "date_debut": debut, "duree_mois": duree or None,
+           "mois_payes": payes, "mois_restants": max(duree - payes, 0) if duree else None,
+           "date_fin": ajouter_mois(debut, duree) if debut and duree else None,
+           "mensualite": None, "paye_a_ce_jour": ZERO, "reste_a_payer": None}
+
+    if f.type_achat == "pret":
+        capital = D(f.montant_emprunte) if f.montant_emprunte is not None else (
+            D(vehicule.prix_achat) - D(f.apport or 0) if vehicule.prix_achat is not None else None)
+        mensualite = r2(f.mensualite) if f.mensualite is not None else mensualite_pret(capital, f.taux_annuel, duree)
+        r = D(f.taux_annuel or 0) / D(1200)
+        restant, interets = D(capital or 0), ZERO
+        for _i in range(payes if mensualite else 0):
+            i = restant * r
+            interets += i
+            restant = max(restant - (D(mensualite) - i), ZERO)
+        res.update(
+            capital=r2(capital) if capital is not None else None, mensualite=mensualite,
+            interets_a_ce_jour=r2(interets), capital_restant=r2(restant),
+            interets_totaux=r2(D(mensualite) * duree - D(capital)) if mensualite and capital and duree else None,
+            paye_a_ce_jour=r2(D(f.apport or 0) + D(mensualite or 0) * payes),
+            reste_a_payer=r2(D(mensualite or 0) * (duree - payes)) if duree else None,
+        )
+    elif f.type_achat in ("leasing", "renting"):
+        mensualite = r2(f.mensualite) if f.mensualite is not None else None
+        loyers = r2(D(f.premier_loyer or 0) + D(mensualite or 0) * payes)
+        res.update(
+            mensualite=mensualite, loyers_a_ce_jour=loyers, paye_a_ce_jour=loyers,
+            reste_a_payer=r2(D(mensualite or 0) * (duree - payes)) if duree else None,
+            valeur_residuelle=r2(f.valeur_residuelle) if f.valeur_residuelle is not None else None,
+            option_levee=f.type_achat == "leasing" and f.option_levee,
+            cout_total_contrat=r2(D(f.premier_loyer or 0) + D(mensualite or 0) * duree) if duree else None,
+        )
+        # Kilomètres autorisés par le contrat (à ce jour et projection en fin de contrat)
+        if f.km_annuels:
+            km_parcourus = max(vehicule.kilometrage_actuel - (vehicule.kilometrage_achat or 0), 0)
+            autorises = int(f.km_annuels * ecoules / 12)
+            depassement = max(km_parcourus - autorises, 0)
+            prix_km = D(f.prix_km_supplementaire or 0)
+            projection = int(km_parcourus / ecoules * duree) if ecoules and duree else None
+            depassement_fin = max(projection - int(f.km_annuels * duree / 12), 0) if projection is not None else None
+            res.update(
+                km_autorises_a_ce_jour=autorises, km_parcourus=km_parcourus, depassement_km=depassement,
+                cout_depassement=r2(prix_km * depassement) if prix_km else None,
+                km_projetes_fin=projection, depassement_km_fin=depassement_fin,
+                cout_depassement_fin=r2(prix_km * depassement_fin) if prix_km and depassement_fin is not None else None,
+            )
+    return res
+
+
 def synthese(vehicule, aujourdhui=None):
     from .models import CategorieDepense
     aujourdhui = aujourdhui or date.today()
     pleins, entretiens, documents, depenses = (vehicule.pleins.all(), vehicule.entretiens.all(),
                                                 vehicule.documents.all(), vehicule.depenses.all())
 
+    fin = financement(vehicule, aujourdhui)
+    type_achat = fin["type_achat"] if fin else "comptant"
+    proprietaire = type_achat in ("comptant", "pret") or bool(fin and fin.get("option_levee"))
+
     postes = OrderedDict()
-    if vehicule.prix_achat is not None:
+    if type_achat in ("comptant", "pret") and vehicule.prix_achat is not None:
         postes["achat"] = {"libelle": str(_("Prix d'achat")), "montant": r2(D(vehicule.prix_achat))}
+    if type_achat == "pret" and fin.get("interets_a_ce_jour"):
+        postes["interets"] = {"libelle": str(_("Intérêts du prêt (à ce jour)")), "montant": fin["interets_a_ce_jour"]}
+    if type_achat in ("leasing", "renting"):
+        postes["loyers"] = {"libelle": str(_("Loyers payés (à ce jour)")), "montant": fin["loyers_a_ce_jour"]}
+        if fin.get("option_levee") and fin.get("valeur_residuelle") is not None:
+            postes["achat"] = {"libelle": str(_("Option d'achat levée")), "montant": fin["valeur_residuelle"]}
     postes["energie"] = {"libelle": str(_("Carburant / énergie")), "montant": _somme(pleins)}
     postes["entretiens"] = {"libelle": str(_("Entretiens et réparations")), "montant": _somme(entretiens)}
     postes["documents"] = {"libelle": str(_("Assurance, contrôle technique, documents")), "montant": _somme(documents)}
@@ -160,16 +245,19 @@ def synthese(vehicule, aujourdhui=None):
             postes[f"depense_{code}"] = {"libelle": str(libelle), "montant": m}
     # Coût d'usage : tout sauf l'achat ; coût total : achat + usage ;
     # coût net : coût total − valeur de revente estimée (ce que le véhicule a réellement coûté)
-    usage = r2(sum((p["montant"] for c, p in postes.items() if c != "achat"), ZERO))
+    usage = r2(sum((p["montant"] for c, p in postes.items() if c not in ("achat", "interets", "loyers")), ZERO))
     total = r2(sum((p["montant"] for p in postes.values()), ZERO))
-    revente = r2(D(vehicule.valeur_estimee)) if vehicule.valeur_estimee is not None else None
+    # Leasing / renting sans option levée : le véhicule n'est pas à vous, pas de valeur de revente
+    revente = (r2(D(vehicule.valeur_estimee))
+               if vehicule.valeur_estimee is not None and proprietaire else None)
     net = r2(total - (revente or ZERO))
 
     km_actuel = vehicule.kilometrage_actuel
     km = max(km_actuel - (vehicule.kilometrage_achat or 0), 0)
     depreciation = (r2(D(vehicule.prix_achat) - D(vehicule.valeur_estimee or 0))
                     if vehicule.prix_achat is not None and vehicule.valeur_estimee is not None else None)
-    mois = mois_entre(vehicule.date_achat, aujourdhui) if vehicule.date_achat else None
+    debut = vehicule.date_achat or (fin["date_debut"] if fin else None)
+    mois = mois_entre(debut, aujourdhui) if debut else None
 
     # Par année (graphique)
     annees = {}
@@ -202,4 +290,6 @@ def synthese(vehicule, aujourdhui=None):
         "consommation_electrique": (consommation(vehicule, "kWh")["moyenne"]
                                     if vehicule.energie == "phev" else None),
         "par_annee": [annees[a] for a in sorted(annees)],
+        "type_achat": type_achat,
+        "financement": fin,
     }

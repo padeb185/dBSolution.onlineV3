@@ -54,4 +54,22 @@ void main() {
     expect(Catalogue.suggestionsVersions('Volkswagen', 'Golf', '', annee: 2024).length, 2); // sans période + 2020-
     expect(Catalogue.suggestionsVersions('Volkswagen', 'Golf', '', annee: 2018).map((m) => m.version), ['1.5 eTSI']);
   });
+
+  test('Logo de la marque (sans majuscules ni accents)', () {
+    Catalogue.logos = {'Citroën': 'https://exemple/citroen.png'};
+    expect(Catalogue.logo('citroen'), 'https://exemple/citroen.png');
+    expect(Catalogue.logo('Peugeot'), isNull);
+    expect(Catalogue.logo(''), isNull);
+  });
+
+  test('Générations : chiffres arabes ou romains', () {
+    Catalogue.marques = Catalogue.lire({
+      'Volkswagen': {'Golf VII (2012-2020)': [], 'Golf VIII (2020-)': [], 'Polo': []},
+      'Renault': {'Mégane III (2008-2016)': [], 'Mégane IV (2016-2024)': []},
+    });
+    expect(Catalogue.suggestionsModeles('Volkswagen', 'golf 7'), ['Golf VII (2012-2020)']);
+    expect(Catalogue.suggestionsModeles('Volkswagen', 'golf 8'), ['Golf VIII (2020-)']);
+    expect(Catalogue.suggestionsModeles('Renault', 'megane 3'), ['Mégane III (2008-2016)']);
+    expect(Catalogue.suggestionsModeles('Volkswagen', 'golf'), ['Golf VII (2012-2020)', 'Golf VIII (2020-)']);
+  });
 }

@@ -204,6 +204,32 @@ class VehiculeViewSet(SchemaParticuliersMixin, viewsets.ModelViewSet):
                 _controler_limite(self.request.user, sauf=instance)
             serializer.save()
 
+    @action(detail=True, methods=["get", "put", "delete"])
+    def financement(self, request, pk=None):
+        """Type d'achat (formule Bronze minimum pour l'enregistrer) : GET / PUT / DELETE."""
+        from ..models import Financement
+        vehicule = self.get_object()
+        existant = Financement.objects.filter(vehicule=vehicule).first()
+        disponible = abonnements.formule_effective(request.user) != "gratuit"
+        if request.method != "GET":
+            if not disponible:
+                return Response({"detail": _("Le type d'achat est disponible à partir de la formule Bronze."),
+                                 "code": "formule_requise", "formule_requise": "bronze"},
+                                status=status.HTTP_403_FORBIDDEN)
+            if request.method == "DELETE":
+                if existant:
+                    existant.delete()
+                return Response(status=status.HTTP_204_NO_CONTENT)
+            ser = S.FinancementSerializer(existant, data=request.data)
+            ser.is_valid(raise_exception=True)
+            existant = ser.save(vehicule=vehicule)
+            vehicule = Vehicule.objects.get(pk=vehicule.pk)
+        return Response({
+            "disponible": disponible,
+            "donnees": S.FinancementSerializer(existant).data if existant else None,
+            "calculs": calculs.financement(vehicule),
+        })
+
     @action(detail=True)
     def synthese(self, request, pk=None):
         return Response(calculs.synthese(self.get_object()))
@@ -398,6 +424,10 @@ class CatalogueView(SchemaParticuliersMixin, APIView):
         donnees = catalogue()
         if request.headers.get("If-None-Match") == f'"{donnees["version"]}"':
             return Response(status=status.HTTP_304_NOT_MODIFIED)
+        # Logos : URL complètes (fichiers statiques publics, servis par le serveur web)
+        from django.templatetags.static import static
+        donnees = {**donnees, "logos": {m: request.build_absolute_uri(static(chemin))
+                                         for m, chemin in donnees.get("logos", {}).items()}}
         reponse = Response(donnees)
         reponse["ETag"] = f'"{donnees["version"]}"'
         return reponse

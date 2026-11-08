@@ -36,12 +36,18 @@ class Motorisation {
 class Catalogue {
   /// marque → modèle → versions
   static Map<String, Map<String, List<Motorisation>>> marques = {};
+
+  /// marque → URL du logo (logos de dBSolution, miniatures du serveur)
+  static Map<String, String> logos = {};
   static Future<void>? _chargement;
 
   static Future<void> charger(ApiClient api) => _chargement ??= () async {
         try {
           final r = Map<String, dynamic>.from(await api.get('catalogue/') as Map);
           marques = lire(Map<String, dynamic>.from(r['marques'] as Map));
+          logos = {
+            for (final e in Map<String, dynamic>.from((r['logos'] as Map?) ?? {}).entries) e.key: e.value.toString(),
+          };
         } catch (_) {
           _chargement = null; // nouvel essai à la prochaine ouverture du formulaire
         }
@@ -63,12 +69,33 @@ class Catalogue {
               : {for (final mo in m.value as List) mo.toString(): const <Motorisation>[]},
       };
 
-  /// Le texte commence par la saisie, ou l'un de ses mots (« glc » → « Classe GLC »)
+  static const _romains = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x'];
+
+  /// Le texte commence par la saisie, ou l'un de ses mots (« glc » → « Classe GLC »).
+  /// Les chiffres valent aussi en romains : « golf 7 » → « Golf VII », « megane 3 » → « Mégane III ».
   static bool correspond(String texte, String saisie) {
     final q = normaliserRecherche(saisie);
     if (q.isEmpty) return true;
     final t = normaliserRecherche(texte);
-    return t.startsWith(q) || t.split(RegExp(r'[\s\-]+')).any((mot) => mot.startsWith(q));
+    bool commence(String texte, String v, {bool motEntier = false}) {
+      if (!texte.startsWith(v)) return false;
+      // Chiffre converti : « vii » ne doit pas trouver « viii »
+      return !motEntier || texte.length == v.length || !RegExp(r'[a-z]').hasMatch(texte[v.length]);
+    }
+
+    bool trouve(String v, {bool motEntier = false}) =>
+        commence(t, v, motEntier: motEntier) ||
+        t.split(RegExp(r'[\s\-]+')).any((mot) => commence(mot, v, motEntier: motEntier));
+
+    final romain = q.replaceAllMapped(RegExp(r'\b([1-9]|10)\b'), (m) => _romains[int.parse(m.group(1)!) - 1]);
+    return trouve(q) || (romain != q && trouve(romain, motEntier: true));
+  }
+
+  /// Logo d'une marque saisie (sans tenir compte des majuscules ni des accents)
+  static String? logo(String marque) {
+    final cle = normaliserRecherche(marque);
+    if (cle.isEmpty) return null;
+    return logos.entries.where((e) => normaliserRecherche(e.key) == cle).firstOrNull?.value;
   }
 
   static List<String> suggestionsMarques(String saisie) =>

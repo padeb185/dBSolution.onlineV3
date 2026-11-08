@@ -12,6 +12,7 @@ class ChampSuggestions extends StatefulWidget {
     this.obligatoire = false,
     this.erreur,
     this.onChoisi,
+    this.icone,
   });
 
   final TextEditingController controleur;
@@ -20,6 +21,9 @@ class ChampSuggestions extends StatefulWidget {
   final bool obligatoire;
   final String? erreur;
   final ValueChanged<String>? onChoisi;
+
+  /// Icône devant chaque suggestion et devant la saisie (ex. logo de la marque)
+  final Widget? Function(String texte)? icone;
 
   @override
   State<ChampSuggestions> createState() => _ChampSuggestionsState();
@@ -54,6 +58,13 @@ class _ChampSuggestionsState extends State<ChampSuggestions> {
         focusNode: focus,
         textCapitalization: TextCapitalization.words,
         decoration: InputDecoration(
+          prefixIcon: widget.icone == null
+              ? null
+              : ValueListenableBuilder<TextEditingValue>(
+                  valueListenable: controleur,
+                  builder: (context, v, _) =>
+                      Padding(padding: const EdgeInsets.all(8), child: widget.icone!(v.text) ?? const SizedBox()),
+                ),
           labelText: widget.libelle + (widget.obligatoire ? ' *' : ''),
           errorText: widget.erreur,
           border: const OutlineInputBorder(),
@@ -73,6 +84,7 @@ class _ChampSuggestionsState extends State<ChampSuggestions> {
               itemCount: options.length,
               itemBuilder: (context, i) => ListTile(
                 dense: true,
+                leading: widget.icone?.call(options.elementAt(i)),
                 title: Text(options.elementAt(i)),
                 onTap: () => choisir(options.elementAt(i)),
               ),

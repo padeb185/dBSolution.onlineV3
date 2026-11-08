@@ -13,6 +13,7 @@ import '../modeles/catalogue.dart';
 import '../modeles/ressources.dart';
 import '../widgets/champ_pays.dart';
 import '../widgets/champ_suggestions.dart';
+import '../widgets/logo_marque.dart';
 import '../widgets/fichiers.dart';
 import '../widgets/format.dart';
 import '../modeles/pays.dart';
@@ -236,6 +237,7 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
                 erreur: _erreurs['marque'],
                 suggestions: Catalogue.suggestionsMarques,
                 onChoisi: (_) => setState(() {}),
+                icone: (marque) => Catalogue.logo(marque) == null ? null : LogoMarque(marque: marque, taille: 32),
               ),
             ),
             Padding(

@@ -413,3 +413,53 @@ class PreferencesParticulier(models.Model):
 
     def __str__(self):
         return f"{self.utilisateur_id} – {self.langue}"
+
+
+# ==================================================================
+# TYPE D'ACHAT (formule Bronze minimum) : comptant, prêt, leasing, renting
+# ==================================================================
+class TypeAchat(models.TextChoices):
+    COMPTANT = "comptant", _("Comptant")
+    PRET = "pret", _("Prêt (crédit auto)")
+    LEASING = "leasing", _("Leasing avec option d'achat (LOA)")
+    RENTING = "renting", _("Renting / location longue durée (LLD)")
+
+
+class Financement(models.Model):
+    """Comment le véhicule est payé ; les mensualités entrent dans les coûts (voir calculs.financement)."""
+    vehicule = models.OneToOneField(Vehicule, on_delete=models.CASCADE, related_name="financement")
+    type_achat = models.CharField(_("Type d'achat"), max_length=10, choices=TypeAchat.choices,
+                                  default=TypeAchat.COMPTANT)
+    organisme = models.CharField(_("Organisme (banque, société de leasing)"), max_length=120, blank=True)
+    date_debut = models.DateField(_("Début du contrat"), null=True, blank=True)
+    duree_mois = models.PositiveSmallIntegerField(_("Durée (mois)"), null=True, blank=True)
+    # Prêt
+    apport = models.DecimalField(_("Apport"), max_digits=12, decimal_places=2, null=True, blank=True,
+                                 validators=[MinValueValidator(0)])
+    montant_emprunte = models.DecimalField(_("Montant emprunté"), max_digits=12, decimal_places=2, null=True,
+                                           blank=True, validators=[MinValueValidator(0)])
+    taux_annuel = models.DecimalField(_("Taux annuel (TAEG, %)"), max_digits=5, decimal_places=2, null=True,
+                                      blank=True, validators=[MinValueValidator(0)])
+    # Mensualité (prêt : calculée si vide) ; leasing / renting : loyer mensuel
+    mensualite = models.DecimalField(_("Mensualité"), max_digits=10, decimal_places=2, null=True, blank=True,
+                                     validators=[MinValueValidator(0)])
+    # Leasing / renting
+    premier_loyer = models.DecimalField(_("Premier loyer majoré / acompte"), max_digits=12, decimal_places=2,
+                                        null=True, blank=True, validators=[MinValueValidator(0)])
+    valeur_residuelle = models.DecimalField(_("Option d'achat (valeur résiduelle)"), max_digits=12,
+                                            decimal_places=2, null=True, blank=True,
+                                            validators=[MinValueValidator(0)])
+    option_levee = models.BooleanField(_("Option d'achat levée"), default=False)
+    km_annuels = models.PositiveIntegerField(_("Kilométrage autorisé par an"), null=True, blank=True)
+    prix_km_supplementaire = models.DecimalField(_("Prix du km supplémentaire"), max_digits=6, decimal_places=3,
+                                                 null=True, blank=True, validators=[MinValueValidator(0)])
+    services_inclus = models.CharField(_("Services inclus (entretien, assurance, pneus…)"), max_length=255,
+                                       blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _("Type d'achat")
+        verbose_name_plural = _("Types d'achat")
+
+    def __str__(self):
+        return f"{self.vehicule} – {self.get_type_achat_display()}"

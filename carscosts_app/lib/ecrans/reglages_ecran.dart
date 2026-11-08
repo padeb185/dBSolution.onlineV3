@@ -280,7 +280,10 @@ class ReglagesEcran extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.workspace_premium),
             title: Text(t('Formule {formule}', {'formule': abonnement.libelle})),
-            subtitle: Text(t('Gratuit 1 véhicule · Bronze 2 · Silver 5 · Gold 10')),
+            subtitle: Text([
+              t('{n} véhicule(s) actif(s) sur {limite}', {'n': abonnement.vehiculesActifs, 'limite': abonnement.limite}),
+              t('Gratuit 1 véhicule · Bronze 2 · Silver 5 · Gold 10'),
+            ].join('\n')),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const FormulesEcran())),
           ),

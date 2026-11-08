@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../achats/abonnement.dart';
 import '../api/api_client.dart';
 import '../l10n/langue.dart';
 import '../l10n/unites.dart';
@@ -9,7 +10,9 @@ import '../modeles/ressources.dart';
 import '../widgets/fichiers.dart';
 import '../widgets/format.dart';
 import '../widgets/liste_ressource.dart';
+import '../widgets/logo_marque.dart';
 import '../widgets/plaque.dart';
+import 'financement_ecran.dart';
 import 'formulaire_ecran.dart';
 import 'vehicule_form_ecran.dart';
 
@@ -67,7 +70,11 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
       length: ressourcesDe(_vehicule).length + 1,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(titre),
+          title: Row(children: [
+            LogoMarque(marque: _vehicule['marque'] as String?, taille: 32),
+            const SizedBox(width: 10),
+            Expanded(child: Text(titre, overflow: TextOverflow.ellipsis)),
+          ]),
           actions: [IconButton(icon: const Icon(Icons.edit), tooltip: t('Modifier'), onPressed: _modifier)],
           bottom: TabBar(
             isScrollable: true,
@@ -153,7 +160,27 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
                   label: Text(t('Entretien')),
                 ),
               ]),
-              const SizedBox(height: 16),
+              const SizedBox(height: 12),
+              // Type d'achat (formule Bronze minimum) : comptant, prêt, leasing, renting
+              Card(
+                child: ListTile(
+                  leading: const Icon(Icons.account_balance),
+                  title: Text(t('Type d\'achat : {type}', {'type': typesAchat[s['type_achat']] ?? t('Comptant')})),
+                  subtitle: (s['financement'] as Map?)?['mensualite'] == null
+                      ? null
+                      : Text(t('Mensualité {montant} · reste {reste}', {
+                          'montant': euros((s['financement'] as Map)['mensualite']),
+                          'reste': euros((s['financement'] as Map)['reste_a_payer']),
+                        })),
+                  trailing: context.watch<Abonnement>().formule == 'gratuit'
+                      ? const Chip(label: Text('Bronze'))
+                      : const Icon(Icons.chevron_right),
+                  onTap: () async {
+                    if (await ouvrirFinancement(context, _vehicule) && mounted) setState(_chargerSynthese);
+                  },
+                ),
+              ),
+              const SizedBox(height: 12),
               GridView.count(
                 crossAxisCount: MediaQuery.sizeOf(context).width > 700 ? 4 : 2,
                 shrinkWrap: true,
@@ -183,7 +210,7 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
               Card(
                 child: Column(children: [
                   for (final p in (s['postes'] as List).cast<Map>())
-                    ListTile(dense: true, title: Text(_libellePoste(p)), trailing: Text(euros(p['montant']))),
+                    ListTile(dense: true, title: Text(_libellePoste(p, s)), trailing: Text(euros(p['montant']))),
                   ListTile(
                     title: Text(t('Coût total'), style: const TextStyle(fontWeight: FontWeight.bold)),
                     trailing: Text(euros(s['cout_total']), style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -243,11 +270,13 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
       ];
 
   /// Libellé d'un poste de coût, traduit d'après son code (achat, energie, depense_taxe…).
-  String _libellePoste(Map p) {
+  String _libellePoste(Map p, Map s) {
     final code = '${p['code']}';
     if (code.startsWith('depense_')) return categoriesDepense[code.substring(8)] ?? '${p['libelle']}';
     return switch (code) {
-      'achat' => t('Prix d\'achat'),
+      'achat' => s['type_achat'] == 'leasing' ? t('Option d\'achat levée') : t('Prix d\'achat'),
+      'interets' => t('Intérêts du prêt (à ce jour)'),
+      'loyers' => t('Loyers payés (à ce jour)'),
       'energie' => t('Carburant / énergie'),
       'entretiens' => t('Entretiens et réparations'),
       'documents' => t('Assurance, contrôle technique, documents'),

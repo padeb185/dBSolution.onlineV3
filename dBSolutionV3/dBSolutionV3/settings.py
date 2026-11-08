@@ -38,6 +38,9 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
 ]
+# Développement : émulateur Android (le Mac vu depuis l'émulateur) et téléphones du réseau local
+if DEBUG:
+    ALLOWED_HOSTS += ["10.0.2.2"] + env.list("ALLOWED_HOSTS_DEV", default=[])
 # ------------------------------------------------------------------------------
 # DJANGO-TENANTS
 # ------------------------------------------------------------------------------

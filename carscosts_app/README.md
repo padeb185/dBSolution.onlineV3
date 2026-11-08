@@ -22,16 +22,20 @@ flutter test
 
 Puis appliquer les réglages natifs ci-dessous (§ 3).
 
-## 2. Lancer en développement
+## 2. Développer en local (sans déployer)
 
-Serveur Django local : `python manage.py runserver 0.0.0.0:8000`
+Deux terminaux :
 
 ```bash
-# iPhone (simulateur), Mac, Windows
-flutter run --dart-define=API_URL=http://127.0.0.1:8000/api/v1
-# Émulateur Android (10.0.2.2 = le Mac)
-flutter run --dart-define=API_URL=http://10.0.2.2:8000/api/v1
+cd dBSolutionV3 && ./dev.sh          # API Django locale (port 8000), rechargée à chaque modification .py
+cd carscosts_app && ./dev.sh ios     # ou android / macos : l'app sur l'API locale
 ```
+
+Dans le terminal de l'app : `r` rechargement à chaud (Dart), `R` redémarrage complet, `q` quitter.
+Base locale (PostgreSQL du Mac, tenant « particuliers »), `DEBUG=True` : achats de test acceptés.
+Téléphone réel sur le Wi-Fi : `ALLOWED_HOSTS_DEV=192.168.x.y` dans le `.env` local et
+`flutter run --dart-define=API_URL=http://192.168.x.y:8000/api/v1`.
+Mise en ligne seulement quand c'est prêt : `./deploy.sh` (+ `migrate_schemas` sur le serveur s'il y a des migrations).
 
 Sans `API_URL`, l'application utilise `https://carscosts.com/api/v1`.
 
