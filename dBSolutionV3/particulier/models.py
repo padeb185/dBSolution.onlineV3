@@ -60,6 +60,7 @@ class Vehicule(models.Model):
     marque = models.CharField(_("Marque"), max_length=60)
     modele = models.CharField(_("Modèle"), max_length=80)
     version = models.CharField(_("Version / finition"), max_length=120, blank=True)
+    puissance_ch = models.PositiveSmallIntegerField(_("Puissance (ch)"), null=True, blank=True)
     immatriculation = models.CharField(_("Immatriculation"), max_length=20, blank=True)
     pays_immatriculation = models.CharField(_("Pays d'immatriculation"), max_length=2, default="BE")
     vin = models.CharField(_("VIN"), max_length=17, blank=True)

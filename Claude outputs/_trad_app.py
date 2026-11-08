@@ -328,3 +328,7 @@ T.update({
 'batterie : {niveau}': ('batterij: {niveau}', 'battery: {niveau}', 'Akku: {niveau}', 'batería: {niveau}', 'batteria: {niveau}', 'μπαταρία: {niveau}'),
 })
 for k in ['Batterie au début','Batterie à la fin']: T.pop(k, None)
+T.update({
+'Puissance': ('Vermogen', 'Power', 'Leistung', 'Potencia', 'Potenza', 'Ισχύς'),
+'{kw} kW': ('{kw} kW', '{kw} kW', '{kw} kW', '{kw} kW', '{kw} kW', '{kw} kW'),
+})

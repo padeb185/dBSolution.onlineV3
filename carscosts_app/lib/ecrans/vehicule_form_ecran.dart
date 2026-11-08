@@ -33,8 +33,8 @@ class VehiculeFormEcran extends StatefulWidget {
 class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
   final _cle = GlobalKey<FormState>();
   static const _textes = [
-    'marque', 'modele', 'version', 'immatriculation', 'vin', 'annee', 'prix_achat', 'kilometrage_achat',
-    'valeur_estimee', 'couleur',
+    'marque', 'modele', 'version', 'puissance_ch', 'immatriculation', 'vin', 'annee', 'prix_achat',
+    'kilometrage_achat', 'valeur_estimee', 'couleur',
   ];
   final Map<String, TextEditingController> _c = {};
   String _energie = 'essence';
@@ -114,6 +114,7 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
     String? v(String n) => _c[n]!.text.trim().isEmpty ? null : _c[n]!.text.trim().replaceAll(',', '.');
     final donnees = <String, dynamic>{
       for (final n in ['marque', 'modele', 'version', 'immatriculation', 'couleur']) n: _c[n]!.text.trim(),
+      'puissance_ch': int.tryParse(v('puissance_ch') ?? ''),
       'vin': _c['vin']!.text.trim().toUpperCase(),
       'annee': int.tryParse(v('annee') ?? ''),
       'prix_achat': v('prix_achat'),
@@ -156,8 +157,21 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
     }
   }
 
+  /// Version choisie dans les suggestions : libellé, puissance et énergie du catalogue.
+  void _choisirVersion(String libelle) {
+    final m = Catalogue.motorisations(_c['marque']!.text, _c['modele']!.text)
+        .where((x) => x.libelle == libelle)
+        .firstOrNull;
+    if (m == null) return;
+    setState(() {
+      _c['version']!.text = m.version;
+      if (m.ch != null) _c['puissance_ch']!.text = '${m.ch}';
+      if (m.energie != null && energies.containsKey(m.energie)) _energie = m.energie!;
+    });
+  }
+
   Widget _texte(String nom, String libelle,
-      {bool obligatoire = false, TextInputType? clavier, String? suffixe, Widget? bouton}) {
+      {bool obligatoire = false, TextInputType? clavier, String? suffixe, Widget? bouton, String? aide}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: TextFormField(
@@ -168,6 +182,7 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
           labelText: libelle + (obligatoire ? ' *' : ''),
           suffixText: suffixe,
           suffixIcon: bouton,
+          helperText: aide,
           errorText: _erreurs[nom],
           border: const OutlineInputBorder(),
         ),
@@ -233,7 +248,30 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
                 suggestions: (saisie) => Catalogue.suggestionsModeles(_c['marque']!.text, saisie),
               ),
             ),
-            _texte('version', t('Version / finition')),
+            // Versions du modèle (catalogue) : choisir une version remplit la puissance et l'énergie
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: ChampSuggestions(
+                controleur: _c['version']!,
+                libelle: t('Version / finition'),
+                erreur: _erreurs['version'],
+                suggestions: (saisie) => [
+                  for (final m in Catalogue.suggestionsVersions(_c['marque']!.text, _c['modele']!.text, saisie))
+                    m.libelle,
+                ],
+                onChoisi: _choisirVersion,
+              ),
+            ),
+            ValueListenableBuilder<TextEditingValue>(
+              valueListenable: _c['puissance_ch']!,
+              builder: (context, valeur, _) {
+                final ch = int.tryParse(valeur.text.trim());
+                return _texte('puissance_ch', t('Puissance'),
+                    clavier: TextInputType.number,
+                    suffixe: 'ch',
+                    aide: ch == null ? null : t('{kw} kW', {'kw': (ch * 0.73549875).round()}));
+              },
+            ),
             _texte('immatriculation', t('Immatriculation')),
             // Aperçu de la plaque (pays choisi ci-dessous)
             ValueListenableBuilder<TextEditingValue>(
@@ -251,6 +289,8 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
             Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: DropdownButtonFormField<String>(
+                // Clé : l'énergie suit la version choisie dans les suggestions
+                key: ValueKey(_energie),
                 initialValue: _energie,
                 decoration: InputDecoration(labelText: t('Énergie'), border: const OutlineInputBorder()),
                 items: [for (final e in energies.entries) DropdownMenuItem(value: e.key, child: Text(e.value))],
