@@ -38,6 +38,13 @@ class VehiculeSerializer(FichierMixin, serializers.ModelSerializer):
         exclude = ["proprietaire"]
         read_only_fields = ["id", "created_at", "updated_at"]
 
+    def validate_pays_immatriculation(self, v):
+        from ..pays import CODES_PAYS
+        v = (v or "").upper()
+        if v not in CODES_PAYS:
+            raise serializers.ValidationError("Pays d'immatriculation inconnu (code ISO à 2 lettres attendu).")
+        return v
+
     def validate_vin(self, v):
         v = (v or "").upper().replace(" ", "")
         if v and len(v) != 17:

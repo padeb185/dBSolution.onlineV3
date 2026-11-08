@@ -20,7 +20,8 @@ from django.views.decorators.http import require_POST
 
 from .api.base import ROLE_PARTICULIER, servir_fichier
 from .comptes import activer, supprimer_compte
-from .models import Depense, Document, Entretien, Plein, Rappel, Vehicule
+from . import abonnements
+from .models import AbonnementParticulier, Depense, Document, Entretien, Formule, Plein, Rappel, Vehicule
 
 
 def schema_particuliers():
@@ -67,7 +68,10 @@ def tableau(request):
                   .values("proprietaire").annotate(nb=Count("id"), maj=Max("updated_at"))}
     dernier_plein = dict(Plein.objects.filter(vehicule__proprietaire__in=ids)
                          .values_list("vehicule__proprietaire").annotate(m=Max("created_at")))
+    abos = {a.utilisateur_id: a for a in AbonnementParticulier.objects.filter(utilisateur__in=ids)}
     for u in page:
+        u.formule = abonnements.formule_effective(u, abos.get(u.pk) or False)
+        u.formule_libelle = Formule(u.formule).label
         r = par_compte.get(u.pk, {})
         u.nb_vehicules = r.get("nb", 0)
         u.derniere_activite = max([d for d in (r.get("maj"), dernier_plein.get(u.pk), u.last_login) if d], default=None)
@@ -82,10 +86,20 @@ def tableau(request):
         "entretiens": Entretien.objects.count(),
         "documents": Document.objects.count(),
         "rappels_actifs": Rappel.objects.filter(actif=True).count(),
+        "formules": _repartition_formules(),
     }
     return render(request, "particulier/admin/tableau.html", {
         "stats": stats, "page": page, "q": q, "etat": etat,
     })
+
+
+def _repartition_formules():
+    """Comptes payants par formule (abonnements en cours)."""
+    maintenant = timezone.now()
+    en_cours = (AbonnementParticulier.objects.exclude(formule=Formule.GRATUIT)
+                .filter(Q(date_fin__isnull=True) | Q(date_fin__gt=maintenant)))
+    par = dict(en_cours.values_list("formule").annotate(n=Count("id")))
+    return [(Formule(f).label, par.get(f, 0)) for f in (Formule.BRONZE, Formule.SILVER, Formule.GOLD)]
 
 
 @admin_particuliers
@@ -100,7 +114,34 @@ def compte(request, pk):
     return render(request, "particulier/admin/compte.html", {
         "compte": user, "vehicules": vehicules, "documents": documents, "pleins": pleins,
         "nb_depenses": Depense.objects.filter(vehicule__proprietaire=user).count(),
+        "abonnement": abonnements.abonnement(user),
+        "etat_abonnement": abonnements.etat(user),
+        "formules": [(f.value, f.label, abonnements.LIMITES[f]) for f in abonnements.ORDRE],
+        "mode_achats": abonnements.mode_achats(),
     })
+
+
+@admin_particuliers
+@require_POST
+def compte_formule(request, pk):
+    """Attribution d'une formule par l'administration (offerte, support, tests)."""
+    from datetime import datetime, time
+    user = get_object_or_404(_comptes(), pk=pk)
+    formule = request.POST.get("formule")
+    if formule not in abonnements.LIMITES:
+        messages.error(request, _("Formule inconnue."))
+        return redirect("particulier_admin:compte", pk=pk)
+    date_fin = None
+    if request.POST.get("date_fin"):
+        try:
+            jour = datetime.strptime(request.POST["date_fin"], "%Y-%m-%d").date()
+        except ValueError:
+            messages.error(request, _("Date de fin invalide."))
+            return redirect("particulier_admin:compte", pk=pk)
+        date_fin = timezone.make_aware(datetime.combine(jour, time(23, 59, 59)))
+    abonnements.attribuer(user, formule, date_fin, note=(request.POST.get("note") or "").strip()[:255])
+    messages.success(request, _("Formule %(f)s attribuée.") % {"f": Formule(formule).label})
+    return redirect("particulier_admin:compte", pk=pk)
 
 
 @admin_particuliers

@@ -133,6 +133,8 @@ def synthese(vehicule, aujourdhui=None):
                                                 vehicule.documents.all(), vehicule.depenses.all())
 
     postes = OrderedDict()
+    if vehicule.prix_achat is not None:
+        postes["achat"] = {"libelle": str(_("Prix d'achat")), "montant": r2(D(vehicule.prix_achat))}
     postes["energie"] = {"libelle": str(_("Carburant / énergie")), "montant": _somme(pleins)}
     postes["entretiens"] = {"libelle": str(_("Entretiens et réparations")), "montant": _somme(entretiens)}
     postes["documents"] = {"libelle": str(_("Assurance, contrôle technique, documents")), "montant": _somme(documents)}
@@ -140,13 +142,17 @@ def synthese(vehicule, aujourdhui=None):
         m = _somme(depenses.filter(categorie=code))
         if m:
             postes[f"depense_{code}"] = {"libelle": str(libelle), "montant": m}
-    usage = r2(sum((p["montant"] for p in postes.values()), ZERO))
+    # Coût d'usage : tout sauf l'achat ; coût total : achat + usage ;
+    # coût net : coût total − valeur de revente estimée (ce que le véhicule a réellement coûté)
+    usage = r2(sum((p["montant"] for c, p in postes.items() if c != "achat"), ZERO))
+    total = r2(sum((p["montant"] for p in postes.values()), ZERO))
+    revente = r2(D(vehicule.valeur_estimee)) if vehicule.valeur_estimee is not None else None
+    net = r2(total - (revente or ZERO))
 
     km_actuel = vehicule.kilometrage_actuel
     km = max(km_actuel - (vehicule.kilometrage_achat or 0), 0)
     depreciation = (r2(D(vehicule.prix_achat) - D(vehicule.valeur_estimee or 0))
                     if vehicule.prix_achat is not None and vehicule.valeur_estimee is not None else None)
-    total = r2(usage + (depreciation or ZERO))
     mois = mois_entre(vehicule.date_achat, aujourdhui) if vehicule.date_achat else None
 
     # Par année (graphique)
@@ -164,12 +170,15 @@ def synthese(vehicule, aujourdhui=None):
         "cout_usage": usage,
         "depreciation": depreciation,
         "cout_total": total,
+        "valeur_revente": revente,
+        "cout_net": net,
         "kilometrage_actuel": km_actuel,
         "km_parcourus": km,
         "cout_km": (usage / km).quantize(D("0.001")) if km else None,
-        "cout_total_km": (total / km).quantize(D("0.001")) if km else None,
+        # Coût au km et par mois : sur le coût net (achat + usage − revente)
+        "cout_total_km": (net / km).quantize(D("0.001")) if km else None,
         "mois_detention": mois,
-        "cout_mois": r2(total / mois) if mois else None,
+        "cout_mois": r2(net / mois) if mois else None,
         "consommation_moyenne": conso["moyenne"],
         "consommation_derniere": conso["derniere"],
         "par_annee": [annees[a] for a in sorted(annees)],

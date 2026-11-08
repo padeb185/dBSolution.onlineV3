@@ -8,6 +8,9 @@ import '../api/api_client.dart';
 import '../modeles/ressources.dart';
 import '../widgets/fichiers.dart';
 import '../widgets/format.dart';
+import '../modeles/pays.dart';
+import '../widgets/plaque.dart';
+import 'formules_ecran.dart';
 import 'vin_ecran.dart';
 
 /// Création / modification d'un véhicule (avec lecture du VIN).
@@ -47,7 +50,8 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
       _c[n] = TextEditingController(text: v[n]?.toString() ?? '');
     }
     _energie = (v['energie'] as String?) ?? 'essence';
-    _pays = (v['pays_immatriculation'] as String?) ?? 'BE';
+    final pays = (v['pays_immatriculation'] as String?)?.toUpperCase();
+    _pays = paysImmatriculation.containsKey(pays) ? pays! : 'BE';
     _miseEnCirculation = v['date_mise_en_circulation'] as String?;
     _dateAchat = v['date_achat'] as String?;
     _archive = v['archive'] == true;
@@ -111,6 +115,11 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
       if (mounted) Navigator.pop(context, true);
     } on ApiException catch (e) {
       if (!mounted) return;
+      if (e.statut == 403 && e.champs['code'] == 'limite_formule') {
+        // Limite de la formule atteinte (ajout ou désarchivage) : proposer une formule supérieure
+        await Navigator.push(context, MaterialPageRoute(builder: (_) => FormulesEcran(raison: e.message)));
+        return;
+      }
       setState(() => _erreurs = e.champs);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
     } finally {
@@ -177,6 +186,19 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
             _texte('modele', 'Modèle', obligatoire: true),
             _texte('version', 'Version / finition'),
             _texte('immatriculation', 'Immatriculation'),
+            // Aperçu de la plaque (pays choisi ci-dessous)
+            ValueListenableBuilder<TextEditingValue>(
+              valueListenable: _c['immatriculation']!,
+              builder: (context, valeur, _) => valeur.text.trim().isEmpty
+                  ? const SizedBox.shrink()
+                  : Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Plaque(numero: valeur.text.trim(), pays: _pays, hauteur: 36),
+                      ),
+                    ),
+            ),
             Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: DropdownButtonFormField<String>(
@@ -191,15 +213,11 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
               child: DropdownButtonFormField<String>(
                 initialValue: _pays,
                 decoration: const InputDecoration(labelText: 'Pays d\'immatriculation', border: OutlineInputBorder()),
-                items: const [
-                  DropdownMenuItem(value: 'BE', child: Text('Belgique')),
-                  DropdownMenuItem(value: 'FR', child: Text('France')),
-                  DropdownMenuItem(value: 'LU', child: Text('Luxembourg')),
-                  DropdownMenuItem(value: 'NL', child: Text('Pays-Bas')),
-                  DropdownMenuItem(value: 'DE', child: Text('Allemagne')),
-                  DropdownMenuItem(value: 'CH', child: Text('Suisse')),
-                  DropdownMenuItem(value: 'IT', child: Text('Italie')),
-                  DropdownMenuItem(value: 'ES', child: Text('Espagne')),
+                isExpanded: true,
+                menuMaxHeight: 420,
+                items: [
+                  for (final e in paysImmatriculation.entries)
+                    DropdownMenuItem(value: e.key, child: Text(e.value, overflow: TextOverflow.ellipsis)),
                 ],
                 onChanged: (v) => setState(() => _pays = v ?? 'BE'),
               ),

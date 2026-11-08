@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../achats/abonnement.dart';
 import '../api/api_client.dart';
 import '../api/session.dart';
 import '../config.dart';
+import 'formules_ecran.dart';
 
 /// Mon compte : déconnexion et suppression définitive du compte (obligatoire sur l'App Store).
 class CompteEcran extends StatelessWidget {
@@ -52,6 +54,13 @@ class CompteEcran extends StatelessWidget {
             leading: const Icon(Icons.person),
             title: Text('${u['prenom'] ?? ''} ${u['nom'] ?? ''}'),
             subtitle: Text('${u['email'] ?? ''}'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.workspace_premium),
+            title: Text('Formule ${context.watch<Abonnement>().libelle}'),
+            subtitle: const Text('Gratuit 1 véhicule · Bronze 2 · Silver 5 · Gold 10'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const FormulesEcran())),
           ),
           const Divider(),
           ListTile(

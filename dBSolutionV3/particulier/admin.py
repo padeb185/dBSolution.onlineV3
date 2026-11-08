@@ -5,7 +5,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from .comptes import activer
-from .models import CompteParticulier, Depense, Document, Entretien, Plein, Rappel, ReleveKilometrique, Vehicule
+from .models import AbonnementParticulier, CompteParticulier, Depense, Document, Entretien, Plein, Rappel, ReleveKilometrique, Vehicule
 
 
 def lien_fichier(modele, champ):
@@ -161,3 +161,28 @@ class DepenseAdmin(DonneeVehiculeAdmin):
 @admin.register(ReleveKilometrique)
 class ReleveAdmin(DonneeVehiculeAdmin):
     list_display = ("date", "kilometrage", "vehicule", "proprietaire")
+
+
+@admin.register(AbonnementParticulier)
+class AbonnementAdmin(AccesAdminParticuliers, admin.ModelAdmin):
+    """Formules des comptes. En développement, attribution directe ; en production, par achat dans l'application."""
+    list_display = ("utilisateur", "formule", "formule_en_cours", "date_fin", "source", "renouvellement_auto",
+                    "environnement", "updated_at")
+    list_filter = ("formule", "source", "environnement", "renouvellement_auto")
+    search_fields = ("utilisateur__email", "utilisateur__nom", "reference_store", "produit")
+    list_select_related = ("utilisateur",)
+    raw_id_fields = ("utilisateur",)
+    readonly_fields = ("produit", "reference_store", "environnement", "renouvellement_auto", "created_at", "updated_at")
+    fields = ("utilisateur", "formule", "date_fin", "source", "note", *readonly_fields)
+
+    @admin.display(description=_("Formule en cours"))
+    def formule_en_cours(self, obj):
+        from .abonnements import formule_effective
+        from .models import Formule
+        return Formule(formule_effective(obj.utilisateur, obj)).label
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "utilisateur":
+            from utilisateurs.models import Utilisateur
+            kwargs["queryset"] = Utilisateur.objects.filter(role="particulier")
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)

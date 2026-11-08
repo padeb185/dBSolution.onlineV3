@@ -21,5 +21,9 @@ urlpatterns = [
     path("moi/", views.MoiView.as_view(), name="moi"),
     path("tableau-de-bord/", views.TableauDeBordView.as_view(), name="tableau_de_bord"),
     path("vin/", views.VinView.as_view(), name="vin"),
+    path("abonnement/", views.AbonnementView.as_view(), name="abonnement"),
+    path("abonnement/achat/", views.AchatView.as_view(), name="abonnement_achat"),
+    path("abonnement/notifications/apple/", views.NotificationAppleView.as_view(), name="notification_apple"),
+    path("abonnement/notifications/google/", views.NotificationGoogleView.as_view(), name="notification_google"),
     path("", include(routeur.urls)),
 ]

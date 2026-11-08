@@ -246,3 +246,47 @@ class CompteParticulier(Utilisateur):
         proxy = True
         verbose_name = _("Compte particulier")
         verbose_name_plural = _("Comptes particuliers")
+
+
+# ==================================================================
+# ABONNEMENTS (formules de l'application) – voir particulier/abonnements.py
+# ==================================================================
+class Formule(models.TextChoices):
+    GRATUIT = "gratuit", _("Gratuit")
+    BRONZE = "bronze", _("Bronze")
+    SILVER = "silver", _("Silver")
+    GOLD = "gold", _("Gold")
+
+
+class SourceAbonnement(models.TextChoices):
+    AUCUNE = "", _("—")
+    ADMIN = "admin", _("Administration")
+    APPLE = "apple", _("App Store")
+    GOOGLE = "google", _("Google Play")
+    TEST = "test", _("Achat de test (développement)")
+
+
+class AbonnementParticulier(models.Model):
+    """Formule d'un compte particulier. Sans ligne, ou échue (date_fin passée) : formule gratuite."""
+    utilisateur = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+                                       related_name="abonnement_particulier")
+    formule = models.CharField(_("Formule"), max_length=10, choices=Formule.choices, default=Formule.GRATUIT)
+    date_fin = models.DateTimeField(_("Fin de validité"), null=True, blank=True,
+                                    help_text=_("Vide : sans limite de durée (attribution par l'administration)."))
+    source = models.CharField(_("Source"), max_length=10, choices=SourceAbonnement.choices, blank=True, default="")
+    produit = models.CharField(_("Produit (store)"), max_length=120, blank=True)
+    reference_store = models.CharField(_("Référence store"), max_length=255, null=True, blank=True, unique=True,
+                                       help_text=_("originalTransactionId (Apple) ou purchaseToken (Google)."))
+    environnement = models.CharField(_("Environnement"), max_length=20, blank=True,
+                                     help_text=_("Production ou Sandbox (achats de test des stores)."))
+    renouvellement_auto = models.BooleanField(_("Renouvellement automatique"), default=False)
+    note = models.CharField(_("Note"), max_length=255, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _("Abonnement")
+        verbose_name_plural = _("Abonnements")
+
+    def __str__(self):
+        return f"{self.utilisateur_id} – {self.get_formule_display()}"

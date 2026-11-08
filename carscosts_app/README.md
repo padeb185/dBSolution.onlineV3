@@ -104,8 +104,38 @@ lib/
 | GET | `pleins/{id}/ticket/` · `entretiens/{id}/facture/` · `documents/{id}/fichier/` | fichiers privés |
 | POST | `rappels/{id}/fait/` | rappel réalisé → prochaine échéance |
 | GET | `vin/?vin=…` | décodage du VIN (marque, année) |
+| GET | `abonnement/` | formule, limite, véhicules actifs, formules et produits |
+| POST | `abonnement/achat/` | preuve d'achat (`apple` / `google` / `test`) → formule |
 
-## 6. Prochaines étapes
+## 6. Formules et achats intégrés
+
+| Formule | Gratuit | Bronze | Silver | Gold |
+|---|---|---|---|---|
+| Véhicules actifs (non archivés) | 1 | 2 | 5 | 10 |
+| Produit (App Store et Google Play) | – | `carscosts_bronze_mensuel` | `carscosts_silver_mensuel` | `carscosts_gold_mensuel` |
+
+La limite est appliquée par le serveur (ajout et désarchivage d'un véhicule → 403 `limite_formule`) ;
+l'application ouvre alors l'écran **Formules** (`lib/ecrans/formules_ecran.dart`, service `lib/achats/abonnement.dart`).
+
+- **Développement** (`PARTICULIERS_ACHATS_MODE=test`, défaut si `DEBUG=True`) : bouton « Activer (test) »
+  (formule 30 jours, sans store) + attribution dans « Particuliers – administration » ou l'admin Django.
+  Les achats Sandbox (TestFlight, testeurs Google Play) sont aussi acceptés (`PARTICULIERS_ACHATS_SANDBOX`).
+- **Production** (`PARTICULIERS_ACHATS_MODE=store`) : achat dans l'app ; le serveur vérifie la transaction
+  StoreKit 2 signée (Apple) ou le `purchaseToken` (API Google Play Developer) avant d'activer la formule.
+
+Configuration des stores :
+1. App Store Connect : un groupe d'abonnements « CarsCosts » avec les 3 produits (Gold > Silver > Bronze, pour
+   les changements de niveau) ; *App Store Server Notifications V2* →
+   `https://carscosts.com/api/v1/abonnement/notifications/apple/` ; serveur : `APPLE_ROOT_CA_G3=` chemin de
+   `AppleRootCA-G3.cer` (apple.com/certificateauthority).
+2. Play Console : 3 abonnements (mêmes identifiants) ; compte de service avec accès « Afficher les données
+   financières / gérer les commandes » → `GOOGLE_SERVICE_ACCOUNT_FILE=` chemin du JSON (hors du dossier du projet) ;
+   *Real-time developer notifications* : sujet Pub/Sub avec abonnement push vers
+   `https://carscosts.com/api/v1/abonnement/notifications/google/?jeton=<GOOGLE_RTDN_JETON>`.
+3. Un fichier StoreKit local (Xcode) signe les achats avec un certificat local, refusé par le serveur :
+   tester avec « Activer (test) », puis en Sandbox sur un vrai appareil / TestFlight.
+
+## 7. Prochaines étapes
 
 - Notifications locales des rappels (`flutter_local_notifications`) puis push (APNs / FCM via Celery).
 - Traductions (`flutter gen-l10n`) : nl, en, de.

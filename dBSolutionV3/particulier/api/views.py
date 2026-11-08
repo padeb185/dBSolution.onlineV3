@@ -4,13 +4,14 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404
 from django_tenants.utils import get_public_schema_name, schema_context
 from rest_framework import mixins, status, viewsets
+from rest_framework.exceptions import APIException
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .. import calculs
+from .. import abonnements, calculs
 from ..comptes import supprimer_compte
 from ..models import Depense, Document, Entretien, Plein, Rappel, ReleveKilometrique, Vehicule
 from . import serializers as S
@@ -80,7 +81,7 @@ class DeconnexionView(SchemaParticuliersMixin, APIView):
 
 class MoiView(SchemaParticuliersMixin, APIView):
     def get(self, request):
-        return Response(S.UtilisateurSerializer(request.user).data)
+        return Response({**S.UtilisateurSerializer(request.user).data, "abonnement": abonnements.etat(request.user)})
 
     def patch(self, request):
         ser = S.UtilisateurSerializer(request.user, data=request.data, partial=True)
@@ -115,17 +116,56 @@ class ProprietaireViewSet(SchemaParticuliersMixin, viewsets.ModelViewSet):
         return servir_fichier(getattr(self.get_object(), champ))
 
 
+class LimiteFormule(APIException):
+    """403 avec le détail de la formule : l'application propose alors une formule supérieure."""
+    status_code = status.HTTP_403_FORBIDDEN
+    default_code = "limite_formule"
+
+    def __init__(self, erreur):
+        super().__init__()
+        self.detail = {"detail": erreur.message, "code": "limite_formule", "formule": erreur.formule,
+                       "limite": erreur.limite, "vehicules_actifs": erreur.actifs, "formule_suivante": erreur.suivante}
+
+
+def _verrouiller(user):
+    """Sérialise les ajouts d'un même compte (deux ajouts simultanés ne dépassent pas la limite)."""
+    from ..models import AbonnementParticulier
+    AbonnementParticulier.objects.get_or_create(utilisateur=user)
+    AbonnementParticulier.objects.select_for_update().get(utilisateur=user)
+
+
+def _controler_limite(user, sauf=None):
+    try:
+        abonnements.verifier_limite(user, sauf=sauf)
+    except abonnements.LimiteAtteinte as e:
+        raise LimiteFormule(e)
+
+
 class VehiculeViewSet(SchemaParticuliersMixin, viewsets.ModelViewSet):
     serializer_class = S.VehiculeSerializer
 
     def get_queryset(self):
         qs = Vehicule.objects.filter(proprietaire=self.request.user)
-        if self.request.query_params.get("archives") != "1":
+        # La liste masque les véhicules archivés (sauf ?archives=1) ; la fiche reste accessible (désarchiver)
+        if self.action == "list" and self.request.query_params.get("archives") != "1":
             qs = qs.filter(archive=False)
         return qs
 
     def perform_create(self, serializer):
-        serializer.save(proprietaire=self.request.user)
+        with transaction.atomic():
+            _verrouiller(self.request.user)
+            if not serializer.validated_data.get("archive"):
+                _controler_limite(self.request.user)
+            serializer.save(proprietaire=self.request.user)
+
+    def perform_update(self, serializer):
+        """Désarchiver un véhicule compte dans la limite de la formule."""
+        instance = serializer.instance
+        with transaction.atomic():
+            _verrouiller(self.request.user)
+            if instance.archive and serializer.validated_data.get("archive") is False:
+                _controler_limite(self.request.user, sauf=instance)
+            serializer.save()
 
     @action(detail=True)
     def synthese(self, request, pk=None):
@@ -221,6 +261,7 @@ class TableauDeBordView(SchemaParticuliersMixin, APIView):
             "rappels": sorted(alertes, key=lambda r: (r["statut"]["statut"] != "en_retard",
                                                       r["statut"]["jours_restants"] if r["statut"]["jours_restants"] is not None else 99999)),
             "depenses_mois": calculs.r2(depenses_mois),
+            "abonnement": abonnements.etat(request.user),
         })
 
 
@@ -234,3 +275,63 @@ class VinView(SchemaParticuliersMixin, APIView):
             return Response(VinDecoderService(vin).decode())
         except Exception as e:
             return Response({"vin": vin, "detail": str(e)}, status=200)
+
+
+# ==================================================================
+# ABONNEMENT (formules Gratuit / Bronze / Silver / Gold)
+# ==================================================================
+class AbonnementView(SchemaParticuliersMixin, APIView):
+    def get(self, request):
+        return Response(abonnements.etat(request.user))
+
+
+class AchatView(SchemaParticuliersMixin, APIView):
+    """Preuve d'achat envoyée par l'application après un achat ou une restauration.
+
+    {"plateforme": "apple" | "google" | "test", "produit": "carscosts_silver_mensuel", "jeton": "…"}
+      apple  : transaction signée StoreKit 2 (JWS)  – serverVerificationData
+      google : purchaseToken                          – serverVerificationData
+      test   : n'importe quelle valeur, uniquement si PARTICULIERS_ACHATS_MODE = "test"
+    """
+
+    def post(self, request):
+        try:
+            abonnements.valider_achat(request.user, request.data.get("plateforme"),
+                                      request.data.get("produit") or "", request.data.get("jeton") or "")
+        except abonnements.AchatRefuse as e:
+            return Response({"detail": str(e)}, status=e.statut)
+        return Response(abonnements.etat(request.user))
+
+
+class NotificationAppleView(APIView):
+    """App Store Server Notifications V2 (URL à saisir dans App Store Connect)."""
+    authentication_classes = []
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        with schema_context(schema_particuliers()):
+            try:
+                abonnements.notification_apple(request.data.get("signedPayload") or "")
+            except abonnements.AchatRefuse as e:
+                return Response({"detail": str(e)}, status=e.statut)
+        return Response(status=status.HTTP_200_OK)
+
+
+class NotificationGoogleView(APIView):
+    """Real-time developer notifications (abonnement push Pub/Sub) : …/google/?jeton=<GOOGLE_RTDN_JETON>."""
+    authentication_classes = []
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        import hmac
+        from django.conf import settings
+        attendu = getattr(settings, "GOOGLE_RTDN_JETON", "")
+        if not attendu or not hmac.compare_digest(request.query_params.get("jeton", ""), attendu):
+            return Response(status=status.HTTP_403_FORBIDDEN)
+        with schema_context(schema_particuliers()):
+            try:
+                abonnements.notification_google(request.data.get("message") or {})
+            except abonnements.AchatRefuse as e:
+                # 5xx : Pub/Sub renverra la notification plus tard
+                return Response({"detail": str(e)}, status=503 if e.statut >= 500 else 200)
+        return Response(status=status.HTTP_200_OK)

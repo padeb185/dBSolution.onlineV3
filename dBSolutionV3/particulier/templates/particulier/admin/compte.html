@@ -17,6 +17,39 @@
     {% include "partials/messages.html" %}
 
     <div class="pa-carte">
+        <h2 class="text-lg font-semibold mb-3">{% trans "Formule" %}
+            <span class="pa-badge pa-f-{{ etat_abonnement.formule }}">{{ etat_abonnement.libelle }}</span>
+            <span class="pa-aide">{% blocktrans with a=etat_abonnement.vehicules_actifs l=etat_abonnement.limite %}{{ a }} véhicule(s) actif(s) sur {{ l }}{% endblocktrans %}</span>
+        </h2>
+        {% if abonnement %}
+        <p class="text-sm mb-3">
+            {% trans "Source" %} : <strong>{{ abonnement.get_source_display|default:"—" }}</strong>
+            {% if abonnement.date_fin %}· {% if etat_abonnement.echue %}{% trans "échue le" %}{% else %}{% trans "valable jusqu'au" %}{% endif %} <strong>{{ abonnement.date_fin|date:"d/m/Y H:i" }}</strong>{% elif abonnement.formule != "gratuit" %}· {% trans "sans date de fin" %}{% endif %}
+            {% if abonnement.renouvellement_auto %}· {% trans "renouvellement automatique" %}{% endif %}
+            {% if abonnement.produit %}· <span style="font-family:monospace">{{ abonnement.produit }}</span>{% endif %}
+            {% if abonnement.environnement %}· {{ abonnement.environnement }}{% endif %}
+            {% if abonnement.note %}<br><span class="pa-aide">{{ abonnement.note }}</span>{% endif %}
+        </p>
+        {% endif %}
+        <form method="post" action="{% url 'particulier_admin:compte_formule' compte.pk %}" class="flex flex-wrap items-end gap-3">
+            {% csrf_token %}
+            <label class="text-sm">{% trans "Formule" %}<br>
+                <select name="formule" class="pa-champ">
+                    {% for code, libelle, limite in formules %}<option value="{{ code }}" {% if code == etat_abonnement.formule %}selected{% endif %}>{{ libelle }} – {{ limite }} {% trans "véhicule(s)" %}</option>{% endfor %}
+                </select>
+            </label>
+            <label class="text-sm">{% trans "Valable jusqu'au (vide : sans fin)" %}<br>
+                <input type="date" name="date_fin" class="pa-champ">
+            </label>
+            <label class="text-sm" style="flex:1;min-width:200px">{% trans "Note" %}<br>
+                <input type="text" name="note" maxlength="255" class="pa-champ" style="width:100%" placeholder="{% trans 'Offert, geste commercial, test…' %}">
+            </label>
+            <button class="pa-btn pa-btn-bleu" type="submit">{% trans "Attribuer" %}</button>
+        </form>
+        <p class="pa-aide mt-2">{% if mode_achats == "test" %}{% trans "Serveur en mode test : l'application accepte aussi les achats de test (sans App Store / Google Play)." %}{% else %}{% trans "En production, les formules s'achètent dans l'application (App Store / Google Play). Une attribution ici remplace l'achat en cours dans CarsCosts mais n'annule pas l'abonnement chez Apple ou Google." %}{% endif %}</p>
+    </div>
+
+    <div class="pa-carte">
         <h2 class="text-lg font-semibold mb-3">{% trans "Véhicules" %} ({{ vehicules|length }})</h2>
         <div class="overflow-x-auto">
         <table class="pa-table">

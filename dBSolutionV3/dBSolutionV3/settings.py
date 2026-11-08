@@ -648,6 +648,16 @@ logging.getLogger('django.server').addFilter(
 # Tenant partagé par tous les particuliers (données filtrées par propriétaire)
 PARTICULIERS_SCHEMA = env("PARTICULIERS_SCHEMA", default="particuliers")
 
+# Formules Gratuit / Bronze / Silver / Gold et achats intégrés – voir particulier/abonnements.py
+# "test" : achats de test acceptés sans store (développement) ; "store" : preuves vérifiées par Apple / Google
+PARTICULIERS_ACHATS_MODE = env("PARTICULIERS_ACHATS_MODE", default="test" if DEBUG else "store")
+PARTICULIERS_ACHATS_SANDBOX = env.bool("PARTICULIERS_ACHATS_SANDBOX", default=DEBUG)
+APPLE_BUNDLE_ID = env("APPLE_BUNDLE_ID", default="com.carscosts.carscostsApp")
+APPLE_ROOT_CA_G3 = env("APPLE_ROOT_CA_G3", default="")
+GOOGLE_PACKAGE_NAME = env("GOOGLE_PACKAGE_NAME", default="com.carscosts.carscosts_app")
+GOOGLE_SERVICE_ACCOUNT_FILE = env("GOOGLE_SERVICE_ACCOUNT_FILE", default="")
+GOOGLE_RTDN_JETON = env("GOOGLE_RTDN_JETON", default="")
+
 REST_FRAMEWORK = {
     # Montants en nombres JSON (et non en chaînes) pour l'application
     "COERCE_DECIMAL_TO_STRING": False,

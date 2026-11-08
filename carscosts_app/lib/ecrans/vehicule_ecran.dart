@@ -7,6 +7,7 @@ import '../modeles/ressources.dart';
 import '../widgets/fichiers.dart';
 import '../widgets/format.dart';
 import '../widgets/liste_ressource.dart';
+import '../widgets/plaque.dart';
 import 'formulaire_ecran.dart';
 import 'vehicule_form_ecran.dart';
 
@@ -105,8 +106,18 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
             children: [
               if (_vehicule['photo'] != null) ImageProtegee(url: _vehicule['photo'] as String, hauteur: 180),
               const SizedBox(height: 8),
+              if ((_vehicule['immatriculation'] ?? '').toString().isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Plaque(
+                        numero: _vehicule['immatriculation'].toString(),
+                        pays: _vehicule['pays_immatriculation'] as String?,
+                        hauteur: 34),
+                  ),
+                ),
               Text([
-                if ((_vehicule['immatriculation'] ?? '').toString().isNotEmpty) _vehicule['immatriculation'],
                 if ((_vehicule['vin'] ?? '').toString().isNotEmpty) 'VIN ${_vehicule['vin']}',
                 energies[_vehicule['energie']],
               ].join(' · ')),
@@ -139,12 +150,13 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
                 children: [
                   _kpi('Kilométrage', km(s['kilometrage_actuel'])),
                   _kpi('Coût total', euros(s['cout_total'])),
-                  _kpi('Coût au km', s['cout_total_km'] == null ? '—' : '${nombre(s['cout_total_km'], decimales: 3)} €'),
-                  _kpi('Coût par mois', euros(s['cout_mois'])),
+                  _kpi('Coût net', euros(s['cout_net'])),
+                  _kpi('Coût net au km', s['cout_total_km'] == null ? '—' : '${nombre(s['cout_total_km'], decimales: 3)} €'),
+                  _kpi('Coût net / mois', euros(s['cout_mois'])),
                   _kpi('Consommation', s['consommation_moyenne'] == null
                       ? '—'
                       : '${nombre(s['consommation_moyenne'])} ${electrique ? 'kWh' : 'L'}/100'),
-                  _kpi('Dépréciation', euros(s['depreciation'])),
+                  _kpi('Valeur de revente', euros(s['valeur_revente'])),
                 ],
               ),
               const SizedBox(height: 16),
@@ -153,11 +165,20 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
                 child: Column(children: [
                   for (final p in (s['postes'] as List).cast<Map>())
                     ListTile(dense: true, title: Text('${p['libelle']}'), trailing: Text(euros(p['montant']))),
-                  if (s['depreciation'] != null)
-                    ListTile(dense: true, title: const Text('Dépréciation (achat − valeur estimée)'), trailing: Text(euros(s['depreciation']))),
                   ListTile(
-                    title: const Text('Total', style: TextStyle(fontWeight: FontWeight.bold)),
+                    title: const Text('Coût total', style: TextStyle(fontWeight: FontWeight.bold)),
                     trailing: Text(euros(s['cout_total']), style: const TextStyle(fontWeight: FontWeight.bold)),
+                  ),
+                  ListTile(
+                    dense: true,
+                    title: const Text('Valeur de revente estimée'),
+                    subtitle: s['valeur_revente'] == null ? const Text('À renseigner dans la fiche du véhicule') : null,
+                    trailing: Text(s['valeur_revente'] == null ? '—' : '− ${euros(s['valeur_revente'])}'),
+                  ),
+                  ListTile(
+                    title: const Text('Coût net', style: TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: const Text('Coût total − valeur de revente'),
+                    trailing: Text(euros(s['cout_net']), style: const TextStyle(fontWeight: FontWeight.bold)),
                   ),
                 ]),
               ),
@@ -184,10 +205,11 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
 
   Widget _kpi(String libelle, String valeur) => Card(
         child: Padding(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.center, children: [
-            Text(libelle, style: Theme.of(context).textTheme.bodySmall),
-            const SizedBox(height: 4),
+            // Une seule ligne : un libellé trop long est raccourci (évite « BOTTOM OVERFLOWED »)
+            Text(libelle, maxLines: 1, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.bodySmall),
+            const SizedBox(height: 2),
             FittedBox(child: Text(valeur, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold))),
           ]),
         ),

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../achats/abonnement.dart';
 import '../api/api_client.dart';
 import '../api/session.dart';
 import '../widgets/fichiers.dart';
 import '../widgets/format.dart';
 import '../widgets/liste_ressource.dart';
+import '../widgets/plaque.dart';
 import 'compte_ecran.dart';
+import 'formules_ecran.dart';
 import 'vehicule_ecran.dart';
 import 'vehicule_form_ecran.dart';
 
@@ -28,7 +31,12 @@ class _AccueilEcranState extends State<AccueilEcran> {
   }
 
   void _charger() {
-    _tableau = context.read<ApiClient>().get('tableau-de-bord/').then((r) => Map<String, dynamic>.from(r as Map));
+    final abonnement = context.read<Abonnement>();
+    _tableau = context.read<ApiClient>().get('tableau-de-bord/').then((r) {
+      final t = Map<String, dynamic>.from(r as Map);
+      abonnement.mettreAJour(t['abonnement']);
+      return t;
+    });
     _tableau.catchError((Object e) {
       if (e is ApiException && e.statut == 401 && mounted) context.read<Session>().sessionExpiree();
       return <String, dynamic>{};
@@ -36,8 +44,20 @@ class _AccueilEcranState extends State<AccueilEcran> {
   }
 
   Future<void> _ajouterVehicule() async {
+    final ab = context.read<Abonnement>();
+    if (!ab.peutAjouter) {
+      await _formules('Votre formule ${ab.libelle} permet ${ab.limite} véhicule(s) actif(s). '
+          'Choisissez une formule supérieure, ou archivez un véhicule vendu.');
+      return;
+    }
+    if (!mounted) return;
     final ok = await Navigator.push<bool>(context, MaterialPageRoute(builder: (_) => const VehiculeFormEcran()));
     if (ok == true) setState(_charger);
+  }
+
+  Future<void> _formules([String? raison]) async {
+    await Navigator.push(context, MaterialPageRoute(builder: (_) => FormulesEcran(raison: raison)));
+    if (mounted) setState(_charger);
   }
 
   Future<void> _ouvrir(Map<String, dynamic> v) async {
@@ -52,6 +72,12 @@ class _AccueilEcranState extends State<AccueilEcran> {
       appBar: AppBar(
         title: Text('Bonjour ${session.utilisateur?['prenom'] ?? ''}'),
         actions: [
+          ActionChip(
+            avatar: const Icon(Icons.workspace_premium, size: 18),
+            label: Text(context.watch<Abonnement>().libelle),
+            tooltip: 'Formules',
+            onPressed: _formules,
+          ),
           IconButton(
             icon: const Icon(Icons.account_circle),
             tooltip: 'Mon compte',
@@ -109,6 +135,11 @@ class _AccueilEcranState extends State<AccueilEcran> {
                   Expanded(child: Text('Mes véhicules', style: Theme.of(context).textTheme.titleMedium)),
                   Text('Ce mois-ci : ${euros(t['depenses_mois'])}'),
                 ]),
+                Builder(builder: (context) {
+                  final ab = context.watch<Abonnement>();
+                  return Text('Formule ${ab.libelle} : ${ab.vehiculesActifs} / ${ab.limite} véhicule(s)',
+                      style: Theme.of(context).textTheme.bodySmall);
+                }),
                 const SizedBox(height: 8),
                 if (vehicules.isEmpty)
                   Card(
@@ -134,10 +165,17 @@ class _AccueilEcranState extends State<AccueilEcran> {
                           ? SizedBox(width: 64, height: 64, child: ImageProtegee(url: v['photo'] as String, hauteur: 64))
                           : const CircleAvatar(radius: 28, child: Icon(Icons.directions_car)),
                       title: Text('${v['marque']} ${v['modele']}', style: const TextStyle(fontWeight: FontWeight.w600)),
-                      subtitle: Text([
-                        if ((v['immatriculation'] ?? '').toString().isNotEmpty) v['immatriculation'],
-                        km(v['kilometrage_actuel']),
-                      ].join(' · ')),
+                      subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        if ((v['immatriculation'] ?? '').toString().isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4),
+                            child: Plaque(
+                                numero: v['immatriculation'].toString(),
+                                pays: v['pays_immatriculation'] as String?,
+                                hauteur: 24),
+                          ),
+                        Text(km(v['kilometrage_actuel'])),
+                      ]),
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () => _ouvrir(v),
                     ),

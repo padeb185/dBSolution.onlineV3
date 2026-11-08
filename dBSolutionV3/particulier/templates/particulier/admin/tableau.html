@@ -26,6 +26,7 @@
         <div><dt>{% trans "Entretiens" %}</dt><dd>{{ stats.entretiens }}</dd></div>
         <div><dt>{% trans "Documents" %}</dt><dd>{{ stats.documents }}</dd></div>
         <div><dt>{% trans "Rappels actifs" %}</dt><dd>{{ stats.rappels_actifs }}</dd></div>
+        <div><dt>{% trans "Abonnements" %}</dt><dd style="font-size:1rem">{% for libelle, n in stats.formules %}{{ libelle }} <strong>{{ n }}</strong>{% if not forloop.last %} · {% endif %}{% endfor %}</dd></div>
     </dl>
 
     <div class="pa-carte">
@@ -42,7 +43,7 @@
         <table class="pa-table">
             <thead><tr>
                 <th>{% trans "Nom" %}</th><th>{% trans "Email" %}</th><th>{% trans "Inscrit le" %}</th>
-                <th>{% trans "Dernière activité" %}</th><th class="num">{% trans "Véhicules" %}</th><th>{% trans "Statut" %}</th>
+                <th>{% trans "Dernière activité" %}</th><th class="num">{% trans "Véhicules" %}</th><th>{% trans "Formule" %}</th><th>{% trans "Statut" %}</th>
             </tr></thead>
             <tbody>
             {% for u in page %}
@@ -52,10 +53,11 @@
                     <td>{{ u.created_at|date:"d/m/Y" }}</td>
                     <td>{{ u.derniere_activite|date:"d/m/Y H:i"|default:"—" }}</td>
                     <td class="num">{{ u.nb_vehicules }}</td>
+                    <td><span class="pa-badge pa-f-{{ u.formule }}">{{ u.formule_libelle }}</span></td>
                     <td>{% if u.is_active %}<span class="pa-badge pa-actif">{% trans "Actif" %}</span>{% else %}<span class="pa-badge pa-inactif">{% trans "Désactivé" %}</span>{% endif %}</td>
                 </tr>
             {% empty %}
-                <tr><td colspan="6" class="pa-aide">{% trans "Aucun compte." %}</td></tr>
+                <tr><td colspan="7" class="pa-aide">{% trans "Aucun compte." %}</td></tr>
             {% endfor %}
             </tbody>
         </table>

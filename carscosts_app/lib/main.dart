@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 
+import 'achats/abonnement.dart';
 import 'api/api_client.dart';
 import 'api/session.dart';
 import 'ecrans/accueil_ecran.dart';
@@ -13,11 +14,13 @@ Future<void> main() async {
   await initializeDateFormatting('fr_BE');
   final api = ApiClient();
   final session = Session(api);
+  final abonnement = Abonnement(api)..demarrer();
   runApp(
     MultiProvider(
       providers: [
         Provider<ApiClient>.value(value: api),
         ChangeNotifierProvider<Session>.value(value: session),
+        ChangeNotifierProvider<Abonnement>.value(value: abonnement),
       ],
       child: const CarsCostsApp(),
     ),
