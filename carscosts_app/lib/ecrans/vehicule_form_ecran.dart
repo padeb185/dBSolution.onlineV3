@@ -256,7 +256,8 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
                 libelle: t('Version / finition'),
                 erreur: _erreurs['version'],
                 suggestions: (saisie) => [
-                  for (final m in Catalogue.suggestionsVersions(_c['marque']!.text, _c['modele']!.text, saisie))
+                  for (final m in Catalogue.suggestionsVersions(_c['marque']!.text, _c['modele']!.text, saisie,
+                      annee: int.tryParse(_c['annee']!.text.trim())))
                     m.libelle,
                 ],
                 onChoisi: _choisirVersion,

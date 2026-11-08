@@ -15,6 +15,16 @@ void main() {
         'Mercedes-Benz': {'Classe A': [], 'Classe GLC': [], 'EQA': []},
         'Citroën': ['C3', 'C4'], // ancien format (modèles sans versions)
         'Cupra': {'Born': [], 'Formentor': []},
+        'Volkswagen': {
+          'Golf I': [
+            ['1.1', 50, 'essence', '1974-1983'],
+            ['1.6 GTI', 110, 'essence', '1976-1983'],
+          ],
+          'Golf': [
+            ['1.5 eTSI', 150, 'essence'],
+            ['1.5 eHybrid', 204, 'phev', '2020-'],
+          ],
+        },
       }));
 
   test('Marques selon les premières lettres', () {
@@ -34,5 +44,14 @@ void main() {
     expect(v.map((m) => m.libelle), ['1.2 PureTech · 75 ch', '1.2 PureTech · 100 ch', 'e-208 · 156 ch']);
     expect(Catalogue.suggestionsVersions('Peugeot', '208', 'e-').single.energie, 'electrique');
     expect(Catalogue.suggestionsVersions('Peugeot', '208', '100').single.ch, 100);
+  });
+
+  test('Modèles depuis les années 70 : période dans le libellé et filtre par année', () {
+    expect(Catalogue.suggestionsModeles('volkswagen', 'golf i'), contains('Golf I'));
+    final gti = Catalogue.suggestionsVersions('Volkswagen', 'Golf I', 'gti').single;
+    expect(gti.libelle, '1.6 GTI · 110 ch · 1976–1983');
+    expect(Catalogue.suggestionsVersions('Volkswagen', 'Golf I', '', annee: 1975).map((m) => m.version), ['1.1']);
+    expect(Catalogue.suggestionsVersions('Volkswagen', 'Golf', '', annee: 2024).length, 2); // sans période + 2020-
+    expect(Catalogue.suggestionsVersions('Volkswagen', 'Golf', '', annee: 2018).map((m) => m.version), ['1.5 eTSI']);
   });
 }
