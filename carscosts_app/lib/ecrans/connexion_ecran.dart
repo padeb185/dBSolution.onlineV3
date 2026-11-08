@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../api/api_client.dart';
 import '../api/session.dart';
+import '../l10n/langue.dart';
 
 /// Connexion ou création d'un compte particulier.
 class ConnexionEcran extends StatefulWidget {
@@ -53,7 +54,7 @@ class _ConnexionEcranState extends State<ConnexionEcran> {
     }
   }
 
-  String? _obligatoire(String? v) => v == null || v.trim().isEmpty ? 'Champ obligatoire' : null;
+  String? _obligatoire(String? v) => v == null || v.trim().isEmpty ? t('Champ obligatoire') : null;
 
   @override
   Widget build(BuildContext context) {
@@ -72,18 +73,34 @@ class _ConnexionEcranState extends State<ConnexionEcran> {
                   Icon(Icons.directions_car_filled, size: 64, color: theme.colorScheme.primary),
                   const SizedBox(height: 8),
                   Text('CarsCosts', textAlign: TextAlign.center, style: theme.textTheme.headlineMedium),
-                  Text('Le suivi de vos véhicules', textAlign: TextAlign.center, style: theme.textTheme.bodyMedium),
-                  const SizedBox(height: 32),
+                  Text(t('Le suivi de vos véhicules'), textAlign: TextAlign.center, style: theme.textTheme.bodyMedium),
+                  const SizedBox(height: 24),
+                  // Langue de l'application (envoyée avec l'inscription, modifiable ensuite dans les réglages)
+                  DropdownButtonFormField<String>(
+                    initialValue: Langue.courante,
+                    decoration: InputDecoration(
+                      labelText: t('Langue'),
+                      prefixIcon: const Icon(Icons.language),
+                      border: const OutlineInputBorder(),
+                    ),
+                    items: [
+                      for (final e in languesApp.entries) DropdownMenuItem(value: e.key, child: Text(e.value)),
+                    ],
+                    onChanged: (code) {
+                      if (code != null) context.read<Langue>().choisir(code);
+                    },
+                  ),
+                  const SizedBox(height: 24),
                   if (_inscription) ...[
                     TextFormField(
                       controller: _prenom,
-                      decoration: InputDecoration(labelText: 'Prénom', errorText: _erreurs['prenom']),
+                      decoration: InputDecoration(labelText: t('Prénom'), errorText: _erreurs['prenom']),
                       validator: _obligatoire,
                     ),
                     const SizedBox(height: 12),
                     TextFormField(
                       controller: _nom,
-                      decoration: InputDecoration(labelText: 'Nom', errorText: _erreurs['nom']),
+                      decoration: InputDecoration(labelText: t('Nom'), errorText: _erreurs['nom']),
                       validator: _obligatoire,
                     ),
                     const SizedBox(height: 12),
@@ -92,7 +109,7 @@ class _ConnexionEcranState extends State<ConnexionEcran> {
                     controller: _email,
                     keyboardType: TextInputType.emailAddress,
                     autofillHints: const [AutofillHints.email],
-                    decoration: InputDecoration(labelText: 'Email', errorText: _erreurs['email']),
+                    decoration: InputDecoration(labelText: t('Email'), errorText: _erreurs['email']),
                     validator: _obligatoire,
                   ),
                   const SizedBox(height: 12),
@@ -101,10 +118,10 @@ class _ConnexionEcranState extends State<ConnexionEcran> {
                     obscureText: _masque,
                     autofillHints: [_inscription ? AutofillHints.newPassword : AutofillHints.password],
                     decoration: InputDecoration(
-                      labelText: 'Mot de passe',
+                      labelText: t('Mot de passe'),
                       errorText: _erreurs['password'],
                       helperText: _inscription
-                          ? 'Au moins 12 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.'
+                          ? t('Au moins 12 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.')
                           : null,
                       helperMaxLines: 2,
                       suffixIcon: IconButton(
@@ -120,7 +137,7 @@ class _ConnexionEcranState extends State<ConnexionEcran> {
                     onPressed: _envoi ? null : _valider,
                     child: _envoi
                         ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
-                        : Text(_inscription ? 'Créer mon compte' : 'Se connecter'),
+                        : Text(_inscription ? t('Créer mon compte') : t('Se connecter')),
                   ),
                   const SizedBox(height: 8),
                   TextButton(
@@ -128,7 +145,7 @@ class _ConnexionEcranState extends State<ConnexionEcran> {
                       _inscription = !_inscription;
                       _erreurs = {};
                     }),
-                    child: Text(_inscription ? 'J\'ai déjà un compte' : 'Créer un compte'),
+                    child: Text(_inscription ? t('J\'ai déjà un compte') : t('Créer un compte')),
                   ),
                 ],
               ),

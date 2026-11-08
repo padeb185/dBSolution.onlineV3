@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../l10n/langue.dart';
 import '../modeles/pays.dart';
 
 /// Style d'une plaque : code sur la bande, fond, texte, bordure, étoiles UE.
@@ -83,7 +84,7 @@ class Plaque extends StatelessWidget {
     final defaut = !stylesPlaque.containsKey((pays ?? '').toUpperCase());
     final h = hauteur;
     return Semantics(
-      label: 'Plaque ${s.nom} $numero',
+      label: t('Plaque {pays} {numero}', {'pays': paysImmatriculation[(pays ?? '').toUpperCase()] ?? s.nom, 'numero': numero}),
       child: Container(
         height: h,
         decoration: BoxDecoration(

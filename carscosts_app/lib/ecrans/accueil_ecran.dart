@@ -4,12 +4,13 @@ import 'package:provider/provider.dart';
 import '../achats/abonnement.dart';
 import '../api/api_client.dart';
 import '../api/session.dart';
+import '../l10n/langue.dart';
 import '../widgets/fichiers.dart';
 import '../widgets/format.dart';
 import '../widgets/liste_ressource.dart';
 import '../widgets/plaque.dart';
-import 'compte_ecran.dart';
 import 'formules_ecran.dart';
+import 'reglages_ecran.dart';
 import 'vehicule_ecran.dart';
 import 'vehicule_form_ecran.dart';
 
@@ -33,9 +34,9 @@ class _AccueilEcranState extends State<AccueilEcran> {
   void _charger() {
     final abonnement = context.read<Abonnement>();
     _tableau = context.read<ApiClient>().get('tableau-de-bord/').then((r) {
-      final t = Map<String, dynamic>.from(r as Map);
-      abonnement.mettreAJour(t['abonnement']);
-      return t;
+      final d = Map<String, dynamic>.from(r as Map);
+      abonnement.mettreAJour(d['abonnement']);
+      return d;
     });
     _tableau.catchError((Object e) {
       if (e is ApiException && e.statut == 401 && mounted) context.read<Session>().sessionExpiree();
@@ -46,8 +47,7 @@ class _AccueilEcranState extends State<AccueilEcran> {
   Future<void> _ajouterVehicule() async {
     final ab = context.read<Abonnement>();
     if (!ab.peutAjouter) {
-      await _formules('Votre formule ${ab.libelle} permet ${ab.limite} véhicule(s) actif(s). '
-          'Choisissez une formule supérieure, ou archivez un véhicule vendu.');
+      await _formules(ab.messageLimite());
       return;
     }
     if (!mounted) return;
@@ -70,25 +70,28 @@ class _AccueilEcranState extends State<AccueilEcran> {
     final session = context.watch<Session>();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bonjour ${session.utilisateur?['prenom'] ?? ''}'),
+        title: Text(t('Bonjour {prenom}', {'prenom': session.utilisateur?['prenom'] ?? ''})),
         actions: [
           ActionChip(
             avatar: const Icon(Icons.workspace_premium, size: 18),
             label: Text(context.watch<Abonnement>().libelle),
-            tooltip: 'Formules',
+            tooltip: t('Formules'),
             onPressed: _formules,
           ),
           IconButton(
-            icon: const Icon(Icons.account_circle),
-            tooltip: 'Mon compte',
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CompteEcran())),
+            icon: const Icon(Icons.settings),
+            tooltip: t('Réglages'),
+            onPressed: () async {
+              await Navigator.push(context, MaterialPageRoute(builder: (_) => const ReglagesEcran()));
+              if (mounted) setState(_charger);
+            },
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _ajouterVehicule,
         icon: const Icon(Icons.add),
-        label: const Text('Véhicule'),
+        label: Text(t('Véhicule')),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -102,15 +105,15 @@ class _AccueilEcranState extends State<AccueilEcran> {
             if (snap.hasError) {
               return ListView(children: [Padding(padding: const EdgeInsets.all(24), child: Text('${snap.error}'))]);
             }
-            final t = snap.data!;
-            final vehicules = [for (final v in (t['vehicules'] as List? ?? [])) Map<String, dynamic>.from(v as Map)];
-            final rappels = [for (final r in (t['rappels'] as List? ?? [])) Map<String, dynamic>.from(r as Map)];
+            final tableau = snap.data!;
+            final vehicules = [for (final v in (tableau['vehicules'] as List? ?? [])) Map<String, dynamic>.from(v as Map)];
+            final rappels = [for (final r in (tableau['rappels'] as List? ?? [])) Map<String, dynamic>.from(r as Map)];
             final noms = {for (final v in vehicules) v['id']: '${v['marque']} ${v['modele']}'};
             return ListView(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 96),
               children: [
                 if (rappels.isNotEmpty) ...[
-                  Text('À traiter', style: Theme.of(context).textTheme.titleMedium),
+                  Text(t('À traiter'), style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: 8),
                   Card(
                     child: Column(children: [
@@ -132,12 +135,14 @@ class _AccueilEcranState extends State<AccueilEcran> {
                   const SizedBox(height: 16),
                 ],
                 Row(children: [
-                  Expanded(child: Text('Mes véhicules', style: Theme.of(context).textTheme.titleMedium)),
-                  Text('Ce mois-ci : ${euros(t['depenses_mois'])}'),
+                  Expanded(child: Text(t('Mes véhicules'), style: Theme.of(context).textTheme.titleMedium)),
+                  Text(t('Ce mois-ci : {montant}', {'montant': euros(tableau['depenses_mois'])})),
                 ]),
                 Builder(builder: (context) {
                   final ab = context.watch<Abonnement>();
-                  return Text('Formule ${ab.libelle} : ${ab.vehiculesActifs} / ${ab.limite} véhicule(s)',
+                  return Text(
+                      t('Formule {formule} : {n} / {limite} véhicule(s)',
+                          {'formule': ab.libelle, 'n': ab.vehiculesActifs, 'limite': ab.limite}),
                       style: Theme.of(context).textTheme.bodySmall);
                 }),
                 const SizedBox(height: 8),
@@ -148,11 +153,11 @@ class _AccueilEcranState extends State<AccueilEcran> {
                       child: Column(children: [
                         const Icon(Icons.directions_car, size: 48),
                         const SizedBox(height: 8),
-                        const Text('Ajoutez votre premier véhicule pour suivre ses pleins, entretiens et coûts.',
+                        Text(t('Ajoutez votre premier véhicule pour suivre ses pleins, entretiens et coûts.'),
                             textAlign: TextAlign.center),
                         const SizedBox(height: 12),
                         FilledButton.icon(
-                            onPressed: _ajouterVehicule, icon: const Icon(Icons.add), label: const Text('Ajouter un véhicule')),
+                            onPressed: _ajouterVehicule, icon: const Icon(Icons.add), label: Text(t('Ajouter un véhicule'))),
                       ]),
                     ),
                   ),

@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
 import '../api/api_client.dart';
+import '../l10n/langue.dart';
 
 /// Formule du compte (Gratuit 1 véhicule · Bronze 2 · Silver 5 · Gold 10) et achats intégrés.
 ///
@@ -30,7 +31,22 @@ class Abonnement extends ChangeNotifier {
   String get _plateforme => Platform.isAndroid ? 'google' : 'apple';
 
   String get formule => etat?['formule'] as String? ?? 'gratuit';
-  String get libelle => etat?['libelle'] as String? ?? 'Gratuit';
+  String get libelle => libelleFormule(formule);
+
+  /// Nom affiché d'une formule (Bronze, Silver, Gold sont des noms de marque, non traduits).
+  static String libelleFormule(String? code) => switch (code) {
+        'bronze' => 'Bronze',
+        'silver' => 'Silver',
+        'gold' => 'Gold',
+        _ => t('Gratuit'),
+      };
+
+  /// Message « limite atteinte » (détail de l'erreur 403 limite_formule de l'API, sinon état connu).
+  String messageLimite([Map<String, String> erreur = const {}]) => t(
+        'Votre formule {formule} permet {n} véhicule(s) actif(s). '
+        'Choisissez une formule supérieure, ou archivez un véhicule vendu.',
+        {'formule': libelleFormule(erreur['formule'] ?? formule), 'n': int.tryParse(erreur['limite'] ?? '') ?? limite},
+      );
   int get limite => (etat?['limite'] as num?)?.toInt() ?? 1;
   int get vehiculesActifs => (etat?['vehicules_actifs'] as num?)?.toInt() ?? 0;
   bool get peutAjouter => etat == null || etat!['peut_ajouter'] == true;
@@ -45,7 +61,7 @@ class Abonnement extends ChangeNotifier {
       _achats,
       onError: (Object e) {
         enCours = false;
-        message = 'Achat impossible : $e';
+        message = t('Achat impossible : {erreur}', {'erreur': e});
         notifyListeners();
       },
     );
@@ -98,7 +114,7 @@ class Abonnement extends ChangeNotifier {
       if (!lance) enCours = false;
     } catch (e) {
       enCours = false;
-      message = 'Achat impossible : $e';
+      message = t('Achat impossible : {erreur}', {'erreur': e});
     }
     notifyListeners();
   }
@@ -111,7 +127,7 @@ class Abonnement extends ChangeNotifier {
     try {
       etat = Map<String, dynamic>.from(
           await api.post('abonnement/achat/', {'plateforme': 'test', 'produit': produit, 'jeton': 'test'}) as Map);
-      message = 'Formule $libelle activée (achat de test).';
+      message = t('Formule {formule} activée (achat de test).', {'formule': libelle});
     } on ApiException catch (e) {
       message = e.message;
     } finally {
@@ -125,9 +141,9 @@ class Abonnement extends ChangeNotifier {
     message = null;
     try {
       await InAppPurchase.instance.restorePurchases();
-      message = 'Restauration demandée au store.';
+      message = t('Restauration demandée au store.');
     } catch (e) {
-      message = 'Restauration impossible : $e';
+      message = t('Restauration impossible : {erreur}', {'erreur': e});
     }
     notifyListeners();
   }
@@ -152,7 +168,7 @@ class Abonnement extends ChangeNotifier {
               'produit': achat.productID,
               'jeton': achat.verificationData.serverVerificationData,
             }) as Map);
-            message = 'Formule $libelle active.';
+            message = t('Formule {formule} active.', {'formule': libelle});
           } on ApiException catch (e) {
             message = e.message;
             // Serveur injoignable (0) ou indisponible (5xx) : la transaction reste ouverte et sera renvoyée.
@@ -161,7 +177,7 @@ class Abonnement extends ChangeNotifier {
           enCours = false;
           break;
         case PurchaseStatus.error:
-          message = achat.error?.message ?? 'Achat impossible.';
+          message = achat.error?.message ?? t('Achat impossible.');
           enCours = false;
           break;
         case PurchaseStatus.canceled:

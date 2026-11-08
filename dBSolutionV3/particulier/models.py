@@ -290,3 +290,19 @@ class AbonnementParticulier(models.Model):
 
     def __str__(self):
         return f"{self.utilisateur_id} – {self.get_formule_display()}"
+
+
+class PreferencesParticulier(models.Model):
+    """Réglages de l'application d'un particulier (langue, pays d'immatriculation par défaut)."""
+    utilisateur = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+                                       related_name="preferences_particulier")
+    langue = models.CharField(_("Langue"), max_length=5, choices=settings.LANGUAGES, default="fr")
+    pays_defaut = models.CharField(_("Pays d'immatriculation par défaut"), max_length=2, default="BE")
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _("Préférences")
+        verbose_name_plural = _("Préférences")
+
+    def __str__(self):
+        return f"{self.utilisateur_id} – {self.langue}"

@@ -82600,3 +82600,115 @@ msgstr "Overdrachtsattest"
 
 #~ msgid "sur"
 #~ msgstr "op"
+
+#. Application des particuliers (API particulier/)
+#: particulier/api/views.py
+#, python-format
+msgid "Produit inconnu : %s"
+msgstr "Onbekend product: %s"
+
+#: particulier/api/views.py
+#, python-format
+msgid "Votre formule %(f)s permet %(n)d véhicule(s) actif(s). Passez à la formule %(s)s pour en ajouter (jusqu'à %(m)d), ou archivez un véhicule vendu."
+msgstr "Uw formule %(f)s staat %(n)d actief/actieve voertuig(en) toe. Stap over naar de formule %(s)s om er meer toe te voegen (tot %(m)d), of archiveer een verkocht voertuig."
+
+#: particulier/api/views.py
+#, python-format
+msgid "La formule %(f)s permet au maximum %(n)d véhicules actifs : archivez un véhicule vendu pour en ajouter un."
+msgstr "De formule %(f)s staat maximaal %(n)d actieve voertuigen toe: archiveer een verkocht voertuig om er een toe te voegen."
+
+#: particulier/api/views.py
+msgid "Cet abonnement est déjà utilisé par un autre compte CarsCosts."
+msgstr "Dit abonnement wordt al gebruikt door een ander CarsCosts-account."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat manquante."
+msgstr "Aankoopbewijs ontbreekt."
+
+#: particulier/api/views.py
+msgid "Les achats de test ne sont pas acceptés sur ce serveur."
+msgstr "Testaankopen worden niet aanvaard op deze server."
+
+#: particulier/api/views.py
+msgid "Plateforme inconnue."
+msgstr "Onbekend platform."
+
+#: particulier/api/views.py
+msgid "Achat de test (Sandbox) refusé par le serveur de production."
+msgstr "Testaankoop (Sandbox) geweigerd door de productieserver."
+
+#: particulier/api/views.py
+msgid "Vérification Apple non configurée (APPLE_ROOT_CA_G3)."
+msgstr "Apple-verificatie niet geconfigureerd (APPLE_ROOT_CA_G3)."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat Apple illisible."
+msgstr "Apple-aankoopbewijs onleesbaar."
+
+#: particulier/api/views.py
+msgid "Chaîne de certificats Apple invalide."
+msgstr "Ongeldige Apple-certificaatketen."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat Apple invalide."
+msgstr "Ongeldig Apple-aankoopbewijs."
+
+#: particulier/api/views.py
+msgid "Achat d'une autre application."
+msgstr "Aankoop van een andere app."
+
+#: particulier/api/views.py
+msgid "Vérification Google Play non configurée (GOOGLE_SERVICE_ACCOUNT_FILE)."
+msgstr "Google Play-verificatie niet geconfigureerd (GOOGLE_SERVICE_ACCOUNT_FILE)."
+
+#: particulier/api/views.py
+msgid "Vérification Google Play non configurée (GOOGLE_PACKAGE_NAME)."
+msgstr "Google Play-verificatie niet geconfigureerd (GOOGLE_PACKAGE_NAME)."
+
+#: particulier/api/views.py
+msgid "Google Play injoignable, réessayez plus tard."
+msgstr "Google Play onbereikbaar, probeer later opnieuw."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat Google Play invalide."
+msgstr "Ongeldig Google Play-aankoopbewijs."
+
+#: particulier/api/views.py
+msgid "Espace particuliers non configuré."
+msgstr "Particulierenruimte niet geconfigureerd."
+
+#: particulier/api/views.py
+msgid "Email ou mot de passe incorrect."
+msgstr "E-mailadres of wachtwoord onjuist."
+
+#: particulier/api/views.py
+msgid "Ce compte est un compte professionnel : connectez-vous sur le site web."
+msgstr "Dit is een professioneel account: meld u aan op de website."
+
+#: particulier/api/views.py
+msgid "Mot de passe incorrect."
+msgstr "Onjuist wachtwoord."
+
+#: particulier/api/views.py
+msgid "VIN invalide : 17 caractères, sans I, O ni Q."
+msgstr "Ongeldig VIN: 17 tekens, zonder I, O of Q."
+
+#: particulier/api/views.py
+msgid "L'expiration précède le début de validité."
+msgstr "De vervaldatum ligt vóór de begindatum van de geldigheid."
+
+#: particulier/api/views.py
+msgid "Pays d'immatriculation inconnu (code ISO à 2 lettres attendu)."
+msgstr "Onbekend land van inschrijving (ISO-code van 2 letters verwacht)."
+
+#: particulier/api/views.py
+msgid "Un compte existe déjà avec cet email."
+msgstr "Er bestaat al een account met dit e-mailadres."
+
+#: particulier/api/views.py
+msgid "Mot de passe actuel incorrect."
+msgstr "Huidig wachtwoord onjuist."
+
+#: particulier/api/views.py
+msgid "Gratuit"
+msgstr "Gratis"

@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../api/api_client.dart';
+import '../l10n/langue.dart';
 
 /// Image privée servie par l'API (ticket, photo) : chargée avec le jeton.
 class ImageProtegee extends StatelessWidget {
@@ -43,10 +44,10 @@ class ImageProtegee extends StatelessWidget {
 
 /// Télécharge un fichier privé (PDF, photo) et l'ouvre avec l'application du système.
 class OuvrirFichierBouton extends StatelessWidget {
-  const OuvrirFichierBouton({super.key, required this.url, this.libelle = 'Ouvrir le fichier joint'});
+  const OuvrirFichierBouton({super.key, required this.url, this.libelle});
 
   final String url;
-  final String libelle;
+  final String? libelle;
 
   Future<void> _ouvrir(BuildContext context) async {
     final api = context.read<ApiClient>();
@@ -75,6 +76,6 @@ class OuvrirFichierBouton extends StatelessWidget {
   Widget build(BuildContext context) => TextButton.icon(
         onPressed: () => _ouvrir(context),
         icon: const Icon(Icons.open_in_new),
-        label: Text(libelle),
+        label: Text(libelle ?? t('Ouvrir le fichier joint')),
       );
 }

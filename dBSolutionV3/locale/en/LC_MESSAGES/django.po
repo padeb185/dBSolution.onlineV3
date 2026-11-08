@@ -82160,3 +82160,115 @@ msgstr "Transfer_certificate"
 
 #~ msgid "sur"
 #~ msgstr "out of"
+
+#. Application des particuliers (API particulier/)
+#: particulier/api/views.py
+#, python-format
+msgid "Produit inconnu : %s"
+msgstr "Unknown product: %s"
+
+#: particulier/api/views.py
+#, python-format
+msgid "Votre formule %(f)s permet %(n)d véhicule(s) actif(s). Passez à la formule %(s)s pour en ajouter (jusqu'à %(m)d), ou archivez un véhicule vendu."
+msgstr "Your %(f)s plan allows %(n)d active vehicle(s). Upgrade to the %(s)s plan to add more (up to %(m)d), or archive a sold vehicle."
+
+#: particulier/api/views.py
+#, python-format
+msgid "La formule %(f)s permet au maximum %(n)d véhicules actifs : archivez un véhicule vendu pour en ajouter un."
+msgstr "The %(f)s plan allows up to %(n)d active vehicles: archive a sold vehicle to add one."
+
+#: particulier/api/views.py
+msgid "Cet abonnement est déjà utilisé par un autre compte CarsCosts."
+msgstr "This subscription is already used by another CarsCosts account."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat manquante."
+msgstr "Proof of purchase missing."
+
+#: particulier/api/views.py
+msgid "Les achats de test ne sont pas acceptés sur ce serveur."
+msgstr "Test purchases are not accepted on this server."
+
+#: particulier/api/views.py
+msgid "Plateforme inconnue."
+msgstr "Unknown platform."
+
+#: particulier/api/views.py
+msgid "Achat de test (Sandbox) refusé par le serveur de production."
+msgstr "Test purchase (Sandbox) rejected by the production server."
+
+#: particulier/api/views.py
+msgid "Vérification Apple non configurée (APPLE_ROOT_CA_G3)."
+msgstr "Apple verification not configured (APPLE_ROOT_CA_G3)."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat Apple illisible."
+msgstr "Apple proof of purchase unreadable."
+
+#: particulier/api/views.py
+msgid "Chaîne de certificats Apple invalide."
+msgstr "Invalid Apple certificate chain."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat Apple invalide."
+msgstr "Invalid Apple proof of purchase."
+
+#: particulier/api/views.py
+msgid "Achat d'une autre application."
+msgstr "Purchase from another app."
+
+#: particulier/api/views.py
+msgid "Vérification Google Play non configurée (GOOGLE_SERVICE_ACCOUNT_FILE)."
+msgstr "Google Play verification not configured (GOOGLE_SERVICE_ACCOUNT_FILE)."
+
+#: particulier/api/views.py
+msgid "Vérification Google Play non configurée (GOOGLE_PACKAGE_NAME)."
+msgstr "Google Play verification not configured (GOOGLE_PACKAGE_NAME)."
+
+#: particulier/api/views.py
+msgid "Google Play injoignable, réessayez plus tard."
+msgstr "Google Play unreachable, please try again later."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat Google Play invalide."
+msgstr "Invalid Google Play proof of purchase."
+
+#: particulier/api/views.py
+msgid "Espace particuliers non configuré."
+msgstr "Private owners space not configured."
+
+#: particulier/api/views.py
+msgid "Email ou mot de passe incorrect."
+msgstr "Incorrect email or password."
+
+#: particulier/api/views.py
+msgid "Ce compte est un compte professionnel : connectez-vous sur le site web."
+msgstr "This is a professional account: please sign in on the website."
+
+#: particulier/api/views.py
+msgid "Mot de passe incorrect."
+msgstr "Incorrect password."
+
+#: particulier/api/views.py
+msgid "VIN invalide : 17 caractères, sans I, O ni Q."
+msgstr "Invalid VIN: 17 characters, without I, O or Q."
+
+#: particulier/api/views.py
+msgid "L'expiration précède le début de validité."
+msgstr "The expiry date is before the start of validity."
+
+#: particulier/api/views.py
+msgid "Pays d'immatriculation inconnu (code ISO à 2 lettres attendu)."
+msgstr "Unknown registration country (2-letter ISO code expected)."
+
+#: particulier/api/views.py
+msgid "Un compte existe déjà avec cet email."
+msgstr "An account already exists with this email."
+
+#: particulier/api/views.py
+msgid "Mot de passe actuel incorrect."
+msgstr "Current password incorrect."
+
+#: particulier/api/views.py
+msgid "Gratuit"
+msgstr "Free"

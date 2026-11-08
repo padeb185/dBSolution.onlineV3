@@ -2,6 +2,7 @@ from datetime import date
 
 from django.db import transaction
 from django.shortcuts import get_object_or_404
+from django.utils.translation import gettext as _
 from django_tenants.utils import get_public_schema_name, schema_context
 from rest_framework import mixins, status, viewsets
 from rest_framework.exceptions import APIException
@@ -26,7 +27,9 @@ def _reponse_connexion(user, statut=status.HTTP_200_OK):
     from .base import noter_activite
     noter_activite(user)
     token, _c = Token.objects.get_or_create(user=user)
-    return Response({"token": token.key, "utilisateur": S.UtilisateurSerializer(user).data}, status=statut)
+    with schema_context(schema_particuliers()):     # préférences (langue) : schéma des particuliers
+        utilisateur = S.UtilisateurSerializer(user).data
+    return Response({"token": token.key, "utilisateur": utilisateur}, status=statut)
 
 
 class InscriptionView(APIView):
@@ -44,12 +47,15 @@ class InscriptionView(APIView):
             try:
                 societe = Societe.objects.get(schema_name=schema_particuliers())
             except Societe.DoesNotExist:
-                return Response({"detail": "Espace particuliers non configuré."}, status=503)
+                return Response({"detail": _("Espace particuliers non configuré.")}, status=503)
             with transaction.atomic():
                 user = Utilisateur.objects.create_user(
                     email=d["email"], password=d["password"], nom=d["nom"], prenom=d["prenom"],
                     role=ROLE_PARTICULIER, societe=societe, schema_name=societe.schema_name, is_staff=False,
                 )
+                with schema_context(schema_particuliers()):
+                    from ..models import PreferencesParticulier
+                    PreferencesParticulier.objects.create(utilisateur=user, langue=d.get("langue") or "fr")
             return _reponse_connexion(user, status.HTTP_201_CREATED)
 
 
@@ -62,13 +68,13 @@ class ConnexionView(APIView):
         from utilisateurs.models import Utilisateur
         email = (request.data.get("email") or "").strip().lower()
         password = request.data.get("password") or ""
-        erreur = Response({"detail": "Email ou mot de passe incorrect."}, status=status.HTTP_400_BAD_REQUEST)
+        erreur = Response({"detail": _("Email ou mot de passe incorrect.")}, status=status.HTTP_400_BAD_REQUEST)
         with schema_context(get_public_schema_name()):
             user = Utilisateur.objects.filter(email__iexact=email).select_related("societe").first()
             if user is None or not user.is_active or not user.check_password(password):
                 return erreur
             if user.role != ROLE_PARTICULIER:
-                return Response({"detail": "Ce compte est un compte professionnel : connectez-vous sur le site web."},
+                return Response({"detail": _("Ce compte est un compte professionnel : connectez-vous sur le site web.")},
                                 status=status.HTTP_403_FORBIDDEN)
             return _reponse_connexion(user)
 
@@ -93,9 +99,35 @@ class MoiView(SchemaParticuliersMixin, APIView):
         """Suppression du compte et de toutes ses données (exigence App Store / RGPD)."""
         user = request.user
         if not user.check_password(request.data.get("password") or ""):
-            return Response({"detail": "Mot de passe incorrect."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": _("Mot de passe incorrect.")}, status=status.HTTP_400_BAD_REQUEST)
         supprimer_compte(user)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class MotDePasseView(SchemaParticuliersMixin, APIView):
+    """Changement du mot de passe : les autres appareils sont déconnectés, un nouveau jeton est renvoyé."""
+
+    def post(self, request):
+        ser = S.MotDePasseSerializer(data=request.data, context={"request": request})
+        ser.is_valid(raise_exception=True)
+        user = request.user
+        user.set_password(ser.validated_data["nouveau"])
+        user.save(update_fields=["password", "updated_at"])
+        Token.objects.filter(user=user).delete()
+        token = Token.objects.create(user=user)
+        return Response({"token": token.key})
+
+
+class EmailView(SchemaParticuliersMixin, APIView):
+    """Changement de l'adresse email (confirmé par le mot de passe)."""
+
+    def post(self, request):
+        ser = S.EmailSerializer(data=request.data, context={"request": request})
+        ser.is_valid(raise_exception=True)
+        user = request.user
+        user.email = ser.validated_data["email"]
+        user.save(update_fields=["email", "updated_at"])
+        return Response(S.UtilisateurSerializer(user).data)
 
 
 # ==================================================================
@@ -270,7 +302,7 @@ class VinView(SchemaParticuliersMixin, APIView):
         from voiture.voiture_exemplaire.utils_vin import VinDecoderService
         vin = (request.query_params.get("vin") or "").upper().replace(" ", "")
         if len(vin) != 17 or any(c in vin for c in "IOQ"):
-            return Response({"detail": "VIN invalide : 17 caractères, sans I, O ni Q."}, status=400)
+            return Response({"detail": _("VIN invalide : 17 caractères, sans I, O ni Q.")}, status=400)
         try:
             return Response(VinDecoderService(vin).decode())
         except Exception as e:

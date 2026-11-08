@@ -82552,3 +82552,115 @@ msgstr "Certificato_di_cessione"
 
 #~ msgid "sur"
 #~ msgstr "su"
+
+#. Application des particuliers (API particulier/)
+#: particulier/api/views.py
+#, python-format
+msgid "Produit inconnu : %s"
+msgstr "Prodotto sconosciuto: %s"
+
+#: particulier/api/views.py
+#, python-format
+msgid "Votre formule %(f)s permet %(n)d véhicule(s) actif(s). Passez à la formule %(s)s pour en ajouter (jusqu'à %(m)d), ou archivez un véhicule vendu."
+msgstr "Il piano %(f)s consente %(n)d veicolo/i attivo/i. Passa al piano %(s)s per aggiungerne altri (fino a %(m)d) o archivia un veicolo venduto."
+
+#: particulier/api/views.py
+#, python-format
+msgid "La formule %(f)s permet au maximum %(n)d véhicules actifs : archivez un véhicule vendu pour en ajouter un."
+msgstr "Il piano %(f)s consente al massimo %(n)d veicoli attivi: archivia un veicolo venduto per aggiungerne uno."
+
+#: particulier/api/views.py
+msgid "Cet abonnement est déjà utilisé par un autre compte CarsCosts."
+msgstr "Questo abbonamento è già utilizzato da un altro account CarsCosts."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat manquante."
+msgstr "Prova d'acquisto mancante."
+
+#: particulier/api/views.py
+msgid "Les achats de test ne sont pas acceptés sur ce serveur."
+msgstr "Gli acquisti di prova non sono accettati su questo server."
+
+#: particulier/api/views.py
+msgid "Plateforme inconnue."
+msgstr "Piattaforma sconosciuta."
+
+#: particulier/api/views.py
+msgid "Achat de test (Sandbox) refusé par le serveur de production."
+msgstr "Acquisto di prova (Sandbox) rifiutato dal server di produzione."
+
+#: particulier/api/views.py
+msgid "Vérification Apple non configurée (APPLE_ROOT_CA_G3)."
+msgstr "Verifica Apple non configurata (APPLE_ROOT_CA_G3)."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat Apple illisible."
+msgstr "Prova d'acquisto Apple illeggibile."
+
+#: particulier/api/views.py
+msgid "Chaîne de certificats Apple invalide."
+msgstr "Catena di certificati Apple non valida."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat Apple invalide."
+msgstr "Prova d'acquisto Apple non valida."
+
+#: particulier/api/views.py
+msgid "Achat d'une autre application."
+msgstr "Acquisto di un'altra app."
+
+#: particulier/api/views.py
+msgid "Vérification Google Play non configurée (GOOGLE_SERVICE_ACCOUNT_FILE)."
+msgstr "Verifica Google Play non configurata (GOOGLE_SERVICE_ACCOUNT_FILE)."
+
+#: particulier/api/views.py
+msgid "Vérification Google Play non configurée (GOOGLE_PACKAGE_NAME)."
+msgstr "Verifica Google Play non configurata (GOOGLE_PACKAGE_NAME)."
+
+#: particulier/api/views.py
+msgid "Google Play injoignable, réessayez plus tard."
+msgstr "Google Play non raggiungibile, riprova più tardi."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat Google Play invalide."
+msgstr "Prova d'acquisto Google Play non valida."
+
+#: particulier/api/views.py
+msgid "Espace particuliers non configuré."
+msgstr "Spazio privati non configurato."
+
+#: particulier/api/views.py
+msgid "Email ou mot de passe incorrect."
+msgstr "Email o password errati."
+
+#: particulier/api/views.py
+msgid "Ce compte est un compte professionnel : connectez-vous sur le site web."
+msgstr "Questo è un account professionale: accedi dal sito web."
+
+#: particulier/api/views.py
+msgid "Mot de passe incorrect."
+msgstr "Password errata."
+
+#: particulier/api/views.py
+msgid "VIN invalide : 17 caractères, sans I, O ni Q."
+msgstr "VIN non valido: 17 caratteri, senza I, O né Q."
+
+#: particulier/api/views.py
+msgid "L'expiration précède le début de validité."
+msgstr "La scadenza precede l'inizio della validità."
+
+#: particulier/api/views.py
+msgid "Pays d'immatriculation inconnu (code ISO à 2 lettres attendu)."
+msgstr "Paese di immatricolazione sconosciuto (atteso codice ISO di 2 lettere)."
+
+#: particulier/api/views.py
+msgid "Un compte existe déjà avec cet email."
+msgstr "Esiste già un account con questa email."
+
+#: particulier/api/views.py
+msgid "Mot de passe actuel incorrect."
+msgstr "Password attuale errata."
+
+#: particulier/api/views.py
+msgid "Gratuit"
+msgstr "Gratuito"

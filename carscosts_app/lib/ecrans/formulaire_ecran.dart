@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../api/api_client.dart';
+import '../l10n/langue.dart';
 import '../modeles/ressources.dart';
 import '../widgets/fichiers.dart';
 import '../widgets/format.dart';
@@ -105,10 +106,10 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('Supprimer ce ${widget.ressource.titreSingulier} ?'),
+        title: Text(widget.ressource.texteSupprimer),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Annuler')),
-          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Supprimer')),
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(t('Annuler'))),
+          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: Text(t('Supprimer'))),
         ],
       ),
     );
@@ -157,7 +158,7 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
           keyboardType: c.type == TypeChamp.texte
               ? TextInputType.text
               : TextInputType.numberWithOptions(decimal: c.type == TypeChamp.decimal),
-          validator: (v) => c.obligatoire && (v == null || v.trim().isEmpty) ? 'Champ obligatoire' : null,
+          validator: (v) => c.obligatoire && (v == null || v.trim().isEmpty) ? t('Champ obligatoire') : null,
         );
       case TypeChamp.date:
         final valeur = _valeurs[c.nom] as String?;
@@ -201,7 +202,7 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
             for (final e in c.choix.entries) DropdownMenuItem(value: e.key, child: Text(e.value)),
           ],
           onChanged: (v) => setState(() => _valeurs[c.nom] = v),
-          validator: (v) => c.obligatoire && v == null ? 'Champ obligatoire' : null,
+          validator: (v) => c.obligatoire && v == null ? t('Champ obligatoire') : null,
         );
       case TypeChamp.image:
       case TypeChamp.fichier:
@@ -234,25 +235,25 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
                 OutlinedButton.icon(
                   onPressed: () => _choisirImage(c, ImageSource.camera),
                   icon: const Icon(Icons.photo_camera),
-                  label: const Text('Photo'),
+                  label: Text(t('Photo')),
                 ),
               if (image)
                 OutlinedButton.icon(
                   onPressed: () => _choisirImage(c, ImageSource.gallery),
                   icon: const Icon(Icons.photo_library),
-                  label: Text(estMobile ? 'Galerie' : 'Choisir une image'),
+                  label: Text(estMobile ? t('Galerie') : t('Choisir une image')),
                 )
               else ...[
                 if (estMobile)
                   OutlinedButton.icon(
                     onPressed: () => _choisirImage(c, ImageSource.camera),
                     icon: const Icon(Icons.document_scanner),
-                    label: const Text('Photographier'),
+                    label: Text(t('Photographier')),
                   ),
                 OutlinedButton.icon(
                   onPressed: () => _choisirFichier(c),
                   icon: const Icon(Icons.attach_file),
-                  label: const Text('Choisir un fichier'),
+                  label: Text(t('Choisir un fichier')),
                 ),
               ],
             ],
@@ -267,7 +268,7 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
     final r = widget.ressource;
     return Scaffold(
       appBar: AppBar(
-        title: Text(_modification ? 'Modifier le ${r.titreSingulier}' : 'Nouveau ${r.titreSingulier}'),
+        title: Text(_modification ? r.titreModifier : r.titreNouveau),
         actions: [
           if (_modification) IconButton(icon: const Icon(Icons.delete_outline), onPressed: _supprimer),
         ],
@@ -283,7 +284,7 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
               icon: _envoi
                   ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
                   : const Icon(Icons.check),
-              label: const Text('Enregistrer'),
+              label: Text(t('Enregistrer')),
             ),
           ],
         ),

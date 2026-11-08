@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 import '../config.dart';
+import '../l10n/langue.dart';
 
 /// Erreur renvoyée par l'API (message lisible extrait de la réponse Django REST Framework).
 class ApiException implements Exception {
@@ -74,6 +75,7 @@ class ApiClient {
   Map<String, String> _entetes() => {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
+        'Accept-Language': Langue.courante,
         ...entetesAuth,
       };
 
@@ -82,7 +84,7 @@ class ApiClient {
   Future<dynamic> envoyerAvecFichiers(String methode, String chemin, Map<String, dynamic> donnees,
       List<FichierEnvoi> fichiers) {
     return _envoyer(() async {
-      final requete = http.MultipartRequest(methode, _uri(chemin))..headers.addAll(entetesAuth);
+      final requete = http.MultipartRequest(methode, _uri(chemin))..headers.addAll({...entetesAuth, 'Accept-Language': Langue.courante});
       donnees.forEach((cle, valeur) {
         if (valeur != null) requete.fields[cle] = valeur.toString();
       });
@@ -96,7 +98,7 @@ class ApiClient {
   /// Fichier privé (ticket, document) : téléchargé avec le jeton.
   Future<Uint8List> telecharger(String url) async {
     final reponse = await _http.get(_uri(url), headers: entetesAuth);
-    if (reponse.statusCode != 200) throw ApiException(reponse.statusCode, 'Fichier indisponible.');
+    if (reponse.statusCode != 200) throw ApiException(reponse.statusCode, t('Fichier indisponible.'));
     return reponse.bodyBytes;
   }
 
@@ -106,13 +108,13 @@ class ApiClient {
     try {
       reponse = await appel();
     } catch (e) {
-      throw ApiException(0, 'Serveur injoignable. Vérifiez votre connexion internet.');
+      throw ApiException(0, t('Serveur injoignable. Vérifiez votre connexion internet.'));
     }
     final corps = reponse.body.isEmpty ? null : _decoder(reponse);
     if (reponse.statusCode >= 200 && reponse.statusCode < 300) return corps;
     if (reponse.statusCode == 401) {
       await enregistrerJeton(null);
-      throw ApiException(401, 'Session expirée : reconnectez-vous.');
+      throw ApiException(401, t('Session expirée : reconnectez-vous.'));
     }
     throw _erreur(reponse.statusCode, corps);
   }
@@ -138,7 +140,7 @@ class ApiClient {
         }
       });
     }
-    message ??= champs.isNotEmpty ? 'Vérifiez les champs indiqués.' : 'Erreur du serveur ($statut).';
+    message ??= champs.isNotEmpty ? t('Vérifiez les champs indiqués.') : t('Erreur du serveur ({statut}).', {'statut': statut});
     return ApiException(statut, message!, champs);
   }
 }

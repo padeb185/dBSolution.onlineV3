@@ -28,6 +28,7 @@ from datetime import datetime, timedelta, timezone as dt_timezone
 from django.conf import settings
 from django.db import IntegrityError, transaction
 from django.utils import timezone
+from django.utils.translation import gettext as _
 
 from .models import AbonnementParticulier, Formule, SourceAbonnement, Vehicule
 
@@ -68,7 +69,7 @@ def produits():
 def formule_du_produit(produit):
     formule = produits().get(produit)
     if formule not in LIMITES:
-        raise AchatRefuse("Produit inconnu : %s" % produit)
+        raise AchatRefuse(_("Produit inconnu : %s") % produit)
     return formule
 
 
@@ -135,13 +136,13 @@ class LimiteAtteinte(Exception):
         self.formule, self.limite, self.actifs = formule, limite, actifs
         suivante = next((f for f in ORDRE if LIMITES[f] > limite), None)
         if suivante:
-            message = ("Votre formule %(f)s permet %(n)d véhicule(s) actif(s). Passez à la formule %(s)s "
-                       "pour en ajouter (jusqu'à %(m)d), ou archivez un véhicule vendu."
+            message = (_("Votre formule %(f)s permet %(n)d véhicule(s) actif(s). Passez à la formule %(s)s "
+                       "pour en ajouter (jusqu'à %(m)d), ou archivez un véhicule vendu.")
                        % {"f": Formule(formule).label, "n": limite, "s": Formule(suivante).label,
                           "m": LIMITES[suivante]})
         else:
-            message = ("La formule %(f)s permet au maximum %(n)d véhicules actifs : archivez un véhicule vendu "
-                       "pour en ajouter un." % {"f": Formule(formule).label, "n": limite})
+            message = (_("La formule %(f)s permet au maximum %(n)d véhicules actifs : archivez un véhicule vendu "
+                       "pour en ajouter un.") % {"f": Formule(formule).label, "n": limite})
         super().__init__(message)
         self.message = message
         self.suivante = suivante
@@ -168,7 +169,7 @@ def _enregistrer(user, achat):
         autre = (AbonnementParticulier.objects.select_for_update()
                  .filter(reference_store=achat["reference"]).exclude(utilisateur=user).first())
         if autre is not None:
-            raise AchatRefuse("Cet abonnement est déjà utilisé par un autre compte CarsCosts.", statut=409)
+            raise AchatRefuse(_("Cet abonnement est déjà utilisé par un autre compte CarsCosts."), statut=409)
         ab, _c = AbonnementParticulier.objects.select_for_update().get_or_create(utilisateur=user)
         # Un abonnement attribué par l'administration, sans fin ou plus long, n'est pas remplacé.
         if (ab.source == SourceAbonnement.ADMIN and formule_effective(user, ab) != Formule.GRATUIT
@@ -187,7 +188,7 @@ def _enregistrer(user, achat):
         try:
             ab.save()
         except IntegrityError:
-            raise AchatRefuse("Cet abonnement est déjà utilisé par un autre compte CarsCosts.", statut=409)
+            raise AchatRefuse(_("Cet abonnement est déjà utilisé par un autre compte CarsCosts."), statut=409)
     return ab
 
 
@@ -195,10 +196,10 @@ def valider_achat(user, plateforme, produit, jeton):
     """Vérifie une preuve d'achat et met à jour la formule du compte. Renvoie l'abonnement."""
     plateforme = (plateforme or "").lower()
     if not jeton:
-        raise AchatRefuse("Preuve d'achat manquante.")
+        raise AchatRefuse(_("Preuve d'achat manquante."))
     if plateforme == "test":
         if mode_achats() != "test":
-            raise AchatRefuse("Les achats de test ne sont pas acceptés sur ce serveur.", statut=403)
+            raise AchatRefuse(_("Les achats de test ne sont pas acceptés sur ce serveur."), statut=403)
         achat = {"source": SourceAbonnement.TEST, "produit": produit, "reference": "test-%s" % user.pk,
                  "date_fin": timezone.now() + timedelta(days=30), "environnement": "Test",
                  "renouvellement_auto": False}
@@ -207,9 +208,9 @@ def valider_achat(user, plateforme, produit, jeton):
     elif plateforme == "google":
         achat = abonnement_google(produit, jeton)
     else:
-        raise AchatRefuse("Plateforme inconnue.")
+        raise AchatRefuse(_("Plateforme inconnue."))
     if achat["environnement"].lower() == "sandbox" and not sandbox_accepte():
-        raise AchatRefuse("Achat de test (Sandbox) refusé par le serveur de production.", statut=403)
+        raise AchatRefuse(_("Achat de test (Sandbox) refusé par le serveur de production."), statut=403)
     if achat["date_fin"] and achat["date_fin"] <= timezone.now():
         # Achat restauré mais échu : on l'enregistre (historique), la formule effective reste gratuite.
         log.info("Abonnement échu restauré pour %s", user.pk)
@@ -243,14 +244,14 @@ def verifier_jws_apple(jws):
 
     chemin_racine = getattr(settings, "APPLE_ROOT_CA_G3", "")
     if not chemin_racine:
-        raise AchatRefuse("Vérification Apple non configurée (APPLE_ROOT_CA_G3).", statut=503)
+        raise AchatRefuse(_("Vérification Apple non configurée (APPLE_ROOT_CA_G3)."), statut=503)
     try:
         entete = json.loads(_b64url(jws.split(".")[0]))
         chaine = [x509.load_der_x509_certificate(base64.b64decode(c)) for c in entete["x5c"]]
     except Exception:
-        raise AchatRefuse("Preuve d'achat Apple illisible.")
+        raise AchatRefuse(_("Preuve d'achat Apple illisible."))
     if len(chaine) != 3:
-        raise AchatRefuse("Chaîne de certificats Apple invalide.")
+        raise AchatRefuse(_("Chaîne de certificats Apple invalide."))
     with open(chemin_racine, "rb") as f:
         donnees = f.read()
     try:
@@ -276,13 +277,13 @@ def verifier_jws_apple(jws):
         raise
     except Exception as e:
         log.warning("JWS Apple refusé : %s", e)
-        raise AchatRefuse("Preuve d'achat Apple invalide.")
+        raise AchatRefuse(_("Preuve d'achat Apple invalide."))
 
 
 def _achat_apple(info):
     bundle = getattr(settings, "APPLE_BUNDLE_ID", "")
     if bundle and info.get("bundleId") != bundle:
-        raise AchatRefuse("Achat d'une autre application.")
+        raise AchatRefuse(_("Achat d'une autre application."))
     date_fin = info.get("expiresDate")
     return {
         "source": SourceAbonnement.APPLE,
@@ -331,7 +332,7 @@ def _acces_google():
         return _jeton_google["valeur"]
     chemin = getattr(settings, "GOOGLE_SERVICE_ACCOUNT_FILE", "")
     if not chemin:
-        raise AchatRefuse("Vérification Google Play non configurée (GOOGLE_SERVICE_ACCOUNT_FILE).", statut=503)
+        raise AchatRefuse(_("Vérification Google Play non configurée (GOOGLE_SERVICE_ACCOUNT_FILE)."), statut=503)
     with open(chemin) as f:
         compte = json.load(f)
     maintenant = int(time.time())
@@ -357,18 +358,18 @@ def abonnement_google(produit, purchase_token):
 
     package = getattr(settings, "GOOGLE_PACKAGE_NAME", "")
     if not package:
-        raise AchatRefuse("Vérification Google Play non configurée (GOOGLE_PACKAGE_NAME).", statut=503)
+        raise AchatRefuse(_("Vérification Google Play non configurée (GOOGLE_PACKAGE_NAME)."), statut=503)
     url = ("https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/"
            "subscriptionsv2/tokens/%s" % (package, purchase_token))
     try:
         r = requests.get(url, headers={"Authorization": "Bearer " + _acces_google()}, timeout=15)
     except requests.RequestException:
-        raise AchatRefuse("Google Play injoignable, réessayez plus tard.", statut=503)
+        raise AchatRefuse(_("Google Play injoignable, réessayez plus tard."), statut=503)
     if r.status_code in (400, 404, 410):
-        raise AchatRefuse("Preuve d'achat Google Play invalide.")
+        raise AchatRefuse(_("Preuve d'achat Google Play invalide."))
     if r.status_code >= 300:
         log.warning("Google Play %s : %s", r.status_code, r.text[:300])
-        raise AchatRefuse("Google Play injoignable, réessayez plus tard.", statut=503)
+        raise AchatRefuse(_("Google Play injoignable, réessayez plus tard."), statut=503)
     d = r.json()
     lignes = d.get("lineItems") or []
     ligne = next((l for l in lignes if l.get("productId") == produit), lignes[0] if lignes else {})

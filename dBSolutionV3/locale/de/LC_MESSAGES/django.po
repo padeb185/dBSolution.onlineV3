@@ -82643,3 +82643,115 @@ msgstr "Uebergabebescheinigung"
 
 #~ msgid "sur"
 #~ msgstr "von"
+
+#. Application des particuliers (API particulier/)
+#: particulier/api/views.py
+#, python-format
+msgid "Produit inconnu : %s"
+msgstr "Unbekanntes Produkt: %s"
+
+#: particulier/api/views.py
+#, python-format
+msgid "Votre formule %(f)s permet %(n)d véhicule(s) actif(s). Passez à la formule %(s)s pour en ajouter (jusqu'à %(m)d), ou archivez un véhicule vendu."
+msgstr "Ihr Tarif %(f)s erlaubt %(n)d aktive(s) Fahrzeug(e). Wechseln Sie zum Tarif %(s)s, um weitere hinzuzufügen (bis zu %(m)d), oder archivieren Sie ein verkauftes Fahrzeug."
+
+#: particulier/api/views.py
+#, python-format
+msgid "La formule %(f)s permet au maximum %(n)d véhicules actifs : archivez un véhicule vendu pour en ajouter un."
+msgstr "Der Tarif %(f)s erlaubt höchstens %(n)d aktive Fahrzeuge: Archivieren Sie ein verkauftes Fahrzeug, um eines hinzuzufügen."
+
+#: particulier/api/views.py
+msgid "Cet abonnement est déjà utilisé par un autre compte CarsCosts."
+msgstr "Dieses Abonnement wird bereits von einem anderen CarsCosts-Konto verwendet."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat manquante."
+msgstr "Kaufnachweis fehlt."
+
+#: particulier/api/views.py
+msgid "Les achats de test ne sont pas acceptés sur ce serveur."
+msgstr "Testkäufe werden auf diesem Server nicht akzeptiert."
+
+#: particulier/api/views.py
+msgid "Plateforme inconnue."
+msgstr "Unbekannte Plattform."
+
+#: particulier/api/views.py
+msgid "Achat de test (Sandbox) refusé par le serveur de production."
+msgstr "Testkauf (Sandbox) vom Produktionsserver abgelehnt."
+
+#: particulier/api/views.py
+msgid "Vérification Apple non configurée (APPLE_ROOT_CA_G3)."
+msgstr "Apple-Prüfung nicht konfiguriert (APPLE_ROOT_CA_G3)."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat Apple illisible."
+msgstr "Apple-Kaufnachweis unlesbar."
+
+#: particulier/api/views.py
+msgid "Chaîne de certificats Apple invalide."
+msgstr "Ungültige Apple-Zertifikatskette."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat Apple invalide."
+msgstr "Ungültiger Apple-Kaufnachweis."
+
+#: particulier/api/views.py
+msgid "Achat d'une autre application."
+msgstr "Kauf einer anderen App."
+
+#: particulier/api/views.py
+msgid "Vérification Google Play non configurée (GOOGLE_SERVICE_ACCOUNT_FILE)."
+msgstr "Google-Play-Prüfung nicht konfiguriert (GOOGLE_SERVICE_ACCOUNT_FILE)."
+
+#: particulier/api/views.py
+msgid "Vérification Google Play non configurée (GOOGLE_PACKAGE_NAME)."
+msgstr "Google-Play-Prüfung nicht konfiguriert (GOOGLE_PACKAGE_NAME)."
+
+#: particulier/api/views.py
+msgid "Google Play injoignable, réessayez plus tard."
+msgstr "Google Play nicht erreichbar, bitte später erneut versuchen."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat Google Play invalide."
+msgstr "Ungültiger Google-Play-Kaufnachweis."
+
+#: particulier/api/views.py
+msgid "Espace particuliers non configuré."
+msgstr "Bereich für Privatpersonen nicht konfiguriert."
+
+#: particulier/api/views.py
+msgid "Email ou mot de passe incorrect."
+msgstr "E-Mail oder Passwort falsch."
+
+#: particulier/api/views.py
+msgid "Ce compte est un compte professionnel : connectez-vous sur le site web."
+msgstr "Dies ist ein Geschäftskonto: Bitte melden Sie sich auf der Website an."
+
+#: particulier/api/views.py
+msgid "Mot de passe incorrect."
+msgstr "Falsches Passwort."
+
+#: particulier/api/views.py
+msgid "VIN invalide : 17 caractères, sans I, O ni Q."
+msgstr "Ungültige FIN: 17 Zeichen, ohne I, O oder Q."
+
+#: particulier/api/views.py
+msgid "L'expiration précède le début de validité."
+msgstr "Das Ablaufdatum liegt vor dem Gültigkeitsbeginn."
+
+#: particulier/api/views.py
+msgid "Pays d'immatriculation inconnu (code ISO à 2 lettres attendu)."
+msgstr "Unbekanntes Zulassungsland (2-stelliger ISO-Code erwartet)."
+
+#: particulier/api/views.py
+msgid "Un compte existe déjà avec cet email."
+msgstr "Mit dieser E-Mail-Adresse existiert bereits ein Konto."
+
+#: particulier/api/views.py
+msgid "Mot de passe actuel incorrect."
+msgstr "Aktuelles Passwort falsch."
+
+#: particulier/api/views.py
+msgid "Gratuit"
+msgstr "Kostenlos"

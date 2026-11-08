@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
+import '../l10n/langue.dart';
+
 /// Extraction d'un VIN (17 caractères, sans I, O ni Q) dans un texte lu par OCR ou un code-barres.
 /// Les confusions fréquentes de l'OCR sont corrigées : O → 0, I → 1, Q → 0.
 String? extraireVin(String texte) {
@@ -101,19 +103,19 @@ class _VinEcranState extends State<VinEcran> {
     if (RegExp(r'^[A-HJ-NPR-Z0-9]{17}$').hasMatch(vin)) {
       _trouve(vin);
     } else {
-      setState(() => _message = 'Le VIN compte 17 caractères (lettres I, O et Q exclues).');
+      setState(() => _message = t('Le VIN compte 17 caractères (lettres I, O et Q exclues).'));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Lire le VIN')),
+      appBar: AppBar(title: Text(t('Lire le VIN'))),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
           if (_scanner != null) ...[
-            const Text('Visez le code-barres du VIN (bas du pare-brise ou montant de porte).'),
+            Text(t('Visez le code-barres du VIN (bas du pare-brise ou montant de porte).')),
             const SizedBox(height: 8),
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
@@ -125,10 +127,10 @@ class _VinEcranState extends State<VinEcran> {
             controller: _saisie,
             textCapitalization: TextCapitalization.characters,
             maxLength: 17,
-            decoration: const InputDecoration(labelText: 'Ou saisissez le VIN', border: OutlineInputBorder()),
+            decoration: InputDecoration(labelText: t('Ou saisissez le VIN'), border: const OutlineInputBorder()),
             onSubmitted: (_) => _valider(),
           ),
-          FilledButton(onPressed: _valider, child: const Text('Valider')),
+          FilledButton(onPressed: _valider, child: Text(t('Valider'))),
           if (_message != null) Padding(padding: const EdgeInsets.only(top: 12), child: Text(_message!)),
         ],
       ),

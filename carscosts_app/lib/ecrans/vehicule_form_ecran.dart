@@ -5,6 +5,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../api/api_client.dart';
+import '../achats/abonnement.dart';
+import '../api/session.dart';
+import '../l10n/langue.dart';
 import '../modeles/ressources.dart';
 import '../widgets/fichiers.dart';
 import '../widgets/format.dart';
@@ -50,7 +53,10 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
       _c[n] = TextEditingController(text: v[n]?.toString() ?? '');
     }
     _energie = (v['energie'] as String?) ?? 'essence';
-    final pays = (v['pays_immatriculation'] as String?)?.toUpperCase();
+    // Nouveau véhicule : pays par défaut des réglages
+    final pays = ((v['pays_immatriculation'] as String?) ??
+            context.read<Session>().utilisateur?['pays_defaut'] as String?)
+        ?.toUpperCase();
     _pays = paysImmatriculation.containsKey(pays) ? pays! : 'BE';
     _miseEnCirculation = v['date_mise_en_circulation'] as String?;
     _dateAchat = v['date_achat'] as String?;
@@ -75,7 +81,7 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
         if (_c['marque']!.text.isEmpty && d['brand'] != null) _c['marque']!.text = _titre(d['brand'].toString());
         final annee = d['model_year'] ?? d['production_year'];
         if (_c['annee']!.text.isEmpty && annee != null) _c['annee']!.text = annee.toString();
-        _infoVin = [if (d['brand'] != null) d['brand'], if (annee != null) 'année $annee'].join(' – ');
+        _infoVin = [if (d['brand'] != null) d['brand'], if (annee != null) t('année {annee}', {'annee': annee})].join(' – ');
       });
     } on ApiException catch (e) {
       setState(() => _infoVin = e.message);
@@ -87,14 +93,14 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
   Future<void> _enregistrer() async {
     if (!_cle.currentState!.validate()) return;
     final api = context.read<ApiClient>();
-    String? t(String n) => _c[n]!.text.trim().isEmpty ? null : _c[n]!.text.trim().replaceAll(',', '.');
+    String? v(String n) => _c[n]!.text.trim().isEmpty ? null : _c[n]!.text.trim().replaceAll(',', '.');
     final donnees = <String, dynamic>{
       for (final n in ['marque', 'modele', 'version', 'immatriculation', 'couleur']) n: _c[n]!.text.trim(),
       'vin': _c['vin']!.text.trim().toUpperCase(),
-      'annee': int.tryParse(t('annee') ?? ''),
-      'prix_achat': t('prix_achat'),
-      'kilometrage_achat': int.tryParse(t('kilometrage_achat') ?? ''),
-      'valeur_estimee': t('valeur_estimee'),
+      'annee': int.tryParse(v('annee') ?? ''),
+      'prix_achat': v('prix_achat'),
+      'kilometrage_achat': int.tryParse(v('kilometrage_achat') ?? ''),
+      'valeur_estimee': v('valeur_estimee'),
       'energie': _energie,
       'pays_immatriculation': _pays,
       'date_mise_en_circulation': _miseEnCirculation,
@@ -117,7 +123,8 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
       if (!mounted) return;
       if (e.statut == 403 && e.champs['code'] == 'limite_formule') {
         // Limite de la formule atteinte (ajout ou désarchivage) : proposer une formule supérieure
-        await Navigator.push(context, MaterialPageRoute(builder: (_) => FormulesEcran(raison: e.message)));
+        final ab = context.read<Abonnement>();
+        await Navigator.push(context, MaterialPageRoute(builder: (_) => FormulesEcran(raison: ab.messageLimite(e.champs))));
         return;
       }
       setState(() => _erreurs = e.champs);
@@ -142,7 +149,7 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
           errorText: _erreurs[nom],
           border: const OutlineInputBorder(),
         ),
-        validator: (v) => obligatoire && (v == null || v.trim().isEmpty) ? 'Champ obligatoire' : null,
+        validator: (v) => obligatoire && (v == null || v.trim().isEmpty) ? t('Champ obligatoire') : null,
       ),
     );
   }
@@ -173,19 +180,19 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
     const nombres = TextInputType.numberWithOptions(decimal: true);
     final mobile = Platform.isIOS || Platform.isAndroid;
     return Scaffold(
-      appBar: AppBar(title: Text(_modification ? 'Modifier le véhicule' : 'Nouveau véhicule')),
+      appBar: AppBar(title: Text(_modification ? t('Modifier le véhicule') : t('Nouveau véhicule'))),
       body: Form(
         key: _cle,
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            _texte('vin', 'VIN (numéro de châssis)',
-                bouton: IconButton(icon: const Icon(Icons.qr_code_scanner), tooltip: 'Lire le VIN', onPressed: _lireVin)),
+            _texte('vin', t('VIN (numéro de châssis)'),
+                bouton: IconButton(icon: const Icon(Icons.qr_code_scanner), tooltip: t('Lire le VIN'), onPressed: _lireVin)),
             if (_infoVin != null) Padding(padding: const EdgeInsets.only(bottom: 12), child: Text(_infoVin!)),
-            _texte('marque', 'Marque', obligatoire: true),
-            _texte('modele', 'Modèle', obligatoire: true),
-            _texte('version', 'Version / finition'),
-            _texte('immatriculation', 'Immatriculation'),
+            _texte('marque', t('Marque'), obligatoire: true),
+            _texte('modele', t('Modèle'), obligatoire: true),
+            _texte('version', t('Version / finition')),
+            _texte('immatriculation', t('Immatriculation')),
             // Aperçu de la plaque (pays choisi ci-dessous)
             ValueListenableBuilder<TextEditingValue>(
               valueListenable: _c['immatriculation']!,
@@ -203,7 +210,7 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
               padding: const EdgeInsets.only(bottom: 12),
               child: DropdownButtonFormField<String>(
                 initialValue: _energie,
-                decoration: const InputDecoration(labelText: 'Énergie', border: OutlineInputBorder()),
+                decoration: InputDecoration(labelText: t('Énergie'), border: const OutlineInputBorder()),
                 items: [for (final e in energies.entries) DropdownMenuItem(value: e.key, child: Text(e.value))],
                 onChanged: (v) => setState(() => _energie = v ?? 'essence'),
               ),
@@ -212,7 +219,7 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
               padding: const EdgeInsets.only(bottom: 12),
               child: DropdownButtonFormField<String>(
                 initialValue: _pays,
-                decoration: const InputDecoration(labelText: 'Pays d\'immatriculation', border: OutlineInputBorder()),
+                decoration: InputDecoration(labelText: t('Pays d\'immatriculation'), border: const OutlineInputBorder()),
                 isExpanded: true,
                 menuMaxHeight: 420,
                 items: [
@@ -222,16 +229,16 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
                 onChanged: (v) => setState(() => _pays = v ?? 'BE'),
               ),
             ),
-            _texte('annee', 'Année du modèle', clavier: TextInputType.number),
-            _date('Première mise en circulation', _miseEnCirculation, (v) => _miseEnCirculation = v),
-            _texte('couleur', 'Couleur'),
+            _texte('annee', t('Année du modèle'), clavier: TextInputType.number),
+            _date(t('Première mise en circulation'), _miseEnCirculation, (v) => _miseEnCirculation = v),
+            _texte('couleur', t('Couleur')),
             const Divider(height: 24),
-            Text('Achat', style: Theme.of(context).textTheme.titleMedium),
+            Text(t('Achat'), style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 8),
-            _date('Date d\'achat', _dateAchat, (v) => _dateAchat = v),
-            _texte('prix_achat', 'Prix d\'achat', clavier: nombres, suffixe: '€'),
-            _texte('kilometrage_achat', 'Kilométrage à l\'achat', clavier: TextInputType.number, suffixe: 'km'),
-            _texte('valeur_estimee', 'Valeur de revente estimée', clavier: nombres, suffixe: '€'),
+            _date(t('Date d\'achat'), _dateAchat, (v) => _dateAchat = v),
+            _texte('prix_achat', t('Prix d\'achat'), clavier: nombres, suffixe: '€'),
+            _texte('kilometrage_achat', t('Kilométrage à l\'achat'), clavier: TextInputType.number, suffixe: 'km'),
+            _texte('valeur_estimee', t('Valeur de revente estimée'), clavier: nombres, suffixe: '€'),
             const Divider(height: 24),
             if (_photo != null)
               ClipRRect(borderRadius: BorderRadius.circular(8), child: Image.file(File(_photo!), height: 160, fit: BoxFit.cover))
@@ -245,7 +252,7 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
                     if (p != null) setState(() => _photo = p.path);
                   },
                   icon: const Icon(Icons.photo_camera),
-                  label: const Text('Photo du véhicule'),
+                  label: Text(t('Photo du véhicule')),
                 ),
               OutlinedButton.icon(
                 onPressed: () async {
@@ -253,13 +260,13 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
                   if (p != null) setState(() => _photo = p.path);
                 },
                 icon: const Icon(Icons.photo_library),
-                label: const Text('Choisir une photo'),
+                label: Text(t('Choisir une photo')),
               ),
             ]),
             if (_modification)
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Véhicule vendu (archivé)'),
+                title: Text(t('Véhicule vendu (archivé)')),
                 value: _archive,
                 onChanged: (v) => setState(() => _archive = v),
               ),
@@ -267,7 +274,7 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
             FilledButton.icon(
               onPressed: _envoi ? null : _enregistrer,
               icon: const Icon(Icons.check),
-              label: const Text('Enregistrer'),
+              label: Text(t('Enregistrer')),
             ),
           ],
         ),

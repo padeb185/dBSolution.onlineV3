@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../api/api_client.dart';
+import '../l10n/langue.dart';
 import '../ecrans/formulaire_ecran.dart';
 import '../modeles/ressources.dart';
 import 'fichiers.dart';
@@ -17,13 +18,13 @@ class StatutRappel extends StatelessWidget {
   Widget build(BuildContext context) {
     final s = statut?['statut'] as String? ?? 'a_venir';
     final (texte, couleur) = switch (s) {
-      'en_retard' => ('En retard', Colors.red),
-      'proche' => ('Bientôt', Colors.orange),
-      'inactif' => ('Terminé', Colors.grey),
-      _ => ('À venir', Colors.green),
+      'en_retard' => (t('En retard'), Colors.red),
+      'proche' => (t('Bientôt'), Colors.orange),
+      'inactif' => (t('Terminé'), Colors.grey),
+      _ => (t('À venir'), Colors.green),
     };
     final details = [
-      if (statut?['jours_restants'] != null) '${statut!['jours_restants']} j',
+      if (statut?['jours_restants'] != null) t('{n} j', {'n': statut!['jours_restants']}),
       if (statut?['km_restants'] != null) km(statut!['km_restants']),
     ].join(' · ');
     return Chip(
@@ -85,15 +86,15 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('« ${rappel['libelle']} » réalisé'),
+        title: Text(t('« {libelle} » réalisé', {'libelle': rappel['libelle']})),
         content: TextField(
           controller: kmCtrl,
           keyboardType: TextInputType.number,
-          decoration: const InputDecoration(labelText: 'Kilométrage actuel', suffixText: 'km'),
+          decoration: InputDecoration(labelText: t('Kilométrage actuel'), suffixText: 'km'),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Annuler')),
-          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Valider')),
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(t('Annuler'))),
+          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: Text(t('Valider'))),
         ],
       ),
     );
@@ -119,7 +120,7 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
         heroTag: r.chemin,
         onPressed: () => _ouvrir(),
         icon: const Icon(Icons.add),
-        label: Text('Ajouter'),
+        label: Text(t('Ajouter')),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -143,7 +144,7 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
                   child: Column(children: [
                     Icon(r.icone, size: 48, color: Colors.grey),
                     const SizedBox(height: 8),
-                    Text('Aucun ${r.titreSingulier} pour l\'instant.', textAlign: TextAlign.center),
+                    Text(r.texteVide, textAlign: TextAlign.center),
                   ]),
                 ),
               ]);
@@ -168,7 +169,7 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
                         ])
                       : Text(r.sousTitreLigne(e)),
                   trailing: r.chemin == 'rappels' && e['actif'] == true
-                      ? IconButton(icon: const Icon(Icons.task_alt), tooltip: 'Marquer comme fait', onPressed: () => _rappelFait(e))
+                      ? IconButton(icon: const Icon(Icons.task_alt), tooltip: t('Marquer comme fait'), onPressed: () => _rappelFait(e))
                       : (montant.isEmpty ? null : Text(montant, style: const TextStyle(fontWeight: FontWeight.w600))),
                   onTap: () => _ouvrir(e),
                 );

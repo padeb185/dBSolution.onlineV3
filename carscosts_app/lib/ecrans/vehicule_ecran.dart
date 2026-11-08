@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../api/api_client.dart';
+import '../l10n/langue.dart';
 import '../modeles/ressources.dart';
 import '../widgets/fichiers.dart';
 import '../widgets/format.dart';
@@ -66,12 +67,12 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(titre),
-          actions: [IconButton(icon: const Icon(Icons.edit), tooltip: 'Modifier', onPressed: _modifier)],
+          actions: [IconButton(icon: const Icon(Icons.edit), tooltip: t('Modifier'), onPressed: _modifier)],
           bottom: TabBar(
             isScrollable: true,
             tabAlignment: TabAlignment.start,
             tabs: [
-              const Tab(icon: Icon(Icons.insights), text: 'Résumé'),
+              Tab(icon: const Icon(Icons.insights), text: t('Résumé')),
               for (final r in ressourcesVehicule) Tab(icon: Icon(r.icone), text: r.titre),
             ],
           ),
@@ -126,17 +127,17 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
                 FilledButton.tonalIcon(
                   onPressed: () => _ajouter(pleins),
                   icon: const Icon(Icons.local_gas_station),
-                  label: const Text('Plein'),
+                  label: Text(t('Plein')),
                 ),
                 FilledButton.tonalIcon(
                   onPressed: () => _ajouter(kilometrages),
                   icon: const Icon(Icons.speed),
-                  label: const Text('Kilométrage'),
+                  label: Text(t('Kilométrage')),
                 ),
                 FilledButton.tonalIcon(
                   onPressed: () => _ajouter(entretiens),
                   icon: const Icon(Icons.build),
-                  label: const Text('Entretien'),
+                  label: Text(t('Entretien')),
                 ),
               ]),
               const SizedBox(height: 16),
@@ -148,43 +149,43 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
                 mainAxisSpacing: 8,
                 crossAxisSpacing: 8,
                 children: [
-                  _kpi('Kilométrage', km(s['kilometrage_actuel'])),
-                  _kpi('Coût total', euros(s['cout_total'])),
-                  _kpi('Coût net', euros(s['cout_net'])),
-                  _kpi('Coût net au km', s['cout_total_km'] == null ? '—' : '${nombre(s['cout_total_km'], decimales: 3)} €'),
-                  _kpi('Coût net / mois', euros(s['cout_mois'])),
-                  _kpi('Consommation', s['consommation_moyenne'] == null
+                  _kpi(t('Kilométrage'), km(s['kilometrage_actuel'])),
+                  _kpi(t('Coût total'), euros(s['cout_total'])),
+                  _kpi(t('Coût net'), euros(s['cout_net'])),
+                  _kpi(t('Coût net au km'), s['cout_total_km'] == null ? '—' : '${nombre(s['cout_total_km'], decimales: 3)} €'),
+                  _kpi(t('Coût net / mois'), euros(s['cout_mois'])),
+                  _kpi(t('Consommation'), s['consommation_moyenne'] == null
                       ? '—'
                       : '${nombre(s['consommation_moyenne'])} ${electrique ? 'kWh' : 'L'}/100'),
-                  _kpi('Valeur de revente', euros(s['valeur_revente'])),
+                  _kpi(t('Valeur de revente'), euros(s['valeur_revente'])),
                 ],
               ),
               const SizedBox(height: 16),
-              Text('Répartition des coûts', style: Theme.of(context).textTheme.titleMedium),
+              Text(t('Répartition des coûts'), style: Theme.of(context).textTheme.titleMedium),
               Card(
                 child: Column(children: [
                   for (final p in (s['postes'] as List).cast<Map>())
-                    ListTile(dense: true, title: Text('${p['libelle']}'), trailing: Text(euros(p['montant']))),
+                    ListTile(dense: true, title: Text(_libellePoste(p)), trailing: Text(euros(p['montant']))),
                   ListTile(
-                    title: const Text('Coût total', style: TextStyle(fontWeight: FontWeight.bold)),
+                    title: Text(t('Coût total'), style: const TextStyle(fontWeight: FontWeight.bold)),
                     trailing: Text(euros(s['cout_total']), style: const TextStyle(fontWeight: FontWeight.bold)),
                   ),
                   ListTile(
                     dense: true,
-                    title: const Text('Valeur de revente estimée'),
-                    subtitle: s['valeur_revente'] == null ? const Text('À renseigner dans la fiche du véhicule') : null,
+                    title: Text(t('Valeur de revente estimée')),
+                    subtitle: s['valeur_revente'] == null ? Text(t('À renseigner dans la fiche du véhicule')) : null,
                     trailing: Text(s['valeur_revente'] == null ? '—' : '− ${euros(s['valeur_revente'])}'),
                   ),
                   ListTile(
-                    title: const Text('Coût net', style: TextStyle(fontWeight: FontWeight.bold)),
-                    subtitle: const Text('Coût total − valeur de revente'),
+                    title: Text(t('Coût net'), style: const TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Text(t('Coût total − valeur de revente')),
                     trailing: Text(euros(s['cout_net']), style: const TextStyle(fontWeight: FontWeight.bold)),
                   ),
                 ]),
               ),
               const SizedBox(height: 16),
               if ((s['par_annee'] as List).isNotEmpty) ...[
-                Text('Dépenses par année', style: Theme.of(context).textTheme.titleMedium),
+                Text(t('Dépenses par année'), style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 8),
                 SizedBox(height: 220, child: _graphique((s['par_annee'] as List).cast<Map>())),
                 const SizedBox(height: 8),
@@ -216,12 +217,25 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
       );
 
   static const _cles = ['energie', 'entretiens', 'documents', 'autres'];
-  static const _legende = [
-    ('Énergie', Color(0xFF2563EB)),
-    ('Entretiens', Color(0xFFF59E0B)),
-    ('Documents / assurance', Color(0xFF10B981)),
-    ('Autres', Color(0xFF8B5CF6)),
-  ];
+  static List<(String, Color)> get _legende => [
+        (t('Énergie'), const Color(0xFF2563EB)),
+        (t('Entretiens'), const Color(0xFFF59E0B)),
+        (t('Documents / assurance'), const Color(0xFF10B981)),
+        (t('Autres'), const Color(0xFF8B5CF6)),
+      ];
+
+  /// Libellé d'un poste de coût, traduit d'après son code (achat, energie, depense_taxe…).
+  String _libellePoste(Map p) {
+    final code = '${p['code']}';
+    if (code.startsWith('depense_')) return categoriesDepense[code.substring(8)] ?? '${p['libelle']}';
+    return switch (code) {
+      'achat' => t('Prix d\'achat'),
+      'energie' => t('Carburant / énergie'),
+      'entretiens' => t('Entretiens et réparations'),
+      'documents' => t('Assurance, contrôle technique, documents'),
+      _ => '${p['libelle']}',
+    };
+  }
 
   Widget _graphique(List<Map> annees) {
     return BarChart(

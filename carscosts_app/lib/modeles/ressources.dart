@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/langue.dart';
 import '../widgets/format.dart';
 
 /// Type de champ d'un formulaire générique.
@@ -29,7 +30,10 @@ class Ressource {
   const Ressource({
     required this.chemin,
     required this.titre,
-    required this.titreSingulier,
+    required this.titreNouveau,
+    required this.titreModifier,
+    required this.texteVide,
+    required this.texteSupprimer,
     required this.icone,
     required this.champs,
     required this.titreLigne,
@@ -39,7 +43,10 @@ class Ressource {
 
   final String chemin; // ex. "pleins"
   final String titre; // ex. "Pleins"
-  final String titreSingulier; // ex. "plein"
+  final String titreNouveau; // ex. "Nouveau plein"
+  final String titreModifier; // ex. "Modifier le plein"
+  final String texteVide; // ex. "Aucun plein pour l'instant."
+  final String texteSupprimer; // ex. "Supprimer ce plein ?"
   final IconData icone;
   final List<Champ> champs;
   final String Function(Map<String, dynamic>) titreLigne;
@@ -47,85 +54,91 @@ class Ressource {
   final String Function(Map<String, dynamic>)? montantLigne;
 }
 
-const typesEntretien = {
-  'revision': 'Révision / entretien périodique',
-  'vidange': 'Vidange',
-  'pneus': 'Pneus',
-  'freins': 'Freins',
-  'distribution': 'Distribution',
-  'batterie': 'Batterie',
-  'climatisation': 'Climatisation',
-  'controle_technique': 'Contrôle technique',
-  'carrosserie': 'Carrosserie',
-  'reparation': 'Réparation',
-  'autre': 'Autre',
+Map<String, String> get typesEntretien => {
+  'revision': t('Révision / entretien périodique'),
+  'vidange': t('Vidange'),
+  'pneus': t('Pneus'),
+  'freins': t('Freins'),
+  'distribution': t('Distribution'),
+  'batterie': t('Batterie'),
+  'climatisation': t('Climatisation'),
+  'controle_technique': t('Contrôle technique'),
+  'carrosserie': t('Carrosserie'),
+  'reparation': t('Réparation'),
+  'autre': t('Autre'),
 };
 
-const typesDocument = {
-  'assurance': 'Assurance',
-  'controle_technique': 'Contrôle technique',
-  'carte_grise': 'Certificat d\'immatriculation (carte grise)',
-  'coc': 'Certificat de conformité (COC)',
-  'facture_achat': 'Facture d\'achat',
-  'autre': 'Autre',
+Map<String, String> get typesDocument => {
+  'assurance': t('Assurance'),
+  'controle_technique': t('Contrôle technique'),
+  'carte_grise': t('Certificat d\'immatriculation (carte grise)'),
+  'coc': t('Certificat de conformité (COC)'),
+  'facture_achat': t('Facture d\'achat'),
+  'autre': t('Autre'),
 };
 
-const categoriesDepense = {
-  'taxe': 'Taxe de circulation / vignette',
-  'assurance': 'Assurance',
-  'parking': 'Parking / péage',
-  'lavage': 'Lavage',
-  'accessoire': 'Accessoires / équipements',
-  'amende': 'Amende',
-  'financement': 'Crédit / leasing',
-  'autre': 'Autre',
+Map<String, String> get categoriesDepense => {
+  'taxe': t('Taxe de circulation / vignette'),
+  'assurance': t('Assurance'),
+  'parking': t('Parking / péage'),
+  'lavage': t('Lavage'),
+  'accessoire': t('Accessoires / équipements'),
+  'amende': t('Amende'),
+  'financement': t('Crédit / leasing'),
+  'autre': t('Autre'),
 };
 
-const energies = {
-  'essence': 'Essence',
-  'diesel': 'Diesel',
-  'hybride': 'Hybride',
-  'phev': 'Hybride rechargeable',
-  'electrique': 'Électrique',
-  'gpl': 'GPL',
-  'gnc': 'GNC',
+Map<String, String> get energies => {
+  'essence': t('Essence'),
+  'diesel': t('Diesel'),
+  'hybride': t('Hybride'),
+  'phev': t('Hybride rechargeable'),
+  'electrique': t('Électrique'),
+  'gpl': t('GPL'),
+  'gnc': t('GNC'),
 };
 
-final pleins = Ressource(
+Ressource get pleins => Ressource(
   chemin: 'pleins',
-  titre: 'Pleins',
-  titreSingulier: 'plein',
+  titre: t('Pleins'),
+  titreNouveau: t('Nouveau plein'),
+  titreModifier: t('Modifier le plein'),
+  texteVide: t('Aucun plein pour l\'instant.'),
+  texteSupprimer: t('Supprimer ce plein ?'),
   icone: Icons.local_gas_station,
-  champs: const [
-    Champ('date', 'Date', TypeChamp.date, obligatoire: true),
-    Champ('kilometrage', 'Kilométrage', TypeChamp.entier, obligatoire: true, suffixe: 'km'),
-    Champ('quantite', 'Quantité', TypeChamp.decimal, obligatoire: true, suffixe: 'L / kWh'),
-    Champ('montant', 'Montant payé', TypeChamp.decimal, obligatoire: true, suffixe: '€'),
-    Champ('plein_complet', 'Plein complet', TypeChamp.booleen,
-        parDefaut: true, aide: 'Nécessaire pour calculer la consommation.'),
-    Champ('electrique', 'Recharge électrique', TypeChamp.booleen, parDefaut: false),
-    Champ('station', 'Station', TypeChamp.texte),
-    Champ('ticket', 'Photo du ticket', TypeChamp.image),
-    Champ('remarques', 'Remarques', TypeChamp.texte),
+  champs: [
+    Champ('date', t('Date'), TypeChamp.date, obligatoire: true),
+    Champ('kilometrage', t('Kilométrage'), TypeChamp.entier, obligatoire: true, suffixe: 'km'),
+    Champ('quantite', t('Quantité'), TypeChamp.decimal, obligatoire: true, suffixe: 'L / kWh'),
+    Champ('montant', t('Montant payé'), TypeChamp.decimal, obligatoire: true, suffixe: '€'),
+    Champ('plein_complet', t('Plein complet'), TypeChamp.booleen,
+        parDefaut: true, aide: t('Nécessaire pour calculer la consommation.')),
+    Champ('electrique', t('Recharge électrique'), TypeChamp.booleen, parDefaut: false),
+    Champ('station', t('Station'), TypeChamp.texte),
+    Champ('ticket', t('Photo du ticket'), TypeChamp.image),
+    Champ('remarques', t('Remarques'), TypeChamp.texte),
   ],
   titreLigne: (p) => '${nombre(p['quantite'])} ${p['electrique'] == true ? 'kWh' : 'L'} – ${euros(p['montant'])}',
   sousTitreLigne: (p) => '${dateFr(p['date'])} · ${km(p['kilometrage'])}'
       '${p['prix_unitaire'] != null ? ' · ${nombre(p['prix_unitaire'], decimales: 3)} €/u' : ''}',
 );
 
-final entretiens = Ressource(
+Ressource get entretiens => Ressource(
   chemin: 'entretiens',
-  titre: 'Entretiens',
-  titreSingulier: 'entretien',
+  titre: t('Entretiens'),
+  titreNouveau: t('Nouvel entretien'),
+  titreModifier: t('Modifier l\'entretien'),
+  texteVide: t('Aucun entretien pour l\'instant.'),
+  texteSupprimer: t('Supprimer cet entretien ?'),
   icone: Icons.build,
-  champs: const [
-    Champ('date', 'Date', TypeChamp.date, obligatoire: true),
-    Champ('type', 'Type', TypeChamp.choix, obligatoire: true, choix: typesEntretien, parDefaut: 'revision'),
-    Champ('kilometrage', 'Kilométrage', TypeChamp.entier, suffixe: 'km'),
-    Champ('description', 'Description', TypeChamp.texte),
-    Champ('garage', 'Garage', TypeChamp.texte),
-    Champ('montant', 'Montant', TypeChamp.decimal, suffixe: '€', parDefaut: '0'),
-    Champ('facture', 'Facture (PDF ou photo)', TypeChamp.fichier),
+  champs: [
+    Champ('date', t('Date'), TypeChamp.date, obligatoire: true),
+    Champ('type', t('Type'), TypeChamp.choix, obligatoire: true, choix: typesEntretien, parDefaut: 'revision'),
+    Champ('kilometrage', t('Kilométrage'), TypeChamp.entier, suffixe: 'km'),
+    Champ('description', t('Description'), TypeChamp.texte),
+    Champ('garage', t('Garage'), TypeChamp.texte),
+    Champ('montant', t('Montant'), TypeChamp.decimal, suffixe: '€', parDefaut: '0'),
+    Champ('facture', t('Facture (PDF ou photo)'), TypeChamp.fichier),
   ],
   titreLigne: (e) => typesEntretien[e['type']] ?? e['type'].toString(),
   sousTitreLigne: (e) => [
@@ -136,82 +149,94 @@ final entretiens = Ressource(
   montantLigne: (e) => euros(e['montant']),
 );
 
-final rappels = Ressource(
+Ressource get rappels => Ressource(
   chemin: 'rappels',
-  titre: 'Rappels',
-  titreSingulier: 'rappel',
+  titre: t('Rappels'),
+  titreNouveau: t('Nouveau rappel'),
+  titreModifier: t('Modifier le rappel'),
+  texteVide: t('Aucun rappel pour l\'instant.'),
+  texteSupprimer: t('Supprimer ce rappel ?'),
   icone: Icons.notifications_active,
-  champs: const [
-    Champ('libelle', 'Libellé', TypeChamp.texte, obligatoire: true),
-    Champ('type_entretien', 'Type d\'entretien', TypeChamp.choix,
-        choix: typesEntretien, aide: 'Un entretien de ce type encodé ensuite relance automatiquement le rappel.'),
-    Champ('echeance_date', 'Échéance (date)', TypeChamp.date),
-    Champ('echeance_km', 'Échéance (kilométrage)', TypeChamp.entier, suffixe: 'km'),
-    Champ('intervalle_mois', 'Répéter tous les', TypeChamp.entier, suffixe: 'mois'),
-    Champ('intervalle_km', 'Répéter tous les', TypeChamp.entier, suffixe: 'km'),
-    Champ('actif', 'Actif', TypeChamp.booleen, parDefaut: true),
+  champs: [
+    Champ('libelle', t('Libellé'), TypeChamp.texte, obligatoire: true),
+    Champ('type_entretien', t('Type d\'entretien'), TypeChamp.choix,
+        choix: typesEntretien, aide: t('Un entretien de ce type encodé ensuite relance automatiquement le rappel.')),
+    Champ('echeance_date', t('Échéance (date)'), TypeChamp.date),
+    Champ('echeance_km', t('Échéance (kilométrage)'), TypeChamp.entier, suffixe: 'km'),
+    Champ('intervalle_mois', t('Répéter tous les'), TypeChamp.entier, suffixe: t('mois')),
+    Champ('intervalle_km', t('Répéter tous les'), TypeChamp.entier, suffixe: 'km'),
+    Champ('actif', t('Actif'), TypeChamp.booleen, parDefaut: true),
   ],
   titreLigne: (r) => r['libelle'].toString(),
   sousTitreLigne: (r) => [
     if (r['echeance_date'] != null) dateFr(r['echeance_date']),
     if (r['echeance_km'] != null) km(r['echeance_km']),
-  ].join(' ou '),
+  ].join(t(' ou ')),
 );
 
-final documents = Ressource(
+Ressource get documents => Ressource(
   chemin: 'documents',
-  titre: 'Documents',
-  titreSingulier: 'document',
+  titre: t('Documents'),
+  titreNouveau: t('Nouveau document'),
+  titreModifier: t('Modifier le document'),
+  texteVide: t('Aucun document pour l\'instant.'),
+  texteSupprimer: t('Supprimer ce document ?'),
   icone: Icons.description,
-  champs: const [
-    Champ('type', 'Type', TypeChamp.choix, obligatoire: true, choix: typesDocument, parDefaut: 'assurance'),
-    Champ('titre', 'Titre', TypeChamp.texte),
-    Champ('organisme', 'Organisme (assureur, centre…)', TypeChamp.texte),
-    Champ('numero', 'Numéro (police, certificat…)', TypeChamp.texte),
-    Champ('date_debut', 'Valable du', TypeChamp.date),
-    Champ('date_expiration', 'Valable jusqu\'au', TypeChamp.date,
-        aide: 'Un rappel est créé automatiquement à l\'échéance.'),
-    Champ('montant', 'Montant (prime, redevance…)', TypeChamp.decimal, suffixe: '€'),
-    Champ('fichier', 'Fichier (PDF ou photo)', TypeChamp.fichier),
+  champs: [
+    Champ('type', t('Type'), TypeChamp.choix, obligatoire: true, choix: typesDocument, parDefaut: 'assurance'),
+    Champ('titre', t('Titre'), TypeChamp.texte),
+    Champ('organisme', t('Organisme (assureur, centre…)'), TypeChamp.texte),
+    Champ('numero', t('Numéro (police, certificat…)'), TypeChamp.texte),
+    Champ('date_debut', t('Valable du'), TypeChamp.date),
+    Champ('date_expiration', t('Valable jusqu\'au'), TypeChamp.date,
+        aide: t('Un rappel est créé automatiquement à l\'échéance.')),
+    Champ('montant', t('Montant (prime, redevance…)'), TypeChamp.decimal, suffixe: '€'),
+    Champ('fichier', t('Fichier (PDF ou photo)'), TypeChamp.fichier),
   ],
-  titreLigne: (d) => [d['type_libelle'] ?? typesDocument[d['type']], d['titre']]
+  titreLigne: (d) => [typesDocument[d['type']] ?? d['type_libelle'], d['titre']]
       .where((x) => x != null && x.toString().isNotEmpty)
       .join(' – '),
   sousTitreLigne: (d) => [
     if ((d['organisme'] ?? '').toString().isNotEmpty) d['organisme'],
-    if (d['date_expiration'] != null) 'jusqu\'au ${dateFr(d['date_expiration'])}',
+    if (d['date_expiration'] != null) t('jusqu\'au {date}', {'date': dateFr(d['date_expiration'])}),
   ].join(' · '),
   montantLigne: (d) => d['montant'] == null ? '' : euros(d['montant']),
 );
 
-final depenses = Ressource(
+Ressource get depenses => Ressource(
   chemin: 'depenses',
-  titre: 'Autres dépenses',
-  titreSingulier: 'dépense',
+  titre: t('Autres dépenses'),
+  titreNouveau: t('Nouvelle dépense'),
+  titreModifier: t('Modifier la dépense'),
+  texteVide: t('Aucune dépense pour l\'instant.'),
+  texteSupprimer: t('Supprimer cette dépense ?'),
   icone: Icons.receipt_long,
-  champs: const [
-    Champ('date', 'Date', TypeChamp.date, obligatoire: true),
-    Champ('categorie', 'Catégorie', TypeChamp.choix, obligatoire: true, choix: categoriesDepense, parDefaut: 'taxe'),
-    Champ('libelle', 'Libellé', TypeChamp.texte),
-    Champ('montant', 'Montant', TypeChamp.decimal, obligatoire: true, suffixe: '€'),
+  champs: [
+    Champ('date', t('Date'), TypeChamp.date, obligatoire: true),
+    Champ('categorie', t('Catégorie'), TypeChamp.choix, obligatoire: true, choix: categoriesDepense, parDefaut: 'taxe'),
+    Champ('libelle', t('Libellé'), TypeChamp.texte),
+    Champ('montant', t('Montant'), TypeChamp.decimal, obligatoire: true, suffixe: '€'),
   ],
   titreLigne: (d) => categoriesDepense[d['categorie']] ?? d['categorie'].toString(),
   sousTitreLigne: (d) => [dateFr(d['date']), if ((d['libelle'] ?? '').toString().isNotEmpty) d['libelle']].join(' · '),
   montantLigne: (d) => euros(d['montant']),
 );
 
-final kilometrages = Ressource(
+Ressource get kilometrages => Ressource(
   chemin: 'kilometrages',
-  titre: 'Kilométrages',
-  titreSingulier: 'relevé',
+  titre: t('Kilométrages'),
+  titreNouveau: t('Nouveau relevé'),
+  titreModifier: t('Modifier le relevé'),
+  texteVide: t('Aucun relevé pour l\'instant.'),
+  texteSupprimer: t('Supprimer ce relevé ?'),
   icone: Icons.speed,
-  champs: const [
-    Champ('date', 'Date', TypeChamp.date, obligatoire: true),
-    Champ('kilometrage', 'Kilométrage', TypeChamp.entier, obligatoire: true, suffixe: 'km'),
+  champs: [
+    Champ('date', t('Date'), TypeChamp.date, obligatoire: true),
+    Champ('kilometrage', t('Kilométrage'), TypeChamp.entier, obligatoire: true, suffixe: 'km'),
   ],
   titreLigne: (k) => km(k['kilometrage']),
   sousTitreLigne: (k) => dateFr(k['date']),
 );
 
 /// Ressources affichées en onglets dans la fiche d'un véhicule
-final ressourcesVehicule = [pleins, entretiens, rappels, documents, depenses, kilometrages];
+List<Ressource> get ressourcesVehicule => [pleins, entretiens, rappels, documents, depenses, kilometrages];

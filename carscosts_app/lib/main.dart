@@ -8,17 +8,21 @@ import 'api/api_client.dart';
 import 'api/session.dart';
 import 'ecrans/accueil_ecran.dart';
 import 'ecrans/connexion_ecran.dart';
+import 'l10n/langue.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initializeDateFormatting('fr_BE');
+  await initializeDateFormatting(); // formats de date de toutes les langues
+  final langue = Langue();
+  await langue.charger();
   final api = ApiClient();
-  final session = Session(api);
+  final session = Session(api, langue);
   final abonnement = Abonnement(api)..demarrer();
   runApp(
     MultiProvider(
       providers: [
         Provider<ApiClient>.value(value: api),
+        ChangeNotifierProvider<Langue>.value(value: langue),
         ChangeNotifierProvider<Session>.value(value: session),
         ChangeNotifierProvider<Abonnement>.value(value: abonnement),
       ],
@@ -31,15 +35,28 @@ Future<void> main() async {
 class CarsCostsApp extends StatelessWidget {
   const CarsCostsApp({super.key});
 
+  static const _locales = {
+    'fr': Locale('fr', 'BE'),
+    'nl': Locale('nl', 'BE'),
+    'en': Locale('en', 'GB'),
+    'de': Locale('de'),
+    'es': Locale('es'),
+    'it': Locale('it'),
+    'el': Locale('el'),
+  };
+
   @override
   Widget build(BuildContext context) {
+    // Changement de langue : l'application est reconstruite entièrement (tous les textes passent par t()).
+    final code = context.watch<Langue>().code;
     return MaterialApp(
+      key: ValueKey(code),
       title: 'CarsCosts',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(colorSchemeSeed: const Color(0xFF1E3A8A), useMaterial3: true),
       darkTheme: ThemeData(colorSchemeSeed: const Color(0xFF1E3A8A), brightness: Brightness.dark, useMaterial3: true),
-      locale: const Locale('fr', 'BE'),
-      supportedLocales: const [Locale('fr', 'BE'), Locale('fr'), Locale('en'), Locale('nl'), Locale('de')],
+      locale: _locales[code],
+      supportedLocales: _locales.values,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

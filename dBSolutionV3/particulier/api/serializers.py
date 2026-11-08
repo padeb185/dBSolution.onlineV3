@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.contrib.auth import password_validation
+from django.utils.translation import gettext as _
 from django.urls import reverse
 from rest_framework import serializers
 
@@ -39,16 +41,12 @@ class VehiculeSerializer(FichierMixin, serializers.ModelSerializer):
         read_only_fields = ["id", "created_at", "updated_at"]
 
     def validate_pays_immatriculation(self, v):
-        from ..pays import CODES_PAYS
-        v = (v or "").upper()
-        if v not in CODES_PAYS:
-            raise serializers.ValidationError("Pays d'immatriculation inconnu (code ISO à 2 lettres attendu).")
-        return v
+        return valider_pays(v)
 
     def validate_vin(self, v):
         v = (v or "").upper().replace(" ", "")
         if v and len(v) != 17:
-            raise serializers.ValidationError("Le VIN doit contenir 17 caractères.")
+            raise serializers.ValidationError(_("Le VIN doit contenir 17 caractères."))
         return v
 
 
@@ -90,7 +88,7 @@ class DocumentSerializer(VehiculeChampMixin, FichierMixin, serializers.ModelSeri
     def validate(self, data):
         debut, fin = data.get("date_debut"), data.get("date_expiration")
         if debut and fin and fin < debut:
-            raise serializers.ValidationError({"date_expiration": "L'expiration précède le début de validité."})
+            raise serializers.ValidationError({"date_expiration": _("L'expiration précède le début de validité.")})
         return data
 
 
@@ -125,17 +123,29 @@ class DepenseSerializer(VehiculeChampMixin, serializers.ModelSerializer):
 # ------------------------------------------------------------------
 # Comptes
 # ------------------------------------------------------------------
+LANGUES = [code for code, _nom in settings.LANGUAGES]
+
+
+def valider_pays(v):
+    from ..pays import CODES_PAYS
+    v = (v or "").upper()
+    if v not in CODES_PAYS:
+        raise serializers.ValidationError(_("Pays d'immatriculation inconnu (code ISO à 2 lettres attendu)."))
+    return v
+
+
 class InscriptionSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True, trim_whitespace=False)
     prenom = serializers.CharField(max_length=100)
     nom = serializers.CharField(max_length=100)
+    langue = serializers.ChoiceField(choices=LANGUES, required=False, default="fr")
 
     def validate_email(self, v):
         from utilisateurs.models import Utilisateur
         v = v.strip().lower()
         if Utilisateur.objects.filter(email__iexact=v).exists():
-            raise serializers.ValidationError("Un compte existe déjà avec cet email.")
+            raise serializers.ValidationError(_("Un compte existe déjà avec cet email."))
         return v
 
     def validate(self, data):
@@ -146,14 +156,71 @@ class InscriptionSerializer(serializers.Serializer):
 
 
 class UtilisateurSerializer(serializers.Serializer):
+    """Profil + préférences (langue, pays par défaut, rangées dans le schéma des particuliers)."""
     id = serializers.UUIDField(read_only=True)
     email = serializers.EmailField(read_only=True)
     prenom = serializers.CharField(max_length=100)
     nom = serializers.CharField(max_length=100)
     telephone = serializers.CharField(max_length=20, allow_blank=True, required=False, allow_null=True)
+    langue = serializers.ChoiceField(choices=LANGUES, required=False)
+    pays_defaut = serializers.CharField(max_length=2, required=False)
+
+    PREFERENCES = ("langue", "pays_defaut")
+
+    def validate_pays_defaut(self, v):
+        return valider_pays(v)
+
+    def to_representation(self, instance):
+        from ..models import PreferencesParticulier
+        data = {
+            "id": str(instance.pk), "email": instance.email, "prenom": instance.prenom, "nom": instance.nom,
+            "telephone": instance.telephone,
+        }
+        prefs = PreferencesParticulier.objects.filter(utilisateur=instance).first()
+        data["langue"] = prefs.langue if prefs else "fr"
+        data["pays_defaut"] = prefs.pays_defaut if prefs else "BE"
+        return data
 
     def update(self, instance, data):
+        from ..models import PreferencesParticulier
+        prefs = {k: data.pop(k) for k in self.PREFERENCES if k in data}
         for k, v in data.items():
             setattr(instance, k, v)
-        instance.save(update_fields=list(data) + ["updated_at"])
+        if data:
+            instance.save(update_fields=list(data) + ["updated_at"])
+        if prefs:
+            PreferencesParticulier.objects.update_or_create(utilisateur=instance, defaults=prefs)
         return instance
+
+
+class MotDePasseSerializer(serializers.Serializer):
+    ancien = serializers.CharField(trim_whitespace=False)
+    nouveau = serializers.CharField(trim_whitespace=False)
+
+    def validate_ancien(self, v):
+        if not self.context["request"].user.check_password(v):
+            raise serializers.ValidationError(_("Mot de passe actuel incorrect."))
+        return v
+
+    def validate(self, data):
+        password_validation.validate_password(data["nouveau"], self.context["request"].user)
+        return data
+
+
+class EmailSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(trim_whitespace=False)
+
+    def validate_password(self, v):
+        if not self.context["request"].user.check_password(v):
+            raise serializers.ValidationError(_("Mot de passe incorrect."))
+        return v
+
+    def validate_email(self, v):
+        from django_tenants.utils import get_public_schema_name, schema_context
+        from utilisateurs.models import Utilisateur
+        v = v.strip().lower()
+        with schema_context(get_public_schema_name()):
+            if Utilisateur.objects.filter(email__iexact=v).exclude(pk=self.context["request"].user.pk).exists():
+                raise serializers.ValidationError(_("Un compte existe déjà avec cet email."))
+        return v

@@ -88,7 +88,11 @@ lib/
   ecrans/vehicule_form_ecran.dart  ajout / modification d'un véhicule (+ VIN)
   ecrans/vin_ecran.dart       lecture du VIN : code-barres, OCR, saisie
   ecrans/formulaire_ecran.dart     formulaire générique (dont photos et fichiers)
-  ecrans/connexion_ecran.dart, compte_ecran.dart
+  ecrans/connexion_ecran.dart connexion / inscription (choix de la langue)
+  ecrans/reglages_ecran.dart  réglages : profil, email, mot de passe, langue, pays par défaut,
+                              formule, déconnexion, suppression du compte
+  l10n/langue.dart            langue courante, t('texte français') → traduction
+  l10n/traductions.dart       traductions nl, en, de, es, it, el (clé = texte français)
   widgets/                    listes, fichiers protégés, formats (€, km, dates)
 ```
 
@@ -97,7 +101,8 @@ lib/
 | Méthode | Chemin | Rôle |
 |---|---|---|
 | POST | `auth/inscription/` · `auth/connexion/` · `auth/deconnexion/` | compte, jeton |
-| GET / PATCH / DELETE | `moi/` | profil ; suppression du compte (mot de passe) |
+| GET / PATCH / DELETE | `moi/` | profil, langue, pays par défaut ; suppression du compte (mot de passe) |
+| POST | `moi/mot-de-passe/` · `moi/email/` | changement du mot de passe (nouveau jeton) / de l'email |
 | GET | `tableau-de-bord/` | véhicules, rappels proches ou en retard, dépenses du mois |
 | CRUD | `vehicules/` (+ `{id}/synthese/`, `{id}/consommation/`, `{id}/photo/`) | véhicules |
 | CRUD | `kilometrages/` `pleins/` `entretiens/` `documents/` `rappels/` `depenses/` (`?vehicule=<id>`) | données du véhicule |
@@ -138,7 +143,8 @@ Configuration des stores :
 ## 7. Prochaines étapes
 
 - Notifications locales des rappels (`flutter_local_notifications`) puis push (APNs / FCM via Celery).
-- Traductions (`flutter gen-l10n`) : nl, en, de.
+- Langues : fr, nl, en, de, es, it, el. Un texte ajouté s'écrit `t('Texte en français')` et se traduit
+  dans `lib/l10n/traductions.dart` (sinon il reste en français).
 - Saisie hors ligne des pleins (file d'attente locale).
 - « Se connecter avec Apple » (obligatoire si une connexion Google est ajoutée).
 - Publication : icônes, App Store Connect, Google Play, MSIX (Windows).

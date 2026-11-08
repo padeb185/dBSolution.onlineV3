@@ -49,6 +49,18 @@ class SchemaParticuliersMixin:
     def initial(self, request, *args, **kwargs):
         super().initial(request, *args, **kwargs)
         noter_activite(request.user)
+        activer_langue(request)
+
+
+def activer_langue(request):
+    """Messages de l'API dans la langue choisie dans l'application (préférences du compte)."""
+    from django.utils import translation
+    from ..models import PreferencesParticulier
+    langue = (PreferencesParticulier.objects.filter(utilisateur=request.user)
+              .values_list("langue", flat=True).first())
+    if langue:
+        translation.activate(langue)
+        request.LANGUAGE_CODE = langue
 
 
 def noter_activite(user):

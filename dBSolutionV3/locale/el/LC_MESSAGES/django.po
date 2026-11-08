@@ -82617,3 +82617,115 @@ msgstr "Vevaiosi_metavivasis"
 
 #~ msgid "sur"
 #~ msgstr "από"
+
+#. Application des particuliers (API particulier/)
+#: particulier/api/views.py
+#, python-format
+msgid "Produit inconnu : %s"
+msgstr "Άγνωστο προϊόν: %s"
+
+#: particulier/api/views.py
+#, python-format
+msgid "Votre formule %(f)s permet %(n)d véhicule(s) actif(s). Passez à la formule %(s)s pour en ajouter (jusqu'à %(m)d), ou archivez un véhicule vendu."
+msgstr "Το πρόγραμμα %(f)s επιτρέπει %(n)d ενεργό(ά) όχημα(τα). Μεταβείτε στο πρόγραμμα %(s)s για να προσθέσετε περισσότερα (έως %(m)d) ή αρχειοθετήστε ένα όχημα που πουλήθηκε."
+
+#: particulier/api/views.py
+#, python-format
+msgid "La formule %(f)s permet au maximum %(n)d véhicules actifs : archivez un véhicule vendu pour en ajouter un."
+msgstr "Το πρόγραμμα %(f)s επιτρέπει έως %(n)d ενεργά οχήματα: αρχειοθετήστε ένα όχημα που πουλήθηκε για να προσθέσετε άλλο."
+
+#: particulier/api/views.py
+msgid "Cet abonnement est déjà utilisé par un autre compte CarsCosts."
+msgstr "Αυτή η συνδρομή χρησιμοποιείται ήδη από άλλον λογαριασμό CarsCosts."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat manquante."
+msgstr "Λείπει η απόδειξη αγοράς."
+
+#: particulier/api/views.py
+msgid "Les achats de test ne sont pas acceptés sur ce serveur."
+msgstr "Οι δοκιμαστικές αγορές δεν γίνονται δεκτές σε αυτόν τον διακομιστή."
+
+#: particulier/api/views.py
+msgid "Plateforme inconnue."
+msgstr "Άγνωστη πλατφόρμα."
+
+#: particulier/api/views.py
+msgid "Achat de test (Sandbox) refusé par le serveur de production."
+msgstr "Η δοκιμαστική αγορά (Sandbox) απορρίφθηκε από τον διακομιστή παραγωγής."
+
+#: particulier/api/views.py
+msgid "Vérification Apple non configurée (APPLE_ROOT_CA_G3)."
+msgstr "Η επαλήθευση Apple δεν έχει ρυθμιστεί (APPLE_ROOT_CA_G3)."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat Apple illisible."
+msgstr "Η απόδειξη αγοράς Apple δεν είναι αναγνώσιμη."
+
+#: particulier/api/views.py
+msgid "Chaîne de certificats Apple invalide."
+msgstr "Μη έγκυρη αλυσίδα πιστοποιητικών Apple."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat Apple invalide."
+msgstr "Μη έγκυρη απόδειξη αγοράς Apple."
+
+#: particulier/api/views.py
+msgid "Achat d'une autre application."
+msgstr "Αγορά άλλης εφαρμογής."
+
+#: particulier/api/views.py
+msgid "Vérification Google Play non configurée (GOOGLE_SERVICE_ACCOUNT_FILE)."
+msgstr "Η επαλήθευση Google Play δεν έχει ρυθμιστεί (GOOGLE_SERVICE_ACCOUNT_FILE)."
+
+#: particulier/api/views.py
+msgid "Vérification Google Play non configurée (GOOGLE_PACKAGE_NAME)."
+msgstr "Η επαλήθευση Google Play δεν έχει ρυθμιστεί (GOOGLE_PACKAGE_NAME)."
+
+#: particulier/api/views.py
+msgid "Google Play injoignable, réessayez plus tard."
+msgstr "Το Google Play δεν είναι προσβάσιμο, δοκιμάστε ξανά αργότερα."
+
+#: particulier/api/views.py
+msgid "Preuve d'achat Google Play invalide."
+msgstr "Μη έγκυρη απόδειξη αγοράς Google Play."
+
+#: particulier/api/views.py
+msgid "Espace particuliers non configuré."
+msgstr "Ο χώρος ιδιωτών δεν έχει ρυθμιστεί."
+
+#: particulier/api/views.py
+msgid "Email ou mot de passe incorrect."
+msgstr "Λανθασμένο email ή κωδικός πρόσβασης."
+
+#: particulier/api/views.py
+msgid "Ce compte est un compte professionnel : connectez-vous sur le site web."
+msgstr "Αυτός είναι επαγγελματικός λογαριασμός: συνδεθείτε από τον ιστότοπο."
+
+#: particulier/api/views.py
+msgid "Mot de passe incorrect."
+msgstr "Λανθασμένος κωδικός πρόσβασης."
+
+#: particulier/api/views.py
+msgid "VIN invalide : 17 caractères, sans I, O ni Q."
+msgstr "Μη έγκυρο VIN: 17 χαρακτήρες, χωρίς I, O ή Q."
+
+#: particulier/api/views.py
+msgid "L'expiration précède le début de validité."
+msgstr "Η λήξη προηγείται της έναρξης ισχύος."
+
+#: particulier/api/views.py
+msgid "Pays d'immatriculation inconnu (code ISO à 2 lettres attendu)."
+msgstr "Άγνωστη χώρα ταξινόμησης (αναμένεται κωδικός ISO 2 γραμμάτων)."
+
+#: particulier/api/views.py
+msgid "Un compte existe déjà avec cet email."
+msgstr "Υπάρχει ήδη λογαριασμός με αυτό το email."
+
+#: particulier/api/views.py
+msgid "Mot de passe actuel incorrect."
+msgstr "Ο τρέχων κωδικός πρόσβασης είναι λανθασμένος."
+
+#: particulier/api/views.py
+msgid "Gratuit"
+msgstr "Δωρεάν"
