@@ -55,7 +55,7 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
 
   Future<void> _ajouter(Ressource r) async {
     final ok = await Navigator.push<bool>(
-        context, MaterialPageRoute(builder: (_) => FormulaireEcran(ressource: r, vehiculeId: _id)));
+        context, MaterialPageRoute(builder: (_) => FormulaireEcran(ressource: r, vehiculeId: _id, vehicule: _vehicule)));
     if (ok == true) setState(_chargerSynthese);
   }
 
@@ -81,7 +81,8 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
           children: [
             _resume(),
             for (final r in ressourcesVehicule)
-              ListeRessource(ressource: r, vehiculeId: _id, auChangement: () => setState(_chargerSynthese)),
+              ListeRessource(
+                  ressource: r, vehiculeId: _id, vehicule: _vehicule, auChangement: () => setState(_chargerSynthese)),
           ],
         ),
       ),
@@ -101,7 +102,7 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
           if (snap.connectionState != ConnectionState.done) return const Center(child: CircularProgressIndicator());
           if (snap.hasError) return ListView(children: [Padding(padding: const EdgeInsets.all(24), child: Text('${snap.error}'))]);
           final s = snap.data!;
-          final electrique = _vehicule['energie'] == 'electrique';
+          final unite = s['consommation_unite'] ?? (_vehicule['energie'] == 'electrique' ? 'kWh' : 'L');
           return ListView(
             padding: const EdgeInsets.all(16),
             children: [
@@ -156,7 +157,9 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
                   _kpi(t('Coût net / mois'), euros(s['cout_mois'])),
                   _kpi(t('Consommation'), s['consommation_moyenne'] == null
                       ? '—'
-                      : '${nombre(s['consommation_moyenne'])} ${electrique ? 'kWh' : 'L'}/100'),
+                      : '${nombre(s['consommation_moyenne'])} $unite/100 km'),
+                  if (s['consommation_electrique'] != null)
+                    _kpi(t('Consommation électrique'), '${nombre(s['consommation_electrique'])} kWh/100 km'),
                   _kpi(t('Valeur de revente'), euros(s['valeur_revente'])),
                 ],
               ),

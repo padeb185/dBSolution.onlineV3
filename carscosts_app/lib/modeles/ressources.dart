@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../l10n/langue.dart';
 import '../widgets/format.dart';
+import 'pays.dart';
 
 /// Type de champ d'un formulaire générique.
 enum TypeChamp { texte, entier, decimal, date, booleen, choix, image, fichier }
@@ -88,6 +89,37 @@ Map<String, String> get categoriesDepense => {
   'autre': t('Autre'),
 };
 
+/// Carburants d'un plein (code API → libellé)
+Map<String, String> get carburants => {
+  'sp95': t('Essence SP95 (E5)'),
+  'sp95_e10': t('Essence SP95-E10'),
+  'sp98': t('Essence SP98 (Super Plus)'),
+  'sp102': t('Essence 102 (Ultimate 102)'),
+  'diesel': t('Diesel (B7)'),
+  'diesel_premium': t('Diesel premium (Diesel+)'),
+  'hvo': t('HVO (diesel renouvelable, XTL)'),
+  'e85': t('Éthanol E85 (superéthanol)'),
+  'gpl': t('GPL (LPG)'),
+  'gnc': t('GNC (CNG)'),
+  'electricite': t('Électricité'),
+};
+
+/// Unité de la quantité d'un plein selon le carburant.
+String uniteCarburant(String? carburant) => switch (carburant) {
+      'electricite' => 'kWh',
+      'gnc' => 'kg',
+      _ => 'L',
+    };
+
+/// Carburant proposé pour un nouveau plein, d'après l'énergie du véhicule.
+String carburantParDefaut(String? energie) => switch (energie) {
+      'diesel' => 'diesel',
+      'gpl' => 'gpl',
+      'gnc' => 'gnc',
+      'electrique' => 'electricite',
+      _ => 'sp95',
+    };
+
 Map<String, String> get energies => {
   'essence': t('Essence'),
   'diesel': t('Diesel'),
@@ -108,19 +140,32 @@ Ressource get pleins => Ressource(
   icone: Icons.local_gas_station,
   champs: [
     Champ('date', t('Date'), TypeChamp.date, obligatoire: true),
+    Champ('carburant', t('Carburant'), TypeChamp.choix, obligatoire: true, choix: carburants),
+    // Pays de la station : taux de TVA proposé (voir FormulaireEcran)
+    Champ('pays', t('Pays de la station'), TypeChamp.choix, obligatoire: true, choix: paysImmatriculation),
     Champ('kilometrage', t('Kilométrage'), TypeChamp.entier, obligatoire: true, suffixe: 'km'),
-    Champ('quantite', t('Quantité'), TypeChamp.decimal, obligatoire: true, suffixe: 'L / kWh'),
-    Champ('montant', t('Montant payé'), TypeChamp.decimal, obligatoire: true, suffixe: '€'),
+    // Unité affichée selon le carburant choisi (L, kWh, kg) : voir FormulaireEcran
+    Champ('quantite', t('Quantité'), TypeChamp.decimal, obligatoire: true, suffixe: 'L'),
+    Champ('montant', t('Montant payé TVAC'), TypeChamp.decimal, obligatoire: true, suffixe: '€'),
+    Champ('taux_tva', t('Taux de TVA'), TypeChamp.decimal, suffixe: '%',
+        aide: t('Taux du pays de la station, modifiable.')),
     Champ('plein_complet', t('Plein complet'), TypeChamp.booleen,
         parDefaut: true, aide: t('Nécessaire pour calculer la consommation.')),
-    Champ('electrique', t('Recharge électrique'), TypeChamp.booleen, parDefaut: false),
     Champ('station', t('Station'), TypeChamp.texte),
     Champ('ticket', t('Photo du ticket'), TypeChamp.image),
     Champ('remarques', t('Remarques'), TypeChamp.texte),
   ],
-  titreLigne: (p) => '${nombre(p['quantite'])} ${p['electrique'] == true ? 'kWh' : 'L'} – ${euros(p['montant'])}',
-  sousTitreLigne: (p) => '${dateFr(p['date'])} · ${km(p['kilometrage'])}'
-      '${p['prix_unitaire'] != null ? ' · ${nombre(p['prix_unitaire'], decimales: 3)} €/u' : ''}',
+  titreLigne: (p) => '${nombre(p['quantite'])} ${p['unite'] ?? uniteCarburant(p['carburant'] as String?)}'
+      ' – ${euros(p['montant'])}',
+  sousTitreLigne: (p) => [
+    if (p['carburant'] != null) carburants[p['carburant']] ?? p['carburant'],
+    dateFr(p['date']),
+    km(p['kilometrage']),
+    if ((p['pays'] ?? '').toString().isNotEmpty) p['pays'],
+    if (p['montant_tva'] != null) t('TVA {taux} % : {montant}', {'taux': nombre(p['taux_tva'], decimales: 1), 'montant': euros(p['montant_tva'])}),
+    if (p['prix_unitaire'] != null)
+      '${nombre(p['prix_unitaire'], decimales: 3)} €/${p['unite'] ?? uniteCarburant(p['carburant'] as String?)}',
+  ].join(' · '),
 );
 
 Ressource get entretiens => Ressource(

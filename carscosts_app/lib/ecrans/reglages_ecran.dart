@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../achats/abonnement.dart';
 import '../api/api_client.dart';
 import '../api/session.dart';
-import '../config.dart';
 import '../l10n/langue.dart';
 import '../modeles/pays.dart';
 import 'formules_ecran.dart';
@@ -253,8 +252,6 @@ class ReglagesEcran extends StatelessWidget {
             title: Text(t('Supprimer mon compte'), style: const TextStyle(color: Colors.red)),
             onTap: () => _supprimer(context),
           ),
-          const Divider(),
-          ListTile(dense: true, title: Text(t('Serveur')), subtitle: const Text(apiUrl)),
         ],
       ),
     );

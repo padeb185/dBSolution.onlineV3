@@ -119,8 +119,9 @@ class VehiculeAdmin(AccesAdminParticuliers, LectureFichiersMixin, admin.ModelAdm
 @admin.register(Plein)
 class PleinAdmin(DonneeVehiculeAdmin):
     champs_fichier = ("ticket",)
-    list_display = ("date", "vehicule", "proprietaire", "kilometrage", "quantite", "montant", "plein_complet", "ticket_lien")
-    list_filter = ("plein_complet", "electrique")
+    list_display = ("date", "vehicule", "proprietaire", "carburant", "kilometrage", "quantite", "montant", "plein_complet",
+                    "ticket_lien")
+    list_filter = ("carburant", "plein_complet")
     date_hierarchy = "date"
     readonly_fields = ("ticket_lien",)
     ticket_lien = lien_fichier("plein", "ticket")

@@ -38,10 +38,12 @@ class StatutRappel extends StatelessWidget {
 
 /// Liste des éléments d'une ressource pour un véhicule, avec ajout / modification.
 class ListeRessource extends StatefulWidget {
-  const ListeRessource({super.key, required this.ressource, required this.vehiculeId, this.auChangement});
+  const ListeRessource(
+      {super.key, required this.ressource, required this.vehiculeId, this.auChangement, this.vehicule});
 
   final Ressource ressource;
   final String vehiculeId;
+  final Map<String, dynamic>? vehicule;
   final VoidCallback? auChangement;
 
   @override
@@ -71,7 +73,8 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
     final modifie = await Navigator.push<bool>(
       context,
       MaterialPageRoute(
-        builder: (_) => FormulaireEcran(ressource: widget.ressource, vehiculeId: widget.vehiculeId, element: element),
+        builder: (_) => FormulaireEcran(
+            ressource: widget.ressource, vehiculeId: widget.vehiculeId, element: element, vehicule: widget.vehicule),
       ),
     );
     if (modifie == true) {

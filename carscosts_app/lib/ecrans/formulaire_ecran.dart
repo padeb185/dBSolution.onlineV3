@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../api/api_client.dart';
 import '../l10n/langue.dart';
 import '../modeles/ressources.dart';
+import '../modeles/tva.dart';
 import '../widgets/fichiers.dart';
 import '../widgets/format.dart';
 
@@ -15,10 +16,13 @@ bool get estMobile => Platform.isIOS || Platform.isAndroid;
 
 /// Formulaire générique (création / modification) d'une ressource rattachée à un véhicule.
 class FormulaireEcran extends StatefulWidget {
-  const FormulaireEcran({super.key, required this.ressource, required this.vehiculeId, this.element});
+  const FormulaireEcran({super.key, required this.ressource, required this.vehiculeId, this.element, this.vehicule});
 
   final Ressource ressource;
   final String vehiculeId;
+
+  /// Véhicule (énergie : carburant proposé pour un nouveau plein)
+  final Map<String, dynamic>? vehicule;
   final Map<String, dynamic>? element; // null : création
 
   @override
@@ -49,6 +53,41 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
         _valeurs[c.nom] = existant ?? c.parDefaut;
       }
     }
+    if (widget.ressource.champs.any((c) => c.nom == 'carburant') && _valeurs['carburant'] == null) {
+      _valeurs['carburant'] = carburantParDefaut(widget.vehicule?['energie'] as String?);
+    }
+    // Plein : pays de la station (par défaut celui de la plaque) et taux de TVA de ce pays
+    if (widget.ressource.champs.any((c) => c.nom == 'pays') && _valeurs['pays'] == null) {
+      _valeurs['pays'] = (widget.vehicule?['pays_immatriculation'] as String?)?.toUpperCase() ?? 'BE';
+    }
+    final taux = _textes['taux_tva'];
+    if (taux != null && taux.text.isEmpty && !_modification) _proposerTaux();
+  }
+
+  /// Taux de TVA du pays choisi (vide si le pays n'est pas dans la table : à saisir).
+  void _proposerTaux() {
+    final taux = tvaCarburant[_valeurs['pays']];
+    _textes['taux_tva']?.text = taux == null ? '' : nombre(taux, decimales: taux % 1 == 0 ? 0 : 1).replaceAll(' ', '');
+  }
+
+  /// Ventilation du montant TVAC : HTVA et TVA (mise à jour pendant la saisie).
+  Widget _ventilationTva() {
+    final montant = _textes['montant'];
+    final taux = _textes['taux_tva'];
+    if (montant == null || taux == null) return const SizedBox.shrink();
+    return AnimatedBuilder(
+      animation: Listenable.merge([montant, taux]),
+      builder: (context, _) {
+        double? lire(TextEditingController c) => double.tryParse(c.text.trim().replaceAll(',', '.'));
+        final v = ventilerTva(lire(montant), lire(taux));
+        if (v == null) return const SizedBox.shrink();
+        return Padding(
+          padding: const EdgeInsets.only(left: 12, top: 4),
+          child: Text(t('HTVA {htva} · TVA {tva}', {'htva': euros(v.$1), 'tva': euros(v.$2)}),
+              style: Theme.of(context).textTheme.bodySmall),
+        );
+      },
+    );
   }
 
   @override
@@ -142,7 +181,10 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
     final erreur = _erreurs[c.nom];
     final decoration = InputDecoration(
       labelText: c.libelle + (c.obligatoire ? ' *' : ''),
-      suffixText: c.suffixe,
+      // Quantité d'un plein : unité du carburant choisi (L, kWh, kg)
+      suffixText: c.nom == 'quantite' && _valeurs.containsKey('carburant')
+          ? uniteCarburant(_valeurs['carburant'] as String?)
+          : c.suffixe,
       helperText: c.aide,
       helperMaxLines: 2,
       errorText: erreur,
@@ -197,11 +239,16 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
           initialValue: _valeurs[c.nom] as String?,
           isExpanded: true,
           decoration: decoration,
+          menuMaxHeight: 420,
           items: [
             if (!c.obligatoire) const DropdownMenuItem(value: null, child: Text('—')),
-            for (final e in c.choix.entries) DropdownMenuItem(value: e.key, child: Text(e.value)),
+            for (final e in c.choix.entries)
+              DropdownMenuItem(value: e.key, child: Text(e.value, overflow: TextOverflow.ellipsis)),
           ],
-          onChanged: (v) => setState(() => _valeurs[c.nom] = v),
+          onChanged: (v) => setState(() {
+            _valeurs[c.nom] = v;
+            if (c.nom == 'pays') _proposerTaux();
+          }),
           validator: (v) => c.obligatoire && v == null ? t('Champ obligatoire') : null,
         );
       case TypeChamp.image:
@@ -278,7 +325,13 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            for (final c in r.champs) Padding(padding: const EdgeInsets.only(bottom: 14), child: _champ(c)),
+            for (final c in r.champs)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 14),
+                child: c.nom == 'taux_tva'
+                    ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [_champ(c), _ventilationTva()])
+                    : _champ(c),
+              ),
             FilledButton.icon(
               onPressed: _envoi ? null : _enregistrer,
               icon: _envoi

@@ -34,12 +34,27 @@ def mois_entre(debut, fin):
 # ------------------------------------------------------------------
 # Consommation (méthode du plein à plein)
 # ------------------------------------------------------------------
-def consommation(vehicule):
+def famille_carburant(carburant):
+    """Les consommations ne se mélangent pas : carburants liquides (L), électricité (kWh), GNC (kg)."""
+    from .models import unite_carburant
+    return unite_carburant(carburant)
+
+
+def famille_principale(vehicule):
+    from .models import CARBURANT_PAR_ENERGIE, Carburant
+    return famille_carburant(CARBURANT_PAR_ENERGIE.get(vehicule.energie, Carburant.SP95))
+
+
+def consommation(vehicule, unite=None):
     """
     Consommation entre deux pleins complets : quantités ajoutées depuis le plein complet précédent
-    (pleins partiels compris) ÷ kilomètres parcourus × 100. Unité : L/100 km ou kWh/100 km.
+    (pleins partiels compris) ÷ kilomètres parcourus × 100, pour une seule famille de carburant
+    (par défaut celle de l'énergie du véhicule) : L/100 km, kWh/100 km ou kg/100 km.
+    Hybride rechargeable : carburant et recharges sont calculés séparément.
     """
-    pleins = sorted(vehicule.pleins.all(), key=lambda p: (p.kilometrage, p.date))
+    unite = unite or famille_principale(vehicule)
+    pleins = sorted((p for p in vehicule.pleins.all() if famille_carburant(p.carburant) == unite),
+                    key=lambda p: (p.kilometrage, p.date))
     mesures, precedent, cumul = [], None, ZERO
     for p in pleins:
         if precedent is not None:
@@ -56,6 +71,7 @@ def consommation(vehicule):
         "mesures": mesures,
         "moyenne": (total_q / total_km * 100).quantize(D("0.01")) if total_km else None,
         "derniere": mesures[-1]["conso"] if mesures else None,
+        "unite": unite,
     }
 
 
@@ -181,5 +197,9 @@ def synthese(vehicule, aujourdhui=None):
         "cout_mois": r2(net / mois) if mois else None,
         "consommation_moyenne": conso["moyenne"],
         "consommation_derniere": conso["derniere"],
+        "consommation_unite": conso["unite"],
+        # Hybride rechargeable : consommation électrique à part
+        "consommation_electrique": (consommation(vehicule, "kWh")["moyenne"]
+                                    if vehicule.energie == "phev" else None),
         "par_annee": [annees[a] for a in sorted(annees)],
     }

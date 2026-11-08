@@ -60,11 +60,21 @@ class ReleveSerializer(VehiculeChampMixin, serializers.ModelSerializer):
 class PleinSerializer(VehiculeChampMixin, FichierMixin, serializers.ModelSerializer):
     fichiers = {"ticket": "api_particulier:plein-ticket"}
     prix_unitaire = serializers.DecimalField(max_digits=10, decimal_places=3, read_only=True)
+    unite = serializers.CharField(read_only=True)
 
     class Meta:
         model = Plein
         fields = "__all__"
-        read_only_fields = ["id", "created_at"]
+        read_only_fields = ["id", "created_at", "electrique", "montant_htva", "montant_tva"]
+
+    def validate_pays(self, v):
+        return valider_pays(v) if v else v
+
+    def validate(self, data):
+        # Pays changé sans taux : taux du nouveau pays (recalculé à l'enregistrement)
+        if "pays" in data and "taux_tva" not in data:
+            data["taux_tva"] = None
+        return data
 
 
 class EntretienSerializer(VehiculeChampMixin, FichierMixin, serializers.ModelSerializer):

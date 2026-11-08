@@ -109,18 +109,56 @@ class ReleveKilometrique(models.Model):
         ordering = ["-date", "-kilometrage"]
 
 
+class Carburant(models.TextChoices):
+    SP95 = "sp95", _("Essence SP95 (E5)")
+    SP95_E10 = "sp95_e10", _("Essence SP95-E10")
+    SP98 = "sp98", _("Essence SP98 (Super Plus)")
+    SP102 = "sp102", _("Essence 102 (Ultimate 102)")
+    DIESEL = "diesel", _("Diesel (B7)")
+    DIESEL_PREMIUM = "diesel_premium", _("Diesel premium (Diesel+)")
+    HVO = "hvo", _("HVO (diesel renouvelable, XTL)")
+    E85 = "e85", _("Éthanol E85 (superéthanol)")
+    GPL = "gpl", _("GPL (LPG)")
+    GNC = "gnc", _("GNC (CNG)")
+    ELECTRICITE = "electricite", _("Électricité")
+
+
+# Unité de la quantité selon le carburant (consommation : unité / 100 km)
+UNITES_CARBURANT = {Carburant.ELECTRICITE: "kWh", Carburant.GNC: "kg"}
+
+# Carburant proposé par défaut selon l'énergie du véhicule
+CARBURANT_PAR_ENERGIE = {
+    "essence": Carburant.SP95, "hybride": Carburant.SP95, "phev": Carburant.SP95,
+    "diesel": Carburant.DIESEL, "gpl": Carburant.GPL, "gnc": Carburant.GNC, "electrique": Carburant.ELECTRICITE,
+}
+
+
+def unite_carburant(carburant):
+    return UNITES_CARBURANT.get(carburant, "L")
+
+
 class Plein(models.Model):
     vehicule = models.ForeignKey(Vehicule, on_delete=models.CASCADE, related_name="pleins")
     date = models.DateField(_("Date"), default=date.today)
     kilometrage = models.PositiveIntegerField(_("Kilométrage"))
-    quantite = models.DecimalField(_("Quantité (litres ou kWh)"), max_digits=8, decimal_places=2,
+    quantite = models.DecimalField(_("Quantité (litres, kWh ou kg)"), max_digits=8, decimal_places=2,
                                    validators=[MinValueValidator(0)])
     montant = models.DecimalField(_("Montant payé TVAC"), max_digits=10, decimal_places=2,
                                   validators=[MinValueValidator(0)])
     plein_complet = models.BooleanField(_("Plein complet"), default=True,
                                         help_text=_("Nécessaire pour calculer la consommation."))
-    electrique = models.BooleanField(_("Recharge électrique"), default=False)
+    carburant = models.CharField(_("Carburant"), max_length=20, choices=Carburant.choices, blank=True)
+    # Déduit du carburant (compatibilité) : recharge électrique
+    electrique = models.BooleanField(_("Recharge électrique"), default=False, editable=False)
     station = models.CharField(_("Station"), max_length=120, blank=True)
+    # Pays de la station et TVA (taux du pays, modifiable) : montant TVAC ventilé en HTVA + TVA
+    pays = models.CharField(_("Pays de la station"), max_length=2, blank=True)
+    taux_tva = models.DecimalField(_("Taux de TVA (%)"), max_digits=5, decimal_places=2, null=True, blank=True,
+                                   validators=[MinValueValidator(0)])
+    montant_htva = models.DecimalField(_("Montant HTVA"), max_digits=10, decimal_places=2, null=True, blank=True,
+                                       editable=False)
+    montant_tva = models.DecimalField(_("TVA"), max_digits=10, decimal_places=2, null=True, blank=True,
+                                      editable=False)
     ticket = models.ImageField(_("Photo du ticket"), upload_to=chemin_ticket, null=True, blank=True)
     remarques = models.TextField(_("Remarques"), blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -129,6 +167,22 @@ class Plein(models.Model):
         verbose_name = _("Plein")
         verbose_name_plural = _("Pleins")
         ordering = ["-date", "-kilometrage"]
+
+    def save(self, *args, **kwargs):
+        if not self.carburant:
+            self.carburant = CARBURANT_PAR_ENERGIE.get(self.vehicule.energie, Carburant.SP95)
+        self.electrique = self.carburant == Carburant.ELECTRICITE
+        from .tva import taux_tva, ventiler
+        if not self.pays:
+            self.pays = self.vehicule.pays_immatriculation or "BE"
+        if self.taux_tva is None:
+            self.taux_tva = taux_tva(self.pays)
+        self.montant_htva, self.montant_tva = ventiler(self.montant, self.taux_tva)
+        super().save(*args, **kwargs)
+
+    @property
+    def unite(self):
+        return unite_carburant(self.carburant)
 
     @property
     def prix_unitaire(self):
