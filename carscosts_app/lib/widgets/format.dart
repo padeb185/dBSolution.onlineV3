@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 
 import '../l10n/langue.dart';
+import '../l10n/unites.dart';
 
 double? enDouble(dynamic v) => v == null ? null : (v is num ? v.toDouble() : double.tryParse(v.toString()));
 
@@ -8,7 +9,13 @@ double? enDouble(dynamic v) => v == null ? null : (v is num ? v.toDouble() : dou
 String euros(dynamic v) =>
     v == null ? '—' : NumberFormat.currency(locale: localeIntl, symbol: '€', decimalDigits: 2).format(enDouble(v) ?? 0);
 
-String km(dynamic v) => v == null ? '—' : '${NumberFormat.decimalPattern(localeIntl).format(enDouble(v) ?? 0)} km';
+/// Distance (serveur : km) dans l'unité du véhicule ou du compte : « 12 345 km » / « 7 671 mi ».
+String km(dynamic v, [Unites? unites]) {
+  if (v == null) return '—';
+  final u = unites ?? Unites.compte;
+  return '${NumberFormat.decimalPatternDigits(locale: localeIntl, decimalDigits: 0).format(u.depuisKm(enDouble(v) ?? 0))} '
+      '${u.symboleDistance}';
+}
 
 String nombre(dynamic v, {int decimales = 2}) => v == null
     ? '—'

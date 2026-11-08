@@ -5,7 +5,9 @@ import '../achats/abonnement.dart';
 import '../api/api_client.dart';
 import '../api/session.dart';
 import '../l10n/langue.dart';
+import '../l10n/unites.dart';
 import '../modeles/pays.dart';
+import '../widgets/champ_pays.dart';
 import 'formules_ecran.dart';
 
 /// Réglages : profil, email, mot de passe, langue, pays par défaut, formule, déconnexion, suppression du compte.
@@ -121,6 +123,31 @@ class ReglagesEcran extends StatelessWidget {
     await _executer(context, () => session.modifierProfil({'pays_defaut': code}), t('Pays par défaut enregistré.'));
   }
 
+  // ------------------------------------------------------------------ Unités
+  static Map<String, String> get _distances => {'km': t('Kilomètres'), 'mi': t('Miles')};
+  static Map<String, String> get _volumes =>
+      {'L': t('Litres'), 'gal_us': t('Gallons US'), 'gal_uk': t('Gallons impériaux (UK)')};
+
+  Future<void> _unite(BuildContext context, String champ, String titre, Map<String, String> choix, String actuel) async {
+    final session = context.read<Session>();
+    final code = await showDialog<String>(
+      context: context,
+      builder: (ctx) => SimpleDialog(
+        title: Text(titre),
+        children: [
+          for (final e in choix.entries)
+            ListTile(
+              title: Text(e.value),
+              trailing: e.key == actuel ? const Icon(Icons.check) : null,
+              onTap: () => Navigator.pop(ctx, e.key),
+            ),
+        ],
+      ),
+    );
+    if (code == null || code == actuel || !context.mounted) return;
+    await _executer(context, () => session.modifierProfil({champ: code}), null);
+  }
+
   // ------------------------------------------------------------------ Compte
   Future<void> _supprimer(BuildContext context) async {
     final session = context.read<Session>();
@@ -230,6 +257,25 @@ class ReglagesEcran extends StatelessWidget {
             trailing: const Icon(Icons.chevron_right),
             onTap: () => _pays(context),
           ),
+          ListTile(
+            leading: const Icon(Icons.straighten),
+            title: Text(t('Distances')),
+            subtitle: Text(_distances[Unites.compte.distance] ?? ''),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => _unite(context, 'unite_distance', t('Distances'), _distances, Unites.compte.distance),
+          ),
+          ListTile(
+            leading: const Icon(Icons.local_gas_station),
+            title: Text(t('Volumes de carburant')),
+            subtitle: Text(_volumes[Unites.compte.volume] ?? ''),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => _unite(context, 'unite_volume', t('Volumes de carburant'), _volumes, Unites.compte.volume),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(t('Modifiables pour chaque véhicule (fiche du véhicule).'),
+                style: Theme.of(context).textTheme.bodySmall),
+          ),
           _titre(context, t('Formule')),
           ListTile(
             leading: const Icon(Icons.workspace_premium),
@@ -273,10 +319,8 @@ class _ChoixPaysState extends State<_ChoixPays> {
 
   @override
   Widget build(BuildContext context) {
-    final f = _filtre.toLowerCase();
-    final liste = paysImmatriculation.entries
-        .where((e) => f.isEmpty || e.value.toLowerCase().contains(f) || e.key.toLowerCase() == f)
-        .toList();
+    // Même recherche que la saisie d'un pays : « L » → pays commençant par L, « Lu » → Luxembourg
+    final liste = [for (final code in rechercherPays(_filtre)) MapEntry(code, paysImmatriculation[code] ?? code)];
     return AlertDialog(
       title: Text(t('Pays d\'immatriculation par défaut')),
       contentPadding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
@@ -286,7 +330,7 @@ class _ChoixPaysState extends State<_ChoixPays> {
         child: Column(children: [
           TextField(
             autofocus: true,
-            decoration: InputDecoration(prefixIcon: const Icon(Icons.search), hintText: t('Rechercher un pays')),
+            decoration: InputDecoration(prefixIcon: const Icon(Icons.search), hintText: t('Tapez les premières lettres')),
             onChanged: (v) => setState(() => _filtre = v.trim()),
           ),
           Expanded(

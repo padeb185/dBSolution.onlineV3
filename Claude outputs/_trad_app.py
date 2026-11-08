@@ -270,3 +270,29 @@ T.update({
 'TVA {taux} % : {montant}': ('btw {taux} %: {montant}', 'VAT {taux}%: {montant}', 'MwSt. {taux} %: {montant}', 'IVA {taux} %: {montant}', 'IVA {taux}%: {montant}', 'ΦΠΑ {taux}%: {montant}'),
 'HTVA {htva} · TVA {tva}': ('Excl. btw {htva} · btw {tva}', 'Excl. VAT {htva} · VAT {tva}', 'Netto {htva} · MwSt. {tva}', 'Sin IVA {htva} · IVA {tva}', 'Imponibile {htva} · IVA {tva}', 'Χωρίς ΦΠΑ {htva} · ΦΠΑ {tva}'),
 })
+T.update({
+'Tapez les premières lettres': ('Typ de eerste letters', 'Type the first letters', 'Anfangsbuchstaben eingeben', 'Escriba las primeras letras', 'Digita le prime lettere', 'Πληκτρολογήστε τα πρώτα γράμματα'),
+'Choisissez un pays dans la liste': ('Kies een land uit de lijst', 'Choose a country from the list', 'Wählen Sie ein Land aus der Liste', 'Elija un país de la lista', "Scegli un paese dall'elenco", 'Επιλέξτε μια χώρα από τη λίστα'),
+})
+T.update({
+'Pays': ('Land', 'Country', 'Land', 'País', 'Paese', 'Χώρα'),
+'Unités : {distance}, {volume} (modifiables dans les réglages)': ('Eenheden: {distance}, {volume} (aanpasbaar in de instellingen)', 'Units: {distance}, {volume} (can be changed in settings)', 'Einheiten: {distance}, {volume} (in den Einstellungen änderbar)', 'Unidades: {distance}, {volume} (modificables en los ajustes)', 'Unità: {distance}, {volume} (modificabili nelle impostazioni)', 'Μονάδες: {distance}, {volume} (αλλάζουν στις ρυθμίσεις)'),
+'miles': ('mijl', 'miles', 'Meilen', 'millas', 'miglia', 'μίλια'),
+'kilomètres': ('kilometer', 'kilometres', 'Kilometer', 'kilómetros', 'chilometri', 'χιλιόμετρα'),
+'gallons US': ('Amerikaanse gallons', 'US gallons', 'US-Gallonen', 'galones EE. UU.', 'galloni USA', 'γαλόνια ΗΠΑ'),
+'litres': ('liter', 'litres', 'Liter', 'litros', 'litri', 'λίτρα'),
+'Kilomètres': ('Kilometer', 'Kilometres', 'Kilometer', 'Kilómetros', 'Chilometri', 'Χιλιόμετρα'),
+'Miles': ('Mijl', 'Miles', 'Meilen', 'Millas', 'Miglia', 'Μίλια'),
+'Litres': ('Liter', 'Litres', 'Liter', 'Litros', 'Litri', 'Λίτρα'),
+'Gallons US': ('Amerikaanse gallons', 'US gallons', 'US-Gallonen', 'Galones EE. UU.', 'Galloni USA', 'Γαλόνια ΗΠΑ'),
+'Gallons impériaux (UK)': ('Imperiale gallons (VK)', 'Imperial gallons (UK)', 'Britische Gallonen (UK)', 'Galones imperiales (RU)', 'Galloni imperiali (UK)', 'Αυτοκρατορικά γαλόνια (ΗΒ)'),
+'Distances': ('Afstanden', 'Distances', 'Entfernungen', 'Distancias', 'Distanze', 'Αποστάσεις'),
+'Volumes de carburant': ('Brandstofvolumes', 'Fuel volumes', 'Kraftstoffmengen', 'Volúmenes de combustible', 'Volumi di carburante', 'Όγκοι καυσίμου'),
+'Modifiables pour chaque véhicule (fiche du véhicule).': ('Per voertuig aanpasbaar (fiche van het voertuig).', 'Can be changed for each vehicle (vehicle details).', 'Für jedes Fahrzeug änderbar (Fahrzeugdatenblatt).', 'Modificables para cada vehículo (ficha del vehículo).', 'Modificabili per ogni veicolo (scheda del veicolo).', 'Αλλάζουν για κάθε όχημα (στοιχεία οχήματος).'),
+'Coût net au mile': ('Nettokosten per mijl', 'Net cost per mile', 'Nettokosten pro Meile', 'Coste neto por milla', 'Costo netto al miglio', 'Καθαρό κόστος ανά μίλι'),
+'Unités du véhicule': ('Eenheden van het voertuig', 'Vehicle units', 'Einheiten des Fahrzeugs', 'Unidades del vehículo', 'Unità del veicolo', 'Μονάδες οχήματος'),
+'Par défaut, celles des réglages. Ex. voiture importée avec un compteur en miles.': ('Standaard die van de instellingen. Bv. geïmporteerde wagen met een kilometerteller in mijl.', 'By default, those from settings. E.g. imported car with an odometer in miles.', 'Standardmäßig die der Einstellungen. Z. B. importiertes Auto mit Tacho in Meilen.', 'Por defecto, las de los ajustes. P. ej., coche importado con cuentakilómetros en millas.', 'Per impostazione predefinita, quelle delle impostazioni. Es. auto importata con contachilometri in miglia.', 'Από προεπιλογή, αυτές των ρυθμίσεων. Π.χ. εισαγόμενο αυτοκίνητο με οδόμετρο σε μίλια.'),
+'Compteur': ('Kilometerteller', 'Odometer', 'Kilometerzähler', 'Cuentakilómetros', 'Contachilometri', 'Οδόμετρο'),
+'Réglages du compte ({unite})': ('Accountinstellingen ({unite})', 'Account settings ({unite})', 'Kontoeinstellungen ({unite})', 'Ajustes de la cuenta ({unite})', "Impostazioni dell'account ({unite})", 'Ρυθμίσεις λογαριασμού ({unite})'),
+'Volume de carburant': ('Brandstofvolume', 'Fuel volume', 'Kraftstoffmenge', 'Volumen de combustible', 'Volume di carburante', 'Όγκος καυσίμου'),
+})

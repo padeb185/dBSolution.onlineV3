@@ -48,9 +48,10 @@ class CarsCostsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Changement de langue : l'application est reconstruite entièrement (tous les textes passent par t()).
-    final code = context.watch<Langue>().code;
+    final langue = context.watch<Langue>();
+    final code = langue.code;
     return MaterialApp(
-      key: ValueKey(code),
+      key: ValueKey(langue.cle),
       title: 'CarsCosts',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(colorSchemeSeed: const Color(0xFF1E3A8A), useMaterial3: true),

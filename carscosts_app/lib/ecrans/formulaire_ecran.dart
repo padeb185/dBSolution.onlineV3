@@ -7,8 +7,10 @@ import 'package:provider/provider.dart';
 
 import '../api/api_client.dart';
 import '../l10n/langue.dart';
+import '../l10n/unites.dart';
 import '../modeles/ressources.dart';
 import '../modeles/tva.dart';
+import '../widgets/champ_pays.dart';
 import '../widgets/fichiers.dart';
 import '../widgets/format.dart';
 
@@ -39,6 +41,24 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
 
   bool get _modification => widget.element != null;
 
+  /// Unités du véhicule (km / mi, L / gal) : conversion à l'affichage et à l'enregistrement
+  Unites get _unites => Unites.de(widget.vehicule);
+
+  bool _estDistance(Champ c) => c.suffixe == 'km';
+
+  /// Valeur du serveur (km, litres) → texte dans l'unité du véhicule
+  String _texteInitial(Champ c, dynamic existant) {
+    if (existant == null) return (c.parDefaut ?? '').toString();
+    final v = enDouble(existant);
+    if (v == null) return existant.toString();
+    if (_estDistance(c) && _unites.miles) return _unites.depuisKm(v).round().toString();
+    if (c.nom == 'quantite') {
+      final q = _unites.depuisQuantite(v, widget.element?['carburant'] as String?);
+      return q.toStringAsFixed(2).replaceFirst(RegExp(r'\.?0+$'), '');
+    }
+    return existant.toString();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -46,7 +66,7 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
       final existant = widget.element?[c.nom];
       if (c.estFichier) continue;
       if (c.type == TypeChamp.texte || c.type == TypeChamp.entier || c.type == TypeChamp.decimal) {
-        _textes[c.nom] = TextEditingController(text: (existant ?? c.parDefaut ?? '').toString());
+        _textes[c.nom] = TextEditingController(text: _texteInitial(c, existant));
       } else if (c.type == TypeChamp.date) {
         _valeurs[c.nom] = existant ?? (c.obligatoire ? dateIso(DateTime.now()) : null);
       } else {
@@ -108,6 +128,12 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
       if (_textes.containsKey(c.nom)) {
         final t = _textes[c.nom]!.text.trim().replaceAll(',', '.');
         donnees[c.nom] = t.isEmpty ? null : (c.type == TypeChamp.entier ? int.tryParse(t) : t);
+        // Saisie en miles / gallons : envoyée en km / litres
+        final n = double.tryParse(t);
+        if (n != null && _estDistance(c)) donnees[c.nom] = _unites.versKm(n).round();
+        if (n != null && c.nom == 'quantite') {
+          donnees[c.nom] = _unites.versQuantite(n, _valeurs['carburant'] as String?).toStringAsFixed(2);
+        }
         if (c.type == TypeChamp.texte && t.isEmpty) donnees[c.nom] = '';
       } else {
         donnees[c.nom] = _valeurs[c.nom];
@@ -183,8 +209,8 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
       labelText: c.libelle + (c.obligatoire ? ' *' : ''),
       // Quantité d'un plein : unité du carburant choisi (L, kWh, kg)
       suffixText: c.nom == 'quantite' && _valeurs.containsKey('carburant')
-          ? uniteCarburant(_valeurs['carburant'] as String?)
-          : c.suffixe,
+          ? _unites.symboleQuantite(_valeurs['carburant'] as String?)
+          : (_estDistance(c) ? _unites.symboleDistance : c.suffixe),
       helperText: c.aide,
       helperMaxLines: 2,
       errorText: erreur,
@@ -233,6 +259,17 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
           subtitle: c.aide == null ? null : Text(c.aide!),
           value: _valeurs[c.nom] == true,
           onChanged: (v) => setState(() => _valeurs[c.nom] = v),
+        );
+      case TypeChamp.choix when c.nom == 'pays':
+        // Pays : saisie filtrée (« Lu » → Luxembourg)
+        return ChampPays(
+          valeur: _valeurs[c.nom] as String?,
+          libelle: c.libelle + (c.obligatoire ? ' *' : ''),
+          erreur: erreur,
+          onChanged: (code) => setState(() {
+            _valeurs[c.nom] = code;
+            _proposerTaux();
+          }),
         );
       case TypeChamp.choix:
         return DropdownButtonFormField<String>(

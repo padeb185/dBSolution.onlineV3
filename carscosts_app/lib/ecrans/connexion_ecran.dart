@@ -1,9 +1,14 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../api/api_client.dart';
 import '../api/session.dart';
 import '../l10n/langue.dart';
+import '../l10n/unites.dart';
+import '../modeles/pays.dart';
+import '../widgets/champ_pays.dart';
 
 /// Connexion ou création d'un compte particulier.
 class ConnexionEcran extends StatefulWidget {
@@ -24,6 +29,12 @@ class _ConnexionEcranState extends State<ConnexionEcran> {
   bool _masque = true;
   Map<String, String> _erreurs = {};
 
+  /// Pays de l'utilisateur (inscription) : proposé d'après les réglages de l'appareil
+  String _pays = () {
+    final p = ui.PlatformDispatcher.instance.locale.countryCode?.toUpperCase();
+    return p != null && paysImmatriculation.containsKey(p) ? p : 'BE';
+  }();
+
   @override
   void dispose() {
     for (final c in [_email, _motDePasse, _prenom, _nom]) {
@@ -41,7 +52,8 @@ class _ConnexionEcranState extends State<ConnexionEcran> {
     });
     try {
       if (_inscription) {
-        await session.inscription(_email.text.trim(), _motDePasse.text, _prenom.text.trim(), _nom.text.trim());
+        await session.inscription(
+            _email.text.trim(), _motDePasse.text, _prenom.text.trim(), _nom.text.trim(), _pays);
       } else {
         await session.connexion(_email.text.trim(), _motDePasse.text);
       }
@@ -102,6 +114,26 @@ class _ConnexionEcranState extends State<ConnexionEcran> {
                       controller: _nom,
                       decoration: InputDecoration(labelText: t('Nom'), errorText: _erreurs['nom']),
                       validator: _obligatoire,
+                    ),
+                    const SizedBox(height: 12),
+                    ChampPays(
+                      valeur: _pays,
+                      libelle: t('Pays'),
+                      erreur: _erreurs['pays'],
+                      onChanged: (code) => setState(() => _pays = code),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4, left: 12),
+                      child: Text(
+                        t('Unités : {distance}, {volume} (modifiables dans les réglages)', {
+                          'distance': unitesParDefaut(_pays).miles ? t('miles') : t('kilomètres'),
+                          'volume': switch (unitesParDefaut(_pays).volume) {
+                            'gal_us' => t('gallons US'),
+                            _ => t('litres'),
+                          },
+                        }),
+                        style: theme.textTheme.bodySmall,
+                      ),
                     ),
                     const SizedBox(height: 12),
                   ],

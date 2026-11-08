@@ -150,6 +150,13 @@ class InscriptionSerializer(serializers.Serializer):
     prenom = serializers.CharField(max_length=100)
     nom = serializers.CharField(max_length=100)
     langue = serializers.ChoiceField(choices=LANGUES, required=False, default="fr")
+    # Pays de l'utilisateur : pays par défaut des véhicules et unités (miles / gallons aux États-Unis…)
+    pays = serializers.CharField(max_length=2, required=False)
+    unite_distance = serializers.ChoiceField(choices=["km", "mi"], required=False)
+    unite_volume = serializers.ChoiceField(choices=["L", "gal_us", "gal_uk"], required=False)
+
+    def validate_pays(self, v):
+        return valider_pays(v)
 
     def validate_email(self, v):
         from utilisateurs.models import Utilisateur
@@ -174,8 +181,10 @@ class UtilisateurSerializer(serializers.Serializer):
     telephone = serializers.CharField(max_length=20, allow_blank=True, required=False, allow_null=True)
     langue = serializers.ChoiceField(choices=LANGUES, required=False)
     pays_defaut = serializers.CharField(max_length=2, required=False)
+    unite_distance = serializers.ChoiceField(choices=["km", "mi"], required=False)
+    unite_volume = serializers.ChoiceField(choices=["L", "gal_us", "gal_uk"], required=False)
 
-    PREFERENCES = ("langue", "pays_defaut")
+    PREFERENCES = ("langue", "pays_defaut", "unite_distance", "unite_volume")
 
     def validate_pays_defaut(self, v):
         return valider_pays(v)
@@ -189,6 +198,8 @@ class UtilisateurSerializer(serializers.Serializer):
         prefs = PreferencesParticulier.objects.filter(utilisateur=instance).first()
         data["langue"] = prefs.langue if prefs else "fr"
         data["pays_defaut"] = prefs.pays_defaut if prefs else "BE"
+        data["unite_distance"] = prefs.unite_distance if prefs else "km"
+        data["unite_volume"] = prefs.unite_volume if prefs else "L"
         return data
 
     def update(self, instance, data):

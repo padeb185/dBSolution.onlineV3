@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'traductions.dart';
+import 'unites.dart';
 
 /// Langues de l'application (mêmes langues que le site dBSolution).
 const languesApp = <String, String>{
@@ -34,6 +35,17 @@ class Langue extends ChangeNotifier {
     code ??= ui.PlatformDispatcher.instance.locale.languageCode;
     courante = languesApp.containsKey(code) ? code : 'fr';
   }
+
+  /// Unités du compte (km / mi, L / gal) : l'interface est reconstruite comme pour la langue.
+  void choisirUnites(String? distance, String? volume) {
+    final u = Unites(distance == 'mi' ? 'mi' : 'km', const {'gal_us', 'gal_uk'}.contains(volume) ? volume! : 'L');
+    if (u.distance == Unites.compte.distance && u.volume == Unites.compte.volume) return;
+    Unites.compte = u;
+    notifyListeners();
+  }
+
+  /// Clé de reconstruction de l'application (langue + unités)
+  String get cle => '$courante-${Unites.compte.distance}-${Unites.compte.volume}';
 
   Future<void> choisir(String code) async {
     if (!languesApp.containsKey(code) || code == courante) return;

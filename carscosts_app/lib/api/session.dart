@@ -31,10 +31,16 @@ class Session extends ChangeNotifier {
   Future<void> connexion(String email, String motDePasse) =>
       _ouvrir(api.post('auth/connexion/', {'email': email, 'password': motDePasse}));
 
-  /// Inscription dans la langue choisie sur l'écran d'accueil.
-  Future<void> inscription(String email, String motDePasse, String prenom, String nom) => _ouvrir(api.post(
-      'auth/inscription/',
-      {'email': email, 'password': motDePasse, 'prenom': prenom, 'nom': nom, 'langue': Langue.courante}));
+  /// Inscription dans la langue choisie ; le pays donne le pays par défaut et les unités (miles, gallons…).
+  Future<void> inscription(String email, String motDePasse, String prenom, String nom, String pays) =>
+      _ouvrir(api.post('auth/inscription/', {
+        'email': email,
+        'password': motDePasse,
+        'prenom': prenom,
+        'nom': nom,
+        'langue': Langue.courante,
+        'pays': pays,
+      }));
 
   Future<void> _ouvrir(Future<dynamic> requete) async {
     final reponse = Map<String, dynamic>.from(await requete as Map);
@@ -46,7 +52,10 @@ class Session extends ChangeNotifier {
 
   /// La langue du compte (choisie à l'inscription ou dans les réglages) s'applique sur cet appareil.
   Future<void> _appliquerLangue() async {
-    final code = utilisateur?['langue'] as String?;
+    final u = utilisateur;
+    if (u == null) return;
+    langue.choisirUnites(u['unite_distance'] as String?, u['unite_volume'] as String?);
+    final code = u['langue'] as String?;
     if (code != null) await langue.choisir(code);
   }
 

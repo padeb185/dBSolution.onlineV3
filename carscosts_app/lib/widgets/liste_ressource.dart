@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../api/api_client.dart';
 import '../l10n/langue.dart';
+import '../l10n/unites.dart';
 import '../ecrans/formulaire_ecran.dart';
 import '../modeles/ressources.dart';
 import 'fichiers.dart';
@@ -10,9 +11,12 @@ import 'format.dart';
 
 /// Pastille de statut d'un rappel (en retard / proche / à venir).
 class StatutRappel extends StatelessWidget {
-  const StatutRappel({super.key, required this.statut});
+  const StatutRappel({super.key, required this.statut, this.unites});
 
   final Map<String, dynamic>? statut;
+
+  /// Unités du véhicule du rappel (km restants affichés en km ou en miles)
+  final Unites? unites;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,7 @@ class StatutRappel extends StatelessWidget {
     };
     final details = [
       if (statut?['jours_restants'] != null) t('{n} j', {'n': statut!['jours_restants']}),
-      if (statut?['km_restants'] != null) km(statut!['km_restants']),
+      if (statut?['km_restants'] != null) km(statut!['km_restants'], unites),
     ].join(' · ');
     return Chip(
       visualDensity: VisualDensity.compact,
@@ -86,6 +90,7 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
   Future<void> _rappelFait(Map<String, dynamic> rappel) async {
     final api = context.read<ApiClient>();
     final kmCtrl = TextEditingController();
+    final u = Unites.de(widget.vehicule);
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -93,7 +98,7 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
         content: TextField(
           controller: kmCtrl,
           keyboardType: TextInputType.number,
-          decoration: InputDecoration(labelText: t('Kilométrage actuel'), suffixText: 'km'),
+          decoration: InputDecoration(labelText: t('Kilométrage actuel'), suffixText: u.symboleDistance),
         ),
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(t('Annuler'))),
@@ -105,7 +110,8 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
     try {
       await api.post('rappels/${rappel['id']}/fait/', {
         'date': dateIso(DateTime.now()),
-        if (int.tryParse(kmCtrl.text) != null) 'kilometrage': int.parse(kmCtrl.text),
+        if (double.tryParse(kmCtrl.text.replaceAll(',', '.')) != null)
+          'kilometrage': u.versKm(double.parse(kmCtrl.text.replaceAll(',', '.'))).round(),
       });
       setState(_charger);
       widget.auChangement?.call();
@@ -159,18 +165,19 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
               itemBuilder: (context, i) {
                 final e = elements[i];
                 final montant = r.montantLigne?.call(e) ?? '';
+                final u = Unites.de(widget.vehicule);
                 final ticket = e['ticket'] as String?;
                 return ListTile(
                   leading: ticket != null
                       ? SizedBox(width: 48, height: 48, child: ImageProtegee(url: ticket, hauteur: 48))
                       : CircleAvatar(child: Icon(r.icone)),
-                  title: Text(r.titreLigne(e)),
+                  title: Text(r.titreLigne(e, u)),
                   subtitle: r.chemin == 'rappels'
                       ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          Text(r.sousTitreLigne(e)),
-                          StatutRappel(statut: (e['statut'] as Map?)?.cast<String, dynamic>()),
+                          Text(r.sousTitreLigne(e, u)),
+                          StatutRappel(statut: (e['statut'] as Map?)?.cast<String, dynamic>(), unites: u),
                         ])
-                      : Text(r.sousTitreLigne(e)),
+                      : Text(r.sousTitreLigne(e, u)),
                   trailing: r.chemin == 'rappels' && e['actif'] == true
                       ? IconButton(icon: const Icon(Icons.task_alt), tooltip: t('Marquer comme fait'), onPressed: () => _rappelFait(e))
                       : (montant.isEmpty ? null : Text(montant, style: const TextStyle(fontWeight: FontWeight.w600))),

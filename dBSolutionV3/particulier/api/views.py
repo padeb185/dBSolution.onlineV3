@@ -55,7 +55,12 @@ class InscriptionView(APIView):
                 )
                 with schema_context(schema_particuliers()):
                     from ..models import PreferencesParticulier
-                    PreferencesParticulier.objects.create(utilisateur=user, langue=d.get("langue") or "fr")
+                    from ..models import unites_par_defaut
+                    pays = d.get("pays") or "BE"
+                    distance, volume = unites_par_defaut(pays)
+                    PreferencesParticulier.objects.create(
+                        utilisateur=user, langue=d.get("langue") or "fr", pays_defaut=pays,
+                        unite_distance=d.get("unite_distance") or distance, unite_volume=d.get("unite_volume") or volume)
             return _reponse_connexion(user, status.HTTP_201_CREATED)
 
 

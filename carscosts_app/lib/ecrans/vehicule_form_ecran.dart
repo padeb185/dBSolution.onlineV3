@@ -8,7 +8,9 @@ import '../api/api_client.dart';
 import '../achats/abonnement.dart';
 import '../api/session.dart';
 import '../l10n/langue.dart';
+import '../l10n/unites.dart';
 import '../modeles/ressources.dart';
+import '../widgets/champ_pays.dart';
 import '../widgets/fichiers.dart';
 import '../widgets/format.dart';
 import '../modeles/pays.dart';
@@ -38,6 +40,11 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
   String? _miseEnCirculation;
   String? _dateAchat;
   bool _archive = false;
+  // Unités propres au véhicule ('' : celles des réglages du compte)
+  String _uniteDistance = '';
+  String _uniteVolume = '';
+
+  Unites get _unites => Unites.de({'unite_distance': _uniteDistance, 'unite_volume': _uniteVolume});
   String? _photo;
   Map<String, String> _erreurs = {};
   bool _envoi = false;
@@ -61,6 +68,11 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
     _miseEnCirculation = v['date_mise_en_circulation'] as String?;
     _dateAchat = v['date_achat'] as String?;
     _archive = v['archive'] == true;
+    _uniteDistance = (v['unite_distance'] as String?) ?? '';
+    _uniteVolume = (v['unite_volume'] as String?) ?? '';
+    // Kilométrage à l'achat affiché dans l'unité du véhicule (enregistré en km)
+    final kmAchat = enDouble(v['kilometrage_achat']);
+    if (kmAchat != null) _c['kilometrage_achat']!.text = _unites.depuisKm(kmAchat).round().toString();
   }
 
   @override
@@ -99,13 +111,17 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
       'vin': _c['vin']!.text.trim().toUpperCase(),
       'annee': int.tryParse(v('annee') ?? ''),
       'prix_achat': v('prix_achat'),
-      'kilometrage_achat': int.tryParse(v('kilometrage_achat') ?? ''),
+      'kilometrage_achat': double.tryParse(v('kilometrage_achat') ?? '') == null
+          ? null
+          : _unites.versKm(double.parse(v('kilometrage_achat')!)).round(),
       'valeur_estimee': v('valeur_estimee'),
       'energie': _energie,
       'pays_immatriculation': _pays,
       'date_mise_en_circulation': _miseEnCirculation,
       'date_achat': _dateAchat,
       'archive': _archive,
+      'unite_distance': _uniteDistance,
+      'unite_volume': _uniteVolume,
     };
     final chemin = _modification ? 'vehicules/${widget.vehicule!['id']}/' : 'vehicules/';
     setState(() {
@@ -217,27 +233,64 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 12),
-              child: DropdownButtonFormField<String>(
-                initialValue: _pays,
-                decoration: InputDecoration(labelText: t('Pays d\'immatriculation'), border: const OutlineInputBorder()),
-                isExpanded: true,
-                menuMaxHeight: 420,
-                items: [
-                  for (final e in paysImmatriculation.entries)
-                    DropdownMenuItem(value: e.key, child: Text(e.value, overflow: TextOverflow.ellipsis)),
-                ],
-                onChanged: (v) => setState(() => _pays = v ?? 'BE'),
+              child: ChampPays(
+                valeur: _pays,
+                libelle: t('Pays d\'immatriculation'),
+                onChanged: (code) => setState(() => _pays = code),
               ),
             ),
             _texte('annee', t('Année du modèle'), clavier: TextInputType.number),
             _date(t('Première mise en circulation'), _miseEnCirculation, (v) => _miseEnCirculation = v),
             _texte('couleur', t('Couleur')),
             const Divider(height: 24),
+            Text(t('Unités du véhicule'), style: Theme.of(context).textTheme.titleMedium),
+            Padding(
+              padding: const EdgeInsets.only(top: 4, bottom: 8),
+              child: Text(t('Par défaut, celles des réglages. Ex. voiture importée avec un compteur en miles.'),
+                  style: Theme.of(context).textTheme.bodySmall),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: DropdownButtonFormField<String>(
+                initialValue: _uniteDistance,
+                decoration: InputDecoration(labelText: t('Compteur'), border: const OutlineInputBorder()),
+                items: [
+                  DropdownMenuItem(
+                      value: '', child: Text(t('Réglages du compte ({unite})', {'unite': Unites.compte.symboleDistance}))),
+                  DropdownMenuItem(value: 'km', child: Text(t('Kilomètres'))),
+                  DropdownMenuItem(value: 'mi', child: Text(t('Miles'))),
+                ],
+                onChanged: (v) => setState(() {
+                  // Le kilométrage saisi est converti dans la nouvelle unité
+                  final ancien = _unites;
+                  _uniteDistance = v ?? '';
+                  final n = double.tryParse(_c['kilometrage_achat']!.text.replaceAll(',', '.'));
+                  if (n != null) _c['kilometrage_achat']!.text = _unites.depuisKm(ancien.versKm(n)).round().toString();
+                }),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: DropdownButtonFormField<String>(
+                initialValue: _uniteVolume,
+                decoration: InputDecoration(labelText: t('Volume de carburant'), border: const OutlineInputBorder()),
+                items: [
+                  DropdownMenuItem(
+                      value: '', child: Text(t('Réglages du compte ({unite})', {'unite': Unites.compte.symboleVolume}))),
+                  DropdownMenuItem(value: 'L', child: Text(t('Litres'))),
+                  DropdownMenuItem(value: 'gal_us', child: Text(t('Gallons US'))),
+                  DropdownMenuItem(value: 'gal_uk', child: Text(t('Gallons impériaux (UK)'))),
+                ],
+                onChanged: (v) => setState(() => _uniteVolume = v ?? ''),
+              ),
+            ),
+            const Divider(height: 24),
             Text(t('Achat'), style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 8),
             _date(t('Date d\'achat'), _dateAchat, (v) => _dateAchat = v),
             _texte('prix_achat', t('Prix d\'achat'), clavier: nombres, suffixe: '€'),
-            _texte('kilometrage_achat', t('Kilométrage à l\'achat'), clavier: TextInputType.number, suffixe: 'km'),
+            _texte('kilometrage_achat', t('Kilométrage à l\'achat'),
+                clavier: TextInputType.number, suffixe: _unites.symboleDistance),
             _texte('valeur_estimee', t('Valeur de revente estimée'), clavier: nombres, suffixe: '€'),
             const Divider(height: 24),
             if (_photo != null)

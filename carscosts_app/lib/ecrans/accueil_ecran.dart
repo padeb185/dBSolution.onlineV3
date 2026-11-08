@@ -5,6 +5,7 @@ import '../achats/abonnement.dart';
 import '../api/api_client.dart';
 import '../api/session.dart';
 import '../l10n/langue.dart';
+import '../l10n/unites.dart';
 import '../widgets/fichiers.dart';
 import '../widgets/format.dart';
 import '../widgets/liste_ressource.dart';
@@ -123,7 +124,10 @@ class _AccueilEcranState extends State<AccueilEcran> {
                           title: Text(r['libelle'].toString()),
                           subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                             Text(noms[r['vehicule']] ?? ''),
-                            StatutRappel(statut: (r['statut'] as Map?)?.cast<String, dynamic>()),
+                            StatutRappel(
+                              statut: (r['statut'] as Map?)?.cast<String, dynamic>(),
+                              unites: Unites.de(vehicules.where((x) => x['id'] == r['vehicule']).firstOrNull),
+                            ),
                           ]),
                           onTap: () {
                             final v = vehicules.where((x) => x['id'] == r['vehicule']);
@@ -179,7 +183,7 @@ class _AccueilEcranState extends State<AccueilEcran> {
                                 pays: v['pays_immatriculation'] as String?,
                                 hauteur: 24),
                           ),
-                        Text(km(v['kilometrage_actuel'])),
+                        Text(km(v['kilometrage_actuel'], Unites.de(v))),
                       ]),
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () => _ouvrir(v),

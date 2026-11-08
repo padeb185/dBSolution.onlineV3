@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/langue.dart';
+import '../l10n/unites.dart';
 import '../widgets/format.dart';
 import 'pays.dart';
 
@@ -50,8 +51,9 @@ class Ressource {
   final String texteSupprimer; // ex. "Supprimer ce plein ?"
   final IconData icone;
   final List<Champ> champs;
-  final String Function(Map<String, dynamic>) titreLigne;
-  final String Function(Map<String, dynamic>) sousTitreLigne;
+  /// Lignes de la liste (unités du véhicule : km / mi, L / gal)
+  final String Function(Map<String, dynamic>, Unites) titreLigne;
+  final String Function(Map<String, dynamic>, Unites) sousTitreLigne;
   final String Function(Map<String, dynamic>)? montantLigne;
 }
 
@@ -104,12 +106,6 @@ Map<String, String> get carburants => {
   'electricite': t('Électricité'),
 };
 
-/// Unité de la quantité d'un plein selon le carburant.
-String uniteCarburant(String? carburant) => switch (carburant) {
-      'electricite' => 'kWh',
-      'gnc' => 'kg',
-      _ => 'L',
-    };
 
 /// Carburant proposé pour un nouveau plein, d'après l'énergie du véhicule.
 String carburantParDefaut(String? energie) => switch (energie) {
@@ -155,16 +151,17 @@ Ressource get pleins => Ressource(
     Champ('ticket', t('Photo du ticket'), TypeChamp.image),
     Champ('remarques', t('Remarques'), TypeChamp.texte),
   ],
-  titreLigne: (p) => '${nombre(p['quantite'])} ${p['unite'] ?? uniteCarburant(p['carburant'] as String?)}'
-      ' – ${euros(p['montant'])}',
-  sousTitreLigne: (p) => [
+  titreLigne: (p, u) => '${nombre(u.depuisQuantite(enDouble(p['quantite']) ?? 0, p['carburant'] as String?))} '
+      '${u.symboleQuantite(p['carburant'] as String?)} – ${euros(p['montant'])}',
+  sousTitreLigne: (p, u) => [
     if (p['carburant'] != null) carburants[p['carburant']] ?? p['carburant'],
     dateFr(p['date']),
-    km(p['kilometrage']),
+    km(p['kilometrage'], u),
     if ((p['pays'] ?? '').toString().isNotEmpty) p['pays'],
     if (p['montant_tva'] != null) t('TVA {taux} % : {montant}', {'taux': nombre(p['taux_tva'], decimales: 1), 'montant': euros(p['montant_tva'])}),
     if (p['prix_unitaire'] != null)
-      '${nombre(p['prix_unitaire'], decimales: 3)} €/${p['unite'] ?? uniteCarburant(p['carburant'] as String?)}',
+      '${nombre(u.prixParQuantite(enDouble(p['prix_unitaire']) ?? 0, p['carburant'] as String?), decimales: 3)} '
+          '€/${u.symboleQuantite(p['carburant'] as String?)}',
   ].join(' · '),
 );
 
@@ -185,10 +182,10 @@ Ressource get entretiens => Ressource(
     Champ('montant', t('Montant'), TypeChamp.decimal, suffixe: '€', parDefaut: '0'),
     Champ('facture', t('Facture (PDF ou photo)'), TypeChamp.fichier),
   ],
-  titreLigne: (e) => typesEntretien[e['type']] ?? e['type'].toString(),
-  sousTitreLigne: (e) => [
+  titreLigne: (e, u) => typesEntretien[e['type']] ?? e['type'].toString(),
+  sousTitreLigne: (e, u) => [
     dateFr(e['date']),
-    if (e['kilometrage'] != null) km(e['kilometrage']),
+    if (e['kilometrage'] != null) km(e['kilometrage'], u),
     if ((e['garage'] ?? '').toString().isNotEmpty) e['garage'],
   ].join(' · '),
   montantLigne: (e) => euros(e['montant']),
@@ -212,10 +209,10 @@ Ressource get rappels => Ressource(
     Champ('intervalle_km', t('Répéter tous les'), TypeChamp.entier, suffixe: 'km'),
     Champ('actif', t('Actif'), TypeChamp.booleen, parDefaut: true),
   ],
-  titreLigne: (r) => r['libelle'].toString(),
-  sousTitreLigne: (r) => [
+  titreLigne: (r, u) => r['libelle'].toString(),
+  sousTitreLigne: (r, u) => [
     if (r['echeance_date'] != null) dateFr(r['echeance_date']),
-    if (r['echeance_km'] != null) km(r['echeance_km']),
+    if (r['echeance_km'] != null) km(r['echeance_km'], u),
   ].join(t(' ou ')),
 );
 
@@ -238,10 +235,10 @@ Ressource get documents => Ressource(
     Champ('montant', t('Montant (prime, redevance…)'), TypeChamp.decimal, suffixe: '€'),
     Champ('fichier', t('Fichier (PDF ou photo)'), TypeChamp.fichier),
   ],
-  titreLigne: (d) => [typesDocument[d['type']] ?? d['type_libelle'], d['titre']]
+  titreLigne: (d, u) => [typesDocument[d['type']] ?? d['type_libelle'], d['titre']]
       .where((x) => x != null && x.toString().isNotEmpty)
       .join(' – '),
-  sousTitreLigne: (d) => [
+  sousTitreLigne: (d, u) => [
     if ((d['organisme'] ?? '').toString().isNotEmpty) d['organisme'],
     if (d['date_expiration'] != null) t('jusqu\'au {date}', {'date': dateFr(d['date_expiration'])}),
   ].join(' · '),
@@ -262,8 +259,8 @@ Ressource get depenses => Ressource(
     Champ('libelle', t('Libellé'), TypeChamp.texte),
     Champ('montant', t('Montant'), TypeChamp.decimal, obligatoire: true, suffixe: '€'),
   ],
-  titreLigne: (d) => categoriesDepense[d['categorie']] ?? d['categorie'].toString(),
-  sousTitreLigne: (d) => [dateFr(d['date']), if ((d['libelle'] ?? '').toString().isNotEmpty) d['libelle']].join(' · '),
+  titreLigne: (d, u) => categoriesDepense[d['categorie']] ?? d['categorie'].toString(),
+  sousTitreLigne: (d, u) => [dateFr(d['date']), if ((d['libelle'] ?? '').toString().isNotEmpty) d['libelle']].join(' · '),
   montantLigne: (d) => euros(d['montant']),
 );
 
@@ -279,8 +276,8 @@ Ressource get kilometrages => Ressource(
     Champ('date', t('Date'), TypeChamp.date, obligatoire: true),
     Champ('kilometrage', t('Kilométrage'), TypeChamp.entier, obligatoire: true, suffixe: 'km'),
   ],
-  titreLigne: (k) => km(k['kilometrage']),
-  sousTitreLigne: (k) => dateFr(k['date']),
+  titreLigne: (k, u) => km(k['kilometrage'], u),
+  sousTitreLigne: (k, u) => dateFr(k['date']),
 );
 
 /// Ressources affichées en onglets dans la fiche d'un véhicule

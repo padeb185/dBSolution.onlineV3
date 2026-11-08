@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../api/api_client.dart';
 import '../l10n/langue.dart';
+import '../l10n/unites.dart';
 import '../modeles/ressources.dart';
 import '../widgets/fichiers.dart';
 import '../widgets/format.dart';
@@ -102,7 +103,11 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
           if (snap.connectionState != ConnectionState.done) return const Center(child: CircularProgressIndicator());
           if (snap.hasError) return ListView(children: [Padding(padding: const EdgeInsets.all(24), child: Text('${snap.error}'))]);
           final s = snap.data!;
-          final unite = s['consommation_unite'] ?? (_vehicule['energie'] == 'electrique' ? 'kWh' : 'L');
+          final u = Unites.de(_vehicule);
+          String conso(dynamic valeur, String uniteServeur) {
+            final c = u.consommation(enDouble(valeur) ?? 0, uniteServeur);
+            return '${nombre(c.$1)} ${c.$2}';
+          }
           return ListView(
             padding: const EdgeInsets.all(16),
             children: [
@@ -150,16 +155,19 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
                 mainAxisSpacing: 8,
                 crossAxisSpacing: 8,
                 children: [
-                  _kpi(t('Kilométrage'), km(s['kilometrage_actuel'])),
+                  _kpi(t('Kilométrage'), km(s['kilometrage_actuel'], u)),
                   _kpi(t('Coût total'), euros(s['cout_total'])),
                   _kpi(t('Coût net'), euros(s['cout_net'])),
-                  _kpi(t('Coût net au km'), s['cout_total_km'] == null ? '—' : '${nombre(s['cout_total_km'], decimales: 3)} €'),
+                  _kpi(u.miles ? t('Coût net au mile') : t('Coût net au km'),
+                      s['cout_total_km'] == null
+                          ? '—'
+                          : '${nombre(u.coutParDistance(enDouble(s['cout_total_km']) ?? 0), decimales: 3)} €'),
                   _kpi(t('Coût net / mois'), euros(s['cout_mois'])),
                   _kpi(t('Consommation'), s['consommation_moyenne'] == null
                       ? '—'
-                      : '${nombre(s['consommation_moyenne'])} $unite/100 km'),
+                      : conso(s['consommation_moyenne'], '${s['consommation_unite'] ?? 'L'}')),
                   if (s['consommation_electrique'] != null)
-                    _kpi(t('Consommation électrique'), '${nombre(s['consommation_electrique'])} kWh/100 km'),
+                    _kpi(t('Consommation électrique'), conso(s['consommation_electrique'], 'kWh')),
                   _kpi(t('Valeur de revente'), euros(s['valeur_revente'])),
                 ],
               ),

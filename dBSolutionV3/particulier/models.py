@@ -75,6 +75,11 @@ class Vehicule(models.Model):
     couleur = models.CharField(_("Couleur"), max_length=40, blank=True)
     photo = models.ImageField(_("Photo"), upload_to=chemin_photo, null=True, blank=True)
     archive = models.BooleanField(_("Archivé (vendu)"), default=False)
+    # Unités propres au véhicule (ex. voiture importée des États-Unis, compteur en miles) ;
+    # vide : unités des réglages du compte. Les valeurs restent enregistrées en km et en litres.
+    unite_distance = models.CharField(_("Distances"), max_length=2, blank=True, choices=[("km", "km"), ("mi", "mi")])
+    unite_volume = models.CharField(_("Volumes de carburant"), max_length=6, blank=True,
+                                    choices=[("L", "L"), ("gal_us", "gal US"), ("gal_uk", "gal UK")])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -346,12 +351,37 @@ class AbonnementParticulier(models.Model):
         return f"{self.utilisateur_id} – {self.get_formule_display()}"
 
 
+class UniteDistance(models.TextChoices):
+    KM = "km", _("Kilomètres")
+    MI = "mi", _("Miles")
+
+
+class UniteVolume(models.TextChoices):
+    L = "L", _("Litres")
+    GAL_US = "gal_us", _("Gallons US")
+    GAL_UK = "gal_uk", _("Gallons impériaux (UK)")
+
+
+# Pays en miles (et gallons US) ; Royaume-Uni : miles, carburant en litres (consommation en mpg impériaux)
+PAYS_MILES = {"US", "GB", "LR", "MM", "PR", "GU", "VI", "AS", "MP", "UM"}
+PAYS_GALLONS_US = {"US", "LR", "PR", "GU", "VI", "AS", "MP", "UM"}
+
+
+def unites_par_defaut(pays):
+    """(distance, volume) d'après le pays de l'utilisateur."""
+    pays = (pays or "").upper()
+    return ("mi" if pays in PAYS_MILES else "km", "gal_us" if pays in PAYS_GALLONS_US else "L")
+
+
 class PreferencesParticulier(models.Model):
-    """Réglages de l'application d'un particulier (langue, pays d'immatriculation par défaut)."""
+    """Réglages de l'application d'un particulier (langue, pays par défaut, unités).
+    Les données restent enregistrées en km et en litres : l'application convertit à l'affichage et à la saisie."""
     utilisateur = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
                                        related_name="preferences_particulier")
     langue = models.CharField(_("Langue"), max_length=5, choices=settings.LANGUAGES, default="fr")
     pays_defaut = models.CharField(_("Pays d'immatriculation par défaut"), max_length=2, default="BE")
+    unite_distance = models.CharField(_("Distances"), max_length=2, choices=UniteDistance.choices, default="km")
+    unite_volume = models.CharField(_("Volumes de carburant"), max_length=6, choices=UniteVolume.choices, default="L")
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
