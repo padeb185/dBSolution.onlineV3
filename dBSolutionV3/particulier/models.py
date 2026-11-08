@@ -12,7 +12,7 @@ from datetime import date
 from decimal import Decimal
 
 from django.conf import settings
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -143,12 +143,13 @@ def unite_carburant(carburant):
 
 
 class NiveauCarburant(models.TextChoices):
-    """Carburant restant dans le réservoir au moment du plein."""
+    """Carburant restant dans le réservoir au moment du plein (recharge : batterie restante)."""
     TROIS_QUARTS = "3/4", _("¾")
     MOITIE = "1/2", _("½")
     QUART = "1/4", _("¼")
     RESERVE = "reserve", _("Réserve")
     FIN_RESERVE = "fin_reserve", _("Fin de réserve")
+    MINIMUM = "minimum", _("Au minimum")
 
 
 class LieuRecharge(models.TextChoices):
@@ -171,10 +172,6 @@ class Plein(models.Model):
                                       blank=True)
     # Recharge électrique
     lieu_recharge = models.CharField(_("Lieu de recharge"), max_length=10, choices=LieuRecharge.choices, blank=True)
-    batterie_debut = models.PositiveSmallIntegerField(_("Batterie au début (%)"), null=True, blank=True,
-                                                      validators=[MaxValueValidator(100)])
-    batterie_fin = models.PositiveSmallIntegerField(_("Batterie à la fin (%)"), null=True, blank=True,
-                                                    validators=[MaxValueValidator(100)])
     plein_complet = models.BooleanField(_("Plein complet"), default=True,
                                         help_text=_("Nécessaire pour calculer la consommation."))
     carburant = models.CharField(_("Carburant"), max_length=20, choices=Carburant.choices, blank=True)

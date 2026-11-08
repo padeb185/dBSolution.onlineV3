@@ -58,6 +58,7 @@ class ReleveSerializer(VehiculeChampMixin, serializers.ModelSerializer):
 
 
 class PleinSerializer(VehiculeChampMixin, FichierMixin, serializers.ModelSerializer):
+    """Plein de carburant : carburant restant ¾, ½, ¼, réserve ou fin de réserve."""
     fichiers = {"ticket": "api_particulier:plein-ticket"}
     prix_unitaire = serializers.DecimalField(max_digits=10, decimal_places=3, read_only=True)
     unite = serializers.CharField(read_only=True)
@@ -69,6 +70,11 @@ class PleinSerializer(VehiculeChampMixin, FichierMixin, serializers.ModelSeriali
 
     def validate_pays(self, v):
         return valider_pays(v) if v else v
+
+    def validate_niveau_restant(self, v):
+        if v == "minimum":
+            raise serializers.ValidationError(_("Choix invalide pour le carburant restant."))
+        return v
 
     def validate_carburant(self, v):
         if v == "electricite":
@@ -87,9 +93,15 @@ class RechargeSerializer(PleinSerializer):
     fichiers = {"ticket": "api_particulier:recharge-ticket"}
 
     class Meta(PleinSerializer.Meta):
-        read_only_fields = PleinSerializer.Meta.read_only_fields + ["carburant", "niveau_restant"]
+        read_only_fields = PleinSerializer.Meta.read_only_fields + ["carburant"]
 
     def validate_carburant(self, v):
+        return v
+
+    def validate_niveau_restant(self, v):
+        # Batterie restante : ¾, ½, ¼ ou au minimum
+        if v and v not in ("3/4", "1/2", "1/4", "minimum"):
+            raise serializers.ValidationError(_("Choix invalide pour la batterie restante."))
         return v
 
 

@@ -321,3 +321,10 @@ T.update({
 'Recharge complète': ('Volledig opgeladen', 'Full charge', 'Vollständig geladen', 'Carga completa', 'Ricarica completa', 'Πλήρης φόρτιση'),
 'Borne / opérateur': ('Laadpaal / operator', 'Charger / operator', 'Ladesäule / Betreiber', 'Punto de carga / operador', 'Colonnina / operatore', 'Φορτιστής / πάροχος'),
 })
+T.update({
+'Au minimum': ('Minimum', 'Minimum', 'Minimum', 'Al mínimo', 'Al minimo', 'Στο ελάχιστο'),
+'Batterie restante': ('Resterende batterij', 'Battery remaining', 'Restakku', 'Batería restante', 'Batteria rimanente', 'Υπόλοιπο μπαταρίας'),
+'Niveau de la batterie avant la recharge.': ('Batterijniveau vóór het laden.', 'Battery level before charging.', 'Akkustand vor dem Laden.', 'Nivel de batería antes de la recarga.', 'Livello della batteria prima della ricarica.', 'Στάθμη μπαταρίας πριν από τη φόρτιση.'),
+'batterie : {niveau}': ('batterij: {niveau}', 'battery: {niveau}', 'Akku: {niveau}', 'batería: {niveau}', 'batteria: {niveau}', 'μπαταρία: {niveau}'),
+})
+for k in ['Batterie au début','Batterie à la fin']: T.pop(k, None)

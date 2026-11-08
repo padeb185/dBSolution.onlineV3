@@ -129,6 +129,14 @@ Map<String, String> get niveauxCarburant => {
   'fin_reserve': t('Fin de réserve'),
 };
 
+/// Batterie restante au moment de la recharge
+Map<String, String> get niveauxBatterie => {
+  '3/4': '¾',
+  '1/2': '½',
+  '1/4': '¼',
+  'minimum': t('Au minimum'),
+};
+
 Map<String, String> get lieuxRecharge => {
   'domicile': t('Domicile'),
   'travail': t('Travail'),
@@ -207,8 +215,8 @@ Ressource get recharges => Ressource(
     Champ('montant', t('Montant payé TVAC'), TypeChamp.decimal, obligatoire: true, suffixe: '€'),
     Champ('taux_tva', t('Taux de TVA'), TypeChamp.decimal, suffixe: '%',
         aide: t('Taux du pays de la recharge, modifiable.')),
-    Champ('batterie_debut', t('Batterie au début'), TypeChamp.entier, suffixe: '%'),
-    Champ('batterie_fin', t('Batterie à la fin'), TypeChamp.entier, suffixe: '%'),
+    Champ('niveau_restant', t('Batterie restante'), TypeChamp.choix, choix: niveauxBatterie,
+        aide: t('Niveau de la batterie avant la recharge.')),
     Champ('plein_complet', t('Recharge complète'), TypeChamp.booleen,
         parDefaut: true, aide: t('Nécessaire pour calculer la consommation.')),
     Champ('station', t('Borne / opérateur'), TypeChamp.texte),
@@ -220,8 +228,8 @@ Ressource get recharges => Ressource(
     if ((p['lieu_recharge'] ?? '').toString().isNotEmpty) lieuxRecharge[p['lieu_recharge']] ?? p['lieu_recharge'],
     dateFr(p['date']),
     km(p['kilometrage'], u),
-    if (p['batterie_debut'] != null || p['batterie_fin'] != null)
-      '${p['batterie_debut'] ?? '?'} → ${p['batterie_fin'] ?? '?'} %',
+    if ((p['niveau_restant'] ?? '').toString().isNotEmpty)
+      t('batterie : {niveau}', {'niveau': niveauxBatterie[p['niveau_restant']] ?? p['niveau_restant']}),
     if (p['prix_unitaire'] != null) '${nombre(p['prix_unitaire'], decimales: 3)} €/kWh',
   ].join(' · '),
 );

@@ -17,5 +17,9 @@ void main() {
     expect(noms.indexOf('niveau_restant'), noms.indexOf('plein_complet') - 1);
     expect(carburantsPlein.containsKey('electricite'), isFalse);
     expect(niveauxCarburant.keys, ['3/4', '1/2', '1/4', 'reserve', 'fin_reserve']);
+    expect(niveauxBatterie.keys, ['3/4', '1/2', '1/4', 'minimum']);
+    final champsRecharge = [for (final c in recharges.champs) c.nom];
+    expect(champsRecharge, isNot(contains('batterie_debut')));
+    expect(champsRecharge.indexOf('niveau_restant'), champsRecharge.indexOf('plein_complet') - 1);
   });
 }
