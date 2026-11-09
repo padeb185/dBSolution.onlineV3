@@ -18,7 +18,7 @@ from decimal import Decimal as D
 
 from django.utils.translation import gettext_lazy as _
 
-from .calculs import ZERO, ajouter_mois, financement, r2
+from .calculs import ZERO, ajouter_mois, financement, paiements_documents, r2
 from .tva import taux_tva, ventiler
 
 
@@ -214,7 +214,7 @@ def deductibilite(vehicule, annee=None, aujourdhui=None):
           sum((D(m.total_tva) for m in maintenances), ZERO), "entretien")
 
     # Assurances et taxes : sans TVA ; amendes : jamais déductibles
-    sans_tva = sum((D(d.montant) for d in vehicule.documents.all() if dans(d.date_debut) and d.montant), ZERO)
+    sans_tva = sum((m for jour, m in paiements_documents(vehicule, aujourdhui) if dans(jour)), ZERO)
     depenses = {}
     for d in vehicule.depenses.all():
         if dans(d.date):

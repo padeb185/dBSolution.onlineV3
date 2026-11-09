@@ -80,15 +80,25 @@ class Catalogue {
     bool commence(String texte, String v, {bool motEntier = false}) {
       if (!texte.startsWith(v)) return false;
       // Chiffre converti : « vii » ne doit pas trouver « viii »
-      return !motEntier || texte.length == v.length || !RegExp(r'[a-z]').hasMatch(texte[v.length]);
+      return !motEntier || texte.length == v.length || !RegExp(r'[a-z0-9]').hasMatch(texte[v.length]);
     }
 
     bool trouve(String v, {bool motEntier = false}) =>
         commence(t, v, motEntier: motEntier) ||
-        t.split(RegExp(r'[\s\-]+')).any((mot) => commence(mot, v, motEntier: motEntier));
+        t.split(RegExp(r'[\s\-(),/]+')).any((mot) => commence(mot, v, motEntier: motEntier));
 
     final romain = q.replaceAllMapped(RegExp(r'\b([1-9]|10)\b'), (m) => _romains[int.parse(m.group(1)!) - 1]);
-    return trouve(q) || (romain != q && trouve(romain, motEntier: true));
+    if (trouve(q) || (romain != q && trouve(romain, motEntier: true))) return true;
+    // Plusieurs mots : chacun doit se trouver (« 911 992 » → « 911 (992.1, 2019-2024) »)
+    final mots = q.split(RegExp(r'\s+')).where((m) => m.isNotEmpty).toList();
+    bool motTrouve(String m) {
+      if (RegExp(r'^([1-9]|10)$').hasMatch(m)) {
+        return trouve(m, motEntier: true) || trouve(_romains[int.parse(m) - 1], motEntier: true);
+      }
+      return trouve(m);
+    }
+
+    return mots.length > 1 && mots.every(motTrouve);
   }
 
   /// Logo d'une marque saisie (sans tenir compte des majuscules ni des accents)

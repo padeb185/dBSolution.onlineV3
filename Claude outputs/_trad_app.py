@@ -481,3 +481,15 @@ T.update({
 'Maintenance': ('Onderhoud', 'Maintenance', 'Wartung', 'Mantenimiento', 'Manutenzione', 'Συντήρηση'),
 '« {titre} » est disponible à partir de la formule Bronze.': ('« {titre} » is beschikbaar vanaf de formule Bronze.', '"{titre}" is available from the Bronze plan.', '„{titre}“ ist ab dem Tarif Bronze verfügbar.', '« {titre} » está disponible a partir del plan Bronze.', '« {titre} » è disponibile dal piano Bronze.', '«{titre}» είναι διαθέσιμο από το πρόγραμμα Bronze.'),
 })
+T.update({
+'Prime annuelle : {montant}': ('Jaarpremie: {montant}', 'Annual premium: {montant}', 'Jahresprämie: {montant}', 'Prima anual: {montant}', 'Premio annuo: {montant}', 'Ετήσιο ασφάλιστρο: {montant}'),
+'Prime mensuelle : {montant}': ('Maandpremie: {montant}', 'Monthly premium: {montant}', 'Monatsprämie: {montant}', 'Prima mensual: {montant}', 'Premio mensile: {montant}', 'Μηνιαίο ασφάλιστρο: {montant}'),
+'Prime mensuelle': ('Maandpremie', 'Monthly premium', 'Monatsprämie', 'Prima mensual', 'Premio mensile', 'Μηνιαίο ασφάλιστρο'),
+'Prime annuelle': ('Jaarpremie', 'Annual premium', 'Jahresprämie', 'Prima anual', 'Premio annuo', 'Ετήσιο ασφάλιστρο'),
+'Mensuel': ('Maandelijks', 'Monthly', 'Monatlich', 'Mensual', 'Mensile', 'Μηνιαίο'),
+'Annuel': ('Jaarlijks', 'Annual', 'Jährlich', 'Anual', 'Annuale', 'Ετήσιο'),
+'Mode de paiement': ('Betalingswijze', 'Payment frequency', 'Zahlungsweise', 'Forma de pago', 'Modalità di pagamento', 'Τρόπος πληρωμής'),
+'Assurance : prime payée chaque mois ou chaque année.': ('Verzekering: premie elke maand of elk jaar betaald.', 'Insurance: premium paid every month or every year.', 'Versicherung: Prämie monatlich oder jährlich bezahlt.', 'Seguro: prima pagada cada mes o cada año.', 'Assicurazione: premio pagato ogni mese o ogni anno.', 'Ασφάλεια: ασφάλιστρο πληρώνεται κάθε μήνα ή κάθε χρόνο.'),
+'{montant} / an': ('{montant} / jaar', '{montant} / year', '{montant} / Jahr', '{montant} / año', '{montant} / anno', '{montant} / έτος'),
+'{montant} / mois': ('{montant} / maand', '{montant} / month', '{montant} / Monat', '{montant} / mes', '{montant} / mese', '{montant} / μήνα'),
+})

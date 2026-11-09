@@ -300,6 +300,9 @@ Ressource get rappels => Ressource(
   ].join(t(' ou ')),
 );
 
+/// Mode de paiement d'une assurance (vide : montant payé une fois)
+Map<String, String> get modesPaiement => {'mensuel': t('Mensuel'), 'annuel': t('Annuel')};
+
 Ressource get documents => Ressource(
   chemin: 'documents',
   titre: t('Documents'),
@@ -316,6 +319,8 @@ Ressource get documents => Ressource(
     Champ('date_debut', t('Valable du'), TypeChamp.date),
     Champ('date_expiration', t('Valable jusqu\'au'), TypeChamp.date,
         aide: t('Un rappel est créé automatiquement à l\'échéance.')),
+    Champ('mode_paiement', t('Mode de paiement'), TypeChamp.choix, choix: modesPaiement,
+        aide: t('Assurance : prime payée chaque mois ou chaque année.')),
     Champ('montant', t('Montant (prime, redevance…)'), TypeChamp.decimal, suffixe: '€'),
     Champ('fichier', t('Fichier (PDF ou photo)'), TypeChamp.fichier),
   ],
@@ -325,8 +330,19 @@ Ressource get documents => Ressource(
   sousTitreLigne: (d, u) => [
     if ((d['organisme'] ?? '').toString().isNotEmpty) d['organisme'],
     if (d['date_expiration'] != null) t('jusqu\'au {date}', {'date': dateFr(d['date_expiration'])}),
+    // Prime : l'autre périodicité (mensuel → par an, annuel → par mois)
+    if (d['mode_paiement'] == 'mensuel' && d['prime_annuelle'] != null)
+      t('{montant} / an', {'montant': euros(d['prime_annuelle'])}),
+    if (d['mode_paiement'] == 'annuel' && d['prime_mensuelle'] != null)
+      t('{montant} / mois', {'montant': euros(d['prime_mensuelle'])}),
   ].join(' · '),
-  montantLigne: (d) => d['montant'] == null ? '' : euros(d['montant']),
+  montantLigne: (d) => d['montant'] == null
+      ? ''
+      : switch (d['mode_paiement']) {
+          'mensuel' => t('{montant} / mois', {'montant': euros(d['montant'])}),
+          'annuel' => t('{montant} / an', {'montant': euros(d['montant'])}),
+          _ => euros(d['montant']),
+        },
 );
 
 Ressource get depenses => Ressource(

@@ -277,6 +277,9 @@ class Document(models.Model):
     date_expiration = models.DateField(_("Valable jusqu'au"), null=True, blank=True)
     montant = models.DecimalField(_("Montant (prime, redevance…)"), max_digits=10, decimal_places=2,
                                   null=True, blank=True, validators=[MinValueValidator(0)])
+    # Assurance : prime payée par mois ou par an (vide : montant payé une fois, à la date de début)
+    mode_paiement = models.CharField(_("Mode de paiement"), max_length=8, blank=True,
+                                     choices=[("mensuel", _("Mensuel")), ("annuel", _("Annuel"))])
     fichier = models.FileField(_("Fichier"), upload_to=chemin_document, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -284,6 +287,22 @@ class Document(models.Model):
         verbose_name = _("Document")
         verbose_name_plural = _("Documents")
         ordering = ["type", "-date_expiration"]
+
+    @property
+    def prime_annuelle(self):
+        """Mensuel : montant × 12 ; annuel : le montant ; sinon None."""
+        if self.montant is None or not self.mode_paiement:
+            return None
+        return (Decimal(self.montant) * 12).quantize(Decimal("0.01")) if self.mode_paiement == "mensuel" \
+            else Decimal(self.montant)
+
+    @property
+    def prime_mensuelle(self):
+        """Annuel : montant ÷ 12 ; mensuel : le montant ; sinon None."""
+        if self.montant is None or not self.mode_paiement:
+            return None
+        return Decimal(self.montant) if self.mode_paiement == "mensuel" \
+            else (Decimal(self.montant) / 12).quantize(Decimal("0.01"))
 
 
 class Rappel(models.Model):

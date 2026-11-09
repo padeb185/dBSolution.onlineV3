@@ -142,6 +142,31 @@ def _somme(qs, champ="montant"):
     return r2(qs.aggregate(s=Sum(champ))["s"])
 
 
+def paiements_document(document, aujourdhui=None):
+    """Paiements d'un document [(date, montant)] : prime mensuelle chaque mois (annuelle chaque année) de la date
+    de début jusqu'à l'expiration, au plus aujourd'hui ; sans mode : le montant une fois, à la date de début."""
+    aujourdhui = aujourdhui or date.today()
+    if document.montant is None:
+        return []
+    montant = D(document.montant)
+    if document.mode_paiement in ("mensuel", "annuel") and document.date_debut:
+        pas = 1 if document.mode_paiement == "mensuel" else 12
+        fin = min(document.date_expiration, aujourdhui) if document.date_expiration else aujourdhui
+        paiements, n = [], 0
+        while True:
+            jour = ajouter_mois(document.date_debut, n * pas)
+            if jour > fin or (document.date_expiration and jour >= document.date_expiration):
+                break
+            paiements.append((jour, montant))
+            n += 1
+        return paiements
+    return [(document.date_debut, montant)]
+
+
+def paiements_documents(vehicule, aujourdhui=None):
+    return [p for d in vehicule.documents.all() for p in paiements_document(d, aujourdhui)]
+
+
 def mois_detention(debut, aujourdhui):
     """Durée de détention en mois, mois partiels compris (jours ÷ 30,44), au moins 1 mois :
     le coût mensuel s'affiche dès le premier mois. None sans date d'achat."""
@@ -253,7 +278,8 @@ def synthese(vehicule, aujourdhui=None):
     if maintenances.exists():
         postes["maintenances"] = {"libelle": str(_("Maintenances (garage)")),
                                   "montant": _somme(maintenances, "total_tvac")}
-    postes["documents"] = {"libelle": str(_("Assurance, contrôle technique, documents")), "montant": _somme(documents)}
+    postes["documents"] = {"libelle": str(_("Assurance, contrôle technique, documents")),
+                           "montant": r2(sum((m for _j, m in paiements_documents(vehicule, aujourdhui)), ZERO))}
     for code, libelle in CategorieDepense.choices:
         m = _somme(depenses.filter(categorie=code))
         if m:
@@ -278,15 +304,17 @@ def synthese(vehicule, aujourdhui=None):
 
     # Par année (graphique)
     annees = {}
-    for qs, cle, champ in ((pleins, "energie", "montant"), (entretiens, "entretiens", "montant"),
-                           (vehicule.maintenances.all(), "entretiens", "total_tvac"),
-                           (documents, "documents", "montant"), (depenses, "autres", "montant")):
-        champ_date = "date_debut" if cle == "documents" else "date"
-        for jour, montant in qs.values_list(champ_date, champ):
-            if jour and montant:
-                a = annees.setdefault(jour.year, {"annee": jour.year, "energie": ZERO, "entretiens": ZERO,
-                                                  "documents": ZERO, "autres": ZERO})
-                a[cle] = r2(a[cle] + D(montant))
+    lignes_annees = [(cle, jour, montant)
+                     for qs, cle, champ in ((pleins, "energie", "montant"), (entretiens, "entretiens", "montant"),
+                                            (vehicule.maintenances.all(), "entretiens", "total_tvac"),
+                                            (depenses, "autres", "montant"))
+                     for jour, montant in qs.values_list("date", champ)]
+    lignes_annees += [("documents", jour, montant) for jour, montant in paiements_documents(vehicule, aujourdhui)]
+    for cle, jour, montant in lignes_annees:
+        if jour and montant:
+            a = annees.setdefault(jour.year, {"annee": jour.year, "energie": ZERO, "entretiens": ZERO,
+                                              "documents": ZERO, "autres": ZERO})
+            a[cle] = r2(a[cle] + D(montant))
     conso = consommation(vehicule)
     return {
         "postes": [dict(code=c, **p) for c, p in postes.items()],
@@ -465,11 +493,14 @@ def rapport(vehicule, code_periode=None, aujourdhui=None):
     for cle, qs, champ, champ_montant in (
             ("entretiens", vehicule.entretiens.all(), "date", "montant"),
             ("entretiens", vehicule.maintenances.all(), "date", "total_tvac"),
-            ("autres", vehicule.depenses.all(), "date", "montant"),
-            ("documents", vehicule.documents.all(), "date_debut", "montant")):
+            ("autres", vehicule.depenses.all(), "date", "montant")):
         for jour, montant in qs.values_list(champ, champ_montant):
             if dans(jour) and montant:
                 couts[cle][_mois(jour)] += D(montant)
+    # Documents (assurance) : prime mensuelle chaque mois, sinon le montant à la date de début
+    for jour, montant in paiements_documents(vehicule, aujourdhui):
+        if dans(jour) and montant:
+            couts["documents"][_mois(jour)] += D(montant)
     if fin and fin.get("date_debut") and fin.get("mensualite"):
         for n in range(fin["duree_mois"] or 0):
             jour = ajouter_mois(fin["date_debut"], n + 1)

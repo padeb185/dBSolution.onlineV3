@@ -117,6 +117,8 @@ class EntretienSerializer(VehiculeChampMixin, FichierMixin, serializers.ModelSer
 class DocumentSerializer(VehiculeChampMixin, FichierMixin, serializers.ModelSerializer):
     fichiers = {"fichier": "api_particulier:document-fichier"}
     type_libelle = serializers.CharField(source="get_type_display", read_only=True)
+    prime_annuelle = serializers.DecimalField(max_digits=12, decimal_places=2, read_only=True)
+    prime_mensuelle = serializers.DecimalField(max_digits=12, decimal_places=2, read_only=True)
 
     class Meta:
         model = Document

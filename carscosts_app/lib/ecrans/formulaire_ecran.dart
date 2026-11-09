@@ -106,7 +106,37 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
     }
   }
 
+  /// Assurance : prime mensuelle → prime annuelle (× 12), prime annuelle → prime mensuelle (÷ 12).
+  Widget _primes() {
+    final montant = _textes['montant'];
+    final mode = _valeurs['mode_paiement'];
+    if (montant == null || (mode != 'mensuel' && mode != 'annuel')) return const SizedBox.shrink();
+    return AnimatedBuilder(
+      animation: montant,
+      builder: (context, _) {
+        final v = double.tryParse(montant.text.trim().replaceAll(',', '.'));
+        if (v == null) return const SizedBox.shrink();
+        return Padding(
+          padding: const EdgeInsets.only(left: 12, top: 4),
+          child: Text(
+            mode == 'mensuel'
+                ? t('Prime annuelle : {montant}', {'montant': euros(v * 12)})
+                : t('Prime mensuelle : {montant}', {'montant': euros(v / 12)}),
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
+          ),
+        );
+      },
+    );
+  }
+
   /// Maintenance : pièces / main-d'œuvre TVAC et total (mis à jour pendant la saisie).
+  /// Libellé du montant selon le mode de paiement (prime mensuelle / annuelle)
+  Champ _champMontantPrime(Champ c) => switch (_valeurs['mode_paiement']) {
+        'mensuel' => Champ(c.nom, t('Prime mensuelle'), c.type, suffixe: c.suffixe),
+        'annuel' => Champ(c.nom, t('Prime annuelle'), c.type, suffixe: c.suffixe),
+        _ => c,
+      };
+
   Widget _totauxMaintenance() {
     final pieces = _textes['pieces_htva'], mo = _textes['main_oeuvre_htva'], taux = _textes['taux_tva'];
     if (pieces == null || mo == null || taux == null) return const SizedBox.shrink();
@@ -414,7 +444,12 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
                 child: c.nom == 'taux_tva'
                     ? Column(crossAxisAlignment: CrossAxisAlignment.start,
                         children: [_champ(c), _ventilationTva(), _totauxMaintenance()])
-                    : _champ(c),
+                    : c.nom == 'montant' && r.champs.any((x) => x.nom == 'mode_paiement')
+                        ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                            _champ(_champMontantPrime(c)),
+                            _primes(),
+                          ])
+                        : _champ(c),
               ),
             FilledButton.icon(
               onPressed: _envoi ? null : _enregistrer,
