@@ -247,6 +247,11 @@ class Entretien(models.Model):
     type = models.CharField(_("Type"), max_length=20, choices=TypeEntretien.choices, default=TypeEntretien.REVISION)
     description = models.CharField(_("Description"), max_length=255, blank=True)
     garage = models.CharField(_("Garage"), max_length=120, blank=True)
+    # Pièces et main-d'œuvre TVAC (facultatifs) : s'ils sont indiqués, le montant est leur total
+    pieces = models.DecimalField(_("Pièces TVAC"), max_digits=10, decimal_places=2, null=True, blank=True,
+                                 validators=[MinValueValidator(0)])
+    main_oeuvre = models.DecimalField(_("Main-d'œuvre TVAC"), max_digits=10, decimal_places=2, null=True, blank=True,
+                                      validators=[MinValueValidator(0)])
     montant = models.DecimalField(_("Montant TVAC"), max_digits=10, decimal_places=2, default=ZERO,
                                   validators=[MinValueValidator(0)])
     facture = models.FileField(_("Facture"), upload_to=chemin_facture, null=True, blank=True)
@@ -256,6 +261,11 @@ class Entretien(models.Model):
         verbose_name = _("Entretien")
         verbose_name_plural = _("Entretiens")
         ordering = ["-date"]
+
+    def save(self, *args, **kwargs):
+        if self.pieces is not None or self.main_oeuvre is not None:
+            self.montant = Decimal(self.pieces or 0) + Decimal(self.main_oeuvre or 0)
+        super().save(*args, **kwargs)
 
 
 class TypeDocument(models.TextChoices):
@@ -527,6 +537,36 @@ def types_maintenance():
     """Types de maintenance de dBSolution (mêmes codes et libellés, donc mêmes traductions)."""
     from maintenance.models import Maintenance
     return Maintenance.TypeMaintenance.choices
+
+
+# Familles des types de maintenance (regroupement du choix dans l'application ; libellés traduits par l'app)
+FAMILLES_MAINTENANCE = {
+    "entretien": ["checkup", "entretien", "niveaux", "LUBRIFICATION", "RODAGE", "checkup_track",
+                  "BOUGIES_ALLUMAGE", "BOUGIES_PRECHAUFFAGE"],
+    "moteur": ["ADMISSION", "TURBO", "MONTAGE_TURBO", "REMPLACEMENT_MOTEUR", "COURROIE_DISTRI", "CHAINE_DISTRI",
+               "ELECTRONIQUE_MOTEUR", "COURROIE_ACCESS", "REFROIDISSEMENT", "ALLUMAGE", "INJECTION", "CULASSE",
+               "BAS_MOTEUR", "BANC_PUISSANCE", "PC_MOTEUR", "METROLOGIE_MOTEUR", "CASSE_MOTEUR"],
+    "transmission": ["remplacement_boite", "BOITE", "BOITE_AUTO", "EMBRAYAGE", "CARDAN", "ARBRE_TRANSMISSION",
+                     "BOITE_TRANSFERT", "remplacement_bte_auto", "CASSE_BOITE"],
+    "freinage": ["freins", "ABS", "NETTOYAGE_FREINS", "TAMBOURS", "FREIN_MAIN", "FREIN_MAIN_HYDRAULIQUE",
+                 "RENOVATION_MACHOIRES"],
+    "roues": ["pneus", "GEOMETRIE", "GEOMETRIE_COURSE", "ROULEMENT", "CREVAISON", "silent_bloc",
+              "SUSPENSION_ORIGINE", "SUSPENSION_SPORT", "PC_AIR_JACK"],
+    "echappement": ["ECHAPPEMENT", "PC_ECHAPPEMENT"],          # + tous les codes ECH_… et ADBLUE_…
+    "electricite": ["BATTERIE", "ALTERNATEUR", "DEMARREUR", "ECLAIRAGE", "FUSIBLES", "BOITIER_ELECTRONIQUE",
+                    "AIDE_STATIONNEMENT", "PC_CABLAGE", "PC_BOITIER"],
+    "confort": ["CLIMATISATION", "VENTILATION", "ESSUYAGE"],
+    "securite": ["ESP", "SECURITE", "PC_ARCEAU", "PC_EXTINCTEUR", "PC_SIEGES"],
+    "carrosserie": ["nettoyage_exterieur", "nettoyage_interieur", "CARROSSERIE_INTERNE", "POLISH", "DECONTAMINATION",
+                    "CIRE", "CERAMIQUE", "VITRAGE", "ACCIDENT", "PC_DEMONTAGE"],
+}
+_FAMILLE_PAR_TYPE = {code: f for f, codes in FAMILLES_MAINTENANCE.items() for code in codes}
+
+
+def famille_maintenance(code):
+    if code.startswith(("ECH_", "ADBLUE_")):
+        return "echappement"
+    return _FAMILLE_PAR_TYPE.get(code, "autres")
 
 
 class MaintenanceParticulier(models.Model):

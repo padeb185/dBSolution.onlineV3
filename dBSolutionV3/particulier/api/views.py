@@ -357,9 +357,10 @@ class MaintenanceViewSet(ProprietaireViewSet):
 
     @action(detail=False)
     def types(self, request):
-        """Types de maintenance (libellés traduits dans la langue de l'utilisateur)."""
-        from ..models import types_maintenance
-        return Response([{"code": c, "libelle": str(l)} for c, l in types_maintenance()])
+        """Types de maintenance (libellés traduits dans la langue de l'utilisateur) et leur famille."""
+        from ..models import famille_maintenance, types_maintenance
+        return Response([{"code": c, "libelle": str(l), "famille": famille_maintenance(c)}
+                         for c, l in types_maintenance()])
 
     @action(detail=True)
     def facture(self, request, pk=None):

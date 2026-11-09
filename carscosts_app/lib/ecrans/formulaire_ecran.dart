@@ -42,15 +42,22 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
   /// Choix chargés depuis l'API (Champ.choixDistants) : champ → {code: libellé}
   final Map<String, Map<String, String>> _choixCharges = {};
 
+  /// Familles des choix distants (maintenance : code → famille), pour regrouper la liste
+  final Map<String, Map<String, String>> _famillesCharges = {};
+
   bool get _modification => widget.element != null;
 
   Future<void> _chargerChoix(Champ c) async {
     try {
       final r = await context.read<ApiClient>().get(c.choixDistants!);
       if (!mounted) return;
-      setState(() => _choixCharges[c.nom] = {
-            for (final e in r as List) '${(e as Map)['code']}': '${e['libelle']}',
-          });
+      final liste = [for (final e in r as List) Map<String, dynamic>.from(e as Map)];
+      setState(() {
+        _choixCharges[c.nom] = {for (final e in liste) '${e['code']}': '${e['libelle']}'};
+        if (liste.any((e) => e['famille'] != null)) {
+          _famillesCharges[c.nom] = {for (final e in liste) '${e['code']}': '${e['famille'] ?? 'autres'}'};
+        }
+      });
     } on ApiException catch (e) {
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
     }
@@ -104,6 +111,20 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
     for (final c in widget.ressource.champs) {
       if (c.choixDistants != null) _chargerChoix(c);
     }
+    // Entretien : total = pièces + main-d'œuvre (mis à jour pendant la saisie)
+    final pieces = _textes['pieces'], mo = _textes['main_oeuvre'];
+    if (pieces != null && mo != null && _textes['montant'] != null) {
+      pieces.addListener(_calculerTotal);
+      mo.addListener(_calculerTotal);
+    }
+  }
+
+  void _calculerTotal() {
+    double? lire(TextEditingController c) => double.tryParse(c.text.trim().replaceAll(',', '.'));
+    final p = lire(_textes['pieces']!), m = lire(_textes['main_oeuvre']!);
+    if (p == null && m == null) return;
+    final total = (p ?? 0) + (m ?? 0);
+    _textes['montant']!.text = total.toStringAsFixed(2);
   }
 
   /// Assurance : prime mensuelle → prime annuelle (× 12), prime annuelle → prime mensuelle (÷ 12).
@@ -130,6 +151,40 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
   }
 
   /// Maintenance : pièces / main-d'œuvre TVAC et total (mis à jour pendant la saisie).
+  /// Choix regroupés par famille (titres non sélectionnables), familles puis types par ordre alphabétique ;
+  /// « Autres » en dernier.
+  List<DropdownMenuItem<String>> _itemsParFamille(Map<String, String> options, Map<String, String> familles) {
+    final libelles = famillesMaintenance;
+    String nomFamille(String f) => libelles[f] ?? f;
+    final groupes = <String, List<MapEntry<String, String>>>{};
+    for (final e in options.entries) {
+      groupes.putIfAbsent(familles[e.key] ?? 'autres', () => []).add(e);
+    }
+    final ordre = groupes.keys.toList()
+      ..sort((a, b) => a == 'autres'
+          ? 1
+          : b == 'autres'
+              ? -1
+              : normaliserRecherche(nomFamille(a)).compareTo(normaliserRecherche(nomFamille(b))));
+    final style = Theme.of(context).textTheme.labelLarge?.copyWith(
+        color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold);
+    return [
+      for (final f in ordre) ...[
+        DropdownMenuItem<String>(
+            value: '#$f', enabled: false, child: Text(nomFamille(f).toUpperCase(), style: style)),
+        for (final e in groupes[f]!
+          ..sort((a, b) => normaliserRecherche(a.value).compareTo(normaliserRecherche(b.value))))
+          DropdownMenuItem<String>(
+            value: e.key,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 12),
+              child: Text(e.value, overflow: TextOverflow.ellipsis),
+            ),
+          ),
+      ],
+    ];
+  }
+
   /// Libellé du montant selon le mode de paiement (prime mensuelle / annuelle)
   Champ _champMontantPrime(Champ c) => switch (_valeurs['mode_paiement']) {
         'mensuel' => Champ(c.nom, t('Prime mensuelle'), c.type, suffixe: c.suffixe),
@@ -144,14 +199,35 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
       animation: Listenable.merge([pieces, mo, taux]),
       builder: (context, _) {
         double lire(TextEditingController c) => double.tryParse(c.text.trim().replaceAll(',', '.')) ?? 0;
-        final k = 1 + lire(taux) / 100;
-        final p = lire(pieces) * k, m = lire(mo) * k;
-        return Padding(
-          padding: const EdgeInsets.only(left: 12, top: 4),
-          child: Text(
-              t('Pièces TVAC {pieces} · main-d\'œuvre TVAC {mo} · total {total}',
-                  {'pieces': euros(p), 'mo': euros(m), 'total': euros(p + m)}),
-              style: Theme.of(context).textTheme.bodySmall),
+        final tx = lire(taux) / 100;
+        final p = lire(pieces), m = lire(mo);
+        final style = Theme.of(context).textTheme.bodySmall;
+        final gras = style?.copyWith(fontWeight: FontWeight.bold);
+        TableRow ligne(String libelle, double htva, {bool total = false}) => TableRow(children: [
+              Padding(padding: const EdgeInsets.symmetric(vertical: 3), child: Text(libelle, style: total ? gras : style)),
+              Text(euros(htva), textAlign: TextAlign.right, style: total ? gras : style),
+              Text(euros(htva * tx), textAlign: TextAlign.right, style: total ? gras : style),
+              Text(euros(htva * (1 + tx)), textAlign: TextAlign.right, style: total ? gras : style),
+            ]);
+        return Card(
+          margin: const EdgeInsets.only(top: 8),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Table(
+              columnWidths: const {0: FlexColumnWidth(1.4)},
+              children: [
+                TableRow(children: [
+                  const SizedBox(),
+                  Text(t('HTVA'), textAlign: TextAlign.right, style: gras),
+                  Text(t('TVA'), textAlign: TextAlign.right, style: gras),
+                  Text(t('TVAC'), textAlign: TextAlign.right, style: gras),
+                ]),
+                ligne(t('Pièces'), p),
+                ligne(t('Main-d\'œuvre'), m),
+                ligne(t('Total'), p + m, total: true),
+              ],
+            ),
+          ),
         );
       },
     );
@@ -355,8 +431,11 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
           menuMaxHeight: 420,
           items: [
             if (!c.obligatoire) const DropdownMenuItem(value: null, child: Text('—')),
-            for (final e in options.entries)
-              DropdownMenuItem(value: e.key, child: Text(e.value, overflow: TextOverflow.ellipsis)),
+            if (_famillesCharges[c.nom] == null)
+              for (final e in options.entries)
+                DropdownMenuItem(value: e.key, child: Text(e.value, overflow: TextOverflow.ellipsis))
+            else
+              ..._itemsParFamille(options, _famillesCharges[c.nom]!),
           ],
           onChanged: (v) => setState(() {
             _valeurs[c.nom] = v;

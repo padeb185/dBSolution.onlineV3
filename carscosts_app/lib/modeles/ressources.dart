@@ -263,7 +263,10 @@ Ressource get entretiens => Ressource(
     Champ('kilometrage', t('Kilométrage'), TypeChamp.entier, suffixe: 'km'),
     Champ('description', t('Description'), TypeChamp.texte),
     Champ('garage', t('Garage'), TypeChamp.texte),
-    Champ('montant', t('Montant'), TypeChamp.decimal, suffixe: '€', parDefaut: '0'),
+    Champ('pieces', t('Pièces TVAC'), TypeChamp.decimal, suffixe: '€'),
+    Champ('main_oeuvre', t('Main-d\'œuvre TVAC'), TypeChamp.decimal, suffixe: '€'),
+    Champ('montant', t('Total TVAC'), TypeChamp.decimal, suffixe: '€', parDefaut: '0',
+        aide: t('Calculé à partir des pièces et de la main-d\'œuvre (ou à saisir directement).')),
     Champ('facture', t('Facture (PDF ou photo)'), TypeChamp.fichier),
   ],
   titreLigne: (e, u) => typesEntretien[e['type']] ?? e['type'].toString(),
@@ -271,6 +274,8 @@ Ressource get entretiens => Ressource(
     dateFr(e['date']),
     if (e['kilometrage'] != null) km(e['kilometrage'], u),
     if ((e['garage'] ?? '').toString().isNotEmpty) e['garage'],
+    if (e['pieces'] != null || e['main_oeuvre'] != null)
+      t('pièces {pieces} · main-d\'œuvre {mo}', {'pieces': euros(e['pieces'] ?? 0), 'mo': euros(e['main_oeuvre'] ?? 0)}),
   ].join(' · '),
   montantLigne: (e) => euros(e['montant']),
 );
@@ -363,6 +368,21 @@ Ressource get depenses => Ressource(
   sousTitreLigne: (d, u) => [dateFr(d['date']), if ((d['libelle'] ?? '').toString().isNotEmpty) d['libelle']].join(' · '),
   montantLigne: (d) => euros(d['montant']),
 );
+
+/// Familles des types de maintenance (regroupement du choix ; « Autres » en dernier)
+Map<String, String> get famillesMaintenance => {
+  'entretien': t('Entretien périodique'),
+  'moteur': t('Moteur'),
+  'transmission': t('Boîte et transmission'),
+  'freinage': t('Freinage'),
+  'roues': t('Pneus, trains roulants et suspension'),
+  'echappement': t('Échappement et dépollution'),
+  'electricite': t('Électricité et électronique'),
+  'confort': t('Climatisation et confort'),
+  'securite': t('Sécurité'),
+  'carrosserie': t('Carrosserie et nettoyage'),
+  'autres': t('Autres'),
+};
 
 /// Maintenances par un garage (comme les maintenances externes de dBSolution) : pièces et main-d'œuvre
 /// HTVA séparées pour les statistiques ; TVA du pays et totaux calculés par le serveur. Formule Bronze.

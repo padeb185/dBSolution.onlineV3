@@ -493,3 +493,23 @@ T.update({
 '{montant} / an': ('{montant} / jaar', '{montant} / year', '{montant} / Jahr', '{montant} / año', '{montant} / anno', '{montant} / έτος'),
 '{montant} / mois': ('{montant} / maand', '{montant} / month', '{montant} / Monat', '{montant} / mes', '{montant} / mese', '{montant} / μήνα'),
 })
+T.update({
+'Pièces TVAC': ('Onderdelen incl. btw', 'Parts incl. VAT', 'Teile brutto', 'Piezas IVA incl.', 'Ricambi IVA incl.', 'Ανταλλακτικά με ΦΠΑ'),
+"Main-d'œuvre TVAC": ('Arbeid incl. btw', 'Labour incl. VAT', 'Arbeit brutto', 'Mano de obra IVA incl.', 'Manodopera IVA incl.', 'Εργασία με ΦΠΑ'),
+"Calculé à partir des pièces et de la main-d'œuvre (ou à saisir directement).": ('Berekend op basis van onderdelen en arbeid (of rechtstreeks in te vullen).', 'Calculated from parts and labour (or enter it directly).', 'Aus Teilen und Arbeit berechnet (oder direkt eingeben).', 'Calculado a partir de las piezas y la mano de obra (o introdúzcalo directamente).', 'Calcolato da ricambi e manodopera (o da inserire direttamente).', 'Υπολογίζεται από ανταλλακτικά και εργασία (ή συμπληρώστε το απευθείας).'),
+})
+T.update({
+'HTVA': ('Excl. btw', 'Excl. VAT', 'Netto', 'Sin IVA', 'IVA escl.', 'Χωρίς ΦΠΑ'),
+'TVAC': ('Incl. btw', 'Incl. VAT', 'Brutto', 'IVA incl.', 'IVA incl.', 'Με ΦΠΑ'),
+'Total': ('Totaal', 'Total', 'Gesamt', 'Total', 'Totale', 'Σύνολο'),
+'Entretien périodique': ('Periodiek onderhoud', 'Routine servicing', 'Regelmäßige Wartung', 'Mantenimiento periódico', 'Manutenzione periodica', 'Περιοδική συντήρηση'),
+'Moteur': ('Motor', 'Engine', 'Motor', 'Motor', 'Motore', 'Κινητήρας'),
+'Boîte et transmission': ('Versnellingsbak en aandrijving', 'Gearbox and transmission', 'Getriebe und Antrieb', 'Caja de cambios y transmisión', 'Cambio e trasmissione', 'Κιβώτιο και μετάδοση'),
+'Freinage': ('Remmen', 'Brakes', 'Bremsen', 'Frenos', 'Freni', 'Φρένα'),
+'Pneus, trains roulants et suspension': ('Banden, onderstel en ophanging', 'Tyres, running gear and suspension', 'Reifen, Fahrwerk und Federung', 'Neumáticos, tren de rodaje y suspensión', 'Pneumatici, assetto e sospensioni', 'Ελαστικά, σύστημα κύλισης και ανάρτηση'),
+'Échappement et dépollution': ('Uitlaat en emissiereductie', 'Exhaust and emissions', 'Abgasanlage und Abgasreinigung', 'Escape y anticontaminación', 'Scarico e antinquinamento', 'Εξάτμιση και αντιρρύπανση'),
+'Électricité et électronique': ('Elektriciteit en elektronica', 'Electrics and electronics', 'Elektrik und Elektronik', 'Electricidad y electrónica', 'Elettricità ed elettronica', 'Ηλεκτρικά και ηλεκτρονικά'),
+'Climatisation et confort': ('Airco en comfort', 'Air conditioning and comfort', 'Klimaanlage und Komfort', 'Climatización y confort', 'Climatizzazione e comfort', 'Κλιματισμός και άνεση'),
+'Sécurité': ('Veiligheid', 'Safety', 'Sicherheit', 'Seguridad', 'Sicurezza', 'Ασφάλεια'),
+'Carrosserie et nettoyage': ('Carrosserie en reiniging', 'Bodywork and cleaning', 'Karosserie und Reinigung', 'Carrocería y limpieza', 'Carrozzeria e pulizia', 'Αμάξωμα και καθαρισμός'),
+})
