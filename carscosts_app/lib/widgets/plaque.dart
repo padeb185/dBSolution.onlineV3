@@ -71,6 +71,16 @@ StylePlaque stylePlaque(String? pays) {
 
 /// Plaque d'immatriculation dessinée comme dans dBSolution : bande bleue UE (étoiles + code pays)
 /// ou écusson suisse, fond, couleur du texte et bordure propres au pays.
+/// Nombre de caractères réservés sur la plaque (les numéros plus courts sont centrés)
+const caracteresPlaque = 9;
+
+double _largeurTexte(String texte, TextStyle style, TextScaler echelle) {
+  final tp = TextPainter(
+      text: TextSpan(text: texte, style: style), textDirection: TextDirection.ltr, maxLines: 1, textScaler: echelle)
+    ..layout();
+  return tp.width.ceilToDouble();
+}
+
 class Plaque extends StatelessWidget {
   const Plaque({super.key, required this.numero, this.pays, this.hauteur = 28});
 
@@ -83,6 +93,17 @@ class Plaque extends StatelessWidget {
     final s = stylePlaque(pays);
     final defaut = !stylesPlaque.containsKey((pays ?? '').toUpperCase());
     final h = hauteur;
+    final texte = numero.toUpperCase();
+    final echelle = MediaQuery.textScalerOf(context);
+    final style = TextStyle(
+      color: s.texte,
+      fontWeight: FontWeight.w700,
+      fontSize: h * 0.58,
+      letterSpacing: h * 0.02,
+      height: 1,
+      fontFamily: 'Arial',
+      fontFamilyFallback: const ['Helvetica', 'Roboto'],
+    );
     return Semantics(
       label: t('Plaque {pays} {numero}', {'pays': paysImmatriculation[(pays ?? '').toUpperCase()] ?? s.nom, 'numero': numero}),
       child: Container(
@@ -116,20 +137,11 @@ class Plaque extends StatelessWidget {
             ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: h * 0.2),
-            child: Center(
-              child: Text(
-                numero.toUpperCase(),
-                maxLines: 1,
-                style: TextStyle(
-                  color: s.texte,
-                  fontWeight: FontWeight.w700,
-                  fontSize: h * 0.58,
-                  letterSpacing: h * 0.02,
-                  height: 1,
-                  fontFamily: 'Arial',
-                  fontFamilyFallback: const ['Helvetica', 'Roboto'],
-                ),
-              ),
+            // Largeur fixe de 9 caractères (même plaque pour tous les numéros), numéro centré ;
+            // un numéro plus long élargit la plaque.
+            child: SizedBox(
+              width: math.max(_largeurTexte('H' * caracteresPlaque, style, echelle), _largeurTexte(texte, style, echelle)),
+              child: Center(child: Text(texte, maxLines: 1, softWrap: false, textAlign: TextAlign.center, style: style)),
             ),
           ),
         ]),
