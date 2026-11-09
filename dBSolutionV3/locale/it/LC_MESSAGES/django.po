@@ -82780,3 +82780,15 @@ msgstr "ibrida plug-in: al massimo 75 % fino al 2027"
 #: particulier/deductibilite.py
 msgid "La déductibilité est disponible à partir de la formule Bronze."
 msgstr "La deducibilità è disponibile dal piano Bronze."
+
+#: particulier/models.py
+msgid "Les maintenances sont disponibles à partir de la formule Bronze."
+msgstr "Le manutenzioni sono disponibili dal piano Bronze."
+
+#: particulier/models.py
+msgid "Maintenances (garage)"
+msgstr "Manutenzioni (officina)"
+
+#: particulier/models.py
+msgid "Maintenance (garage)"
+msgstr "Manutenzione (officina)"

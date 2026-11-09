@@ -50,6 +50,7 @@ class _DeductibiliteOngletState extends State<DeductibiliteOnglet> with Automati
         'carburant': t('Carburant'),
         'electricite': t('Électricité'),
         'entretien': t('Entretiens et réparations'),
+        'maintenances': t('Maintenances (garage)'),
         'assurances_taxes': t('Assurances et taxes (sans TVA)'),
         'amendes': t('Amendes (non déductibles)'),
         'autres': t('Autres frais (parking, lavage, accessoires…)'),

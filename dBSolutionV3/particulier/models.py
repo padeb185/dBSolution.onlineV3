@@ -96,7 +96,7 @@ class Vehicule(models.Model):
     def kilometrage_actuel(self):
         """Plus haut kilométrage connu (relevés, pleins, entretiens, achat)."""
         valeurs = [self.kilometrage_achat or 0]
-        for qs in (self.releves.all(), self.pleins.all(), self.entretiens.all()):
+        for qs in (self.releves.all(), self.pleins.all(), self.entretiens.all(), self.maintenances.all()):
             km = qs.aggregate(m=models.Max("kilometrage"))["m"]
             if km:
                 valeurs.append(km)
@@ -107,7 +107,7 @@ class Vehicule(models.Model):
         """Kilométrage de départ des calculs au km : celui de l'achat, sinon le plus bas kilométrage saisi."""
         if self.kilometrage_achat is not None:
             return self.kilometrage_achat
-        valeurs = [km for qs in (self.releves.all(), self.pleins.all(), self.entretiens.all())
+        valeurs = [km for qs in (self.releves.all(), self.pleins.all(), self.entretiens.all(), self.maintenances.all())
                    for km in [qs.aggregate(m=models.Min("kilometrage"))["m"]] if km]
         return min(valeurs) if valeurs else None
 
@@ -502,3 +502,74 @@ class ProfilFiscal(models.Model):
     class Meta:
         verbose_name = _("Profil fiscal")
         verbose_name_plural = _("Profils fiscaux")
+
+
+def types_maintenance():
+    """Types de maintenance de dBSolution (mêmes codes et libellés, donc mêmes traductions)."""
+    from maintenance.models import Maintenance
+    return Maintenance.TypeMaintenance.choices
+
+
+class MaintenanceParticulier(models.Model):
+    """
+    Maintenance faite par un garage (même principe que les maintenances externes de dBSolution) :
+    pièces et main-d'œuvre HTVA séparées, TVA du pays, montants calculés pour les statistiques.
+    Formule Bronze minimum.
+    """
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    vehicule = models.ForeignKey(Vehicule, on_delete=models.CASCADE, related_name="maintenances")
+    type_maintenance = models.CharField(_("Type de maintenance"), max_length=50, choices=types_maintenance,
+                                        default="entretien")
+    date = models.DateField(_("Date de la facture"), default=date.today)
+    garage = models.CharField(_("Garage"), max_length=120, blank=True)
+    numero_facture = models.CharField(_("Numéro de facture du garage"), max_length=50, blank=True)
+    kilometrage = models.PositiveIntegerField(_("Kilométrage"), null=True, blank=True)
+    pays = models.CharField(_("Pays de la TVA"), max_length=2, blank=True)
+    taux_tva = models.DecimalField(_("Taux de TVA (%)"), max_digits=5, decimal_places=2, null=True, blank=True,
+                                   validators=[MinValueValidator(0), MaxValueValidator(100)])
+    pieces_htva = models.DecimalField(_("Pièces HTVA (€)"), max_digits=10, decimal_places=2, default=ZERO,
+                                      validators=[MinValueValidator(0)])
+    main_oeuvre_htva = models.DecimalField(_("Main-d'œuvre HTVA (€)"), max_digits=10, decimal_places=2,
+                                           default=ZERO, validators=[MinValueValidator(0)])
+    # Montants calculés (listes, statistiques, TVA)
+    tva_pieces = models.DecimalField(_("TVA pièces (€)"), max_digits=10, decimal_places=2, default=ZERO, editable=False)
+    tva_main_oeuvre = models.DecimalField(_("TVA main-d'œuvre (€)"), max_digits=10, decimal_places=2, default=ZERO,
+                                          editable=False)
+    total_pieces_tvac = models.DecimalField(_("Total pièces TVAC (€)"), max_digits=10, decimal_places=2,
+                                            default=ZERO, editable=False)
+    total_main_oeuvre_tvac = models.DecimalField(_("Total main-d'œuvre TVAC (€)"), max_digits=10, decimal_places=2,
+                                                 default=ZERO, editable=False)
+    total_htva = models.DecimalField(_("Total HTVA (€)"), max_digits=10, decimal_places=2, default=ZERO, editable=False)
+    total_tva = models.DecimalField(_("Total TVA (€)"), max_digits=10, decimal_places=2, default=ZERO, editable=False)
+    total_tvac = models.DecimalField(_("Total TVAC (€)"), max_digits=10, decimal_places=2, default=ZERO, editable=False)
+    description = models.TextField(_("Description des travaux"), blank=True)
+    facture = models.FileField(_("Facture"), upload_to=chemin_facture, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("Maintenance (garage)")
+        verbose_name_plural = _("Maintenances (garage)")
+        ordering = ["-date", "-created_at"]
+
+    def calculer(self):
+        from decimal import ROUND_HALF_UP
+        from .tva import taux_tva
+        arrondi = lambda v: Decimal(v or 0).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)  # noqa: E731
+        if not self.pays:
+            self.pays = (self.vehicule.pays_immatriculation or "").upper()
+        if self.taux_tva is None:
+            self.taux_tva = taux_tva(self.pays) or ZERO
+        taux = Decimal(self.taux_tva) / Decimal(100)
+        self.pieces_htva = arrondi(self.pieces_htva)
+        self.main_oeuvre_htva = arrondi(self.main_oeuvre_htva)
+        self.tva_pieces = arrondi(self.pieces_htva * taux)
+        self.tva_main_oeuvre = arrondi(self.main_oeuvre_htva * taux)
+        self.total_pieces_tvac = arrondi(self.pieces_htva + self.tva_pieces)
+        self.total_main_oeuvre_tvac = arrondi(self.main_oeuvre_htva + self.tva_main_oeuvre)
+        self.total_htva = arrondi(self.pieces_htva + self.main_oeuvre_htva)
+        self.total_tva = arrondi(self.tva_pieces + self.tva_main_oeuvre)
+        self.total_tvac = arrondi(self.total_htva + self.total_tva)
+
+    def save(self, *args, **kwargs):
+        self.calculer()
+        super().save(*args, **kwargs)

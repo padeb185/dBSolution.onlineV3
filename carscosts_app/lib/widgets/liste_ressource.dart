@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../achats/abonnement.dart';
 import '../api/api_client.dart';
 import '../l10n/langue.dart';
 import '../l10n/unites.dart';
 import '../ecrans/formulaire_ecran.dart';
+import '../ecrans/formules_ecran.dart';
 import '../modeles/ressources.dart';
 import 'fichiers.dart';
 import 'format.dart';
@@ -66,7 +68,16 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
     _charger();
   }
 
+  bool get _verrouillee => widget.ressource.bronze && context.read<Abonnement>().formule == 'gratuit';
+
+  bool _chargeeVerrouillee = false;
+
   void _charger() {
+    _chargeeVerrouillee = _verrouillee;
+    if (_chargeeVerrouillee) {
+      _elements = Future.value(const []);
+      return;
+    }
     _elements = context
         .read<ApiClient>()
         .get('${widget.ressource.chemin}/', params: {...widget.ressource.params, 'vehicule': widget.vehiculeId}).then(
@@ -120,10 +131,31 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
     }
   }
 
+  /// Ressource réservée aux formules payantes (Bronze minimum)
+  Widget _verrou() => ListView(padding: const EdgeInsets.all(24), children: [
+        const Icon(Icons.lock_outline, size: 48),
+        const SizedBox(height: 12),
+        Text(t('« {titre} » est disponible à partir de la formule Bronze.', {'titre': widget.ressource.titre}),
+            textAlign: TextAlign.center, style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: 16),
+        Center(
+          child: FilledButton.icon(
+            icon: const Icon(Icons.workspace_premium),
+            label: Text(t('Voir les formules')),
+            onPressed: () async {
+              await Navigator.push(context, MaterialPageRoute(builder: (_) => const FormulesEcran()));
+              if (mounted) setState(_charger);
+            },
+          ),
+        ),
+      ]);
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
     final r = widget.ressource;
+    if (r.bronze && context.watch<Abonnement>().formule == 'gratuit') return _verrou();
+    if (_chargeeVerrouillee) _charger();   // formule payante prise entre-temps : chargement de la liste
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         heroTag: r.chemin,

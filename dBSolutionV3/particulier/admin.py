@@ -5,7 +5,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from .comptes import activer
-from .models import AbonnementParticulier, CompteParticulier, Financement, Depense, Document, Entretien, Plein, ProfilFiscal, Rappel, ReleveKilometrique, Vehicule
+from .models import AbonnementParticulier, CompteParticulier, Financement, Depense, Document, Entretien, MaintenanceParticulier, Plein, ProfilFiscal, Rappel, ReleveKilometrique, Vehicule
 
 
 def lien_fichier(modele, champ):
@@ -202,3 +202,10 @@ class ProfilFiscalAdmin(admin.ModelAdmin):
     list_display = ("vehicule", "statut", "usage_pro", "co2", "updated_at")
     list_filter = ("statut",)
 
+
+@admin.register(MaintenanceParticulier)
+class MaintenanceParticulierAdmin(admin.ModelAdmin):
+    list_display = ("vehicule", "date", "type_maintenance", "garage", "pieces_htva", "main_oeuvre_htva", "total_tvac")
+    list_filter = ("type_maintenance",)
+    readonly_fields = ("tva_pieces", "tva_main_oeuvre", "total_pieces_tvac", "total_main_oeuvre_tvac",
+                       "total_htva", "total_tva", "total_tvac")

@@ -249,6 +249,10 @@ def synthese(vehicule, aujourdhui=None):
             postes["achat"] = {"libelle": str(_("Option d'achat levée")), "montant": fin["valeur_residuelle"]}
     postes["energie"] = {"libelle": str(_("Carburant / énergie")), "montant": _somme(pleins)}
     postes["entretiens"] = {"libelle": str(_("Entretiens et réparations")), "montant": _somme(entretiens)}
+    maintenances = vehicule.maintenances.all()
+    if maintenances.exists():
+        postes["maintenances"] = {"libelle": str(_("Maintenances (garage)")),
+                                  "montant": _somme(maintenances, "total_tvac")}
     postes["documents"] = {"libelle": str(_("Assurance, contrôle technique, documents")), "montant": _somme(documents)}
     for code, libelle in CategorieDepense.choices:
         m = _somme(depenses.filter(categorie=code))
@@ -274,9 +278,11 @@ def synthese(vehicule, aujourdhui=None):
 
     # Par année (graphique)
     annees = {}
-    for qs, cle in ((pleins, "energie"), (entretiens, "entretiens"), (documents, "documents"), (depenses, "autres")):
+    for qs, cle, champ in ((pleins, "energie", "montant"), (entretiens, "entretiens", "montant"),
+                           (vehicule.maintenances.all(), "entretiens", "total_tvac"),
+                           (documents, "documents", "montant"), (depenses, "autres", "montant")):
         champ_date = "date_debut" if cle == "documents" else "date"
-        for jour, montant in qs.values_list(champ_date, "montant"):
+        for jour, montant in qs.values_list(champ_date, champ):
             if jour and montant:
                 a = annees.setdefault(jour.year, {"annee": jour.year, "energie": ZERO, "entretiens": ZERO,
                                                   "documents": ZERO, "autres": ZERO})
@@ -337,6 +343,39 @@ def _liste_mois(debut, fin):
     return mois
 
 
+def _bloc_maintenances(maintenances, mois):
+    """Maintenances par un garage : pièces / main-d'œuvre (TVAC), par mois et par type."""
+    par_mois = {m: {"mois": m, "pieces": ZERO, "main_oeuvre": ZERO} for m in mois}
+    types = {}
+    pieces = main_oeuvre = htva = tva = ZERO
+    for m in maintenances:
+        p, mo = D(m.total_pieces_tvac), D(m.total_main_oeuvre_tvac)
+        pieces += p
+        main_oeuvre += mo
+        htva += D(m.total_htva)
+        tva += D(m.total_tva)
+        if _mois(m.date) in par_mois:
+            par_mois[_mois(m.date)]["pieces"] += p
+            par_mois[_mois(m.date)]["main_oeuvre"] += mo
+        t = types.setdefault(m.type_maintenance, {"code": m.type_maintenance, "libelle": str(m.get_type_maintenance_display()),
+                                                  "nombre": 0, "pieces": ZERO, "main_oeuvre": ZERO})
+        t["nombre"] += 1
+        t["pieces"] += p
+        t["main_oeuvre"] += mo
+    total = pieces + main_oeuvre
+    return {
+        "nombre": len(maintenances),
+        "pieces": r2(pieces), "main_oeuvre": r2(main_oeuvre), "total": r2(total),
+        "total_htva": r2(htva), "total_tva": r2(tva),
+        "part_pieces": (pieces / total * 100).quantize(D("0.1")) if total else None,
+        "par_mois": [{"mois": v["mois"], "pieces": r2(v["pieces"]), "main_oeuvre": r2(v["main_oeuvre"])}
+                     for v in par_mois.values()],
+        "par_type": [{**t, "pieces": r2(t["pieces"]), "main_oeuvre": r2(t["main_oeuvre"]),
+                      "total": r2(t["pieces"] + t["main_oeuvre"])}
+                     for t in sorted(types.values(), key=lambda t: -(t["pieces"] + t["main_oeuvre"]))],
+    }
+
+
 def rapport(vehicule, code_periode=None, aujourdhui=None):
     from .models import CategorieDepense  # noqa: F401  (catégories des autres dépenses)
     aujourdhui = aujourdhui or date.today()
@@ -345,7 +384,8 @@ def rapport(vehicule, code_periode=None, aujourdhui=None):
     pleins_tous = list(vehicule.pleins.all().order_by("date", "kilometrage"))
     if debut is None:
         dates = [p.date for p in pleins_tous] + [vehicule.date_achat]
-        autres = [d for qs in (vehicule.entretiens.all(), vehicule.depenses.all(), vehicule.releves.all())
+        autres = [d for qs in (vehicule.entretiens.all(), vehicule.depenses.all(), vehicule.releves.all(),
+                               vehicule.maintenances.all())
                   for d in qs.values_list("date", flat=True)]
         dates = [d for d in dates + autres if d]
         debut = min(dates).replace(day=1) if dates else aujourdhui.replace(day=1)
@@ -422,9 +462,12 @@ def rapport(vehicule, code_periode=None, aujourdhui=None):
     couts = {cle: vide() for cle in ("energie", "electricite", "entretiens", "documents", "autres", "financement")}
     for p in periode_pleins:
         couts["electricite" if p.carburant == "electricite" else "energie"][_mois(p.date)] += D(p.montant)
-    for cle, qs, champ in (("entretiens", vehicule.entretiens.all(), "date"), ("autres", vehicule.depenses.all(), "date"),
-                           ("documents", vehicule.documents.all(), "date_debut")):
-        for jour, montant in qs.values_list(champ, "montant"):
+    for cle, qs, champ, champ_montant in (
+            ("entretiens", vehicule.entretiens.all(), "date", "montant"),
+            ("entretiens", vehicule.maintenances.all(), "date", "total_tvac"),
+            ("autres", vehicule.depenses.all(), "date", "montant"),
+            ("documents", vehicule.documents.all(), "date_debut", "montant")):
+        for jour, montant in qs.values_list(champ, champ_montant):
             if dans(jour) and montant:
                 couts[cle][_mois(jour)] += D(montant)
     if fin and fin.get("date_debut") and fin.get("mensualite"):
@@ -439,7 +482,8 @@ def rapport(vehicule, code_periode=None, aujourdhui=None):
     total_periode = r2(sum(totaux.values(), ZERO))
 
     # ---------------- Kilomètres par mois (plus haut kilométrage connu à la fin de chaque mois)
-    releves = sorted([(d, k) for qs in (vehicule.releves.all(), vehicule.pleins.all(), vehicule.entretiens.all())
+    releves = sorted([(d, k) for qs in (vehicule.releves.all(), vehicule.pleins.all(), vehicule.entretiens.all(),
+                                        vehicule.maintenances.all())
                       for d, k in qs.values_list("date", "kilometrage") if d and k])
     km_par_mois, precedent = [], None
     depart = vehicule.kilometrage_depart
@@ -462,6 +506,7 @@ def rapport(vehicule, code_periode=None, aujourdhui=None):
         "couts": {"par_mois": couts_par_mois, "totaux": totaux, "total": total_periode,
                   "moyenne_mois": r2(total_periode / len(mois)) if mois else None,
                   "cout_km": (total_periode / km_periode).quantize(D("0.001")) if km_periode else None},
+        "maintenances": _bloc_maintenances([m for m in vehicule.maintenances.all() if dans(m.date)], mois),
         "kilometres": {"par_mois": km_par_mois, "total": km_periode,
                        "moyenne_mois": round(km_periode / len(mois)) if mois else None},
     }

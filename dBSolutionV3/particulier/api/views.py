@@ -14,7 +14,7 @@ from rest_framework.views import APIView
 
 from .. import abonnements, calculs
 from ..comptes import supprimer_compte
-from ..models import Depense, Document, Entretien, Plein, Rappel, ReleveKilometrique, Vehicule
+from ..models import Depense, Document, Entretien, MaintenanceParticulier, Plein, Rappel, ReleveKilometrique, Vehicule
 from . import serializers as S
 from .base import (ROLE_PARTICULIER, LimiteConnexion, SchemaParticuliersMixin, schema_particuliers,
                    servir_fichier)
@@ -294,6 +294,10 @@ class ReleveViewSet(ProprietaireViewSet):
         for e in Entretien.objects.filter(vehicule__in=vehicules, kilometrage__isnull=False):
             lignes.append({"id": f"entretien-{e.pk}", "vehicule": str(e.vehicule_id), "date": e.date.isoformat(),
                            "kilometrage": e.kilometrage, "libelle": e.get_type_display(), "source": "entretien"})
+        for m in MaintenanceParticulier.objects.filter(vehicule__in=vehicules, kilometrage__isnull=False):
+            lignes.append({"id": f"maintenance-{m.pk}", "vehicule": str(m.vehicule_id), "date": m.date.isoformat(),
+                           "kilometrage": m.kilometrage, "libelle": m.get_type_maintenance_display(),
+                           "source": "maintenance"})
         for v in vehicules.filter(kilometrage_achat__isnull=False):
             lignes.append({"id": f"achat-{v.pk}", "vehicule": str(v.pk),
                            "date": v.date_achat.isoformat() if v.date_achat else None,
@@ -331,6 +335,35 @@ class RechargeViewSet(PleinViewSet):
 
     def perform_create(self, serializer):
         serializer.save(carburant="electricite")
+
+
+class FormuleBronze(APIException):
+    status_code = status.HTTP_403_FORBIDDEN
+    default_code = "formule_requise"
+
+
+class MaintenanceViewSet(ProprietaireViewSet):
+    """Maintenances par un garage (pièces / main-d'œuvre séparées) : formule Bronze minimum."""
+    model = MaintenanceParticulier
+    serializer_class = S.MaintenanceSerializer
+
+    def initial(self, request, *args, **kwargs):
+        super().initial(request, *args, **kwargs)
+        if abonnements.formule_effective(request.user) == "gratuit":
+            exc = FormuleBronze()
+            exc.detail = {"detail": _("Les maintenances sont disponibles à partir de la formule Bronze."),
+                          "code": "formule_requise", "formule_requise": "bronze"}
+            raise exc
+
+    @action(detail=False)
+    def types(self, request):
+        """Types de maintenance (libellés traduits dans la langue de l'utilisateur)."""
+        from ..models import types_maintenance
+        return Response([{"code": c, "libelle": str(l)} for c, l in types_maintenance()])
+
+    @action(detail=True)
+    def facture(self, request, pk=None):
+        return self._fichier("facture")
 
 
 class EntretienViewSet(ProprietaireViewSet):
@@ -394,7 +427,8 @@ class TableauDeBordView(SchemaParticuliersMixin, APIView):
         from django.db.models import Sum
         depenses_mois = sum(
             (m.objects.filter(vehicule__in=vehicules, date__gte=debut_mois).aggregate(s=Sum("montant"))["s"] or 0)
-            for m in (Plein, Entretien, Depense))
+            for m in (Plein, Entretien, Depense)) + (MaintenanceParticulier.objects.filter(
+                vehicule__in=vehicules, date__gte=debut_mois).aggregate(s=Sum("total_tvac"))["s"] or 0)
         return Response({
             "vehicules": [dict(S.VehiculeSerializer(v, context=ctx).data) for v in vehicules],
             "rappels": sorted(alertes, key=lambda r: (r["statut"]["statut"] != "en_retard",

@@ -42,7 +42,7 @@ class _RapportOngletState extends State<RapportOnglet> with AutomaticKeepAliveCl
   Map<String, String> get _libelles => {
         'energie': t('Carburant'),
         'electricite': t('Électricité'),
-        'entretiens': t('Entretiens'),
+        'entretiens': t('Entretiens et réparations'),
         'documents': t('Documents / assurance'),
         'autres': t('Autres'),
         'financement': t('Financement'),
@@ -132,6 +132,8 @@ class _RapportOngletState extends State<RapportOnglet> with AutomaticKeepAliveCl
               _carte(t('Coûts par mois'), _graphiqueCouts(couts), legende: true),
               if ((carburant['nombre'] as num? ?? 0) > 0) _blocCarburant(carburant),
               if ((electricite['nombre'] as num? ?? 0) > 0) _blocElectricite(electricite),
+              if (((r['maintenances'] as Map?)?['nombre'] as num? ?? 0) > 0)
+                _blocMaintenances(Map<String, dynamic>.from(r['maintenances'] as Map)),
               if (fin != null && fin['type_achat'] != 'comptant') _blocFinancement(fin, r['echeancier'] as List? ?? []),
               _carte(t('Kilomètres par mois'), _graphiqueBarres(
                 [for (final m in kms['par_mois'] as List) (m['mois'] as String, _u.depuisKm(enDouble(m['km']) ?? 0))],
@@ -213,6 +215,88 @@ class _RapportOngletState extends State<RapportOnglet> with AutomaticKeepAliveCl
         padding: const EdgeInsets.only(top: 6),
         child: Text(t('Prix d\'achat non compris (voir Résumé).'), style: Theme.of(context).textTheme.bodySmall),
       ),
+    ]));
+  }
+
+  // ------------------------------------------------------------------ Maintenances (pièces / main-d'œuvre)
+  static const _couleurPieces = Color(0xFFF59E0B);
+  static const _couleurMainOeuvre = Color(0xFF7C3AED);
+
+  Widget _blocMaintenances(Map<String, dynamic> m) {
+    final parMois = [for (final x in m['par_mois'] as List) Map<String, dynamic>.from(x as Map)];
+    final mois = [for (final x in parMois) x['mois'] as String];
+    final pieces = enDouble(m['pieces']) ?? 0, mo = enDouble(m['main_oeuvre']) ?? 0;
+    final total = pieces + mo;
+    Widget pastille(Color c, String texte) => Row(mainAxisSize: MainAxisSize.min, children: [
+          Container(width: 10, height: 10, color: c),
+          const SizedBox(width: 4),
+          Text(texte, style: const TextStyle(fontSize: 12)),
+        ]);
+    return _carte(t('Maintenances : pièces et main-d\'œuvre'), Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      _ligne(t('Nombre de maintenances'), '${m['nombre']}'),
+      _ligne(t('Total TVAC'), euros(m['total']), gras: true),
+      _ligne(t('dont TVA'), euros(m['total_tva'])),
+      const SizedBox(height: 8),
+      // Répartition pièces / main-d'œuvre
+      if (total > 0)
+        ClipRRect(
+          borderRadius: BorderRadius.circular(4),
+          child: SizedBox(
+            height: 14,
+            child: Row(children: [
+              if (pieces > 0) Expanded(flex: (pieces * 1000 / total).round().clamp(1, 1000).toInt(), child: Container(color: _couleurPieces)),
+              if (mo > 0) Expanded(flex: (mo * 1000 / total).round().clamp(1, 1000).toInt(), child: Container(color: _couleurMainOeuvre)),
+            ]),
+          ),
+        ),
+      const SizedBox(height: 6),
+      Row(children: [
+        Expanded(child: _ligne(t('Pièces'), '${euros(pieces)} · ${total > 0 ? nombre(pieces * 100 / total, decimales: 0) : 0} %')),
+      ]),
+      _ligne(t('Main-d\'œuvre'), '${euros(mo)} · ${total > 0 ? nombre(mo * 100 / total, decimales: 0) : 0} %'),
+      const SizedBox(height: 12),
+      SizedBox(
+        height: 200,
+        child: BarChart(BarChartData(
+          gridData: const FlGridData(show: true, drawVerticalLine: false),
+          borderData: FlBorderData(show: false),
+          titlesData: _titres(mois),
+          barTouchData: BarTouchData(
+            touchTooltipData: BarTouchTooltipData(
+              getTooltipItem: (groupe, _, barre, __) => BarTooltipItem(
+                '${_etiquetteMois(mois[groupe.x])}\n${format.euros(barre.toY)}',
+                const TextStyle(color: Colors.white, fontSize: 11),
+              ),
+            ),
+          ),
+          barGroups: [
+            for (var i = 0; i < parMois.length; i++)
+              () {
+                final p = enDouble(parMois[i]['pieces']) ?? 0, o = enDouble(parMois[i]['main_oeuvre']) ?? 0;
+                return BarChartGroupData(x: i, barRods: [
+                  BarChartRodData(toY: p + o, width: 14, borderRadius: BorderRadius.circular(3), rodStackItems: [
+                    if (p > 0) BarChartRodStackItem(0, p, _couleurPieces),
+                    if (o > 0) BarChartRodStackItem(p, p + o, _couleurMainOeuvre),
+                  ]),
+                ]);
+              }(),
+          ],
+        )),
+      ),
+      const SizedBox(height: 8),
+      Wrap(spacing: 12, children: [pastille(_couleurPieces, t('Pièces')), pastille(_couleurMainOeuvre, t('Main-d\'œuvre'))]),
+      const Divider(height: 24),
+      Text(t('Par type'), style: Theme.of(context).textTheme.titleSmall),
+      const SizedBox(height: 4),
+      for (final x in (m['par_type'] as List).cast<Map>())
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            _ligne('${x['libelle']} (${x['nombre']})', euros(x['total']), gras: true),
+            Text(t('pièces {pieces} · main-d\'œuvre {mo}', {'pieces': euros(x['pieces']), 'mo': euros(x['main_oeuvre'])}),
+                style: Theme.of(context).textTheme.bodySmall),
+          ]),
+        ),
     ]));
   }
 

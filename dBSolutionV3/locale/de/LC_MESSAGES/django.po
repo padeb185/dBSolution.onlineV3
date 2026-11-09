@@ -82871,3 +82871,15 @@ msgstr "Plug-in-Hybrid: höchstens 75 % bis 2027"
 #: particulier/deductibilite.py
 msgid "La déductibilité est disponible à partir de la formule Bronze."
 msgstr "Die Abzugsfähigkeit ist ab dem Tarif Bronze verfügbar."
+
+#: particulier/models.py
+msgid "Les maintenances sont disponibles à partir de la formule Bronze."
+msgstr "Wartungen sind ab dem Tarif Bronze verfügbar."
+
+#: particulier/models.py
+msgid "Maintenances (garage)"
+msgstr "Wartungen (Werkstatt)"
+
+#: particulier/models.py
+msgid "Maintenance (garage)"
+msgstr "Wartung (Werkstatt)"

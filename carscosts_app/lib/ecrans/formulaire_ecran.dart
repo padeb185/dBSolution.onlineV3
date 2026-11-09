@@ -39,7 +39,22 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
   Map<String, String> _erreurs = {};
   bool _envoi = false;
 
+  /// Choix chargés depuis l'API (Champ.choixDistants) : champ → {code: libellé}
+  final Map<String, Map<String, String>> _choixCharges = {};
+
   bool get _modification => widget.element != null;
+
+  Future<void> _chargerChoix(Champ c) async {
+    try {
+      final r = await context.read<ApiClient>().get(c.choixDistants!);
+      if (!mounted) return;
+      setState(() => _choixCharges[c.nom] = {
+            for (final e in r as List) '${(e as Map)['code']}': '${e['libelle']}',
+          });
+    } on ApiException catch (e) {
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+    }
+  }
 
   /// Unités du véhicule (km / mi, L / gal) : conversion à l'affichage et à l'enregistrement
   Unites get _unites => Unites.de(widget.vehicule);
@@ -86,6 +101,30 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
     }
     final taux = _textes['taux_tva'];
     if (taux != null && taux.text.isEmpty && !_modification) _proposerTaux();
+    for (final c in widget.ressource.champs) {
+      if (c.choixDistants != null) _chargerChoix(c);
+    }
+  }
+
+  /// Maintenance : pièces / main-d'œuvre TVAC et total (mis à jour pendant la saisie).
+  Widget _totauxMaintenance() {
+    final pieces = _textes['pieces_htva'], mo = _textes['main_oeuvre_htva'], taux = _textes['taux_tva'];
+    if (pieces == null || mo == null || taux == null) return const SizedBox.shrink();
+    return AnimatedBuilder(
+      animation: Listenable.merge([pieces, mo, taux]),
+      builder: (context, _) {
+        double lire(TextEditingController c) => double.tryParse(c.text.trim().replaceAll(',', '.')) ?? 0;
+        final k = 1 + lire(taux) / 100;
+        final p = lire(pieces) * k, m = lire(mo) * k;
+        return Padding(
+          padding: const EdgeInsets.only(left: 12, top: 4),
+          child: Text(
+              t('Pièces TVAC {pieces} · main-d\'œuvre TVAC {mo} · total {total}',
+                  {'pieces': euros(p), 'mo': euros(m), 'total': euros(p + m)}),
+              style: Theme.of(context).textTheme.bodySmall),
+        );
+      },
+    );
   }
 
   /// Taux de TVA du pays choisi (vide si le pays n'est pas dans la table : à saisir).
@@ -276,14 +315,17 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
           }),
         );
       case TypeChamp.choix:
+        final options = c.choixDistants != null ? (_choixCharges[c.nom] ?? <String, String>{}) : c.choix;
         return DropdownButtonFormField<String>(
-          initialValue: _valeurs[c.nom] as String?,
+          // Choix distants : reconstruit une fois la liste chargée (la valeur doit exister dans la liste)
+          key: c.choixDistants != null ? ValueKey('${c.nom}-${options.length}') : null,
+          initialValue: options.containsKey(_valeurs[c.nom]) ? _valeurs[c.nom] as String? : null,
           isExpanded: true,
           decoration: decoration,
           menuMaxHeight: 420,
           items: [
             if (!c.obligatoire) const DropdownMenuItem(value: null, child: Text('—')),
-            for (final e in c.choix.entries)
+            for (final e in options.entries)
               DropdownMenuItem(value: e.key, child: Text(e.value, overflow: TextOverflow.ellipsis)),
           ],
           onChanged: (v) => setState(() {
@@ -370,7 +412,8 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 14),
                 child: c.nom == 'taux_tva'
-                    ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [_champ(c), _ventilationTva()])
+                    ? Column(crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [_champ(c), _ventilationTva(), _totauxMaintenance()])
                     : _champ(c),
               ),
             FilledButton.icon(

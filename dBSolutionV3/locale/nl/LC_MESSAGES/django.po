@@ -82828,3 +82828,15 @@ msgstr "plug-in hybride: hoogstens 75 % tot 2027"
 #: particulier/deductibilite.py
 msgid "La déductibilité est disponible à partir de la formule Bronze."
 msgstr "De aftrekbaarheid is beschikbaar vanaf de formule Bronze."
+
+#: particulier/models.py
+msgid "Les maintenances sont disponibles à partir de la formule Bronze."
+msgstr "Het onderhoud is beschikbaar vanaf de formule Bronze."
+
+#: particulier/models.py
+msgid "Maintenances (garage)"
+msgstr "Onderhoud (garage)"
+
+#: particulier/models.py
+msgid "Maintenance (garage)"
+msgstr "Onderhoud (garage)"

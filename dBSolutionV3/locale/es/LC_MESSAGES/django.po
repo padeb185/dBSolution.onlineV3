@@ -82767,3 +82767,15 @@ msgstr "híbrido enchufable: como máximo 75 % hasta 2027"
 #: particulier/deductibilite.py
 msgid "La déductibilité est disponible à partir de la formule Bronze."
 msgstr "La deducibilidad está disponible a partir del plan Bronze."
+
+#: particulier/models.py
+msgid "Les maintenances sont disponibles à partir de la formule Bronze."
+msgstr "Los mantenimientos están disponibles a partir del plan Bronze."
+
+#: particulier/models.py
+msgid "Maintenances (garage)"
+msgstr "Mantenimientos (taller)"
+
+#: particulier/models.py
+msgid "Maintenance (garage)"
+msgstr "Mantenimiento (taller)"

@@ -4,7 +4,7 @@ from django.utils.translation import gettext as _
 from django.urls import reverse
 from rest_framework import serializers
 
-from ..models import Depense, Document, Entretien, Financement, Plein, ProfilFiscal, Rappel, ReleveKilometrique, Vehicule
+from ..models import Depense, Document, Entretien, Financement, MaintenanceParticulier, Plein, ProfilFiscal, Rappel, ReleveKilometrique, Vehicule
 from .. import calculs
 
 
@@ -313,3 +313,16 @@ class ProfilFiscalSerializer(serializers.ModelSerializer):
         exclude = ["id", "vehicule"]
         read_only_fields = ["updated_at"]
 
+
+class MaintenanceSerializer(VehiculeChampMixin, FichierMixin, serializers.ModelSerializer):
+    """Maintenance par un garage : pièces et main-d'œuvre HTVA ; TVA et totaux calculés."""
+    fichiers = {"facture": "api_particulier:maintenance-facture"}
+    type_libelle = serializers.CharField(source="get_type_maintenance_display", read_only=True)
+
+    class Meta:
+        model = MaintenanceParticulier
+        fields = "__all__"
+        read_only_fields = ["id", "created_at"]
+
+    def validate_pays(self, v):
+        return valider_pays(v) if v else ""

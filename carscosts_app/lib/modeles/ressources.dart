@@ -11,7 +11,7 @@ enum TypeChamp { texte, entier, decimal, date, booleen, choix, image, fichier }
 /// Description d'un champ (nom côté API, libellé, type, options).
 class Champ {
   const Champ(this.nom, this.libelle, this.type,
-      {this.obligatoire = false, this.choix = const {}, this.aide, this.suffixe, this.parDefaut});
+      {this.obligatoire = false, this.choix = const {}, this.aide, this.suffixe, this.parDefaut, this.choixDistants});
 
   final String nom;
   final String libelle;
@@ -23,6 +23,9 @@ class Champ {
   final String? aide;
   final String? suffixe;
   final dynamic parDefaut;
+
+  /// Pour TypeChamp.choix : liste chargée depuis l'API ([{code, libelle}], libellés traduits par le serveur)
+  final String? choixDistants;
 
   bool get estFichier => type == TypeChamp.image || type == TypeChamp.fichier;
 }
@@ -44,6 +47,7 @@ class Ressource {
     this.params = const {},
     this.iconeLigne,
     this.modifiable,
+    this.bronze = false,
   });
 
   final String chemin; // ex. "pleins"
@@ -64,6 +68,8 @@ class Ressource {
   final IconData Function(Map<String, dynamic>)? iconeLigne;
   /// Une ligne venant d'une autre ressource (plein, entretien…) ne se modifie pas ici
   final bool Function(Map<String, dynamic>)? modifiable;
+  /// Réservée aux formules payantes (Bronze minimum)
+  final bool bronze;
 }
 
 Map<String, String> get typesEntretien => {
@@ -342,6 +348,43 @@ Ressource get depenses => Ressource(
   montantLigne: (d) => euros(d['montant']),
 );
 
+/// Maintenances par un garage (comme les maintenances externes de dBSolution) : pièces et main-d'œuvre
+/// HTVA séparées pour les statistiques ; TVA du pays et totaux calculés par le serveur. Formule Bronze.
+Ressource get maintenances => Ressource(
+  chemin: 'maintenances',
+  titre: t('Maintenances'),
+  titreNouveau: t('Nouvelle maintenance'),
+  titreModifier: t('Modifier la maintenance'),
+  texteVide: t('Aucune maintenance pour l\'instant.'),
+  texteSupprimer: t('Supprimer cette maintenance ?'),
+  icone: Icons.car_repair,
+  bronze: true,
+  champs: [
+    Champ('date', t('Date de la facture'), TypeChamp.date, obligatoire: true),
+    Champ('type_maintenance', t('Type de maintenance'), TypeChamp.choix,
+        obligatoire: true, parDefaut: 'entretien', choixDistants: 'maintenances/types/'),
+    Champ('garage', t('Garage'), TypeChamp.texte),
+    Champ('numero_facture', t('Numéro de facture du garage'), TypeChamp.texte),
+    Champ('kilometrage', t('Kilométrage'), TypeChamp.entier, suffixe: 'km'),
+    Champ('pieces_htva', t('Pièces HTVA'), TypeChamp.decimal, suffixe: '€', parDefaut: '0'),
+    Champ('main_oeuvre_htva', t('Main-d\'œuvre HTVA'), TypeChamp.decimal, suffixe: '€', parDefaut: '0'),
+    Champ('pays', t('Pays de la TVA'), TypeChamp.choix, choix: paysImmatriculation),
+    Champ('taux_tva', t('Taux de TVA'), TypeChamp.decimal, suffixe: '%',
+        aide: t('Repris automatiquement du pays, modifiable.')),
+    Champ('description', t('Description des travaux'), TypeChamp.texte),
+    Champ('facture', t('Facture (PDF ou photo)'), TypeChamp.fichier),
+  ],
+  titreLigne: (m, u) => (m['type_libelle'] ?? m['type_maintenance']).toString(),
+  sousTitreLigne: (m, u) => [
+    dateFr(m['date']),
+    if ((m['garage'] ?? '').toString().isNotEmpty) m['garage'],
+    if (m['kilometrage'] != null) km(m['kilometrage'], u),
+    t('pièces {pieces} · main-d\'œuvre {mo}',
+        {'pieces': euros(m['total_pieces_tvac']), 'mo': euros(m['total_main_oeuvre_tvac'])}),
+  ].join(' · '),
+  montantLigne: (m) => euros(m['total_tvac']),
+);
+
 Ressource get kilometrages => Ressource(
   chemin: 'kilometrages',
   titre: t('Kilométrages'),
@@ -367,6 +410,7 @@ Ressource get kilometrages => Ressource(
     'plein' => Icons.local_gas_station,
     'recharge' => Icons.ev_station,
     'entretien' => Icons.build,
+    'maintenance' => Icons.car_repair,
     'achat' => Icons.shopping_cart,
     _ => Icons.speed,
   },
@@ -379,12 +423,13 @@ Map<String, String> get sourcesKilometrage => {
   'plein': t('Plein'),
   'recharge': t('Recharge'),
   'entretien': t('Entretien'),
+  'maintenance': t('Maintenance'),
   'achat': t('Achat'),
 };
 
 /// Ressources affichées en onglets dans la fiche d'un véhicule
 List<Ressource> get ressourcesVehicule =>
-    [pleins, recharges, entretiens, rappels, documents, depenses, kilometrages];
+    [pleins, recharges, entretiens, maintenances, rappels, documents, depenses, kilometrages];
 
 /// Onglets d'un véhicule selon son énergie : pas de pleins pour un électrique,
 /// recharges seulement pour un électrique ou un hybride rechargeable.

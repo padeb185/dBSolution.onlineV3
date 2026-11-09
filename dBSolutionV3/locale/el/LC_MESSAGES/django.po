@@ -82845,3 +82845,15 @@ msgstr "plug-in υβριδικό: έως 75 % μέχρι το 2027"
 #: particulier/deductibilite.py
 msgid "La déductibilité est disponible à partir de la formule Bronze."
 msgstr "Η έκπτωση είναι διαθέσιμη από το πρόγραμμα Bronze."
+
+#: particulier/models.py
+msgid "Les maintenances sont disponibles à partir de la formule Bronze."
+msgstr "Οι συντηρήσεις είναι διαθέσιμες από το πρόγραμμα Bronze."
+
+#: particulier/models.py
+msgid "Maintenances (garage)"
+msgstr "Συντηρήσεις (συνεργείο)"
+
+#: particulier/models.py
+msgid "Maintenance (garage)"
+msgstr "Συντήρηση (συνεργείο)"

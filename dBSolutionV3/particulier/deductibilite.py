@@ -208,6 +208,10 @@ def deductibilite(vehicule, annee=None, aujourdhui=None):
 
     entretiens = sum((D(e.montant) for e in vehicule.entretiens.all() if dans(e.date)), ZERO)
     ligne("entretien", entretiens, tva_std(entretiens), "entretien")
+    # Maintenances par un garage : TVA réelle de la facture (pièces + main-d'œuvre)
+    maintenances = [m for m in vehicule.maintenances.all() if dans(m.date)]
+    ligne("maintenances", sum((D(m.total_tvac) for m in maintenances), ZERO),
+          sum((D(m.total_tva) for m in maintenances), ZERO), "entretien")
 
     # Assurances et taxes : sans TVA ; amendes : jamais déductibles
     sans_tva = sum((D(d.montant) for d in vehicule.documents.all() if dans(d.date_debut) and d.montant), ZERO)
