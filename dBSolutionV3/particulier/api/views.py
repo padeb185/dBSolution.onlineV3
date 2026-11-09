@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 
 from django.db import transaction
 from django.shortcuts import get_object_or_404
@@ -429,6 +429,12 @@ class TableauDeBordView(SchemaParticuliersMixin, APIView):
             (m.objects.filter(vehicule__in=vehicules, date__gte=debut_mois).aggregate(s=Sum("montant"))["s"] or 0)
             for m in (Plein, Entretien, Depense)) + (MaintenanceParticulier.objects.filter(
                 vehicule__in=vehicules, date__gte=debut_mois).aggregate(s=Sum("total_tvac"))["s"] or 0)
+        # Documents : prime d'assurance mensuelle de ce mois (et prime annuelle ou montant unique tombant ce mois-ci)
+        # (jusqu'à la fin du mois : une prime prélevée le 25 compte dès le 1er)
+        fin_mois = calculs.ajouter_mois(debut_mois, 1) - timedelta(days=1)
+        depenses_mois += sum((montant for d in Document.objects.filter(vehicule__in=vehicules, montant__isnull=False)
+                              for jour, montant in calculs.paiements_document(d, fin_mois)
+                              if jour and debut_mois <= jour <= fin_mois), 0)
         return Response({
             "vehicules": [dict(S.VehiculeSerializer(v, context=ctx).data) for v in vehicules],
             "rappels": sorted(alertes, key=lambda r: (r["statut"]["statut"] != "en_retard",
