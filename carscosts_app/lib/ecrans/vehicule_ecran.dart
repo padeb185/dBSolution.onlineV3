@@ -14,6 +14,7 @@ import '../widgets/logo_marque.dart';
 import '../widgets/plaque.dart';
 import 'financement_ecran.dart';
 import 'formulaire_ecran.dart';
+import 'rapport_onglet.dart';
 import 'vehicule_form_ecran.dart';
 
 /// Fiche d'un véhicule : synthèse des coûts et onglets (pleins, entretiens, rappels, documents…).
@@ -67,7 +68,7 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
   Widget build(BuildContext context) {
     final titre = '${_vehicule['marque']} ${_vehicule['modele']}';
     return DefaultTabController(
-      length: ressourcesDe(_vehicule).length + 1,
+      length: ressourcesDe(_vehicule).length + 2,
       child: Scaffold(
         appBar: AppBar(
           title: Row(children: [
@@ -81,6 +82,7 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
             tabAlignment: TabAlignment.start,
             tabs: [
               Tab(icon: const Icon(Icons.insights), text: t('Résumé')),
+              Tab(icon: const Icon(Icons.bar_chart), text: t('Rapport')),
               for (final r in ressourcesDe(_vehicule)) Tab(icon: Icon(r.icone), text: r.titre),
             ],
           ),
@@ -88,6 +90,7 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
         body: TabBarView(
           children: [
             _resume(),
+            RapportOnglet(key: ValueKey('rapport-${_vehicule['updated_at']}'), vehicule: _vehicule),
             for (final r in ressourcesDe(_vehicule))
               ListeRessource(
                   ressource: r, vehiculeId: _id, vehicule: _vehicule, auChangement: () => setState(_chargerSynthese)),

@@ -102,6 +102,15 @@ class Vehicule(models.Model):
                 valeurs.append(km)
         return max(valeurs)
 
+    @property
+    def kilometrage_depart(self):
+        """Kilométrage de départ des calculs au km : celui de l'achat, sinon le plus bas kilométrage saisi."""
+        if self.kilometrage_achat is not None:
+            return self.kilometrage_achat
+        valeurs = [km for qs in (self.releves.all(), self.pleins.all(), self.entretiens.all())
+                   for km in [qs.aggregate(m=models.Min("kilometrage"))["m"]] if km]
+        return min(valeurs) if valeurs else None
+
 
 class ReleveKilometrique(models.Model):
     vehicule = models.ForeignKey(Vehicule, on_delete=models.CASCADE, related_name="releves")

@@ -231,6 +231,17 @@ class VehiculeViewSet(SchemaParticuliersMixin, viewsets.ModelViewSet):
         })
 
     @action(detail=True)
+    def rapport(self, request, pk=None):
+        """Rapport : carburant, électricité, financement, coûts et kilomètres par mois (?periode=12m|annee|tout|2025).
+        Formule payante (Bronze minimum)."""
+        vehicule = self.get_object()
+        if abonnements.formule_effective(request.user) == "gratuit":
+            return Response({"detail": _("Le rapport est disponible à partir de la formule Bronze."),
+                             "code": "formule_requise", "formule_requise": "bronze"},
+                            status=status.HTTP_403_FORBIDDEN)
+        return Response(calculs.rapport(vehicule, request.query_params.get("periode")))
+
+    @action(detail=True)
     def synthese(self, request, pk=None):
         return Response(calculs.synthese(self.get_object()))
 

@@ -142,6 +142,17 @@ def _somme(qs, champ="montant"):
     return r2(qs.aggregate(s=Sum(champ))["s"])
 
 
+def mois_detention(debut, aujourdhui):
+    """Durée de détention en mois, mois partiels compris (jours ÷ 30,44), au moins 1 mois :
+    le coût mensuel s'affiche dès le premier mois. None sans date d'achat."""
+    if not debut:
+        return None
+    jours = (aujourdhui - debut).days
+    if jours < 0:
+        return None
+    return max(D(jours) / D("30.4375"), D(1)).quantize(D("0.1"))
+
+
 # ------------------------------------------------------------------
 # Type d'achat : prêt, leasing, renting
 # ------------------------------------------------------------------
@@ -253,11 +264,13 @@ def synthese(vehicule, aujourdhui=None):
     net = r2(total - (revente or ZERO))
 
     km_actuel = vehicule.kilometrage_actuel
-    km = max(km_actuel - (vehicule.kilometrage_achat or 0), 0)
+    # Kilomètres parcourus depuis l'achat (sans kilométrage d'achat : depuis le premier kilométrage saisi)
+    depart = vehicule.kilometrage_depart
+    km = max(km_actuel - depart, 0) if depart is not None else 0
     depreciation = (r2(D(vehicule.prix_achat) - D(vehicule.valeur_estimee or 0))
                     if vehicule.prix_achat is not None and vehicule.valeur_estimee is not None else None)
     debut = vehicule.date_achat or (fin["date_debut"] if fin else None)
-    mois = mois_entre(debut, aujourdhui) if debut else None
+    mois = mois_detention(debut, aujourdhui)
 
     # Par année (graphique)
     annees = {}
@@ -292,4 +305,163 @@ def synthese(vehicule, aujourdhui=None):
         "par_annee": [annees[a] for a in sorted(annees)],
         "type_achat": type_achat,
         "financement": fin,
+    }
+
+
+# ------------------------------------------------------------------
+# Rapport : carburant, électricité, financement, coûts et kilomètres par mois
+# ------------------------------------------------------------------
+def periode_rapport(code, aujourdhui=None):
+    """« 12m » (12 derniers mois, défaut), « annee » (année en cours), « tout », ou une année « 2025 »."""
+    aujourdhui = aujourdhui or date.today()
+    if code == "tout":
+        return None, aujourdhui
+    if code == "annee":
+        return date(aujourdhui.year, 1, 1), aujourdhui
+    if code and code.isdigit() and len(code) == 4:
+        annee = int(code)
+        return date(annee, 1, 1), min(date(annee, 12, 31), aujourdhui)
+    return ajouter_mois(aujourdhui.replace(day=1), -11), aujourdhui
+
+
+def _mois(d):
+    return f"{d.year}-{d.month:02d}"
+
+
+def _liste_mois(debut, fin):
+    """Mois de debut à fin inclus : ['2025-12', '2026-01', …]"""
+    mois, d = [], debut.replace(day=1)
+    while d <= fin:
+        mois.append(_mois(d))
+        d = ajouter_mois(d, 1)
+    return mois
+
+
+def rapport(vehicule, code_periode=None, aujourdhui=None):
+    from .models import CategorieDepense  # noqa: F401  (catégories des autres dépenses)
+    aujourdhui = aujourdhui or date.today()
+    debut, fin_periode = periode_rapport(code_periode, aujourdhui)
+
+    pleins_tous = list(vehicule.pleins.all().order_by("date", "kilometrage"))
+    if debut is None:
+        dates = [p.date for p in pleins_tous] + [vehicule.date_achat]
+        autres = [d for qs in (vehicule.entretiens.all(), vehicule.depenses.all(), vehicule.releves.all())
+                  for d in qs.values_list("date", flat=True)]
+        dates = [d for d in dates + autres if d]
+        debut = min(dates).replace(day=1) if dates else aujourdhui.replace(day=1)
+    dans = lambda d: d is not None and debut <= d <= fin_periode  # noqa: E731
+    mois = _liste_mois(debut, fin_periode)
+    vide = lambda: {m: ZERO for m in mois}  # noqa: E731
+
+    # ---------------- Carburant (pleins) et électricité (recharges)
+    def bloc(pleins):
+        par_mois = {m: {"mois": m, "quantite": ZERO, "montant": ZERO} for m in mois}
+        total_q = total_m = tva = ZERO
+        groupes = {}
+        pays = {}
+        for p in pleins:
+            q, m = D(p.quantite), D(p.montant)
+            total_q += q
+            total_m += m
+            tva += D(p.montant_tva or 0)
+            pm = par_mois[_mois(p.date)]
+            pm["quantite"] += q
+            pm["montant"] += m
+            g = groupes.setdefault(p.lieu_recharge if p.carburant == "electricite" else p.carburant,
+                                   {"quantite": ZERO, "montant": ZERO, "nombre": 0})
+            g["quantite"] += q
+            g["montant"] += m
+            g["nombre"] += 1
+            if p.pays:
+                pa = pays.setdefault(p.pays, {"pays": p.pays, "montant": ZERO, "tva": ZERO, "quantite": ZERO})
+                pa["montant"] += m
+                pa["quantite"] += q
+                pa["tva"] += D(p.montant_tva or 0)
+        for pm in par_mois.values():
+            pm["prix_moyen"] = (pm["montant"] / pm["quantite"]).quantize(D("0.001")) if pm["quantite"] else None
+            pm["quantite"], pm["montant"] = r2(pm["quantite"]), r2(pm["montant"])
+        return {
+            "nombre": len(pleins),
+            "total_quantite": r2(total_q),
+            "total_montant": r2(total_m),
+            "total_tva": r2(tva),
+            "prix_moyen": (total_m / total_q).quantize(D("0.001")) if total_q else None,
+            "par_type": [{"code": c or "", "quantite": r2(g["quantite"]), "montant": r2(g["montant"]),
+                          "nombre": g["nombre"]} for c, g in sorted(groupes.items(), key=lambda kv: -kv[1]["montant"])],
+            "par_pays": [{**pa, "montant": r2(pa["montant"]), "tva": r2(pa["tva"]), "quantite": r2(pa["quantite"])}
+                         for pa in sorted(pays.values(), key=lambda x: -x["montant"])],
+            "par_mois": list(par_mois.values()),
+        }
+
+    periode_pleins = [p for p in pleins_tous if dans(p.date)]
+    carburant = bloc([p for p in periode_pleins if p.carburant != "electricite"])
+    electricite = bloc([p for p in periode_pleins if p.carburant == "electricite"])
+    # Consommation (plein à plein) des mesures de la période
+    unite_carburant = famille_principale(vehicule) if famille_principale(vehicule) != "kWh" else "L"
+    for cle_bloc, unite in ((carburant, unite_carburant), (electricite, "kWh")):
+        c = consommation(vehicule, unite)
+        mesures = [m for m in c["mesures"] if dans(m["date"])]
+        q = sum((m["quantite"] for m in mesures), ZERO)
+        k = sum(m["km"] for m in mesures)
+        cle_bloc["consommation_moyenne"] = (q / k * 100).quantize(D("0.01")) if k else None
+        cle_bloc["consommation_unite"] = c["unite"]
+        cle_bloc["consommation_mesures"] = [{"date": m["date"], "conso": m["conso"]} for m in mesures]
+
+    # ---------------- Financement : payé, reste à payer, échéancier
+    fin = financement(vehicule, aujourdhui)
+    echeancier = []
+    if fin and fin.get("date_debut") and fin.get("duree_mois") and fin.get("mensualite"):
+        mensualite = D(fin["mensualite"])
+        initial = D(fin.get("paye_a_ce_jour") or 0) - mensualite * fin["mois_payes"]   # apport / premier loyer
+        total = initial + mensualite * fin["duree_mois"]
+        for n in range(0, fin["duree_mois"] + 1, max(1, fin["duree_mois"] // 24)):
+            paye = initial + mensualite * n
+            echeancier.append({"date": ajouter_mois(fin["date_debut"], n), "paye": r2(paye), "reste": r2(total - paye)})
+
+    # ---------------- Coûts par mois (énergie, entretiens, documents, autres, financement)
+    couts = {cle: vide() for cle in ("energie", "electricite", "entretiens", "documents", "autres", "financement")}
+    for p in periode_pleins:
+        couts["electricite" if p.carburant == "electricite" else "energie"][_mois(p.date)] += D(p.montant)
+    for cle, qs, champ in (("entretiens", vehicule.entretiens.all(), "date"), ("autres", vehicule.depenses.all(), "date"),
+                           ("documents", vehicule.documents.all(), "date_debut")):
+        for jour, montant in qs.values_list(champ, "montant"):
+            if dans(jour) and montant:
+                couts[cle][_mois(jour)] += D(montant)
+    if fin and fin.get("date_debut") and fin.get("mensualite"):
+        for n in range(fin["duree_mois"] or 0):
+            jour = ajouter_mois(fin["date_debut"], n + 1)
+            if dans(jour) and jour <= aujourdhui:
+                couts["financement"][_mois(jour)] += D(fin["mensualite"])
+    couts_par_mois = [{"mois": m, **{cle: r2(couts[cle][m]) for cle in couts}} for m in mois]
+    for c in couts_par_mois:
+        c["total"] = r2(sum((c[cle] for cle in couts), ZERO))
+    totaux = {cle: r2(sum(couts[cle].values(), ZERO)) for cle in couts}
+    total_periode = r2(sum(totaux.values(), ZERO))
+
+    # ---------------- Kilomètres par mois (plus haut kilométrage connu à la fin de chaque mois)
+    releves = sorted([(d, k) for qs in (vehicule.releves.all(), vehicule.pleins.all(), vehicule.entretiens.all())
+                      for d, k in qs.values_list("date", "kilometrage") if d and k])
+    km_par_mois, precedent = [], None
+    depart = vehicule.kilometrage_depart
+    for m in mois:
+        connus = [k for d, k in releves if _mois(d) <= m]
+        km_fin = max(connus) if connus else depart
+        if precedent is None:
+            avant = [k for d, k in releves if _mois(d) < mois[0]]
+            precedent = max(avant) if avant else (depart if depart is not None else km_fin)
+        km_par_mois.append({"mois": m, "km": max((km_fin or 0) - (precedent or 0), 0)})
+        precedent = km_fin if km_fin is not None else precedent
+    km_periode = sum(x["km"] for x in km_par_mois)
+
+    return {
+        "periode": {"code": code_periode or "12m", "debut": debut, "fin": fin_periode, "mois": len(mois)},
+        "carburant": carburant,
+        "electricite": electricite,
+        "financement": fin,
+        "echeancier": echeancier,
+        "couts": {"par_mois": couts_par_mois, "totaux": totaux, "total": total_periode,
+                  "moyenne_mois": r2(total_periode / len(mois)) if mois else None,
+                  "cout_km": (total_periode / km_periode).quantize(D("0.001")) if km_periode else None},
+        "kilometres": {"par_mois": km_par_mois, "total": km_periode,
+                       "moyenne_mois": round(km_periode / len(mois)) if mois else None},
     }
