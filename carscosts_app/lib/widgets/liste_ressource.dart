@@ -69,7 +69,7 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
   void _charger() {
     _elements = context
         .read<ApiClient>()
-        .get('${widget.ressource.chemin}/', params: {'vehicule': widget.vehiculeId}).then(
+        .get('${widget.ressource.chemin}/', params: {...widget.ressource.params, 'vehicule': widget.vehiculeId}).then(
             (r) => [for (final e in r as List) Map<String, dynamic>.from(e as Map)]);
   }
 
@@ -170,7 +170,7 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
                 return ListTile(
                   leading: ticket != null
                       ? SizedBox(width: 48, height: 48, child: ImageProtegee(url: ticket, hauteur: 48))
-                      : CircleAvatar(child: Icon(r.icone)),
+                      : CircleAvatar(child: Icon(r.iconeLigne?.call(e) ?? r.icone)),
                   title: Text(r.titreLigne(e, u)),
                   subtitle: r.chemin == 'rappels'
                       ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -181,7 +181,14 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
                   trailing: r.chemin == 'rappels' && e['actif'] == true
                       ? IconButton(icon: const Icon(Icons.task_alt), tooltip: t('Marquer comme fait'), onPressed: () => _rappelFait(e))
                       : (montant.isEmpty ? null : Text(montant, style: const TextStyle(fontWeight: FontWeight.w600))),
-                  onTap: () => _ouvrir(e),
+                  onTap: () {
+                    if (r.modifiable?.call(e) ?? true) {
+                      _ouvrir(e);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(t('Ce kilométrage vient d\'un plein, d\'une recharge, d\'un entretien ou de l\'achat : modifiez-le à sa source.'))));
+                    }
+                  },
                 );
               },
             );

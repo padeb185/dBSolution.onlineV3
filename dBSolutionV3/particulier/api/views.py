@@ -258,6 +258,37 @@ class ReleveViewSet(ProprietaireViewSet):
     model = ReleveKilometrique
     serializer_class = S.ReleveSerializer
 
+    def list(self, request, *args, **kwargs):
+        """?historique=1 : tous les kilométrages connus (relevés, pleins, recharges, entretiens, achat),
+        du plus récent au plus ancien, avec la distance parcourue depuis le précédent (« ecart »)."""
+        if request.query_params.get("historique") != "1":
+            return super().list(request, *args, **kwargs)
+        vehicules = Vehicule.objects.filter(proprietaire=request.user)
+        if request.query_params.get("vehicule"):
+            vehicules = vehicules.filter(pk=request.query_params["vehicule"])
+        lignes = [{**d, "source": "releve", "libelle": ""}
+                  for d in self.get_serializer(self.get_queryset(), many=True).data]
+        for p in Plein.objects.filter(vehicule__in=vehicules):
+            lignes.append({"id": f"plein-{p.pk}", "vehicule": str(p.vehicule_id), "date": p.date.isoformat(),
+                           "kilometrage": p.kilometrage, "libelle": p.get_carburant_display(),
+                           "source": "recharge" if p.carburant == "electricite" else "plein"})
+        for e in Entretien.objects.filter(vehicule__in=vehicules, kilometrage__isnull=False):
+            lignes.append({"id": f"entretien-{e.pk}", "vehicule": str(e.vehicule_id), "date": e.date.isoformat(),
+                           "kilometrage": e.kilometrage, "libelle": e.get_type_display(), "source": "entretien"})
+        for v in vehicules.filter(kilometrage_achat__isnull=False):
+            lignes.append({"id": f"achat-{v.pk}", "vehicule": str(v.pk),
+                           "date": v.date_achat.isoformat() if v.date_achat else None,
+                           "kilometrage": v.kilometrage_achat, "libelle": "", "source": "achat"})
+        # Chronologique (achat en premier si sans date) pour l'écart, puis du plus récent au plus ancien
+        lignes.sort(key=lambda l: (str(l["vehicule"]), l["date"] or "", l["kilometrage"]))
+        precedent = {}
+        for l in lignes:
+            km_avant = precedent.get(str(l["vehicule"]))
+            l["ecart"] = l["kilometrage"] - km_avant if km_avant is not None else None
+            precedent[str(l["vehicule"])] = l["kilometrage"]
+        lignes.sort(key=lambda l: (l["date"] or "", l["kilometrage"]), reverse=True)
+        return Response(lignes)
+
 
 class PleinViewSet(ProprietaireViewSet):
     """Pleins de carburant (les recharges électriques sont à part : RechargeViewSet)."""

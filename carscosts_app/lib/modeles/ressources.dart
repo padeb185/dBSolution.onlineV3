@@ -41,6 +41,9 @@ class Ressource {
     required this.titreLigne,
     required this.sousTitreLigne,
     this.montantLigne,
+    this.params = const {},
+    this.iconeLigne,
+    this.modifiable,
   });
 
   final String chemin; // ex. "pleins"
@@ -55,6 +58,12 @@ class Ressource {
   final String Function(Map<String, dynamic>, Unites) titreLigne;
   final String Function(Map<String, dynamic>, Unites) sousTitreLigne;
   final String Function(Map<String, dynamic>)? montantLigne;
+  /// Paramètres supplémentaires de la liste (ex. historique=1)
+  final Map<String, String> params;
+  /// Icône propre à une ligne (sinon l'icône de la ressource)
+  final IconData Function(Map<String, dynamic>)? iconeLigne;
+  /// Une ligne venant d'une autre ressource (plein, entretien…) ne se modifie pas ici
+  final bool Function(Map<String, dynamic>)? modifiable;
 }
 
 Map<String, String> get typesEntretien => {
@@ -345,9 +354,33 @@ Ressource get kilometrages => Ressource(
     Champ('date', t('Date'), TypeChamp.date, obligatoire: true),
     Champ('kilometrage', t('Kilométrage'), TypeChamp.entier, obligatoire: true, suffixe: 'km'),
   ],
+  // Historique complet : relevés + kilométrages des pleins, recharges, entretiens et de l'achat
+  params: const {'historique': '1'},
   titreLigne: (k, u) => km(k['kilometrage'], u),
-  sousTitreLigne: (k, u) => dateFr(k['date']),
+  sousTitreLigne: (k, u) => [
+    if (k['date'] != null) dateFr(k['date']),
+    sourcesKilometrage[k['source']] ?? t('Relevé'),
+    if ((k['libelle'] ?? '').toString().isNotEmpty) k['libelle'],
+    if (k['ecart'] is num && k['ecart'] > 0) '+${km(k['ecart'], u)}',
+  ].join(' · '),
+  iconeLigne: (k) => switch (k['source']) {
+    'plein' => Icons.local_gas_station,
+    'recharge' => Icons.ev_station,
+    'entretien' => Icons.build,
+    'achat' => Icons.shopping_cart,
+    _ => Icons.speed,
+  },
+  modifiable: (k) => (k['source'] ?? 'releve') == 'releve',
 );
+
+/// Origine d'un kilométrage dans l'historique
+Map<String, String> get sourcesKilometrage => {
+  'releve': t('Relevé'),
+  'plein': t('Plein'),
+  'recharge': t('Recharge'),
+  'entretien': t('Entretien'),
+  'achat': t('Achat'),
+};
 
 /// Ressources affichées en onglets dans la fiche d'un véhicule
 List<Ressource> get ressourcesVehicule =>
