@@ -12,7 +12,7 @@ from datetime import date
 from decimal import Decimal
 
 from django.conf import settings
-from django.core.validators import MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -472,3 +472,33 @@ class Financement(models.Model):
 
     def __str__(self):
         return f"{self.vehicule} – {self.get_type_achat_display()}"
+
+
+class StatutFiscal(models.TextChoices):
+    PARTICULIER = "particulier", _("Particulier (usage privé)")
+    INDEPENDANT = "independant", _("Indépendant / profession libérale")
+    SOCIETE = "societe", _("Société (voiture de société)")
+
+
+class ProfilFiscal(models.Model):
+    """Données de déductibilité d'un véhicule (règles du pays d'immatriculation, voir deductibilite.py)."""
+    vehicule = models.OneToOneField(Vehicule, on_delete=models.CASCADE, related_name="profil_fiscal")
+    statut = models.CharField(_("Statut"), max_length=12, choices=StatutFiscal.choices,
+                              default=StatutFiscal.INDEPENDANT)
+    usage_pro = models.PositiveSmallIntegerField(_("Usage professionnel (%)"), default=100,
+                                                 validators=[MaxValueValidator(100)])
+    co2 = models.PositiveSmallIntegerField(_("Émissions CO2 (g/km, WLTP)"), null=True, blank=True)
+    date_commande = models.DateField(_("Date de commande / signature du contrat"), null=True, blank=True)
+    duree_amortissement = models.PositiveSmallIntegerField(_("Amortissement (années)"), default=5,
+                                                           validators=[MinValueValidator(1), MaxValueValidator(10)])
+    taux_tva_manuel = models.DecimalField(_("TVA déductible imposée (%)"), max_digits=5, decimal_places=2,
+                                          null=True, blank=True,
+                                          validators=[MinValueValidator(0), MaxValueValidator(100)])
+    taux_impot_manuel = models.DecimalField(_("Frais déductibles imposés (%)"), max_digits=5, decimal_places=2,
+                                            null=True, blank=True,
+                                            validators=[MinValueValidator(0), MaxValueValidator(120)])
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _("Profil fiscal")
+        verbose_name_plural = _("Profils fiscaux")

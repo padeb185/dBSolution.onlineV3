@@ -82651,3 +82651,119 @@ msgstr "Contraseña actual incorrecta."
 #: particulier/api/views.py
 msgid "Gratuit"
 msgstr "Gratis"
+
+#: particulier/deductibilite.py
+msgid "L'usage privé d'une voiture de société est imposé à part (avantage en nature)."
+msgstr "El uso privado de un coche de empresa tributa aparte (retribución en especie)."
+
+#: particulier/deductibilite.py
+msgid "thermique commandée depuis le 01/07/2023 : dégressif"
+msgstr "térmico pedido desde el 01/07/2023: decreciente"
+
+#: particulier/deductibilite.py
+msgid "Autriche : TVA récupérable seulement sur les voitures électriques (totalement jusqu'à 40 000 € TTC, partiellement jusqu'à 80 000 €). Amortissement plafonné à 40 000 € (8 ans)."
+msgstr "Austria: IVA recuperable solo en coches eléctricos (totalmente hasta 40 000 € IVA incl., parcialmente hasta 80 000 €). Amortización limitada a 40 000 € (8 años)."
+
+#: particulier/deductibilite.py
+msgid "Belgique : TVA déductible au maximum à 50 % (et pas plus que l'usage professionnel)."
+msgstr "Bélgica: IVA deducible como máximo al 50 % (y no más que el uso profesional)."
+
+#: particulier/deductibilite.py
+msgid "Belgique, impôt : formule CO2 (120 % − 0,5 % × coefficient × CO2, entre 50 % et 100 %). Société : voiture thermique commandée depuis le 01/07/2023 dégressive (75 % en 2025, 50 % en 2026, 25 % en 2027, 0 % ensuite) ; électrique 100 % si commandée avant 2027."
+msgstr "Bélgica, impuestos: fórmula CO2 (120 % − 0,5 % × coeficiente × CO2, entre 50 % y 100 %). Sociedad: coche térmico pedido desde el 01/07/2023 decreciente (75 % en 2025, 50 % en 2026, 25 % en 2027, luego 0 %); eléctrico 100 % si se pidió antes de 2027."
+
+#: particulier/deductibilite.py
+msgid "Tchéquie : TVA de l'achat récupérable au plus sur 2 000 000 CZK de prix (plafond supprimé en 2027)."
+msgstr "Chequia: IVA de compra recuperable sobre un máximo de 2 000 000 CZK (límite suprimido en 2027)."
+
+#: particulier/deductibilite.py
+msgid "Danemark : TVA de location récupérable à un tiers ; pas de TVA récupérable sur l'achat ni le carburant."
+msgstr "Dinamarca: un tercio del IVA del alquiler recuperable; sin IVA recuperable en la compra ni el combustible."
+
+#: particulier/deductibilite.py
+msgid "Usage exclusivement professionnel : TVA récupérable à 100 %."
+msgstr "Uso exclusivamente profesional: IVA recuperable al 100 %."
+
+#: particulier/deductibilite.py
+msgid "France : TVA non récupérable sur l'achat, la location et l'entretien d'une voiture de tourisme ; carburant 80 %, GPL / GNV et électricité 100 %."
+msgstr "Francia: IVA no recuperable en la compra, el alquiler y el mantenimiento de un turismo; combustible 80 %, GLP / GNC y electricidad 100 %."
+
+#: particulier/deductibilite.py
+msgid "France, impôt : amortissement plafonné selon le CO2 (30 000 € sous 20 g, 20 300 € de 20 à 49 g, 18 300 € de 50 à 130 g, 9 900 € au-delà)."
+msgstr "Francia, impuestos: amortización limitada según el CO2 (30 000 € por debajo de 20 g, 20 300 € de 20 a 49 g, 18 300 € de 50 a 130 g, 9 900 € por encima)."
+
+#: particulier/deductibilite.py
+msgid "Allemagne : usage privé imposé à 1 % du prix catalogue par mois (0,25 % pour une électrique) ou selon un carnet de bord."
+msgstr "Alemania: uso privado gravado al 1 % del precio de catálogo al mes (0,25 % para un eléctrico) o según un libro de registro."
+
+#: particulier/deductibilite.py
+msgid "Irlande : 20 % de la TVA d'achat ou de location récupérable si le CO2 est inférieur à 156 g/km (usage professionnel d'au moins 60 %) ; TVA sur l'essence non récupérable."
+msgstr "Irlanda: 20 % del IVA de compra o alquiler recuperable si el CO2 es inferior a 156 g/km (uso profesional de al menos el 60 %); IVA de la gasolina no recuperable."
+
+#: particulier/deductibilite.py
+msgid "Italie : TVA récupérable à 40 % ; frais déductibles à 20 % (70 % pour un véhicule attribué à un salarié), achat retenu au plus à 18 075,99 €."
+msgstr "Italia: IVA recuperable al 40 %; gastos deducibles al 20 % (70 % para un vehículo asignado a un empleado), compra computada hasta 18 075,99 €."
+
+#: particulier/deductibilite.py
+msgid "Luxembourg : TVA récupérable sur la part professionnelle ; avantage en nature de 0,5 % à 2 % du prix catalogue par mois selon le CO2."
+msgstr "Luxemburgo: IVA recuperable sobre la parte profesional; retribución en especie del 0,5 % al 2 % del precio de catálogo al mes según el CO2."
+
+#: particulier/deductibilite.py
+msgid "Pays-Bas : TVA récupérable puis corrigée pour l'usage privé (forfait de 2,7 % du prix catalogue) ; avantage en nature (bijtelling) de 22 %, réduit pour les électriques."
+msgstr "Países Bajos: IVA recuperable y luego corregido por el uso privado (2,7 % del precio de catálogo); retribución en especie (bijtelling) del 22 %, reducida para eléctricos."
+
+#: particulier/deductibilite.py
+msgid "Portugal : TVA récupérable à 50 % sur le diesel, le GPL et le GNV, à 100 % sur l'électricité ; achat d'une électrique jusqu'à 62 500 € (TVA récupérable)."
+msgstr "Portugal: IVA recuperable al 50 % en diésel, GLP y GNC, al 100 % en electricidad; compra de un eléctrico hasta 62 500 € (IVA recuperable)."
+
+#: particulier/deductibilite.py
+msgid "Slovaquie : depuis 2026, TVA récupérable à 50 % forfaitaire pour une voiture aussi utilisée à titre privé."
+msgstr "Eslovaquia: desde 2026, IVA recuperable al 50 % a tanto alzado para un coche también usado de forma privada."
+
+#: particulier/deductibilite.py
+msgid "Espagne : usage professionnel présumé à 50 % pour la TVA (plus si vous le prouvez)."
+msgstr "España: uso profesional presunto del 50 % para el IVA (más si lo demuestra)."
+
+#: particulier/deductibilite.py
+msgid "Royaume-Uni : TVA d'achat non récupérable (sauf usage exclusivement professionnel), location 50 % ; TVA du carburant récupérable avec le forfait « fuel scale charge »."
+msgstr "Reino Unido: IVA de compra no recuperable (salvo uso exclusivamente profesional), alquiler 50 %; IVA del combustible recuperable con la « fuel scale charge »."
+
+#: particulier/deductibilite.py
+msgid "Suisse : usage privé compté forfaitairement à 0,9 % du prix d'achat par mois."
+msgstr "Suiza: uso privado computado a tanto alzado al 0,9 % del precio de compra al mes."
+
+#: particulier/deductibilite.py
+msgid "taux imposé dans le profil"
+msgstr "tipo fijado en el perfil"
+
+#: particulier/deductibilite.py
+msgid "Italie : 20 %"
+msgstr "Italia: 20 %"
+
+#: particulier/deductibilite.py
+msgid "part professionnelle"
+msgstr "parte profesional"
+
+#: particulier/deductibilite.py
+msgid "indiquez les émissions de CO2"
+msgstr "indique las emisiones de CO2"
+
+#: particulier/deductibilite.py
+msgid "formule CO2"
+msgstr "fórmula CO2"
+
+#: particulier/deductibilite.py
+msgid "électrique, selon l'année de commande"
+msgstr "eléctrico, según el año de pedido"
+
+#: particulier/deductibilite.py
+msgid "thermique commandée depuis 2026"
+msgstr "térmico pedido desde 2026"
+
+#: particulier/deductibilite.py
+msgid "hybride rechargeable : 75 % au plus jusqu'en 2027"
+msgstr "híbrido enchufable: como máximo 75 % hasta 2027"
+
+#: particulier/deductibilite.py
+msgid "La déductibilité est disponible à partir de la formule Bronze."
+msgstr "La deducibilidad está disponible a partir del plan Bronze."

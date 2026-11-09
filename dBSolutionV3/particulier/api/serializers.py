@@ -4,7 +4,7 @@ from django.utils.translation import gettext as _
 from django.urls import reverse
 from rest_framework import serializers
 
-from ..models import Depense, Document, Entretien, Financement, Plein, Rappel, ReleveKilometrique, Vehicule
+from ..models import Depense, Document, Entretien, Financement, Plein, ProfilFiscal, Rappel, ReleveKilometrique, Vehicule
 from .. import calculs
 
 
@@ -303,3 +303,13 @@ class FinancementSerializer(serializers.ModelSerializer):
         for champ in vider:
             data[champ] = "" if champ == "services_inclus" else None
         return data
+
+
+class ProfilFiscalSerializer(serializers.ModelSerializer):
+    """Profil de déductibilité du véhicule (statut, usage professionnel, CO2, taux imposés)."""
+
+    class Meta:
+        model = ProfilFiscal
+        exclude = ["id", "vehicule"]
+        read_only_fields = ["updated_at"]
+

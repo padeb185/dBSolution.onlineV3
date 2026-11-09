@@ -5,7 +5,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from .comptes import activer
-from .models import AbonnementParticulier, CompteParticulier, Financement, Depense, Document, Entretien, Plein, Rappel, ReleveKilometrique, Vehicule
+from .models import AbonnementParticulier, CompteParticulier, Financement, Depense, Document, Entretien, Plein, ProfilFiscal, Rappel, ReleveKilometrique, Vehicule
 
 
 def lien_fichier(modele, champ):
@@ -195,3 +195,10 @@ class FinancementAdmin(AccesAdminParticuliers, admin.ModelAdmin):
     list_filter = ("type_achat",)
     search_fields = ("vehicule__marque", "vehicule__modele", "vehicule__proprietaire__email", "organisme")
     raw_id_fields = ("vehicule",)
+
+
+@admin.register(ProfilFiscal)
+class ProfilFiscalAdmin(admin.ModelAdmin):
+    list_display = ("vehicule", "statut", "usage_pro", "co2", "updated_at")
+    list_filter = ("statut",)
+

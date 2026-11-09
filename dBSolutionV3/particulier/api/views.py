@@ -241,6 +241,25 @@ class VehiculeViewSet(SchemaParticuliersMixin, viewsets.ModelViewSet):
                             status=status.HTTP_403_FORBIDDEN)
         return Response(calculs.rapport(vehicule, request.query_params.get("periode")))
 
+    @action(detail=True, methods=["get", "put"])
+    def deductibilite(self, request, pk=None):
+        """Déductibilité (TVA, impôt) selon le pays d'immatriculation : GET ?annee=2026, PUT le profil fiscal.
+        Formule payante (Bronze minimum)."""
+        from .. import deductibilite
+        from ..models import ProfilFiscal
+        vehicule = self.get_object()
+        if abonnements.formule_effective(request.user) == "gratuit":
+            return Response({"detail": _("La déductibilité est disponible à partir de la formule Bronze."),
+                             "code": "formule_requise", "formule_requise": "bronze"},
+                            status=status.HTTP_403_FORBIDDEN)
+        if request.method == "PUT":
+            ser = S.ProfilFiscalSerializer(ProfilFiscal.objects.filter(vehicule=vehicule).first(), data=request.data)
+            ser.is_valid(raise_exception=True)
+            ser.save(vehicule=vehicule)
+        annee = request.query_params.get("annee")
+        annee = int(annee) if annee and annee.isdigit() and 2000 <= int(annee) <= 2100 else None
+        return Response(deductibilite.deductibilite(vehicule, annee))
+
     @action(detail=True)
     def synthese(self, request, pk=None):
         return Response(calculs.synthese(self.get_object()))
