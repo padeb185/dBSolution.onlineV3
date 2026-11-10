@@ -83109,3 +83109,73 @@ msgstr "Βέλγιο: ο έλεγχος μεταχειρισμένου είνα�
 #: particulier/vente.py
 msgid "Belgique : gardez votre plaque et faites-la radier (DIV) ; prévenez votre assureur."
 msgstr "Βέλγιο: κρατήστε την πινακίδα και διαγράψτε την (DIV)· ενημερώστε τον ασφαλιστή σας."
+
+#: particulier/simulateur.py
+msgid "Taxe de mise en circulation (BIV)"
+msgstr "Φόρος ταξινόμησης (BIV)"
+
+#: particulier/simulateur.py
+msgid "Taxe de mise en circulation (TMC)"
+msgstr "Φόρος ταξινόμησης (TMC)"
+
+#: particulier/simulateur.py
+#, python-format
+msgid "Belgique : %(cv)s CV fiscaux (cylindrée)."
+msgstr "Βέλγιο: %(cv)s φορολογικοί ίπποι (κυβισμός)."
+
+#: particulier/simulateur.py
+msgid "Certificat d'immatriculation (carte grise)"
+msgstr "Άδεια κυκλοφορίας (carte grise)"
+
+#: particulier/simulateur.py
+msgid "Malus écologique (CO2)"
+msgstr "Περιβαλλοντικό malus (CO2)"
+
+#: particulier/simulateur.py
+msgid "Malus au poids"
+msgstr "Malus βάρους"
+
+#: particulier/simulateur.py
+#, python-format
+msgid "France : %(cv)s CV fiscaux ; pas de taxe annuelle pour un particulier."
+msgstr "Γαλλία: %(cv)s φορολογικοί ίπποι· κανένας ετήσιος φόρος για ιδιώτη."
+
+#: particulier/simulateur.py
+msgid "Luxembourg : taxe annuelle estimée selon le CO2 (minimum 30 €)."
+msgstr "Λουξεμβούργο: ετήσιος φόρος κατ' εκτίμηση βάσει CO2 (ελάχιστο 30 €)."
+
+#: particulier/simulateur.py
+msgid "BPM (taxe d'achat)"
+msgstr "BPM (φόρος αγοράς)"
+
+#: particulier/simulateur.py
+msgid "Pays-Bas : BPM payée à la première immatriculation aux Pays-Bas ; MRB estimée selon la masse (moyenne des provinces)."
+msgstr "Ολλανδία: BPM στην πρώτη ταξινόμηση στην Ολλανδία· MRB κατ' εκτίμηση βάσει μάζας (μέσος όρος επαρχιών)."
+
+#: particulier/simulateur.py
+msgid "Allemagne : voiture électrique exonérée de Kfz-Steuer jusqu'en 2035."
+msgstr "Γερμανία: ηλεκτρικό αυτοκίνητο απαλλάσσεται από Kfz-Steuer έως το 2035."
+
+#: particulier/simulateur.py
+msgid "Plaques"
+msgstr "Πινακίδες"
+
+#: particulier/simulateur.py
+msgid "Plaque personnalisée"
+msgstr "Εξατομικευμένη πινακίδα"
+
+#: particulier/simulateur.py
+msgid "Taxes et immatriculation"
+msgstr "Φόροι και ταξινόμηση"
+
+#: particulier/simulateur.py
+msgid "Coût du crédit"
+msgstr "Κόστος πίστωσης"
+
+#: particulier/simulateur.py
+msgid "Montants indicatifs (règles 2026) : vérifiez sur les calculateurs officiels."
+msgstr "Ενδεικτικά ποσά (κανόνες 2026): ελέγξτε με τους επίσημους υπολογιστές."
+
+#: particulier/simulateur.py
+msgid "Le simulateur d'achat est disponible à partir de la formule Bronze."
+msgstr "Ο προσομοιωτής αγοράς είναι διαθέσιμος από το πρόγραμμα Bronze."

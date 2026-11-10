@@ -83031,3 +83031,73 @@ msgstr "Bélgica: la inspección de ocasión es obligatoria antes de la venta (s
 #: particulier/vente.py
 msgid "Belgique : gardez votre plaque et faites-la radier (DIV) ; prévenez votre assureur."
 msgstr "Bélgica: conserve su matrícula y dela de baja (DIV); avise a su aseguradora."
+
+#: particulier/simulateur.py
+msgid "Taxe de mise en circulation (BIV)"
+msgstr "Impuesto de matriculación (BIV)"
+
+#: particulier/simulateur.py
+msgid "Taxe de mise en circulation (TMC)"
+msgstr "Impuesto de matriculación (TMC)"
+
+#: particulier/simulateur.py
+#, python-format
+msgid "Belgique : %(cv)s CV fiscaux (cylindrée)."
+msgstr "Bélgica: %(cv)s CV fiscales (cilindrada)."
+
+#: particulier/simulateur.py
+msgid "Certificat d'immatriculation (carte grise)"
+msgstr "Permiso de circulación (carte grise)"
+
+#: particulier/simulateur.py
+msgid "Malus écologique (CO2)"
+msgstr "Malus ecológico (CO2)"
+
+#: particulier/simulateur.py
+msgid "Malus au poids"
+msgstr "Malus por peso"
+
+#: particulier/simulateur.py
+#, python-format
+msgid "France : %(cv)s CV fiscaux ; pas de taxe annuelle pour un particulier."
+msgstr "Francia: %(cv)s CV fiscales; sin impuesto anual para un particular."
+
+#: particulier/simulateur.py
+msgid "Luxembourg : taxe annuelle estimée selon le CO2 (minimum 30 €)."
+msgstr "Luxemburgo: impuesto anual estimado según el CO2 (mínimo 30 €)."
+
+#: particulier/simulateur.py
+msgid "BPM (taxe d'achat)"
+msgstr "BPM (impuesto de compra)"
+
+#: particulier/simulateur.py
+msgid "Pays-Bas : BPM payée à la première immatriculation aux Pays-Bas ; MRB estimée selon la masse (moyenne des provinces)."
+msgstr "Países Bajos: BPM pagada en la primera matriculación en los Países Bajos; MRB estimada según la masa (media de las provincias)."
+
+#: particulier/simulateur.py
+msgid "Allemagne : voiture électrique exonérée de Kfz-Steuer jusqu'en 2035."
+msgstr "Alemania: coche eléctrico exento de Kfz-Steuer hasta 2035."
+
+#: particulier/simulateur.py
+msgid "Plaques"
+msgstr "Placas"
+
+#: particulier/simulateur.py
+msgid "Plaque personnalisée"
+msgstr "Matrícula personalizada"
+
+#: particulier/simulateur.py
+msgid "Taxes et immatriculation"
+msgstr "Impuestos y matriculación"
+
+#: particulier/simulateur.py
+msgid "Coût du crédit"
+msgstr "Coste del crédito"
+
+#: particulier/simulateur.py
+msgid "Montants indicatifs (règles 2026) : vérifiez sur les calculateurs officiels."
+msgstr "Importes orientativos (normas 2026): compruébelos en los simuladores oficiales."
+
+#: particulier/simulateur.py
+msgid "Le simulateur d'achat est disponible à partir de la formule Bronze."
+msgstr "El simulador de compra está disponible a partir del plan Bronze."

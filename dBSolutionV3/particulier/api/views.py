@@ -693,6 +693,18 @@ class TableauDeBordView(SchemaParticuliersMixin, APIView):
         })
 
 
+class SimulateurView(SchemaParticuliersMixin, APIView):
+    """Simulateur d'achat (formule Bronze) : prêt, taxes de mise en circulation, taxe annuelle, immatriculation,
+    plaques et rapport financier de l'éventuel achat (BE, FR, LU, NL, DE)."""
+
+    def post(self, request):
+        from .. import simulateur
+        if abonnements.formule_effective(request.user) == "gratuit":
+            return Response({"detail": _("Le simulateur d'achat est disponible à partir de la formule Bronze."),
+                             "code": "formule_requise", "formule_requise": "bronze"}, status=status.HTTP_403_FORBIDDEN)
+        return Response(simulateur.simuler(request.data))
+
+
 class VinView(SchemaParticuliersMixin, APIView):
     def get(self, request):
         from voiture.voiture_exemplaire.utils_vin import VinDecoderService

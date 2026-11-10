@@ -16,6 +16,7 @@ import 'formules_ecran.dart';
 import 'reglages_ecran.dart';
 import 'vehicule_ecran.dart';
 import 'vehicule_form_ecran.dart';
+import 'simulateur_ecran.dart';
 import 'vehicules_vendus_ecran.dart';
 
 /// Accueil : rappels à traiter, véhicules et dépenses du mois.
@@ -85,6 +86,11 @@ class _AccueilEcranState extends State<AccueilEcran> {
       appBar: AppBar(
         title: Text(t('Bonjour {prenom}', {'prenom': session.utilisateur?['prenom'] ?? ''})),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.calculate_outlined),
+            tooltip: t('Simulateur d\'achat'),
+            onPressed: () => ouvrirSimulateur(context),
+          ),
           IconButton(
             icon: const Icon(Icons.settings),
             tooltip: t('Réglages'),
@@ -188,6 +194,19 @@ class _AccueilEcranState extends State<AccueilEcran> {
                       onTap: () => _ouvrir(v),
                     ),
                   ),
+                const SizedBox(height: 8),
+                // Simulateur d'achat (formule Bronze) : prêt, taxes, immatriculation, rapport financier
+                Card(
+                  child: ListTile(
+                    leading: const Icon(Icons.calculate),
+                    title: Text(t('Simulateur d\'achat')),
+                    subtitle: Text(t('Prêt, taxes de mise en circulation et de roulage, immatriculation, plaques, coût total')),
+                    trailing: context.watch<Abonnement>().formule == 'gratuit'
+                        ? const Chip(label: Text('Bronze'))
+                        : const Icon(Icons.chevron_right),
+                    onTap: () => ouvrirSimulateur(context),
+                  ),
+                ),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: TextButton.icon(

@@ -83092,3 +83092,73 @@ msgstr "België: de keuring tweedehands is verplicht vóór de verkoop (behalve 
 #: particulier/vente.py
 msgid "Belgique : gardez votre plaque et faites-la radier (DIV) ; prévenez votre assureur."
 msgstr "België: houd uw nummerplaat en laat ze schrappen (DIV); verwittig uw verzekeraar."
+
+#: particulier/simulateur.py
+msgid "Taxe de mise en circulation (BIV)"
+msgstr "Belasting op de inverkeerstelling (BIV)"
+
+#: particulier/simulateur.py
+msgid "Taxe de mise en circulation (TMC)"
+msgstr "Belasting op de inverkeerstelling (TMC)"
+
+#: particulier/simulateur.py
+#, python-format
+msgid "Belgique : %(cv)s CV fiscaux (cylindrée)."
+msgstr "België: %(cv)s fiscale pk (cilinderinhoud)."
+
+#: particulier/simulateur.py
+msgid "Certificat d'immatriculation (carte grise)"
+msgstr "Inschrijvingsbewijs (carte grise)"
+
+#: particulier/simulateur.py
+msgid "Malus écologique (CO2)"
+msgstr "Ecologische malus (CO2)"
+
+#: particulier/simulateur.py
+msgid "Malus au poids"
+msgstr "Gewichtsmalus"
+
+#: particulier/simulateur.py
+#, python-format
+msgid "France : %(cv)s CV fiscaux ; pas de taxe annuelle pour un particulier."
+msgstr "Frankrijk: %(cv)s fiscale pk; geen jaarlijkse belasting voor een particulier."
+
+#: particulier/simulateur.py
+msgid "Luxembourg : taxe annuelle estimée selon le CO2 (minimum 30 €)."
+msgstr "Luxemburg: jaarlijkse belasting geschat volgens CO2 (minimum 30 €)."
+
+#: particulier/simulateur.py
+msgid "BPM (taxe d'achat)"
+msgstr "BPM (aanschafbelasting)"
+
+#: particulier/simulateur.py
+msgid "Pays-Bas : BPM payée à la première immatriculation aux Pays-Bas ; MRB estimée selon la masse (moyenne des provinces)."
+msgstr "Nederland: BPM betaald bij de eerste registratie in Nederland; MRB geschat volgens de massa (gemiddelde van de provincies)."
+
+#: particulier/simulateur.py
+msgid "Allemagne : voiture électrique exonérée de Kfz-Steuer jusqu'en 2035."
+msgstr "Duitsland: elektrische wagen vrijgesteld van Kfz-Steuer tot 2035."
+
+#: particulier/simulateur.py
+msgid "Plaques"
+msgstr "Nummerplaten"
+
+#: particulier/simulateur.py
+msgid "Plaque personnalisée"
+msgstr "Gepersonaliseerde nummerplaat"
+
+#: particulier/simulateur.py
+msgid "Taxes et immatriculation"
+msgstr "Belastingen en inschrijving"
+
+#: particulier/simulateur.py
+msgid "Coût du crédit"
+msgstr "Kost van het krediet"
+
+#: particulier/simulateur.py
+msgid "Montants indicatifs (règles 2026) : vérifiez sur les calculateurs officiels."
+msgstr "Indicatieve bedragen (regels 2026): controleer met de officiële rekenmodules."
+
+#: particulier/simulateur.py
+msgid "Le simulateur d'achat est disponible à partir de la formule Bronze."
+msgstr "De aankoopsimulator is beschikbaar vanaf de formule Bronze."
