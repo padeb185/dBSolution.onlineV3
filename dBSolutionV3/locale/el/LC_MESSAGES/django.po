@@ -82857,3 +82857,55 @@ msgstr "Συντηρήσεις (συνεργείο)"
 #: particulier/models.py
 msgid "Maintenance (garage)"
 msgstr "Συντήρηση (συνεργείο)"
+
+#: particulier/api/views.py
+msgid "Avant et arrière"
+msgstr "Εμπρός και πίσω"
+
+#: particulier/api/views.py
+msgid "Choisissez l'essieu : avant ou arrière."
+msgstr "Επιλέξτε άξονα: εμπρός ή πίσω."
+
+#: particulier/api/views.py
+msgid "Kilométrage ou date invalide."
+msgstr "Μη έγκυρα χιλιόμετρα ή ημερομηνία."
+
+#: particulier/api/views.py
+msgid "Le kilométrage est inférieur à celui du dernier montage ({km} km)."
+msgstr "Τα χιλιόμετρα είναι λιγότερα από την τελευταία τοποθέτηση ({km} km)."
+
+#: particulier/api/views.py
+msgid "Aucune autre monte enregistrée : ajoutez d'abord les pneus de la seconde monte."
+msgstr "Δεν υπάρχει άλλο σετ: προσθέστε πρώτα τα ελαστικά του δεύτερου σετ."
+
+#: particulier/api/views.py
+msgid "Les pneus sont disponibles à partir de la formule Bronze."
+msgstr "Τα ελαστικά είναι διαθέσιμα από το πρόγραμμα Bronze."
+
+#: particulier/deductibilite.py
+msgid "véhicule utilitaire ou de location : part professionnelle"
+msgstr "επαγγελματικό ή ενοικιαζόμενο όχημα: επαγγελματικό ποσοστό"
+
+#: particulier/deductibilite.py
+msgid "Véhicule utilitaire ou de location : TVA récupérable sur toute la part professionnelle (les limites des voitures de tourisme ne s'appliquent pas)."
+msgstr "Επαγγελματικό ή ενοικιαζόμενο όχημα: ΦΠΑ ανακτήσιμος σε όλο το επαγγελματικό ποσοστό (τα όρια των επιβατικών δεν ισχύουν)."
+
+#: particulier/deductibilite.py
+msgid "Type de véhicule"
+msgstr "Τύπος οχήματος"
+
+#: particulier/deductibilite.py
+msgid "Personnel"
+msgstr "Προσωπικό"
+
+#: particulier/deductibilite.py
+msgid "Utilitaire"
+msgstr "Επαγγελματικό"
+
+#: particulier/rappels_auto.py
+msgid "Entretien périodique (Long Life)"
+msgstr "Περιοδική συντήρηση (Long Life)"
+
+#: particulier/rappels_auto.py
+msgid "Entretien périodique"
+msgstr "Περιοδική συντήρηση"

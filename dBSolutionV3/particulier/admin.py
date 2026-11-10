@@ -5,7 +5,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from .comptes import activer
-from .models import AbonnementParticulier, CompteParticulier, Financement, Depense, Document, Entretien, MaintenanceParticulier, Plein, ProfilFiscal, Rappel, ReleveKilometrique, Vehicule
+from .models import AbonnementParticulier, CompteParticulier, Financement, Depense, Document, Entretien, MaintenanceParticulier, Plein, TrainPneus, VenteParticulier, ProfilFiscal, Rappel, ReleveKilometrique, Vehicule
 
 
 def lien_fichier(modele, champ):
@@ -209,3 +209,15 @@ class MaintenanceParticulierAdmin(admin.ModelAdmin):
     list_filter = ("type_maintenance",)
     readonly_fields = ("tva_pieces", "tva_main_oeuvre", "total_pieces_tvac", "total_main_oeuvre_tvac",
                        "total_htva", "total_tva", "total_tvac")
+
+
+@admin.register(TrainPneus)
+class TrainPneusAdmin(admin.ModelAdmin):
+    list_display = ("vehicule", "position", "monte", "numero", "type_pneus", "marque", "actif", "est_monte", "km_cumules")
+    list_filter = ("position", "monte", "actif", "type_pneus")
+
+
+@admin.register(VenteParticulier)
+class VenteParticulierAdmin(admin.ModelAdmin):
+    list_display = ("vehicule", "statut", "date_vente", "acheteur_nom", "regime_tva", "prix_tvac")
+    list_filter = ("statut", "regime_tva")

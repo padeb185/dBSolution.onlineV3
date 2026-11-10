@@ -82883,3 +82883,55 @@ msgstr "Wartungen (Werkstatt)"
 #: particulier/models.py
 msgid "Maintenance (garage)"
 msgstr "Wartung (Werkstatt)"
+
+#: particulier/api/views.py
+msgid "Avant et arrière"
+msgstr "Vorne und hinten"
+
+#: particulier/api/views.py
+msgid "Choisissez l'essieu : avant ou arrière."
+msgstr "Wählen Sie die Achse: vorne oder hinten."
+
+#: particulier/api/views.py
+msgid "Kilométrage ou date invalide."
+msgstr "Ungültiger Kilometerstand oder ungültiges Datum."
+
+#: particulier/api/views.py
+msgid "Le kilométrage est inférieur à celui du dernier montage ({km} km)."
+msgstr "Der Kilometerstand ist niedriger als bei der letzten Montage ({km} km)."
+
+#: particulier/api/views.py
+msgid "Aucune autre monte enregistrée : ajoutez d'abord les pneus de la seconde monte."
+msgstr "Kein anderer Satz erfasst: Fügen Sie zuerst die Reifen des zweiten Satzes hinzu."
+
+#: particulier/api/views.py
+msgid "Les pneus sont disponibles à partir de la formule Bronze."
+msgstr "Reifen sind ab dem Tarif Bronze verfügbar."
+
+#: particulier/deductibilite.py
+msgid "véhicule utilitaire ou de location : part professionnelle"
+msgstr "Nutz- oder Mietfahrzeug: beruflicher Anteil"
+
+#: particulier/deductibilite.py
+msgid "Véhicule utilitaire ou de location : TVA récupérable sur toute la part professionnelle (les limites des voitures de tourisme ne s'appliquent pas)."
+msgstr "Nutz- oder Mietfahrzeug: MwSt. auf den gesamten beruflichen Anteil erstattungsfähig (die Grenzen für Pkw gelten nicht)."
+
+#: particulier/deductibilite.py
+msgid "Type de véhicule"
+msgstr "Fahrzeugtyp"
+
+#: particulier/deductibilite.py
+msgid "Personnel"
+msgstr "Privat"
+
+#: particulier/deductibilite.py
+msgid "Utilitaire"
+msgstr "Nutzfahrzeug"
+
+#: particulier/rappels_auto.py
+msgid "Entretien périodique (Long Life)"
+msgstr "Regelmäßige Wartung (Long Life)"
+
+#: particulier/rappels_auto.py
+msgid "Entretien périodique"
+msgstr "Regelmäßige Wartung"

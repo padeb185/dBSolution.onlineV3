@@ -39,6 +39,7 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
   ];
   final Map<String, TextEditingController> _c = {};
   String _energie = 'essence';
+  String _typeVehicule = 'personnel';
   String _pays = 'BE';
   String? _miseEnCirculation;
   String? _dateAchat;
@@ -63,6 +64,7 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
       _c[n] = TextEditingController(text: v[n]?.toString() ?? '');
     }
     _energie = (v['energie'] as String?) ?? 'essence';
+    _typeVehicule = (v['type_vehicule'] as String?) ?? 'personnel';
     // Nouveau véhicule : pays par défaut des réglages
     final pays = ((v['pays_immatriculation'] as String?) ??
             context.read<Session>().utilisateur?['pays_defaut'] as String?)
@@ -124,6 +126,7 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
           : _unites.versKm(double.parse(v('kilometrage_achat')!)).round(),
       'valeur_estimee': v('valeur_estimee'),
       'energie': _energie,
+      'type_vehicule': _typeVehicule,
       'pays_immatriculation': _pays,
       'date_mise_en_circulation': _miseEnCirculation,
       'date_achat': _dateAchat,
@@ -298,6 +301,19 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
                 decoration: InputDecoration(labelText: t('Énergie'), border: const OutlineInputBorder()),
                 items: [for (final e in energies.entries) DropdownMenuItem(value: e.key, child: Text(e.value))],
                 onChanged: (v) => setState(() => _energie = v ?? 'essence'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: DropdownButtonFormField<String>(
+                initialValue: _typeVehicule,
+                decoration: InputDecoration(
+                  labelText: t('Type de véhicule'),
+                  helperText: t('Règles de TVA et de déductibilité (onglet Déductibilité).'),
+                  border: const OutlineInputBorder(),
+                ),
+                items: [for (final e in typesVehicule.entries) DropdownMenuItem(value: e.key, child: Text(e.value))],
+                onChanged: (v) => setState(() => _typeVehicule = v ?? 'personnel'),
               ),
             ),
             Padding(

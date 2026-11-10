@@ -82792,3 +82792,55 @@ msgstr "Manutenzioni (officina)"
 #: particulier/models.py
 msgid "Maintenance (garage)"
 msgstr "Manutenzione (officina)"
+
+#: particulier/api/views.py
+msgid "Avant et arrière"
+msgstr "Anteriori e posteriori"
+
+#: particulier/api/views.py
+msgid "Choisissez l'essieu : avant ou arrière."
+msgstr "Scegli l'asse: anteriore o posteriore."
+
+#: particulier/api/views.py
+msgid "Kilométrage ou date invalide."
+msgstr "Chilometraggio o data non validi."
+
+#: particulier/api/views.py
+msgid "Le kilométrage est inférieur à celui du dernier montage ({km} km)."
+msgstr "Il chilometraggio è inferiore a quello dell'ultimo montaggio ({km} km)."
+
+#: particulier/api/views.py
+msgid "Aucune autre monte enregistrée : ajoutez d'abord les pneus de la seconde monte."
+msgstr "Nessun altro treno registrato: aggiungi prima i pneumatici del secondo treno."
+
+#: particulier/api/views.py
+msgid "Les pneus sont disponibles à partir de la formule Bronze."
+msgstr "Gli pneumatici sono disponibili dal piano Bronze."
+
+#: particulier/deductibilite.py
+msgid "véhicule utilitaire ou de location : part professionnelle"
+msgstr "veicolo commerciale o a noleggio: quota professionale"
+
+#: particulier/deductibilite.py
+msgid "Véhicule utilitaire ou de location : TVA récupérable sur toute la part professionnelle (les limites des voitures de tourisme ne s'appliquent pas)."
+msgstr "Veicolo commerciale o a noleggio: IVA recuperabile su tutta la quota professionale (i limiti delle autovetture non si applicano)."
+
+#: particulier/deductibilite.py
+msgid "Type de véhicule"
+msgstr "Tipo di veicolo"
+
+#: particulier/deductibilite.py
+msgid "Personnel"
+msgstr "Personale"
+
+#: particulier/deductibilite.py
+msgid "Utilitaire"
+msgstr "Veicolo commerciale"
+
+#: particulier/rappels_auto.py
+msgid "Entretien périodique (Long Life)"
+msgstr "Manutenzione periodica (Long Life)"
+
+#: particulier/rappels_auto.py
+msgid "Entretien périodique"
+msgstr "Manutenzione periodica"

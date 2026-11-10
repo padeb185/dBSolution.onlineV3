@@ -1,4 +1,5 @@
 from datetime import date, timedelta
+from decimal import Decimal as D
 
 from django.db import transaction
 from django.shortcuts import get_object_or_404
@@ -14,7 +15,7 @@ from rest_framework.views import APIView
 
 from .. import abonnements, calculs
 from ..comptes import supprimer_compte
-from ..models import Depense, Document, Entretien, MaintenanceParticulier, Plein, Rappel, ReleveKilometrique, Vehicule
+from ..models import Depense, Document, Entretien, MaintenanceParticulier, Plein, TrainPneus, Rappel, ReleveKilometrique, Vehicule
 from . import serializers as S
 from .base import (ROLE_PARTICULIER, LimiteConnexion, SchemaParticuliersMixin, schema_particuliers,
                    servir_fichier)
@@ -260,6 +261,129 @@ class VehiculeViewSet(SchemaParticuliersMixin, viewsets.ModelViewSet):
         annee = int(annee) if annee and annee.isdigit() and 2000 <= int(annee) <= 2100 else None
         return Response(deductibilite.deductibilite(vehicule, annee))
 
+    # ------------------------------------------------------------------ (Re)vente (formule Bronze)
+    def _vente_bronze(self, request):
+        if abonnements.formule_effective(request.user) == "gratuit":
+            return Response({"detail": _("La vente est disponible à partir de la formule Bronze."),
+                             "code": "formule_requise", "formule_requise": "bronze"}, status=status.HTTP_403_FORBIDDEN)
+        return None
+
+    def _reponse_vente(self, vehicule, vente):
+        from .. import vente as module_vente
+        if vente is None:
+            return Response({"vente": None, "proposition": self._proposition_vente(vehicule)})
+        return Response({"vente": S.VenteSerializer(vente).data, **module_vente.etat(vente)})
+
+    def _proposition_vente(self, vehicule):
+        u = self.request.user
+        adresse = getattr(u, "adresse", None)
+        return {"vendeur_nom": f"{u.prenom or ''} {u.nom or ''}".strip(),
+                "vendeur_adresse": f"{adresse.rue} {adresse.numero}\n{adresse.code_postal} {adresse.ville}".strip()
+                if adresse else "",
+                "kilometrage_vente": vehicule.kilometrage_actuel,
+                "montant_saisi": vehicule.valeur_estimee,
+                "doc_car_pass": (vehicule.pays_immatriculation or "").upper() == "BE"}
+
+    @action(detail=True, methods=["get", "put", "delete"])
+    def vente(self, request, pk=None):
+        """Vente du véhicule : GET (vente ou proposition), PUT (brouillon), DELETE (brouillon seulement)."""
+        from ..models import VenteParticulier
+        refus = self._vente_bronze(request)
+        if refus:
+            return refus
+        vehicule = get_object_or_404(Vehicule, pk=pk, proprietaire=request.user)   # vendu (archivé) compris
+        vente = VenteParticulier.objects.filter(vehicule=vehicule).first()
+        if request.method == "DELETE":
+            if vente and vente.statut == "vendue":
+                return Response({"detail": _("Annulez d'abord la vente.")}, status=status.HTTP_400_BAD_REQUEST)
+            if vente:
+                vente.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        if request.method == "PUT":
+            ser = S.VenteSerializer(vente, data=request.data)
+            ser.is_valid(raise_exception=True)
+            vente = ser.save(vehicule=vehicule)
+        return self._reponse_vente(vehicule, vente)
+
+    @action(detail=True, methods=["post"], url_path="vente/finaliser")
+    def finaliser_vente(self, request, pk=None):
+        from .. import vente as module_vente
+        from ..models import VenteParticulier
+        refus = self._vente_bronze(request)
+        if refus:
+            return refus
+        vente = get_object_or_404(VenteParticulier, vehicule__pk=pk, vehicule__proprietaire=request.user)
+        etat = module_vente.etat(vente)
+        if not etat["peut_finaliser"]:
+            return Response({"detail": " ".join(a["message"] for a in etat["alertes"] if a["niveau"] == "erreur")},
+                            status=status.HTTP_400_BAD_REQUEST)
+        with transaction.atomic():
+            module_vente.finaliser(vente)
+        return self._reponse_vente(vente.vehicule, vente)
+
+    @action(detail=True, methods=["post"], url_path="vente/annuler")
+    def annuler_vente(self, request, pk=None):
+        """Retour en brouillon : le véhicule redevient actif (limite de la formule vérifiée)."""
+        from .. import vente as module_vente
+        from ..models import VenteParticulier
+        refus = self._vente_bronze(request)
+        if refus:
+            return refus
+        vente = get_object_or_404(VenteParticulier, vehicule__pk=pk, vehicule__proprietaire=request.user)
+        if vente.statut == "vendue":
+            with transaction.atomic():
+                _verrouiller(request.user)
+                _controler_limite(request.user, sauf=vente.vehicule.pk)
+                module_vente.annuler(vente)
+        return self._reponse_vente(vente.vehicule, vente)
+
+    @action(detail=True, url_path="vente/pdf")
+    def pdf_vente(self, request, pk=None):
+        """Certificat de cession et bon de livraison (PDF, à signer par les deux parties)."""
+        from django.http import HttpResponse
+        from django.template.loader import render_to_string
+        from weasyprint import HTML
+        from .. import vente as module_vente
+        from ..models import VenteParticulier
+        refus = self._vente_bronze(request)
+        if refus:
+            return refus
+        vente = get_object_or_404(VenteParticulier, vehicule__pk=pk, vehicule__proprietaire=request.user)
+        html = render_to_string("particulier/pdf_cession.html", {
+            "vente": vente, "v": vente.vehicule, "mention": module_vente.mention_legale(vente),
+            "tva_affichee": vente.regime_tva in ("NORMAL",)})
+        reponse = HttpResponse(HTML(string=html).write_pdf(), content_type="application/pdf")
+        nom = f"cession_{vente.vehicule.immatriculation or vente.vehicule.marque}.pdf".replace(" ", "_")
+        reponse["Content-Disposition"] = f'inline; filename="{nom}"'
+        return reponse
+
+    @action(detail=True, methods=["get", "put"])
+    def plan_entretien(self, request, pk=None):
+        """Plan d'entretien : rappels automatiques d'entretien (normal 1 an / Long Life 2 ans + km),
+        de contrôle technique (règle du pays) et échéance d'assurance. PUT : {entretien: {...}, controle_technique: {...}}."""
+        from .. import rappels_auto
+        vehicule = self.get_object()
+        if request.method == "PUT":
+            with transaction.atomic():
+                return Response(rappels_auto.appliquer(vehicule, request.data.get("entretien"),
+                                                       request.data.get("controle_technique")))
+        return Response(rappels_auto.plan(vehicule))
+
+    @action(detail=True)
+    def tva(self, request, pk=None):
+        """TVA à récupérer (usage professionnel) : dépenses avec TVA par trimestre ou par mois
+        (?annee=2026&periode=trimestre|mois). Formule Bronze minimum."""
+        from .. import deductibilite
+        vehicule = self.get_object()
+        if abonnements.formule_effective(request.user) == "gratuit":
+            return Response({"detail": _("La déductibilité est disponible à partir de la formule Bronze."),
+                             "code": "formule_requise", "formule_requise": "bronze"},
+                            status=status.HTTP_403_FORBIDDEN)
+        annee = request.query_params.get("annee")
+        annee = int(annee) if annee and annee.isdigit() and 2000 <= int(annee) <= 2100 else None
+        periode = "mois" if request.query_params.get("periode") == "mois" else "trimestre"
+        return Response(deductibilite.journal_tva(vehicule, annee, periode))
+
     @action(detail=True)
     def synthese(self, request, pk=None):
         return Response(calculs.synthese(self.get_object()))
@@ -342,6 +466,99 @@ class FormuleBronze(APIException):
     default_code = "formule_requise"
 
 
+def _noter_kilometrage(vehicule, jour, km):
+    """Kilométrage saisi avec les pneus plus élevé que le dernier connu : relevé ajouté."""
+    if km and km > vehicule.kilometrage_actuel:
+        ReleveKilometrique.objects.create(vehicule=vehicule, date=jour or date.today(), kilometrage=km)
+
+
+class PneusViewSet(ProprietaireViewSet):
+    """Pneus par train (avant / arrière), première et seconde monte, kilométrage mémorisé par train.
+    Formule Bronze minimum."""
+    model = TrainPneus
+    serializer_class = S.TrainPneusSerializer
+
+    def initial(self, request, *args, **kwargs):
+        super().initial(request, *args, **kwargs)
+        if abonnements.formule_effective(request.user) == "gratuit":
+            exc = FormuleBronze()
+            exc.detail = {"detail": _("Les pneus sont disponibles à partir de la formule Bronze."),
+                          "code": "formule_requise", "formule_requise": "bronze"}
+            raise exc
+
+    def create(self, request, *args, **kwargs):
+        ser = self.get_serializer(data=request.data)
+        ser.is_valid(raise_exception=True)
+        d = dict(ser.validated_data)
+        vehicule = d["vehicule"]
+        monter = d.pop("monter_maintenant", True)
+        position = d.pop("position")
+        positions = ["avant", "arriere"] if position == "les_deux" else [position]
+        km = d.pop("km_montage", None)
+        km = vehicule.kilometrage_actuel if km is None else km
+        if d.get("prix") is not None and len(positions) == 2:
+            d["prix"] = (d["prix"] / 2).quantize(D("0.01"))
+        crees = []
+        with transaction.atomic():
+            for pos in positions:
+                trains = TrainPneus.objects.select_for_update().filter(vehicule=vehicule, position=pos)
+                ancien = trains.filter(monte=d.get("monte", "premiere"), actif=True).first()
+                monte_ancien = bool(ancien and ancien.est_monte)
+                if ancien:   # remplacement : l'ancien train est archivé avec ses km
+                    ancien.demonter(km)
+                    ancien.actif = False
+                    ancien.date_remplacement = d.get("date_montage") or date.today()
+                    ancien.km_remplacement = km
+                    ancien.save()
+                numero = (max((t.numero for t in trains), default=0)) + 1
+                train = TrainPneus(**d, position=pos, numero=numero, km_montage=km, train_remplace=ancien)
+                train.date_achat = train.date_achat or train.date_montage
+                personne_monte = not trains.filter(actif=True, est_monte=True).exists()
+                if monter or monte_ancien or personne_monte:
+                    for autre in trains.filter(actif=True, est_monte=True):
+                        autre.demonter(km)
+                        autre.save()
+                    train.monter(km)
+                train.save()
+                crees.append(train)
+            _noter_kilometrage(vehicule, d.get("date_montage"), km)
+        return Response(self.get_serializer(crees[0]).data, status=status.HTTP_201_CREATED)
+
+    @action(detail=False, methods=["post"])
+    def changer_monte(self, request):
+        """Été ↔ hiver : sur chaque essieu, la monte montée est démontée (km mémorisés) et l'autre est montée."""
+        vehicule = get_object_or_404(Vehicule, pk=request.data.get("vehicule"), proprietaire=request.user)
+        try:
+            km = int(request.data.get("kilometrage") or vehicule.kilometrage_actuel)
+            jour = date.fromisoformat(request.data["date"]) if request.data.get("date") else date.today()
+        except (TypeError, ValueError):
+            return Response({"detail": _("Kilométrage ou date invalide.")}, status=status.HTTP_400_BAD_REQUEST)
+        changes = 0
+        with transaction.atomic():
+            for pos in ("avant", "arriere"):
+                trains = TrainPneus.objects.select_for_update().filter(vehicule=vehicule, position=pos, actif=True)
+                actuel = trains.filter(est_monte=True).first()
+                autre = trains.exclude(pk=actuel.pk if actuel else None).filter(
+                    monte="seconde" if actuel and actuel.monte == "premiere" else "premiere").first()
+                if not autre:
+                    continue
+                if actuel:
+                    if km < actuel.km_montage:
+                        return Response({"detail": _("Le kilométrage est inférieur à celui du dernier montage ({km} km).")
+                                         .replace("{km}", str(actuel.km_montage))}, status=status.HTTP_400_BAD_REQUEST)
+                    actuel.demonter(km)
+                    actuel.save()
+                autre.monter(km)
+                autre.date_montage = jour
+                autre.save()
+                changes += 1
+            if not changes:
+                return Response({"detail": _("Aucune autre monte enregistrée : ajoutez d'abord les pneus de la seconde monte.")},
+                                status=status.HTTP_400_BAD_REQUEST)
+            _noter_kilometrage(vehicule, jour, km)
+        return Response(self.get_serializer(TrainPneus.objects.filter(vehicule=vehicule), many=True).data)
+
+
 class MaintenanceViewSet(ProprietaireViewSet):
     """Maintenances par un garage (pièces / main-d'œuvre séparées) : formule Bronze minimum."""
     model = MaintenanceParticulier
@@ -354,6 +571,11 @@ class MaintenanceViewSet(ProprietaireViewSet):
             exc.detail = {"detail": _("Les maintenances sont disponibles à partir de la formule Bronze."),
                           "code": "formule_requise", "formule_requise": "bronze"}
             raise exc
+
+    def perform_create(self, serializer):
+        m = serializer.save()
+        from ..rappels_auto import apres_entretien
+        apres_entretien(m.vehicule, m.date, m.kilometrage, type_maintenance=m.type_maintenance)
 
     @action(detail=False)
     def types(self, request):
@@ -385,10 +607,16 @@ class DocumentViewSet(ProprietaireViewSet):
     serializer_class = S.DocumentSerializer
 
     def perform_create(self, serializer):
-        calculs.synchroniser_rappel_document(serializer.save())
+        self._apres(serializer.save())
 
     def perform_update(self, serializer):
-        calculs.synchroniser_rappel_document(serializer.save())
+        self._apres(serializer.save())
+
+    def _apres(self, document):
+        calculs.synchroniser_rappel_document(document)
+        if document.type == "controle_technique":      # nouveau contrôle : rappel automatique recalculé
+            from ..rappels_auto import apres_entretien
+            apres_entretien(document.vehicule, document.date_debut, None, type_entretien="controle_technique")
 
     @action(detail=True)
     def fichier(self, request, pk=None):
@@ -429,7 +657,9 @@ class TableauDeBordView(SchemaParticuliersMixin, APIView):
         depenses_mois = sum(
             (m.objects.filter(vehicule__in=vehicules, date__gte=debut_mois).aggregate(s=Sum("montant"))["s"] or 0)
             for m in (Plein, Entretien, Depense)) + (MaintenanceParticulier.objects.filter(
-                vehicule__in=vehicules, date__gte=debut_mois).aggregate(s=Sum("total_tvac"))["s"] or 0)
+                vehicule__in=vehicules, date__gte=debut_mois).aggregate(s=Sum("total_tvac"))["s"] or 0) + (
+            TrainPneus.objects.filter(vehicule__in=vehicules, date_achat__gte=debut_mois)
+            .aggregate(s=Sum("prix"))["s"] or 0)
         # Documents : prime d'assurance mensuelle de ce mois (et prime annuelle ou montant unique tombant ce mois-ci)
         # (jusqu'à la fin du mois : une prime prélevée le 25 compte dès le 1er)
         fin_mois = calculs.ajouter_mois(debut_mois, 1) - timedelta(days=1)

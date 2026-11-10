@@ -65,6 +65,10 @@ class Vehicule(models.Model):
     pays_immatriculation = models.CharField(_("Pays d'immatriculation"), max_length=2, default="BE")
     vin = models.CharField(_("VIN"), max_length=17, blank=True)
     energie = models.CharField(_("Énergie"), max_length=12, choices=Energie.choices, default=Energie.ESSENCE)
+    # Usage du véhicule : règles de TVA et de déductibilité (utilitaire / location : TVA sur toute la part pro)
+    type_vehicule = models.CharField(_("Type de véhicule"), max_length=12, default="personnel", choices=[
+        ("personnel", _("Personnel")), ("utilitaire", _("Utilitaire")), ("societe", _("Société")),
+        ("location", _("Location"))])
     annee = models.PositiveSmallIntegerField(_("Année du modèle"), null=True, blank=True)
     date_mise_en_circulation = models.DateField(_("Première mise en circulation"), null=True, blank=True)
     date_achat = models.DateField(_("Date d'achat"), null=True, blank=True)
@@ -324,6 +328,8 @@ class Rappel(models.Model):
     intervalle_mois = models.PositiveSmallIntegerField(_("Répéter tous les (mois)"), null=True, blank=True)
     intervalle_km = models.PositiveIntegerField(_("Répéter tous les (km)"), null=True, blank=True)
     document = models.OneToOneField(Document, on_delete=models.CASCADE, null=True, blank=True, related_name="rappel")
+    # Rappel automatique du plan d'entretien (voir rappels_auto.py) : « entretien », « controle_technique »
+    code = models.CharField(max_length=20, blank=True, default="", editable=False)
     actif = models.BooleanField(_("Actif"), default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -631,4 +637,178 @@ class MaintenanceParticulier(models.Model):
 
     def save(self, *args, **kwargs):
         self.calculer()
+        super().save(*args, **kwargs)
+
+
+class TrainPneus(models.Model):
+    """
+    Train de pneus d'un essieu (avant ou arrière), comme TrainPneus de dBSolution :
+    - première monte (ex. été) et seconde monte (ex. hiver) : une seule montée à la fois par essieu ;
+      les km de chaque monte se cumulent d'une saison à l'autre (km_cumules + km depuis le dernier montage) ;
+    - remplacement : l'ancien train est archivé (actif=False) avec ses km, le nouveau repart de zéro ;
+    - numéro de train : 1 pour les premiers pneus, +1 à chaque remplacement, par essieu.
+    """
+
+    class Position(models.TextChoices):
+        AVANT = "avant", _("Avant")
+        ARRIERE = "arriere", _("Arrière")
+
+    class Monte(models.TextChoices):
+        PREMIERE = "premiere", _("Première monte")
+        SECONDE = "seconde", _("Seconde monte")
+
+    class TypePneus(models.TextChoices):
+        ETE = "ete", _("Été")
+        HIVER = "hiver", _("Hiver")
+        QUATRE_SAISONS = "4saisons", _("4 saisons")
+        PLUIE = "pluie", _("Pluie")
+        SEMI_SLICK = "semi_slick", _("Semi-slick")
+        SLICK = "slick", _("Slick")
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    vehicule = models.ForeignKey(Vehicule, on_delete=models.CASCADE, related_name="trains_pneus")
+    position = models.CharField(_("Essieu"), max_length=10, choices=Position.choices)
+    monte = models.CharField(_("Monte"), max_length=10, choices=Monte.choices, default=Monte.PREMIERE)
+    type_pneus = models.CharField(_("Type de pneus"), max_length=12, choices=TypePneus.choices, default=TypePneus.ETE)
+    marque = models.CharField(_("Marque des pneus"), max_length=60, blank=True)
+    modele = models.CharField(_("Modèle"), max_length=80, blank=True)
+    largeur = models.CharField(_("Largeur"), max_length=5, blank=True)
+    hauteur = models.CharField(_("Hauteur"), max_length=5, blank=True)
+    jante = models.CharField(_("Jante (pouces)"), max_length=5, blank=True)
+    indice_charge = models.CharField(_("Indice de charge"), max_length=5, blank=True)
+    indice_vitesse = models.CharField(_("Indice de vitesse"), max_length=5, blank=True)
+    prix = models.DecimalField(_("Prix TVAC"), max_digits=10, decimal_places=2, null=True, blank=True,
+                               validators=[MinValueValidator(0)])
+    # Date d'achat (coûts) : la date de montage change à chaque changement de monte
+    date_achat = models.DateField(_("Date d'achat"), null=True, blank=True)
+    numero = models.PositiveSmallIntegerField(_("N° de train"), default=1)
+    actif = models.BooleanField(_("Actif"), default=True)          # faux une fois remplacé (historique)
+    est_monte = models.BooleanField(_("Monté"), default=False)     # monté actuellement sur le véhicule
+    date_montage = models.DateField(_("Date de montage"), default=date.today)
+    km_montage = models.PositiveIntegerField(_("Kilométrage au montage"), default=0)
+    km_cumules = models.PositiveIntegerField(_("Km cumulés lors des montages précédents"), default=0)
+    date_remplacement = models.DateField(_("Date de remplacement"), null=True, blank=True)
+    km_remplacement = models.PositiveIntegerField(_("Kilométrage au remplacement"), null=True, blank=True)
+    train_remplace = models.ForeignKey("self", on_delete=models.SET_NULL, null=True, blank=True,
+                                       related_name="remplace_par")
+    remarques = models.TextField(_("Remarques"), blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("Train de pneus")
+        verbose_name_plural = _("Trains de pneus")
+        ordering = ["position", "-actif", "monte", "-numero"]
+
+    @property
+    def taille(self):
+        if not (self.largeur and self.hauteur and self.jante):
+            return ""
+        indices = f" {self.indice_charge}{self.indice_vitesse}" if self.indice_charge or self.indice_vitesse else ""
+        return f"{self.largeur}/{self.hauteur} R{self.jante}{indices}"
+
+    def km_effectues(self, km_actuel=None):
+        """Km parcourus avec ce train (cumul de tous ses montages)."""
+        total = self.km_cumules or 0
+        if self.est_monte and self.actif:
+            km = self.vehicule.kilometrage_actuel if km_actuel is None else km_actuel
+            total += max(0, km - (self.km_montage or 0))
+        return total
+
+    def demonter(self, km):
+        if self.est_monte:
+            self.km_cumules = (self.km_cumules or 0) + max(0, km - (self.km_montage or 0))
+            self.est_monte = False
+
+    def monter(self, km):
+        if not self.est_monte:
+            self.est_monte = True
+            self.km_montage = km
+
+
+class VenteParticulier(models.Model):
+    """
+    (Re)vente du véhicule, comme le module de vente de dBSolution : acheteur, prix (et TVA si usage
+    professionnel), frais de vente, documents et clés remis, état, garantie, paiement ; bilan financier et
+    certificat de cession en PDF. Vente finalisée : le véhicule est archivé (vendu), la valeur de revente
+    devient le prix de vente. Formule Bronze minimum.
+    """
+
+    class Statut(models.TextChoices):
+        BROUILLON = "brouillon", _("Brouillon")
+        VENDUE = "vendue", _("Vendue")
+
+    class RegimeTVA(models.TextChoices):
+        PRIVE = "PRIVE", _("Vente entre particuliers (sans TVA)")
+        NORMAL = "NORMAL", _("Régime normal (TVA sur le prix de vente)")
+        MARGE = "MARGE", _("Régime de la marge (biens d'occasion)")
+        INTRACOM = "INTRACOM", _("Livraison intracommunautaire exonérée (acheteur assujetti UE)")
+        EXPORT = "EXPORT", _("Exportation hors Union européenne (exonérée)")
+        EXONERE = "EXONERE", _("Exonéré (TVA non déduite à l'achat)")
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    vehicule = models.OneToOneField(Vehicule, on_delete=models.CASCADE, related_name="vente")
+    statut = models.CharField(_("Statut"), max_length=10, choices=Statut.choices, default=Statut.BROUILLON,
+                              editable=False)
+    date_vente = models.DateField(_("Date de la vente"), default=date.today)
+    date_livraison = models.DateField(_("Date de livraison"), null=True, blank=True)
+    kilometrage_vente = models.PositiveIntegerField(_("Kilométrage à la vente"), null=True, blank=True)
+    # Vendeur (pour le certificat de cession)
+    vendeur_nom = models.CharField(_("Nom du vendeur"), max_length=255, blank=True)
+    vendeur_adresse = models.TextField(_("Adresse du vendeur"), blank=True)
+    vendeur_tva = models.CharField(_("N° de TVA du vendeur"), max_length=30, blank=True)
+    # Acheteur
+    acheteur_type = models.CharField(_("Type d'acheteur"), max_length=15, default="particulier",
+                                     choices=[("particulier", _("Particulier")), ("professionnel", _("Professionnel"))])
+    acheteur_nom = models.CharField(_("Nom de l'acheteur"), max_length=255, blank=True)
+    acheteur_adresse = models.TextField(_("Adresse de l'acheteur"), blank=True)
+    acheteur_pays = models.CharField(_("Pays de l'acheteur"), max_length=2, blank=True)
+    acheteur_tva = models.CharField(_("N° de TVA de l'acheteur"), max_length=30, blank=True)
+    acheteur_email = models.EmailField(_("Email de l'acheteur"), blank=True)
+    acheteur_telephone = models.CharField(_("Téléphone de l'acheteur"), max_length=30, blank=True)
+    # Prix et TVA
+    regime_tva = models.CharField(_("Régime de TVA"), max_length=10, choices=RegimeTVA.choices, default=RegimeTVA.PRIVE)
+    montant_saisi = models.DecimalField(_("Prix de vente"), max_digits=12, decimal_places=2, default=ZERO,
+                                        validators=[MinValueValidator(0)])
+    saisie_tvac = models.BooleanField(_("Prix encodé TVA comprise"), default=True)
+    taux_tva = models.DecimalField(_("Taux de TVA (%)"), max_digits=5, decimal_places=2, null=True, blank=True)
+    pourcentage_taxable = models.DecimalField(_("Pourcentage taxable (%)"), max_digits=5, decimal_places=2,
+                                              default=Decimal("100.00"),
+                                              validators=[MinValueValidator(0), MaxValueValidator(100)])
+    frais_vente = models.DecimalField(_("Frais de vente TVAC"), max_digits=12, decimal_places=2, default=ZERO,
+                                      validators=[MinValueValidator(0)])
+    prix_htva = models.DecimalField(_("Prix HTVA"), max_digits=12, decimal_places=2, default=ZERO, editable=False)
+    montant_tva = models.DecimalField(_("TVA"), max_digits=12, decimal_places=2, default=ZERO, editable=False)
+    prix_tvac = models.DecimalField(_("Total à payer"), max_digits=12, decimal_places=2, default=ZERO, editable=False)
+    # Paiement
+    mode_paiement = models.CharField(_("Mode de paiement"), max_length=10, default="virement",
+                                     choices=[("virement", _("Virement")), ("especes", _("Espèces")),
+                                              ("autre", _("Autre"))])
+    date_paiement = models.DateField(_("Date du paiement"), null=True, blank=True)
+    # Documents, clés, état
+    doc_certificat_immatriculation = models.BooleanField(_("Certificat d'immatriculation"), default=True)
+    doc_coc = models.BooleanField(_("Certificat de conformité (COC)"), default=True)
+    doc_carnet_entretien = models.BooleanField(_("Carnet d'entretien / historique"), default=True)
+    doc_car_pass = models.BooleanField(_("Car-Pass (Belgique)"), default=False)
+    doc_controle_technique = models.BooleanField(_("Certificat de contrôle technique"), default=False)
+    nombre_cles = models.PositiveSmallIntegerField(_("Nombre de clés"), default=2)
+    etat_vehicule = models.TextField(_("État du véhicule / défauts connus"), blank=True)
+    garantie_mois = models.PositiveSmallIntegerField(_("Garantie (mois)"), default=0)
+    remarques = models.TextField(_("Remarques"), blank=True)
+    # Avant la vente (pour l'annulation)
+    valeur_estimee_avant = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _("Vente du véhicule")
+        verbose_name_plural = _("Ventes de véhicules")
+
+    def recalculer(self):
+        from .vente import calculer_prix
+        p = calculer_prix(self)
+        self.prix_htva, self.montant_tva, self.prix_tvac = p["htva"], p["tva"], p["tvac"]
+        return p
+
+    def save(self, *args, **kwargs):
+        self.recalculer()
         super().save(*args, **kwargs)

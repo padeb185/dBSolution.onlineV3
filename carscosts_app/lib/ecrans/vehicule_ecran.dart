@@ -15,6 +15,8 @@ import '../widgets/plaque.dart';
 import 'deductibilite_onglet.dart';
 import 'financement_ecran.dart';
 import 'formulaire_ecran.dart';
+import 'pneus_onglet.dart';
+import 'vente_ecran.dart';
 import 'rapport_onglet.dart';
 import 'vehicule_form_ecran.dart';
 
@@ -69,7 +71,7 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
   Widget build(BuildContext context) {
     final titre = '${_vehicule['marque']} ${_vehicule['modele']}';
     return DefaultTabController(
-      length: ressourcesDe(_vehicule).length + 3,
+      length: ressourcesDe(_vehicule).length + 4,
       child: Scaffold(
         appBar: AppBar(
           title: Row(children: [
@@ -86,6 +88,7 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
               Tab(icon: const Icon(Icons.bar_chart), text: t('Rapport')),
               Tab(icon: const Icon(Icons.account_balance_wallet), text: t('Déductibilité')),
               for (final r in ressourcesDe(_vehicule)) Tab(icon: Icon(r.icone), text: r.titre),
+              Tab(icon: const Icon(Icons.tire_repair), text: t('Pneus')),
             ],
           ),
         ),
@@ -97,6 +100,7 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
             for (final r in ressourcesDe(_vehicule))
               ListeRessource(
                   ressource: r, vehiculeId: _id, vehicule: _vehicule, auChangement: () => setState(_chargerSynthese)),
+            PneusOnglet(vehicule: _vehicule, auChangement: () => setState(_chargerSynthese)),
           ],
         ),
       ),
@@ -183,6 +187,28 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
                       : const Icon(Icons.chevron_right),
                   onTap: () async {
                     if (await ouvrirFinancement(context, _vehicule) && mounted) setState(_chargerSynthese);
+                  },
+                ),
+              ),
+              // (Re)vente (formule Bronze minimum) : acheteur, prix, documents, bilan, certificat de cession
+              Card(
+                child: ListTile(
+                  leading: Icon(_vehicule['archive'] == true ? Icons.verified : Icons.sell),
+                  title: Text(_vehicule['archive'] == true ? t('Vente du véhicule (vendu)') : t('Vendre le véhicule')),
+                  subtitle: Text(t('Acheteur, prix, documents remis, bilan, certificat de cession')),
+                  trailing: context.watch<Abonnement>().formule == 'gratuit'
+                      ? const Chip(label: Text('Bronze'))
+                      : const Icon(Icons.chevron_right),
+                  onTap: () async {
+                    if (await ouvrirVente(context, _vehicule) && mounted) {
+                      final v = await context.read<ApiClient>().get('vehicules/$_id/');
+                      if (mounted) {
+                        setState(() {
+                          _vehicule = Map<String, dynamic>.from(v as Map);
+                          _chargerSynthese();
+                        });
+                      }
+                    }
                   },
                 ),
               ),

@@ -7,6 +7,7 @@ import '../l10n/langue.dart';
 import '../l10n/unites.dart';
 import '../ecrans/formulaire_ecran.dart';
 import '../ecrans/formules_ecran.dart';
+import '../ecrans/plan_entretien_ecran.dart';
 import '../modeles/ressources.dart';
 import 'fichiers.dart';
 import 'format.dart';
@@ -131,6 +132,26 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
     }
   }
 
+  /// Rappels : accès au plan d'entretien (entretien, contrôle technique, assurance)
+  Widget _planEntretien() => Card(
+        margin: const EdgeInsets.fromLTRB(12, 12, 12, 4),
+        color: Theme.of(context).colorScheme.primaryContainer,
+        child: ListTile(
+          leading: const Icon(Icons.event_repeat),
+          title: Text(t('Plan d\'entretien')),
+          subtitle: Text(t('Entretien (1 ou 2 ans + km), contrôle technique, assurance')),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () async {
+            final ok = await Navigator.push<bool>(
+                context, MaterialPageRoute(builder: (_) => PlanEntretienEcran(vehicule: widget.vehicule ?? {'id': widget.vehiculeId})));
+            if (ok == true && mounted) {
+              setState(_charger);
+              widget.auChangement?.call();
+            }
+          },
+        ),
+      );
+
   /// Ressource réservée aux formules payantes (Bronze minimum)
   Widget _verrou() => ListView(padding: const EdgeInsets.all(24), children: [
         const Icon(Icons.lock_outline, size: 48),
@@ -180,6 +201,7 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
             final elements = snap.data!;
             if (elements.isEmpty) {
               return ListView(children: [
+                if (r.chemin == 'rappels') _planEntretien(),
                 Padding(
                   padding: const EdgeInsets.all(32),
                   child: Column(children: [
@@ -190,11 +212,14 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
                 ),
               ]);
             }
+            final entete = r.chemin == 'rappels' ? 1 : 0;
             return ListView.separated(
               padding: const EdgeInsets.only(bottom: 88),
-              itemCount: elements.length,
+              itemCount: elements.length + entete,
               separatorBuilder: (_, __) => const Divider(height: 1),
-              itemBuilder: (context, i) {
+              itemBuilder: (context, index) {
+                if (index < entete) return _planEntretien();
+                final i = index - entete;
                 final e = elements[i];
                 final montant = r.montantLigne?.call(e) ?? '';
                 final u = Unites.de(widget.vehicule);

@@ -130,8 +130,11 @@ def avancer_rappels_entretien(entretien):
     if not entretien.type:
         return []
     faits = []
-    for rappel in entretien.vehicule.rappels.filter(actif=True, type_entretien=entretien.type, document__isnull=True):
+    for rappel in entretien.vehicule.rappels.filter(actif=True, type_entretien=entretien.type, document__isnull=True,
+                                                    code=""):   # rappels automatiques : rappels_auto.apres_entretien
         faits.append(marquer_fait(rappel, entretien.date, entretien.kilometrage))
+    from .rappels_auto import apres_entretien
+    apres_entretien(entretien.vehicule, entretien.date, entretien.kilometrage, type_entretien=entretien.type)
     return faits
 
 
@@ -254,8 +257,12 @@ def financement(vehicule, aujourdhui=None):
 
 
 def synthese(vehicule, aujourdhui=None):
-    from .models import CategorieDepense
+    from .models import CategorieDepense, VenteParticulier
     aujourdhui = aujourdhui or date.today()
+    # Véhicule vendu : les calculs s'arrêtent à la date de la vente (frais de vente compris)
+    vente = VenteParticulier.objects.filter(vehicule=vehicule, statut="vendue").first()
+    if vente:
+        aujourdhui = min(aujourdhui, vente.date_vente)
     pleins, entretiens, documents, depenses = (vehicule.pleins.all(), vehicule.entretiens.all(),
                                                 vehicule.documents.all(), vehicule.depenses.all())
 
@@ -274,12 +281,17 @@ def synthese(vehicule, aujourdhui=None):
             postes["achat"] = {"libelle": str(_("Option d'achat levée")), "montant": fin["valeur_residuelle"]}
     postes["energie"] = {"libelle": str(_("Carburant / énergie")), "montant": _somme(pleins)}
     postes["entretiens"] = {"libelle": str(_("Entretiens et réparations")), "montant": _somme(entretiens)}
+    pneus = vehicule.trains_pneus.filter(prix__isnull=False)
+    if pneus.exists():
+        postes["pneus"] = {"libelle": str(_("Pneus")), "montant": _somme(pneus, "prix")}
     maintenances = vehicule.maintenances.all()
     if maintenances.exists():
         postes["maintenances"] = {"libelle": str(_("Maintenances (garage)")),
                                   "montant": _somme(maintenances, "total_tvac")}
     postes["documents"] = {"libelle": str(_("Assurance, contrôle technique, documents")),
                            "montant": r2(sum((m for _j, m in paiements_documents(vehicule, aujourdhui)), ZERO))}
+    if vente and vente.frais_vente:
+        postes["frais_vente"] = {"libelle": str(_("Frais de vente")), "montant": r2(vente.frais_vente)}
     for code, libelle in CategorieDepense.choices:
         m = _somme(depenses.filter(categorie=code))
         if m:
@@ -309,6 +321,7 @@ def synthese(vehicule, aujourdhui=None):
                                             (vehicule.maintenances.all(), "entretiens", "total_tvac"),
                                             (depenses, "autres", "montant"))
                      for jour, montant in qs.values_list("date", champ)]
+    lignes_annees += [("entretiens", jour, prix) for jour, prix in vehicule.trains_pneus.values_list("date_achat", "prix")]
     lignes_annees += [("documents", jour, montant) for jour, montant in paiements_documents(vehicule, aujourdhui)]
     for cle, jour, montant in lignes_annees:
         if jour and montant:
@@ -493,6 +506,7 @@ def rapport(vehicule, code_periode=None, aujourdhui=None):
     for cle, qs, champ, champ_montant in (
             ("entretiens", vehicule.entretiens.all(), "date", "montant"),
             ("entretiens", vehicule.maintenances.all(), "date", "total_tvac"),
+            ("entretiens", vehicule.trains_pneus.all(), "date_achat", "prix"),
             ("autres", vehicule.depenses.all(), "date", "montant")):
         for jour, montant in qs.values_list(champ, champ_montant):
             if dans(jour) and montant:

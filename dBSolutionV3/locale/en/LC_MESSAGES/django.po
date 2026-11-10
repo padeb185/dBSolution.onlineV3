@@ -82400,3 +82400,55 @@ msgstr "Maintenance (garage)"
 #: particulier/models.py
 msgid "Maintenance (garage)"
 msgstr "Maintenance (garage)"
+
+#: particulier/api/views.py
+msgid "Avant et arrière"
+msgstr "Front and rear"
+
+#: particulier/api/views.py
+msgid "Choisissez l'essieu : avant ou arrière."
+msgstr "Choose the axle: front or rear."
+
+#: particulier/api/views.py
+msgid "Kilométrage ou date invalide."
+msgstr "Invalid mileage or date."
+
+#: particulier/api/views.py
+msgid "Le kilométrage est inférieur à celui du dernier montage ({km} km)."
+msgstr "The mileage is lower than at the last fitting ({km} km)."
+
+#: particulier/api/views.py
+msgid "Aucune autre monte enregistrée : ajoutez d'abord les pneus de la seconde monte."
+msgstr "No other set recorded: first add the tyres of the second set."
+
+#: particulier/api/views.py
+msgid "Les pneus sont disponibles à partir de la formule Bronze."
+msgstr "Tyres are available from the Bronze plan."
+
+#: particulier/deductibilite.py
+msgid "véhicule utilitaire ou de location : part professionnelle"
+msgstr "commercial or rental vehicle: business share"
+
+#: particulier/deductibilite.py
+msgid "Véhicule utilitaire ou de location : TVA récupérable sur toute la part professionnelle (les limites des voitures de tourisme ne s'appliquent pas)."
+msgstr "Commercial or rental vehicle: VAT recoverable on the whole business share (passenger car limits do not apply)."
+
+#: particulier/deductibilite.py
+msgid "Type de véhicule"
+msgstr "Vehicle type"
+
+#: particulier/deductibilite.py
+msgid "Personnel"
+msgstr "Personal"
+
+#: particulier/deductibilite.py
+msgid "Utilitaire"
+msgstr "Commercial vehicle"
+
+#: particulier/rappels_auto.py
+msgid "Entretien périodique (Long Life)"
+msgstr "Scheduled service (Long Life)"
+
+#: particulier/rappels_auto.py
+msgid "Entretien périodique"
+msgstr "Scheduled service"

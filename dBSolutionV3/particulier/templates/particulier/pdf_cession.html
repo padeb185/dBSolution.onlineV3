@@ -1,0 +1,85 @@
+{% load i18n %}<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+    @page { size: A4; margin: 15mm 12mm; }
+    body { font-family: Arial, sans-serif; font-size: 12px; color: #111; }
+    h1 { font-size: 18px; margin: 0 0 8px; padding-bottom: 6px; color: #1e3a8a; border-bottom: 2px solid #1e3a8a; }
+    h2 { font-size: 14px; margin: 10px 0 4px; padding-bottom: 4px; color: #1e40af; border-bottom: 1px solid #93c5fd; }
+    table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+    th, td { border: 1px solid #d1d5db; padding: 4px 6px; vertical-align: top; }
+    th { background: #eff6ff; color: #1e3a8a; text-align: left; width: 32%; }
+    .deux-colonnes { display: table; width: 100%; margin-bottom: 8px; }
+    .colonne { display: table-cell; width: 50%; vertical-align: top; }
+    .colonne + .colonne { padding-left: 12px; }
+    .client { border: 1px solid #1e3a8a; padding: 8px; min-height: 60px; line-height: 1.5; }
+    .mention { margin-top: 10px; padding: 8px; background: #f8fafc; border-left: 3px solid #1e3a8a; }
+    .petit { font-size: 10px; color: #444; }
+    .signature { display: table; width: 100%; margin-top: 14px; page-break-inside: avoid; }
+    .signature div { display: table-cell; width: 50%; padding: 8px; border: 1px solid #d1d5db; height: 75px; vertical-align: top; }
+    .brouillon { position: fixed; top: 40%; left: 10%; font-size: 90px; color: rgba(220, 38, 38, 0.12); transform: rotate(-30deg); font-weight: bold; }
+</style></head>
+<body>
+{% if vente.statut != "vendue" %}<div class="brouillon">{% trans "BROUILLON" %}</div>{% endif %}
+<h1>{% trans "Certificat de cession et bon de livraison" %}</h1>
+
+<div class="deux-colonnes">
+    <div class="colonne">
+        <h2>{% trans "Vendeur" %}</h2>
+        <div class="client">
+            <strong>{{ vente.vendeur_nom }}</strong><br>
+            {{ vente.vendeur_adresse|linebreaksbr }}
+            {% if vente.vendeur_tva %}<br>{% trans "TVA" %} : {{ vente.vendeur_tva }}{% endif %}
+        </div>
+    </div>
+    <div class="colonne">
+        <h2>{% trans "Acheteur" %}</h2>
+        <div class="client">
+            <strong>{{ vente.acheteur_nom }}</strong><br>
+            {{ vente.acheteur_adresse|linebreaksbr }}
+            {% if vente.acheteur_tva %}<br>{% trans "TVA" %} : {{ vente.acheteur_tva }}{% endif %}
+            {% if vente.acheteur_telephone %}<br>{{ vente.acheteur_telephone }}{% endif %}
+            {% if vente.acheteur_email %}<br>{{ vente.acheteur_email }}{% endif %}
+        </div>
+    </div>
+</div>
+
+<h2>{% trans "Véhicule cédé" %}</h2>
+<table>
+    <tr><th>{% trans "Marque / modèle" %}</th><td>{{ v.marque }} {{ v.modele }} {{ v.version }}</td></tr>
+    <tr><th>{% trans "Numéro de châssis (VIN)" %}</th><td>{{ v.vin|default:"—" }}</td></tr>
+    <tr><th>{% trans "Immatriculation" %}</th><td>{{ v.immatriculation|default:"—" }}</td></tr>
+    <tr><th>{% trans "Première mise en circulation" %}</th><td>{{ v.date_mise_en_circulation|date:"d/m/Y"|default:"—" }}</td></tr>
+    <tr><th>{% trans "Kilométrage" %}</th><td>{% if vente.kilometrage_vente %}{{ vente.kilometrage_vente }} km{% else %}—{% endif %}</td></tr>
+    {% if v.couleur %}<tr><th>{% trans "Couleur" %}</th><td>{{ v.couleur }}</td></tr>{% endif %}
+</table>
+
+<h2>{% trans "Conditions de la cession" %}</h2>
+<table>
+    <tr><th>{% trans "Date de la vente" %}</th><td>{{ vente.date_vente|date:"d/m/Y" }}</td></tr>
+    <tr><th>{% trans "Date et heure de livraison" %}</th><td>{% if vente.date_livraison %}{{ vente.date_livraison|date:"d/m/Y" }}{% endif %} ......... h .........</td></tr>
+    <tr><th>{% trans "Prix" %}</th><td>{{ vente.prix_tvac|floatformat:"2g" }} €{% if tva_affichee %} ({% trans "TVA comprise" %} : {{ vente.montant_tva|floatformat:"2g" }} €){% elif vente.regime_tva != "PRIVE" %} ({{ vente.get_regime_tva_display }}){% endif %}</td></tr>
+    <tr><th>{% trans "Mode de paiement" %}</th><td>{{ vente.get_mode_paiement_display }}{% if vente.date_paiement %} – {{ vente.date_paiement|date:"d/m/Y" }}{% endif %}</td></tr>
+    <tr><th>{% trans "Nombre de clés remises" %}</th><td>{{ vente.nombre_cles }}</td></tr>
+    <tr><th>{% trans "Documents remis" %}</th><td>
+        {% if vente.doc_certificat_immatriculation %}☑{% else %}☐{% endif %} {% trans "Certificat d'immatriculation" %}<br>
+        {% if vente.doc_coc %}☑{% else %}☐{% endif %} {% trans "Certificat de conformité (COC)" %}<br>
+        {% if vente.doc_carnet_entretien %}☑{% else %}☐{% endif %} {% trans "Carnet d'entretien / historique" %}<br>
+        {% if vente.doc_car_pass %}☑{% else %}☐{% endif %} {% trans "Car-Pass" %}<br>
+        {% if vente.doc_controle_technique %}☑{% else %}☐{% endif %} {% trans "Certificat de contrôle technique" %}
+    </td></tr>
+    <tr><th>{% trans "État / défauts connus" %}</th><td>{{ vente.etat_vehicule|default:"—"|linebreaksbr }}</td></tr>
+    <tr><th>{% trans "Garantie" %}</th><td>{% if vente.garantie_mois %}{{ vente.garantie_mois }} {% trans "mois" %}{% else %}{% trans "aucune garantie commerciale" %}{% endif %}</td></tr>
+    {% if vente.remarques %}<tr><th>{% trans "Remarques" %}</th><td>{{ vente.remarques|linebreaksbr }}</td></tr>{% endif %}
+</table>
+{% if mention %}<div class="mention petit">{{ mention }}</div>{% endif %}
+
+<div class="mention petit">
+    {% trans "Le vendeur déclare être propriétaire du véhicule, que celui-ci est libre de tout gage et de toute opposition, et qu'il n'a pas été déclaré volé. L'acheteur reconnaît avoir pris connaissance de l'état du véhicule et des documents remis." %}
+    {% trans "À compter de la date et de l'heure de livraison, l'acheteur est seul responsable du véhicule (assurance, infractions, immatriculation à son nom). En Belgique, la plaque d'immatriculation reste la propriété du vendeur ; l'acheteur fait immatriculer le véhicule à son nom." %}
+</div>
+
+<div class="signature">
+    <div><strong>{% trans "Le vendeur" %}</strong><br><span class="petit">{% trans "Date, nom et signature" %}</span></div>
+    <div><strong>{% trans "L'acheteur" %}</strong><br><span class="petit">{% trans "« Lu et approuvé », date et signature" %}</span></div>
+</div>
+</body></html>

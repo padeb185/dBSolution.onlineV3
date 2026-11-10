@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../achats/abonnement.dart';
 import '../api/api_client.dart';
 import '../l10n/langue.dart';
 import '../modeles/pays.dart';
+import '../modeles/ressources.dart';
 import '../widgets/format.dart';
 import 'formules_ecran.dart';
 
@@ -22,6 +24,10 @@ class DeductibiliteOnglet extends StatefulWidget {
 class _DeductibiliteOngletState extends State<DeductibiliteOnglet> with AutomaticKeepAliveClientMixin {
   int _annee = DateTime.now().year;
   late Future<Map<String, dynamic>> _donnees;
+
+  // TVA à récupérer (usage professionnel) : par trimestre ou par mois
+  String _periodeTva = 'trimestre';
+  Future<Map<String, dynamic>>? _journal;
 
   // Profil fiscal en cours de saisie
   String _statut = 'independant';
@@ -81,11 +87,88 @@ class _DeductibiliteOngletState extends State<DeductibiliteOnglet> with Automati
     super.dispose();
   }
 
+  void _chargerJournal() {
+    _journal = context
+        .read<ApiClient>()
+        .get('vehicules/${widget.vehicule['id']}/tva/', params: {'annee': '$_annee', 'periode': _periodeTva})
+        .then((r) => Map<String, dynamic>.from(r as Map));
+  }
+
+  String _libellePeriode(String p) {
+    // « 2026-T2 » → « 2e trimestre 2026 » ; « 2026-05 » → « mai 2026 »
+    final m = RegExp(r'^(\d{4})-T(\d)$').firstMatch(p);
+    if (m != null) return t('Trimestre {n} {annee}', {'n': m.group(2), 'annee': m.group(1)});
+    final d = DateTime.tryParse('$p-01');
+    return d == null ? p : DateFormat.yMMMM(localeIntl).format(d);
+  }
+
+  Widget _tvaARecuperer() {
+    return _carte(t('TVA à récupérer'), [
+      Wrap(spacing: 8, children: [
+        for (final e in {'trimestre': t('Par trimestre'), 'mois': t('Par mois')}.entries)
+          ChoiceChip(
+            label: Text(e.value),
+            selected: _periodeTva == e.key,
+            onSelected: (_) => setState(() {
+              _periodeTva = e.key;
+              _chargerJournal();
+            }),
+          ),
+      ]),
+      const SizedBox(height: 8),
+      FutureBuilder<Map<String, dynamic>>(
+        future: _journal,
+        builder: (context, snap) {
+          if (snap.connectionState != ConnectionState.done) {
+            return const Padding(padding: EdgeInsets.all(16), child: Center(child: CircularProgressIndicator()));
+          }
+          if (snap.hasError || snap.data == null) return Text('${snap.error ?? ''}');
+          final j = snap.data!;
+          final periodes = (j['periodes'] as List? ?? []).cast<Map>();
+          if (periodes.isEmpty) return Text(t('Aucune dépense avec TVA sur cette année.'));
+          final style = Theme.of(context).textTheme.bodySmall;
+          final totaux = Map<String, dynamic>.from(j['totaux'] as Map);
+          return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            for (final p in periodes)
+              ExpansionTile(
+                tilePadding: EdgeInsets.zero,
+                title: Text(_libellePeriode('${p['periode']}'), style: const TextStyle(fontWeight: FontWeight.w600)),
+                subtitle: Text(t('TVA {tva} · à récupérer {recup}', {'tva': euros(p['tva']), 'recup': euros(p['tva_recuperable'])})),
+                trailing: Text(euros(p['tva_recuperable']), style: const TextStyle(fontWeight: FontWeight.bold)),
+                children: [
+                  for (final o in (p['operations'] as List).cast<Map>())
+                    ListTile(
+                      dense: true,
+                      contentPadding: const EdgeInsets.only(left: 8),
+                      title: Text([dateFr(o['date']), _libelles[o['code']] ?? (o['code'] == 'pneus' ? t('Pneus') : '${o['code']}'),
+                        if ('${o['libelle']}'.isNotEmpty) o['libelle']].join(' · ')),
+                      subtitle: Text(
+                          t('TTC {ttc} · HTVA {htva} · TVA {tva} ({pct} récupérable)', {
+                            'ttc': euros(o['montant']), 'htva': euros(o['htva']), 'tva': euros(o['tva']),
+                            'pct': _pct(o['taux_recuperable'])}),
+                          style: style),
+                      trailing: Text(euros(o['tva_recuperable'])),
+                    ),
+                ],
+              ),
+            const Divider(),
+            Row(children: [
+              Expanded(child: Text(t('Total {annee}', {'annee': _annee}), style: const TextStyle(fontWeight: FontWeight.bold))),
+              Text(euros(totaux['tva_recuperable']), style: const TextStyle(fontWeight: FontWeight.bold)),
+            ]),
+            Text(t('TVA payée {tva} · HTVA {htva}', {'tva': euros(totaux['tva']), 'htva': euros(totaux['htva'])}), style: style),
+          ]);
+        },
+      ),
+    ]);
+  }
+
   void _charger() {
     if (context.read<Abonnement>().formule == 'gratuit') {
       _donnees = Future.value(const {});
       return;
     }
+    _chargerJournal();
     _donnees = context
         .read<ApiClient>()
         .get(_chemin, params: {'annee': '$_annee'})
@@ -132,7 +215,10 @@ class _DeductibiliteOngletState extends State<DeductibiliteOnglet> with Automati
         'taux_impot_manuel': nombreOuNull(_impotManuel),
       });
       if (!mounted) return;
-      setState(() => _donnees = Future.value(Map<String, dynamic>.from(r as Map)));
+      setState(() {
+        _donnees = Future.value(Map<String, dynamic>.from(r as Map));
+        _chargerJournal();   // usage professionnel ou statut changé : TVA à récupérer recalculée
+      });
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t('Profil fiscal enregistré.'))));
     } on ApiException catch (e) {
       if (!mounted) return;
@@ -360,7 +446,7 @@ class _DeductibiliteOngletState extends State<DeductibiliteOnglet> with Automati
                   leading: const Icon(Icons.flag),
                   title: Text(t('Règles : {pays}', {'pays': paysImmatriculation[pays] ?? pays})),
                   subtitle: Text(d['regles_disponibles'] == true
-                      ? t('Pays d\'immatriculation du véhicule')
+                      ? '${t('Pays d\'immatriculation du véhicule')} · ${typesVehicule[d['type_vehicule']] ?? ''}'
                       : t('Pas de règles détaillées pour ce pays : la part professionnelle est retenue.')),
                 ),
               ),
@@ -382,6 +468,7 @@ class _DeductibiliteOngletState extends State<DeductibiliteOnglet> with Automati
                         : '${_pct(d['taux_impot'])} · ${d['explication_impot']}'),
               ]),
               _carte(t('Détail {annee}', {'annee': _annee}), [_tableau(d['lignes'] as List? ?? [])]),
+              if (!prive) _tvaARecuperer(),
               _profil(),
               if ((d['notes'] as List? ?? []).isNotEmpty)
                 _carte(t('Règles du pays'), [

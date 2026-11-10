@@ -1,10 +1,11 @@
 from django.conf import settings
 from django.contrib.auth import password_validation
 from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 from django.urls import reverse
 from rest_framework import serializers
 
-from ..models import Depense, Document, Entretien, Financement, MaintenanceParticulier, Plein, ProfilFiscal, Rappel, ReleveKilometrique, Vehicule
+from ..models import Depense, Document, Entretien, Financement, MaintenanceParticulier, Plein, TrainPneus, VenteParticulier, ProfilFiscal, Rappel, ReleveKilometrique, Vehicule
 from .. import calculs
 
 
@@ -327,4 +328,43 @@ class MaintenanceSerializer(VehiculeChampMixin, FichierMixin, serializers.ModelS
         read_only_fields = ["id", "created_at"]
 
     def validate_pays(self, v):
+        return valider_pays(v) if v else ""
+
+
+class TrainPneusSerializer(VehiculeChampMixin, serializers.ModelSerializer):
+    """Train de pneus. À la création, position « les_deux » crée les trains avant et arrière (prix partagé),
+    et monter_maintenant monte les nouveaux pneus (l'autre monte est démontée, ses km sont mémorisés)."""
+    position = serializers.ChoiceField(choices=[("avant", gettext_lazy("Avant")), ("arriere", gettext_lazy("Arrière")),
+                                                ("les_deux", gettext_lazy("Avant et arrière"))])
+    monter_maintenant = serializers.BooleanField(write_only=True, required=False, default=True)
+    km_montage = serializers.IntegerField(min_value=0, required=False, allow_null=True)
+    km_effectues = serializers.SerializerMethodField()
+    taille = serializers.CharField(read_only=True)
+    monte_libelle = serializers.CharField(source="get_monte_display", read_only=True)
+    type_libelle = serializers.CharField(source="get_type_pneus_display", read_only=True)
+
+    class Meta:
+        model = TrainPneus
+        fields = "__all__"
+        read_only_fields = ["id", "numero", "actif", "est_monte", "km_cumules", "date_remplacement",
+                            "km_remplacement", "train_remplace", "created_at"]
+
+    def get_km_effectues(self, obj):
+        return obj.km_effectues()
+
+    def validate(self, data):
+        if self.instance is not None and data.get("position") == "les_deux":
+            raise serializers.ValidationError({"position": _("Choisissez l'essieu : avant ou arrière.")})
+        return data
+
+
+class VenteSerializer(serializers.ModelSerializer):
+    """Vente du véhicule ; prix HTVA / TVA / TVAC calculés par le serveur."""
+
+    class Meta:
+        model = VenteParticulier
+        exclude = ["vehicule", "valeur_estimee_avant"]
+        read_only_fields = ["id", "statut", "prix_htva", "montant_tva", "prix_tvac", "created_at", "updated_at"]
+
+    def validate_acheteur_pays(self, v):
         return valider_pays(v) if v else ""

@@ -82840,3 +82840,55 @@ msgstr "Onderhoud (garage)"
 #: particulier/models.py
 msgid "Maintenance (garage)"
 msgstr "Onderhoud (garage)"
+
+#: particulier/api/views.py
+msgid "Avant et arrière"
+msgstr "Voor en achter"
+
+#: particulier/api/views.py
+msgid "Choisissez l'essieu : avant ou arrière."
+msgstr "Kies de as: voor of achter."
+
+#: particulier/api/views.py
+msgid "Kilométrage ou date invalide."
+msgstr "Ongeldige kilometerstand of datum."
+
+#: particulier/api/views.py
+msgid "Le kilométrage est inférieur à celui du dernier montage ({km} km)."
+msgstr "De kilometerstand is lager dan bij de laatste montage ({km} km)."
+
+#: particulier/api/views.py
+msgid "Aucune autre monte enregistrée : ajoutez d'abord les pneus de la seconde monte."
+msgstr "Geen andere set geregistreerd: voeg eerst de banden van de tweede set toe."
+
+#: particulier/api/views.py
+msgid "Les pneus sont disponibles à partir de la formule Bronze."
+msgstr "De banden zijn beschikbaar vanaf de formule Bronze."
+
+#: particulier/deductibilite.py
+msgid "véhicule utilitaire ou de location : part professionnelle"
+msgstr "bedrijfs- of verhuurvoertuig: beroepsmatig deel"
+
+#: particulier/deductibilite.py
+msgid "Véhicule utilitaire ou de location : TVA récupérable sur toute la part professionnelle (les limites des voitures de tourisme ne s'appliquent pas)."
+msgstr "Bedrijfs- of verhuurvoertuig: btw terugvorderbaar op het volledige beroepsmatige deel (de beperkingen voor personenwagens gelden niet)."
+
+#: particulier/deductibilite.py
+msgid "Type de véhicule"
+msgstr "Type voertuig"
+
+#: particulier/deductibilite.py
+msgid "Personnel"
+msgstr "Persoonlijk"
+
+#: particulier/deductibilite.py
+msgid "Utilitaire"
+msgstr "Bedrijfsvoertuig"
+
+#: particulier/rappels_auto.py
+msgid "Entretien périodique (Long Life)"
+msgstr "Periodiek onderhoud (Long Life)"
+
+#: particulier/rappels_auto.py
+msgid "Entretien périodique"
+msgstr "Periodiek onderhoud"

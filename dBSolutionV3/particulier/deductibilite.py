@@ -125,6 +125,8 @@ def taux_impot(vehicule, profil, annee, regle):
     """Part des frais déductible (%) avant l'usage professionnel, et une explication."""
     if profil.taux_impot_manuel is not None:
         return D(profil.taux_impot_manuel), _("taux imposé dans le profil")
+    if vehicule.type_vehicule in ("utilitaire", "location"):
+        return D(100), _("véhicule utilitaire ou de location : part professionnelle")
     mode = regle["impot"] if regle else "prorata"
     if mode == "it":
         return D(20), _("Italie : 20 %")
@@ -147,19 +149,31 @@ def taux_impot(vehicule, profil, annee, regle):
     return min(formule, plafond), _("thermique commandée depuis le 01/07/2023 : dégressif")
 
 
-# ------------------------------------------------------------------ Calcul
-def deductibilite(vehicule, annee=None, aujourdhui=None):
+# Statut proposé selon le type de véhicule (profil fiscal pas encore enregistré)
+STATUT_PAR_TYPE = {"personnel": "particulier", "utilitaire": "independant", "societe": "societe",
+                   "location": "societe"}
+N_UTILITAIRE = _("Véhicule utilitaire ou de location : TVA récupérable sur toute la part professionnelle "
+                 "(les limites des voitures de tourisme ne s'appliquent pas).")
+
+
+def profil_fiscal(vehicule):
     from .models import ProfilFiscal
-    aujourdhui = aujourdhui or date.today()
-    annee = annee or aujourdhui.year
+    profil = ProfilFiscal.objects.filter(vehicule=vehicule).first()
+    if profil is None:
+        profil = ProfilFiscal(vehicule=vehicule, statut=STATUT_PAR_TYPE.get(vehicule.type_vehicule, "independant"))
+    return profil
+
+
+def regles_tva(vehicule, profil):
+    """(règle du pays, mode TVA, taux TVA par catégorie, fonction pct_tva(catégorie) usage pro compris)."""
     pays = (vehicule.pays_immatriculation or "").upper()
     regle = REGLES.get(pays)
-    profil = ProfilFiscal.objects.filter(vehicule=vehicule).first() or ProfilFiscal(vehicule=vehicule)
+    mode = regle["mode"] if regle else None
+    taux_regle = (regle.get("tva_ve") if regle and vehicule.energie == "electrique" else None) or (regle or {}).get("tva")
+    if vehicule.type_vehicule in ("utilitaire", "location"):
+        mode, taux_regle = "prorata", _uniforme(100)
     prive = profil.statut == "particulier"
     usage = D(min(profil.usage_pro, 100))
-    taux_std = taux_tva(pays)
-    taux_tva_regle = (regle.get("tva_ve") if vehicule.energie == "electrique" else None) or (regle or {}).get("tva")
-    pct_impot, explication_impot = taux_impot(vehicule, profil, annee, regle)
 
     def pct_tva(categorie):
         """TVA déductible (%) pour la catégorie, usage professionnel compris."""
@@ -167,10 +181,25 @@ def deductibilite(vehicule, annee=None, aujourdhui=None):
             return ZERO
         if profil.taux_tva_manuel is not None:
             return D(profil.taux_tva_manuel)
-        if not taux_tva_regle:
+        if not taux_regle:
             return usage                                   # pays sans règle : part professionnelle
-        taux = D(str(taux_tva_regle[categorie]))
-        return {"prorata": taux * usage / 100, "plafond": min(taux, usage)}.get(regle["mode"], taux)
+        taux = D(str(taux_regle[categorie]))
+        return {"prorata": taux * usage / 100, "plafond": min(taux, usage)}.get(mode, taux)
+
+    return regle, mode, taux_regle, pct_tva
+
+
+# ------------------------------------------------------------------ Calcul
+def deductibilite(vehicule, annee=None, aujourdhui=None):
+    aujourdhui = aujourdhui or date.today()
+    annee = annee or aujourdhui.year
+    pays = (vehicule.pays_immatriculation or "").upper()
+    profil = profil_fiscal(vehicule)
+    regle, mode_tva, taux_tva_regle, pct_tva = regles_tva(vehicule, profil)
+    prive = profil.statut == "particulier"
+    usage = D(min(profil.usage_pro, 100))
+    taux_std = taux_tva(pays)
+    pct_impot, explication_impot = taux_impot(vehicule, profil, annee, regle)
 
     def pct_frais():
         if prive or pct_impot is None:
@@ -206,7 +235,8 @@ def deductibilite(vehicule, annee=None, aujourdhui=None):
     def tva_std(montant):
         return ventiler(montant, taux_std)[1] or ZERO
 
-    entretiens = sum((D(e.montant) for e in vehicule.entretiens.all() if dans(e.date)), ZERO)
+    entretiens = sum((D(e.montant) for e in vehicule.entretiens.all() if dans(e.date)), ZERO) + sum(
+        (D(p.prix) for p in vehicule.trains_pneus.all() if p.prix and dans(p.date_achat)), ZERO)
     ligne("entretien", entretiens, tva_std(entretiens), "entretien")
     # Maintenances par un garage : TVA réelle de la facture (pièces + main-d'œuvre)
     maintenances = [m for m in vehicule.maintenances.all() if dans(m.date)]
@@ -272,7 +302,8 @@ def deductibilite(vehicule, annee=None, aujourdhui=None):
         "annee": annee,
         "pays": pays,
         "regles_disponibles": regle is not None,
-        "mode_tva": regle["mode"] if regle else None,
+        "mode_tva": mode_tva,
+        "type_vehicule": vehicule.type_vehicule,
         "taux_tva_pays": taux_std,
         "taux_regles": taux_tva_regle,
         "taux_impot": pct_impot,
@@ -284,5 +315,86 @@ def deductibilite(vehicule, annee=None, aujourdhui=None):
         "lignes": lignes,
         "totaux": {"montant": total("montant"), "tva": total("tva"), "tva_deductible": total("tva_deductible"),
                    "deductible_impot": total("deductible_impot")},
-        "notes": [str(n) for n in (regle or {}).get("notes", [])],
+        "notes": ([str(N_UTILITAIRE)] if vehicule.type_vehicule in ("utilitaire", "location") else [])
+                 + [str(n) for n in (regle or {}).get("notes", [])],
+    }
+
+
+# ------------------------------------------------------------------ TVA à récupérer (journal par période)
+def journal_tva(vehicule, annee=None, periode="trimestre", aujourdhui=None):
+    """Chaque dépense avec TVA de l'année : date, poste, libellé, TTC, TVA, % récupérable, TVA à récupérer ;
+    regroupées par trimestre (ou par mois) pour la déclaration de TVA."""
+    aujourdhui = aujourdhui or date.today()
+    annee = annee or aujourdhui.year
+    pays = (vehicule.pays_immatriculation or "").upper()
+    taux_std = taux_tva(pays)
+    profil = profil_fiscal(vehicule)
+    _regle, _mode, _taux, pct_tva = regles_tva(vehicule, profil)
+    dans = lambda d: d is not None and d.year == annee and d <= aujourdhui  # noqa: E731
+    operations = []
+
+    def ajouter(jour, code, libelle, ttc, tva, categorie):
+        ttc, tva = D(ttc or 0), D(tva or 0)
+        if not dans(jour) or not ttc or not tva:
+            return
+        pct = pct_tva(categorie)
+        operations.append({"date": jour, "code": code, "libelle": str(libelle or ""), "montant": r2(ttc),
+                           "htva": r2(ttc - tva), "tva": r2(tva), "taux_recuperable": r2(pct),
+                           "tva_recuperable": r2(tva * pct / 100)})
+
+    def tva_std(montant):
+        return ventiler(montant, taux_std)[1] or ZERO
+
+    for p in vehicule.pleins.all():
+        famille = FAMILLE_CARBURANT.get(p.carburant, "essence")
+        tva = D(p.montant_tva) if p.montant_tva is not None else tva_std(p.montant)
+        ajouter(p.date, "electricite" if famille == "electricite" else "carburant",
+                p.station or p.get_carburant_display(), p.montant, tva, famille)
+    for e in vehicule.entretiens.all():
+        ajouter(e.date, "entretien", e.garage or e.get_type_display(), e.montant, tva_std(e.montant), "entretien")
+    for m in vehicule.maintenances.all():
+        ajouter(m.date, "maintenances", m.garage or m.get_type_maintenance_display(), m.total_tvac, m.total_tva,
+                "entretien")
+    for t in vehicule.trains_pneus.all():
+        if t.prix:
+            ajouter(t.date_achat, "pneus", " ".join(x for x in (t.marque, t.modele) if x) or t.get_type_pneus_display(),
+                    t.prix, tva_std(t.prix), "entretien")
+    for d in vehicule.depenses.all():
+        if d.categorie not in ("taxe", "assurance", "amende"):     # sans TVA ou jamais déductibles
+            ajouter(d.date, "autres", d.libelle or d.get_categorie_display(), d.montant, tva_std(d.montant), "entretien")
+    fin = financement(vehicule, aujourdhui)
+    type_achat = fin["type_achat"] if fin else "comptant"
+    if type_achat in ("comptant", "pret") and vehicule.prix_achat:
+        ajouter(vehicule.date_achat, "achat_tva", f"{vehicule.marque} {vehicule.modele}", vehicule.prix_achat,
+                tva_std(vehicule.prix_achat), "achat")
+    if fin and type_achat in ("leasing", "renting") and fin.get("date_debut") and fin.get("mensualite"):
+        organisme = vehicule.financement.organisme
+        if vehicule.financement.premier_loyer:
+            ajouter(fin["date_debut"], "location", organisme, vehicule.financement.premier_loyer,
+                    tva_std(vehicule.financement.premier_loyer), "location")
+        for n in range(1, (fin.get("duree_mois") or 0) + 1):
+            ajouter(ajouter_mois(fin["date_debut"], n), "location", organisme, fin["mensualite"],
+                    tva_std(fin["mensualite"]), "location")
+    operations.sort(key=lambda o: o["date"])
+
+    def cle(jour):
+        return f"{jour.year}-T{(jour.month - 1) // 3 + 1}" if periode == "trimestre" else f"{jour.year}-{jour.month:02d}"
+
+    periodes = {}
+    for o in operations:
+        p = periodes.setdefault(cle(o["date"]), {"periode": cle(o["date"]), "montant": ZERO, "htva": ZERO, "tva": ZERO,
+                                                 "tva_recuperable": ZERO, "operations": []})
+        for champ in ("montant", "htva", "tva", "tva_recuperable"):
+            p[champ] += o[champ]
+        p["operations"].append(o)
+    total = lambda champ: r2(sum((o[champ] for o in operations), ZERO))  # noqa: E731
+    return {
+        "annee": annee,
+        "periode": periode,
+        "statut": profil.statut,
+        "usage_pro": profil.usage_pro,
+        "periodes": [{**p, **{c: r2(p[c]) for c in ("montant", "htva", "tva", "tva_recuperable")}}
+                     for p in periodes.values()],
+        "totaux": {"montant": total("montant"), "htva": total("htva"), "tva": total("tva"),
+                   "tva_recuperable": total("tva_recuperable")},
     }

@@ -421,6 +421,65 @@ Ressource get maintenances => Ressource(
   montantLigne: (m) => euros(m['total_tvac']),
 );
 
+/// Usage du véhicule : règles de TVA et de déductibilité
+Map<String, String> get typesVehicule => {
+  'personnel': t('Personnel'),
+  'utilitaire': t('Utilitaire'),
+  'societe': t('Société'),
+  'location': t('Location'),
+};
+
+Map<String, String> get positionsPneus => {
+  'les_deux': t('Avant et arrière'),
+  'avant': t('Avant'),
+  'arriere': t('Arrière'),
+};
+Map<String, String> get montesPneus => {'premiere': t('Première monte'), 'seconde': t('Seconde monte')};
+Map<String, String> get typesPneus => {
+  'ete': t('Été'),
+  'hiver': t('Hiver'),
+  '4saisons': t('4 saisons'),
+  'pluie': t('Pluie'),
+  'semi_slick': t('Semi-slick'),
+  'slick': t('Slick'),
+};
+
+/// Pneus (formulaire ; la liste est l'onglet Pneus). Même monte et même essieu qu'un train actif : remplacement.
+Ressource get pneus => Ressource(
+  chemin: 'pneus',
+  titre: t('Pneus'),
+  titreNouveau: t('Nouveaux pneus'),
+  titreModifier: t('Modifier les pneus'),
+  texteVide: t('Aucun pneu enregistré.'),
+  texteSupprimer: t('Supprimer ce train de pneus ?'),
+  icone: Icons.tire_repair,
+  champs: [
+    Champ('position', t('Essieu'), TypeChamp.choix, obligatoire: true, choix: positionsPneus, parDefaut: 'les_deux'),
+    Champ('monte', t('Monte'), TypeChamp.choix, obligatoire: true, choix: montesPneus, parDefaut: 'premiere',
+        aide: t('Seconde monte : par exemple les pneus hiver. Même monte et même essieu : les anciens pneus sont remplacés (historique).')),
+    Champ('type_pneus', t('Type de pneus'), TypeChamp.choix, obligatoire: true, choix: typesPneus, parDefaut: 'ete'),
+    Champ('marque', t('Marque des pneus'), TypeChamp.texte),
+    Champ('modele', t('Modèle'), TypeChamp.texte),
+    Champ('largeur', t('Largeur'), TypeChamp.texte, aide: t('Ex. 205/55 R16 91V : largeur 205, hauteur 55, jante 16, charge 91, vitesse V')),
+    Champ('hauteur', t('Hauteur'), TypeChamp.texte),
+    Champ('jante', t('Jante (pouces)'), TypeChamp.texte),
+    Champ('indice_charge', t('Indice de charge'), TypeChamp.texte),
+    Champ('indice_vitesse', t('Indice de vitesse'), TypeChamp.texte),
+    Champ('date_montage', t('Date de montage'), TypeChamp.date, obligatoire: true),
+    Champ('km_montage', t('Kilométrage au montage'), TypeChamp.entier, suffixe: 'km',
+        aide: t('Vide : kilométrage actuel du véhicule.')),
+    Champ('monter_maintenant', t('Monter ces pneus maintenant'), TypeChamp.booleen, parDefaut: true,
+        aide: t('Les pneus montés sont démontés et leurs kilomètres mémorisés.')),
+    Champ('prix', t('Prix TVAC'), TypeChamp.decimal, suffixe: '€',
+        aide: t('Avant et arrière : prix total, partagé entre les deux trains.')),
+    Champ('remarques', t('Remarques'), TypeChamp.texte),
+  ],
+  titreLigne: (p, u) => [p['marque'], p['modele']].where((x) => (x ?? '').toString().isNotEmpty).join(' ').isEmpty
+      ? (typesPneus[p['type_pneus']] ?? '')
+      : [p['marque'], p['modele']].where((x) => (x ?? '').toString().isNotEmpty).join(' '),
+  sousTitreLigne: (p, u) => [typesPneus[p['type_pneus']] ?? '', if ((p['taille'] ?? '') != '') p['taille']].join(' · '),
+);
+
 Ressource get kilometrages => Ressource(
   chemin: 'kilometrages',
   titre: t('Kilométrages'),
