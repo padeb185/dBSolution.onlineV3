@@ -82909,3 +82909,107 @@ msgstr "Περιοδική συντήρηση (Long Life)"
 #: particulier/rappels_auto.py
 msgid "Entretien périodique"
 msgstr "Περιοδική συντήρηση"
+
+#: particulier
+msgid "Indiquez le nom de l'acheteur."
+msgstr "Συμπληρώστε το όνομα του αγοραστή."
+
+#: particulier
+msgid "Indiquez le prix de vente."
+msgstr "Συμπληρώστε την τιμή πώλησης."
+
+#: particulier
+msgid "Véhicule en renting : il appartient à la société de renting et ne peut pas être revendu."
+msgstr "Όχημα σε renting: ανήκει στην εταιρεία renting και δεν μπορεί να μεταπωληθεί."
+
+#: particulier
+msgid "Belgique : contrôle technique « vente » avant la vente ; gardez votre plaque et faites-la radier (DIV) ; prévenez votre assureur."
+msgstr "Βέλγιο: έλεγχος « πώλησης » πριν την πώληση· κρατήστε την πινακίδα και διαγράψτε την (DIV)· ενημερώστε τον ασφαλιστή σας."
+
+#: particulier
+#, python-format
+msgid "Le kilométrage à la vente est inférieur au dernier kilométrage connu (%(km)s km)."
+msgstr "Τα χιλιόμετρα κατά την πώληση είναι λιγότερα από τα τελευταία γνωστά (%(km)s km)."
+
+#: particulier
+msgid "Leasing en cours : l'option d'achat doit être levée avant la revente."
+msgstr "Leasing σε εξέλιξη: το δικαίωμα αγοράς πρέπει να ασκηθεί πριν τη μεταπώληση."
+
+#: particulier
+#, python-format
+msgid "Paiement en espèces supérieur à %(p)s € : préférez un virement (plafond légal pour les paiements en espèces)."
+msgstr "Πληρωμή με μετρητά άνω των %(p)s €: προτιμήστε τραπεζική μεταφορά (νόμιμο όριο μετρητών)."
+
+#: particulier
+msgid "Belgique : le Car-Pass est obligatoire pour vendre une voiture d'occasion."
+msgstr "Βέλγιο: το Car-Pass είναι υποχρεωτικό για την πώληση μεταχειρισμένου αυτοκινήτου."
+
+#: particulier
+msgid "France : contrôle technique de moins de 6 mois (véhicule de plus de 4 ans), certificat de cession (Cerfa 15776) et déclaration de cession à l'ANTS dans les 15 jours."
+msgstr "Γαλλία: τεχνικός έλεγχος κάτω των 6 μηνών (όχημα άνω των 4 ετών), πιστοποιητικό μεταβίβασης (Cerfa 15776) και δήλωση στην ANTS εντός 15 ημερών."
+
+#: particulier
+msgid "Luxembourg : certificat de contrôle technique et déclaration de vente à la SNCA ; prévenez votre assureur."
+msgstr "Λουξεμβούργο: πιστοποιητικό ελέγχου και δήλωση πώλησης στη SNCA· ενημερώστε τον ασφαλιστή σας."
+
+#: particulier
+msgid "Signalez la vente aux autorités d'immatriculation et à votre assureur."
+msgstr "Δηλώστε την πώληση στις αρχές ταξινόμησης και στον ασφαλιστή σας."
+
+#: particulier
+#, python-format
+msgid "Prêt en cours : capital restant dû de %(m)s € à rembourser."
+msgstr "Δάνειο σε εξέλιξη: υπόλοιπο κεφαλαίου %(m)s € προς αποπληρωμή."
+
+#: particulier
+msgid "Le rapport est disponible à partir de la formule Bronze."
+msgstr "Η αναφορά είναι διαθέσιμη από το πρόγραμμα Bronze."
+
+#: particulier
+msgid "La vente est disponible à partir de la formule Bronze."
+msgstr "Η πώληση είναι διαθέσιμη από το πρόγραμμα Bronze."
+
+#: particulier
+msgid "Le type d'achat est disponible à partir de la formule Bronze."
+msgstr "Ο τύπος αγοράς είναι διαθέσιμος από το πρόγραμμα Bronze."
+
+#: particulier
+msgid "Annulez d'abord la vente."
+msgstr "Ακυρώστε πρώτα την πώληση."
+
+#: particulier
+msgid "Carburant / énergie"
+msgstr "Καύσιμα / ενέργεια"
+
+#: particulier
+msgid "Entretiens et réparations"
+msgstr "Συντήρηση και επισκευές"
+
+#: particulier
+msgid "Assurance, contrôle technique, documents"
+msgstr "Ασφάλεια, τεχνικός έλεγχος, έγγραφα"
+
+#: particulier
+#, python-format
+msgid "Échéance : %(doc)s"
+msgstr "Λήξη: %(doc)s"
+
+#: particulier
+msgid "Intérêts du prêt (à ce jour)"
+msgstr "Τόκοι δανείου (έως σήμερα)"
+
+#: particulier
+msgid "Loyers payés (à ce jour)"
+msgstr "Μισθώματα που πληρώθηκαν (έως σήμερα)"
+
+#: particulier
+msgid "Option d'achat levée"
+msgstr "Το δικαίωμα αγοράς ασκήθηκε"
+
+#: particulier
+msgid "Vendue"
+msgstr "Πωλήθηκε"
+
+#: particulier
+msgid "Vente entre particuliers (sans TVA)"
+msgstr "Πώληση μεταξύ ιδιωτών (χωρίς ΦΠΑ)"

@@ -16,6 +16,7 @@ import 'formules_ecran.dart';
 import 'reglages_ecran.dart';
 import 'vehicule_ecran.dart';
 import 'vehicule_form_ecran.dart';
+import 'vehicules_vendus_ecran.dart';
 
 /// Accueil : rappels à traiter, véhicules et dépenses du mois.
 class AccueilEcran extends StatefulWidget {
@@ -187,6 +188,17 @@ class _AccueilEcranState extends State<AccueilEcran> {
                       onTap: () => _ouvrir(v),
                     ),
                   ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton.icon(
+                    icon: const Icon(Icons.inventory_2_outlined),
+                    label: Text(t('Véhicules vendus ou archivés')),
+                    onPressed: () async {
+                      await Navigator.push(context, MaterialPageRoute(builder: (_) => const VehiculesVendusEcran()));
+                      if (mounted) setState(_charger);
+                    },
+                  ),
+                ),
               ],
             );
           },

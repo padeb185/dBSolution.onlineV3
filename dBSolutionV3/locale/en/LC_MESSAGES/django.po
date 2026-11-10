@@ -82452,3 +82452,107 @@ msgstr "Scheduled service (Long Life)"
 #: particulier/rappels_auto.py
 msgid "Entretien périodique"
 msgstr "Scheduled service"
+
+#: particulier
+msgid "Indiquez le nom de l'acheteur."
+msgstr "Enter the buyer's name."
+
+#: particulier
+msgid "Indiquez le prix de vente."
+msgstr "Enter the sale price."
+
+#: particulier
+msgid "Véhicule en renting : il appartient à la société de renting et ne peut pas être revendu."
+msgstr "Rented vehicle (renting): it belongs to the renting company and cannot be resold."
+
+#: particulier
+msgid "Belgique : contrôle technique « vente » avant la vente ; gardez votre plaque et faites-la radier (DIV) ; prévenez votre assureur."
+msgstr "Belgium: 'sale' inspection before the sale; keep your plate and have it cancelled (DIV); inform your insurer."
+
+#: particulier
+#, python-format
+msgid "Le kilométrage à la vente est inférieur au dernier kilométrage connu (%(km)s km)."
+msgstr "The mileage at sale is lower than the last known mileage (%(km)s km)."
+
+#: particulier
+msgid "Leasing en cours : l'option d'achat doit être levée avant la revente."
+msgstr "Leasing in progress: the purchase option must be exercised before resale."
+
+#: particulier
+#, python-format
+msgid "Paiement en espèces supérieur à %(p)s € : préférez un virement (plafond légal pour les paiements en espèces)."
+msgstr "Cash payment above €%(p)s: prefer a bank transfer (legal cap on cash payments)."
+
+#: particulier
+msgid "Belgique : le Car-Pass est obligatoire pour vendre une voiture d'occasion."
+msgstr "Belgium: the Car-Pass is mandatory to sell a used car."
+
+#: particulier
+msgid "France : contrôle technique de moins de 6 mois (véhicule de plus de 4 ans), certificat de cession (Cerfa 15776) et déclaration de cession à l'ANTS dans les 15 jours."
+msgstr "France: inspection less than 6 months old (vehicle over 4 years), transfer certificate (Cerfa 15776) and transfer declaration to the ANTS within 15 days."
+
+#: particulier
+msgid "Luxembourg : certificat de contrôle technique et déclaration de vente à la SNCA ; prévenez votre assureur."
+msgstr "Luxembourg: inspection certificate and sale declaration to the SNCA; inform your insurer."
+
+#: particulier
+msgid "Signalez la vente aux autorités d'immatriculation et à votre assureur."
+msgstr "Report the sale to the registration authority and your insurer."
+
+#: particulier
+#, python-format
+msgid "Prêt en cours : capital restant dû de %(m)s € à rembourser."
+msgstr "Loan in progress: €%(m)s of capital still to repay."
+
+#: particulier
+msgid "Le rapport est disponible à partir de la formule Bronze."
+msgstr "The report is available from the Bronze plan."
+
+#: particulier
+msgid "La vente est disponible à partir de la formule Bronze."
+msgstr "Selling is available from the Bronze plan."
+
+#: particulier
+msgid "Le type d'achat est disponible à partir de la formule Bronze."
+msgstr "The purchase type is available from the Bronze plan."
+
+#: particulier
+msgid "Annulez d'abord la vente."
+msgstr "Cancel the sale first."
+
+#: particulier
+msgid "Carburant / énergie"
+msgstr "Fuel / energy"
+
+#: particulier
+msgid "Entretiens et réparations"
+msgstr "Servicing and repairs"
+
+#: particulier
+msgid "Assurance, contrôle technique, documents"
+msgstr "Insurance, inspection, documents"
+
+#: particulier
+#, python-format
+msgid "Échéance : %(doc)s"
+msgstr "Due: %(doc)s"
+
+#: particulier
+msgid "Intérêts du prêt (à ce jour)"
+msgstr "Loan interest (to date)"
+
+#: particulier
+msgid "Loyers payés (à ce jour)"
+msgstr "Rentals paid (to date)"
+
+#: particulier
+msgid "Option d'achat levée"
+msgstr "Purchase option exercised"
+
+#: particulier
+msgid "Vendue"
+msgstr "Sold"
+
+#: particulier
+msgid "Vente entre particuliers (sans TVA)"
+msgstr "Private sale (no VAT)"

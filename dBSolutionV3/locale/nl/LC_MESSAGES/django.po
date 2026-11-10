@@ -82892,3 +82892,107 @@ msgstr "Periodiek onderhoud (Long Life)"
 #: particulier/rappels_auto.py
 msgid "Entretien périodique"
 msgstr "Periodiek onderhoud"
+
+#: particulier
+msgid "Indiquez le nom de l'acheteur."
+msgstr "Vul de naam van de koper in."
+
+#: particulier
+msgid "Indiquez le prix de vente."
+msgstr "Vul de verkoopprijs in."
+
+#: particulier
+msgid "Véhicule en renting : il appartient à la société de renting et ne peut pas être revendu."
+msgstr "Voertuig in renting: het behoort toe aan de rentingmaatschappij en kan niet worden doorverkocht."
+
+#: particulier
+msgid "Belgique : contrôle technique « vente » avant la vente ; gardez votre plaque et faites-la radier (DIV) ; prévenez votre assureur."
+msgstr "België: keuring « verkoop » vóór de verkoop; houd uw nummerplaat en laat ze schrappen (DIV); verwittig uw verzekeraar."
+
+#: particulier
+#, python-format
+msgid "Le kilométrage à la vente est inférieur au dernier kilométrage connu (%(km)s km)."
+msgstr "De kilometerstand bij verkoop is lager dan de laatst gekende kilometerstand (%(km)s km)."
+
+#: particulier
+msgid "Leasing en cours : l'option d'achat doit être levée avant la revente."
+msgstr "Lopende leasing: de aankoopoptie moet vóór de verkoop gelicht worden."
+
+#: particulier
+#, python-format
+msgid "Paiement en espèces supérieur à %(p)s € : préférez un virement (plafond légal pour les paiements en espèces)."
+msgstr "Contante betaling boven %(p)s €: kies liever een overschrijving (wettelijk plafond voor contante betalingen)."
+
+#: particulier
+msgid "Belgique : le Car-Pass est obligatoire pour vendre une voiture d'occasion."
+msgstr "België: de Car-Pass is verplicht om een tweedehandswagen te verkopen."
+
+#: particulier
+msgid "France : contrôle technique de moins de 6 mois (véhicule de plus de 4 ans), certificat de cession (Cerfa 15776) et déclaration de cession à l'ANTS dans les 15 jours."
+msgstr "Frankrijk: keuring van minder dan 6 maanden (voertuig ouder dan 4 jaar), overdrachtsattest (Cerfa 15776) en aangifte van overdracht bij het ANTS binnen 15 dagen."
+
+#: particulier
+msgid "Luxembourg : certificat de contrôle technique et déclaration de vente à la SNCA ; prévenez votre assureur."
+msgstr "Luxemburg: keuringsbewijs en aangifte van verkoop bij de SNCA; verwittig uw verzekeraar."
+
+#: particulier
+msgid "Signalez la vente aux autorités d'immatriculation et à votre assureur."
+msgstr "Meld de verkoop aan de inschrijvingsdienst en aan uw verzekeraar."
+
+#: particulier
+#, python-format
+msgid "Prêt en cours : capital restant dû de %(m)s € à rembourser."
+msgstr "Lopende lening: nog %(m)s € kapitaal terug te betalen."
+
+#: particulier
+msgid "Le rapport est disponible à partir de la formule Bronze."
+msgstr "Het rapport is beschikbaar vanaf de formule Bronze."
+
+#: particulier
+msgid "La vente est disponible à partir de la formule Bronze."
+msgstr "De verkoop is beschikbaar vanaf de formule Bronze."
+
+#: particulier
+msgid "Le type d'achat est disponible à partir de la formule Bronze."
+msgstr "Het aankooptype is beschikbaar vanaf de formule Bronze."
+
+#: particulier
+msgid "Annulez d'abord la vente."
+msgstr "Annuleer eerst de verkoop."
+
+#: particulier
+msgid "Carburant / énergie"
+msgstr "Brandstof / energie"
+
+#: particulier
+msgid "Entretiens et réparations"
+msgstr "Onderhoud en herstellingen"
+
+#: particulier
+msgid "Assurance, contrôle technique, documents"
+msgstr "Verzekering, keuring, documenten"
+
+#: particulier
+#, python-format
+msgid "Échéance : %(doc)s"
+msgstr "Vervaldag: %(doc)s"
+
+#: particulier
+msgid "Intérêts du prêt (à ce jour)"
+msgstr "Leningsinteresten (tot vandaag)"
+
+#: particulier
+msgid "Loyers payés (à ce jour)"
+msgstr "Betaalde huurgelden (tot vandaag)"
+
+#: particulier
+msgid "Option d'achat levée"
+msgstr "Aankoopoptie gelicht"
+
+#: particulier
+msgid "Vendue"
+msgstr "Verkocht"
+
+#: particulier
+msgid "Vente entre particuliers (sans TVA)"
+msgstr "Verkoop tussen particulieren (zonder btw)"
