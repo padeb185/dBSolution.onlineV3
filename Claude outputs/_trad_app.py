@@ -731,3 +731,13 @@ T.update({
 'Règle générale': ('Algemene regel', 'General rule', 'Allgemeine Regel', 'Norma general', 'Regola generale', 'Γενικός κανόνας'),
 'Premier contrôle : {n}e anniversaire de la mise en circulation, le {date}': ('Eerste keuring: {n}e verjaardag van de eerste inschrijving, op {date}', 'First inspection: {n}th anniversary of first registration, on {date}', 'Erste Prüfung: {n}. Jahrestag der Erstzulassung, am {date}', 'Primera inspección: {n}.º aniversario de la matriculación, el {date}', "Prima revisione: {n}° anniversario dell'immatricolazione, il {date}", 'Πρώτος έλεγχος: {n}η επέτειος της πρώτης κυκλοφορίας, στις {date}'),
 })
+T.update({
+'Date du prochain contrôle technique': ('Datum van de volgende keuring', 'Next inspection date', 'Datum der nächsten Prüfung', 'Fecha de la próxima inspección', 'Data della prossima revisione', 'Ημερομηνία επόμενου ελέγχου'),
+'Choisir la date du prochain contrôle': ('Datum van de volgende keuring kiezen', 'Choose the next inspection date', 'Datum der nächsten Prüfung wählen', 'Elegir la fecha de la próxima inspección', 'Scegli la data della prossima revisione', 'Επιλέξτε την ημερομηνία του επόμενου ελέγχου'),
+'Date modifiée (calculée : {date})': ('Datum gewijzigd (berekend: {date})', 'Date changed (calculated: {date})', 'Datum geändert (berechnet: {date})', 'Fecha modificada (calculada: {date})', 'Data modificata (calcolata: {date})', 'Η ημερομηνία άλλαξε (υπολογισμένη: {date})'),
+'Recalculer': ('Herberekenen', 'Recalculate', 'Neu berechnen', 'Recalcular', 'Ricalcola', 'Επανυπολογισμός'),
+'Échéance reprise du certificat de contrôle : modifiez-la dans Documents.': ('Vervaldag overgenomen van het keuringsbewijs: wijzig ze in Documenten.', 'Due date taken from the inspection certificate: change it in Documents.', 'Fälligkeit aus dem Prüfbericht übernommen: Ändern Sie sie unter Dokumente.', 'Vencimiento tomado del certificado de inspección: modifíquelo en Documentos.', 'Scadenza ripresa dal certificato di revisione: modificatela in Documenti.', 'Η λήξη λαμβάνεται από το πιστοποιητικό ελέγχου: αλλάξτε την στα Έγγραφα.'),
+})
+T.update({
+'Contrôle technique occasion (vente)': ('Keuring tweedehands (verkoop)', 'Used-car inspection (sale)', 'Gebrauchtwagenprüfung (Verkauf)', 'Inspección técnica de ocasión (venta)', 'Revisione per vendita (usato)', 'Τεχνικός έλεγχος μεταχειρισμένου (πώληση)'),
+})

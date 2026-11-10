@@ -76,7 +76,9 @@ def alertes(vente):
     if pays == "BE":
         if not vente.doc_car_pass:
             A.append(("attention", _("Belgique : le Car-Pass est obligatoire pour vendre une voiture d'occasion.")))
-        A.append(("info", _("Belgique : contrôle technique « vente » avant la vente ; gardez votre plaque et faites-la radier (DIV) ; prévenez votre assureur.")))
+        if not vente.doc_ct_occasion:
+            A.append(("attention", _("Belgique : le contrôle technique occasion est obligatoire avant la vente (sauf vente à un professionnel de l'automobile).")))
+        A.append(("info", _("Belgique : gardez votre plaque et faites-la radier (DIV) ; prévenez votre assureur.")))
     elif pays == "FR":
         A.append(("info", _("France : contrôle technique de moins de 6 mois (véhicule de plus de 4 ans), certificat de cession (Cerfa 15776) et déclaration de cession à l'ANTS dans les 15 jours.")))
     elif pays == "LU":

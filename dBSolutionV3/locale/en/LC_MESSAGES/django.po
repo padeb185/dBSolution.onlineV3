@@ -82640,3 +82640,15 @@ msgstr "Amounts incl. VAT, as entered in CarsCosts."
 #: particulier/recapitulatif
 msgid "Le récapitulatif PDF est disponible à partir de la formule Bronze."
 msgstr "The PDF summary is available from the Bronze plan."
+
+#: particulier/vente.py
+msgid "Contrôle technique occasion (vente)"
+msgstr "Used-car inspection (sale)"
+
+#: particulier/vente.py
+msgid "Belgique : le contrôle technique occasion est obligatoire avant la vente (sauf vente à un professionnel de l'automobile)."
+msgstr "Belgium: the used-car inspection is mandatory before the sale (except when selling to a car dealer)."
+
+#: particulier/vente.py
+msgid "Belgique : gardez votre plaque et faites-la radier (DIV) ; prévenez votre assureur."
+msgstr "Belgium: keep your plate and have it cancelled (DIV); inform your insurer."

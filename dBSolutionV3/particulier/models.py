@@ -790,6 +790,7 @@ class VenteParticulier(models.Model):
     doc_carnet_entretien = models.BooleanField(_("Carnet d'entretien / historique"), default=True)
     doc_car_pass = models.BooleanField(_("Car-Pass (Belgique)"), default=False)
     doc_controle_technique = models.BooleanField(_("Certificat de contrôle technique"), default=False)
+    doc_ct_occasion = models.BooleanField(_("Contrôle technique occasion (vente)"), default=False)
     nombre_cles = models.PositiveSmallIntegerField(_("Nombre de clés"), default=2)
     etat_vehicule = models.TextField(_("État du véhicule / défauts connus"), blank=True)
     garantie_mois = models.PositiveSmallIntegerField(_("Garantie (mois)"), default=0)

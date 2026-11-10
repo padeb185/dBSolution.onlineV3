@@ -27,6 +27,7 @@ Map<String, String> get documentsVente => {
       'doc_carnet_entretien': t('Carnet d\'entretien / historique'),
       'doc_car_pass': t('Car-Pass (Belgique)'),
       'doc_controle_technique': t('Certificat de contrôle technique'),
+      'doc_ct_occasion': t('Contrôle technique occasion (vente)'),
     };
 
 /// Ouvre la vente du véhicule (formule Bronze minimum). Renvoie vrai si quelque chose a changé.
@@ -125,7 +126,7 @@ class _VenteEcranState extends State<VenteEcran> {
         ..['saisie_tvac'] = source['saisie_tvac'] ?? true
         ..['mode_paiement'] = source['mode_paiement'] ?? 'virement';
       for (final d in documentsVente.keys) {
-        _v[d] = source[d] ?? (d != 'doc_car_pass' && d != 'doc_controle_technique');
+        _v[d] = source[d] ?? (d != 'doc_car_pass' && d != 'doc_controle_technique' && d != 'doc_ct_occasion');
       }
       _statut = vente?['statut'] as String?;
       _etat = vente == null ? null : r;

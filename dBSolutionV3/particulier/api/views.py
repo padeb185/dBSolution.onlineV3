@@ -282,7 +282,8 @@ class VehiculeViewSet(SchemaParticuliersMixin, viewsets.ModelViewSet):
                 if adresse else "",
                 "kilometrage_vente": vehicule.kilometrage_actuel,
                 "montant_saisi": vehicule.valeur_estimee,
-                "doc_car_pass": (vehicule.pays_immatriculation or "").upper() == "BE"}
+                "doc_car_pass": (vehicule.pays_immatriculation or "").upper() == "BE",
+                "doc_ct_occasion": (vehicule.pays_immatriculation or "").upper() == "BE"}
 
     @action(detail=True, methods=["get", "put", "delete"])
     def vente(self, request, pk=None):

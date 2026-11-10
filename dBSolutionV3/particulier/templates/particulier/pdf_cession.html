@@ -65,7 +65,8 @@
         {% if vente.doc_coc %}☑{% else %}☐{% endif %} {% trans "Certificat de conformité (COC)" %}<br>
         {% if vente.doc_carnet_entretien %}☑{% else %}☐{% endif %} {% trans "Carnet d'entretien / historique" %}<br>
         {% if vente.doc_car_pass %}☑{% else %}☐{% endif %} {% trans "Car-Pass" %}<br>
-        {% if vente.doc_controle_technique %}☑{% else %}☐{% endif %} {% trans "Certificat de contrôle technique" %}
+        {% if vente.doc_controle_technique %}☑{% else %}☐{% endif %} {% trans "Certificat de contrôle technique" %}<br>
+        {% if vente.doc_ct_occasion %}☑{% else %}☐{% endif %} {% trans "Contrôle technique occasion (vente)" %}
     </td></tr>
     <tr><th>{% trans "État / défauts connus" %}</th><td>{{ vente.etat_vehicule|default:"—"|linebreaksbr }}</td></tr>
     <tr><th>{% trans "Garantie" %}</th><td>{% if vente.garantie_mois %}{{ vente.garantie_mois }} {% trans "mois" %}{% else %}{% trans "aucune garantie commerciale" %}{% endif %}</td></tr>

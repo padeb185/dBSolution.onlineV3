@@ -22,7 +22,7 @@ KM_ENTRETIEN = [15000, 20000, 25000]          # + « autre » (kilométrage libr
 TYPES_ENTRETIEN_PERIODIQUE = ("revision", "vidange")
 TYPES_MAINTENANCE_PERIODIQUE = ("entretien", "checkup")
 # Courroie de distribution : remplacement au premier des deux (kilométrage ou années)
-KM_COURROIE = [60000, 90000, 120000, 150000, 180000, 240000]
+KM_COURROIE = [60000, 90000, 100000, 120000, 150000, 180000, 240000]
 ANS_COURROIE = [4, 5, 6, 8, 10]
 TYPES_ENTRETIEN_COURROIE = ("distribution",)
 TYPES_MAINTENANCE_COURROIE = ("COURROIE_DISTRI",)
@@ -187,6 +187,7 @@ def plan(vehicule):
     ct, source_ct = prochain_ct(vehicule)
     regle = regle_ct(vehicule)
     doc_ct = vehicule.documents.filter(type="controle_technique", date_expiration__gte=date.today()).first()
+    rappel_ct = _rappel(vehicule, "controle_technique")
     rappel_c = _rappel(vehicule, "courroie")
     base_c = base_courroie(vehicule, rappel_c)
     km_c = rappel_c.intervalle_km if rappel_c else 120000
@@ -216,11 +217,14 @@ def plan(vehicule):
             "proposition": proposition,
         },
         "controle_technique": {
-            "rappel": _statut(_rappel(vehicule, "controle_technique"), vehicule),
+            "rappel": _statut(rappel_ct, vehicule),
             "regle": {"premier": regle[0], "periode": regle[1], "annuel_a_partir_de": regle[2]} if regle else None,
             "regle_pays": (vehicule.pays_immatriculation or "").upper() in CONTROLE_TECHNIQUE,
             "premier_controle": premier_ct(vehicule),
-            "echeance": ct,
+            # Échéance du rappel (éventuellement modifiée à la main), sinon calculée
+            "echeance": rappel_ct.echeance_date if rappel_ct and rappel_ct.echeance_date else ct,
+            "echeance_calculee": ct,
+            "modifiee": bool(rappel_ct and rappel_ct.echeance_date and rappel_ct.echeance_date != ct),
             "source": source_ct,
             "document_echeance": doc_ct.date_expiration if doc_ct else None,
         },
@@ -277,6 +281,11 @@ def appliquer(vehicule, entretien=None, controle_technique=None, courroie=None):
     if controle_technique is not None:
         rappel = _rappel(vehicule, "controle_technique")
         echeance, _source = prochain_ct(vehicule)
+        # Date modifiée à la main (« echeance ») ; sinon la date déjà enregistrée est conservée
+        if controle_technique.get("echeance"):
+            echeance = date.fromisoformat(str(controle_technique["echeance"]))
+        elif controle_technique.get("recalculer") is not True and rappel and rappel.echeance_date:
+            echeance = rappel.echeance_date
         # Certificat de contrôle avec date d'expiration : son propre rappel suffit (pas de doublon)
         if not controle_technique.get("actif", True) or echeance is None or _ct_par_document(vehicule):
             if rappel:

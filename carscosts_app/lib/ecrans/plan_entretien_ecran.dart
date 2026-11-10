@@ -32,8 +32,10 @@ class _PlanEntretienEcranState extends State<PlanEntretienEcran> {
   bool _kmAutre = false;
   final _kmAutreCtrl = TextEditingController();
 
-  // Contrôle technique
+  // Contrôle technique : échéance modifiable à la main
   bool _ctActif = true;
+  String? _ctEcheance;
+  bool _ctRecalculer = false;
 
   // Courroie de distribution
   bool _courroieActif = false;
@@ -78,6 +80,8 @@ class _PlanEntretienEcranState extends State<PlanEntretienEcran> {
     final configure = e['rappel'] != null || ct['rappel'] != null;
     _entretienActif = e['rappel'] != null || !configure;
     _ctActif = ct['rappel'] != null || !configure;
+    _ctEcheance = ct['echeance'] as String?;
+    _ctRecalculer = false;
     _longLife = e['long_life'] == true;
     _intervalleKm = (e['intervalle_km'] as num?)?.toInt();
     final options = (e['options_km'] as List).cast<num>().map((n) => n.toInt()).toList();
@@ -109,7 +113,10 @@ class _PlanEntretienEcranState extends State<PlanEntretienEcran> {
 
   Map<String, dynamic> _donnees({Map<String, dynamic>? remplacee}) => {
         'entretien': {'actif': _entretienActif, 'long_life': _longLife, 'intervalle_km': _kmEntretien},
-        'controle_technique': {'actif': _ctActif},
+        'controle_technique': {
+          'actif': _ctActif,
+          if (_ctRecalculer) 'recalculer': true else if (_ctEcheance != null) 'echeance': _ctEcheance,
+        },
         if (_plan?['courroie'] != null)
           'courroie': {
             'actif': _courroieActif || remplacee != null,
@@ -415,19 +422,68 @@ class _PlanEntretienEcranState extends State<PlanEntretienEcran> {
               {'n': regle['premier'], 'date': dateFr(premier)})),
         ),
       const SizedBox(height: 8),
-      if (echeance != null)
+      if (doc != null)
         _encadre([
-          Text(t('Prochain contrôle : le {date} · {restant}', {'date': dateFr(echeance), 'restant': _restant(echeanceDate: echeance)}),
+          Text(t('Prochain contrôle : le {date} · {restant}', {'date': dateFr(doc), 'restant': _restant(echeanceDate: doc)}),
               style: const TextStyle(fontWeight: FontWeight.w600)),
         ])
-      else if (ct['source'] == 'mise_en_circulation_inconnue')
+      else ...[
+        // Date du prochain contrôle : calculée, modifiable (sélecteur de date)
+        InkWell(
+          borderRadius: BorderRadius.circular(8),
+          onTap: () async {
+            final d = await showDatePicker(
+              context: context,
+              initialDate: DateTime.tryParse(_ctEcheance ?? '') ?? DateTime.now(),
+              firstDate: DateTime(2000),
+              lastDate: DateTime(2100),
+              helpText: t('Date du prochain contrôle technique'),
+            );
+            if (d != null) {
+              setState(() {
+                _ctEcheance = dateIso(d);
+                _ctRecalculer = false;
+                _ctActif = true;
+              });
+            }
+          },
+          child: _encadre([
+            Row(children: [
+              Expanded(
+                child: Text(
+                    _ctEcheance == null
+                        ? t('Choisir la date du prochain contrôle')
+                        : t('Prochain contrôle : le {date} · {restant}',
+                            {'date': dateFr(_ctEcheance), 'restant': _restant(echeanceDate: _ctEcheance)}),
+                    style: const TextStyle(fontWeight: FontWeight.w600)),
+              ),
+              const Icon(Icons.edit_calendar),
+            ]),
+          ]),
+        ),
+        if (_ctEcheance != null && ct['echeance_calculee'] != null && _ctEcheance != ct['echeance_calculee'])
+          Row(children: [
+            Expanded(
+              child: Text(t('Date modifiée (calculée : {date})', {'date': dateFr(ct['echeance_calculee'])}),
+                  style: Theme.of(context).textTheme.bodySmall),
+            ),
+            TextButton(
+              onPressed: () => setState(() {
+                _ctEcheance = ct['echeance_calculee'] as String;
+                _ctRecalculer = true;
+              }),
+              child: Text(t('Recalculer')),
+            ),
+          ]),
+      ],
+      if (echeance == null && ct['source'] == 'mise_en_circulation_inconnue' && _ctEcheance == null)
         Text(t('Indiquez la date de première mise en circulation du véhicule pour calculer l\'échéance.')),
       if (doc != null)
-        Text(t('Échéance reprise du certificat de contrôle (Documents).'), style: Theme.of(context).textTheme.bodySmall)
+        Text(t('Échéance reprise du certificat de contrôle : modifiez-la dans Documents.'), style: Theme.of(context).textTheme.bodySmall)
       else if (ct['source'] == 'mise_en_circulation')
         Text(t('Calculé depuis la mise en circulation : encodez votre dernier contrôle (Entretiens ou Documents) pour plus de précision.'),
             style: Theme.of(context).textTheme.bodySmall),
-      if (regle != null && doc == null && echeance != null)
+      if (doc == null && _ctEcheance != null)
         SwitchListTile(
           contentPadding: EdgeInsets.zero,
           title: Text(t('Rappel de contrôle technique')),

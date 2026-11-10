@@ -83123,3 +83123,15 @@ msgstr "Beträge inkl. MwSt., wie in CarsCosts erfasst."
 #: particulier/recapitulatif
 msgid "Le récapitulatif PDF est disponible à partir de la formule Bronze."
 msgstr "Die PDF-Übersicht ist ab dem Tarif Bronze verfügbar."
+
+#: particulier/vente.py
+msgid "Contrôle technique occasion (vente)"
+msgstr "Gebrauchtwagenprüfung (Verkauf)"
+
+#: particulier/vente.py
+msgid "Belgique : le contrôle technique occasion est obligatoire avant la vente (sauf vente à un professionnel de l'automobile)."
+msgstr "Belgien: Die Gebrauchtwagenprüfung ist vor dem Verkauf Pflicht (außer beim Verkauf an einen Autohändler)."
+
+#: particulier/vente.py
+msgid "Belgique : gardez votre plaque et faites-la radier (DIV) ; prévenez votre assureur."
+msgstr "Belgien: Behalten Sie Ihr Kennzeichen und lassen Sie es abmelden (DIV); informieren Sie Ihren Versicherer."
