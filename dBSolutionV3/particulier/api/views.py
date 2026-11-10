@@ -358,6 +358,7 @@ class VehiculeViewSet(SchemaParticuliersMixin, viewsets.ModelViewSet):
         from django.template.loader import render_to_string
         from weasyprint import HTML
         from .. import vente as module_vente
+        from ..plaque import plaque_svg
         from ..models import VenteParticulier
         refus = self._vente_bronze(request)
         if refus:
@@ -365,6 +366,7 @@ class VehiculeViewSet(SchemaParticuliersMixin, viewsets.ModelViewSet):
         vente = get_object_or_404(VenteParticulier, vehicule__pk=pk, vehicule__proprietaire=request.user)
         html = render_to_string("particulier/pdf_cession.html", {
             "vente": vente, "v": vente.vehicule, "mention": module_vente.mention_legale(vente),
+            "plaque": plaque_svg(vente.vehicule.immatriculation, vente.vehicule.pays_immatriculation, 28),
             "tva_affichee": vente.regime_tva in ("NORMAL",)})
         reponse = HttpResponse(HTML(string=html).write_pdf(), content_type="application/pdf")
         nom = f"cession_{vente.vehicule.immatriculation or vente.vehicule.marque}.pdf".replace(" ", "_")

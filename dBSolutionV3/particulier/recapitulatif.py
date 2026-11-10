@@ -11,6 +11,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 
 from .calculs import consommation, statut_rappel, synthese
+from .plaque import plaque_svg
 
 COULEURS = ["#2563EB", "#F59E0B", "#10B981", "#EF4444", "#8B5CF6", "#06B6D4", "#EC4899", "#84CC16", "#64748B",
             "#F97316", "#14B8A6", "#A855F7"]
@@ -65,6 +66,7 @@ def contexte(vehicule):
         "v": vehicule,
         "s": s,
         "type_achat": dict(TypeAchat.choices).get(s["type_achat"], s["type_achat"]),
+        "plaque": plaque_svg(vehicule.immatriculation, vehicule.pays_immatriculation, 34),
         "postes": postes,
         "total": total,
         "camembert": camembert_svg([(p["montant"], p["couleur"]) for p in postes]),

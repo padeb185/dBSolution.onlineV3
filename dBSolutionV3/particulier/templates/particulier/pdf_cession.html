@@ -47,7 +47,7 @@
 <table>
     <tr><th>{% trans "Marque / modèle" %}</th><td>{{ v.marque }} {{ v.modele }} {{ v.version }}</td></tr>
     <tr><th>{% trans "Numéro de châssis (VIN)" %}</th><td>{{ v.vin|default:"—" }}</td></tr>
-    <tr><th>{% trans "Immatriculation" %}</th><td>{{ v.immatriculation|default:"—" }}</td></tr>
+    <tr><th>{% trans "Immatriculation" %}</th><td>{% if plaque %}{{ plaque|safe }}{% else %}—{% endif %}</td></tr>
     <tr><th>{% trans "Première mise en circulation" %}</th><td>{{ v.date_mise_en_circulation|date:"d/m/Y"|default:"—" }}</td></tr>
     <tr><th>{% trans "Kilométrage" %}</th><td>{% if vente.kilometrage_vente %}{{ vente.kilometrage_vente }} km{% else %}—{% endif %}</td></tr>
     {% if v.couleur %}<tr><th>{% trans "Couleur" %}</th><td>{{ v.couleur }}</td></tr>{% endif %}

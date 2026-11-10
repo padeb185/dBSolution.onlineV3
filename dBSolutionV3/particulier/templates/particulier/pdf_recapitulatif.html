@@ -29,7 +29,7 @@
 <body>
 <h1>{% trans "Récapitulatif du véhicule" %} – {{ v.marque }} {{ v.modele }}</h1>
 <div class="sous-titre">
-    {% if v.immatriculation %}<span class="plaque">{{ v.immatriculation|upper }}</span> &nbsp;{% endif %}
+    {% if plaque %}{{ plaque|safe }} &nbsp;{% endif %}
     {{ v.version }} · {{ v.get_energie_display }}{% if v.puissance_ch %} · {{ v.puissance_ch }} ch{% endif %}
     · {% trans "Édité le" %} {{ aujourdhui|date:"d/m/Y" }}{% if v.archive %} · <strong>{% trans "Archivé (vendu)" %}</strong>{% endif %}
 </div>
@@ -37,7 +37,7 @@
 <h2>{% trans "Véhicule" %}</h2>
 <table>
     <tr><th style="width:30%">{% trans "Marque / modèle" %}</th><td>{{ v.marque }} {{ v.modele }} {{ v.version }}</td>
-        <th style="width:20%">{% trans "Immatriculation" %}</th><td>{{ v.immatriculation|default:"—" }} ({{ v.pays_immatriculation }})</td></tr>
+        <th style="width:20%">{% trans "Immatriculation" %}</th><td>{% if plaque %}{{ plaque|safe }}{% else %}—{% endif %}</td></tr>
     <tr><th>{% trans "Numéro de châssis (VIN)" %}</th><td>{{ v.vin|default:"—" }}</td>
         <th>{% trans "Année du modèle" %}</th><td>{{ v.annee|default:"—" }}</td></tr>
     <tr><th>{% trans "Première mise en circulation" %}</th><td>{{ v.date_mise_en_circulation|date:"d/m/Y"|default:"—" }}</td>
