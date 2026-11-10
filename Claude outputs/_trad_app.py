@@ -792,3 +792,14 @@ T.update({
 'Montants indicatifs (règles 2026)': ('Indicatieve bedragen (regels 2026)', 'Indicative amounts (2026 rules)', 'Unverbindliche Beträge (Regeln 2026)', 'Importes orientativos (normas 2026)', 'Importi indicativi (regole 2026)', 'Ενδεικτικά ποσά (κανόνες 2026)'),
 'Vérifiez sur les calculateurs officiels. Touchez une taxe pour imposer votre propre montant.': ('Controleer met de officiële rekenmodules. Tik op een belasting om uw eigen bedrag in te voeren.', 'Check with the official calculators. Tap a tax to enter your own amount.', 'Prüfen Sie mit den offiziellen Rechnern. Tippen Sie auf eine Steuer, um Ihren eigenen Betrag einzugeben.', 'Compruebe en los simuladores oficiales. Toque un impuesto para introducir su propio importe.', 'Verificate con i calcolatori ufficiali. Toccate una tassa per inserire il vostro importo.', 'Ελέγξτε με τους επίσημους υπολογιστές. Πατήστε σε έναν φόρο για να ορίσετε δικό σας ποσό.'),
 })
+T.update({
+'Entretiens : statistiques': ('Onderhoud: statistieken', 'Servicing: statistics', 'Wartung: Statistiken', 'Mantenimientos: estadísticas', 'Manutenzione: statistiche', 'Συντηρήσεις: στατιστικά'),
+"Nombre d'entretiens": ('Aantal onderhoudsbeurten', 'Number of services', 'Anzahl Wartungen', 'Número de mantenimientos', 'Numero di manutenzioni', 'Αριθμός συντηρήσεων'),
+'Coût moyen par intervention': ('Gemiddelde kost per interventie', 'Average cost per job', 'Durchschnittskosten pro Eingriff', 'Coste medio por intervención', 'Costo medio per intervento', 'Μέσο κόστος ανά επέμβαση'),
+'Non détaillé': ('Niet gedetailleerd', 'Not itemised', 'Nicht aufgeschlüsselt', 'Sin detallar', 'Non dettagliato', 'Χωρίς ανάλυση'),
+'Interventions': ('Interventies', 'Jobs', 'Eingriffe', 'Intervenciones', 'Interventi', 'Επεμβάσεις'),
+'Moyenne': ('Gemiddelde', 'Average', 'Durchschnitt', 'Media', 'Media', 'Μέσος όρος'),
+'Dernière': ('Laatste', 'Latest', 'Letzte', 'Última', 'Ultima', 'Τελευταία'),
+"Pièces / main-d'œuvre": ('Onderdelen / arbeid', 'Parts / labour', 'Teile / Arbeit', 'Piezas / mano de obra', 'Ricambi / manodopera', 'Ανταλλακτικά / εργασία'),
+'Graphiques par mois et par type : onglet Rapport.': ('Grafieken per maand en per type: tabblad Rapport.', 'Charts by month and by type: Report tab.', 'Diagramme nach Monat und Art: Reiter Bericht.', 'Gráficos por mes y por tipo: pestaña Informe.', 'Grafici per mese e per tipo: scheda Rapporto.', 'Γραφήματα ανά μήνα και τύπο: καρτέλα Αναφορά.'),
+})

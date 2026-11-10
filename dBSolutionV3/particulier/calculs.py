@@ -407,6 +407,7 @@ def _bloc_maintenances(maintenances, mois):
     return {
         "nombre": len(maintenances),
         "pieces": r2(pieces), "main_oeuvre": r2(main_oeuvre), "total": r2(total),
+        "moyenne": r2(total / len(maintenances)) if maintenances else None,
         "total_htva": r2(htva), "total_tva": r2(tva),
         "part_pieces": (pieces / total * 100).quantize(D("0.1")) if total else None,
         "par_mois": [{"mois": v["mois"], "pieces": r2(v["pieces"]), "main_oeuvre": r2(v["main_oeuvre"])}
@@ -414,6 +415,42 @@ def _bloc_maintenances(maintenances, mois):
         "par_type": [{**t, "pieces": r2(t["pieces"]), "main_oeuvre": r2(t["main_oeuvre"]),
                       "total": r2(t["pieces"] + t["main_oeuvre"])}
                      for t in sorted(types.values(), key=lambda t: -(t["pieces"] + t["main_oeuvre"]))],
+    }
+
+
+def _bloc_entretiens(entretiens, mois):
+    """Entretiens : nombre, total, pièces / main-d'œuvre (si détaillés), par mois et par type."""
+    from .models import TypeEntretien
+    libelles = dict(TypeEntretien.choices)
+    par_mois = {m: {"mois": m, "pieces": ZERO, "main_oeuvre": ZERO, "non_detaille": ZERO} for m in mois}
+    types = {}
+    pieces = main_oeuvre = non_detaille = ZERO
+    for e in entretiens:
+        total = D(e.montant or 0)
+        if e.pieces is not None or e.main_oeuvre is not None:
+            p, mo, nd = D(e.pieces or 0), D(e.main_oeuvre or 0), ZERO
+        else:
+            p, mo, nd = ZERO, ZERO, total
+        pieces, main_oeuvre, non_detaille = pieces + p, main_oeuvre + mo, non_detaille + nd
+        pm = par_mois.get(_mois(e.date))
+        if pm:
+            pm["pieces"] += p
+            pm["main_oeuvre"] += mo
+            pm["non_detaille"] += nd
+        t = types.setdefault(e.type, {"code": e.type, "libelle": str(libelles.get(e.type, e.type)), "nombre": 0,
+                                      "pieces": ZERO, "main_oeuvre": ZERO, "total": ZERO})
+        t["nombre"] += 1
+        t["pieces"] += p
+        t["main_oeuvre"] += mo
+        t["total"] += total
+    total = pieces + main_oeuvre + non_detaille
+    n = len(entretiens)
+    return {
+        "nombre": n, "pieces": r2(pieces), "main_oeuvre": r2(main_oeuvre), "non_detaille": r2(non_detaille),
+        "total": r2(total), "moyenne": r2(total / n) if n else None,
+        "par_mois": [{k: (r2(v) if k != "mois" else v) for k, v in x.items()} for x in par_mois.values()],
+        "par_type": [{**t, "pieces": r2(t["pieces"]), "main_oeuvre": r2(t["main_oeuvre"]), "total": r2(t["total"])}
+                     for t in sorted(types.values(), key=lambda t: -t["total"])],
     }
 
 
@@ -552,6 +589,7 @@ def rapport(vehicule, code_periode=None, aujourdhui=None):
                   "moyenne_mois": r2(total_periode / len(mois)) if mois else None,
                   "cout_km": (total_periode / km_periode).quantize(D("0.001")) if km_periode else None},
         "maintenances": _bloc_maintenances([m for m in vehicule.maintenances.all() if dans(m.date)], mois),
+        "entretiens": _bloc_entretiens([e for e in vehicule.entretiens.all() if dans(e.date)], mois),
         "kilometres": {"par_mois": km_par_mois, "total": km_periode,
                        "moyenne_mois": round(km_periode / len(mois)) if mois else None},
     }

@@ -132,6 +132,69 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
     }
   }
 
+  /// Entretiens / maintenances : statistiques en tête de liste (nombre, total, moyenne, année en cours,
+  /// pièces / main-d'œuvre). Le détail par mois et par type est dans l'onglet Rapport.
+  Widget _statistiques(List<Map<String, dynamic>> elements) {
+    final maintenance = widget.ressource.chemin == 'maintenances';
+    double v(Map e, String c) => enDouble(e[c]) ?? 0;
+    final total = elements.fold<double>(0, (s, e) => s + v(e, maintenance ? 'total_tvac' : 'montant'));
+    final pieces = elements.fold<double>(0, (s, e) => s + v(e, maintenance ? 'total_pieces_tvac' : 'pieces'));
+    final mo = elements.fold<double>(0, (s, e) => s + v(e, maintenance ? 'total_main_oeuvre_tvac' : 'main_oeuvre'));
+    final annee = DateTime.now().year;
+    final cetteAnnee = elements
+        .where((e) => '${e['date']}'.startsWith('$annee'))
+        .fold<double>(0, (s, e) => s + v(e, maintenance ? 'total_tvac' : 'montant'));
+    final dates = elements.map((e) => '${e['date']}').where((d) => d.length >= 10).toList()..sort();
+    Widget kpi(String libelle, String valeur) => Expanded(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(libelle, style: Theme.of(context).textTheme.bodySmall, maxLines: 2),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: Text(valeur, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            ),
+          ]),
+        );
+    final detail = pieces + mo;
+    return Card(
+      margin: const EdgeInsets.fromLTRB(12, 12, 12, 4),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(children: [
+            kpi(t('Interventions'), '${elements.length}'),
+            kpi(t('Total TVAC'), euros(total)),
+            kpi(t('Moyenne'), euros(elements.isEmpty ? 0 : total / elements.length)),
+          ]),
+          const SizedBox(height: 8),
+          Row(children: [
+            kpi(t('Cette année'), euros(cetteAnnee)),
+            kpi(t('Dernière'), dates.isEmpty ? '—' : dateFr(dates.last)),
+            kpi(t('Pièces / main-d\'œuvre'),
+                detail > 0 ? '${(pieces * 100 / detail).round()} % / ${(mo * 100 / detail).round()} %' : '—'),
+          ]),
+          if (detail > 0) ...[
+            const SizedBox(height: 8),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: SizedBox(
+                height: 8,
+                child: Row(children: [
+                  if (pieces > 0)
+                    Expanded(flex: (pieces * 1000 / detail).round().clamp(1, 1000).toInt(), child: Container(color: const Color(0xFFF59E0B))),
+                  if (mo > 0)
+                    Expanded(flex: (mo * 1000 / detail).round().clamp(1, 1000).toInt(), child: Container(color: const Color(0xFF7C3AED))),
+                ]),
+              ),
+            ),
+          ],
+          const SizedBox(height: 6),
+          Text(t('Graphiques par mois et par type : onglet Rapport.'), style: Theme.of(context).textTheme.bodySmall),
+        ]),
+      ),
+    );
+  }
+
   /// Rappels : accès au plan d'entretien (entretien, contrôle technique, assurance)
   Widget _planEntretien() => Card(
         margin: const EdgeInsets.fromLTRB(12, 12, 12, 4),
@@ -212,13 +275,14 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
                 ),
               ]);
             }
-            final entete = r.chemin == 'rappels' ? 1 : 0;
+            final stats = r.chemin == 'entretiens' || r.chemin == 'maintenances';
+            final entete = r.chemin == 'rappels' || stats ? 1 : 0;
             return ListView.separated(
               padding: const EdgeInsets.only(bottom: 88),
               itemCount: elements.length + entete,
               separatorBuilder: (_, __) => const Divider(height: 1),
               itemBuilder: (context, index) {
-                if (index < entete) return _planEntretien();
+                if (index < entete) return stats ? _statistiques(elements) : _planEntretien();
                 final i = index - entete;
                 final e = elements[i];
                 final montant = r.montantLigne?.call(e) ?? '';
