@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -335,6 +336,104 @@ class _VenteEcranState extends State<VenteEcran> {
     );
   }
 
+  static const _palette = [
+    Color(0xFF2563EB), Color(0xFFF59E0B), Color(0xFF10B981), Color(0xFFEF4444), Color(0xFF8B5CF6),
+    Color(0xFF06B6D4), Color(0xFFEC4899), Color(0xFF84CC16), Color(0xFF64748B), Color(0xFFF97316),
+    Color(0xFF14B8A6), Color(0xFFA855F7),
+  ];
+
+  /// Rapport final : répartition du coût total (camembert), puis coût total − revente = coût net.
+  Widget _rapportFinal() {
+    final b = (_etat?['bilan'] as Map?)?.cast<String, dynamic>();
+    final postes = ((b?['postes'] as List?) ?? []).cast<Map>();
+    if (b == null || postes.isEmpty) return const SizedBox.shrink();
+    final total = postes.fold<double>(0, (s, p) => s + (enDouble(p['montant']) ?? 0));
+    if (total <= 0) return const SizedBox.shrink();
+    Color couleur(int i) => _palette[i % _palette.length];
+    final revente = enDouble(b['prix_vente']) ?? 0;
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(_vendue ? t('Rapport final') : t('Rapport final (estimation avant la vente)'),
+              style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 12),
+          SizedBox(
+            height: 220,
+            child: Stack(alignment: Alignment.center, children: [
+              PieChart(PieChartData(
+                sectionsSpace: 2,
+                centerSpaceRadius: 58,
+                sections: [
+                  for (var i = 0; i < postes.length; i++)
+                    () {
+                      final v = enDouble(postes[i]['montant']) ?? 0;
+                      final pct = v * 100 / total;
+                      return PieChartSectionData(
+                        value: v,
+                        color: couleur(i),
+                        radius: 46,
+                        title: pct >= 6 ? '${pct.round()} %' : '',
+                        titleStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.white),
+                      );
+                    }(),
+                ],
+              )),
+              Column(mainAxisSize: MainAxisSize.min, children: [
+                Text(t('Coût total'), style: Theme.of(context).textTheme.bodySmall),
+                Text(euros(total), style: const TextStyle(fontWeight: FontWeight.bold)),
+              ]),
+            ]),
+          ),
+          const SizedBox(height: 12),
+          for (var i = 0; i < postes.length; i++)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 3),
+              child: Row(children: [
+                Container(width: 12, height: 12, decoration: BoxDecoration(color: couleur(i), shape: BoxShape.circle)),
+                const SizedBox(width: 8),
+                Expanded(child: Text('${postes[i]['libelle']}')),
+                Text('${nombre((enDouble(postes[i]['montant']) ?? 0) * 100 / total, decimales: 1)} %  ',
+                    style: Theme.of(context).textTheme.bodySmall),
+                Text(euros(postes[i]['montant'])),
+              ]),
+            ),
+          const Divider(height: 24),
+          Row(children: [Expanded(child: Text(t('Coût total'))), Text(euros(total))]),
+          Row(children: [
+            Expanded(child: Text(t('Revente'))),
+            Text('− ${euros(revente)}', style: const TextStyle(color: Colors.green)),
+          ]),
+          const SizedBox(height: 4),
+          Row(children: [
+            Expanded(child: Text(t('Coût net'), style: const TextStyle(fontWeight: FontWeight.bold))),
+            Text(euros(total - revente), style: const TextStyle(fontWeight: FontWeight.bold)),
+          ]),
+          // Barre : part revendue / part réellement dépensée
+          if (revente > 0 && revente < total) ...[
+            const SizedBox(height: 8),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: SizedBox(
+                height: 12,
+                child: Row(children: [
+                  Expanded(flex: ((total - revente) * 1000 / total).round().clamp(1, 1000).toInt(),
+                      child: Container(color: const Color(0xFFEF4444))),
+                  Expanded(flex: (revente * 1000 / total).round().clamp(1, 1000).toInt(),
+                      child: Container(color: const Color(0xFF10B981))),
+                ]),
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(t('{pct} % du coût total récupéré par la revente', {'pct': nombre(revente * 100 / total, decimales: 0)}),
+                style: Theme.of(context).textTheme.bodySmall),
+          ],
+        ]),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     const nombres = TextInputType.numberWithOptions(decimal: true);
@@ -367,6 +466,7 @@ class _VenteEcranState extends State<VenteEcran> {
                   ),
                 _alertes(),
                 _bilan(),
+                _rapportFinal(),
                 _titre(t('Vente')),
                 _date('date_vente', t('Date de la vente')),
                 _date('date_livraison', t('Date de livraison')),

@@ -5,6 +5,7 @@ import '../api/api_client.dart';
 import '../l10n/langue.dart';
 import '../widgets/format.dart';
 import '../widgets/logo_marque.dart';
+import '../widgets/plaque.dart';
 import 'vehicule_ecran.dart';
 
 /// Véhicules vendus ou archivés : la fiche reste consultable (bilan, certificat de cession, annulation).
@@ -54,10 +55,17 @@ class _VehiculesVendusEcranState extends State<VehiculesVendusEcran> {
                   child: ListTile(
                     leading: LogoMarque(marque: v['marque'] as String?, taille: 40),
                     title: Text('${v['marque']} ${v['modele']}'),
-                    subtitle: Text([
-                      if ((v['immatriculation'] ?? '').toString().isNotEmpty) v['immatriculation'],
-                      km(v['kilometrage_actuel']),
-                    ].join(' · ')),
+                    subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      if ((v['immatriculation'] ?? '').toString().isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4),
+                          child: Plaque(
+                              numero: v['immatriculation'].toString(),
+                              pays: v['pays_immatriculation'] as String?,
+                              hauteur: 24),
+                        ),
+                      Text(km(v['kilometrage_actuel'])),
+                    ]),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () async {
                       await Navigator.push(context, MaterialPageRoute(builder: (_) => VehiculeEcran(vehicule: v)));

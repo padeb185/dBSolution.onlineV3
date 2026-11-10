@@ -102,7 +102,12 @@ def bilan(vente):
     debut = v.date_achat or (s["financement"] or {}).get("date_debut")
     mois = mois_detention(debut, vente.date_vente)
     estimee = vente.valeur_estimee_avant if vente.statut == "vendue" else v.valeur_estimee
+    # Rapport final : répartition du coût total par poste (graphique), frais de vente compris
+    postes = [p for p in s["postes"] if p["code"] != "frais_vente" and D(p["montant"] or 0) > 0]
+    if frais:
+        postes.append({"code": "frais_vente", "libelle": str(_("Frais de vente")), "montant": frais})
     return {
+        "postes": postes,
         "prix_vente": produit,
         "frais_vente": frais,
         "prix_achat": r2(v.prix_achat) if v.prix_achat is not None else None,

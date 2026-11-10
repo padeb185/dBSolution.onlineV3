@@ -693,3 +693,9 @@ T.update({
 'Vente annulée.': ('Verkoop geannuleerd.', 'Sale cancelled.', 'Verkauf storniert.', 'Venta anulada.', 'Vendita annullata.', 'Η πώληση ακυρώθηκε.'),
 'Annuler la vente': ('Verkoop annuleren', 'Cancel the sale', 'Verkauf stornieren', 'Anular la venta', 'Annulla la vendita', 'Ακύρωση πώλησης'),
 })
+T.update({
+'Rapport final': ('Eindrapport', 'Final report', 'Abschlussbericht', 'Informe final', 'Rapporto finale', 'Τελική αναφορά'),
+'Rapport final (estimation avant la vente)': ('Eindrapport (schatting vóór de verkoop)', 'Final report (estimate before the sale)', 'Abschlussbericht (Schätzung vor dem Verkauf)', 'Informe final (estimación antes de la venta)', 'Rapporto finale (stima prima della vendita)', 'Τελική αναφορά (εκτίμηση πριν την πώληση)'),
+'Revente': ('Doorverkoop', 'Resale', 'Wiederverkauf', 'Reventa', 'Rivendita', 'Μεταπώληση'),
+'{pct} % du coût total récupéré par la revente': ('{pct} % van de totale kost gerecupereerd door de doorverkoop', '{pct} % of the total cost recovered by the resale', '{pct} % der Gesamtkosten durch den Wiederverkauf zurückgewonnen', '{pct} % del coste total recuperado con la reventa', '{pct} % del costo totale recuperato con la rivendita', '{pct} % του συνολικού κόστους ανακτήθηκε με τη μεταπώληση'),
+})
