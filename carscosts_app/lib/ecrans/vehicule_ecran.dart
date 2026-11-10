@@ -190,6 +190,18 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
                   },
                 ),
               ),
+              // Récapitulatif PDF (formule Bronze) : véhicule, coûts totaux par poste, entretiens, pneus, documents
+              Card(
+                child: ListTile(
+                  leading: const Icon(Icons.picture_as_pdf),
+                  title: Text(t('Récapitulatif (PDF)')),
+                  subtitle: Text(t('Véhicule et coûts totaux : imprimer ou télécharger')),
+                  trailing: context.watch<Abonnement>().formule == 'gratuit'
+                      ? const Chip(label: Text('Bronze'))
+                      : const Icon(Icons.print),
+                  onTap: () => ouvrirRecapitulatif(context, _vehicule),
+                ),
+              ),
               // (Re)vente (formule Bronze minimum) : acheteur, prix, documents, bilan, certificat de cession
               Card(
                 child: ListTile(

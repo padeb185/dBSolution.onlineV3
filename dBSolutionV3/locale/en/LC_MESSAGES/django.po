@@ -82556,3 +82556,87 @@ msgstr "Sold"
 #: particulier
 msgid "Vente entre particuliers (sans TVA)"
 msgstr "Private sale (no VAT)"
+
+#: particulier/recapitulatif
+msgid "Récapitulatif du véhicule"
+msgstr "Vehicle summary"
+
+#: particulier/recapitulatif
+msgid "Édité le"
+msgstr "Issued on"
+
+#: particulier/recapitulatif
+msgid "Archivé (vendu)"
+msgstr "Archived (sold)"
+
+#: particulier/recapitulatif
+msgid "Année du modèle"
+msgstr "Model year"
+
+#: particulier/recapitulatif
+msgid "Kilométrage à l'achat"
+msgstr "Mileage at purchase"
+
+#: particulier/recapitulatif
+msgid "Type d'achat"
+msgstr "Purchase type"
+
+#: particulier/recapitulatif
+msgid "Coûts totaux"
+msgstr "Total costs"
+
+#: particulier/recapitulatif
+msgid "Coût net / mois"
+msgstr "Net cost / month"
+
+#: particulier/recapitulatif
+msgid "Coût net au km"
+msgstr "Net cost per km"
+
+#: particulier/recapitulatif
+msgid "Essieu"
+msgstr "Axle"
+
+#: particulier/recapitulatif
+msgid "Type de pneus"
+msgstr "Tyre type"
+
+#: particulier/recapitulatif
+msgid "remplacé"
+msgstr "replaced"
+
+#: particulier/recapitulatif
+msgid "Documents"
+msgstr "Documents"
+
+#: particulier/recapitulatif
+msgid "Organisme (assureur, centre…)"
+msgstr "Provider (insurer, centre…)"
+
+#: particulier/recapitulatif
+msgid "Valable du"
+msgstr "Valid from"
+
+#: particulier/recapitulatif
+msgid "Valable jusqu'au"
+msgstr "Valid until"
+
+#: particulier/recapitulatif
+msgid "Rappels"
+msgstr "Reminders"
+
+#: particulier/recapitulatif
+msgid "Échéance (date)"
+msgstr "Due (date)"
+
+#: particulier/recapitulatif
+msgid "Échéance (kilométrage)"
+msgstr "Due (mileage)"
+
+#: particulier/recapitulatif
+msgid "Montants TVA comprise, tels qu'encodés dans CarsCosts."
+msgstr "Amounts incl. VAT, as entered in CarsCosts."
+
+#: particulier/recapitulatif
+msgid "Le récapitulatif PDF est disponible à partir de la formule Bronze."
+msgstr "The PDF summary is available from the Bronze plan."

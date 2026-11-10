@@ -82935,3 +82935,87 @@ msgstr "Vendida"
 #: particulier
 msgid "Vente entre particuliers (sans TVA)"
 msgstr "Venta entre particulares (sin IVA)"
+
+#: particulier/recapitulatif
+msgid "Récapitulatif du véhicule"
+msgstr "Resumen del vehículo"
+
+#: particulier/recapitulatif
+msgid "Édité le"
+msgstr "Emitido el"
+
+#: particulier/recapitulatif
+msgid "Archivé (vendu)"
+msgstr "Archivado (vendido)"
+
+#: particulier/recapitulatif
+msgid "Année du modèle"
+msgstr "Año del modelo"
+
+#: particulier/recapitulatif
+msgid "Kilométrage à l'achat"
+msgstr "Kilometraje en la compra"
+
+#: particulier/recapitulatif
+msgid "Type d'achat"
+msgstr "Tipo de compra"
+
+#: particulier/recapitulatif
+msgid "Coûts totaux"
+msgstr "Costes totales"
+
+#: particulier/recapitulatif
+msgid "Coût net / mois"
+msgstr "Coste neto / mes"
+
+#: particulier/recapitulatif
+msgid "Coût net au km"
+msgstr "Coste neto por km"
+
+#: particulier/recapitulatif
+msgid "Essieu"
+msgstr "Eje"
+
+#: particulier/recapitulatif
+msgid "Type de pneus"
+msgstr "Tipo de neumáticos"
+
+#: particulier/recapitulatif
+msgid "remplacé"
+msgstr "sustituido"
+
+#: particulier/recapitulatif
+msgid "Documents"
+msgstr "Documentos"
+
+#: particulier/recapitulatif
+msgid "Organisme (assureur, centre…)"
+msgstr "Organismo (aseguradora, centro…)"
+
+#: particulier/recapitulatif
+msgid "Valable du"
+msgstr "Válido desde"
+
+#: particulier/recapitulatif
+msgid "Valable jusqu'au"
+msgstr "Válido hasta"
+
+#: particulier/recapitulatif
+msgid "Rappels"
+msgstr "Recordatorios"
+
+#: particulier/recapitulatif
+msgid "Échéance (date)"
+msgstr "Vencimiento (fecha)"
+
+#: particulier/recapitulatif
+msgid "Échéance (kilométrage)"
+msgstr "Vencimiento (kilometraje)"
+
+#: particulier/recapitulatif
+msgid "Montants TVA comprise, tels qu'encodés dans CarsCosts."
+msgstr "Importes IVA incluido, tal como se introdujeron en CarsCosts."
+
+#: particulier/recapitulatif
+msgid "Le récapitulatif PDF est disponible à partir de la formule Bronze."
+msgstr "El resumen en PDF está disponible a partir del plan Bronze."

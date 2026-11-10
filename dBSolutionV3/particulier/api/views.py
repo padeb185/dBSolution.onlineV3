@@ -337,6 +337,20 @@ class VehiculeViewSet(SchemaParticuliersMixin, viewsets.ModelViewSet):
                 module_vente.annuler(vente)
         return self._reponse_vente(vente.vehicule, vente)
 
+    @action(detail=True, url_path="recapitulatif/pdf")
+    def recapitulatif_pdf(self, request, pk=None):
+        """Récapitulatif imprimable du véhicule et de ses coûts totaux (PDF). Formule Bronze minimum."""
+        from django.http import HttpResponse
+        from .. import recapitulatif
+        if abonnements.formule_effective(request.user) == "gratuit":
+            return Response({"detail": _("Le récapitulatif PDF est disponible à partir de la formule Bronze."),
+                             "code": "formule_requise", "formule_requise": "bronze"}, status=status.HTTP_403_FORBIDDEN)
+        vehicule = get_object_or_404(Vehicule, pk=pk, proprietaire=request.user)   # archivé compris
+        reponse = HttpResponse(recapitulatif.pdf(vehicule), content_type="application/pdf")
+        nom = f"recapitulatif_{vehicule.marque}_{vehicule.modele}_{vehicule.immatriculation}".replace(" ", "_")
+        reponse["Content-Disposition"] = f'inline; filename="{nom}.pdf"'
+        return reponse
+
     @action(detail=True, url_path="vente/pdf")
     def pdf_vente(self, request, pk=None):
         """Certificat de cession et bon de livraison (PDF, à signer par les deux parties)."""

@@ -83039,3 +83039,87 @@ msgstr "Verkauft"
 #: particulier
 msgid "Vente entre particuliers (sans TVA)"
 msgstr "Privatverkauf (ohne MwSt.)"
+
+#: particulier/recapitulatif
+msgid "Récapitulatif du véhicule"
+msgstr "Fahrzeugübersicht"
+
+#: particulier/recapitulatif
+msgid "Édité le"
+msgstr "Erstellt am"
+
+#: particulier/recapitulatif
+msgid "Archivé (vendu)"
+msgstr "Archiviert (verkauft)"
+
+#: particulier/recapitulatif
+msgid "Année du modèle"
+msgstr "Modelljahr"
+
+#: particulier/recapitulatif
+msgid "Kilométrage à l'achat"
+msgstr "Kilometerstand beim Kauf"
+
+#: particulier/recapitulatif
+msgid "Type d'achat"
+msgstr "Kaufart"
+
+#: particulier/recapitulatif
+msgid "Coûts totaux"
+msgstr "Gesamtkosten"
+
+#: particulier/recapitulatif
+msgid "Coût net / mois"
+msgstr "Nettokosten / Monat"
+
+#: particulier/recapitulatif
+msgid "Coût net au km"
+msgstr "Nettokosten pro km"
+
+#: particulier/recapitulatif
+msgid "Essieu"
+msgstr "Achse"
+
+#: particulier/recapitulatif
+msgid "Type de pneus"
+msgstr "Reifentyp"
+
+#: particulier/recapitulatif
+msgid "remplacé"
+msgstr "ersetzt"
+
+#: particulier/recapitulatif
+msgid "Documents"
+msgstr "Dokumente"
+
+#: particulier/recapitulatif
+msgid "Organisme (assureur, centre…)"
+msgstr "Stelle (Versicherer, Zentrum…)"
+
+#: particulier/recapitulatif
+msgid "Valable du"
+msgstr "Gültig ab"
+
+#: particulier/recapitulatif
+msgid "Valable jusqu'au"
+msgstr "Gültig bis"
+
+#: particulier/recapitulatif
+msgid "Rappels"
+msgstr "Erinnerungen"
+
+#: particulier/recapitulatif
+msgid "Échéance (date)"
+msgstr "Fällig (Datum)"
+
+#: particulier/recapitulatif
+msgid "Échéance (kilométrage)"
+msgstr "Fällig (Kilometerstand)"
+
+#: particulier/recapitulatif
+msgid "Montants TVA comprise, tels qu'encodés dans CarsCosts."
+msgstr "Beträge inkl. MwSt., wie in CarsCosts erfasst."
+
+#: particulier/recapitulatif
+msgid "Le récapitulatif PDF est disponible à partir de la formule Bronze."
+msgstr "Die PDF-Übersicht ist ab dem Tarif Bronze verfügbar."

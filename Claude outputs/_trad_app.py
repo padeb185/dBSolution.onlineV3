@@ -699,3 +699,10 @@ T.update({
 'Revente': ('Doorverkoop', 'Resale', 'Wiederverkauf', 'Reventa', 'Rivendita', 'Μεταπώληση'),
 '{pct} % du coût total récupéré par la revente': ('{pct} % van de totale kost gerecupereerd door de doorverkoop', '{pct} % of the total cost recovered by the resale', '{pct} % der Gesamtkosten durch den Wiederverkauf zurückgewonnen', '{pct} % del coste total recuperado con la reventa', '{pct} % del costo totale recuperato con la rivendita', '{pct} % του συνολικού κόστους ανακτήθηκε με τη μεταπώληση'),
 })
+T.update({
+'Récapitulatif (PDF)': ('Overzicht (PDF)', 'Summary (PDF)', 'Übersicht (PDF)', 'Resumen (PDF)', 'Riepilogo (PDF)', 'Σύνοψη (PDF)'),
+'Véhicule et coûts totaux : imprimer ou télécharger': ('Voertuig en totale kosten: afdrukken of downloaden', 'Vehicle and total costs: print or download', 'Fahrzeug und Gesamtkosten: drucken oder herunterladen', 'Vehículo y costes totales: imprimir o descargar', 'Veicolo e costi totali: stampa o scarica', 'Όχημα και συνολικά κόστη: εκτύπωση ή λήψη'),
+"Pensez à imprimer le récapitulatif avant l'archivage.": ('Denk eraan het overzicht af te drukken vóór het archiveren.', 'Remember to print the summary before archiving.', 'Denken Sie daran, die Übersicht vor dem Archivieren zu drucken.', 'Recuerde imprimir el resumen antes de archivar.', "Ricordatevi di stampare il riepilogo prima dell'archiviazione.", 'Θυμηθείτε να εκτυπώσετε τη σύνοψη πριν την αρχειοθέτηση.'),
+'Récapitulatif du véhicule (PDF)': ('Overzicht van het voertuig (PDF)', 'Vehicle summary (PDF)', 'Fahrzeugübersicht (PDF)', 'Resumen del vehículo (PDF)', 'Riepilogo del veicolo (PDF)', 'Σύνοψη οχήματος (PDF)'),
+'Le récapitulatif PDF est disponible à partir de la formule Bronze.': ('Het PDF-overzicht is beschikbaar vanaf de formule Bronze.', 'The PDF summary is available from the Bronze plan.', 'Die PDF-Übersicht ist ab dem Tarif Bronze verfügbar.', 'El resumen en PDF está disponible a partir del plan Bronze.', 'Il riepilogo PDF è disponibile dal piano Bronze.', 'Η σύνοψη PDF είναι διαθέσιμη από το πρόγραμμα Bronze.'),
+})

@@ -401,13 +401,26 @@ class _VehiculeFormEcranState extends State<VehiculeFormEcran> {
                 label: Text(t('Choisir une photo')),
               ),
             ]),
-            if (_modification)
+            if (_modification) ...[
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
                 title: Text(t('Véhicule vendu (archivé)')),
+                subtitle: _archive && widget.vehicule?['archive'] != true
+                    ? Text(t('Pensez à imprimer le récapitulatif avant l\'archivage.'))
+                    : null,
                 value: _archive,
                 onChanged: (v) => setState(() => _archive = v),
               ),
+              if (_archive && widget.vehicule?['archive'] != true)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton.icon(
+                    onPressed: () => ouvrirRecapitulatif(context, widget.vehicule!),
+                    icon: const Icon(Icons.print),
+                    label: Text(t('Récapitulatif du véhicule (PDF)')),
+                  ),
+                ),
+            ],
             const SizedBox(height: 16),
             FilledButton.icon(
               onPressed: _envoi ? null : _enregistrer,

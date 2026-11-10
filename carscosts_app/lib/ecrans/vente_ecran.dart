@@ -559,6 +559,15 @@ class _VenteEcranState extends State<VenteEcran> {
                     alignment: Alignment.centerLeft,
                     child: OuvrirFichierBouton(url: '${_chemin}pdf/', libelle: t('Certificat de cession (PDF)')),
                   ),
+                // Avant d'archiver : récapitulatif imprimable du véhicule et des coûts totaux
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton.icon(
+                    onPressed: () => ouvrirRecapitulatif(context, widget.vehicule),
+                    icon: const Icon(Icons.print),
+                    label: Text(t('Récapitulatif du véhicule (PDF)')),
+                  ),
+                ),
                 const SizedBox(height: 8),
                 if (!_vendue)
                   FilledButton.icon(

@@ -1,0 +1,142 @@
+{% load i18n %}<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+    @page { size: A4; margin: 14mm 12mm;
+        @bottom-center { content: counter(page) " / " counter(pages); font-size: 9px; color: #666; } }
+    body { font-family: Arial, sans-serif; font-size: 11px; color: #111; }
+    h1 { font-size: 19px; margin: 0 0 4px; color: #1e3a8a; }
+    .sous-titre { color: #555; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid #1e3a8a; }
+    h2 { font-size: 13px; margin: 14px 0 6px; padding-bottom: 3px; color: #1e40af; border-bottom: 1px solid #93c5fd; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #d1d5db; padding: 4px 6px; vertical-align: top; }
+    th { background: #eff6ff; color: #1e3a8a; text-align: left; }
+    td.n, th.n { text-align: right; white-space: nowrap; }
+    .deux { display: table; width: 100%; }
+    .deux > div { display: table-cell; vertical-align: top; }
+    .gauche { width: 200px; padding-right: 12px; }
+    .pastille { display: inline-block; width: 9px; height: 9px; border-radius: 5px; margin-right: 5px; }
+    .total { font-weight: bold; background: #dbeafe; }
+    .net { font-weight: bold; font-size: 13px; background: #1e3a8a; color: #fff; }
+    .vert { color: #059669; }
+    .petit { font-size: 9px; color: #555; }
+    .plaque { display: inline-block; border: 2px solid #8b0000; border-radius: 4px; padding: 2px 10px; font-weight: bold;
+              letter-spacing: 1px; font-size: 14px; color: #8b0000; background: #fff; }
+    .kpi { display: table; width: 100%; margin-top: 6px; }
+    .kpi div { display: table-cell; border: 1px solid #d1d5db; padding: 6px; text-align: center; }
+    .kpi strong { display: block; font-size: 14px; color: #1e3a8a; }
+    tr, .deux, .kpi { page-break-inside: avoid; }
+</style></head>
+<body>
+<h1>{% trans "Récapitulatif du véhicule" %} – {{ v.marque }} {{ v.modele }}</h1>
+<div class="sous-titre">
+    {% if v.immatriculation %}<span class="plaque">{{ v.immatriculation|upper }}</span> &nbsp;{% endif %}
+    {{ v.version }} · {{ v.get_energie_display }}{% if v.puissance_ch %} · {{ v.puissance_ch }} ch{% endif %}
+    · {% trans "Édité le" %} {{ aujourdhui|date:"d/m/Y" }}{% if v.archive %} · <strong>{% trans "Archivé (vendu)" %}</strong>{% endif %}
+</div>
+
+<h2>{% trans "Véhicule" %}</h2>
+<table>
+    <tr><th style="width:30%">{% trans "Marque / modèle" %}</th><td>{{ v.marque }} {{ v.modele }} {{ v.version }}</td>
+        <th style="width:20%">{% trans "Immatriculation" %}</th><td>{{ v.immatriculation|default:"—" }} ({{ v.pays_immatriculation }})</td></tr>
+    <tr><th>{% trans "Numéro de châssis (VIN)" %}</th><td>{{ v.vin|default:"—" }}</td>
+        <th>{% trans "Année du modèle" %}</th><td>{{ v.annee|default:"—" }}</td></tr>
+    <tr><th>{% trans "Première mise en circulation" %}</th><td>{{ v.date_mise_en_circulation|date:"d/m/Y"|default:"—" }}</td>
+        <th>{% trans "Date d'achat" %}</th><td>{{ v.date_achat|date:"d/m/Y"|default:"—" }}</td></tr>
+    <tr><th>{% trans "Kilométrage à l'achat" %}</th><td>{% if v.kilometrage_achat is not None %}{{ v.kilometrage_achat }} km{% else %}—{% endif %}</td>
+        <th>{% trans "Kilométrage" %}</th><td>{{ km_actuel }} km</td></tr>
+    <tr><th>{% trans "Type d'achat" %}</th><td colspan="3">{{ type_achat }}{% if s.financement.mensualite %} – {% trans "Mensualité" %} {{ s.financement.mensualite|floatformat:"2g" }} €{% endif %}</td></tr>
+</table>
+
+<h2>{% trans "Coûts totaux" %}</h2>
+<div class="deux">
+    <div class="gauche">{{ camembert|safe }}</div>
+    <div>
+        <table>
+            <tr><th>{% trans "Poste" %}</th><th class="n">%</th><th class="n">{% trans "Montant" %}</th></tr>
+            {% for p in postes %}
+            <tr><td><span class="pastille" style="background: {{ p.couleur }}"></span>{{ p.libelle }}</td>
+                <td class="n">{{ p.pct|floatformat:1 }} %</td><td class="n">{{ p.montant|floatformat:"2g" }} €</td></tr>
+            {% endfor %}
+            <tr class="total"><td colspan="2">{% trans "Coût total" %}</td><td class="n">{{ s.cout_total|floatformat:"2g" }} €</td></tr>
+            {% if s.valeur_revente is not None %}
+            <tr><td colspan="2">{% if vente.statut == "vendue" %}{% trans "Prix de vente" %}{% else %}{% trans "Valeur de revente estimée" %}{% endif %}</td>
+                <td class="n vert">− {{ s.valeur_revente|floatformat:"2g" }} €</td></tr>
+            {% endif %}
+            <tr class="net"><td colspan="2">{% trans "Coût net" %}</td><td class="n">{{ s.cout_net|floatformat:"2g" }} €</td></tr>
+        </table>
+    </div>
+</div>
+<div class="kpi">
+    <div>{% trans "Kilomètres parcourus" %}<strong>{{ s.km_parcourus }} km</strong></div>
+    <div>{% trans "Coût net / mois" %}<strong>{% if s.cout_mois %}{{ s.cout_mois|floatformat:"2g" }} €{% else %}—{% endif %}</strong></div>
+    <div>{% trans "Coût net au km" %}<strong>{% if s.cout_total_km %}{{ s.cout_total_km|floatformat:3 }} €{% else %}—{% endif %}</strong></div>
+    <div>{% trans "Consommation moyenne" %}<strong>{% if conso.moyenne %}{{ conso.moyenne|floatformat:2 }} {{ conso.unite }}/100 km{% else %}—{% endif %}</strong>
+        {% if conso_elec.moyenne %}<span class="petit">{{ conso_elec.moyenne|floatformat:2 }} kWh/100 km</span>{% endif %}</div>
+</div>
+
+{% if entretiens %}
+<h2>{% trans "Entretiens et réparations" %}</h2>
+<table>
+    <tr><th>{% trans "Date" %}</th><th>{% trans "Type" %}</th><th>{% trans "Garage" %}</th><th class="n">{% trans "Kilométrage" %}</th>
+        <th class="n">{% trans "Pièces TVAC" %}</th><th class="n">{% trans "Main-d'œuvre TVAC" %}</th><th class="n">{% trans "Total TVAC" %}</th></tr>
+    {% for e in entretiens %}
+    <tr><td>{{ e.date|date:"d/m/Y" }}</td><td>{{ e.libelle }}</td><td>{{ e.garage|default:"" }}</td>
+        <td class="n">{% if e.km %}{{ e.km }} km{% endif %}</td>
+        <td class="n">{% if e.pieces is not None %}{{ e.pieces|floatformat:"2g" }} €{% endif %}</td>
+        <td class="n">{% if e.main_oeuvre is not None %}{{ e.main_oeuvre|floatformat:"2g" }} €{% endif %}</td>
+        <td class="n">{{ e.montant|floatformat:"2g" }} €</td></tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% if pneus %}
+<h2>{% trans "Pneus" %}</h2>
+<table>
+    <tr><th>{% trans "Essieu" %}</th><th>{% trans "Monte" %}</th><th>{% trans "Type de pneus" %}</th><th>{% trans "Pneus" %}</th>
+        <th>{% trans "Date de montage" %}</th><th class="n">km</th><th class="n">{% trans "Prix TVAC" %}</th></tr>
+    {% for p in pneus %}
+    <tr><td>{{ p.t.get_position_display }}</td><td>{{ p.t.get_monte_display }}{% if not p.t.actif %} ({% trans "remplacé" %}){% elif p.t.est_monte %} ✔{% endif %}</td>
+        <td>{{ p.t.get_type_pneus_display }}</td><td>{{ p.t.marque }} {{ p.t.modele }} {{ p.t.taille }}</td>
+        <td>{{ p.t.date_montage|date:"d/m/Y" }}</td><td class="n">{{ p.km }}</td>
+        <td class="n">{% if p.t.prix %}{{ p.t.prix|floatformat:"2g" }} €{% endif %}</td></tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% if documents %}
+<h2>{% trans "Documents" %}</h2>
+<table>
+    <tr><th>{% trans "Type" %}</th><th>{% trans "Organisme (assureur, centre…)" %}</th><th>{% trans "Valable du" %}</th>
+        <th>{% trans "Valable jusqu'au" %}</th><th class="n">{% trans "Montant" %}</th></tr>
+    {% for d in documents %}
+    <tr><td>{{ d.get_type_display }}{% if d.titre %} – {{ d.titre }}{% endif %}</td><td>{{ d.organisme }}</td>
+        <td>{{ d.date_debut|date:"d/m/Y"|default:"" }}</td><td>{{ d.date_expiration|date:"d/m/Y"|default:"" }}</td>
+        <td class="n">{% if d.montant is not None %}{{ d.montant|floatformat:"2g" }} €{% if d.mode_paiement %} ({{ d.get_mode_paiement_display }}){% endif %}{% endif %}</td></tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% if rappels %}
+<h2>{% trans "Rappels" %}</h2>
+<table>
+    <tr><th>{% trans "Libellé" %}</th><th>{% trans "Échéance (date)" %}</th><th class="n">{% trans "Échéance (kilométrage)" %}</th></tr>
+    {% for x in rappels %}
+    <tr><td>{{ x.r.libelle }}</td><td>{{ x.r.echeance_date|date:"d/m/Y"|default:"" }}{% if x.statut.jours_restants is not None %} ({{ x.statut.jours_restants }} j){% endif %}</td>
+        <td class="n">{% if x.r.echeance_km %}{{ x.r.echeance_km }} km{% if x.statut.km_restants is not None %} ({{ x.statut.km_restants }} km){% endif %}{% endif %}</td></tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% if vente %}
+<h2>{% trans "Vente du véhicule" %}</h2>
+<table>
+    <tr><th style="width:30%">{% trans "Statut" %}</th><td>{{ vente.get_statut_display }}</td></tr>
+    <tr><th>{% trans "Date de la vente" %}</th><td>{{ vente.date_vente|date:"d/m/Y" }}</td></tr>
+    <tr><th>{% trans "Acheteur" %}</th><td>{{ vente.acheteur_nom|default:"—" }}</td></tr>
+    <tr><th>{% trans "Prix de vente" %}</th><td>{{ vente.prix_tvac|floatformat:"2g" }} €</td></tr>
+    {% if vente.frais_vente %}<tr><th>{% trans "Frais de vente" %}</th><td>{{ vente.frais_vente|floatformat:"2g" }} €</td></tr>{% endif %}
+</table>
+{% endif %}
+
+<p class="petit">{% trans "Montants TVA comprise, tels qu'encodés dans CarsCosts." %}</p>
+</body></html>

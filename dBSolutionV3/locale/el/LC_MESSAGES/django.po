@@ -83013,3 +83013,87 @@ msgstr "Πωλήθηκε"
 #: particulier
 msgid "Vente entre particuliers (sans TVA)"
 msgstr "Πώληση μεταξύ ιδιωτών (χωρίς ΦΠΑ)"
+
+#: particulier/recapitulatif
+msgid "Récapitulatif du véhicule"
+msgstr "Σύνοψη οχήματος"
+
+#: particulier/recapitulatif
+msgid "Édité le"
+msgstr "Εκδόθηκε στις"
+
+#: particulier/recapitulatif
+msgid "Archivé (vendu)"
+msgstr "Αρχειοθετημένο (πωλήθηκε)"
+
+#: particulier/recapitulatif
+msgid "Année du modèle"
+msgstr "Έτος μοντέλου"
+
+#: particulier/recapitulatif
+msgid "Kilométrage à l'achat"
+msgstr "Χιλιόμετρα κατά την αγορά"
+
+#: particulier/recapitulatif
+msgid "Type d'achat"
+msgstr "Τύπος αγοράς"
+
+#: particulier/recapitulatif
+msgid "Coûts totaux"
+msgstr "Συνολικά κόστη"
+
+#: particulier/recapitulatif
+msgid "Coût net / mois"
+msgstr "Καθαρό κόστος / μήνα"
+
+#: particulier/recapitulatif
+msgid "Coût net au km"
+msgstr "Καθαρό κόστος ανά km"
+
+#: particulier/recapitulatif
+msgid "Essieu"
+msgstr "Άξονας"
+
+#: particulier/recapitulatif
+msgid "Type de pneus"
+msgstr "Τύπος ελαστικών"
+
+#: particulier/recapitulatif
+msgid "remplacé"
+msgstr "αντικαταστάθηκε"
+
+#: particulier/recapitulatif
+msgid "Documents"
+msgstr "Έγγραφα"
+
+#: particulier/recapitulatif
+msgid "Organisme (assureur, centre…)"
+msgstr "Φορέας (ασφαλιστής, κέντρο…)"
+
+#: particulier/recapitulatif
+msgid "Valable du"
+msgstr "Ισχύει από"
+
+#: particulier/recapitulatif
+msgid "Valable jusqu'au"
+msgstr "Ισχύει έως"
+
+#: particulier/recapitulatif
+msgid "Rappels"
+msgstr "Υπενθυμίσεις"
+
+#: particulier/recapitulatif
+msgid "Échéance (date)"
+msgstr "Λήξη (ημερομηνία)"
+
+#: particulier/recapitulatif
+msgid "Échéance (kilométrage)"
+msgstr "Λήξη (χιλιόμετρα)"
+
+#: particulier/recapitulatif
+msgid "Montants TVA comprise, tels qu'encodés dans CarsCosts."
+msgstr "Ποσά με ΦΠΑ, όπως καταχωρίστηκαν στο CarsCosts."
+
+#: particulier/recapitulatif
+msgid "Le récapitulatif PDF est disponible à partir de la formule Bronze."
+msgstr "Η σύνοψη PDF είναι διαθέσιμη από το πρόγραμμα Bronze."
