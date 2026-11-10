@@ -382,7 +382,8 @@ class VehiculeViewSet(SchemaParticuliersMixin, viewsets.ModelViewSet):
         if request.method == "PUT":
             with transaction.atomic():
                 return Response(rappels_auto.appliquer(vehicule, request.data.get("entretien"),
-                                                       request.data.get("controle_technique")))
+                                                       request.data.get("controle_technique"),
+                                                       request.data.get("courroie")))
         return Response(rappels_auto.plan(vehicule))
 
     @action(detail=True)

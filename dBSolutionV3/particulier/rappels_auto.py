@@ -18,10 +18,15 @@ from django.utils.translation import gettext_lazy as _
 
 from .calculs import ajouter_mois, statut_rappel
 
-KM_THERMIQUE = [15000, 20000, 25000, 30000]
-KM_ELECTRIQUE = [20000, 30000, 40000]
+KM_ENTRETIEN = [15000, 20000, 25000]          # + « autre » (kilométrage libre) ou date seule
 TYPES_ENTRETIEN_PERIODIQUE = ("revision", "vidange")
 TYPES_MAINTENANCE_PERIODIQUE = ("entretien", "checkup")
+# Courroie de distribution : remplacement au premier des deux (kilométrage ou années)
+KM_COURROIE = [60000, 90000, 120000, 150000, 180000, 240000]
+ANS_COURROIE = [4, 5, 6, 8, 10]
+TYPES_ENTRETIEN_COURROIE = ("distribution",)
+TYPES_MAINTENANCE_COURROIE = ("COURROIE_DISTRI",)
+REGLE_CT_DEFAUT = (4, 2, None)   # pays sans règle : premier contrôle au 4e anniversaire, puis tous les 2 ans
 
 # pays : (premier contrôle après N ans, puis tous les M ans, annuel à partir de X ans ou None)
 CONTROLE_TECHNIQUE = {
@@ -39,13 +44,13 @@ def est_electrique(vehicule):
 
 
 def options_km(vehicule):
-    return KM_ELECTRIQUE if est_electrique(vehicule) else KM_THERMIQUE
+    return KM_ENTRETIEN
 
 
 def km_par_defaut(vehicule, long_life):
     if est_electrique(vehicule):
-        return 30000
-    return 30000 if long_life else (20000 if vehicule.energie == "diesel" else 15000)
+        return 30000                      # hors liste : « autre »
+    return 25000 if long_life else (20000 if vehicule.energie == "diesel" else 15000)
 
 
 # ------------------------------------------------------------------ Entretien
@@ -73,7 +78,17 @@ def echeances_entretien(vehicule, intervalle_mois, intervalle_km):
 
 # ------------------------------------------------------------------ Contrôle technique
 def regle_ct(vehicule):
-    return CONTROLE_TECHNIQUE.get((vehicule.pays_immatriculation or "").upper())
+    return CONTROLE_TECHNIQUE.get((vehicule.pays_immatriculation or "").upper(), REGLE_CT_DEFAUT)
+
+
+def mise_en_circulation(vehicule):
+    return vehicule.date_mise_en_circulation or (date(vehicule.annee, 1, 1) if vehicule.annee else None)
+
+
+def premier_ct(vehicule):
+    """Premier contrôle : anniversaire de la mise en circulation (4e en Belgique, en France…)."""
+    mec = mise_en_circulation(vehicule)
+    return ajouter_mois(mec, regle_ct(vehicule)[0] * 12) if mec else None
 
 
 def periode_ct(regle, age_ans):
@@ -91,10 +106,7 @@ def dernier_ct(vehicule):
 def prochain_ct(vehicule):
     """(échéance, source) du prochain contrôle technique, ou (None, raison)."""
     regle = regle_ct(vehicule)
-    if regle is None:
-        return None, "pays"
-    mise_en_circulation = vehicule.date_mise_en_circulation or (
-        date(vehicule.annee, 1, 1) if vehicule.annee else None)
+    mise_en_circulation = globals()["mise_en_circulation"](vehicule)
     dernier = dernier_ct(vehicule)
     if dernier:
         age = (dernier - mise_en_circulation).days // 365 if mise_en_circulation else regle[0]
@@ -106,6 +118,37 @@ def prochain_ct(vehicule):
             echeance = ajouter_mois(echeance, periode_ct(regle, age))
         return echeance, "mise_en_circulation"
     return None, "mise_en_circulation_inconnue"
+
+
+# ------------------------------------------------------------------ Courroie de distribution
+def dernier_remplacement_courroie(vehicule):
+    """(date, km, source) du dernier remplacement encodé, sinon l'origine (mise en circulation, 0 km)."""
+    candidats = [(e.date, e.kilometrage) for e in vehicule.entretiens.filter(type__in=TYPES_ENTRETIEN_COURROIE)]
+    candidats += [(m.date, m.kilometrage)
+                  for m in vehicule.maintenances.filter(type_maintenance__in=TYPES_MAINTENANCE_COURROIE)]
+    if candidats:
+        jour, km = max(candidats, key=lambda c: (c[0], c[1] or 0))
+        return {"date": jour, "km": km, "source": "remplacement"}
+    mec = mise_en_circulation(vehicule)
+    if mec:
+        return {"date": mec, "km": 0, "source": "origine"}
+    if vehicule.date_achat:
+        return {"date": vehicule.date_achat, "km": vehicule.kilometrage_achat, "source": "achat"}
+    return {"date": date.today(), "km": vehicule.kilometrage_actuel, "source": "aujourdhui"}
+
+
+def base_courroie(vehicule, rappel):
+    """Point de départ du kilométrage courroie : le rappel (dernière remise à zéro) s'il existe, sinon l'historique."""
+    base = dernier_remplacement_courroie(vehicule)
+    if rappel is None:
+        return base
+    jour = ajouter_mois(rappel.echeance_date, -rappel.intervalle_mois) \
+        if rappel.echeance_date and rappel.intervalle_mois else None
+    km = rappel.echeance_km - rappel.intervalle_km \
+        if rappel.echeance_km is not None and rappel.intervalle_km else None
+    if jour is None and km is None:
+        return base
+    return {"date": jour or base["date"], "km": km if km is not None else base["km"], "source": "remise_a_zero"}
 
 
 def _ct_par_document(vehicule):
@@ -144,8 +187,26 @@ def plan(vehicule):
     ct, source_ct = prochain_ct(vehicule)
     regle = regle_ct(vehicule)
     doc_ct = vehicule.documents.filter(type="controle_technique", date_expiration__gte=date.today()).first()
+    rappel_c = _rappel(vehicule, "courroie")
+    base_c = base_courroie(vehicule, rappel_c)
+    km_c = rappel_c.intervalle_km if rappel_c else 120000
+    mois_c = rappel_c.intervalle_mois if rappel_c else 72
+    km_actuel = vehicule.kilometrage_actuel
     return {
         "electrique": est_electrique(vehicule),
+        "courroie": None if est_electrique(vehicule) else {
+            "rappel": _statut(rappel_c, vehicule),
+            "intervalle_km": km_c,
+            "intervalle_ans": (mois_c // 12) if mois_c else None,
+            "options_km": KM_COURROIE,
+            "options_ans": ANS_COURROIE,
+            "base": base_c,
+            "km_courroie": max(km_actuel - base_c["km"], 0) if base_c["km"] is not None else None,
+            "proposition": {
+                "echeance_date": ajouter_mois(base_c["date"], mois_c) if mois_c else None,
+                "echeance_km": (base_c["km"] + km_c) if km_c and base_c["km"] is not None else None,
+            },
+        },
         "entretien": {
             "rappel": _statut(rappel_e, vehicule),
             "long_life": long_life,
@@ -157,6 +218,8 @@ def plan(vehicule):
         "controle_technique": {
             "rappel": _statut(_rappel(vehicule, "controle_technique"), vehicule),
             "regle": {"premier": regle[0], "periode": regle[1], "annuel_a_partir_de": regle[2]} if regle else None,
+            "regle_pays": (vehicule.pays_immatriculation or "").upper() in CONTROLE_TECHNIQUE,
+            "premier_controle": premier_ct(vehicule),
             "echeance": ct,
             "source": source_ct,
             "document_echeance": doc_ct.date_expiration if doc_ct else None,
@@ -165,9 +228,35 @@ def plan(vehicule):
     }
 
 
-def appliquer(vehicule, entretien=None, controle_technique=None):
-    """entretien : {"actif", "long_life", "intervalle_km"} ; controle_technique : {"actif"}."""
+def appliquer(vehicule, entretien=None, controle_technique=None, courroie=None):
+    """entretien : {"actif", "long_life", "intervalle_km"} ; controle_technique : {"actif"} ;
+    courroie : {"actif", "intervalle_km", "intervalle_ans", "remplacee": {"date", "km"} (remise à zéro)}."""
+    from .calculs import marquer_fait
     from .models import Rappel
+    if courroie is not None and not est_electrique(vehicule):
+        rappel = _rappel(vehicule, "courroie")
+        if not courroie.get("actif", True):
+            if rappel:
+                rappel.delete()
+        else:
+            km = courroie.get("intervalle_km")
+            km = int(km) if km not in (None, "", 0, "0") else None
+            ans = courroie.get("intervalle_ans")
+            mois = int(ans) * 12 if ans not in (None, "", 0, "0") else None
+            remplacee = courroie.get("remplacee")
+            base = base_courroie(vehicule, rappel)
+            rappel = rappel or Rappel(vehicule=vehicule, code="courroie")
+            rappel.libelle = str(_("Courroie de distribution"))
+            rappel.type_entretien = "distribution"
+            rappel.intervalle_km, rappel.intervalle_mois, rappel.actif = km, mois, True
+            if remplacee:                      # remise à zéro du kilométrage courroie
+                jour = date.fromisoformat(remplacee["date"]) if remplacee.get("date") else date.today()
+                km_r = remplacee.get("km")
+                marquer_fait(rappel, jour, int(km_r) if km_r not in (None, "") else vehicule.kilometrage_actuel)
+            else:
+                rappel.echeance_date = ajouter_mois(base["date"], mois) if mois else None
+                rappel.echeance_km = (base["km"] + km) if km and base["km"] is not None else None
+                rappel.save()
     if entretien is not None:
         rappel = _rappel(vehicule, "entretien")
         if not entretien.get("actif", True):
@@ -212,6 +301,10 @@ def apres_entretien(vehicule, jour, km, type_entretien=None, type_maintenance=No
         rappel = _rappel(vehicule, "entretien")
         if rappel:
             marquer_fait(rappel, jour, km)
+    if type_entretien in TYPES_ENTRETIEN_COURROIE or type_maintenance in TYPES_MAINTENANCE_COURROIE:
+        rappel = _rappel(vehicule, "courroie")
+        if rappel:                             # courroie remplacée : kilométrage courroie remis à zéro
+            marquer_fait(rappel, jour, km if km is not None else vehicule.kilometrage_actuel)
     if type_entretien == "controle_technique":
         rappel = _rappel(vehicule, "controle_technique")
         if rappel:
