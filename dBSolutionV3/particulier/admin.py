@@ -5,7 +5,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from .comptes import activer
-from .models import AbonnementParticulier, CompteParticulier, Financement, Depense, Document, Entretien, MaintenanceParticulier, Plein, TrainPneus, VenteParticulier, ProfilFiscal, Rappel, ReleveKilometrique, Vehicule
+from .models import AbonnementParticulier, AppareilNotification, JournalAbonnement, CompteParticulier, Financement, Depense, Document, Entretien, MaintenanceParticulier, Plein, TrainPneus, VenteParticulier, ProfilFiscal, Rappel, ReleveKilometrique, Vehicule
 
 
 def lien_fichier(modele, champ):
@@ -222,3 +222,27 @@ class TrainPneusAdmin(admin.ModelAdmin):
 class VenteParticulierAdmin(admin.ModelAdmin):
     list_display = ("vehicule", "statut", "date_vente", "acheteur_nom", "regime_tva", "prix_tvac")
     list_filter = ("statut", "regime_tva")
+
+
+@admin.register(JournalAbonnement)
+class JournalAbonnementAdmin(AccesAdminParticuliers, admin.ModelAdmin):
+    """Journal des abonnements (lecture seule) – voir aussi la page « Abonnements et notifications »."""
+    list_display = ("date", "categorie", "type", "utilisateur", "destinataire", "succes", "message")
+    list_filter = ("categorie", "succes")
+    search_fields = ("utilisateur__email", "destinataire", "type", "message")
+    list_select_related = ("utilisateur",)
+    readonly_fields = [f.name for f in JournalAbonnement._meta.fields]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(AppareilNotification)
+class AppareilNotificationAdmin(AccesAdminParticuliers, admin.ModelAdmin):
+    list_display = ("utilisateur", "plateforme", "created_at", "updated_at")
+    list_filter = ("plateforme",)
+    search_fields = ("utilisateur__email",)
+    raw_id_fields = ("utilisateur",)

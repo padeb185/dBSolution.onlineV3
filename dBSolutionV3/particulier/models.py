@@ -457,6 +457,37 @@ class NotificationAbonnement(models.Model):
         return f"{self.utilisateur_id} – {self.type} ({self.cle})"
 
 
+class CategorieJournal(models.TextChoices):
+    STORE = "store", _("Notification d'un store")
+    ACHAT = "achat", _("Achat dans l'application")
+    ADMIN = "admin", _("Administration")
+    NOTIFICATION = "notification", _("Notification envoyée")
+    EMAIL = "email", _("E-mail")
+    PUSH = "push", _("Push")
+    TACHE = "tache", _("Tâche planifiée")
+
+
+class JournalAbonnement(models.Model):
+    """Journal des actions liées aux abonnements (monitoring de l'application des particuliers)."""
+    date = models.DateTimeField(auto_now_add=True, db_index=True)
+    categorie = models.CharField(_("Catégorie"), max_length=15, choices=CategorieJournal.choices, db_index=True)
+    type = models.CharField(_("Type"), max_length=60, blank=True)
+    utilisateur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,
+                                    related_name="journal_abonnement")
+    destinataire = models.CharField(_("Destinataire"), max_length=255, blank=True)
+    message = models.TextField(_("Message"), blank=True)
+    succes = models.BooleanField(_("Réussi"), default=True)
+    details = models.JSONField(_("Détails"), default=dict, blank=True)
+
+    class Meta:
+        verbose_name = _("Journal d'abonnement")
+        verbose_name_plural = _("Journal des abonnements")
+        ordering = ["-date"]
+
+    def __str__(self):
+        return f"{self.date:%d/%m/%Y %H:%M} – {self.categorie} {self.type}"
+
+
 class AppareilNotification(models.Model):
     """Jeton Firebase Cloud Messaging d'un appareil (notifications push)."""
     utilisateur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,

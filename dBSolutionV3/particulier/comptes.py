@@ -8,7 +8,7 @@ from rest_framework.authtoken.models import Token
 
 def supprimer_compte(user):
     """Supprime le compte, ses véhicules, toutes leurs données et ses fichiers (RGPD, App Store)."""
-    from .models import (AbonnementParticulier, AppareilNotification, NotificationAbonnement,
+    from .models import (AbonnementParticulier, AppareilNotification, JournalAbonnement, NotificationAbonnement,
                          PreferencesParticulier, Vehicule)
     dossier = settings.MEDIA_ROOT / "particuliers" / str(user.pk)
     with transaction.atomic():
@@ -16,6 +16,7 @@ def supprimer_compte(user):
         AbonnementParticulier.objects.filter(utilisateur=user).delete()
         NotificationAbonnement.objects.filter(utilisateur=user).delete()
         AppareilNotification.objects.filter(utilisateur=user).delete()
+        JournalAbonnement.objects.filter(utilisateur=user).delete()
         PreferencesParticulier.objects.filter(utilisateur=user).delete()
         Token.objects.filter(user=user).delete()
         user.delete()

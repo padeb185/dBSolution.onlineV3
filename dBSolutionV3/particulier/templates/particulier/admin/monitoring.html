@@ -13,6 +13,7 @@
     </div>
     <div class="flex flex-wrap gap-2">
         <a href="{% url 'particulier_admin:tableau' %}" class="pa-btn pa-btn-clair">{% trans "Comptes" %}</a>
+        <a href="{% url 'particulier_admin:abonnements' %}" class="pa-btn pa-btn-bleu">{% trans "Abonnements et notifications" %}</a>
         {% if request.user.is_superuser %}<a href="{% url 'monitoring:tableau' %}" class="pa-btn pa-btn-clair">{% trans "Monitoring de tous les tenants" %}</a>{% endif %}
     </div>
 </div>

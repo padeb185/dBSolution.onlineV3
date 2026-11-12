@@ -12,5 +12,8 @@ urlpatterns = [
     path("comptes/<uuid:pk>/supprimer/", admin_web.compte_supprimer, name="compte_supprimer"),
     path("monitoring/", admin_web.monitoring, name="monitoring"),
     path("monitoring/api/", admin_web.monitoring_api, name="monitoring_api"),
+    path("abonnements/", admin_web.abonnements_monitoring, name="abonnements"),
+    path("abonnements/email-test/", admin_web.abonnements_email_test, name="abonnements_email_test"),
+    path("abonnements/lancer/", admin_web.abonnements_lancer, name="abonnements_lancer"),
     path("fichiers/<str:modele>/<str:pk>/<str:champ>/", admin_web.fichier, name="fichier"),
 ]

@@ -266,6 +266,10 @@ def attribuer(user, formule, date_fin=None, source=SourceAbonnement.ADMIN, note=
         ab.periode, ab.date_debut, ab.date_derniere_facturation = "", None, None
         ab.statut_paiement, ab.date_fin_grace = StatutPaiement.OK, None
     ab.save()
+    from .journal import noter
+    noter("admin", "attribution", user, _("Formule %(f)s attribuée par l'administration%(fin)s.") % {
+        "f": Formule(formule).label, "fin": (" " + _("jusqu'au %s") % date_courte(date_fin)) if date_fin else ""},
+        formule=formule, date_fin=date_fin, note=note)
     return ab
 
 
@@ -349,7 +353,13 @@ def valider_achat(user, plateforme, produit, jeton):
     if achat["date_fin"] and achat["date_fin"] <= timezone.now():
         # Achat restauré mais échu : on l'enregistre (historique), la formule effective reste gratuite.
         log.info("Abonnement échu restauré pour %s", user.pk)
-    return _enregistrer(user, achat)
+    ab = _enregistrer(user, achat)
+    from .journal import noter
+    noter("achat", plateforme, user, _("Preuve d'achat %(p)s validée : %(f)s, jusqu'au %(fin)s.") % {
+        "p": nom_store(achat["source"]) if plateforme != "test" else _("de test"),
+        "f": Formule(ab.formule).label, "fin": date_courte(ab.date_fin) or "—"},
+        produit=produit, environnement=achat.get("environnement"), statut_paiement=ab.statut_paiement)
+    return ab
 
 
 def mettre_a_jour_par_reference(reference, achat, anciennes_references=()):
@@ -464,10 +474,30 @@ def notification_apple(signed_payload):
         if contenu.get("notificationType") in ("REFUND", "REVOKE"):
             achat["revoque"] = True
         try:
-            mettre_a_jour_par_reference(achat["reference"], achat)
+            ab = mettre_a_jour_par_reference(achat["reference"], achat)
+            _noter_store("Apple", contenu.get("notificationType"), contenu.get("subtype"), ab, achat)
         except AchatRefuse as e:
             log.warning("Notification Apple ignorée : %s", e)
+            _noter_store("Apple", contenu.get("notificationType"), contenu.get("subtype"), None, achat, str(e))
+    else:
+        _noter_store("Apple", contenu.get("notificationType"), contenu.get("subtype"), None, {})
     return contenu.get("notificationType")
+
+
+def _noter_store(store, type_notif, sous_type, ab, achat, erreur=""):
+    from .journal import noter
+    if erreur:
+        message, succes = _("Ignorée : %s") % erreur, False
+    elif ab is None:
+        message, succes = (_("Aucun compte lié à cet abonnement.") if achat.get("reference") else _("Notification sans "
+                                                                                                    "abonnement.")), True
+    else:
+        message, succes = _("%(f)s · paiement : %(s)s · fin : %(fin)s") % {
+            "f": Formule(ab.formule).label, "s": StatutPaiement(ab.statut_paiement).label,
+            "fin": date_courte(ab.date_fin) or "—"}, True
+    noter("store", "%s %s%s" % (store, type_notif or "", " / %s" % sous_type if sous_type else ""),
+          ab.utilisateur if ab else None, message, succes, produit=achat.get("produit"),
+          reference=achat.get("reference"), environnement=achat.get("environnement"))
 
 
 # ==================================================================
@@ -566,10 +596,21 @@ def notification_google(message):
     d = json.loads(base64.b64decode(message.get("data") or "e30=") or b"{}")
     notif = d.get("subscriptionNotification")
     if not notif:
+        if d.get("testNotification"):
+            _noter_store("Google", "TEST", None, None, {})
         return None     # testNotification, achats ponctuels…
     achat = abonnement_google(notif.get("subscriptionId", ""), notif["purchaseToken"])
+    type_notif = TYPES_GOOGLE.get(notif.get("notificationType"), notif.get("notificationType"))
     try:
-        mettre_a_jour_par_reference(achat["reference"], achat, achat.get("anciennes", ()))
+        ab = mettre_a_jour_par_reference(achat["reference"], achat, achat.get("anciennes", ()))
+        _noter_store("Google", type_notif, None, ab, achat)
     except AchatRefuse as e:
         log.warning("Notification Google ignorée : %s", e)
+        _noter_store("Google", type_notif, None, None, achat, str(e))
     return notif.get("notificationType")
+
+
+# Real-time developer notifications : notificationType → nom lisible
+TYPES_GOOGLE = {1: "RECOVERED", 2: "RENEWED", 3: "CANCELED", 4: "PURCHASED", 5: "ON_HOLD", 6: "IN_GRACE_PERIOD",
+                7: "RESTARTED", 8: "PRICE_CHANGE_CONFIRMED", 9: "DEFERRED", 10: "PAUSED",
+                11: "PAUSE_SCHEDULE_CHANGED", 12: "REVOKED", 13: "EXPIRED", 20: "PENDING_PURCHASE_CANCELED"}

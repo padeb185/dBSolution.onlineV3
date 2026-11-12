@@ -28,6 +28,12 @@
             {% if abonnement.renouvellement_auto %}· {% trans "renouvellement automatique" %}{% endif %}
             {% if abonnement.produit %}· <span style="font-family:monospace">{{ abonnement.produit }}</span>{% endif %}
             {% if abonnement.environnement %}· {{ abonnement.environnement }}{% endif %}
+            {% if abonnement.periode %}<br>{% trans "Période" %} : <strong>{{ abonnement.get_periode_display }}</strong>
+            · {% trans "début" %} {{ abonnement.date_debut|date:"d/m/Y"|default:"—" }}
+            · {% trans "dernière facturation" %} {{ abonnement.date_derniere_facturation|date:"d/m/Y"|default:"—" }}{% endif %}
+            {% if abonnement.formule != "gratuit" %}<br>{% trans "Paiement" %} : <strong {% if abonnement.statut_paiement != "ok" %}style="color:#b91c1c"{% endif %}>{{ abonnement.get_statut_paiement_display }}</strong>
+            {% if abonnement.date_fin_grace %}· {% trans "délai de grâce jusqu'au" %} {{ abonnement.date_fin_grace|date:"d/m/Y H:i" }}{% endif %}
+            {% if etat_abonnement.vehicules_lecture_seule %}· {% blocktrans count n=etat_abonnement.vehicules_lecture_seule|length %}{{ n }} véhicule en lecture seule{% plural %}{{ n }} véhicules en lecture seule{% endblocktrans %}{% endif %}{% endif %}
             {% if abonnement.note %}<br><span class="pa-aide">{{ abonnement.note }}</span>{% endif %}
         </p>
         {% endif %}
@@ -46,6 +52,21 @@
             </label>
             <button class="pa-btn pa-btn-bleu" type="submit">{% trans "Attribuer" %}</button>
         </form>
+        {% if journal %}
+        <h3 class="font-semibold mt-4 mb-1">{% trans "Historique (abonnement, notifications, e-mails)" %}</h3>
+        <table class="pa-table">
+            {% for j in journal %}
+            <tr>
+                <td class="num">{{ j.date|date:"d/m/Y H:i" }}</td>
+                <td>{{ j.get_categorie_display }}</td>
+                <td>{{ j.type }}</td>
+                <td>{{ j.message }}</td>
+                <td style="text-align:center">{% if j.succes %}<span style="color:#15803d;font-weight:700">✓</span>{% else %}<span style="color:#b91c1c;font-weight:700">✗</span>{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p class="pa-aide mt-1">{% blocktrans with n=appareils %}Appareils enregistrés pour les notifications push : {{ n }}{% endblocktrans %} · <a class="text-blue-700" href="{% url 'particulier_admin:abonnements' %}?q={{ compte.email|urlencode }}">{% trans "Tout le journal" %}</a></p>
+        {% endif %}
         <p class="pa-aide mt-2">{% if mode_achats == "test" %}{% trans "Serveur en mode test : l'application accepte aussi les achats de test (sans App Store / Google Play)." %}{% else %}{% trans "En production, les formules s'achètent dans l'application (App Store / Google Play). Une attribution ici remplace l'achat en cours dans CarsCosts mais n'annule pas l'abonnement chez Apple ou Google." %}{% endif %}</p>
     </div>
 

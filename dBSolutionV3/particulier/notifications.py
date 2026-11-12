@@ -56,7 +56,7 @@ def apres_changement(ab_id, avant):
         notifier(user, ab, "paiement_retabli")
 
 
-def tache_quotidienne(maintenant=None):
+def tache_quotidienne(maintenant=None, origine="cron"):
     """Rappels liés aux dates (commande notifier_abonnements). Renvoie le nombre de notifications envoyées."""
     maintenant = maintenant or timezone.now()
     envoyees = 0
@@ -80,6 +80,10 @@ def tache_quotidienne(maintenant=None):
                 type_ = "fin_proche"
         if type_ and notifier(user, ab, type_):
             envoyees += 1
+    from .journal import noter, purger
+    purges = purger()
+    noter("tache", "notifier_abonnements", None, _("%(n)d notification(s) envoyée(s).") % {"n": envoyees},
+          envoyees=envoyees, journal_purge=purges, origine=origine)
     return envoyees
 
 
@@ -111,6 +115,9 @@ def notifier(user, ab, type_):
             canaux.append("push")
     trace.canaux = ",".join(canaux)
     trace.save(update_fields=["canaux"])
+    from .journal import noter
+    noter("notification", type_, user, sujet, bool(canaux), destinataire=user.email, canaux=trace.canaux,
+          echeance=cle)
     return True
 
 
@@ -164,12 +171,15 @@ def envoyer_email(user, sujet, texte):
         return False
     corps = "%s\n\n%s\n\n%s" % (_("Bonjour %(prenom)s,") % {"prenom": getattr(user, "prenom", "") or ""},
                                 texte, _("L'équipe CarsCosts"))
+    from .journal import noter
     try:
         send_mail(sujet, corps, None, [user.email])
-        return True
-    except Exception:
+    except Exception as e:
         log.exception("E-mail d'abonnement non envoyé à %s", user.pk)
+        noter("email", "abonnement", user, sujet, False, destinataire=user.email, erreur=str(e)[:500])
         return False
+    noter("email", "abonnement", user, sujet, True, destinataire=user.email)
+    return True
 
 
 def envoyer_push(user, titre, corps, donnees=None):
@@ -191,7 +201,7 @@ def envoyer_push(user, titre, corps, donnees=None):
         log.exception("Firebase non configuré correctement")
         return False
     url = "https://fcm.googleapis.com/v1/projects/%s/messages:send" % projet
-    envoye = False
+    envoye, supprimes, erreurs = False, 0, []
     for appareil in appareils:
         try:
             r = requests.post(url, timeout=10, headers={"Authorization": "Bearer " + jeton}, json={"message": {
@@ -201,11 +211,17 @@ def envoyer_push(user, titre, corps, donnees=None):
             }})
         except requests.RequestException:
             log.warning("FCM injoignable")
+            erreurs.append("FCM injoignable")
             continue
         if r.status_code == 200:
             envoye = True
         elif r.status_code == 404 or "UNREGISTERED" in r.text:
             appareil.delete()      # application désinstallée ou jeton périmé
+            supprimes += 1
         else:
             log.warning("FCM %s : %s", r.status_code, r.text[:300])
+            erreurs.append("%s %s" % (r.status_code, r.text[:200]))
+    from .journal import noter
+    noter("push", (donnees or {}).get("type", ""), user, titre, envoye, destinataire=user.email,
+          appareils=len(appareils), jetons_supprimes=supprimes, erreurs=erreurs)
     return envoye

@@ -21,7 +21,8 @@ from django.views.decorators.http import require_POST
 from .api.base import ROLE_PARTICULIER, servir_fichier
 from .comptes import activer, supprimer_compte
 from . import abonnements
-from .models import AbonnementParticulier, Depense, Document, Entretien, Formule, Plein, Rappel, Vehicule
+from .models import (AbonnementParticulier, AppareilNotification, Depense, Document, Entretien, Formule,
+                     JournalAbonnement, Plein, Rappel, Vehicule)
 
 
 def schema_particuliers():
@@ -118,6 +119,8 @@ def compte(request, pk):
         "etat_abonnement": abonnements.etat(user),
         "formules": [(f.value, f.label, abonnements.LIMITES[f]) for f in abonnements.ORDRE],
         "mode_achats": abonnements.mode_achats(),
+        "journal": JournalAbonnement.objects.filter(utilisateur=user)[:20],
+        "appareils": AppareilNotification.objects.filter(utilisateur=user).count(),
     })
 
 
@@ -240,3 +243,139 @@ def monitoring_api(request):
     from django.http import JsonResponse
     from monitoring.views import donnees_api
     return JsonResponse(donnees_api(request))
+
+
+# ==================================================================
+# ABONNEMENTS ET NOTIFICATIONS (monitoring) : réglages, actions, e-mails
+# ==================================================================
+def _fichier_ok(chemin):
+    import os
+    return bool(chemin) and os.path.isfile(chemin)
+
+
+def _reglages(request):
+    """Réglages lus dans settings / .env (aucun secret affiché)."""
+    s = settings
+    backend = getattr(s, "EMAIL_BACKEND", "")
+    smtp = "smtp" in backend
+    url = request.build_absolute_uri
+    rtdn = getattr(s, "GOOGLE_RTDN_JETON", "")
+    return [
+        (_("Achats intégrés"), [
+            (_("Mode"), abonnements.mode_achats(), abonnements.mode_achats() == "store" or settings.DEBUG,
+             _("« store » en production : seules les preuves vérifiées par Apple / Google sont acceptées.")),
+            (_("Achats Sandbox acceptés"), _("oui") if abonnements.sandbox_accepte() else _("non"), None, ""),
+            (_("Produits"), ", ".join(f"{p} → {f}" for p, f in abonnements.produits().items()), None, ""),
+        ]),
+        (_("App Store (Apple)"), [
+            (_("Bundle ID"), getattr(s, "APPLE_BUNDLE_ID", "") or "—", bool(getattr(s, "APPLE_BUNDLE_ID", "")), ""),
+            (_("Certificat Apple Root CA G3"), getattr(s, "APPLE_ROOT_CA_G3", "") or _("non défini"),
+             _fichier_ok(getattr(s, "APPLE_ROOT_CA_G3", "")), _("Nécessaire pour vérifier les achats et notifications.")),
+            (_("URL des notifications (V2)"), url("/api/v1/abonnement/notifications/apple/"), None,
+             _("À saisir dans App Store Connect → App → Informations sur l'app.")),
+        ]),
+        (_("Google Play"), [
+            (_("Package"), getattr(s, "GOOGLE_PACKAGE_NAME", "") or "—", bool(getattr(s, "GOOGLE_PACKAGE_NAME", "")), ""),
+            (_("Compte de service (JSON)"), getattr(s, "GOOGLE_SERVICE_ACCOUNT_FILE", "") or _("non défini"),
+             _fichier_ok(getattr(s, "GOOGLE_SERVICE_ACCOUNT_FILE", "")), ""),
+            (_("Jeton des notifications (RTDN)"), _("défini") if rtdn else _("non défini"), bool(rtdn), ""),
+            (_("URL des notifications (Pub/Sub push)"),
+             url("/api/v1/abonnement/notifications/google/") + "?jeton=…", None,
+             _("Abonnement push du sujet Pub/Sub, avec le jeton GOOGLE_RTDN_JETON.")),
+        ]),
+        (_("E-mail"), [
+            (_("Service"), "Brevo (API)" if "brevo" in backend else ("SMTP" if smtp else _("console (pas d'envoi)")),
+             "console" not in backend, backend),
+            (_("Serveur SMTP"), f"{s.EMAIL_HOST}:{s.EMAIL_PORT}" if smtp and s.EMAIL_HOST else "—",
+             bool(s.EMAIL_HOST) if smtp else None, _("TLS") if getattr(s, "EMAIL_USE_TLS", False) else ""),
+            (_("Identifiant"), getattr(s, "EMAIL_HOST_USER", "") or "—", None, ""),
+            (_("Mot de passe / clé"), _("défini") if (s.EMAIL_HOST_PASSWORD or getattr(s, "BREVO_API_KEY", ""))
+             else _("non défini"), bool(s.EMAIL_HOST_PASSWORD or getattr(s, "BREVO_API_KEY", "")), ""),
+            (_("Expéditeur"), s.DEFAULT_FROM_EMAIL, bool(s.DEFAULT_FROM_EMAIL), ""),
+        ]),
+        (_("Notifications push (Firebase)"), [
+            (_("Compte de service (JSON)"), getattr(s, "FIREBASE_SERVICE_ACCOUNT_FILE", "") or _("non défini"),
+             _fichier_ok(getattr(s, "FIREBASE_SERVICE_ACCOUNT_FILE", "")), _("Vide : pas de notifications push.")),
+            (_("Projet"), getattr(s, "FIREBASE_PROJECT_ID", "") or _("lu dans la clé JSON"), None, ""),
+        ]),
+    ]
+
+
+@admin_particuliers
+def abonnements_monitoring(request):
+    from .models import (AppareilNotification, CategorieJournal, JournalAbonnement, NotificationAbonnement,
+                         StatutPaiement)
+    maintenant = timezone.now()
+    payants = AbonnementParticulier.objects.exclude(formule=Formule.GRATUIT).select_related("utilisateur")
+    actifs = [a for a in payants if abonnements.formule_effective(a.utilisateur, a, maintenant) != Formule.GRATUIT]
+    grace = [a for a in payants if a.statut_paiement == StatutPaiement.GRACE]
+    echec = [a for a in payants if a.statut_paiement == StatutPaiement.ECHEC]
+    renouvellements = sorted((a for a in actifs if a.renouvellement_auto and a.date_fin
+                              and a.date_fin <= maintenant + timedelta(days=30)), key=lambda a: a.date_fin)
+    derniere_tache = JournalAbonnement.objects.filter(categorie="tache").first()
+
+    journal = JournalAbonnement.objects.select_related("utilisateur")
+    categorie = request.GET.get("categorie") or ""
+    if categorie:
+        journal = journal.filter(categorie=categorie)
+    q = (request.GET.get("q") or "").strip()
+    if q:
+        journal = journal.filter(Q(destinataire__icontains=q) | Q(utilisateur__email__icontains=q)
+                                 | Q(type__icontains=q) | Q(message__icontains=q))
+    if request.GET.get("erreurs") == "1":
+        journal = journal.filter(succes=False)
+    page = Paginator(journal, 50).get_page(request.GET.get("page"))
+
+    il_y_a_30j = maintenant - timedelta(days=30)
+    emails = JournalAbonnement.objects.filter(categorie="email", date__gte=il_y_a_30j)
+    return render(request, "particulier/admin/abonnements.html", {
+        "stats": {
+            "actifs": len(actifs), "grace": len(grace), "echec": len(echec),
+            "renouvellements_7j": sum(1 for a in renouvellements if a.date_fin <= maintenant + timedelta(days=7)),
+            "notifications_30j": NotificationAbonnement.objects.filter(envoyee_le__gte=il_y_a_30j).count(),
+            "emails_30j": emails.filter(succes=True).count(),
+            "emails_erreurs_30j": emails.filter(succes=False).count(),
+            "appareils": dict(AppareilNotification.objects.values_list("plateforme").annotate(n=Count("id"))),
+        },
+        "a_surveiller": grace + echec,
+        "renouvellements": renouvellements[:20],
+        "derniere_tache": derniere_tache,
+        "tache_en_retard": not derniere_tache or derniere_tache.date < maintenant - timedelta(hours=26),
+        "reglages": _reglages(request),
+        "page": page, "categories": CategorieJournal.choices, "categorie": categorie, "q": q,
+        "erreurs": request.GET.get("erreurs") == "1",
+    })
+
+
+@admin_particuliers
+@require_POST
+def abonnements_email_test(request):
+    """E-mail de test à l'adresse saisie (par défaut : celle de l'administrateur connecté)."""
+    from django.core.mail import send_mail
+    from .journal import noter
+    destinataire = (request.POST.get("email") or request.user.email or "").strip()
+    if not destinataire:
+        messages.error(request, _("Aucune adresse e-mail."))
+        return redirect("particulier_admin:abonnements")
+    sujet = _("CarsCosts : e-mail de test")
+    try:
+        send_mail(sujet, _("Cet e-mail de test confirme que l'envoi fonctionne (%(backend)s).")
+                  % {"backend": settings.EMAIL_BACKEND}, None, [destinataire])
+    except Exception as e:
+        noter("email", "test", None, sujet, False, destinataire=destinataire, erreur=str(e)[:500],
+              par=request.user.email)
+        messages.error(request, _("Échec de l'envoi : %s") % e)
+    else:
+        noter("email", "test", None, sujet, True, destinataire=destinataire, par=request.user.email)
+        messages.success(request, _("E-mail de test envoyé à %s.") % destinataire)
+    return redirect("particulier_admin:abonnements")
+
+
+@admin_particuliers
+@require_POST
+def abonnements_lancer(request):
+    """Lance tout de suite la tâche quotidienne des rappels (comme le cron)."""
+    from .notifications import tache_quotidienne
+    n = tache_quotidienne(origine=_("manuel (%s)") % request.user.email)
+    messages.success(request, _("Rappels traités : %d notification(s) envoyée(s).") % n)
+    return redirect("particulier_admin:abonnements")

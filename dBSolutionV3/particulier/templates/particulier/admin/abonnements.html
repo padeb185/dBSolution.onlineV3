@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Abonnements et notifications – particuliers" %}{% endblock %}
+
+{% block content %}
+{% include "particulier/admin/_styles.html" %}
+<style>
+    .pa-ok { color: #15803d; font-weight: 700; } .pa-ko { color: #b91c1c; font-weight: 700; } .pa-na { color: #9ca3af; }
+    .pa-cat { display: inline-block; padding: 1px 8px; border-radius: 9999px; font-size: .72rem; font-weight: 700; background: #e5e7eb; color: #374151; white-space: nowrap; }
+    .pa-cat-store { background: #dbeafe; color: #1e3a8a; } .pa-cat-achat { background: #dcfce7; color: #166534; }
+    .pa-cat-admin { background: #f3e8ff; color: #6b21a8; } .pa-cat-notification { background: #fef3c7; color: #854d0e; }
+    .pa-cat-email { background: #e0f2fe; color: #075985; } .pa-cat-push { background: #fce7f3; color: #9d174d; }
+    .pa-cat-tache { background: #f3f4f6; color: #374151; }
+    .pa-details { color: #6b7280; font-size: .75rem; font-family: ui-monospace, monospace; word-break: break-all; }
+    .pa-alerte { border: 1px solid #fcd34d; background: #fffbeb; color: #78350f; border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; }
+</style>
+<div class="mx-auto py-6 px-3" style="max-width:80rem">
+<div class="flex flex-wrap justify-between items-center gap-4 mb-4">
+    <div>
+        <h1 class="text-2xl font-bold">{% trans "Abonnements et notifications" %}</h1>
+        <p class="text-gray-600">{% trans "Formules, paiements, notifications des stores, e-mails et push de l'application des particuliers" %}</p>
+    </div>
+    <div class="flex flex-wrap gap-2">
+        <a href="{% url 'particulier_admin:tableau' %}" class="pa-btn pa-btn-clair">{% trans "Comptes" %}</a>
+        <a href="{% url 'particulier_admin:monitoring' %}" class="pa-btn pa-btn-clair">{% trans "Monitoring du serveur" %}</a>
+    </div>
+</div>
+{% include "partials/messages.html" %}
+
+{% if tache_en_retard %}
+<div class="pa-alerte">
+    {% if derniere_tache %}
+    {% blocktrans with d=derniere_tache.date|date:"d/m/Y H:i" %}Les rappels quotidiens n'ont pas tourné depuis le {{ d }} : vérifiez la crontab du serveur (commande notifier_abonnements).{% endblocktrans %}
+    {% else %}
+    {% trans "Les rappels quotidiens n'ont encore jamais tourné : ajoutez la commande notifier_abonnements à la crontab du serveur." %}
+    {% endif %}
+</div>
+{% endif %}
+
+<dl class="pa-kpi">
+    <div><dt>{% trans "Abonnements payants actifs" %}</dt><dd>{{ stats.actifs }}</dd></div>
+    <div><dt>{% trans "Paiement refusé – délai de grâce" %}</dt><dd {% if stats.grace %}style="color:#b45309"{% endif %}>{{ stats.grace }}</dd></div>
+    <div><dt>{% trans "Paiement refusé – accès limité" %}</dt><dd {% if stats.echec %}style="color:#b91c1c"{% endif %}>{{ stats.echec }}</dd></div>
+    <div><dt>{% trans "Renouvellements (7 jours)" %}</dt><dd>{{ stats.renouvellements_7j }}</dd></div>
+    <div><dt>{% trans "Notifications envoyées (30 jours)" %}</dt><dd>{{ stats.notifications_30j }}</dd></div>
+    <div><dt>{% trans "E-mails envoyés (30 jours)" %}</dt><dd>{{ stats.emails_30j }}{% if stats.emails_erreurs_30j %} <small style="color:#b91c1c">{% blocktrans with n=stats.emails_erreurs_30j %}{{ n }} en erreur{% endblocktrans %}</small>{% endif %}</dd></div>
+    <div><dt>{% trans "Appareils (push)" %}</dt><dd style="font-size:1rem">{% for p, n in stats.appareils.items %}{{ p|default:"?" }} <strong>{{ n }}</strong>{% if not forloop.last %} · {% endif %}{% empty %}0{% endfor %}</dd></div>
+    <div><dt>{% trans "Derniers rappels quotidiens" %}</dt><dd style="font-size:1rem">{% if derniere_tache %}{{ derniere_tache.date|date:"d/m H:i" }} <small>{{ derniere_tache.message }}</small>{% else %}—{% endif %}</dd></div>
+</dl>
+
+<!-- ================= Actions ================= -->
+<div class="pa-carte">
+    <h2 class="text-lg font-semibold mb-3">{% trans "Actions" %}</h2>
+    <div class="flex flex-wrap gap-6 items-end">
+        <form method="post" action="{% url 'particulier_admin:abonnements_email_test' %}" class="flex flex-wrap gap-2 items-end">
+            {% csrf_token %}
+            <label class="text-sm">{% trans "Envoyer un e-mail de test à" %}<br>
+                <input type="email" name="email" value="{{ request.user.email }}" class="pa-champ" style="min-width:260px">
+            </label>
+            <button class="pa-btn pa-btn-bleu" type="submit">{% trans "Envoyer" %}</button>
+        </form>
+        <form method="post" action="{% url 'particulier_admin:abonnements_lancer' %}">
+            {% csrf_token %}
+            <button class="pa-btn pa-btn-orange" type="submit">{% trans "Lancer les rappels maintenant" %}</button>
+        </form>
+    </div>
+    <p class="pa-aide mt-2">{% trans "Les rappels ne sont envoyés qu'une fois par échéance : les relancer ne crée pas de doublon." %}</p>
+</div>
+
+<!-- ================= Comptes à surveiller ================= -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<div class="pa-carte">
+    <h2 class="text-lg font-semibold mb-3">{% trans "Paiements refusés" %}</h2>
+    <table class="pa-table">
+        <thead><tr><th>{% trans "Compte" %}</th><th>{% trans "Formule" %}</th><th>{% trans "Statut" %}</th><th>{% trans "Fin du délai" %}</th></tr></thead>
+        <tbody>
+        {% for a in a_surveiller %}
+        <tr class="pa-ligne" onclick="location.href='{% url 'particulier_admin:compte' a.utilisateur.pk %}'">
+            <td>{{ a.utilisateur.email }}</td>
+            <td><span class="pa-badge pa-f-{{ a.formule }}">{{ a.get_formule_display }}</span> <small>{{ a.get_source_display }}</small></td>
+            <td>{{ a.get_statut_paiement_display }}</td>
+            <td>{{ a.date_fin_grace|date:"d/m/Y"|default:"—" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4" class="pa-aide">{% trans "Aucun paiement refusé." %}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="pa-carte">
+    <h2 class="text-lg font-semibold mb-3">{% trans "Renouvellements (30 jours)" %}</h2>
+    <table class="pa-table">
+        <thead><tr><th>{% trans "Compte" %}</th><th>{% trans "Formule" %}</th><th>{% trans "Période" %}</th><th>{% trans "Date" %}</th></tr></thead>
+        <tbody>
+        {% for a in renouvellements %}
+        <tr class="pa-ligne" onclick="location.href='{% url 'particulier_admin:compte' a.utilisateur.pk %}'">
+            <td>{{ a.utilisateur.email }}</td>
+            <td><span class="pa-badge pa-f-{{ a.formule }}">{{ a.get_formule_display }}</span></td>
+            <td>{{ a.get_periode_display }}</td>
+            <td>{{ a.date_fin|date:"d/m/Y" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4" class="pa-aide">{% trans "Aucun renouvellement prévu." %}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+
+<!-- ================= Réglages ================= -->
+<div class="pa-carte">
+    <h2 class="text-lg font-semibold mb-3">{% trans "Réglages" %} <span class="pa-aide">{% trans "(fichier .env du serveur – les secrets ne sont jamais affichés)" %}</span></h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    {% for titre, lignes in reglages %}
+        <div>
+            <h3 class="font-semibold mb-1">{{ titre }}</h3>
+            <table class="pa-table">
+                {% for libelle, valeur, ok, aide in lignes %}
+                <tr>
+                    <td style="width:38%">{{ libelle }}</td>
+                    <td style="word-break:break-all">{{ valeur }}{% if aide %}<div class="pa-aide">{{ aide }}</div>{% endif %}</td>
+                    <td style="width:2rem;text-align:center">{% if ok is True %}<span class="pa-ok">✓</span>{% elif ok is False %}<span class="pa-ko">✗</span>{% else %}<span class="pa-na">·</span>{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+
+<!-- ================= Journal ================= -->
+<div class="pa-carte">
+    <h2 class="text-lg font-semibold mb-3">{% trans "Journal des actions" %}</h2>
+    <form method="get" class="flex flex-wrap gap-3 mb-4 items-center">
+        <select name="categorie" class="pa-champ" onchange="this.form.submit()">
+            <option value="">{% trans "Toutes les catégories" %}</option>
+            {% for code, libelle in categories %}<option value="{{ code }}" {% if code == categorie %}selected{% endif %}>{{ libelle }}</option>{% endfor %}
+        </select>
+        <input type="search" name="q" value="{{ q }}" placeholder="{% trans 'E-mail, type, message…' %}" class="pa-champ" style="flex:1;min-width:220px">
+        <label class="text-sm"><input type="checkbox" name="erreurs" value="1" {% if erreurs %}checked{% endif %} onchange="this.form.submit()"> {% trans "Erreurs seulement" %}</label>
+        <button class="pa-btn pa-btn-bleu" type="submit">{% trans "Filtrer" %}</button>
+    </form>
+    <div style="overflow-x:auto">
+    <table class="pa-table">
+        <thead><tr><th>{% trans "Date" %}</th><th>{% trans "Catégorie" %}</th><th>{% trans "Type" %}</th><th>{% trans "Compte / destinataire" %}</th><th>{% trans "Message" %}</th><th></th></tr></thead>
+        <tbody>
+        {% for j in page %}
+        <tr>
+            <td class="num">{{ j.date|date:"d/m/Y H:i" }}</td>
+            <td><span class="pa-cat pa-cat-{{ j.categorie }}">{{ j.get_categorie_display }}</span></td>
+            <td>{{ j.type }}</td>
+            <td>{% if j.utilisateur %}<a href="{% url 'particulier_admin:compte' j.utilisateur.pk %}" class="text-blue-700">{{ j.utilisateur.email }}</a>{% else %}{{ j.destinataire|default:"—" }}{% endif %}</td>
+            <td>{{ j.message }}{% if j.details %}<div class="pa-details">{% for k, v in j.details.items %}{{ k }}={{ v }} {% endfor %}</div>{% endif %}</td>
+            <td style="text-align:center">{% if j.succes %}<span class="pa-ok">✓</span>{% else %}<span class="pa-ko">✗</span>{% endif %}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6" class="pa-aide">{% trans "Aucune action enregistrée." %}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    {% if page.has_other_pages %}
+    <div class="flex gap-2 mt-3 items-center">
+        {% if page.has_previous %}<a class="pa-btn pa-btn-clair" href="?categorie={{ categorie }}&q={{ q|urlencode }}{% if erreurs %}&erreurs=1{% endif %}&page={{ page.previous_page_number }}">‹</a>{% endif %}
+        <span class="text-sm">{% blocktrans with n=page.number t=page.paginator.num_pages %}Page {{ n }} / {{ t }}{% endblocktrans %}</span>
+        {% if page.has_next %}<a class="pa-btn pa-btn-clair" href="?categorie={{ categorie }}&q={{ q|urlencode }}{% if erreurs %}&erreurs=1{% endif %}&page={{ page.next_page_number }}">›</a>{% endif %}
+    </div>
+    {% endif %}
+    <p class="pa-aide mt-2">{% trans "Conservé un an. Les e-mails de réinitialisation de mot de passe ne figurent pas ici (envoyés par la connexion web)." %}</p>
+</div>
+</div>
+{% endblock %}
