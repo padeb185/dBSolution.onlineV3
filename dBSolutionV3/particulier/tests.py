@@ -208,3 +208,47 @@ class FacturationTests(SimpleTestCase):
                 self.assertIn("Silver", sujet + texte)
                 self.assertNotIn("%(", sujet + texte)
         self.assertEqual(notifications.cle_echeance(ab, "paiement_refuse"), ab.date_fin_grace.date().isoformat())
+
+
+class StatistiquesPneusTests(SimpleTestCase):
+    def test_statistiques(self):
+        from decimal import Decimal
+        from . import calculs
+        def train(**kw):
+            from .models import TrainPneus
+            d = dict(position="avant", type_pneus="ete", marque="michelin", prix=Decimal("200"),
+                     actif=True, est_monte=False, km_montage=0, km_cumules=0, date_achat=date(2024, 1, 1),
+                     date_montage=date(2024, 1, 1), date_remplacement=None)
+            d.update(kw)
+            t = TrainPneus(**d)
+            t.km_effectues = lambda km_actuel=None, t=t: TrainPneus.km_effectues(t, 60000)   # véhicule à 60 000 km
+            return t
+
+        trains = [
+            # Été remplacé après 30 000 km et 12 mois
+            train(actif=False, km_cumules=30000, date_remplacement=date(2025, 1, 1)),
+            # Été monté depuis 40 000 km : 20 000 km
+            train(est_monte=True, km_montage=40000, date_achat=date(2025, 1, 1)),
+            # Hiver démonté, 10 000 km cumulés, sans prix
+            train(type_pneus="hiver", position="arriere", marque="Pirelli", prix=None, km_cumules=10000),
+            train(type_pneus="slick", marque="", prix=Decimal("600"), km_cumules=1000),
+        ]
+        s = calculs.statistiques_pneus(trains)
+        types = {t["type"]: t for t in s["par_type"]}
+        self.assertEqual([t["type"] for t in s["par_type"]], ["ete", "hiver", "4saisons", "pluie", "semi_slick", "slick"])
+        self.assertEqual((types["ete"]["trains"], types["ete"]["en_service"], types["ete"]["remplaces"]), (2, 1, 1))
+        self.assertEqual(types["ete"]["montes"], 1)
+        self.assertEqual(types["ete"]["km"], 50000)
+        self.assertEqual(types["ete"]["cout"], Decimal("400.00"))
+        self.assertEqual(types["ete"]["cout_1000_km"], Decimal("8.00"))
+        self.assertEqual(types["ete"]["km_moyen_remplacement"], 30000)
+        self.assertEqual(types["ete"]["duree_moyenne_mois"], 12.0)
+        self.assertEqual(types["hiver"]["cout_1000_km"], None)        # prix inconnu
+        self.assertEqual(types["4saisons"]["trains"], 0)
+        self.assertEqual(s["total"]["trains"], 4)
+        self.assertEqual(s["total"]["km"], 61000)
+        # Coût aux 1 000 km du total : seulement les km des trains au prix connu (51 000 km pour 1 000 €)
+        self.assertEqual(s["total"]["cout_1000_km"], Decimal("19.61"))
+        marques = [m["marque"] for m in s["par_marque"]]
+        self.assertEqual(marques[0], "Michelin")
+        self.assertIn("—", marques)

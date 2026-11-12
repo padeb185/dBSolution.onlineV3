@@ -618,6 +618,12 @@ class PneusViewSet(ProprietaireViewSet):
             _noter_kilometrage(vehicule, jour, km)
         return Response(self.get_serializer(TrainPneus.objects.filter(vehicule=vehicule), many=True).data)
 
+    @action(detail=False)
+    def statistiques(self, request):
+        """Nombre de trains par type (été, hiver, 4 saisons, pluie, semi-slick, slick) et statistiques :
+        km, coût, coût aux 1 000 km, km et durée moyens avant remplacement. ?vehicule=… (sinon tous les véhicules)."""
+        return Response(calculs.statistiques_pneus(list(self.get_queryset())))
+
 
 class MaintenanceViewSet(ProprietaireViewSet):
     """Maintenances par un garage (pièces / main-d'œuvre séparées) : formule Bronze minimum."""

@@ -593,3 +593,67 @@ def rapport(vehicule, code_periode=None, aujourdhui=None):
         "kilometres": {"par_mois": km_par_mois, "total": km_periode,
                        "moyenne_mois": round(km_periode / len(mois)) if mois else None},
     }
+
+
+# ==================================================================
+# PNEUS : nombre de trains par type (été, hiver, slick…) et statistiques
+# ==================================================================
+def statistiques_pneus(trains, aujourd_hui=None):
+    """Statistiques des trains de pneus (un train = les pneus d'un essieu).
+
+    Par type (été, hiver, 4 saisons, pluie, semi-slick, slick) et au total : nombre de trains (en service,
+    montés, remplacés), kilomètres parcourus, coût, coût aux 1 000 km, kilométrage et durée moyens avant
+    remplacement ; par essieu et par marque.
+    """
+    from .models import TrainPneus
+    aujourd_hui = aujourd_hui or date.today()
+
+    def vide():
+        return {"trains": 0, "en_service": 0, "montes": 0, "remplaces": 0, "km": 0, "cout": D(0),
+                "km_trains_prix": 0, "_km_remplaces": [], "_jours_remplaces": []}
+
+    def ajouter(acc, t, km):
+        acc["trains"] += 1
+        acc["en_service"] += 1 if t.actif else 0
+        acc["montes"] += 1 if (t.actif and t.est_monte) else 0
+        acc["remplaces"] += 0 if t.actif else 1
+        acc["km"] += km
+        if t.prix is not None:
+            acc["cout"] += D(t.prix)
+            acc["km_trains_prix"] += km
+        if not t.actif:
+            acc["_km_remplaces"].append(km)
+            debut = t.date_achat or t.date_montage
+            if debut and t.date_remplacement:
+                acc["_jours_remplaces"].append((t.date_remplacement - debut).days)
+
+    def finaliser(acc):
+        kms, jours = acc.pop("_km_remplaces"), acc.pop("_jours_remplaces")
+        km_prix = acc.pop("km_trains_prix")
+        acc["cout"] = r2(acc["cout"])
+        # Coût aux 1 000 km : seulement les trains dont le prix est connu
+        acc["cout_1000_km"] = r2(acc["cout"] * 1000 / km_prix) if km_prix and acc["cout"] else None
+        acc["km_moyen_remplacement"] = round(sum(kms) / len(kms)) if kms else None
+        acc["duree_moyenne_mois"] = round(sum(jours) / len(jours) / 30.44, 1) if jours else None
+        return acc
+
+    par_type, par_position, par_marque, total = {}, {}, {}, vide()
+    for t in trains:
+        km = t.km_effectues()
+        ajouter(total, t, km)
+        ajouter(par_type.setdefault(t.type_pneus, vide()), t, km)
+        ajouter(par_position.setdefault(t.position, vide()), t, km)
+        marque = (t.marque or "").strip().title() or "—"
+        ajouter(par_marque.setdefault(marque, vide()), t, km)
+
+    libelles = dict(TrainPneus.TypePneus.choices)
+    return {
+        "total": finaliser(total),
+        # Tous les types, même à zéro, dans l'ordre du modèle (été, hiver, 4 saisons, pluie, semi-slick, slick)
+        "par_type": [{"type": code, "libelle": str(libelles[code]), **finaliser(par_type.get(code, vide()))}
+                     for code in libelles],
+        "par_position": [{"position": code, "libelle": str(lib), **finaliser(par_position.get(code, vide()))}
+                         for code, lib in TrainPneus.Position.choices],
+        "par_marque": sorted(({"marque": m, **finaliser(a)} for m, a in par_marque.items()),
+                             key=lambda x: (-x["trains"], x["marque"])),
+    }
