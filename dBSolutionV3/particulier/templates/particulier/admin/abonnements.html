@@ -167,7 +167,7 @@
         {% if page.has_next %}<a class="pa-btn pa-btn-clair" href="?categorie={{ categorie }}&q={{ q|urlencode }}{% if erreurs %}&erreurs=1{% endif %}&page={{ page.next_page_number }}">›</a>{% endif %}
     </div>
     {% endif %}
-    <p class="pa-aide mt-2">{% trans "Conservé un an. Les e-mails de réinitialisation de mot de passe ne figurent pas ici (envoyés par la connexion web)." %}</p>
+    <p class="pa-aide mt-2">{% trans "Conservé un an. E-mails des comptes particuliers : abonnement, mot de passe oublié (mot_de_passe_oublie), alertes de sécurité après un changement de mot de passe (email_alerte_changement) et e-mails de test." %}</p>
 </div>
 </div>
 {% endblock %}

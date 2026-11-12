@@ -59,12 +59,15 @@ def _envoyer(sujet, gabarit, contexte, destinataires):
     html = render_to_string(f"utilisateurs/mot_de_passe/{gabarit}.html", contexte)
     message = EmailMultiAlternatives(sujet, texte, settings.DEFAULT_FROM_EMAIL, destinataires)
     message.attach_alternative(html, "text/html")
+    from particulier.journal import noter_email_compte
     try:
         message.send()
-        return True
-    except Exception:
+    except Exception as e:
         logger.exception("Envoi de l'e-mail de sécurité impossible (%s)", gabarit)
+        noter_email_compte(contexte.get("user"), gabarit, sujet, False, destinataires, str(e))
         return False
+    noter_email_compte(contexte.get("user"), gabarit, sujet, True, destinataires)
+    return True
 
 
 def alerter_changement(request, utilisateur, evenement):

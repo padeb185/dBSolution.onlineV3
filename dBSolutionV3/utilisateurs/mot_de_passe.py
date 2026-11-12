@@ -112,10 +112,25 @@ class ReinitialisationForm(PasswordResetForm):
 
     def send_mail(self, subject_template_name, email_template_name, context, from_email, to_email,
                   html_email_template_name=None):
+        """Comme PasswordResetForm.send_mail, en sachant si l'envoi a réussi (journal des particuliers)."""
+        import logging
+        from django.core.mail import EmailMultiAlternatives
+        from django.template import loader
         utilisateur = context.get("user")
         destinataire = adresse_recuperation(utilisateur) if utilisateur else to_email
-        super().send_mail(subject_template_name, email_template_name, context, from_email, destinataire,
-                          html_email_template_name)
+        sujet = "".join(loader.render_to_string(subject_template_name, context).splitlines())
+        message = EmailMultiAlternatives(sujet, loader.render_to_string(email_template_name, context),
+                                         from_email, [destinataire])
+        if html_email_template_name is not None:
+            message.attach_alternative(loader.render_to_string(html_email_template_name, context), "text/html")
+        erreur = ""
+        try:
+            message.send()
+        except Exception as e:      # comme Django : pas d'erreur affichée (ne révèle pas si le compte existe)
+            logging.getLogger("django.contrib.auth").exception("Échec de l'envoi de l'e-mail de réinitialisation")
+            erreur = str(e)
+        from particulier.journal import noter_email_compte
+        noter_email_compte(utilisateur, "mot_de_passe_oublie", sujet, not erreur, [destinataire], erreur)
 
 
 class NouveauMotDePasseForm(SetPasswordForm):
