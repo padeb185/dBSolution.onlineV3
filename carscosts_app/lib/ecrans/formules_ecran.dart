@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../achats/abonnement.dart';
 import '../l10n/langue.dart';
+import '../widgets/bandeau_abonnement.dart';
 import '../widgets/format.dart';
 
 /// Formules : Gratuit (1 véhicule), Bronze (2), Silver (5), Gold (10). Achat dans l'application.
@@ -19,6 +20,7 @@ class FormulesEcran extends StatefulWidget {
 class _FormulesEcranState extends State<FormulesEcran> {
   late Future<void> _chargement;
   String? _dernierMessage;
+  bool _annuel = false;
 
   static const _couleurs = {
     'gratuit': Color(0xFF6B7280),
@@ -30,7 +32,9 @@ class _FormulesEcranState extends State<FormulesEcran> {
   @override
   void initState() {
     super.initState();
-    _chargement = context.read<Abonnement>().charger();
+    final ab = context.read<Abonnement>();
+    _annuel = ab.periode == 'annuel';
+    _chargement = ab.charger();
   }
 
   @override
@@ -57,20 +61,30 @@ class _FormulesEcranState extends State<FormulesEcran> {
                   color: Theme.of(context).colorScheme.errorContainer,
                   child: Padding(padding: const EdgeInsets.all(12), child: Text(widget.raison!)),
                 ),
+              const BandeauAbonnement(cliquable: false),
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: Icon(Icons.workspace_premium, color: _couleurs[ab.formule], size: 36),
                 title: Text(t('Formule actuelle : {formule}', {'formule': ab.libelle}), style: const TextStyle(fontWeight: FontWeight.bold)),
                 subtitle: Text([
                   t('{n} véhicule(s) actif(s) sur {limite}', {'n': ab.vehiculesActifs, 'limite': ab.limite}),
-                  if (ab.etat?['date_fin'] != null)
-                    ab.etat?['renouvellement_auto'] == true
-                        ? t('renouvellement le {date}', {'date': dateFr(ab.etat!['date_fin'])})
-                        : t('jusqu\'au {date}', {'date': dateFr(ab.etat!['date_fin'])}),
                   if (ab.etat?['echue'] == true) t('abonnement échu'),
                 ].join(' · ')),
               ),
+              if (ab.periode != null || ab.dateFin != null) _facturation(ab),
               const SizedBox(height: 8),
+              if (ab.formules.any((f) => Abonnement.produitsDe(f, annuel: true).isNotEmpty))
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: SegmentedButton<bool>(
+                    segments: [
+                      ButtonSegment(value: false, label: Text(t('Mensuel'))),
+                      ButtonSegment(value: true, label: Text(t('Annuel'))),
+                    ],
+                    selected: {_annuel},
+                    onSelectionChanged: (v) => setState(() => _annuel = v.first),
+                  ),
+                ),
               for (final f in ab.formules) _carte(ab, f),
               const SizedBox(height: 12),
               if (Abonnement.plateformeStore && ab.storeDisponible)
@@ -85,10 +99,10 @@ class _FormulesEcranState extends State<FormulesEcran> {
                 Text(t('Le store n\'est pas disponible sur cet appareil.')),
               const SizedBox(height: 12),
               Text(
-                t('Abonnement mensuel renouvelé automatiquement, résiliable à tout moment dans les réglages '
+                t('Abonnement mensuel ou annuel renouvelé automatiquement, résiliable à tout moment dans les réglages '
                     'de votre compte App Store ou Google Play. Les véhicules archivés (vendus) ne comptent pas '
-                    'dans la limite ; si vous changez pour une formule inférieure, vos véhicules restent consultables '
-                    'mais vous ne pourrez plus en ajouter au-delà de la limite.'),
+                    'dans la limite. Si le paiement est refusé, la formule reste active pendant le délai de grâce du '
+                    'store ; ensuite, les véhicules au-delà de la limite passent en lecture seule (rien n\'est supprimé).'),
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               if (ab.modeTest) ...[
@@ -103,11 +117,46 @@ class _FormulesEcranState extends State<FormulesEcran> {
     );
   }
 
+  /// Détail de la facturation : période, dates de facturation et de renouvellement, statut du paiement.
+  Widget _facturation(Abonnement ab) {
+    final (statut, couleur) = switch (ab.statutPaiement) {
+      'grace' => (t('Paiement refusé – délai de grâce jusqu\'au {date}', {'date': dateFr(ab.dateFinGrace)}),
+          Colors.orange.shade800),
+      'echec' => (t('Paiement refusé – accès limité'), Theme.of(context).colorScheme.error),
+      _ => (t('Paiement à jour'), Colors.green.shade700),
+    };
+    Widget ligne(String libelle, String valeur, [Color? c]) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 3),
+          child: Row(children: [
+            Expanded(child: Text(libelle)),
+            Flexible(
+                child: Text(valeur,
+                    textAlign: TextAlign.end, style: TextStyle(fontWeight: FontWeight.w600, color: c))),
+          ]),
+        );
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(children: [
+          if (ab.periode != null) ligne(t('Période de facturation'), Abonnement.libellePeriode(ab.periode)),
+          if (ab.dateDebut != null) ligne(t('Date de facturation (début)'), dateFr(ab.dateDebut)),
+          if (ab.dateDerniereFacturation != null) ligne(t('Dernière facturation'), dateFr(ab.dateDerniereFacturation)),
+          if (ab.dateRenouvellement != null)
+            ligne(t('Date de renouvellement'), dateFr(ab.dateRenouvellement))
+          else if (ab.dateFin != null)
+            ligne(t('Fin de la formule'), dateFr(ab.dateFin)),
+          if (ab.periode != null) ligne(t('Paiement'), statut, couleur),
+        ]),
+      ),
+    );
+  }
+
   Widget _carte(Abonnement ab, Map<String, dynamic> f) {
     final code = f['code'] as String;
-    final actuelle = code == ab.formule;
-    final produits = (f['produits'] as List? ?? []).cast<String>();
-    final produit = ab.produitDe(f);
+    // Même formule mais autre période (mensuel ↔ annuel) : proposée comme un changement
+    final actuelle = code == ab.formule && (ab.periode == null || (ab.periode == 'annuel') == _annuel);
+    final produits = Abonnement.produitsDe(f, annuel: _annuel);
+    final produit = ab.produitDe(f, annuel: _annuel);
     final couleur = _couleurs[code] ?? Colors.blueGrey;
     return Card(
       shape: RoundedRectangleBorder(
@@ -123,7 +172,9 @@ class _FormulesEcranState extends State<FormulesEcran> {
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(Abonnement.libelleFormule(code), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               Text(f['limite'] == 1 ? t('1 véhicule') : t('Jusqu\'à {n} véhicules', {'n': f['limite']})),
-              if (produit != null) Text(t('{prix} / mois', {'prix': produit.price}), style: TextStyle(color: couleur, fontWeight: FontWeight.w600)),
+              if (produit != null)
+                Text(_annuel ? t('{prix} / an', {'prix': produit.price}) : t('{prix} / mois', {'prix': produit.price}),
+                    style: TextStyle(color: couleur, fontWeight: FontWeight.w600)),
             ]),
           ),
           if (actuelle)

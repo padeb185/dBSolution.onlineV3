@@ -110,8 +110,101 @@ class LimitesTests(SimpleTestCase):
         from datetime import timedelta
         from django.utils import timezone
         from . import abonnements
-        ab = SimpleNamespace(formule="gold", date_fin=timezone.now() - timedelta(minutes=1))
+        ab = SimpleNamespace(formule="gold", date_fin=timezone.now() - timedelta(minutes=1), statut_paiement="ok",
+                             date_fin_grace=None)
         self.assertEqual(abonnements.formule_effective(None, ab), "gratuit")
         ab.date_fin = None
         self.assertEqual(abonnements.formule_effective(None, ab), "gold")
         self.assertEqual(abonnements.formule_effective(None, False), "gratuit")
+
+
+class FacturationTests(SimpleTestCase):
+    """Période, délai de grâce, échec de paiement, bandeau et notifications (sans base de données)."""
+
+    def _ab(self, **kw):
+        from django.utils import timezone
+        from datetime import timedelta
+        d = dict(formule="silver", date_fin=timezone.now() + timedelta(days=10), statut_paiement="ok",
+                 date_fin_grace=None, renouvellement_auto=True, source="apple", periode="mensuel")
+        d.update(kw)
+        return SimpleNamespace(**d)
+
+    def test_periode_du_produit(self):
+        from . import abonnements
+        self.assertEqual(abonnements.periode_du_produit("carscosts_gold_annuel"), "annuel")
+        self.assertEqual(abonnements.periode_du_produit("carscosts_gold_mensuel"), "mensuel")
+        self.assertEqual(abonnements.periode_du_produit(""), "")
+        self.assertEqual(abonnements.formule_du_produit("carscosts_bronze_annuel"), "bronze")
+
+    def test_moins_une_periode(self):
+        from datetime import datetime, timezone
+        from . import abonnements
+        fin = datetime(2026, 3, 31, 10, tzinfo=timezone.utc)
+        self.assertEqual(abonnements._moins_une_periode(fin, "mensuel"), datetime(2026, 2, 28, 10, tzinfo=timezone.utc))
+        self.assertEqual(abonnements._moins_une_periode(fin, "annuel"), datetime(2025, 3, 31, 10, tzinfo=timezone.utc))
+        self.assertIsNone(abonnements._moins_une_periode(None, "mensuel"))
+
+    def test_grace_puis_echec(self):
+        from datetime import timedelta
+        from django.utils import timezone
+        from . import abonnements
+        maintenant = timezone.now()
+        # Échéance passée mais délai de grâce en cours : formule conservée
+        ab = self._ab(date_fin=maintenant - timedelta(days=1), statut_paiement="grace",
+                      date_fin_grace=maintenant + timedelta(days=5))
+        self.assertEqual(abonnements.formule_effective(None, ab), "silver")
+        # Délai de grâce dépassé : gratuit
+        ab.date_fin_grace = maintenant - timedelta(minutes=1)
+        self.assertEqual(abonnements.formule_effective(None, ab), "gratuit")
+        # Échec (compte suspendu par le store) : gratuit même si la date de fin est future
+        ab = self._ab(statut_paiement="echec")
+        self.assertEqual(abonnements.formule_effective(None, ab), "gratuit")
+
+    def test_statut_apple(self):
+        import time
+        from . import abonnements
+        futur = int((time.time() + 3 * 86400) * 1000)
+        passe = int((time.time() - 86400) * 1000)
+        self.assertEqual(abonnements.statut_paiement_apple({"gracePeriodExpiresDate": futur})["statut_paiement"], "grace")
+        self.assertEqual(abonnements.statut_paiement_apple({"gracePeriodExpiresDate": passe,
+                                                            "isInBillingRetryPeriod": True})["statut_paiement"], "echec")
+        self.assertEqual(abonnements.statut_paiement_apple({"autoRenewStatus": 1})["statut_paiement"], "ok")
+
+    def test_statut_google(self):
+        from django.utils import timezone
+        from . import abonnements
+        fin = timezone.now()
+        self.assertEqual(abonnements.statut_paiement_google("SUBSCRIPTION_STATE_IN_GRACE_PERIOD", fin),
+                         {"statut_paiement": "grace", "date_fin_grace": fin})
+        self.assertEqual(abonnements.statut_paiement_google("SUBSCRIPTION_STATE_ON_HOLD", fin)["statut_paiement"], "echec")
+        self.assertEqual(abonnements.statut_paiement_google("SUBSCRIPTION_STATE_ACTIVE", fin)["statut_paiement"], "ok")
+
+    def test_alerte(self):
+        from datetime import timedelta
+        from django.utils import timezone
+        from . import abonnements
+        maintenant = timezone.now()
+        ab = self._ab(statut_paiement="grace", date_fin=maintenant - timedelta(days=1),
+                      date_fin_grace=maintenant + timedelta(days=5))
+        self.assertEqual(abonnements.alerte(ab, "silver", 5, [])["code"], "paiement_refuse")
+        ab = self._ab(statut_paiement="echec")
+        a = abonnements.alerte(ab, "gratuit", 1, ["v2"])
+        self.assertEqual((a["code"], a["niveau"]), ("acces_limite", "erreur"))
+        self.assertIn("lecture seule", a["message"])
+        ab = self._ab(renouvellement_auto=False, date_fin=maintenant + timedelta(days=3))
+        self.assertEqual(abonnements.alerte(ab, "silver", 5, [])["code"], "fin_proche")
+        self.assertIsNone(abonnements.alerte(self._ab(), "silver", 5, []))
+        self.assertIsNone(abonnements.alerte(None, "gratuit", 1, []))
+
+    def test_messages_notifications(self):
+        from datetime import timedelta
+        from django.utils import timezone, translation
+        from . import notifications
+        ab = self._ab(statut_paiement="grace", date_fin_grace=timezone.now() + timedelta(days=5))
+        with translation.override("fr"):
+            for type_ in ("paiement_refuse", "grace_fin_proche", "acces_limite", "expiree", "paiement_retabli",
+                          "renouvellement_proche", "fin_proche"):
+                sujet, texte = notifications.message(ab, type_)
+                self.assertIn("Silver", sujet + texte)
+                self.assertNotIn("%(", sujet + texte)
+        self.assertEqual(notifications.cle_echeance(ab, "paiement_refuse"), ab.date_fin_grace.date().isoformat())

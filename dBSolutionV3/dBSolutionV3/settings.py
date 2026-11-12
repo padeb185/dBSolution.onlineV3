@@ -671,6 +671,9 @@ APPLE_ROOT_CA_G3 = env("APPLE_ROOT_CA_G3", default="")
 GOOGLE_PACKAGE_NAME = env("GOOGLE_PACKAGE_NAME", default="com.carscosts.carscosts_app")
 GOOGLE_SERVICE_ACCOUNT_FILE = env("GOOGLE_SERVICE_ACCOUNT_FILE", default="")
 GOOGLE_RTDN_JETON = env("GOOGLE_RTDN_JETON", default="")
+# Notifications push (Firebase Cloud Messaging) – voir particulier/notifications.py ; vide : pas de push
+FIREBASE_SERVICE_ACCOUNT_FILE = env("FIREBASE_SERVICE_ACCOUNT_FILE", default="")
+FIREBASE_PROJECT_ID = env("FIREBASE_PROJECT_ID", default="")
 
 REST_FRAMEWORK = {
     # Montants en nombres JSON (et non en chaînes) pour l'application

@@ -392,6 +392,18 @@ class SourceAbonnement(models.TextChoices):
     TEST = "test", _("Achat de test (développement)")
 
 
+class PeriodeFacturation(models.TextChoices):
+    AUCUNE = "", _("—")
+    MENSUEL = "mensuel", _("Mensuel")
+    ANNUEL = "annuel", _("Annuel")
+
+
+class StatutPaiement(models.TextChoices):
+    OK = "ok", _("Paiement à jour")
+    GRACE = "grace", _("Paiement refusé – délai de grâce")
+    ECHEC = "echec", _("Paiement refusé – accès limité")
+
+
 class AbonnementParticulier(models.Model):
     """Formule d'un compte particulier. Sans ligne, ou échue (date_fin passée) : formule gratuite."""
     utilisateur = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
@@ -406,6 +418,15 @@ class AbonnementParticulier(models.Model):
     environnement = models.CharField(_("Environnement"), max_length=20, blank=True,
                                      help_text=_("Production ou Sandbox (achats de test des stores)."))
     renouvellement_auto = models.BooleanField(_("Renouvellement automatique"), default=False)
+    periode = models.CharField(_("Période de facturation"), max_length=10, choices=PeriodeFacturation.choices,
+                               blank=True, default="")
+    date_debut = models.DateTimeField(_("Début de l'abonnement"), null=True, blank=True,
+                                      help_text=_("Premier achat (date de facturation initiale)."))
+    date_derniere_facturation = models.DateTimeField(_("Dernière facturation"), null=True, blank=True)
+    statut_paiement = models.CharField(_("Statut du paiement"), max_length=10, choices=StatutPaiement.choices,
+                                       default=StatutPaiement.OK)
+    date_fin_grace = models.DateTimeField(_("Fin du délai de grâce"), null=True, blank=True,
+                                          help_text=_("Paiement refusé : la formule reste active jusqu'à cette date."))
     note = models.CharField(_("Note"), max_length=255, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -416,6 +437,41 @@ class AbonnementParticulier(models.Model):
 
     def __str__(self):
         return f"{self.utilisateur_id} – {self.get_formule_display()}"
+
+
+class NotificationAbonnement(models.Model):
+    """Notification d'abonnement déjà envoyée (évite les doublons : un type par échéance)."""
+    utilisateur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+                                    related_name="notifications_abonnement")
+    type = models.CharField(_("Type"), max_length=30)
+    cle = models.CharField(_("Échéance"), max_length=40, blank=True)
+    canaux = models.CharField(_("Canaux"), max_length=40, blank=True)
+    envoyee_le = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("Notification d'abonnement")
+        verbose_name_plural = _("Notifications d'abonnement")
+        constraints = [models.UniqueConstraint(fields=["utilisateur", "type", "cle"], name="notif_abonnement_unique")]
+
+    def __str__(self):
+        return f"{self.utilisateur_id} – {self.type} ({self.cle})"
+
+
+class AppareilNotification(models.Model):
+    """Jeton Firebase Cloud Messaging d'un appareil (notifications push)."""
+    utilisateur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+                                    related_name="appareils_notification")
+    jeton = models.CharField(_("Jeton FCM"), max_length=255, unique=True)
+    plateforme = models.CharField(_("Plateforme"), max_length=10, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _("Appareil (notifications)")
+        verbose_name_plural = _("Appareils (notifications)")
+
+    def __str__(self):
+        return f"{self.utilisateur_id} – {self.plateforme}"
 
 
 class UniteDistance(models.TextChoices):

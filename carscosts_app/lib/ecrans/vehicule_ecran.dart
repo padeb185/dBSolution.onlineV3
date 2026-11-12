@@ -7,6 +7,7 @@ import '../api/api_client.dart';
 import '../l10n/langue.dart';
 import '../l10n/unites.dart';
 import '../modeles/ressources.dart';
+import '../widgets/bandeau_abonnement.dart';
 import '../widgets/fichiers.dart';
 import '../widgets/format.dart';
 import '../widgets/liste_ressource.dart';
@@ -70,8 +71,15 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
   @override
   Widget build(BuildContext context) {
     final titre = '${_vehicule['marque']} ${_vehicule['modele']}';
+    // Ordre des onglets : Résumé, Pleins (et Recharges), Entretiens, Maintenances, Pneus, Rapport, puis le reste.
+    final ressources = ressourcesDe(_vehicule);
+    const enTete = ['pleins', 'recharges', 'entretiens', 'maintenances'];
+    final principales = [
+      for (final c in enTete) ...ressources.where((r) => r.chemin == c),
+    ];
+    final autres = [for (final r in ressources) if (!enTete.contains(r.chemin)) r];
     return DefaultTabController(
-      length: ressourcesDe(_vehicule).length + 4,
+      length: ressources.length + 4,
       child: Scaffold(
         appBar: AppBar(
           title: Row(children: [
@@ -85,27 +93,30 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
             tabAlignment: TabAlignment.start,
             tabs: [
               Tab(icon: const Icon(Icons.insights), text: t('Résumé')),
+              for (final r in principales) Tab(icon: Icon(r.icone), text: r.titre),
+              Tab(icon: const Icon(Icons.tire_repair), text: t('Pneus')),
               Tab(icon: const Icon(Icons.bar_chart), text: t('Rapport')),
               Tab(icon: const Icon(Icons.account_balance_wallet), text: t('Déductibilité')),
-              for (final r in ressourcesDe(_vehicule)) Tab(icon: Icon(r.icone), text: r.titre),
-              Tab(icon: const Icon(Icons.tire_repair), text: t('Pneus')),
+              for (final r in autres) Tab(icon: Icon(r.icone), text: r.titre),
             ],
           ),
         ),
         body: TabBarView(
           children: [
             _resume(),
+            for (final r in principales) _liste(r),
+            PneusOnglet(vehicule: _vehicule, auChangement: () => setState(_chargerSynthese)),
             RapportOnglet(key: ValueKey('rapport-${_vehicule['updated_at']}'), vehicule: _vehicule),
             DeductibiliteOnglet(key: ValueKey('deductibilite-${_vehicule['updated_at']}'), vehicule: _vehicule),
-            for (final r in ressourcesDe(_vehicule))
-              ListeRessource(
-                  ressource: r, vehiculeId: _id, vehicule: _vehicule, auChangement: () => setState(_chargerSynthese)),
-            PneusOnglet(vehicule: _vehicule, auChangement: () => setState(_chargerSynthese)),
+            for (final r in autres) _liste(r),
           ],
         ),
       ),
     );
   }
+
+  Widget _liste(Ressource r) => ListeRessource(
+      ressource: r, vehiculeId: _id, vehicule: _vehicule, auChangement: () => setState(_chargerSynthese));
 
   // ------------------------------------------------------------------ Résumé
   Widget _resume() {
@@ -146,6 +157,11 @@ class _VehiculeEcranState extends State<VehiculeEcran> {
                 energies[_vehicule['energie']],
               ].join(' · ')),
               const SizedBox(height: 12),
+              if (context.watch<Abonnement>().estEnLectureSeule(_id))
+                BandeauLectureSeule(apresRetour: () {
+                  if (mounted) setState(_chargerSynthese);
+                })
+              else
               Wrap(spacing: 8, runSpacing: 8, children: [
                 if (_vehicule['energie'] != 'electrique')
                   FilledButton.tonalIcon(

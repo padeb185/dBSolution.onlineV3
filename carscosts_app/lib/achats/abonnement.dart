@@ -54,6 +54,35 @@ class Abonnement extends ChangeNotifier {
   List<Map<String, dynamic>> get formules =>
       [for (final f in (etat?['formules'] as List? ?? [])) Map<String, dynamic>.from(f as Map)];
 
+  // ------------------------------------------------------------------ facturation
+  /// 'mensuel', 'annuel' ou null (formule gratuite ou attribuée par l'administration).
+  String? get periode => etat?['periode'] as String?;
+  String? get dateDebut => etat?['date_debut'] as String?;
+  String? get dateDerniereFacturation => etat?['date_derniere_facturation'] as String?;
+  String? get dateRenouvellement => etat?['date_renouvellement'] as String?;
+  String? get dateFin => etat?['date_fin'] as String?;
+
+  /// 'ok', 'grace' (paiement refusé, délai de grâce) ou 'echec' (paiement refusé, accès limité).
+  String get statutPaiement => etat?['statut_paiement'] as String? ?? 'ok';
+  String? get dateFinGrace => etat?['date_fin_grace'] as String?;
+
+  /// Bandeau à afficher : {niveau: info|avertissement|erreur, code, message}.
+  Map<String, dynamic>? get alerte {
+    final a = etat?['alerte'];
+    return a is Map ? Map<String, dynamic>.from(a) : null;
+  }
+
+  /// Véhicules au-delà de la limite de la formule : consultables, non modifiables.
+  Set<String> get vehiculesLectureSeule =>
+      {for (final v in (etat?['vehicules_lecture_seule'] as List? ?? [])) v.toString()};
+  bool estEnLectureSeule(dynamic vehiculeId) => vehiculesLectureSeule.contains(vehiculeId?.toString());
+
+  static String libellePeriode(String? periode) => switch (periode) {
+        'annuel' => t('Annuel'),
+        'mensuel' => t('Mensuel'),
+        _ => '—',
+      };
+
   /// À appeler au démarrage : les achats en attente (renouvellement, achat interrompu) arrivent par ce flux.
   void demarrer() {
     if (!plateformeStore || _flux != null) return;
@@ -95,9 +124,16 @@ class Abonnement extends ChangeNotifier {
     }
   }
 
-  /// Produit du store pour une formule (premier identifiant configuré et trouvé dans le store).
-  ProductDetails? produitDe(Map<String, dynamic> formule) {
-    for (final id in (formule['produits'] as List? ?? []).cast<String>()) {
+  /// Identifiants produits d'une formule pour une période (mensuel / annuel).
+  static List<String> produitsDe(Map<String, dynamic> formule, {bool annuel = false}) {
+    final parPeriode = formule[annuel ? 'produits_annuels' : 'produits_mensuels'] as List?;
+    if (parPeriode != null) return parPeriode.cast<String>();
+    return annuel ? const [] : (formule['produits'] as List? ?? []).cast<String>();
+  }
+
+  /// Produit du store pour une formule et une période (premier identifiant configuré et trouvé dans le store).
+  ProductDetails? produitDe(Map<String, dynamic> formule, {bool annuel = false}) {
+    for (final id in produitsDe(formule, annuel: annuel)) {
       final p = produitsStore[id];
       if (p != null) return p;
     }

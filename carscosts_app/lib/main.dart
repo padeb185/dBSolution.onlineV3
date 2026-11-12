@@ -4,6 +4,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 
 import 'achats/abonnement.dart';
+import 'achats/notifications_push.dart';
 import 'api/api_client.dart';
 import 'api/session.dart';
 import 'ecrans/accueil_ecran.dart';
@@ -18,6 +19,10 @@ Future<void> main() async {
   final api = ApiClient();
   final session = Session(api, langue);
   final abonnement = Abonnement(api)..demarrer();
+  // Push : un message reçu (paiement refusé, renouvellement…) recharge l'état de l'abonnement
+  session.push = NotificationsPush(api, auMessage: () {
+    if (api.connecte) abonnement.charger().catchError((_) {});
+  });
   runApp(
     MultiProvider(
       providers: [

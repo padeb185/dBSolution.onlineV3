@@ -9,7 +9,7 @@ from rest_framework import mixins, status, viewsets
 from rest_framework.exceptions import APIException
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import SAFE_METHODS, AllowAny, BasePermission
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -17,8 +17,8 @@ from .. import abonnements, calculs
 from ..comptes import supprimer_compte
 from ..models import Depense, Document, Entretien, MaintenanceParticulier, Plein, TrainPneus, Rappel, ReleveKilometrique, Vehicule
 from . import serializers as S
-from .base import (ROLE_PARTICULIER, LimiteConnexion, SchemaParticuliersMixin, schema_particuliers,
-                   servir_fichier)
+from .base import (ROLE_PARTICULIER, EstParticulier, LimiteConnexion, SchemaParticuliersMixin,
+                   schema_particuliers, servir_fichier)
 
 
 # ==================================================================
@@ -139,9 +139,50 @@ class EmailView(SchemaParticuliersMixin, APIView):
 # ==================================================================
 # DONNÉES
 # ==================================================================
+class LectureSeule(APIException):
+    """403 : véhicule au-delà de la limite de la formule (paiement refusé, formule échue…)."""
+    status_code = status.HTTP_403_FORBIDDEN
+    default_code = "lecture_seule"
+
+
+def controler_ecriture(user, vehicule_id):
+    if vehicule_id and abonnements.est_en_lecture_seule(user, vehicule_id):
+        exc = LectureSeule()
+        limite = abonnements.LIMITES[abonnements.formule_effective(user)]
+        exc.detail = {"detail": _("Ce véhicule est en lecture seule : votre formule actuelle permet %(n)d véhicule(s) "
+                                  "modifiable(s). Renouvelez votre formule ou archivez un véhicule.") % {"n": limite},
+                      "code": "lecture_seule", "vehicule": str(vehicule_id)}
+        raise exc
+
+
+class VehiculeModifiable(BasePermission):
+    """Lecture seule des véhicules au-delà de la limite : consultation permise, modifications refusées
+    (sauf archiver ou supprimer le véhicule lui-même, ce qui libère une place)."""
+
+    def has_permission(self, request, view):
+        if request.method not in SAFE_METHODS:
+            controler_ecriture(request.user, request.data.get("vehicule") if hasattr(request.data, "get") else None)
+        return True
+
+    def has_object_permission(self, request, view, obj):
+        if request.method in SAFE_METHODS:
+            return True
+        if isinstance(obj, Vehicule):
+            if view.action == "destroy":
+                return True
+            if view.action in ("update", "partial_update") and set(request.data.keys()) <= {"archive"} \
+                    and request.data.get("archive") in (True, "true", "1", 1):
+                return True
+            controler_ecriture(request.user, obj.pk)
+        else:
+            controler_ecriture(request.user, getattr(obj, "vehicule_id", None))
+        return True
+
+
 class ProprietaireViewSet(SchemaParticuliersMixin, viewsets.ModelViewSet):
     """Filtre systématique : seules les données des véhicules de l'utilisateur."""
     model = None
+    permission_classes = [EstParticulier, VehiculeModifiable]
 
     def get_queryset(self):
         qs = self.model.objects.filter(vehicule__proprietaire=self.request.user).select_related("vehicule")
@@ -181,6 +222,7 @@ def _controler_limite(user, sauf=None):
 
 class VehiculeViewSet(SchemaParticuliersMixin, viewsets.ModelViewSet):
     serializer_class = S.VehiculeSerializer
+    permission_classes = [EstParticulier, VehiculeModifiable]
 
     def get_queryset(self):
         qs = Vehicule.objects.filter(proprietaire=self.request.user)
@@ -723,6 +765,25 @@ class VinView(SchemaParticuliersMixin, APIView):
 class AbonnementView(SchemaParticuliersMixin, APIView):
     def get(self, request):
         return Response(abonnements.etat(request.user))
+
+
+class AppareilsView(SchemaParticuliersMixin, APIView):
+    """Jeton Firebase Cloud Messaging de l'appareil : POST {jeton, plateforme} ; DELETE ?jeton=… (déconnexion)."""
+
+    def post(self, request):
+        from ..models import AppareilNotification
+        jeton = (request.data.get("jeton") or "").strip()
+        if not jeton or len(jeton) > 255:
+            return Response({"detail": _("Jeton invalide.")}, status=status.HTTP_400_BAD_REQUEST)
+        AppareilNotification.objects.update_or_create(
+            jeton=jeton, defaults={"utilisateur": request.user, "plateforme": (request.data.get("plateforme") or "")[:10]})
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def delete(self, request):
+        from ..models import AppareilNotification
+        jeton = request.query_params.get("jeton") or (request.data.get("jeton") if hasattr(request.data, "get") else "")
+        AppareilNotification.objects.filter(utilisateur=request.user, jeton=jeton or "").delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class AchatView(SchemaParticuliersMixin, APIView):

@@ -10,6 +10,16 @@ Attribution d'une formule :
   - renouvellements, résiliations et remboursements : notifications des stores
     (Apple « App Store Server Notifications V2 », Google « Real-time developer notifications »).
 
+Facturation : période mensuelle ou annuelle (d'après l'identifiant produit), date du premier achat,
+date de la dernière facturation et date de renouvellement (= date_fin si le renouvellement est actif).
+
+Paiement refusé (statut_paiement) :
+  - « grace »  : le store réessaie le paiement, la formule reste active jusqu'à date_fin_grace ;
+  - « echec »  : délai de grâce dépassé ou compte suspendu par le store, retour à la formule gratuite.
+  Formule gratuite avec plus de véhicules actifs que la limite : les véhicules au-delà (les plus récents)
+  passent en lecture seule ; rien n'est supprimé, tout redevient modifiable dès que le paiement passe.
+  Notifications (e-mail, push) : voir notifications.py et la commande « notifier_abonnements ».
+
 Réglages (.env → settings.py) :
   PARTICULIERS_ACHATS_MODE      "test" (développement : achats de test acceptés sans store)
                                 ou "store" (production : seules les preuves vérifiées par les stores)
@@ -30,7 +40,8 @@ from django.db import IntegrityError, transaction
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
-from .models import AbonnementParticulier, Formule, SourceAbonnement, Vehicule
+from .models import (AbonnementParticulier, Formule, PeriodeFacturation, SourceAbonnement, StatutPaiement,
+                     Vehicule)
 
 log = logging.getLogger(__name__)
 
@@ -41,7 +52,11 @@ PRODUITS_DEFAUT = {
     "carscosts_bronze_mensuel": Formule.BRONZE,
     "carscosts_silver_mensuel": Formule.SILVER,
     "carscosts_gold_mensuel": Formule.GOLD,
+    "carscosts_bronze_annuel": Formule.BRONZE,
+    "carscosts_silver_annuel": Formule.SILVER,
+    "carscosts_gold_annuel": Formule.GOLD,
 }
+MOTS_ANNUELS = ("annuel", "annual", "yearly", "annee", "year")
 
 
 class AchatRefuse(Exception):
@@ -73,6 +88,24 @@ def formule_du_produit(produit):
     return formule
 
 
+def periode_du_produit(produit):
+    """Période de facturation d'après l'identifiant produit (…_annuel → annuel, sinon mensuel)."""
+    if not produit:
+        return PeriodeFacturation.AUCUNE
+    nom = produit.lower()
+    return PeriodeFacturation.ANNUEL if any(m in nom for m in MOTS_ANNUELS) else PeriodeFacturation.MENSUEL
+
+
+def _moins_une_periode(date_fin, periode):
+    """Date de la dernière facturation déduite de la date de renouvellement (Google ne la donne pas)."""
+    if not date_fin or not periode:
+        return None
+    from .calculs import ajouter_mois
+    mois = 12 if periode == PeriodeFacturation.ANNUEL else 1
+    jour = ajouter_mois(date_fin.date(), -mois)
+    return date_fin.replace(year=jour.year, month=jour.month, day=jour.day)
+
+
 # ------------------------------------------------------------------ formule d'un compte
 def abonnement(user):
     return AbonnementParticulier.objects.filter(utilisateur=user).first()
@@ -83,9 +116,27 @@ def formule_effective(user, ab=None, maintenant=None):
     ab = ab if ab is not None else abonnement(user)
     if not ab or ab.formule not in LIMITES:
         return Formule.GRATUIT
-    if ab.date_fin and ab.date_fin <= (maintenant or timezone.now()):
+    maintenant = maintenant or timezone.now()
+    if ab.statut_paiement == StatutPaiement.ECHEC:
+        return Formule.GRATUIT
+    # Paiement refusé, le store réessaie : la formule reste active pendant le délai de grâce
+    if ab.statut_paiement == StatutPaiement.GRACE and ab.date_fin_grace and ab.date_fin_grace > maintenant:
+        return ab.formule
+    if ab.date_fin and ab.date_fin <= maintenant:
         return Formule.GRATUIT
     return ab.formule
+
+
+def vehicules_lecture_seule(user, formule=None):
+    """Véhicules actifs au-delà de la limite de la formule (les plus récents) : consultables, non modifiables."""
+    limite = LIMITES[formule or formule_effective(user)]
+    ids = list(Vehicule.objects.filter(proprietaire=user, archive=False)
+               .order_by("created_at", "pk").values_list("pk", flat=True))
+    return ids[limite:]
+
+
+def est_en_lecture_seule(user, vehicule_id):
+    return any(str(v) == str(vehicule_id) for v in vehicules_lecture_seule(user))
 
 
 def vehicules_actifs(user, sauf=None):
@@ -102,9 +153,16 @@ def etat(user):
     limite = LIMITES[formule]
     actifs = vehicules_actifs(user)
     echue = bool(ab and ab.formule != Formule.GRATUIT and formule == Formule.GRATUIT)
-    par_formule = {}
+    par_formule, par_periode = {}, {}
     for produit, f in produits().items():
         par_formule.setdefault(f, []).append(produit)
+        par_periode.setdefault((f, periode_du_produit(produit)), []).append(produit)
+    lecture_seule = vehicules_lecture_seule(user, formule) if actifs > limite else []
+    statut = ab.statut_paiement if ab and ab.formule != Formule.GRATUIT else StatutPaiement.OK
+    payant = bool(ab and ab.source in (SourceAbonnement.APPLE, SourceAbonnement.GOOGLE, SourceAbonnement.TEST))
+
+    def iso(d):
+        return d.isoformat() if d else None
     return {
         "formule": formule,
         "libelle": Formule(formule).label,
@@ -116,10 +174,57 @@ def etat(user):
         "renouvellement_auto": bool(ab and ab.renouvellement_auto and not echue),
         "echue": echue,
         "formule_echue": ab.formule if echue else None,
-        "formules": [{"code": f.value, "libelle": f.label, "limite": LIMITES[f], "produits": par_formule.get(f, [])}
+        # Facturation (abonnements achetés dans l'application)
+        "periode": (ab.periode or None) if ab and payant else None,
+        "date_debut": iso(ab.date_debut) if ab and payant else None,
+        "date_derniere_facturation": iso(ab.date_derniere_facturation) if ab and payant else None,
+        "date_renouvellement": iso(ab.date_fin) if ab and payant and ab.renouvellement_auto
+                               and statut == StatutPaiement.OK and not echue else None,
+        "statut_paiement": statut,
+        "date_fin_grace": iso(ab.date_fin_grace) if ab and statut == StatutPaiement.GRACE else None,
+        "vehicules_lecture_seule": [str(v) for v in lecture_seule],
+        "alerte": alerte(ab, formule, limite, lecture_seule),
+        "formules": [{"code": f.value, "libelle": f.label, "limite": LIMITES[f], "produits": par_formule.get(f, []),
+                      "produits_mensuels": par_periode.get((f, PeriodeFacturation.MENSUEL), []),
+                      "produits_annuels": par_periode.get((f, PeriodeFacturation.ANNUEL), [])}
                      for f in ORDRE],
         "mode_achats": mode_achats(),
     }
+
+
+def nom_store(source):
+    return {SourceAbonnement.APPLE: "App Store", SourceAbonnement.GOOGLE: "Google Play"}.get(source, _("votre store"))
+
+
+def date_courte(d):
+    return timezone.localtime(d).strftime("%d/%m/%Y") if d else ""
+
+
+def alerte(ab, formule, limite, lecture_seule, maintenant=None):
+    """Bandeau affiché dans l'application : {niveau: info|avertissement|erreur, code, message} ou None."""
+    if not ab or ab.formule == Formule.GRATUIT:
+        return None
+    maintenant = maintenant or timezone.now()
+    libelle = Formule(ab.formule).label
+    if formule != Formule.GRATUIT and ab.statut_paiement == StatutPaiement.GRACE:
+        return {"niveau": "avertissement", "code": "paiement_refuse", "message": _(
+            "Le paiement de votre formule %(f)s a été refusé. Mettez à jour votre moyen de paiement dans "
+            "%(store)s avant le %(date)s pour conserver toutes les fonctions.")
+            % {"f": libelle, "store": nom_store(ab.source), "date": date_courte(ab.date_fin_grace)}}
+    if formule == Formule.GRATUIT:
+        if ab.statut_paiement in (StatutPaiement.ECHEC, StatutPaiement.GRACE):
+            message = _("Le paiement de votre formule %(f)s n'a pas abouti : elle est suspendue.") % {"f": libelle}
+        else:
+            message = _("Votre formule %(f)s est arrivée à échéance.") % {"f": libelle}
+        if lecture_seule:
+            message += " " + _("Les véhicules au-delà de %(n)d sont en lecture seule jusqu'au renouvellement.") % {
+                "n": limite}
+        return {"niveau": "erreur", "code": "acces_limite", "message": message}
+    if not ab.renouvellement_auto and ab.date_fin and ab.date_fin - maintenant <= timedelta(days=7):
+        return {"niveau": "info", "code": "fin_proche", "message": _(
+            "Votre formule %(f)s se termine le %(date)s et ne sera pas renouvelée.")
+            % {"f": libelle, "date": date_courte(ab.date_fin)}}
+    return None
 
 
 def verifier_limite(user, sauf=None):
@@ -158,12 +263,15 @@ def attribuer(user, formule, date_fin=None, source=SourceAbonnement.ADMIN, note=
     ab.note = note or ab.note
     if source == SourceAbonnement.ADMIN:
         ab.produit, ab.reference_store, ab.environnement, ab.renouvellement_auto = "", None, "", False
+        ab.periode, ab.date_debut, ab.date_derniere_facturation = "", None, None
+        ab.statut_paiement, ab.date_fin_grace = StatutPaiement.OK, None
     ab.save()
     return ab
 
 
 def _enregistrer(user, achat):
-    """achat : dict(source, produit, reference, date_fin, environnement, renouvellement_auto, revoque)."""
+    """achat : dict(source, produit, reference, date_fin, environnement, renouvellement_auto, revoque,
+    et facultatifs : date_debut, date_facturation, statut_paiement, date_fin_grace)."""
     formule = formule_du_produit(achat["produit"])
     with transaction.atomic():
         autre = (AbonnementParticulier.objects.select_for_update()
@@ -171,6 +279,7 @@ def _enregistrer(user, achat):
         if autre is not None:
             raise AchatRefuse(_("Cet abonnement est déjà utilisé par un autre compte CarsCosts."), statut=409)
         ab, _c = AbonnementParticulier.objects.select_for_update().get_or_create(utilisateur=user)
+        avant = {"formule": formule_effective(user, ab), "statut": ab.statut_paiement, "formule_ab": ab.formule}
         # Un abonnement attribué par l'administration, sans fin ou plus long, n'est pas remplacé.
         if (ab.source == SourceAbonnement.ADMIN and formule_effective(user, ab) != Formule.GRATUIT
                 and ORDRE.index(ab.formule) >= ORDRE.index(formule)
@@ -185,11 +294,34 @@ def _enregistrer(user, achat):
         ab.reference_store = achat["reference"]
         ab.environnement = achat.get("environnement", "")
         ab.renouvellement_auto = bool(achat.get("renouvellement_auto")) and not achat.get("revoque")
+        ab.periode = periode_du_produit(achat["produit"])
+        ab.date_debut = achat.get("date_debut") or ab.date_debut or timezone.now()
+        statut = achat.get("statut_paiement")
+        if statut is None:
+            # Preuve envoyée par l'application : payée si la date de fin est future, sinon statut inchangé
+            statut = StatutPaiement.OK if ab.date_fin and ab.date_fin > timezone.now() else ab.statut_paiement
+        ab.statut_paiement = statut
+        ab.date_fin_grace = achat.get("date_fin_grace") if statut == StatutPaiement.GRACE else None
+        # Dernière facturation : donnée par Apple ; Google : date de renouvellement moins une période
+        ab.date_derniere_facturation = (
+            achat.get("date_facturation")
+            or (_moins_une_periode(ab.date_fin, ab.periode) if statut == StatutPaiement.OK else None)
+            or ab.date_derniere_facturation)
         try:
             ab.save()
         except IntegrityError:
             raise AchatRefuse(_("Cet abonnement est déjà utilisé par un autre compte CarsCosts."), statut=409)
+        ab_id = ab.pk
+        transaction.on_commit(lambda: _notifier(ab_id, avant))
     return ab
+
+
+def _notifier(ab_id, avant):
+    from . import notifications
+    try:
+        notifications.apres_changement(ab_id, avant)
+    except Exception:       # une notification ratée ne doit jamais bloquer l'achat
+        log.exception("Notification d'abonnement impossible (%s)", ab_id)
 
 
 def valider_achat(user, plateforme, produit, jeton):
@@ -200,9 +332,12 @@ def valider_achat(user, plateforme, produit, jeton):
     if plateforme == "test":
         if mode_achats() != "test":
             raise AchatRefuse(_("Les achats de test ne sont pas acceptés sur ce serveur."), statut=403)
+        maintenant = timezone.now()
+        jours = 365 if periode_du_produit(produit) == PeriodeFacturation.ANNUEL else 30
         achat = {"source": SourceAbonnement.TEST, "produit": produit, "reference": "test-%s" % user.pk,
-                 "date_fin": timezone.now() + timedelta(days=30), "environnement": "Test",
-                 "renouvellement_auto": False}
+                 "date_fin": maintenant + timedelta(days=jours), "environnement": "Test",
+                 "renouvellement_auto": False, "date_facturation": maintenant,
+                 "statut_paiement": StatutPaiement.OK}
     elif plateforme == "apple":
         achat = transaction_apple(jeton)
     elif plateforme == "google":
@@ -280,16 +415,21 @@ def verifier_jws_apple(jws):
         raise AchatRefuse(_("Preuve d'achat Apple invalide."))
 
 
+def _ms(valeur):
+    return datetime.fromtimestamp(valeur / 1000, tz=dt_timezone.utc) if valeur else None
+
+
 def _achat_apple(info):
     bundle = getattr(settings, "APPLE_BUNDLE_ID", "")
     if bundle and info.get("bundleId") != bundle:
         raise AchatRefuse(_("Achat d'une autre application."))
-    date_fin = info.get("expiresDate")
     return {
         "source": SourceAbonnement.APPLE,
         "produit": info.get("productId", ""),
         "reference": str(info.get("originalTransactionId") or info.get("transactionId")),
-        "date_fin": datetime.fromtimestamp(date_fin / 1000, tz=dt_timezone.utc) if date_fin else None,
+        "date_fin": _ms(info.get("expiresDate")),
+        "date_debut": _ms(info.get("originalPurchaseDate")),
+        "date_facturation": _ms(info.get("purchaseDate")),
         "environnement": info.get("environment", ""),
         "renouvellement_auto": True,
         "revoque": bool(info.get("revocationDate")),
@@ -298,6 +438,17 @@ def _achat_apple(info):
 
 def transaction_apple(jws):
     return _achat_apple(verifier_jws_apple(jws))
+
+
+def statut_paiement_apple(renouvellement, type_notification=None, maintenant=None):
+    """Statut du paiement d'après les informations de renouvellement Apple (JWSRenewalInfo)."""
+    maintenant = maintenant or timezone.now()
+    fin_grace = _ms(renouvellement.get("gracePeriodExpiresDate"))
+    if fin_grace and fin_grace > maintenant:
+        return {"statut_paiement": StatutPaiement.GRACE, "date_fin_grace": fin_grace}
+    if renouvellement.get("isInBillingRetryPeriod") or type_notification in ("GRACE_PERIOD_EXPIRED",):
+        return {"statut_paiement": StatutPaiement.ECHEC}
+    return {"statut_paiement": StatutPaiement.OK}
 
 
 def notification_apple(signed_payload):
@@ -309,6 +460,7 @@ def notification_apple(signed_payload):
         if donnees.get("signedRenewalInfo"):
             renouvellement = verifier_jws_apple(donnees["signedRenewalInfo"])
             achat["renouvellement_auto"] = renouvellement.get("autoRenewStatus") == 1
+            achat.update(statut_paiement_apple(renouvellement, contenu.get("notificationType")))
         if contenu.get("notificationType") in ("REFUND", "REVOKE"):
             achat["revoque"] = True
         try:
@@ -325,32 +477,50 @@ _jeton_google = {"valeur": None, "expire": 0}
 
 
 def _acces_google():
-    import jwt
-    import requests
-
-    if _jeton_google["valeur"] and _jeton_google["expire"] > time.time() + 60:
-        return _jeton_google["valeur"]
     chemin = getattr(settings, "GOOGLE_SERVICE_ACCOUNT_FILE", "")
     if not chemin:
         raise AchatRefuse(_("Vérification Google Play non configurée (GOOGLE_SERVICE_ACCOUNT_FILE)."), statut=503)
+    return jeton_compte_service(chemin, "https://www.googleapis.com/auth/androidpublisher", _jeton_google)
+
+
+def jeton_compte_service(chemin, scope, cache):
+    """Jeton OAuth2 d'un compte de service Google (Play Console, Firebase…), mis en cache dans `cache`."""
+    import jwt
+    import requests
+
+    if cache.get("valeur") and cache.get("expire", 0) > time.time() + 60:
+        return cache["valeur"]
     with open(chemin) as f:
         compte = json.load(f)
     maintenant = int(time.time())
     assertion = jwt.encode({
-        "iss": compte["client_email"], "scope": "https://www.googleapis.com/auth/androidpublisher",
+        "iss": compte["client_email"], "scope": scope,
         "aud": compte.get("token_uri", "https://oauth2.googleapis.com/token"), "iat": maintenant, "exp": maintenant + 3600,
     }, compte["private_key"], algorithm="RS256")
     r = requests.post(compte.get("token_uri", "https://oauth2.googleapis.com/token"), timeout=15, data={
         "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer", "assertion": assertion})
     r.raise_for_status()
     d = r.json()
-    _jeton_google.update(valeur=d["access_token"], expire=time.time() + int(d.get("expires_in", 3600)))
+    cache.update(valeur=d["access_token"], expire=time.time() + int(d.get("expires_in", 3600)))
     return d["access_token"]
 
 
-# Résilié (CANCELED) ou expiré : valable jusqu'à expiryTime (date_fin) ; ces états coupent l'accès tout de suite
-ETATS_GOOGLE_SANS_ACCES = {"SUBSCRIPTION_STATE_PENDING", "SUBSCRIPTION_STATE_PENDING_PURCHASE_CANCELED",
-                           "SUBSCRIPTION_STATE_ON_HOLD", "SUBSCRIPTION_STATE_PAUSED"}
+# Résilié (CANCELED) ou expiré : valable jusqu'à expiryTime (date_fin) ; achat en attente : pas d'accès
+ETATS_GOOGLE_SANS_ACCES = {"SUBSCRIPTION_STATE_PENDING", "SUBSCRIPTION_STATE_PENDING_PURCHASE_CANCELED"}
+# Paiement refusé : délai de grâce (accès conservé jusqu'à expiryTime, prolongé par Google) puis suspension
+ETATS_GOOGLE_ECHEC = {"SUBSCRIPTION_STATE_ON_HOLD", "SUBSCRIPTION_STATE_PAUSED"}
+
+
+def _iso(valeur):
+    return datetime.fromisoformat(valeur.replace("Z", "+00:00")) if valeur else None
+
+
+def statut_paiement_google(etat_g, date_fin):
+    if etat_g == "SUBSCRIPTION_STATE_IN_GRACE_PERIOD":
+        return {"statut_paiement": StatutPaiement.GRACE, "date_fin_grace": date_fin}
+    if etat_g in ETATS_GOOGLE_ECHEC:
+        return {"statut_paiement": StatutPaiement.ECHEC}
+    return {"statut_paiement": StatutPaiement.OK}
 
 
 def abonnement_google(produit, purchase_token):
@@ -373,8 +543,7 @@ def abonnement_google(produit, purchase_token):
     d = r.json()
     lignes = d.get("lineItems") or []
     ligne = next((l for l in lignes if l.get("productId") == produit), lignes[0] if lignes else {})
-    expiry = ligne.get("expiryTime")
-    date_fin = datetime.fromisoformat(expiry.replace("Z", "+00:00")) if expiry else None
+    date_fin = _iso(ligne.get("expiryTime"))
     etat_g = d.get("subscriptionState", "")
     return {
         "source": SourceAbonnement.GOOGLE,
@@ -382,10 +551,12 @@ def abonnement_google(produit, purchase_token):
         "reference": purchase_token,
         "anciennes": [d.get("linkedPurchaseToken")],
         "date_fin": date_fin,
+        "date_debut": _iso(d.get("startTime")),
+        **statut_paiement_google(etat_g, date_fin),
         "environnement": "Sandbox" if "testPurchase" in d else "Production",
-        "renouvellement_auto": etat_g == "SUBSCRIPTION_STATE_ACTIVE"
+        "renouvellement_auto": etat_g in ("SUBSCRIPTION_STATE_ACTIVE", "SUBSCRIPTION_STATE_IN_GRACE_PERIOD")
                                and bool((ligne.get("autoRenewingPlan") or {}).get("autoRenewEnabled")),
-        # En attente de paiement, suspendu ou en pause : pas d'accès à la formule
+        # Achat en attente de paiement : pas d'accès à la formule
         "revoque": etat_g in ETATS_GOOGLE_SANS_ACCES,
     }
 

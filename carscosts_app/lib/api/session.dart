@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+import '../achats/notifications_push.dart';
 import '../l10n/langue.dart';
 import 'api_client.dart';
 
@@ -9,6 +10,9 @@ class Session extends ChangeNotifier {
 
   final ApiClient api;
   final Langue langue;
+
+  /// Notifications push (jeton de l'appareil enregistré à la connexion, retiré à la déconnexion).
+  NotificationsPush? push;
   Map<String, dynamic>? utilisateur;
   bool pret = false;
 
@@ -20,6 +24,7 @@ class Session extends ChangeNotifier {
       try {
         utilisateur = Map<String, dynamic>.from(await api.get('moi/') as Map);
         await _appliquerLangue();
+        push?.enregistrer();
       } on ApiException catch (e) {
         if (e.statut == 401) await api.enregistrerJeton(null);
       }
@@ -48,6 +53,7 @@ class Session extends ChangeNotifier {
     utilisateur = Map<String, dynamic>.from(reponse['utilisateur'] as Map);
     await _appliquerLangue();
     notifyListeners();
+    push?.enregistrer();
   }
 
   /// La langue du compte (choisie à l'inscription ou dans les réglages) s'applique sur cet appareil.
@@ -78,6 +84,7 @@ class Session extends ChangeNotifier {
   }
 
   Future<void> deconnexion() async {
+    await push?.desinscrire();
     try {
       await api.post('auth/deconnexion/');
     } catch (_) {}

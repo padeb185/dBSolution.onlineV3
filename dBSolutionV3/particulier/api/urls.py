@@ -30,6 +30,7 @@ urlpatterns = [
     path("catalogue/", views.CatalogueView.as_view(), name="catalogue"),
     path("abonnement/", views.AbonnementView.as_view(), name="abonnement"),
     path("abonnement/achat/", views.AchatView.as_view(), name="abonnement_achat"),
+    path("appareils/", views.AppareilsView.as_view(), name="appareils"),
     path("abonnement/notifications/apple/", views.NotificationAppleView.as_view(), name="notification_apple"),
     path("abonnement/notifications/google/", views.NotificationGoogleView.as_view(), name="notification_google"),
     path("", include(routeur.urls)),

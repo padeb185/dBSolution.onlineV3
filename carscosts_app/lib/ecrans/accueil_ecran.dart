@@ -6,6 +6,7 @@ import '../api/api_client.dart';
 import '../api/session.dart';
 import '../l10n/langue.dart';
 import '../l10n/unites.dart';
+import '../widgets/bandeau_abonnement.dart';
 import '../widgets/fichiers.dart';
 import '../widgets/format.dart';
 import '../widgets/liste_ressource.dart';
@@ -122,9 +123,13 @@ class _AccueilEcranState extends State<AccueilEcran> {
             final vehicules = [for (final v in (tableau['vehicules'] as List? ?? [])) Map<String, dynamic>.from(v as Map)];
             final rappels = [for (final r in (tableau['rappels'] as List? ?? [])) Map<String, dynamic>.from(r as Map)];
             final noms = {for (final v in vehicules) v['id']: '${v['marque']} ${v['modele']}'};
+            final abonnement = context.watch<Abonnement>();
             return ListView(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 96),
               children: [
+                BandeauAbonnement(apresRetour: () {
+                  if (mounted) setState(_charger);
+                }),
                 if (rappels.isNotEmpty) ...[
                   Text(t('À traiter'), style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: 8),
@@ -190,7 +195,9 @@ class _AccueilEcranState extends State<AccueilEcran> {
                           ),
                         Text(km(v['kilometrage_actuel'], Unites.de(v))),
                       ]),
-                      trailing: const Icon(Icons.chevron_right),
+                      trailing: abonnement.estEnLectureSeule(v['id'])
+                          ? Tooltip(message: t('Lecture seule'), child: const Icon(Icons.lock_outline))
+                          : const Icon(Icons.chevron_right),
                       onTap: () => _ouvrir(v),
                     ),
                   ),

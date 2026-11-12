@@ -240,13 +240,17 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
     final r = widget.ressource;
     if (r.bronze && context.watch<Abonnement>().formule == 'gratuit') return _verrou();
     if (_chargeeVerrouillee) _charger();   // formule payante prise entre-temps : chargement de la liste
+    // Véhicule au-delà de la limite de la formule (paiement refusé, formule échue) : consultation seulement
+    final lectureSeule = context.watch<Abonnement>().estEnLectureSeule(widget.vehiculeId);
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        heroTag: r.chemin,
-        onPressed: () => _ouvrir(),
-        icon: const Icon(Icons.add),
-        label: Text(t('Ajouter')),
-      ),
+      floatingActionButton: lectureSeule
+          ? null
+          : FloatingActionButton.extended(
+              heroTag: r.chemin,
+              onPressed: () => _ouvrir(),
+              icon: const Icon(Icons.add),
+              label: Text(t('Ajouter')),
+            ),
       body: RefreshIndicator(
         onRefresh: () async {
           setState(_charger);
@@ -299,7 +303,7 @@ class _ListeRessourceState extends State<ListeRessource> with AutomaticKeepAlive
                           StatutRappel(statut: (e['statut'] as Map?)?.cast<String, dynamic>(), unites: u),
                         ])
                       : Text(r.sousTitreLigne(e, u)),
-                  trailing: r.chemin == 'rappels' && e['actif'] == true
+                  trailing: r.chemin == 'rappels' && e['actif'] == true && !lectureSeule
                       ? IconButton(icon: const Icon(Icons.task_alt), tooltip: t('Marquer comme fait'), onPressed: () => _rappelFait(e))
                       : (montant.isEmpty ? null : Text(montant, style: const TextStyle(fontWeight: FontWeight.w600))),
                   onTap: () {

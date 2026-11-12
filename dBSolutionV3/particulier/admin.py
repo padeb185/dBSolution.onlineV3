@@ -167,13 +167,14 @@ class ReleveAdmin(DonneeVehiculeAdmin):
 @admin.register(AbonnementParticulier)
 class AbonnementAdmin(AccesAdminParticuliers, admin.ModelAdmin):
     """Formules des comptes. En développement, attribution directe ; en production, par achat dans l'application."""
-    list_display = ("utilisateur", "formule", "formule_en_cours", "date_fin", "source", "renouvellement_auto",
-                    "environnement", "updated_at")
-    list_filter = ("formule", "source", "environnement", "renouvellement_auto")
+    list_display = ("utilisateur", "formule", "formule_en_cours", "periode", "date_fin", "statut_paiement", "source",
+                    "renouvellement_auto", "environnement", "updated_at")
+    list_filter = ("formule", "statut_paiement", "periode", "source", "environnement", "renouvellement_auto")
     search_fields = ("utilisateur__email", "utilisateur__nom", "reference_store", "produit")
     list_select_related = ("utilisateur",)
     raw_id_fields = ("utilisateur",)
-    readonly_fields = ("produit", "reference_store", "environnement", "renouvellement_auto", "created_at", "updated_at")
+    readonly_fields = ("produit", "reference_store", "environnement", "renouvellement_auto", "periode", "date_debut",
+                       "date_derniere_facturation", "statut_paiement", "date_fin_grace", "created_at", "updated_at")
     fields = ("utilisateur", "formule", "date_fin", "source", "note", *readonly_fields)
 
     @admin.display(description=_("Formule en cours"))
