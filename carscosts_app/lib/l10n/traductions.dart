@@ -2,6 +2,7 @@
 // pas ce fichier à la main. Le français est la langue source (pas de table).
 const traductions = <String, Map<String, String>>{
   'nl': {
+    'Stations, bornes de recharge, garages, dépanneurs et pneus autour de vous': 'Tankstations, laadpalen, garages, takeldiensten en banden in uw buurt',
     'Recharge électrique': 'Elektrisch laden',
     'Garages': 'Garages',
     'Dépanneurs': 'Takeldiensten',
@@ -771,6 +772,7 @@ const traductions = <String, Map<String, String>>{
     'Plaque {pays} {numero}': 'Nummerplaat {pays} {numero}',
   },
   'en': {
+    'Stations, bornes de recharge, garages, dépanneurs et pneus autour de vous': 'Fuel stations, EV chargers, garages, tow services and tyres near you',
     'Recharge électrique': 'EV charging',
     'Garages': 'Garages',
     'Dépanneurs': 'Tow services',
@@ -1540,6 +1542,7 @@ const traductions = <String, Map<String, String>>{
     'Plaque {pays} {numero}': '{pays} plate {numero}',
   },
   'de': {
+    'Stations, bornes de recharge, garages, dépanneurs et pneus autour de vous': 'Tankstellen, Ladestationen, Werkstätten, Abschleppdienste und Reifen in Ihrer Nähe',
     'Recharge électrique': 'E-Laden',
     'Garages': 'Werkstätten',
     'Dépanneurs': 'Abschleppdienste',
@@ -2309,6 +2312,7 @@ const traductions = <String, Map<String, String>>{
     'Plaque {pays} {numero}': 'Kennzeichen {pays} {numero}',
   },
   'es': {
+    'Stations, bornes de recharge, garages, dépanneurs et pneus autour de vous': 'Gasolineras, puntos de recarga, talleres, grúas y neumáticos cerca de ti',
     'Recharge électrique': 'Recarga eléctrica',
     'Garages': 'Talleres',
     'Dépanneurs': 'Grúas',
@@ -3078,6 +3082,7 @@ const traductions = <String, Map<String, String>>{
     'Plaque {pays} {numero}': 'Matrícula {pays} {numero}',
   },
   'it': {
+    'Stations, bornes de recharge, garages, dépanneurs et pneus autour de vous': 'Distributori, colonnine di ricarica, officine, carro attrezzi e gommisti vicino a te',
     'Recharge électrique': 'Ricarica elettrica',
     'Garages': 'Officine',
     'Dépanneurs': 'Carro attrezzi',
@@ -3847,6 +3852,7 @@ const traductions = <String, Map<String, String>>{
     'Plaque {pays} {numero}': 'Targa {pays} {numero}',
   },
   'el': {
+    'Stations, bornes de recharge, garages, dépanneurs et pneus autour de vous': 'Πρατήρια, φορτιστές, συνεργεία, οδική βοήθεια και ελαστικά κοντά σας',
     'Recharge électrique': 'Ηλεκτρική φόρτιση',
     'Garages': 'Συνεργεία',
     'Dépanneurs': 'Οδική βοήθεια',

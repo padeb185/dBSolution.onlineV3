@@ -208,6 +208,16 @@ class _AccueilEcranState extends State<AccueilEcran> {
                     ),
                   ),
                 const SizedBox(height: 8),
+                // Carte : stations, bornes de recharge, garages, dépanneurs, monteurs de pneus
+                Card(
+                  child: ListTile(
+                    leading: const Icon(Icons.map),
+                    title: Text(t('Carte')),
+                    subtitle: Text(t('Stations, bornes de recharge, garages, dépanneurs et pneus autour de vous')),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CarteEcran())),
+                  ),
+                ),
                 // Simulateur d'achat (formule Bronze) : prêt, taxes, immatriculation, rapport financier
                 Card(
                   child: ListTile(
