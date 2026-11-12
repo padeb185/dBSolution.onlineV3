@@ -13,6 +13,7 @@ import '../widgets/liste_ressource.dart';
 import '../modeles/catalogue.dart';
 import '../widgets/logo_marque.dart';
 import '../widgets/plaque.dart';
+import 'carte_ecran.dart';
 import 'formules_ecran.dart';
 import 'reglages_ecran.dart';
 import 'vehicule_ecran.dart';
@@ -87,6 +88,11 @@ class _AccueilEcranState extends State<AccueilEcran> {
       appBar: AppBar(
         title: Text(t('Bonjour {prenom}', {'prenom': session.utilisateur?['prenom'] ?? ''})),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.map_outlined),
+            tooltip: t('Carte'),
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CarteEcran())),
+          ),
           IconButton(
             icon: const Icon(Icons.calculate_outlined),
             tooltip: t('Simulateur d\'achat'),

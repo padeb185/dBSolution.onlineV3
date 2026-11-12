@@ -674,6 +674,8 @@ GOOGLE_RTDN_JETON = env("GOOGLE_RTDN_JETON", default="")
 # Notifications push (Firebase Cloud Messaging) – voir particulier/notifications.py ; vide : pas de push
 FIREBASE_SERVICE_ACCOUNT_FILE = env("FIREBASE_SERVICE_ACCOUNT_FILE", default="")
 FIREBASE_PROJECT_ID = env("FIREBASE_PROJECT_ID", default="")
+# Carte de l'application (stations, bornes, garages…) : API Overpass d'OpenStreetMap
+OVERPASS_URL = env("OVERPASS_URL", default="https://overpass-api.de/api/interpreter")
 
 REST_FRAMEWORK = {
     # Montants en nombres JSON (et non en chaînes) pour l'application

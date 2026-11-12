@@ -28,6 +28,7 @@ urlpatterns = [
     path("vin/", views.VinView.as_view(), name="vin"),
     path("simulateur/", views.SimulateurView.as_view(), name="simulateur"),
     path("catalogue/", views.CatalogueView.as_view(), name="catalogue"),
+    path("carte/", views.CarteView.as_view(), name="carte"),
     path("abonnement/", views.AbonnementView.as_view(), name="abonnement"),
     path("abonnement/achat/", views.AchatView.as_view(), name="abonnement_achat"),
     path("appareils/", views.AppareilsView.as_view(), name="appareils"),

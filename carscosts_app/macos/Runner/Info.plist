@@ -4,6 +4,10 @@
 <dict>
 	<key>NSCameraUsageDescription</key>
 	<string>L'appareil photo sert à photographier vos tickets, documents et à lire le VIN.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Votre position sert à afficher les stations, bornes de recharge, garages, dépanneurs et monteurs de pneus autour de vous.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Votre position sert à afficher les stations, bornes de recharge, garages, dépanneurs et monteurs de pneus autour de vous.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

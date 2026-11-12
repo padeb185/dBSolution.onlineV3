@@ -252,3 +252,44 @@ class StatistiquesPneusTests(SimpleTestCase):
         marques = [m["marque"] for m in s["par_marque"]]
         self.assertEqual(marques[0], "Michelin")
         self.assertIn("—", marques)
+
+
+class CarteTests(SimpleTestCase):
+    def test_categories(self):
+        from . import carte
+        self.assertEqual(carte.categorie({"amenity": "fuel"}), "carburant")
+        self.assertEqual(carte.categorie({"amenity": "charging_station"}), "recharge")
+        self.assertEqual(carte.categorie({"shop": "car_repair"}), "garage")
+        self.assertEqual(carte.categorie({"shop": "car_repair", "service:vehicle:towing": "yes"}), "depannage")
+        self.assertEqual(carte.categorie({"shop": "tyres"}), "pneus")
+        self.assertEqual(carte.categorie({"shop": "car_repair", "service:vehicle:tyres": "yes"}), "garage")
+        self.assertIsNone(carte.categorie({"shop": "bakery"}))
+
+    def test_lieu(self):
+        from . import carte
+        borne = carte.lieu({"type": "node", "id": 1, "lat": 50.85, "lon": 4.36, "tags": {
+            "amenity": "charging_station", "operator": "Allego", "socket:type2": "2", "socket:type2_combo": "1",
+            "socket:ccs": "1", "socket:type2_combo:output": "150 kW", "socket:type2:output": "22 kW",
+            "capacity": "3", "fee": "yes"}}, 50.85, 4.35)
+        self.assertEqual(borne["id"], "n1")
+        self.assertEqual(borne["nom"], "Allego")
+        self.assertEqual({p["type"]: p["nombre"] for p in borne["prises"]}, {"Type 2": 2, "CCS": 2})
+        self.assertEqual(borne["puissance_max"], "150 kW")
+        self.assertEqual(borne["points_de_charge"], 3)
+        self.assertTrue(borne["payant"])
+        self.assertTrue(600 < borne["distance"] < 800)
+        station = carte.lieu({"type": "way", "id": 2, "center": {"lat": 50.86, "lon": 4.35}, "tags": {
+            "amenity": "fuel", "brand": "TotalEnergies", "fuel:diesel": "yes", "fuel:e10": "yes",
+            "addr:street": "Rue Haute", "addr:housenumber": "1", "addr:postcode": "1000", "addr:city": "Bruxelles"}},
+            50.85, 4.35)
+        self.assertEqual((station["id"], station["categorie"]), ("w2", "carburant"))
+        self.assertEqual(station["carburants"], ["Diesel", "E10"])
+        self.assertEqual(station["adresse"], "Rue Haute 1, 1000 Bruxelles")
+        self.assertIsNone(carte.lieu({"type": "node", "id": 3, "tags": {"amenity": "fuel"}}, 50, 4))
+
+    def test_requete(self):
+        from . import carte
+        q = carte.requete(50.85, 4.35, 5000, ["carburant", "pneus"])
+        self.assertIn('nwr["amenity"="fuel"](around:5000,50.85,4.35);', q)
+        self.assertIn('nwr["shop"="tyres"]', q)
+        self.assertNotIn("charging_station", q)

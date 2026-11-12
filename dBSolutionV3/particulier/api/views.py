@@ -844,6 +844,30 @@ class NotificationGoogleView(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
+class CarteView(SchemaParticuliersMixin, APIView):
+    """Carte : stations de carburant, bornes de recharge, garages, dépanneurs et monteurs de pneus (OpenStreetMap).
+    ?lat=…&lon=…&rayon=5000 (mètres, max 25 km)&types=carburant,recharge,garage,depannage,pneus"""
+
+    def get(self, request):
+        from .. import carte
+        try:
+            lat = float(request.query_params["lat"])
+            lon = float(request.query_params["lon"])
+            rayon = int(request.query_params.get("rayon") or carte.RAYON_DEFAUT)
+        except (KeyError, TypeError, ValueError):
+            return Response({"detail": _("Position invalide.")}, status=status.HTTP_400_BAD_REQUEST)
+        if not (-90 <= lat <= 90 and -180 <= lon <= 180):
+            return Response({"detail": _("Position invalide.")}, status=status.HTTP_400_BAD_REQUEST)
+        types = [t for t in (request.query_params.get("types") or "").split(",") if t] or None
+        try:
+            lieux = carte.lieux(lat, lon, rayon, types)
+        except RuntimeError:
+            return Response({"detail": _("Le service de carte (OpenStreetMap) ne répond pas, réessayez dans un instant.")},
+                            status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        return Response({"lieux": lieux, "categories": carte.CATEGORIES,
+                         "source": "© OpenStreetMap contributors (ODbL)"})
+
+
 class CatalogueView(SchemaParticuliersMixin, APIView):
     """Marques et modèles proposés à la saisie d'un véhicule (fichier particulier/donnees/marques_modeles.json).
     L'application télécharge le catalogue complet et filtre localement (premières lettres)."""
