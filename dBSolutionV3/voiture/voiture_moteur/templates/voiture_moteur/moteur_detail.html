@@ -62,6 +62,10 @@
                 {{ moteur.nombre_cylindres }}
             </p>
             <p>
+                <strong>{% trans "Architecture" %} :</strong>
+                {{ moteur.get_architecture_display|default:"—" }}
+            </p>
+            <p>
                 <strong>{% trans "Puissance" %} :</strong>
                 {{ moteur.puissance_ch  }}
             </p>

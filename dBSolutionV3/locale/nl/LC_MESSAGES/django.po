@@ -83284,3 +83284,29 @@ msgstr "Zuigerveren en drijfstangogen"
 
 msgid "Coussinets Ø"
 msgstr "Lagers Ø"
+
+msgctxt "architecture moteur"
+msgid "En VR (V étroit)"
+msgstr "VR-motor (smalle V)"
+
+msgctxt "architecture moteur"
+msgid "Rotatif (Wankel)"
+msgstr "Wankelmotor"
+
+msgctxt "architecture moteur"
+msgid "Sans objet (électrique)"
+msgstr "Niet van toepassing (elektrisch)"
+
+msgid "Vide : déduite du code moteur et du nombre de cylindres."
+msgstr "Leeg: afgeleid van de motorcode en het aantal cilinders."
+
+msgid ""
+"En ligne, en VR et à plat : un maneton par cylindre, n + 1 tourillons. En V "
+"et en W : deux bielles par maneton, n / 2 manetons et n / 2 + 1 tourillons. "
+"Laissez les nombres vides pour les calculer, ou corrigez-les (moteur à "
+"manetons décalés, paliers supplémentaires…)."
+msgstr ""
+"Lijn-, VR- en boxermotor: één krukpen per cilinder, n + 1 lagertappen. V- en "
+"W-motor: twee drijfstangen per krukpen, n / 2 krukpennen en n / 2 + 1 "
+"lagertappen. Laat de aantallen leeg om ze te berekenen, of corrigeer ze "
+"(verzette krukpennen, extra lagers…)."

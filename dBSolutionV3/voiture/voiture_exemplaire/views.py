@@ -469,6 +469,7 @@ def moteur_autocomplete(request):
         "cylindree_l": moteur.cylindree_l,
         "distribution": moteur.distribution,
         "nombre_cylindres": moteur.nombre_cylindres,
+        "architecture": moteur.architecture,
         "puissance_ch": moteur.puissance_ch,
         "puissance_tr_min": moteur.puissance_tr_min,
         "couple_nm": moteur.couple_nm,

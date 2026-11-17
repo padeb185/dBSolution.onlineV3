@@ -30,6 +30,7 @@ class MoteurVoitureForm(forms.ModelForm):
 
             "cylindree_l": _("Cylindrée (L)"),
             "nombre_cylindres": _("Nombre de cylindres"),
+            "architecture": _("Architecture"),
             "puissance_ch": _("Puissance (ch)"),
             "puissance_tr_min": _("Puissance (tr/min)"),
             "couple_nm": _("Couple (Nm)"),
@@ -63,6 +64,10 @@ class MoteurVoitureForm(forms.ModelForm):
             # -------------------------
             # SELECT
             # -------------------------
+            "architecture": forms.Select(attrs={
+                "class": "border rounded px-3 py-2 w-full text-sm h-10"
+            }),
+
             "type_moteur": forms.Select(attrs={
                 "class": "border rounded px-3 py-2 w-full text-sm h-10"
             }),

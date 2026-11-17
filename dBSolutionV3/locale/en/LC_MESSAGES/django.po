@@ -82842,3 +82842,29 @@ msgstr "Piston rings and small ends"
 
 msgid "Coussinets Ø"
 msgstr "Bearings Ø"
+
+msgctxt "architecture moteur"
+msgid "En VR (V étroit)"
+msgstr "VR (narrow V)"
+
+msgctxt "architecture moteur"
+msgid "Rotatif (Wankel)"
+msgstr "Rotary (Wankel)"
+
+msgctxt "architecture moteur"
+msgid "Sans objet (électrique)"
+msgstr "Not applicable (electric)"
+
+msgid "Vide : déduite du code moteur et du nombre de cylindres."
+msgstr "Empty: derived from the engine code and number of cylinders."
+
+msgid ""
+"En ligne, en VR et à plat : un maneton par cylindre, n + 1 tourillons. En V "
+"et en W : deux bielles par maneton, n / 2 manetons et n / 2 + 1 tourillons. "
+"Laissez les nombres vides pour les calculer, ou corrigez-les (moteur à "
+"manetons décalés, paliers supplémentaires…)."
+msgstr ""
+"Inline, VR and flat: one crankpin per cylinder, n + 1 main journals. V and W:"
+" two connecting rods per crankpin, n / 2 crankpins and n / 2 + 1 main "
+"journals. Leave the numbers empty to calculate them, or correct them (split "
+"crankpins, extra bearings…)."

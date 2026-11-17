@@ -83222,3 +83222,29 @@ msgstr "Segmentos y pies de biela"
 
 msgid "Coussinets Ø"
 msgstr "Cojinetes Ø"
+
+msgctxt "architecture moteur"
+msgid "En VR (V étroit)"
+msgstr "En VR (V estrecho)"
+
+msgctxt "architecture moteur"
+msgid "Rotatif (Wankel)"
+msgstr "Rotativo (Wankel)"
+
+msgctxt "architecture moteur"
+msgid "Sans objet (électrique)"
+msgstr "No aplicable (eléctrico)"
+
+msgid "Vide : déduite du code moteur et du nombre de cylindres."
+msgstr "Vacío: deducida del código de motor y del número de cilindros."
+
+msgid ""
+"En ligne, en VR et à plat : un maneton par cylindre, n + 1 tourillons. En V "
+"et en W : deux bielles par maneton, n / 2 manetons et n / 2 + 1 tourillons. "
+"Laissez les nombres vides pour les calculer, ou corrigez-les (moteur à "
+"manetons décalés, paliers supplémentaires…)."
+msgstr ""
+"En línea, en VR y plano: una muñequilla por cilindro, n + 1 apoyos. En V y en"
+" W: dos bielas por muñequilla, n / 2 muñequillas y n / 2 + 1 apoyos. Deje los"
+" números vacíos para calcularlos, o corríjalos (muñequillas desplazadas, "
+"apoyos adicionales…)."

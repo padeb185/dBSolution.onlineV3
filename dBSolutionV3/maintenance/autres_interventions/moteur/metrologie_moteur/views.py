@@ -25,7 +25,7 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 
 from ..moteur_lie import moteur_actuel
 from .forms import MesureCylindreFormSet, MesureManetonFormSet, MesureTourillonFormSet, MetrologieMoteurForm
-from .models import MetrologieMoteur, cylindres_du_maneton
+from .models import ArchitectureMoteur, MetrologieMoteur, cylindres_du_maneton
 
 ROLES_AUTORISES = ["mecanicien", "apprenti", "apprentis", "magasinier", "chef_mecanicien", "chef_atelier", "direction"]
 ROLES_SUPPRESSION = ["direction", "chef_mecanicien"]
@@ -227,6 +227,10 @@ def metrologie_form_view(request, exemplaire_id):
         if moteur:
             if moteur.nombre_cylindres and moteur.nombre_cylindres != nouveau.nombre_cylindres:
                 nouveau.nombre_cylindres = moteur.nombre_cylindres
+                nouveau.nombre_manetons = nouveau.nombre_tourillons = None   # recalculés selon l'architecture
+            if getattr(moteur, "architecture", "") in ArchitectureMoteur.values \
+                    and moteur.architecture != nouveau.architecture:
+                nouveau.architecture = moteur.architecture
                 nouveau.nombre_manetons = nouveau.nombre_tourillons = None   # recalculés selon l'architecture
             if moteur.cylindree_l:
                 nouveau.cylindree_constructeur_cm3 = (Decimal(str(moteur.cylindree_l)) * 1000).quantize(Decimal("0.1"))

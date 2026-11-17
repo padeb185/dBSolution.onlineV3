@@ -122,6 +122,9 @@
             <dt class="text-gray-600">{% trans "Nombre de cylindres" %}</dt>
             <dd class="font-medium">{{ moteur.nombre_cylindres|default_if_none:"—" }}</dd>
 
+            <dt class="text-gray-600">{% trans "Architecture" %}</dt>
+            <dd class="font-medium">{{ moteur.get_architecture_display|default:"—" }}</dd>
+
             <dt class="text-gray-600">{% trans "Puissance" %}</dt>
             <dd class="font-medium">
                 {% if moteur.puissance_ch %}

@@ -83325,3 +83325,29 @@ msgstr "Kolbenringe und Pleuelaugen"
 
 msgid "Coussinets Ø"
 msgstr "Lager Ø"
+
+msgctxt "architecture moteur"
+msgid "En VR (V étroit)"
+msgstr "VR-Motor (enger V)"
+
+msgctxt "architecture moteur"
+msgid "Rotatif (Wankel)"
+msgstr "Kreiskolben (Wankel)"
+
+msgctxt "architecture moteur"
+msgid "Sans objet (électrique)"
+msgstr "Entfällt (elektrisch)"
+
+msgid "Vide : déduite du code moteur et du nombre de cylindres."
+msgstr "Leer: aus Motorcode und Zylinderzahl abgeleitet."
+
+msgid ""
+"En ligne, en VR et à plat : un maneton par cylindre, n + 1 tourillons. En V "
+"et en W : deux bielles par maneton, n / 2 manetons et n / 2 + 1 tourillons. "
+"Laissez les nombres vides pour les calculer, ou corrigez-les (moteur à "
+"manetons décalés, paliers supplémentaires…)."
+msgstr ""
+"Reihen-, VR- und Boxermotor: ein Hubzapfen pro Zylinder, n + 1 Lagerzapfen. "
+"V- und W-Motor: zwei Pleuel pro Hubzapfen, n / 2 Hubzapfen und n / 2 + 1 "
+"Lagerzapfen. Lassen Sie die Anzahlen leer, um sie zu berechnen, oder "
+"korrigieren Sie sie (versetzte Hubzapfen, zusätzliche Lager…)."

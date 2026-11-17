@@ -69,6 +69,17 @@ T = {
  (None, "Manetons / tourillons"): ("Krukpennen / lagertappen", "Crankpins / main journals", "Hubzapfen / Lagerzapfen", "Muñequillas / apoyos", "Perni di biella / di banco", "Στροφείς / κομβία"),
  (None, "Segments et pieds de bielle"): ("Zuigerveren en drijfstangogen", "Piston rings and small ends", "Kolbenringe und Pleuelaugen", "Segmentos y pies de biela", "Fasce elastiche e piedi di biella", "Ελατήρια και πόδια μπιέλας"),
  (None, "Coussinets Ø"): ("Lagers Ø", "Bearings Ø", "Lager Ø", "Cojinetes Ø", "Bronzine Ø", "Κουζινέτα Ø"),
+ (CTX, "En VR (V étroit)"): ("VR-motor (smalle V)", "VR (narrow V)", "VR-Motor (enger V)", "En VR (V estrecho)", "A VR (V stretto)", "Σε VR (στενό V)"),
+ (CTX, "Rotatif (Wankel)"): ("Wankelmotor", "Rotary (Wankel)", "Kreiskolben (Wankel)", "Rotativo (Wankel)", "Rotativo (Wankel)", "Περιστροφικός (Wankel)"),
+ (CTX, "Sans objet (électrique)"): ("Niet van toepassing (elektrisch)", "Not applicable (electric)", "Entfällt (elektrisch)", "No aplicable (eléctrico)", "Non applicabile (elettrico)", "Δεν εφαρμόζεται (ηλεκτρικός)"),
+ (None, "Vide : déduite du code moteur et du nombre de cylindres."): ("Leeg: afgeleid van de motorcode en het aantal cilinders.", "Empty: derived from the engine code and number of cylinders.", "Leer: aus Motorcode und Zylinderzahl abgeleitet.", "Vacío: deducida del código de motor y del número de cilindros.", "Vuoto: dedotta dal codice motore e dal numero di cilindri.", "Κενό: προκύπτει από τον κωδικό κινητήρα και τον αριθμό κυλίνδρων."),
+ (None, "En ligne, en VR et à plat : un maneton par cylindre, n + 1 tourillons. En V et en W : deux bielles par maneton, n / 2 manetons et n / 2 + 1 tourillons. Laissez les nombres vides pour les calculer, ou corrigez-les (moteur à manetons décalés, paliers supplémentaires…)."): (
+  "Lijn-, VR- en boxermotor: één krukpen per cilinder, n + 1 lagertappen. V- en W-motor: twee drijfstangen per krukpen, n / 2 krukpennen en n / 2 + 1 lagertappen. Laat de aantallen leeg om ze te berekenen, of corrigeer ze (verzette krukpennen, extra lagers…).",
+  "Inline, VR and flat: one crankpin per cylinder, n + 1 main journals. V and W: two connecting rods per crankpin, n / 2 crankpins and n / 2 + 1 main journals. Leave the numbers empty to calculate them, or correct them (split crankpins, extra bearings…).",
+  "Reihen-, VR- und Boxermotor: ein Hubzapfen pro Zylinder, n + 1 Lagerzapfen. V- und W-Motor: zwei Pleuel pro Hubzapfen, n / 2 Hubzapfen und n / 2 + 1 Lagerzapfen. Lassen Sie die Anzahlen leer, um sie zu berechnen, oder korrigieren Sie sie (versetzte Hubzapfen, zusätzliche Lager…).",
+  "En línea, en VR y plano: una muñequilla por cilindro, n + 1 apoyos. En V y en W: dos bielas por muñequilla, n / 2 muñequillas y n / 2 + 1 apoyos. Deje los números vacíos para calcularlos, o corríjalos (muñequillas desplazadas, apoyos adicionales…).",
+  "In linea, a VR e boxer: un perno di biella per cilindro, n + 1 perni di banco. A V e a W: due bielle per perno, n / 2 perni di biella e n / 2 + 1 perni di banco. Lascia vuoti i numeri per calcolarli, oppure correggili (perni sfalsati, supporti aggiuntivi…).",
+  "Σε σειρά, σε VR και επίπεδος: ένας στροφέας ανά κύλινδρο, n + 1 κομβία. Σε V και σε W: δύο μπιέλες ανά στροφέα, n / 2 στροφείς και n / 2 + 1 κομβία. Αφήστε τους αριθμούς κενούς για υπολογισμό ή διορθώστε τους (μετατοπισμένοι στροφείς, επιπλέον έδρανα…)."),
 }
 LANGS = ["nl", "en", "de", "es", "it", "el"]
 racine = sys.argv[1]

@@ -11,6 +11,8 @@ class MoteurVoitureAdmin(admin.ModelAdmin):
         "type_moteur",
         "carburant",
         "cylindree_l",
+        "nombre_cylindres",
+        "architecture",
         "puissance_ch",
         "boite",
         "numero_moteur",
@@ -22,6 +24,7 @@ class MoteurVoitureAdmin(admin.ModelAdmin):
         "type_moteur",
         "carburant",
         "distribution",
+        "architecture",
         "boite",
         "created_at",
     )
@@ -57,6 +60,7 @@ class MoteurVoitureAdmin(admin.ModelAdmin):
             "fields": (
                 "cylindree_l",
                 "nombre_cylindres",
+                "architecture",
                 "puissance_ch",
                 "puissance_tr_min",
                 "couple_nm",

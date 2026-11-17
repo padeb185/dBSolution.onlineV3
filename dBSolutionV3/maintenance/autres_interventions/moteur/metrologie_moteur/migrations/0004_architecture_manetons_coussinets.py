@@ -53,7 +53,8 @@ class Migration(migrations.Migration):
             model_name="metrologiemoteur",
             name="architecture",
             field=models.CharField(
-                choices=[("EN_LIGNE", "En ligne"), ("V", "En V"), ("PLAT", "À plat (boxer)"), ("W", "En W")],
+                choices=[("EN_LIGNE", "En ligne"), ("V", "En V"), ("VR", "En VR (V étroit)"), ("PLAT", "À plat (boxer)"),
+                         ("W", "En W")],
                 default="EN_LIGNE", max_length=10, verbose_name="Architecture",
                 help_text="Un flat 12 à manetons communs (Ferrari « BB ») est un V à 180° : choisissez « En V ».",
             ),

@@ -83,7 +83,7 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
             {% for field in sections.moteur %}{% include "metrologie_moteur/_champ.html" %}{% endfor %}
         </div>
-        <p class="text-sm text-gray-600">{% trans "En ligne et à plat : un maneton par cylindre, n + 1 tourillons. En V et en W : deux bielles par maneton, n / 2 manetons et n / 2 + 1 tourillons. Laissez les nombres vides pour les calculer, ou corrigez-les (moteur à manetons décalés, paliers supplémentaires…)." %}</p>
+        <p class="text-sm text-gray-600">{% trans "En ligne, en VR et à plat : un maneton par cylindre, n + 1 tourillons. En V et en W : deux bielles par maneton, n / 2 manetons et n / 2 + 1 tourillons. Laissez les nombres vides pour les calculer, ou corrigez-les (moteur à manetons décalés, paliers supplémentaires…)." %}</p>
         <button type="button" id="generer-lignes" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">
             {% trans "Ajuster les lignes (cylindres, manetons et tourillons selon l'architecture)" %}
         </button>

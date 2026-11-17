@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models import Q
 import uuid
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, pgettext_lazy
 from maintenance.choices import HuileEtat
 from voiture.voiture_boite.models import VoitureBoite
 
@@ -29,6 +29,17 @@ class TypeDistribution(models.TextChoices):
     COURROIE = "COURROIE", _("Courroie")
     AUCUNE = "AUCUNE", _("Aucune (électrique / rotatif)")
     NC = "NC", _("Non communiquée")
+
+class ArchitectureMoteur(models.TextChoices):
+    # Contexte : « En ligne » ne doit pas reprendre la traduction « online »
+    EN_LIGNE = "EN_LIGNE", pgettext_lazy("architecture moteur", "En ligne")
+    V = "V", pgettext_lazy("architecture moteur", "En V")
+    VR = "VR", pgettext_lazy("architecture moteur", "En VR (V étroit)")
+    W = "W", pgettext_lazy("architecture moteur", "En W")
+    PLAT = "PLAT", pgettext_lazy("architecture moteur", "À plat (boxer)")
+    ROTATIF = "ROTATIF", pgettext_lazy("architecture moteur", "Rotatif (Wankel)")
+    SANS = "SANS", pgettext_lazy("architecture moteur", "Sans objet (électrique)")
+
 
 class MoteurVoiture(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -60,6 +71,11 @@ class MoteurVoiture(models.Model):
         verbose_name="Nombre de cylindres",
         null=True,
         blank=True)
+    architecture = models.CharField(
+        max_length=10, choices=ArchitectureMoteur.choices, blank=True, default="",
+        verbose_name=_("Architecture"),
+        help_text=_("Vide : déduite du code moteur et du nombre de cylindres."),
+    )
     puissance_ch = models.IntegerField(null=True, blank=True)
     puissance_tr_min = models.IntegerField(verbose_name="Puissance à (tr/min)", null=True, blank=True)
     couple_nm = models.IntegerField(null=True, blank=True)
@@ -113,12 +129,17 @@ class MoteurVoiture(models.Model):
             if moteur_existant:
                 champs_a_copier = [
                     "type_moteur", "carburant", "cylindree_l",
-                    "distribution", "nombre_cylindres", "puissance_ch",
+                    "distribution", "nombre_cylindres", "architecture", "puissance_ch",
                     "puissance_tr_min", "couple_nm", "couple_tr_min",
                     "qualite_huile", "quantite_huile_l", "intervalle_km_entretien",
                 ]
 
                 for champ in champs_a_copier:
                     setattr(self, champ, getattr(moteur_existant, champ))
+
+        if not self.architecture:
+            from .architecture import architecture_par_defaut
+            self.architecture = architecture_par_defaut(
+                self.motoriste, self.code_moteur, self.nombre_cylindres, self.type_moteur)
 
         super().save(*args, **kwargs)

@@ -18,16 +18,17 @@ from django_tenants.utils import get_public_schema_name, tenant_context
 
 from societe.models import Societe
 from voiture.voiture_moteur.data.moteurs import MOTEURS
-from voiture.voiture_moteur.models import MoteurVoiture, TypeCarburant, TypeDistribution, TypeMoteur
+from voiture.voiture_moteur.models import ArchitectureMoteur, MoteurVoiture, TypeCarburant, TypeDistribution, TypeMoteur
 from maintenance.choices import HuileEtat
 
-SPECS = ["type_moteur", "carburant", "cylindree_l", "distribution", "nombre_cylindres", "puissance_ch",
+SPECS = ["type_moteur", "carburant", "cylindree_l", "distribution", "nombre_cylindres", "architecture", "puissance_ch",
          "puissance_tr_min", "couple_nm", "couple_tr_min", "qualite_huile", "quantite_huile_l",
          "intervalle_km_entretien"]
 CHOIX = {
     "type_moteur": set(TypeMoteur.values),
     "carburant": set(TypeCarburant.values),
     "distribution": set(TypeDistribution.values),
+    "architecture": set(ArchitectureMoteur.values),   # vide sur un moteur d'exemplaire → valeur du référentiel
     "qualite_huile": set(HuileEtat.values) | {"10W30"},
 }
 

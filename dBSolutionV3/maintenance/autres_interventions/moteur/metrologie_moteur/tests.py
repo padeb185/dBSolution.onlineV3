@@ -29,6 +29,7 @@ class NombrePaliersTests(SimpleTestCase):
         self.assertEqual(nombre_paliers(ArchitectureMoteur.EN_LIGNE, 6), (6, 7))
         self.assertEqual(nombre_paliers(ArchitectureMoteur.PLAT, 4), (4, 5))
         self.assertEqual(nombre_paliers(ArchitectureMoteur.PLAT, 6), (6, 7))
+        self.assertEqual(nombre_paliers(ArchitectureMoteur.VR, 6), (6, 7))
 
     def test_en_v_et_en_w(self):
         from .models import ArchitectureMoteur, nombre_paliers

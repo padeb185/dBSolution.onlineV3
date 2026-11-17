@@ -91,6 +91,7 @@ class ArchitectureMoteur(models.TextChoices):
     # Contexte : « En ligne » ne doit pas reprendre la traduction « online »
     EN_LIGNE = "EN_LIGNE", pgettext_lazy("architecture moteur", "En ligne")
     V = "V", pgettext_lazy("architecture moteur", "En V")
+    VR = "VR", pgettext_lazy("architecture moteur", "En VR (V étroit)")
     PLAT = "PLAT", pgettext_lazy("architecture moteur", "À plat (boxer)")
     W = "W", pgettext_lazy("architecture moteur", "En W")
 
@@ -99,6 +100,7 @@ def nombre_paliers(architecture, nombre_cylindres):
     """
     Nombre habituel de manetons et de tourillons (modifiable sur l'intervention) :
     - en ligne : un maneton par cylindre, n + 1 tourillons (4 cyl. : 4 / 5) ;
+    - en VR (V étroit à une culasse, VR6 Volkswagen, V4 Lancia) : manetons décalés, comme en ligne (VR6 : 6 / 7) ;
     - à plat (boxer) : un maneton par cylindre, n + 1 tourillons (Subaru 4 cyl. : 4 / 5, Porsche 6 cyl. : 6 / 7) ;
     - en V : deux bielles par maneton, n / 2 manetons et n / 2 + 1 tourillons (V8 : 4 / 5) ;
     - en W : deux bielles par maneton, n / 2 manetons et n / 2 + 1 tourillons (W12 : 6 / 7, W16 : 8 / 9).
