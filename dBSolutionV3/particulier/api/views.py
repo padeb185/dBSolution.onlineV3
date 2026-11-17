@@ -546,6 +546,15 @@ class PneusViewSet(ProprietaireViewSet):
                           "code": "formule_requise", "formule_requise": "bronze"}
             raise exc
 
+    @action(detail=False)
+    def fabricants(self, request):
+        """Fabricants de pneus de dBSolution (maintenance.choices.FabricantPneus).
+        Le code est le nom de la marque : le champ « marque » reste un texte libre (données existantes, statistiques)."""
+        from maintenance.choices import FabricantPneus
+        hors_marques = {FabricantPneus.CHOISIR, FabricantPneus.CONSTRUCTEUR, FabricantPneus.AUTRE}
+        return Response([{"code": str(l), "libelle": str(l)}
+                         for c, l in FabricantPneus.choices if c not in hors_marques])
+
     def create(self, request, *args, **kwargs):
         ser = self.get_serializer(data=request.data)
         ser.is_valid(raise_exception=True)

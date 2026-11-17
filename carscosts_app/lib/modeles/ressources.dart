@@ -11,7 +11,8 @@ enum TypeChamp { texte, entier, decimal, date, booleen, choix, image, fichier }
 /// Description d'un champ (nom côté API, libellé, type, options).
 class Champ {
   const Champ(this.nom, this.libelle, this.type,
-      {this.obligatoire = false, this.choix = const {}, this.aide, this.suffixe, this.parDefaut, this.choixDistants});
+      {this.obligatoire = false, this.choix = const {}, this.aide, this.suffixe, this.parDefaut, this.choixDistants,
+      this.recherche = false});
 
   final String nom;
   final String libelle;
@@ -26,6 +27,10 @@ class Champ {
 
   /// Pour TypeChamp.choix : liste chargée depuis l'API ([{code, libelle}], libellés traduits par le serveur)
   final String? choixDistants;
+
+  /// Pour TypeChamp.choix : champ de saisie qui filtre la liste sur les premières lettres
+  /// (une valeur absente de la liste reste acceptée telle que saisie)
+  final bool recherche;
 
   bool get estFichier => type == TypeChamp.image || type == TypeChamp.fichier;
 }
@@ -458,7 +463,8 @@ Ressource get pneus => Ressource(
     Champ('monte', t('Monte'), TypeChamp.choix, obligatoire: true, choix: montesPneus, parDefaut: 'premiere',
         aide: t('Seconde monte : par exemple les pneus hiver. Même monte et même essieu : les anciens pneus sont remplacés (historique).')),
     Champ('type_pneus', t('Type de pneus'), TypeChamp.choix, obligatoire: true, choix: typesPneus, parDefaut: 'ete'),
-    Champ('marque', t('Marque des pneus'), TypeChamp.texte),
+    Champ('marque', t('Marque des pneus'), TypeChamp.choix,
+        choixDistants: 'pneus/fabricants/', recherche: true),
     Champ('modele', t('Modèle'), TypeChamp.texte),
     Champ('largeur', t('Largeur'), TypeChamp.texte, aide: t('Ex. 205/55 R16 91V : largeur 205, hauteur 55, jante 16, charge 91, vitesse V')),
     Champ('hauteur', t('Hauteur'), TypeChamp.texte),

@@ -54,6 +54,11 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
       final liste = [for (final e in r as List) Map<String, dynamic>.from(e as Map)];
       setState(() {
         _choixCharges[c.nom] = {for (final e in liste) '${e['code']}': '${e['libelle']}'};
+        // Valeur enregistrée absente de la liste (ancienne saisie libre) : gardée comme option
+        final actuelle = _valeurs[c.nom];
+        if (actuelle is String && actuelle.isNotEmpty && !_choixCharges[c.nom]!.containsKey(actuelle)) {
+          _choixCharges[c.nom]![actuelle] = actuelle;
+        }
         if (liste.any((e) => e['famille'] != null)) {
           _famillesCharges[c.nom] = {for (final e in liste) '${e['code']}': '${e['famille'] ?? 'autres'}'};
         }
@@ -422,6 +427,7 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
         );
       case TypeChamp.choix:
         final options = c.choixDistants != null ? (_choixCharges[c.nom] ?? <String, String>{}) : c.choix;
+        if (c.recherche) return _champRecherche(c, options, decoration);
         return DropdownButtonFormField<String>(
           // Choix distants : reconstruit une fois la liste chargée (la valeur doit exister dans la liste)
           key: c.choixDistants != null ? ValueKey('${c.nom}-${options.length}') : null,
@@ -447,6 +453,41 @@ class _FormulaireEcranState extends State<FormulaireEcran> {
       case TypeChamp.fichier:
         return _champFichier(c, erreur);
     }
+  }
+
+  /// Choix avec recherche : on tape les premières lettres, la liste se réduit (début de mot d'abord).
+  Widget _champRecherche(Champ c, Map<String, String> options, InputDecoration decoration) {
+    String norm(String x) => x.toLowerCase().trim();
+    final actuelle = _valeurs[c.nom] as String?;
+    return Autocomplete<String>(
+      initialValue: TextEditingValue(text: actuelle == null ? '' : (options[actuelle] ?? actuelle)),
+      displayStringForOption: (code) => options[code] ?? code,
+      optionsBuilder: (saisie) {
+        final q = norm(saisie.text);
+        if (q.isEmpty) return options.keys;
+        final debut = [for (final e in options.entries) if (norm(e.value).startsWith(q)) e.key];
+        final mot = [
+          for (final e in options.entries)
+            if (!debut.contains(e.key) && norm(e.value).split(RegExp(r'[\s\-]')).any((m) => m.startsWith(q))) e.key
+        ];
+        return [...debut, ...mot];
+      },
+      onSelected: (code) => setState(() => _valeurs[c.nom] = code),
+      fieldViewBuilder: (context, controller, focus, onSubmit) => TextFormField(
+        controller: controller,
+        focusNode: focus,
+        decoration: decoration.copyWith(suffixIcon: const Icon(Icons.arrow_drop_down)),
+        textCapitalization: TextCapitalization.words,
+        onChanged: (texte) {
+          // Libellé exact de la liste → son code ; sinon le texte saisi (marque hors liste)
+          final q = norm(texte);
+          final code = options.entries.where((e) => norm(e.value) == q).map((e) => e.key).firstOrNull;
+          _valeurs[c.nom] = q.isEmpty ? null : (code ?? texte.trim());
+        },
+        onFieldSubmitted: (_) => onSubmit(),
+        validator: (v) => c.obligatoire && (v == null || v.trim().isEmpty) ? t('Champ obligatoire') : null,
+      ),
+    );
   }
 
   Widget _champFichier(Champ c, String? erreur) {
