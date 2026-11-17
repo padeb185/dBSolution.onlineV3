@@ -32,15 +32,17 @@
         <div class="mb-3 px-4 py-2 rounded {% if message.tags == 'success' %}bg-green-100 text-green-800 border border-green-300{% else %}bg-red-100 text-red-800 border border-red-300{% endif %}">{{ message }}</div>
     {% endfor %}{% endif %}
 
-    {% if form.errors or cylindres_fs.total_error_count or tourillons_fs.total_error_count %}
+    {% if form.errors or cylindres_fs.total_error_count or manetons_fs.total_error_count or tourillons_fs.total_error_count %}
         <div class="bg-red-100 text-red-800 border border-red-300 p-4 rounded mb-6">
             <strong>{% trans "Erreurs :" %}</strong>
             <ul>
                 {% for field in form %}{% for error in field.errors %}<li>{{ field.label }} : {{ error }}</li>{% endfor %}{% endfor %}
                 {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
                 {% for f in cylindres_fs %}{% for field in f %}{% for error in field.errors %}<li>{% trans "Cylindre" %} {{ f.numero.value }} – {{ field.label }} : {{ error }}</li>{% endfor %}{% endfor %}{% endfor %}
+                {% for f in manetons_fs %}{% for field in f %}{% for error in field.errors %}<li>{% trans "Maneton" %} {{ f.numero.value }} – {{ field.label }} : {{ error }}</li>{% endfor %}{% endfor %}{% endfor %}
                 {% for f in tourillons_fs %}{% for field in f %}{% for error in field.errors %}<li>{% trans "Tourillon" %} {{ f.numero.value }} – {{ field.label }} : {{ error }}</li>{% endfor %}{% endfor %}{% endfor %}
                 {% for error in cylindres_fs.non_form_errors %}<li>{{ error }}</li>{% endfor %}
+                {% for error in manetons_fs.non_form_errors %}<li>{{ error }}</li>{% endfor %}
                 {% for error in tourillons_fs.non_form_errors %}<li>{{ error }}</li>{% endfor %}
             </ul>
         </div>
@@ -63,6 +65,7 @@
     <form method="post" id="metrologie-form" class="space-y-4" novalidate>
         {% csrf_token %}
         {{ cylindres_fs.management_form }}
+        {{ manetons_fs.management_form }}
         {{ tourillons_fs.management_form }}
 
         <p class="bg-blue-50 border border-blue-200 rounded p-3 text-sm">
@@ -80,8 +83,9 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
             {% for field in sections.moteur %}{% include "metrologie_moteur/_champ.html" %}{% endfor %}
         </div>
+        <p class="text-sm text-gray-600">{% trans "En ligne et à plat : un maneton par cylindre, n + 1 tourillons. En V et en W : deux bielles par maneton, n / 2 manetons et n / 2 + 1 tourillons. Laissez les nombres vides pour les calculer, ou corrigez-les (moteur à manetons décalés, paliers supplémentaires…)." %}</p>
         <button type="button" id="generer-lignes" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">
-            {% trans "Ajuster les lignes au nombre de cylindres (n cylindres, n + 1 tourillons)" %}
+            {% trans "Ajuster les lignes (cylindres, manetons et tourillons selon l'architecture)" %}
         </button>
 
         <!-- TOLÉRANCES -->
@@ -94,6 +98,8 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">{% for field in sections.tol_segments %}{% include "metrologie_moteur/_champ.html" %}{% endfor %}</div>
             <h3 class="font-semibold mt-4 mb-2">{% trans "Vilebrequin – manetons et tourillons" %}</h3>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">{% for field in sections.tol_vilebrequin %}{% include "metrologie_moteur/_champ.html" %}{% endfor %}</div>
+            <h3 class="font-semibold mt-4 mb-2">{% trans "Coussinets – jeu de fonctionnement" %}</h3>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">{% for field in sections.tol_coussinets %}{% include "metrologie_moteur/_champ.html" %}{% endfor %}</div>
             <h3 class="font-semibold mt-4 mb-2">{% trans "Pied de bielle" %}</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">{% for field in sections.tol_bielle %}{% include "metrologie_moteur/_champ.html" %}{% endfor %}</div>
         </details>
@@ -140,42 +146,22 @@
         </div>
 
         <!-- MANETONS -->
-        <h2 class="section-titre">{% trans "Vilebrequin – manetons" %}</h2>
+        <h2 class="section-titre">{% trans "Vilebrequin – manetons et coussinets de bielle" %}</h2>
+        <p class="text-sm text-gray-600">{% trans "Coussinets : diamètre intérieur mesuré coussinets montés, chapeau serré au couple. Jeu = Ø coussinets − Ø maneton (ou tourillon)." %}</p>
         <div class="overflow-x-auto">
             <table class="border-collapse border border-gray-200 text-sm" id="table-maneton">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="border px-2 py-1" rowspan="2">{% trans "Cyl." %}</th>
-                        <th class="border px-2 py-1" colspan="2">{% trans "Section 1" %}</th>
-                        <th class="border px-2 py-1" colspan="2">{% trans "Section 2" %}</th>
-                        <th class="border px-2 py-1" rowspan="2">{% trans "Ø mini – maxi" %}</th>
-                        <th class="border px-2 py-1" rowspan="2">{% trans "Ovalisation" %}</th>
-                        <th class="border px-2 py-1" rowspan="2">{% trans "Conicité" %}</th>
-                    </tr>
-                    <tr class="bg-gray-100"><th class="border px-2 py-1">A</th><th class="border px-2 py-1">B</th><th class="border px-2 py-1">A</th><th class="border px-2 py-1">B</th></tr>
-                </thead>
-                <tbody>{% for f in cylindres_fs %}{% include "metrologie_moteur/_lignes_cylindre.html" with bloc="maneton" %}{% endfor %}</tbody>
+                {% include "metrologie_moteur/_entete_palier.html" with tol="maneton" %}
+                <tbody>{% for f in manetons_fs %}{% include "metrologie_moteur/_ligne_palier.html" with classe="ligne-man" tol="maneton" %}{% endfor %}</tbody>
             </table>
         </div>
+        <button type="button" id="ajouter-maneton" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">+ {% trans "Ajouter un maneton" %}</button>
 
         <!-- TOURILLONS -->
-        <h2 class="section-titre">{% trans "Vilebrequin – tourillons" %}</h2>
+        <h2 class="section-titre">{% trans "Vilebrequin – tourillons et coussinets de palier" %}</h2>
         <div class="overflow-x-auto">
             <table class="border-collapse border border-gray-200 text-sm" id="table-tourillon">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="border px-2 py-1" rowspan="2">{% trans "N°" %}</th>
-                        <th class="border px-2 py-1" colspan="2">{% trans "Section 1" %}</th>
-                        <th class="border px-2 py-1" colspan="2">{% trans "Section 2" %}</th>
-                        <th class="border px-2 py-1" rowspan="2">{% trans "Ø mini – maxi" %}</th>
-                        <th class="border px-2 py-1" rowspan="2">{% trans "Ovalisation" %}</th>
-                        <th class="border px-2 py-1" rowspan="2">{% trans "Conicité" %}</th>
-                        <th class="border px-2 py-1" rowspan="2">{% trans "Remarque" %}</th>
-                        <th class="border px-2 py-1" rowspan="2"></th>
-                    </tr>
-                    <tr class="bg-gray-100"><th class="border px-2 py-1">A</th><th class="border px-2 py-1">B</th><th class="border px-2 py-1">A</th><th class="border px-2 py-1">B</th></tr>
-                </thead>
-                <tbody>{% for f in tourillons_fs %}{% include "metrologie_moteur/_ligne_tourillon.html" %}{% endfor %}</tbody>
+                {% include "metrologie_moteur/_entete_palier.html" with tol="tourillon" %}
+                <tbody>{% for f in tourillons_fs %}{% include "metrologie_moteur/_ligne_palier.html" with classe="ligne-tour" tol="tourillon" %}{% endfor %}</tbody>
             </table>
         </div>
         <button type="button" id="ajouter-tourillon" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">+ {% trans "Ajouter un tourillon" %}</button>
@@ -248,10 +234,10 @@
 {% with f=cylindres_fs.empty_form %}
 <template id="tpl-cyl-chemise">{% include "metrologie_moteur/_lignes_cylindre.html" with bloc="chemise" %}</template>
 <template id="tpl-cyl-segments">{% include "metrologie_moteur/_lignes_cylindre.html" with bloc="segments" %}</template>
-<template id="tpl-cyl-maneton">{% include "metrologie_moteur/_lignes_cylindre.html" with bloc="maneton" %}</template>
 <template id="tpl-cyl-bielle">{% include "metrologie_moteur/_lignes_cylindre.html" with bloc="bielle" %}</template>
 {% endwith %}
-{% with f=tourillons_fs.empty_form %}<template id="tpl-tour">{% include "metrologie_moteur/_ligne_tourillon.html" %}</template>{% endwith %}
+{% with f=manetons_fs.empty_form %}<template id="tpl-man">{% include "metrologie_moteur/_ligne_palier.html" with classe="ligne-man" tol="maneton" %}</template>{% endwith %}
+{% with f=tourillons_fs.empty_form %}<template id="tpl-tour">{% include "metrologie_moteur/_ligne_palier.html" with classe="ligne-tour" tol="tourillon" %}</template>{% endwith %}
 
 <style>
 .input { width: 100% !important; border: 1px solid #ccc !important; border-radius: 6px !important; padding: 8px !important; box-sizing: border-box !important; }
@@ -273,5 +259,5 @@ input.cote.hors { border-color: #dc2626 !important; background: #fef2f2; }
 .kilometrage-popup-confirmer { background-color: #991b1b; color: white; }
 </style>
 
-<script src="{% static 'js/metrologie_moteur.js' %}?v=2"></script>
+<script src="{% static 'js/metrologie_moteur.js' %}?v=3"></script>
 {% endblock %}

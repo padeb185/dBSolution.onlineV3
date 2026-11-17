@@ -1,5 +1,6 @@
 /* Métrologie moteur : calculs en direct (ovalisation, conicité, jeux, cylindrée), contrôle des tolérances,
-   ajout / retrait de lignes (cylindres, tourillons). Cotes en mm au centième. */
+   ajout / retrait de lignes (cylindres, manetons, tourillons). Nombre de manetons et de tourillons selon
+   l'architecture (en ligne, en V, à plat, en W). Cotes en mm au centième. */
 (function () {
     "use strict";
 
@@ -82,16 +83,6 @@
             R(cle, v === null ? "—" : (s === null ? "" : (s ? "OK" : "✕")), s);
         });
 
-        // Maneton
-        const m = ["maneton_1_a", "maneton_1_b", "maneton_2_a", "maneton_2_b"].map(g);
-        const mmin = mini(...m), mmax = maxi(...m);
-        R("maneton_diametre", mmin === null ? "—" : `${fmt(mmin)} – ${fmt(mmax)}`,
-            statut([mmin, mmax], tol("maneton_diametre_min"), tol("maneton_diametre_max")));
-        const mo = maxi(ecart(m[0], m[1]), ecart(m[2], m[3]));
-        const mc = maxi(ecart(m[0], m[2]), ecart(m[1], m[3]));
-        R("maneton_ovalisation", fmt(mo), statut([mo], null, tol("maneton_ovalisation_max")));
-        R("maneton_conicite", fmt(mc), statut([mc], null, tol("maneton_conicite_max")));
-
         // Pied de bielle
         const pa = g("pied_bielle_a"), pb = g("pied_bielle_b"), axe = g("axe_piston_diametre");
         const po = ecart(pa, pb);
@@ -112,19 +103,28 @@
         return del && del.checked ? 0 : hors;
     }
 
-    function calculerTourillon(prefix) {
+    /* Maneton ou tourillon : diamètre, ovalisation, conicité, jeu coussinets (alésage coussinets montés − diamètre) */
+    function calculerPalier(prefix) {
         const g = (n) => val(`${prefix}-${n}`);
         const rows = lignesDe(prefix);
+        const k = rows.length ? rows[0].dataset.tol : "tourillon";
         let hors = 0;
         const R = (cle, texte, ok) => { rows.forEach((r) => { hors += afficher(r, cle, texte, ok) || 0; }); };
         const t = ["section_1_a", "section_1_b", "section_2_a", "section_2_b"].map(g);
         const tmin = mini(...t), tmax = maxi(...t);
-        R("tourillon_diametre", tmin === null ? "—" : `${fmt(tmin)} – ${fmt(tmax)}`,
-            statut([tmin, tmax], tol("tourillon_diametre_min"), tol("tourillon_diametre_max")));
+        R("palier_diametre", tmin === null ? "—" : `${fmt(tmin)} – ${fmt(tmax)}`,
+            statut([tmin, tmax], tol(k + "_diametre_min"), tol(k + "_diametre_max")));
         const o = maxi(ecart(t[0], t[1]), ecart(t[2], t[3]));
         const c = maxi(ecart(t[0], t[2]), ecart(t[1], t[3]));
-        R("tourillon_ovalisation", fmt(o), statut([o], null, tol("tourillon_ovalisation_max")));
-        R("tourillon_conicite", fmt(c), statut([c], null, tol("tourillon_conicite_max")));
+        R("palier_ovalisation", fmt(o), statut([o], null, tol(k + "_ovalisation_max")));
+        R("palier_conicite", fmt(c), statut([c], null, tol(k + "_conicite_max")));
+        const ca = g("coussinet_a"), cb = g("coussinet_b");
+        const cmin = mini(ca, cb), cmax = maxi(ca, cb);
+        if (cmin !== null && tmin !== null) {
+            const j1 = cmin - tmax, j2 = cmax - tmin;
+            R("palier_jeu", Math.abs(j1 - j2) < 0.005 ? fmt(j1) : `${fmt(j1)} – ${fmt(j2)}`,
+                statut([j1, j2], tol("jeu_" + k + "_min"), tol("jeu_" + k + "_max")));
+        } else R("palier_jeu", "—", null);
         const del = champ(`${prefix}-DELETE`);
         rows.forEach((r) => r.classList.toggle("opacity-40", !!(del && del.checked)));
         return del && del.checked ? 0 : hors;
@@ -180,7 +180,8 @@
     function tout() {
         let hors = 0;
         prefixes("ligne-cyl").forEach((p) => { hors += calculerCylindre(p); });
-        prefixes("ligne-tour").forEach((p) => { hors += calculerTourillon(p); });
+        prefixes("ligne-man").forEach((p) => { hors += calculerPalier(p); });
+        prefixes("ligne-tour").forEach((p) => { hors += calculerPalier(p); });
         const h = document.getElementById("res-hors");
         h.textContent = hors;
         h.className = "font-bold " + (hors ? "text-red-700" : "text-green-700");
@@ -201,8 +202,34 @@
     }
 
     const GABARITS_CYL = [["tpl-cyl-chemise", "table-chemise"], ["tpl-cyl-segments", "table-segments"],
-        ["tpl-cyl-maneton", "table-maneton"], ["tpl-cyl-bielle", "table-bielle"]];
+        ["tpl-cyl-bielle", "table-bielle"]];
+    const GABARITS_MAN = [["tpl-man", "table-maneton"]];
     const GABARITS_TOUR = [["tpl-tour", "table-tourillon"]];
+
+    /* ---------------- Architecture : nombre de manetons / tourillons (même règle que models.nombre_paliers) ---------------- */
+    const architecture = () => (champ("architecture") || {}).value || "EN_LIGNE";
+    const bielleParManeton = () => ["V", "W"].includes(architecture()) ? 2 : 1;
+    function paliers() {
+        const n = nbCyl();
+        if (!n) return [0, 0];
+        const m = bielleParManeton() === 2 ? Math.ceil(n / 2) : n;
+        return [m, m + 1];
+    }
+    function cylindresDuManeton(numero) {
+        const n = nbCyl();
+        if (bielleParManeton() === 2 && n >= 2) {
+            const autre = numero + Math.ceil(n / 2);
+            return autre <= n ? `${numero} / ${autre}` : String(numero);
+        }
+        return String(numero);
+    }
+    /* Nouvelles lignes de maneton : cylindres proposés (les lignes enregistrées ne sont pas modifiées) */
+    function proposerCylindres() {
+        prefixes("ligne-man").forEach((p) => {
+            const id = champ(`${p}-id`), num = val(`${p}-numero`), cyl = champ(`${p}-cylindres`);
+            if (cyl && num && !(id && id.value)) cyl.value = cylindresDuManeton(num);
+        });
+    }
 
     function prochainNumero(classe) {
         let m = 0;
@@ -225,16 +252,34 @@
         }
     }
 
-    function ajusterAuNombreDeCylindres() {
+    function ajusterLignesMoteur() {
         const n = nbCyl();
         if (!n) return;
-        ajusterLignes("ligne-cyl", "cyl", GABARITS_CYL, n);       // une ligne (chemise, piston, segments, bielle) par cylindre
-        ajusterLignes("ligne-tour", "tour", GABARITS_TOUR, n + 1); // moteur en ligne : n + 1 tourillons
+        const [mDefaut, tDefaut] = paliers();
+        const nbMan = val("nombre_manetons") || mDefaut, nbTour = val("nombre_tourillons") || tDefaut;
+        ajusterLignes("ligne-cyl", "cyl", GABARITS_CYL, n);           // une ligne (chemise, piston, segments, bielle) par cylindre
+        ajusterLignes("ligne-man", "man", GABARITS_MAN, nbMan);       // en ligne / à plat : n ; en V / en W : n / 2
+        ajusterLignes("ligne-tour", "tour", GABARITS_TOUR, nbTour);   // en ligne / à plat : n + 1 ; en V / en W : n / 2 + 1
+        proposerCylindres();
         tout();
     }
-    document.getElementById("generer-lignes").addEventListener("click", ajusterAuNombreDeCylindres);
-    const champNb = champ("nombre_cylindres");
-    if (champNb) champNb.addEventListener("change", ajusterAuNombreDeCylindres);
+    /* Architecture ou nombre de cylindres modifié : nombres de manetons / tourillons recalculés, puis lignes ajustées */
+    function architectureModifiee() {
+        const [m, t] = paliers();
+        if (m && champ("nombre_manetons")) champ("nombre_manetons").value = m;
+        if (t && champ("nombre_tourillons")) champ("nombre_tourillons").value = t;
+        ajusterLignesMoteur();
+    }
+    document.getElementById("generer-lignes").addEventListener("click", ajusterLignesMoteur);
+    ["architecture", "nombre_cylindres"].forEach((n) => { const c = champ(n); if (c) c.addEventListener("change", architectureModifiee); });
+    ["nombre_manetons", "nombre_tourillons"].forEach((n) => { const c = champ(n); if (c) c.addEventListener("change", ajusterLignesMoteur); });
+    document.getElementById("ajouter-maneton").addEventListener("click", () => {
+        const num = prochainNumero("ligne-man");
+        ajouter("man", GABARITS_MAN, num);
+        const p = prefixes("ligne-man").pop(), cyl = champ(`${p}-cylindres`);
+        if (cyl) cyl.value = cylindresDuManeton(num);
+        tout();
+    });
     document.getElementById("ajouter-cylindre").addEventListener("click", () => { ajouter("cyl", GABARITS_CYL, prochainNumero("ligne-cyl")); tout(); });
     document.getElementById("ajouter-tourillon").addEventListener("click", () => { ajouter("tour", GABARITS_TOUR, prochainNumero("ligne-tour")); tout(); });
 

@@ -24,8 +24,8 @@ from utils.securite import q_intervention_tenant
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 
 from ..moteur_lie import moteur_actuel
-from .forms import MesureCylindreFormSet, MesureTourillonFormSet, MetrologieMoteurForm
-from .models import MetrologieMoteur
+from .forms import MesureCylindreFormSet, MesureManetonFormSet, MesureTourillonFormSet, MetrologieMoteurForm
+from .models import MetrologieMoteur, cylindres_du_maneton
 
 ROLES_AUTORISES = ["mecanicien", "apprenti", "apprentis", "magasinier", "chef_mecanicien", "chef_atelier", "direction"]
 ROLES_SUPPRESSION = ["direction", "chef_mecanicien"]
@@ -37,7 +37,7 @@ def _exemplaires_tenant(user):
 
 
 def _sections(form):
-    """Sections du formulaire principal (les mesures par cylindre / tourillon sont des tableaux à part)."""
+    """Sections du formulaire principal (les mesures par cylindre / maneton / tourillon sont des tableaux à part)."""
     def champs(*noms):
         return [form[n] for n in noms if n in form.fields]
 
@@ -46,11 +46,13 @@ def _sections(form):
 
     return {
         "kilometrage": champs("kilometres_chassis", "kilometrage_metrologie", "kilometrage_variation"),
-        "moteur": champs("nombre_cylindres", "alesage_nominal", "course_nominale", "cylindree_constructeur_cm3"),
+        "moteur": champs("architecture", "nombre_cylindres", "nombre_manetons", "nombre_tourillons",
+                         "alesage_nominal", "course_nominale", "cylindree_constructeur_cm3"),
         "cylindree": champs("alesage_mesure", "course_mesuree", "cylindree_cm3"),
         "tol_chemise": prefixe("tol_chemise_") + prefixe("tol_jeu_piston_"),
         "tol_segments": prefixe("tol_segment_"),
         "tol_vilebrequin": prefixe("tol_maneton_") + prefixe("tol_tourillon_"),
+        "tol_coussinets": prefixe("tol_jeu_maneton_") + prefixe("tol_jeu_tourillon_"),
         "tol_bielle": prefixe("tol_pied_bielle_") + prefixe("tol_jeu_pied_bielle_"),
         "divers": champs("tag", "pays", "remarques"),
         "technicien": champs("tech_technicien", "tech_nom_technicien", "tech_role_technicien", "tech_societe"),
@@ -58,11 +60,12 @@ def _sections(form):
     }
 
 
-def _contexte(form, cylindres_fs, tourillons_fs, exemplaire, metrologie=None):
+def _contexte(form, cylindres_fs, manetons_fs, tourillons_fs, exemplaire, metrologie=None):
     return {
         "form": form,
         "sections": _sections(form),
         "cylindres_fs": cylindres_fs,
+        "manetons_fs": manetons_fs,
         "tourillons_fs": tourillons_fs,
         "exemplaire": exemplaire,
         "immatriculation": exemplaire.immatriculation if exemplaire else "",
@@ -71,17 +74,19 @@ def _contexte(form, cylindres_fs, tourillons_fs, exemplaire, metrologie=None):
     }
 
 
-def _formset_initial(formset_class, nombre, prefix):
+def _formset_initial(formset_class, nombre, prefix, initial=None):
     factory = forms.inlineformset_factory(
         MetrologieMoteur, formset_class.model, form=formset_class.form, extra=nombre, can_delete=True,
     )
     return factory(instance=MetrologieMoteur(), prefix=prefix,
-                   initial=[{"numero": i} for i in range(1, nombre + 1)])
+                   initial=initial or [{"numero": i} for i in range(1, nombre + 1)])
 
 
-def _enregistrer_lignes(obj, cylindres_fs, tourillons_fs):
+def _enregistrer_lignes(obj, cylindres_fs, manetons_fs, tourillons_fs):
     cylindres_fs.instance = obj
     cylindres_fs.save()
+    manetons_fs.instance = obj
+    manetons_fs.save()
     tourillons_fs.instance = obj
     tourillons_fs.save()
     obj.finaliser()
@@ -128,9 +133,10 @@ def metrologie_form_view(request, exemplaire_id):
     if request.method == "POST":
         form = MetrologieMoteurForm(request.POST, user=request.user, exemplaire=exemplaire)
         cylindres_fs = MesureCylindreFormSet(request.POST, instance=MetrologieMoteur(), prefix="cyl")
+        manetons_fs = MesureManetonFormSet(request.POST, instance=MetrologieMoteur(), prefix="man")
         tourillons_fs = MesureTourillonFormSet(request.POST, instance=MetrologieMoteur(), prefix="tour")
 
-        if form.is_valid() and cylindres_fs.is_valid() and tourillons_fs.is_valid():
+        if form.is_valid() and cylindres_fs.is_valid() and manetons_fs.is_valid() and tourillons_fs.is_valid():
             try:
                 ancien_km = exemplaire.kilometres_chassis or 0
                 ancien_km_boite = exemplaire.kilometres_boite or 0
@@ -187,7 +193,7 @@ def metrologie_form_view(request, exemplaire_id):
                     obj.assign_technicien(request.user)
                     form.enregistrer_main_oeuvre(obj)
                     obj.save()
-                    _enregistrer_lignes(obj, cylindres_fs, tourillons_fs)
+                    _enregistrer_lignes(obj, cylindres_fs, manetons_fs, tourillons_fs)
 
                 UserLog.objects.create(
                     utilisateur=request.user,
@@ -213,25 +219,34 @@ def metrologie_form_view(request, exemplaire_id):
         precedente = MetrologieMoteur.objects.filter(voiture_exemplaire=exemplaire).order_by("-id").first()
         if precedente:
             for f in MetrologieMoteur._meta.fields:
-                if f.name.startswith("tol_") or f.name in ("nombre_cylindres", "alesage_nominal", "course_nominale",
+                if f.name.startswith("tol_") or f.name in ("architecture", "nombre_cylindres", "nombre_manetons",
+                                                            "nombre_tourillons", "alesage_nominal", "course_nominale",
                                                             "cylindree_constructeur_cm3"):
                     setattr(nouveau, f.name, getattr(precedente, f.name))
         # Le moteur lié est prioritaire : nombre de cylindres (= pistons) et cylindrée (litres → cm³)
         if moteur:
-            if moteur.nombre_cylindres:
+            if moteur.nombre_cylindres and moteur.nombre_cylindres != nouveau.nombre_cylindres:
                 nouveau.nombre_cylindres = moteur.nombre_cylindres
+                nouveau.nombre_manetons = nouveau.nombre_tourillons = None   # recalculés selon l'architecture
             if moteur.cylindree_l:
                 nouveau.cylindree_constructeur_cm3 = (Decimal(str(moteur.cylindree_l)) * 1000).quantize(Decimal("0.1"))
         nouveau.assign_technicien(request.user)
+        # Manetons et tourillons selon l'architecture (en ligne 4 cyl. : 4 / 5, V8 : 4 / 5), sauf nombres repris
+        n = nouveau.nombre_cylindres or 4
+        nb_man, nb_tour = nouveau.paliers_par_defaut()
+        nb_man = nouveau.nombre_manetons = nouveau.nombre_manetons or nb_man
+        nb_tour = nouveau.nombre_tourillons = nouveau.nombre_tourillons or nb_tour
 
         form = MetrologieMoteurForm(instance=nouveau, user=request.user, exemplaire=exemplaire)
-        # Une ligne par cylindre et une par tourillon (moteur en ligne : n + 1 paliers)
-        n = nouveau.nombre_cylindres or 4
+        # Une ligne par cylindre, par maneton et par tourillon
         cylindres_fs = _formset_initial(MesureCylindreFormSet, n, "cyl")
-        tourillons_fs = _formset_initial(MesureTourillonFormSet, n + 1, "tour")
+        manetons_fs = _formset_initial(MesureManetonFormSet, nb_man, "man", initial=[
+            {"numero": i, "cylindres": cylindres_du_maneton(nouveau.architecture, n, i)} for i in range(1, nb_man + 1)
+        ])
+        tourillons_fs = _formset_initial(MesureTourillonFormSet, nb_tour, "tour")
 
     return render(request, "metrologie_moteur/metrologie_form.html",
-                  _contexte(form, cylindres_fs, tourillons_fs, exemplaire))
+                  _contexte(form, cylindres_fs, manetons_fs, tourillons_fs, exemplaire))
 
 
 # ------------------------------------------------------------------
@@ -270,9 +285,10 @@ def modifier_metrologie_view(request, metrologie_id):
         km_avant = metrologie.kilometres_chassis or 0
         form = MetrologieMoteurForm(request.POST, instance=metrologie, user=request.user, exemplaire=exemplaire)
         cylindres_fs = MesureCylindreFormSet(request.POST, instance=metrologie, prefix="cyl")
+        manetons_fs = MesureManetonFormSet(request.POST, instance=metrologie, prefix="man")
         tourillons_fs = MesureTourillonFormSet(request.POST, instance=metrologie, prefix="tour")
 
-        if form.is_valid() and cylindres_fs.is_valid() and tourillons_fs.is_valid():
+        if form.is_valid() and cylindres_fs.is_valid() and manetons_fs.is_valid() and tourillons_fs.is_valid():
             try:
                 with transaction.atomic():
                     km = form.cleaned_data.get("kilometrage_metrologie")
@@ -295,7 +311,7 @@ def modifier_metrologie_view(request, metrologie_id):
 
                     obj.kilometres_chassis = km_avant
                     obj.save()
-                    _enregistrer_lignes(obj, cylindres_fs, tourillons_fs)
+                    _enregistrer_lignes(obj, cylindres_fs, manetons_fs, tourillons_fs)
 
                 UserLog.objects.create(
                     utilisateur=request.user,
@@ -312,10 +328,11 @@ def modifier_metrologie_view(request, metrologie_id):
     else:
         form = MetrologieMoteurForm(instance=metrologie, user=request.user, exemplaire=exemplaire)
         cylindres_fs = MesureCylindreFormSet(instance=metrologie, prefix="cyl")
+        manetons_fs = MesureManetonFormSet(instance=metrologie, prefix="man")
         tourillons_fs = MesureTourillonFormSet(instance=metrologie, prefix="tour")
 
     return render(request, "metrologie_moteur/metrologie_form.html",
-                  _contexte(form, cylindres_fs, tourillons_fs, exemplaire, metrologie))
+                  _contexte(form, cylindres_fs, manetons_fs, tourillons_fs, exemplaire, metrologie))
 
 
 # ------------------------------------------------------------------

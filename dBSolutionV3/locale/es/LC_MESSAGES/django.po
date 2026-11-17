@@ -83101,3 +83101,124 @@ msgstr "Importes orientativos (normas 2026): compruébelos en los simuladores of
 #: particulier/simulateur.py
 msgid "Le simulateur d'achat est disponible à partir de la formule Bronze."
 msgstr "El simulador de compra está disponible a partir del plan Bronze."
+
+msgctxt "architecture moteur"
+msgid "En ligne"
+msgstr "En línea"
+
+msgctxt "architecture moteur"
+msgid "En V"
+msgstr "En V"
+
+msgctxt "architecture moteur"
+msgid "À plat (boxer)"
+msgstr "Plano (bóxer)"
+
+msgctxt "architecture moteur"
+msgid "En W"
+msgstr "En W"
+
+msgid "Architecture"
+msgstr "Arquitectura"
+
+msgid ""
+"Un flat 12 à manetons communs (Ferrari « BB ») est un V à 180° : choisissez «"
+" En V »."
+msgstr ""
+"Un plano 12 con muñequillas compartidas (Ferrari «BB») es un V a 180°: elija "
+"«En V»."
+
+msgid "Nombre de manetons"
+msgstr "Número de muñequillas"
+
+msgid "Nombre de tourillons"
+msgstr "Número de apoyos"
+
+msgid "Vide : selon l'architecture."
+msgstr "Vacío: según la arquitectura."
+
+msgid "Jeu coussinets de bielle / maneton mini"
+msgstr "Holgura cojinetes de biela / muñequilla mín."
+
+msgid "Jeu coussinets de bielle / maneton maxi"
+msgstr "Holgura cojinetes de biela / muñequilla máx."
+
+msgid "Jeu coussinets de palier / tourillon mini"
+msgstr "Holgura cojinetes de bancada / apoyo mín."
+
+msgid "Jeu coussinets de palier / tourillon maxi"
+msgstr "Holgura cojinetes de bancada / apoyo máx."
+
+msgid "Maneton %(n)s"
+msgstr "Muñequilla %(n)s"
+
+msgid "Maneton n°"
+msgstr "Muñequilla n.º"
+
+msgid "Ex. « 1 / 5 » : bielles des cylindres 1 et 5 sur ce maneton."
+msgstr "Ej. «1 / 5»: bielas de los cilindros 1 y 5 en esta muñequilla."
+
+msgid "Coussinets de bielle montés – Ø axe A"
+msgstr "Cojinetes de biela montados – Ø eje A"
+
+msgid "Coussinets de bielle montés – Ø axe B"
+msgstr "Cojinetes de biela montados – Ø eje B"
+
+msgid "Coussinets de palier montés – Ø axe A"
+msgstr "Cojinetes de bancada montados – Ø eje A"
+
+msgid "Coussinets de palier montés – Ø axe B"
+msgstr "Cojinetes de bancada montados – Ø eje B"
+
+msgid "Mesure maneton"
+msgstr "Medición de muñequilla"
+
+msgid "Mesures manetons"
+msgstr "Mediciones de muñequillas"
+
+msgid ""
+"Ajuster les lignes (cylindres, manetons et tourillons selon l'architecture)"
+msgstr ""
+"Ajustar las filas (cilindros, muñequillas y apoyos según la arquitectura)"
+
+msgid ""
+"En ligne et à plat : un maneton par cylindre, n + 1 tourillons. En V et en W "
+": deux bielles par maneton, n / 2 manetons et n / 2 + 1 tourillons. Laissez "
+"les nombres vides pour les calculer, ou corrigez-les (moteur à manetons "
+"décalés, paliers supplémentaires…)."
+msgstr ""
+"En línea y plano: una muñequilla por cilindro, n + 1 apoyos. En V y en W: dos"
+" bielas por muñequilla, n / 2 muñequillas y n / 2 + 1 apoyos. Deje los "
+"números vacíos para calcularlos, o corríjalos (muñequillas desplazadas, "
+"apoyos adicionales…)."
+
+msgid "Coussinets – jeu de fonctionnement"
+msgstr "Cojinetes – holgura de funcionamiento"
+
+msgid "Vilebrequin – manetons et coussinets de bielle"
+msgstr "Cigüeñal – muñequillas y cojinetes de biela"
+
+msgid ""
+"Coussinets : diamètre intérieur mesuré coussinets montés, chapeau serré au "
+"couple. Jeu = Ø coussinets − Ø maneton (ou tourillon)."
+msgstr ""
+"Cojinetes: diámetro interior medido con los cojinetes montados y la tapa "
+"apretada al par. Holgura = Ø cojinetes − Ø muñequilla (o apoyo)."
+
+msgid "Ajouter un maneton"
+msgstr "Añadir una muñequilla"
+
+msgid "Vilebrequin – tourillons et coussinets de palier"
+msgstr "Cigüeñal – apoyos y cojinetes de bancada"
+
+msgid "Coussinets montés Ø"
+msgstr "Cojinetes montados Ø"
+
+msgid "Manetons / tourillons"
+msgstr "Muñequillas / apoyos"
+
+msgid "Segments et pieds de bielle"
+msgstr "Segmentos y pies de biela"
+
+msgid "Coussinets Ø"
+msgstr "Cojinetes Ø"

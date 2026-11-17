@@ -5,7 +5,9 @@ Métrologie moteur : relevé des cotes du moteur en centièmes de millimètre.
   B = perpendiculaire) → ovalisation, conicité, usure.
 - Pistons : diamètre de jupe → jeu piston / chemise.
 - Segments : jeu à la coupe (feu, étanchéité, racleur).
-- Vilebrequin : manetons et tourillons, deux sections × deux axes → ovalisation, conicité.
+- Vilebrequin : manetons et tourillons, deux sections × deux axes → ovalisation, conicité ;
+  alésage des coussinets montés → jeu de fonctionnement. Leur nombre dépend de l'architecture
+  (en ligne, en V, à plat, en W) : voir nombre_paliers().
 - Pied de bielle : alésage sur deux axes + diamètre de l'axe de piston → jeu.
 - Alésage / course / cylindrée : calcul dans les deux sens.
 
@@ -19,7 +21,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, pgettext_lazy
 
 from core.pays import pays_tenant_defaut
 from maintenance.choices import TAUX_HORAIRE_CHOICES, TVAConfig
@@ -85,6 +87,43 @@ def calcul_cylindree(alesage, course, cylindree, nombre_cylindres):
     return d, c, v
 
 
+class ArchitectureMoteur(models.TextChoices):
+    # Contexte : « En ligne » ne doit pas reprendre la traduction « online »
+    EN_LIGNE = "EN_LIGNE", pgettext_lazy("architecture moteur", "En ligne")
+    V = "V", pgettext_lazy("architecture moteur", "En V")
+    PLAT = "PLAT", pgettext_lazy("architecture moteur", "À plat (boxer)")
+    W = "W", pgettext_lazy("architecture moteur", "En W")
+
+
+def nombre_paliers(architecture, nombre_cylindres):
+    """
+    Nombre habituel de manetons et de tourillons (modifiable sur l'intervention) :
+    - en ligne : un maneton par cylindre, n + 1 tourillons (4 cyl. : 4 / 5) ;
+    - à plat (boxer) : un maneton par cylindre, n + 1 tourillons (Subaru 4 cyl. : 4 / 5, Porsche 6 cyl. : 6 / 7) ;
+    - en V : deux bielles par maneton, n / 2 manetons et n / 2 + 1 tourillons (V8 : 4 / 5) ;
+    - en W : deux bielles par maneton, n / 2 manetons et n / 2 + 1 tourillons (W12 : 6 / 7, W16 : 8 / 9).
+    Retourne (manetons, tourillons).
+    """
+    n = int(nombre_cylindres or 0)
+    if n <= 0:
+        return 0, 0
+    if architecture in (ArchitectureMoteur.V, ArchitectureMoteur.W):
+        m = (n + 1) // 2
+        return m, m + 1
+    return n, n + 1
+
+
+def cylindres_du_maneton(architecture, nombre_cylindres, numero):
+    """Cylindres d'un maneton (proposition, modifiable) : « 1 » en ligne ou à plat ;
+    en V ou en W, le cylindre de chaque banc (numérotation banc A puis banc B : maneton 1 → « 1 / 5 » sur un V8)."""
+    n = int(nombre_cylindres or 0)
+    if architecture in (ArchitectureMoteur.V, ArchitectureMoteur.W) and n >= 2:
+        moitie = (n + 1) // 2
+        autre = numero + moitie
+        return f"{numero} / {autre}" if autre <= n else str(numero)
+    return str(numero)
+
+
 class StatutCote(models.TextChoices):
     OK = "OK", _("Dans la tolérance")
     HORS = "HORS", _("Hors tolérance")
@@ -142,6 +181,19 @@ class MetrologieMoteur(TechnicienMixin, models.Model):
         default=4, validators=[MinValueValidator(1), MaxValueValidator(16)],
         verbose_name=_("Nombre de cylindres"),
     )
+    architecture = models.CharField(
+        max_length=10, choices=ArchitectureMoteur.choices, default=ArchitectureMoteur.EN_LIGNE,
+        verbose_name=_("Architecture"),
+        help_text=_("Un flat 12 à manetons communs (Ferrari « BB ») est un V à 180° : choisissez « En V »."),
+    )
+    nombre_manetons = models.PositiveSmallIntegerField(
+        null=True, blank=True, validators=[MinValueValidator(1), MaxValueValidator(16)],
+        verbose_name=_("Nombre de manetons"), help_text=_("Vide : selon l'architecture."),
+    )
+    nombre_tourillons = models.PositiveSmallIntegerField(
+        null=True, blank=True, validators=[MinValueValidator(1), MaxValueValidator(17)],
+        verbose_name=_("Nombre de tourillons"), help_text=_("Vide : selon l'architecture."),
+    )
     alesage_nominal = cote(_("Alésage constructeur (mm)"))
     course_nominale = cote(_("Course constructeur (mm)"))
     cylindree_constructeur_cm3 = models.DecimalField(
@@ -177,6 +229,10 @@ class MetrologieMoteur(TechnicienMixin, models.Model):
     tol_tourillon_diametre_max = cote(_("Tourillon : diamètre maxi"))
     tol_tourillon_ovalisation_max = cote(_("Tourillon : ovalisation maxi"))
     tol_tourillon_conicite_max = cote(_("Tourillon : conicité maxi"))
+    tol_jeu_maneton_min = cote(_("Jeu coussinets de bielle / maneton mini"))
+    tol_jeu_maneton_max = cote(_("Jeu coussinets de bielle / maneton maxi"))
+    tol_jeu_tourillon_min = cote(_("Jeu coussinets de palier / tourillon mini"))
+    tol_jeu_tourillon_max = cote(_("Jeu coussinets de palier / tourillon maxi"))
     tol_pied_bielle_ovalisation_max = cote(_("Pied de bielle : ovalisation maxi"))
     tol_jeu_pied_bielle_min = cote(_("Jeu axe / pied de bielle mini"))
     tol_jeu_pied_bielle_max = cote(_("Jeu axe / pied de bielle maxi"))
@@ -250,6 +306,10 @@ class MetrologieMoteur(TechnicienMixin, models.Model):
             return None
         return (sum(valeurs) / len(valeurs)).quantize(CENTIEME, rounding=ROUND_HALF_UP)
 
+    def paliers_par_defaut(self):
+        """(manetons, tourillons) selon l'architecture et le nombre de cylindres."""
+        return nombre_paliers(self.architecture, self.nombre_cylindres)
+
     def calculer_cylindree(self):
         d, c, v = calcul_cylindree(self.alesage_mesure, self.course_mesuree, self.cylindree_cm3, self.nombre_cylindres)
         self.alesage_mesure, self.course_mesuree, self.cylindree_cm3 = d, c, v
@@ -305,6 +365,10 @@ class MetrologieMoteur(TechnicienMixin, models.Model):
             for ctl in c.controles():
                 if ctl["statut"] == StatutCote.HORS:
                     hors.append({"element": _("Cylindre %(n)s") % {"n": c.numero}, **ctl})
+        for mt in self.manetons.all():
+            for ctl in mt.controles():
+                if ctl["statut"] == StatutCote.HORS:
+                    hors.append({"element": _("Maneton %(n)s") % {"n": mt.numero}, **ctl})
         for t in self.tourillons.all():
             for ctl in t.controles():
                 if ctl["statut"] == StatutCote.HORS:
@@ -326,6 +390,11 @@ class MetrologieMoteur(TechnicienMixin, models.Model):
     # -------------------------
     def save(self, *args, **kwargs):
         self.calculer_cylindree()
+        manetons, tourillons = self.paliers_par_defaut()
+        if not self.nombre_manetons and manetons:
+            self.nombre_manetons = manetons
+        if not self.nombre_tourillons and tourillons:
+            self.nombre_tourillons = tourillons
 
         if not self.tech_technicien_id and hasattr(self, "_user"):
             self.assign_technicien(self._user)
@@ -411,12 +480,6 @@ class MesureCylindre(models.Model):
     segment_etancheite_jeu = cote(_("Segment d'étanchéité : jeu à la coupe"))
     segment_racleur_jeu = cote(_("Segment racleur : jeu à la coupe"))
 
-    # Maneton : 2 sections × 2 axes
-    maneton_1_a = cote(_("Maneton section 1 – axe A"))
-    maneton_1_b = cote(_("Maneton section 1 – axe B"))
-    maneton_2_a = cote(_("Maneton section 2 – axe A"))
-    maneton_2_b = cote(_("Maneton section 2 – axe B"))
-
     # Pied de bielle
     pied_bielle_a = cote(_("Pied de bielle – axe A"))
     pied_bielle_b = cote(_("Pied de bielle – axe B"))
@@ -476,33 +539,6 @@ class MesureCylindre(models.Model):
             return None
         return self.chemise_max - self.piston_diametre
 
-    # ---- maneton
-    @property
-    def maneton_valeurs(self):
-        return _valeurs(self.maneton_1_a, self.maneton_1_b, self.maneton_2_a, self.maneton_2_b)
-
-    @property
-    def maneton_min(self):
-        v = self.maneton_valeurs
-        return min(v) if v else None
-
-    @property
-    def maneton_max(self):
-        v = self.maneton_valeurs
-        return max(v) if v else None
-
-    @property
-    def maneton_ovalisation(self):
-        e = [x for x in (_ecart(self.maneton_1_a, self.maneton_1_b), _ecart(self.maneton_2_a, self.maneton_2_b))
-             if x is not None]
-        return max(e) if e else None
-
-    @property
-    def maneton_conicite(self):
-        e = [x for x in (_ecart(self.maneton_1_a, self.maneton_2_a), _ecart(self.maneton_1_b, self.maneton_2_b))
-             if x is not None]
-        return max(e) if e else None
-
     # ---- pied de bielle
     @property
     def pied_bielle_ovalisation(self):
@@ -535,10 +571,6 @@ class MesureCylindre(models.Model):
             (_("Segment de feu : jeu à la coupe"), self.segment_feu_jeu, t["segment_feu_min"], t["segment_feu_max"]),
             (_("Segment d'étanchéité : jeu à la coupe"), self.segment_etancheite_jeu, t["segment_etancheite_min"], t["segment_etancheite_max"]),
             (_("Segment racleur : jeu à la coupe"), self.segment_racleur_jeu, t["segment_racleur_min"], t["segment_racleur_max"]),
-            (_("Maneton : diamètre mini"), self.maneton_min, t["maneton_diametre_min"], t["maneton_diametre_max"]),
-            (_("Maneton : diamètre maxi"), self.maneton_max, t["maneton_diametre_min"], t["maneton_diametre_max"]),
-            (_("Maneton : ovalisation"), self.maneton_ovalisation, None, t["maneton_ovalisation_max"]),
-            (_("Maneton : conicité"), self.maneton_conicite, None, t["maneton_conicite_max"]),
             (_("Pied de bielle : ovalisation"), self.pied_bielle_ovalisation, None, t["pied_bielle_ovalisation_max"]),
             (_("Jeu axe / pied de bielle mini"), self.jeu_pied_bielle_min, t["jeu_pied_bielle_min"], t["jeu_pied_bielle_max"]),
             (_("Jeu axe / pied de bielle maxi"), self.jeu_pied_bielle_max, t["jeu_pied_bielle_min"], t["jeu_pied_bielle_max"]),
@@ -554,27 +586,16 @@ class MesureCylindre(models.Model):
 
 
 # =====================================================================
-# MESURES PAR TOURILLON (palier de vilebrequin)
+# PALIERS DU VILEBREQUIN : MANETONS (têtes de bielle) ET TOURILLONS
 # =====================================================================
-class MesureTourillon(models.Model):
-    metrologie = models.ForeignKey(MetrologieMoteur, on_delete=models.CASCADE, related_name="tourillons",
-                                   verbose_name=_("Métrologie"))
-    numero = models.PositiveSmallIntegerField(verbose_name=_("Tourillon n°"))
+class _PalierMixin:
+    """Calculs communs : diamètre (2 sections × 2 axes), ovalisation, conicité,
+    jeu de fonctionnement = alésage des coussinets montés (serrés au couple) − diamètre."""
+    cle_tolerance = ""      # "maneton" / "tourillon"
 
-    section_1_a = cote(_("Tourillon section 1 – axe A"))
-    section_1_b = cote(_("Tourillon section 1 – axe B"))
-    section_2_a = cote(_("Tourillon section 2 – axe A"))
-    section_2_b = cote(_("Tourillon section 2 – axe B"))
-
-    remarque = models.CharField(max_length=200, blank=True, verbose_name=_("Remarque"))
-
-    class Meta:
-        ordering = ["numero", "id"]
-        verbose_name = _("Mesure tourillon")
-        verbose_name_plural = _("Mesures tourillons")
-
-    def __str__(self):
-        return f"Tourillon {self.numero}"
+    def libelles(self):
+        """Libellés des contrôles : diamètre mini, maxi, ovalisation, conicité, jeu mini, jeu maxi."""
+        raise NotImplementedError
 
     @property
     def valeurs(self):
@@ -602,19 +623,110 @@ class MesureTourillon(models.Model):
              if x is not None]
         return max(e) if e else None
 
+    @property
+    def coussinet_valeurs(self):
+        return _valeurs(self.coussinet_a, self.coussinet_b)
+
+    @property
+    def coussinet_ovalisation(self):
+        return _ecart(self.coussinet_a, self.coussinet_b)
+
+    @property
+    def jeu_min(self):
+        """Jeu le plus faible : plus petit alésage de coussinet − plus grand diamètre."""
+        c = self.coussinet_valeurs
+        if not c or self.diametre_max is None:
+            return None
+        return min(c) - self.diametre_max
+
+    @property
+    def jeu_max(self):
+        c = self.coussinet_valeurs
+        if not c or self.diametre_min is None:
+            return None
+        return max(c) - self.diametre_min
+
     def controles(self):
         t = self.metrologie.tolerances_dict()
+        k = self.cle_tolerance
+        d_min, d_max, oval, coni, j_min, j_max = self.libelles()
         lignes = [
-            (_("Tourillon : diamètre mini"), self.diametre_min, t["tourillon_diametre_min"], t["tourillon_diametre_max"]),
-            (_("Tourillon : diamètre maxi"), self.diametre_max, t["tourillon_diametre_min"], t["tourillon_diametre_max"]),
-            (_("Tourillon : ovalisation"), self.ovalisation, None, t["tourillon_ovalisation_max"]),
-            (_("Tourillon : conicité"), self.conicite, None, t["tourillon_conicite_max"]),
+            (d_min, self.diametre_min, t[f"{k}_diametre_min"], t[f"{k}_diametre_max"]),
+            (d_max, self.diametre_max, t[f"{k}_diametre_min"], t[f"{k}_diametre_max"]),
+            (oval, self.ovalisation, None, t[f"{k}_ovalisation_max"]),
+            (coni, self.conicite, None, t[f"{k}_conicite_max"]),
+            (j_min, self.jeu_min, t[f"jeu_{k}_min"], t[f"jeu_{k}_max"]),
+            (j_max, self.jeu_max, t[f"jeu_{k}_min"], t[f"jeu_{k}_max"]),
         ]
         return [
-            {"libelle": lib, "valeur": val, "mini": mini, "maxi": maxi, "statut": _verifier(val, mini, maxi)}
-            for lib, val, mini, maxi in lignes if val is not None
+            {"libelle": l, "valeur": val, "mini": mini, "maxi": maxi, "statut": _verifier(val, mini, maxi)}
+            for l, val, mini, maxi in lignes if val is not None
         ]
 
     @property
     def nombre_hors_tolerance(self):
         return sum(1 for c in self.controles() if c["statut"] == StatutCote.HORS)
+
+
+class MesureManeton(_PalierMixin, models.Model):
+    """Maneton (tête de bielle) : un par cylindre en ligne / à plat, un pour deux cylindres en V / en W."""
+    cle_tolerance = "maneton"
+
+    def libelles(self):
+        return (_("Maneton : diamètre mini"), _("Maneton : diamètre maxi"), _("Maneton : ovalisation"),
+                _("Maneton : conicité"), _("Jeu coussinets de bielle / maneton mini"),
+                _("Jeu coussinets de bielle / maneton maxi"))
+
+    metrologie = models.ForeignKey(MetrologieMoteur, on_delete=models.CASCADE, related_name="manetons",
+                                   verbose_name=_("Métrologie"))
+    numero = models.PositiveSmallIntegerField(verbose_name=_("Maneton n°"))
+    cylindres = models.CharField(max_length=20, blank=True, verbose_name=_("Cylindres"),
+                                 help_text=_("Ex. « 1 / 5 » : bielles des cylindres 1 et 5 sur ce maneton."))
+
+    section_1_a = cote(_("Maneton section 1 – axe A"))
+    section_1_b = cote(_("Maneton section 1 – axe B"))
+    section_2_a = cote(_("Maneton section 2 – axe A"))
+    section_2_b = cote(_("Maneton section 2 – axe B"))
+    coussinet_a = cote(_("Coussinets de bielle montés – Ø axe A"))
+    coussinet_b = cote(_("Coussinets de bielle montés – Ø axe B"))
+
+    remarque = models.CharField(max_length=200, blank=True, verbose_name=_("Remarque"))
+
+    class Meta:
+        ordering = ["numero", "id"]
+        verbose_name = _("Mesure maneton")
+        verbose_name_plural = _("Mesures manetons")
+
+    def __str__(self):
+        return f"Maneton {self.numero}"
+
+
+class MesureTourillon(_PalierMixin, models.Model):
+    """Tourillon (palier de vilebrequin)."""
+    cle_tolerance = "tourillon"
+
+    def libelles(self):
+        return (_("Tourillon : diamètre mini"), _("Tourillon : diamètre maxi"), _("Tourillon : ovalisation"),
+                _("Tourillon : conicité"), _("Jeu coussinets de palier / tourillon mini"),
+                _("Jeu coussinets de palier / tourillon maxi"))
+
+    metrologie = models.ForeignKey(MetrologieMoteur, on_delete=models.CASCADE, related_name="tourillons",
+                                   verbose_name=_("Métrologie"))
+    numero = models.PositiveSmallIntegerField(verbose_name=_("Tourillon n°"))
+
+    section_1_a = cote(_("Tourillon section 1 – axe A"))
+    section_1_b = cote(_("Tourillon section 1 – axe B"))
+    section_2_a = cote(_("Tourillon section 2 – axe A"))
+    section_2_b = cote(_("Tourillon section 2 – axe B"))
+    coussinet_a = cote(_("Coussinets de palier montés – Ø axe A"))
+    coussinet_b = cote(_("Coussinets de palier montés – Ø axe B"))
+
+    remarque = models.CharField(max_length=200, blank=True, verbose_name=_("Remarque"))
+
+    class Meta:
+        ordering = ["numero", "id"]
+        verbose_name = _("Mesure tourillon")
+        verbose_name_plural = _("Mesures tourillons")
+
+    def __str__(self):
+        return f"Tourillon {self.numero}"

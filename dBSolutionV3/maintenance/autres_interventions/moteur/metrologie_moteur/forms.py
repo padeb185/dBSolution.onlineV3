@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from maindoeuvre.models import MainDoeuvre
-from .models import MesureCylindre, MesureTourillon, MetrologieMoteur
+from .models import MesureCylindre, MesureManeton, MesureTourillon, MetrologieMoteur
 
 _COTE = {"step": "0.01", "min": "0", "inputmode": "decimal", "class": "input cote"}
 _COTE_TABLE = {"step": "0.01", "min": "0", "inputmode": "decimal",
@@ -42,6 +42,8 @@ class MetrologieMoteurForm(ChampsObligatoiresMaintenanceMixin, forms.ModelForm):
             "remarques": forms.Textarea(attrs={"rows": 4, "placeholder": _("Ajoutez des remarques ici...")}),
             "kilometres_chassis": forms.NumberInput(attrs={"readonly": "readonly", "class": "bg-gray-100 cursor-not-allowed"}),
             "nombre_cylindres": forms.NumberInput(attrs={"min": "1", "max": "16", "class": "input"}),
+            "nombre_manetons": forms.NumberInput(attrs={"min": "1", "max": "16", "class": "input"}),
+            "nombre_tourillons": forms.NumberInput(attrs={"min": "1", "max": "17", "class": "input"}),
             "cylindree_constructeur_cm3": forms.NumberInput(attrs={"step": "0.1", "min": "0", "class": "input"}),
             "cylindree_cm3": forms.NumberInput(attrs={"step": "0.1", "min": "0", "class": "input"}),
         }
@@ -139,7 +141,6 @@ class MesureCylindreForm(_LigneMesureForm):
         "chemise_haut_a", "chemise_haut_b", "chemise_milieu_a", "chemise_milieu_b", "chemise_bas_a", "chemise_bas_b",
         "piston_diametre",
         "segment_feu_jeu", "segment_etancheite_jeu", "segment_racleur_jeu",
-        "maneton_1_a", "maneton_1_b", "maneton_2_a", "maneton_2_b",
         "pied_bielle_a", "pied_bielle_b", "axe_piston_diametre",
     )
 
@@ -149,22 +150,40 @@ class MesureCylindreForm(_LigneMesureForm):
             "chemise_haut_a", "chemise_haut_b", "chemise_milieu_a", "chemise_milieu_b", "chemise_bas_a", "chemise_bas_b",
             "piston_diametre",
             "segment_feu_jeu", "segment_etancheite_jeu", "segment_racleur_jeu",
-            "maneton_1_a", "maneton_1_b", "maneton_2_a", "maneton_2_b",
-            "pied_bielle_a", "pied_bielle_b", "axe_piston_diametre",
+                "pied_bielle_a", "pied_bielle_b", "axe_piston_diametre",
             "remarque",
         )
 
 
+_CHAMPS_PALIER = ("section_1_a", "section_1_b", "section_2_a", "section_2_b", "coussinet_a", "coussinet_b")
+
+
+class MesureManetonForm(_LigneMesureForm):
+    champs_mesure = _CHAMPS_PALIER
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["cylindres"].widget.attrs.update({"class": "w-20 border rounded px-2 py-1 text-center",
+                                                      "placeholder": "1 / 5"})
+
+    class Meta:
+        model = MesureManeton
+        fields = ("numero", "cylindres") + _CHAMPS_PALIER + ("remarque",)
+
+
 class MesureTourillonForm(_LigneMesureForm):
-    champs_mesure = ("section_1_a", "section_1_b", "section_2_a", "section_2_b")
+    champs_mesure = _CHAMPS_PALIER
 
     class Meta:
         model = MesureTourillon
-        fields = ("numero", "section_1_a", "section_1_b", "section_2_a", "section_2_b", "remarque")
+        fields = ("numero",) + _CHAMPS_PALIER + ("remarque",)
 
 
 MesureCylindreFormSet = forms.inlineformset_factory(
     MetrologieMoteur, MesureCylindre, form=MesureCylindreForm, extra=0, can_delete=True,
+)
+MesureManetonFormSet = forms.inlineformset_factory(
+    MetrologieMoteur, MesureManeton, form=MesureManetonForm, extra=0, can_delete=True,
 )
 MesureTourillonFormSet = forms.inlineformset_factory(
     MetrologieMoteur, MesureTourillon, form=MesureTourillonForm, extra=0, can_delete=True,

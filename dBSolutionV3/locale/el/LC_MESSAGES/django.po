@@ -83179,3 +83179,125 @@ msgstr "Ενδεικτικά ποσά (κανόνες 2026): ελέγξτε με
 #: particulier/simulateur.py
 msgid "Le simulateur d'achat est disponible à partir de la formule Bronze."
 msgstr "Ο προσομοιωτής αγοράς είναι διαθέσιμος από το πρόγραμμα Bronze."
+
+msgctxt "architecture moteur"
+msgid "En ligne"
+msgstr "Σε σειρά"
+
+msgctxt "architecture moteur"
+msgid "En V"
+msgstr "Σε V"
+
+msgctxt "architecture moteur"
+msgid "À plat (boxer)"
+msgstr "Επίπεδος (μπόξερ)"
+
+msgctxt "architecture moteur"
+msgid "En W"
+msgstr "Σε W"
+
+msgid "Architecture"
+msgstr "Αρχιτεκτονική"
+
+msgid ""
+"Un flat 12 à manetons communs (Ferrari « BB ») est un V à 180° : choisissez «"
+" En V »."
+msgstr ""
+"Ένας επίπεδος 12κύλινδρος με κοινούς στροφείς (Ferrari «BB») είναι V 180°: "
+"επιλέξτε «Σε V»."
+
+msgid "Nombre de manetons"
+msgstr "Αριθμός στροφέων"
+
+msgid "Nombre de tourillons"
+msgstr "Αριθμός κουζινέτων βάσης"
+
+msgid "Vide : selon l'architecture."
+msgstr "Κενό: ανάλογα με την αρχιτεκτονική."
+
+msgid "Jeu coussinets de bielle / maneton mini"
+msgstr "Διάκενο κουζινέτων μπιέλας / στροφέα ελάχ."
+
+msgid "Jeu coussinets de bielle / maneton maxi"
+msgstr "Διάκενο κουζινέτων μπιέλας / στροφέα μέγ."
+
+msgid "Jeu coussinets de palier / tourillon mini"
+msgstr "Διάκενο κουζινέτων βάσης / κομβίου ελάχ."
+
+msgid "Jeu coussinets de palier / tourillon maxi"
+msgstr "Διάκενο κουζινέτων βάσης / κομβίου μέγ."
+
+msgid "Maneton %(n)s"
+msgstr "Στροφέας %(n)s"
+
+msgid "Maneton n°"
+msgstr "Στροφέας αρ."
+
+msgid "Ex. « 1 / 5 » : bielles des cylindres 1 et 5 sur ce maneton."
+msgstr "Π.χ. «1 / 5»: μπιέλες των κυλίνδρων 1 και 5 σε αυτόν τον στροφέα."
+
+msgid "Coussinets de bielle montés – Ø axe A"
+msgstr "Τοποθετημένα κουζινέτα μπιέλας – Ø άξονας A"
+
+msgid "Coussinets de bielle montés – Ø axe B"
+msgstr "Τοποθετημένα κουζινέτα μπιέλας – Ø άξονας B"
+
+msgid "Coussinets de palier montés – Ø axe A"
+msgstr "Τοποθετημένα κουζινέτα βάσης – Ø άξονας A"
+
+msgid "Coussinets de palier montés – Ø axe B"
+msgstr "Τοποθετημένα κουζινέτα βάσης – Ø άξονας B"
+
+msgid "Mesure maneton"
+msgstr "Μέτρηση στροφέα"
+
+msgid "Mesures manetons"
+msgstr "Μετρήσεις στροφέων"
+
+msgid ""
+"Ajuster les lignes (cylindres, manetons et tourillons selon l'architecture)"
+msgstr ""
+"Προσαρμογή γραμμών (κύλινδροι, στροφείς και κομβία ανάλογα με την "
+"αρχιτεκτονική)"
+
+msgid ""
+"En ligne et à plat : un maneton par cylindre, n + 1 tourillons. En V et en W "
+": deux bielles par maneton, n / 2 manetons et n / 2 + 1 tourillons. Laissez "
+"les nombres vides pour les calculer, ou corrigez-les (moteur à manetons "
+"décalés, paliers supplémentaires…)."
+msgstr ""
+"Σε σειρά και επίπεδος: ένας στροφέας ανά κύλινδρο, n + 1 κομβία. Σε V και σε "
+"W: δύο μπιέλες ανά στροφέα, n / 2 στροφείς και n / 2 + 1 κομβία. Αφήστε τους "
+"αριθμούς κενούς για υπολογισμό ή διορθώστε τους (μετατοπισμένοι στροφείς, "
+"επιπλέον έδρανα…)."
+
+msgid "Coussinets – jeu de fonctionnement"
+msgstr "Κουζινέτα – διάκενο λειτουργίας"
+
+msgid "Vilebrequin – manetons et coussinets de bielle"
+msgstr "Στροφαλοφόρος – στροφείς και κουζινέτα μπιέλας"
+
+msgid ""
+"Coussinets : diamètre intérieur mesuré coussinets montés, chapeau serré au "
+"couple. Jeu = Ø coussinets − Ø maneton (ou tourillon)."
+msgstr ""
+"Κουζινέτα: εσωτερική διάμετρος με τοποθετημένα κουζινέτα και καπάκι σφιγμένο "
+"στη ροπή. Διάκενο = Ø κουζινέτων − Ø στροφέα (ή κομβίου)."
+
+msgid "Ajouter un maneton"
+msgstr "Προσθήκη στροφέα"
+
+msgid "Vilebrequin – tourillons et coussinets de palier"
+msgstr "Στροφαλοφόρος – κομβία και κουζινέτα βάσης"
+
+msgid "Coussinets montés Ø"
+msgstr "Τοποθετημένα κουζινέτα Ø"
+
+msgid "Manetons / tourillons"
+msgstr "Στροφείς / κομβία"
+
+msgid "Segments et pieds de bielle"
+msgstr "Ελατήρια και πόδια μπιέλας"
+
+msgid "Coussinets Ø"
+msgstr "Κουζινέτα Ø"

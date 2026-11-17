@@ -1,0 +1,20 @@
+{% load i18n %}<thead>
+    <tr class="bg-gray-100">
+        <th class="border px-2 py-1" rowspan="2">{% trans "N°" %}</th>
+        {% if tol == "maneton" %}<th class="border px-2 py-1" rowspan="2">{% trans "Cylindres" %}</th>{% endif %}
+        <th class="border px-2 py-1" colspan="2">{% trans "Section 1" %}</th>
+        <th class="border px-2 py-1" colspan="2">{% trans "Section 2" %}</th>
+        <th class="border px-2 py-1" rowspan="2">{% trans "Ø mini – maxi" %}</th>
+        <th class="border px-2 py-1" rowspan="2">{% trans "Ovalisation" %}</th>
+        <th class="border px-2 py-1" rowspan="2">{% trans "Conicité" %}</th>
+        <th class="border px-2 py-1" colspan="2">{% trans "Coussinets montés Ø" %}</th>
+        <th class="border px-2 py-1" rowspan="2">{% trans "Jeu" %}</th>
+        <th class="border px-2 py-1" rowspan="2">{% trans "Remarque" %}</th>
+        <th class="border px-2 py-1" rowspan="2"></th>
+    </tr>
+    <tr class="bg-gray-100">
+        <th class="border px-2 py-1">A</th><th class="border px-2 py-1">B</th>
+        <th class="border px-2 py-1">A</th><th class="border px-2 py-1">B</th>
+        <th class="border px-2 py-1">A</th><th class="border px-2 py-1">B</th>
+    </tr>
+</thead>

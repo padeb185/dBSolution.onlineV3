@@ -1,0 +1,19 @@
+{% load i18n %}{% comment %}
+Ligne d'un palier de vilebrequin : maneton (classe="ligne-man", tol="maneton") ou tourillon (classe="ligne-tour", tol="tourillon").
+Utilisé pour les lignes existantes et pour le gabarit de nouvelle ligne (__prefix__).
+{% endcomment %}<tr class="{{ classe }}" data-prefix="{{ f.prefix }}" data-tol="{{ tol }}">
+    <td class="border px-2 py-1 text-center">{% for h in f.hidden_fields %}{{ h }}{% endfor %}{{ f.numero }}</td>
+    {% if tol == "maneton" %}<td class="border px-1 py-1 text-center">{{ f.cylindres }}</td>{% endif %}
+    <td class="border px-1 py-1">{{ f.section_1_a }}</td>
+    <td class="border px-1 py-1">{{ f.section_1_b }}</td>
+    <td class="border px-1 py-1">{{ f.section_2_a }}</td>
+    <td class="border px-1 py-1">{{ f.section_2_b }}</td>
+    <td class="border px-2 py-1 text-right font-mono resultat whitespace-nowrap" data-calc="palier_diametre">—</td>
+    <td class="border px-2 py-1 text-right font-mono resultat" data-calc="palier_ovalisation">—</td>
+    <td class="border px-2 py-1 text-right font-mono resultat" data-calc="palier_conicite">—</td>
+    <td class="border px-1 py-1">{{ f.coussinet_a }}</td>
+    <td class="border px-1 py-1">{{ f.coussinet_b }}</td>
+    <td class="border px-2 py-1 text-right font-mono resultat whitespace-nowrap" data-calc="palier_jeu">—</td>
+    <td class="border px-1 py-1">{{ f.remarque }}</td>
+    <td class="border px-2 py-1 text-center">{% if f.instance.pk %}<label class="text-xs text-red-700">{{ f.DELETE }} {% trans "Suppr." %}</label>{% else %}<button type="button" class="retirer-ligne text-red-700 font-bold" title="{% trans 'Retirer' %}">✕</button>{% endif %}</td>
+</tr>

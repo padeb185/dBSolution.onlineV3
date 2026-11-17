@@ -83205,3 +83205,123 @@ msgstr "Unverbindliche Beträge (Regeln 2026): Prüfen Sie mit den offiziellen R
 #: particulier/simulateur.py
 msgid "Le simulateur d'achat est disponible à partir de la formule Bronze."
 msgstr "Der Kaufsimulator ist ab dem Tarif Bronze verfügbar."
+
+msgctxt "architecture moteur"
+msgid "En ligne"
+msgstr "Reihenmotor"
+
+msgctxt "architecture moteur"
+msgid "En V"
+msgstr "V-Motor"
+
+msgctxt "architecture moteur"
+msgid "À plat (boxer)"
+msgstr "Boxermotor"
+
+msgctxt "architecture moteur"
+msgid "En W"
+msgstr "W-Motor"
+
+msgid "Architecture"
+msgstr "Bauart"
+
+msgid ""
+"Un flat 12 à manetons communs (Ferrari « BB ») est un V à 180° : choisissez «"
+" En V »."
+msgstr ""
+"Ein Flat 12 mit gemeinsamen Hubzapfen (Ferrari „BB“) ist ein 180°-V: wählen "
+"Sie „V-Motor“."
+
+msgid "Nombre de manetons"
+msgstr "Anzahl Hubzapfen"
+
+msgid "Nombre de tourillons"
+msgstr "Anzahl Hauptlagerzapfen"
+
+msgid "Vide : selon l'architecture."
+msgstr "Leer: je nach Bauart."
+
+msgid "Jeu coussinets de bielle / maneton mini"
+msgstr "Spiel Pleuellager / Hubzapfen min."
+
+msgid "Jeu coussinets de bielle / maneton maxi"
+msgstr "Spiel Pleuellager / Hubzapfen max."
+
+msgid "Jeu coussinets de palier / tourillon mini"
+msgstr "Spiel Hauptlager / Lagerzapfen min."
+
+msgid "Jeu coussinets de palier / tourillon maxi"
+msgstr "Spiel Hauptlager / Lagerzapfen max."
+
+msgid "Maneton %(n)s"
+msgstr "Hubzapfen %(n)s"
+
+msgid "Maneton n°"
+msgstr "Hubzapfen Nr."
+
+msgid "Ex. « 1 / 5 » : bielles des cylindres 1 et 5 sur ce maneton."
+msgstr "Z. B. „1 / 5“: Pleuel der Zylinder 1 und 5 auf diesem Hubzapfen."
+
+msgid "Coussinets de bielle montés – Ø axe A"
+msgstr "Pleuellager montiert – Ø Achse A"
+
+msgid "Coussinets de bielle montés – Ø axe B"
+msgstr "Pleuellager montiert – Ø Achse B"
+
+msgid "Coussinets de palier montés – Ø axe A"
+msgstr "Hauptlager montiert – Ø Achse A"
+
+msgid "Coussinets de palier montés – Ø axe B"
+msgstr "Hauptlager montiert – Ø Achse B"
+
+msgid "Mesure maneton"
+msgstr "Messung Hubzapfen"
+
+msgid "Mesures manetons"
+msgstr "Messungen Hubzapfen"
+
+msgid ""
+"Ajuster les lignes (cylindres, manetons et tourillons selon l'architecture)"
+msgstr "Zeilen anpassen (Zylinder, Hubzapfen und Lagerzapfen je nach Bauart)"
+
+msgid ""
+"En ligne et à plat : un maneton par cylindre, n + 1 tourillons. En V et en W "
+": deux bielles par maneton, n / 2 manetons et n / 2 + 1 tourillons. Laissez "
+"les nombres vides pour les calculer, ou corrigez-les (moteur à manetons "
+"décalés, paliers supplémentaires…)."
+msgstr ""
+"Reihen- und Boxermotor: ein Hubzapfen pro Zylinder, n + 1 Lagerzapfen. V- und"
+" W-Motor: zwei Pleuel pro Hubzapfen, n / 2 Hubzapfen und n / 2 + 1 "
+"Lagerzapfen. Lassen Sie die Anzahlen leer, um sie zu berechnen, oder "
+"korrigieren Sie sie (versetzte Hubzapfen, zusätzliche Lager…)."
+
+msgid "Coussinets – jeu de fonctionnement"
+msgstr "Lager – Betriebsspiel"
+
+msgid "Vilebrequin – manetons et coussinets de bielle"
+msgstr "Kurbelwelle – Hubzapfen und Pleuellager"
+
+msgid ""
+"Coussinets : diamètre intérieur mesuré coussinets montés, chapeau serré au "
+"couple. Jeu = Ø coussinets − Ø maneton (ou tourillon)."
+msgstr ""
+"Lager: Innendurchmesser mit montierten Lagern gemessen, Deckel mit Drehmoment"
+" angezogen. Spiel = Ø Lager − Ø Hubzapfen (bzw. Lagerzapfen)."
+
+msgid "Ajouter un maneton"
+msgstr "Hubzapfen hinzufügen"
+
+msgid "Vilebrequin – tourillons et coussinets de palier"
+msgstr "Kurbelwelle – Lagerzapfen und Hauptlager"
+
+msgid "Coussinets montés Ø"
+msgstr "Montierte Lager Ø"
+
+msgid "Manetons / tourillons"
+msgstr "Hubzapfen / Lagerzapfen"
+
+msgid "Segments et pieds de bielle"
+msgstr "Kolbenringe und Pleuelaugen"
+
+msgid "Coussinets Ø"
+msgstr "Lager Ø"

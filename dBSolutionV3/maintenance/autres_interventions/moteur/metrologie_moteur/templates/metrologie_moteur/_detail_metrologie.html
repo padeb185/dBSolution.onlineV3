@@ -9,7 +9,9 @@
             <th class="border px-3 py-2 text-right">{% trans "Mesuré / calculé" %}</th>
         </tr></thead>
         <tbody>
+            <tr><td class="border px-3 py-2">{% trans "Architecture" %}</td><td class="border px-3 py-2 text-right" colspan="2">{{ m.get_architecture_display }}</td></tr>
             <tr><td class="border px-3 py-2">{% trans "Nombre de cylindres" %}</td><td class="border px-3 py-2 text-right" colspan="2">{{ m.nombre_cylindres }}</td></tr>
+            <tr><td class="border px-3 py-2">{% trans "Manetons / tourillons" %}</td><td class="border px-3 py-2 text-right" colspan="2">{{ m.nombre_manetons|default:"—" }} / {{ m.nombre_tourillons|default:"—" }}</td></tr>
             <tr><td class="border px-3 py-2">{% trans "Alésage (mm)" %}</td><td class="border px-3 py-2 text-right font-mono">{{ m.alesage_nominal|floatformat:"2g"|default:"—" }}</td><td class="border px-3 py-2 text-right font-mono">{{ m.alesage_mesure|floatformat:"2g"|default:"—" }}</td></tr>
             <tr><td class="border px-3 py-2">{% trans "Course (mm)" %}</td><td class="border px-3 py-2 text-right font-mono">{{ m.course_nominale|floatformat:"2g"|default:"—" }}</td><td class="border px-3 py-2 text-right font-mono">{{ m.course_mesuree|floatformat:"2g"|default:"—" }}</td></tr>
             <tr><td class="border px-3 py-2">{% trans "Cylindrée (cm³)" %}</td><td class="border px-3 py-2 text-right font-mono">{{ m.cylindree_constructeur_cm3|floatformat:"1g"|default:"—" }}</td><td class="border px-3 py-2 text-right font-mono font-semibold">{{ m.cylindree_cm3|floatformat:"1g"|default:"—" }}</td></tr>
@@ -83,20 +85,18 @@
     </table>
 </div>
 
-<!-- Segments / manetons / pied de bielle -->
+<!-- Segments / pied de bielle -->
 <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
-    <h2 class="text-lg font-semibold mb-4">{% trans "Segments, manetons et pieds de bielle" %} <span class="text-sm font-normal text-gray-500">(mm)</span></h2>
+    <h2 class="text-lg font-semibold mb-4">{% trans "Segments et pieds de bielle" %} <span class="text-sm font-normal text-gray-500">(mm)</span></h2>
     <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
         <thead>
             <tr class="bg-gray-100">
                 <th class="border px-2 py-1" rowspan="2">{% trans "Cyl." %}</th>
                 <th class="border px-2 py-1" colspan="3">{% trans "Segments – jeu à la coupe" %}</th>
-                <th class="border px-2 py-1" colspan="3">{% trans "Maneton" %}</th>
                 <th class="border px-2 py-1" colspan="3">{% trans "Pied de bielle" %}</th>
             </tr>
             <tr class="bg-gray-100">
                 <th class="border px-2 py-1">{% trans "Feu" %}</th><th class="border px-2 py-1">{% trans "Étanchéité" %}</th><th class="border px-2 py-1">{% trans "Racleur" %}</th>
-                <th class="border px-2 py-1">{% trans "Ø mini – maxi" %}</th><th class="border px-2 py-1">{% trans "Ovalisation" %}</th><th class="border px-2 py-1">{% trans "Conicité" %}</th>
                 <th class="border px-2 py-1">{% trans "Ø A / B" %}</th><th class="border px-2 py-1">{% trans "Axe Ø" %}</th><th class="border px-2 py-1">{% trans "Jeu" %}</th>
             </tr>
         </thead>
@@ -106,47 +106,27 @@
                 <td class="border px-2 py-1 text-right font-mono">{{ c.segment_feu_jeu|floatformat:"2g"|default:"—" }}</td>
                 <td class="border px-2 py-1 text-right font-mono">{{ c.segment_etancheite_jeu|floatformat:"2g"|default:"—" }}</td>
                 <td class="border px-2 py-1 text-right font-mono">{{ c.segment_racleur_jeu|floatformat:"2g"|default:"—" }}</td>
-                <td class="border px-2 py-1 text-right font-mono whitespace-nowrap">{% if c.maneton_min is not None %}{{ c.maneton_min|floatformat:"2g" }} – {{ c.maneton_max|floatformat:"2g" }}{% else %}—{% endif %}</td>
-                <td class="border px-2 py-1 text-right font-mono">{{ c.maneton_ovalisation|floatformat:"2g"|default:"—" }}</td>
-                <td class="border px-2 py-1 text-right font-mono">{{ c.maneton_conicite|floatformat:"2g"|default:"—" }}</td>
                 <td class="border px-2 py-1 text-right font-mono whitespace-nowrap">{{ c.pied_bielle_a|floatformat:"2g"|default:"—" }} / {{ c.pied_bielle_b|floatformat:"2g"|default:"—" }}</td>
                 <td class="border px-2 py-1 text-right font-mono">{{ c.axe_piston_diametre|floatformat:"2g"|default:"—" }}</td>
                 <td class="border px-2 py-1 text-right font-mono whitespace-nowrap">{% if c.jeu_pied_bielle_min is not None %}{{ c.jeu_pied_bielle_min|floatformat:"2g" }} – {{ c.jeu_pied_bielle_max|floatformat:"2g" }}{% else %}—{% endif %}</td>
             </tr>
-            {% if c.remarque %}<tr><td></td><td colspan="9" class="border px-2 py-1 text-gray-600 italic">{{ c.remarque }}</td></tr>{% endif %}
+            {% if c.remarque %}<tr><td></td><td colspan="6" class="border px-2 py-1 text-gray-600 italic">{{ c.remarque }}</td></tr>{% endif %}
         {% endfor %}</tbody>
     </table>
 </div>
 {% endif %}{% endwith %}
 
-{% with tourillons=m.tourillons.all %}{% if tourillons %}
+{% with paliers=m.manetons.all %}{% if paliers %}
 <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
-    <h2 class="text-lg font-semibold mb-4">{% trans "Vilebrequin – tourillons" %} <span class="text-sm font-normal text-gray-500">(mm)</span></h2>
-    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
-        <thead>
-            <tr class="bg-gray-100">
-                <th class="border px-2 py-1" rowspan="2">{% trans "N°" %}</th>
-                <th class="border px-2 py-1" colspan="2">{% trans "Section 1" %}</th>
-                <th class="border px-2 py-1" colspan="2">{% trans "Section 2" %}</th>
-                <th class="border px-2 py-1" rowspan="2">{% trans "Ovalisation" %}</th>
-                <th class="border px-2 py-1" rowspan="2">{% trans "Conicité" %}</th>
-                <th class="border px-2 py-1" rowspan="2">{% trans "Remarque" %}</th>
-            </tr>
-            <tr class="bg-gray-100"><th class="border px-2 py-1">A</th><th class="border px-2 py-1">B</th><th class="border px-2 py-1">A</th><th class="border px-2 py-1">B</th></tr>
-        </thead>
-        <tbody>{% for t in tourillons %}
-            <tr>
-                <td class="border px-2 py-1 text-center font-semibold">{{ t.numero }}</td>
-                <td class="border px-2 py-1 text-right font-mono">{{ t.section_1_a|floatformat:"2g"|default:"—" }}</td>
-                <td class="border px-2 py-1 text-right font-mono">{{ t.section_1_b|floatformat:"2g"|default:"—" }}</td>
-                <td class="border px-2 py-1 text-right font-mono">{{ t.section_2_a|floatformat:"2g"|default:"—" }}</td>
-                <td class="border px-2 py-1 text-right font-mono">{{ t.section_2_b|floatformat:"2g"|default:"—" }}</td>
-                <td class="border px-2 py-1 text-right font-mono">{{ t.ovalisation|floatformat:"2g"|default:"—" }}</td>
-                <td class="border px-2 py-1 text-right font-mono">{{ t.conicite|floatformat:"2g"|default:"—" }}</td>
-                <td class="border px-2 py-1">{{ t.remarque|default:"" }}</td>
-            </tr>
-        {% endfor %}</tbody>
-    </table>
+    <h2 class="text-lg font-semibold mb-4">{% trans "Vilebrequin – manetons et coussinets de bielle" %} <span class="text-sm font-normal text-gray-500">(mm)</span></h2>
+    {% include "metrologie_moteur/_detail_paliers.html" with maneton=True %}
+</div>
+{% endif %}{% endwith %}
+
+{% with paliers=m.tourillons.all %}{% if paliers %}
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Vilebrequin – tourillons et coussinets de palier" %} <span class="text-sm font-normal text-gray-500">(mm)</span></h2>
+    {% include "metrologie_moteur/_detail_paliers.html" %}
 </div>
 {% endif %}{% endwith %}
 {% endwith %}

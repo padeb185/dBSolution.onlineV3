@@ -83114,3 +83114,125 @@ msgstr "Importi indicativi (regole 2026): verificate con i calcolatori ufficiali
 #: particulier/simulateur.py
 msgid "Le simulateur d'achat est disponible à partir de la formule Bronze."
 msgstr "Il simulatore d'acquisto è disponibile dal piano Bronze."
+
+msgctxt "architecture moteur"
+msgid "En ligne"
+msgstr "In linea"
+
+msgctxt "architecture moteur"
+msgid "En V"
+msgstr "A V"
+
+msgctxt "architecture moteur"
+msgid "À plat (boxer)"
+msgstr "Boxer (cilindri contrapposti)"
+
+msgctxt "architecture moteur"
+msgid "En W"
+msgstr "A W"
+
+msgid "Architecture"
+msgstr "Architettura"
+
+msgid ""
+"Un flat 12 à manetons communs (Ferrari « BB ») est un V à 180° : choisissez «"
+" En V »."
+msgstr ""
+"Un 12 piatto con perni di biella in comune (Ferrari «BB») è un V a 180°: "
+"scegli «A V»."
+
+msgid "Nombre de manetons"
+msgstr "Numero di perni di biella"
+
+msgid "Nombre de tourillons"
+msgstr "Numero di perni di banco"
+
+msgid "Vide : selon l'architecture."
+msgstr "Vuoto: in base all'architettura."
+
+msgid "Jeu coussinets de bielle / maneton mini"
+msgstr "Gioco bronzine di biella / perno min."
+
+msgid "Jeu coussinets de bielle / maneton maxi"
+msgstr "Gioco bronzine di biella / perno max."
+
+msgid "Jeu coussinets de palier / tourillon mini"
+msgstr "Gioco bronzine di banco / perno min."
+
+msgid "Jeu coussinets de palier / tourillon maxi"
+msgstr "Gioco bronzine di banco / perno max."
+
+msgid "Maneton %(n)s"
+msgstr "Perno di biella %(n)s"
+
+msgid "Maneton n°"
+msgstr "Perno di biella n."
+
+msgid "Ex. « 1 / 5 » : bielles des cylindres 1 et 5 sur ce maneton."
+msgstr "Es. «1 / 5»: bielle dei cilindri 1 e 5 su questo perno."
+
+msgid "Coussinets de bielle montés – Ø axe A"
+msgstr "Bronzine di biella montate – Ø asse A"
+
+msgid "Coussinets de bielle montés – Ø axe B"
+msgstr "Bronzine di biella montate – Ø asse B"
+
+msgid "Coussinets de palier montés – Ø axe A"
+msgstr "Bronzine di banco montate – Ø asse A"
+
+msgid "Coussinets de palier montés – Ø axe B"
+msgstr "Bronzine di banco montate – Ø asse B"
+
+msgid "Mesure maneton"
+msgstr "Misura perno di biella"
+
+msgid "Mesures manetons"
+msgstr "Misure perni di biella"
+
+msgid ""
+"Ajuster les lignes (cylindres, manetons et tourillons selon l'architecture)"
+msgstr ""
+"Adegua le righe (cilindri, perni di biella e di banco in base "
+"all'architettura)"
+
+msgid ""
+"En ligne et à plat : un maneton par cylindre, n + 1 tourillons. En V et en W "
+": deux bielles par maneton, n / 2 manetons et n / 2 + 1 tourillons. Laissez "
+"les nombres vides pour les calculer, ou corrigez-les (moteur à manetons "
+"décalés, paliers supplémentaires…)."
+msgstr ""
+"In linea e boxer: un perno di biella per cilindro, n + 1 perni di banco. A V "
+"e a W: due bielle per perno, n / 2 perni di biella e n / 2 + 1 perni di "
+"banco. Lascia vuoti i numeri per calcolarli, oppure correggili (perni "
+"sfalsati, supporti aggiuntivi…)."
+
+msgid "Coussinets – jeu de fonctionnement"
+msgstr "Bronzine – gioco di funzionamento"
+
+msgid "Vilebrequin – manetons et coussinets de bielle"
+msgstr "Albero motore – perni di biella e bronzine di biella"
+
+msgid ""
+"Coussinets : diamètre intérieur mesuré coussinets montés, chapeau serré au "
+"couple. Jeu = Ø coussinets − Ø maneton (ou tourillon)."
+msgstr ""
+"Bronzine: diametro interno misurato con bronzine montate e cappello serrato "
+"alla coppia. Gioco = Ø bronzine − Ø perno di biella (o di banco)."
+
+msgid "Ajouter un maneton"
+msgstr "Aggiungi un perno di biella"
+
+msgid "Vilebrequin – tourillons et coussinets de palier"
+msgstr "Albero motore – perni di banco e bronzine di banco"
+
+msgid "Coussinets montés Ø"
+msgstr "Bronzine montate Ø"
+
+msgid "Manetons / tourillons"
+msgstr "Perni di biella / di banco"
+
+msgid "Segments et pieds de bielle"
+msgstr "Fasce elastiche e piedi di biella"
+
+msgid "Coussinets Ø"
+msgstr "Bronzine Ø"

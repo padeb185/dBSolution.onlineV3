@@ -345,7 +345,9 @@
 <table class="table-2-cols" style="width:100%">
     <thead><tr><th></th><th class="num">{% trans "Constructeur" %}</th><th class="num">{% trans "Mesuré / calculé" %}</th></tr></thead>
     <tbody>
+        <tr><td>{% trans "Architecture" %}</td><td class="num" colspan="2">{{ metrologie.get_architecture_display }}</td></tr>
         <tr><td>{% trans "Nombre de cylindres" %}</td><td class="num" colspan="2">{{ metrologie.nombre_cylindres }}</td></tr>
+        <tr><td>{% trans "Manetons / tourillons" %}</td><td class="num" colspan="2">{{ metrologie.nombre_manetons|default:"-" }} / {{ metrologie.nombre_tourillons|default:"-" }}</td></tr>
         <tr><td>{% trans "Alésage (mm)" %}</td><td class="num">{{ metrologie.alesage_nominal|floatformat:"2g"|default:"-" }}</td><td class="num">{{ metrologie.alesage_mesure|floatformat:"2g"|default:"-" }}</td></tr>
         <tr><td>{% trans "Course (mm)" %}</td><td class="num">{{ metrologie.course_nominale|floatformat:"2g"|default:"-" }}</td><td class="num">{{ metrologie.course_mesuree|floatformat:"2g"|default:"-" }}</td></tr>
         <tr class="total"><td>{% trans "Cylindrée (cm³)" %}</td><td class="num">{{ metrologie.cylindree_constructeur_cm3|floatformat:"1g"|default:"-" }}</td><td class="num">{{ metrologie.cylindree_cm3|floatformat:"1g"|default:"-" }}</td></tr>
@@ -389,42 +391,32 @@
     {% endfor %}</tbody>
 </table>
 
-<h2>{% trans "Segments, manetons et pieds de bielle" %}</h2>
+<h2>{% trans "Segments et pieds de bielle" %}</h2>
 <table class="mesures">
     <thead>
-        <tr><th rowspan="2">{% trans "Cyl." %}</th><th colspan="3">{% trans "Segments – jeu à la coupe" %}</th><th colspan="3">{% trans "Maneton" %}</th><th colspan="3">{% trans "Pied de bielle" %}</th></tr>
+        <tr><th rowspan="2">{% trans "Cyl." %}</th><th colspan="3">{% trans "Segments – jeu à la coupe" %}</th><th colspan="3">{% trans "Pied de bielle" %}</th></tr>
         <tr><th>{% trans "Feu" %}</th><th>{% trans "Étanchéité" %}</th><th>{% trans "Racleur" %}</th>
-            <th>{% trans "Ø mini – maxi" %}</th><th>{% trans "Ovalisation" %}</th><th>{% trans "Conicité" %}</th>
             <th>{% trans "Ø A / B" %}</th><th>{% trans "Axe Ø" %}</th><th>{% trans "Jeu" %}</th></tr>
     </thead>
     <tbody>{% for c in cylindres %}
         <tr><td>{{ c.numero }}</td>
             <td class="num">{{ c.segment_feu_jeu|floatformat:"2g"|default:"-" }}</td><td class="num">{{ c.segment_etancheite_jeu|floatformat:"2g"|default:"-" }}</td><td class="num">{{ c.segment_racleur_jeu|floatformat:"2g"|default:"-" }}</td>
-            <td class="num">{% if c.maneton_min is not None %}{{ c.maneton_min|floatformat:"2g" }} – {{ c.maneton_max|floatformat:"2g" }}{% else %}-{% endif %}</td>
-            <td class="num">{{ c.maneton_ovalisation|floatformat:"2g"|default:"-" }}</td><td class="num">{{ c.maneton_conicite|floatformat:"2g"|default:"-" }}</td>
             <td class="num">{{ c.pied_bielle_a|floatformat:"2g"|default:"-" }} / {{ c.pied_bielle_b|floatformat:"2g"|default:"-" }}</td>
             <td class="num">{{ c.axe_piston_diametre|floatformat:"2g"|default:"-" }}</td>
             <td class="num">{% if c.jeu_pied_bielle_min is not None %}{{ c.jeu_pied_bielle_min|floatformat:"2g" }} – {{ c.jeu_pied_bielle_max|floatformat:"2g" }}{% else %}-{% endif %}</td></tr>
-        {% if c.remarque %}<tr><td></td><td colspan="9"><em>{{ c.remarque }}</em></td></tr>{% endif %}
+        {% if c.remarque %}<tr><td></td><td colspan="6"><em>{{ c.remarque }}</em></td></tr>{% endif %}
     {% endfor %}</tbody>
 </table>
 {% endif %}{% endwith %}
 
-{% with tourillons=metrologie.tourillons.all %}{% if tourillons %}
-<h2>{% trans "Vilebrequin – tourillons" %}</h2>
-<table class="mesures">
-    <thead>
-        <tr><th rowspan="2">{% trans "N°" %}</th><th colspan="2">{% trans "Section 1" %}</th><th colspan="2">{% trans "Section 2" %}</th><th rowspan="2">{% trans "Ovalisation" %}</th><th rowspan="2">{% trans "Conicité" %}</th><th rowspan="2">{% trans "Remarque" %}</th></tr>
-        <tr><th>A</th><th>B</th><th>A</th><th>B</th></tr>
-    </thead>
-    <tbody>{% for t in tourillons %}
-        <tr><td>{{ t.numero }}</td>
-            <td class="num">{{ t.section_1_a|floatformat:"2g"|default:"-" }}</td><td class="num">{{ t.section_1_b|floatformat:"2g"|default:"-" }}</td>
-            <td class="num">{{ t.section_2_a|floatformat:"2g"|default:"-" }}</td><td class="num">{{ t.section_2_b|floatformat:"2g"|default:"-" }}</td>
-            <td class="num">{{ t.ovalisation|floatformat:"2g"|default:"-" }}</td><td class="num">{{ t.conicite|floatformat:"2g"|default:"-" }}</td>
-            <td>{{ t.remarque|default:"" }}</td></tr>
-    {% endfor %}</tbody>
-</table>
+{% with paliers=metrologie.manetons.all %}{% if paliers %}
+<h2>{% trans "Vilebrequin – manetons et coussinets de bielle" %}</h2>
+{% include "metrologie_moteur/_paliers_pdf.html" with maneton=True %}
+{% endif %}{% endwith %}
+
+{% with paliers=metrologie.tourillons.all %}{% if paliers %}
+<h2>{% trans "Vilebrequin – tourillons et coussinets de palier" %}</h2>
+{% include "metrologie_moteur/_paliers_pdf.html" %}
 {% endif %}{% endwith %}
 
 <h2>{% trans "Main-d'œuvre" %}</h2>

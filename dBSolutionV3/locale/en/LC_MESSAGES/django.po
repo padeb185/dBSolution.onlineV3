@@ -82722,3 +82722,123 @@ msgstr "Indicative amounts (2026 rules): check with the official calculators."
 #: particulier/simulateur.py
 msgid "Le simulateur d'achat est disponible à partir de la formule Bronze."
 msgstr "The purchase simulator is available from the Bronze plan."
+
+msgctxt "architecture moteur"
+msgid "En ligne"
+msgstr "Inline"
+
+msgctxt "architecture moteur"
+msgid "En V"
+msgstr "V"
+
+msgctxt "architecture moteur"
+msgid "À plat (boxer)"
+msgstr "Flat (boxer)"
+
+msgctxt "architecture moteur"
+msgid "En W"
+msgstr "W"
+
+msgid "Architecture"
+msgstr "Layout"
+
+msgid ""
+"Un flat 12 à manetons communs (Ferrari « BB ») est un V à 180° : choisissez «"
+" En V »."
+msgstr ""
+"A flat 12 with shared crankpins (Ferrari ‘BB’) is a 180° V: choose ‘V’."
+
+msgid "Nombre de manetons"
+msgstr "Number of crankpins"
+
+msgid "Nombre de tourillons"
+msgstr "Number of main journals"
+
+msgid "Vide : selon l'architecture."
+msgstr "Empty: based on the layout."
+
+msgid "Jeu coussinets de bielle / maneton mini"
+msgstr "Big-end bearing / crankpin clearance min."
+
+msgid "Jeu coussinets de bielle / maneton maxi"
+msgstr "Big-end bearing / crankpin clearance max."
+
+msgid "Jeu coussinets de palier / tourillon mini"
+msgstr "Main bearing / journal clearance min."
+
+msgid "Jeu coussinets de palier / tourillon maxi"
+msgstr "Main bearing / journal clearance max."
+
+msgid "Maneton %(n)s"
+msgstr "Crankpin %(n)s"
+
+msgid "Maneton n°"
+msgstr "Crankpin no."
+
+msgid "Ex. « 1 / 5 » : bielles des cylindres 1 et 5 sur ce maneton."
+msgstr "E.g. ‘1 / 5’: connecting rods of cylinders 1 and 5 on this crankpin."
+
+msgid "Coussinets de bielle montés – Ø axe A"
+msgstr "Big-end bearings fitted – Ø axis A"
+
+msgid "Coussinets de bielle montés – Ø axe B"
+msgstr "Big-end bearings fitted – Ø axis B"
+
+msgid "Coussinets de palier montés – Ø axe A"
+msgstr "Main bearings fitted – Ø axis A"
+
+msgid "Coussinets de palier montés – Ø axe B"
+msgstr "Main bearings fitted – Ø axis B"
+
+msgid "Mesure maneton"
+msgstr "Crankpin measurement"
+
+msgid "Mesures manetons"
+msgstr "Crankpin measurements"
+
+msgid ""
+"Ajuster les lignes (cylindres, manetons et tourillons selon l'architecture)"
+msgstr ""
+"Adjust rows (cylinders, crankpins and main journals based on the layout)"
+
+msgid ""
+"En ligne et à plat : un maneton par cylindre, n + 1 tourillons. En V et en W "
+": deux bielles par maneton, n / 2 manetons et n / 2 + 1 tourillons. Laissez "
+"les nombres vides pour les calculer, ou corrigez-les (moteur à manetons "
+"décalés, paliers supplémentaires…)."
+msgstr ""
+"Inline and flat: one crankpin per cylinder, n + 1 main journals. V and W: two"
+" connecting rods per crankpin, n / 2 crankpins and n / 2 + 1 main journals. "
+"Leave the numbers empty to calculate them, or correct them (split crankpins, "
+"extra bearings…)."
+
+msgid "Coussinets – jeu de fonctionnement"
+msgstr "Bearings – running clearance"
+
+msgid "Vilebrequin – manetons et coussinets de bielle"
+msgstr "Crankshaft – crankpins and big-end bearings"
+
+msgid ""
+"Coussinets : diamètre intérieur mesuré coussinets montés, chapeau serré au "
+"couple. Jeu = Ø coussinets − Ø maneton (ou tourillon)."
+msgstr ""
+"Bearings: inside diameter measured with bearings fitted and cap torqued. "
+"Clearance = Ø bearings − Ø crankpin (or journal)."
+
+msgid "Ajouter un maneton"
+msgstr "Add a crankpin"
+
+msgid "Vilebrequin – tourillons et coussinets de palier"
+msgstr "Crankshaft – main journals and main bearings"
+
+msgid "Coussinets montés Ø"
+msgstr "Fitted bearings Ø"
+
+msgid "Manetons / tourillons"
+msgstr "Crankpins / main journals"
+
+msgid "Segments et pieds de bielle"
+msgstr "Piston rings and small ends"
+
+msgid "Coussinets Ø"
+msgstr "Bearings Ø"

@@ -83162,3 +83162,125 @@ msgstr "Indicatieve bedragen (regels 2026): controleer met de officiële rekenmo
 #: particulier/simulateur.py
 msgid "Le simulateur d'achat est disponible à partir de la formule Bronze."
 msgstr "De aankoopsimulator is beschikbaar vanaf de formule Bronze."
+
+msgctxt "architecture moteur"
+msgid "En ligne"
+msgstr "Lijnmotor"
+
+msgctxt "architecture moteur"
+msgid "En V"
+msgstr "V-motor"
+
+msgctxt "architecture moteur"
+msgid "À plat (boxer)"
+msgstr "Boxermotor"
+
+msgctxt "architecture moteur"
+msgid "En W"
+msgstr "W-motor"
+
+msgid "Architecture"
+msgstr "Architectuur"
+
+msgid ""
+"Un flat 12 à manetons communs (Ferrari « BB ») est un V à 180° : choisissez «"
+" En V »."
+msgstr ""
+"Een flat 12 met gedeelde krukpennen (Ferrari ‘BB’) is een V van 180°: kies "
+"‘V-motor’."
+
+msgid "Nombre de manetons"
+msgstr "Aantal krukpennen"
+
+msgid "Nombre de tourillons"
+msgstr "Aantal hoofdlagertappen"
+
+msgid "Vide : selon l'architecture."
+msgstr "Leeg: volgens de architectuur."
+
+msgid "Jeu coussinets de bielle / maneton mini"
+msgstr "Speling drijfstanglagers / krukpen min."
+
+msgid "Jeu coussinets de bielle / maneton maxi"
+msgstr "Speling drijfstanglagers / krukpen max."
+
+msgid "Jeu coussinets de palier / tourillon mini"
+msgstr "Speling hoofdlagers / lagertap min."
+
+msgid "Jeu coussinets de palier / tourillon maxi"
+msgstr "Speling hoofdlagers / lagertap max."
+
+msgid "Maneton %(n)s"
+msgstr "Krukpen %(n)s"
+
+msgid "Maneton n°"
+msgstr "Krukpen nr."
+
+msgid "Ex. « 1 / 5 » : bielles des cylindres 1 et 5 sur ce maneton."
+msgstr "Bv. ‘1 / 5’: drijfstangen van cilinders 1 en 5 op deze krukpen."
+
+msgid "Coussinets de bielle montés – Ø axe A"
+msgstr "Gemonteerde drijfstanglagers – Ø as A"
+
+msgid "Coussinets de bielle montés – Ø axe B"
+msgstr "Gemonteerde drijfstanglagers – Ø as B"
+
+msgid "Coussinets de palier montés – Ø axe A"
+msgstr "Gemonteerde hoofdlagers – Ø as A"
+
+msgid "Coussinets de palier montés – Ø axe B"
+msgstr "Gemonteerde hoofdlagers – Ø as B"
+
+msgid "Mesure maneton"
+msgstr "Meting krukpen"
+
+msgid "Mesures manetons"
+msgstr "Metingen krukpennen"
+
+msgid ""
+"Ajuster les lignes (cylindres, manetons et tourillons selon l'architecture)"
+msgstr ""
+"Regels aanpassen (cilinders, krukpennen en lagertappen volgens de "
+"architectuur)"
+
+msgid ""
+"En ligne et à plat : un maneton par cylindre, n + 1 tourillons. En V et en W "
+": deux bielles par maneton, n / 2 manetons et n / 2 + 1 tourillons. Laissez "
+"les nombres vides pour les calculer, ou corrigez-les (moteur à manetons "
+"décalés, paliers supplémentaires…)."
+msgstr ""
+"Lijn- en boxermotor: één krukpen per cilinder, n + 1 lagertappen. V- en "
+"W-motor: twee drijfstangen per krukpen, n / 2 krukpennen en n / 2 + 1 "
+"lagertappen. Laat de aantallen leeg om ze te berekenen, of corrigeer ze "
+"(verzette krukpennen, extra lagers…)."
+
+msgid "Coussinets – jeu de fonctionnement"
+msgstr "Lagers – werkspeling"
+
+msgid "Vilebrequin – manetons et coussinets de bielle"
+msgstr "Krukas – krukpennen en drijfstanglagers"
+
+msgid ""
+"Coussinets : diamètre intérieur mesuré coussinets montés, chapeau serré au "
+"couple. Jeu = Ø coussinets − Ø maneton (ou tourillon)."
+msgstr ""
+"Lagers: binnendiameter gemeten met gemonteerde lagers, kap op koppel "
+"aangehaald. Speling = Ø lagers − Ø krukpen (of lagertap)."
+
+msgid "Ajouter un maneton"
+msgstr "Krukpen toevoegen"
+
+msgid "Vilebrequin – tourillons et coussinets de palier"
+msgstr "Krukas – lagertappen en hoofdlagers"
+
+msgid "Coussinets montés Ø"
+msgstr "Gemonteerde lagers Ø"
+
+msgid "Manetons / tourillons"
+msgstr "Krukpennen / lagertappen"
+
+msgid "Segments et pieds de bielle"
+msgstr "Zuigerveren en drijfstangogen"
+
+msgid "Coussinets Ø"
+msgstr "Lagers Ø"
