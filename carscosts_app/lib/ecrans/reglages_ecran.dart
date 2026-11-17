@@ -244,7 +244,14 @@ class ReglagesEcran extends StatelessWidget {
             trailing: const Icon(Icons.chevron_right),
             onTap: () => _motDePasse(context),
           ),
-          if (biometrie.disponible)
+          if (!biometrie.disponible)
+            ListTile(
+              enabled: false,
+              leading: const Icon(Icons.fingerprint),
+              title: Text(t('Connexion biométrique')),
+              subtitle: Text(t('Non disponible : configurez Face ID, Touch ID ou une empreinte dans les réglages de l\'appareil, puis rouvrez l\'application.')),
+            )
+          else
             SwitchListTile(
               secondary: Icon(biometrie.methode == 'Face ID' ? Icons.face : Icons.fingerprint),
               title: Text(t('Connexion avec {methode}', {'methode': biometrie.methode})),
