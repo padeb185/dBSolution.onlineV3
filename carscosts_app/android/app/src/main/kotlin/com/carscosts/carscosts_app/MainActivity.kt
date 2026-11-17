@@ -1,5 +1,6 @@
 package com.carscosts.carscosts_app
 
-import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.android.FlutterFragmentActivity
 
-class MainActivity : FlutterActivity()
+// FragmentActivity : requis par local_auth (Face ID / empreinte)
+class MainActivity : FlutterFragmentActivity()

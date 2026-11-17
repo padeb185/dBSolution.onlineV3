@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import '../achats/notifications_push.dart';
 import '../l10n/langue.dart';
 import 'api_client.dart';
+import 'biometrie.dart';
 
 /// Session de l'utilisateur : connexion, inscription, déconnexion, suppression du compte.
 class Session extends ChangeNotifier {
@@ -13,6 +14,12 @@ class Session extends ChangeNotifier {
 
   /// Notifications push (jeton de l'appareil enregistré à la connexion, retiré à la déconnexion).
   NotificationsPush? push;
+
+  /// Déverrouillage biométrique (réinitialisé à la déconnexion).
+  Biometrie? biometrie;
+
+  /// Connexion par mot de passe dans cette session : on propose ensuite la biométrie.
+  bool connexionParMotDePasse = false;
   Map<String, dynamic>? utilisateur;
   bool pret = false;
 
@@ -20,6 +27,7 @@ class Session extends ChangeNotifier {
 
   Future<void> demarrer() async {
     await api.chargerJeton();
+    biometrie?.auDemarrage(api.connecte);
     if (api.connecte) {
       try {
         utilisateur = Map<String, dynamic>.from(await api.get('moi/') as Map);
@@ -50,6 +58,7 @@ class Session extends ChangeNotifier {
   Future<void> _ouvrir(Future<dynamic> requete) async {
     final reponse = Map<String, dynamic>.from(await requete as Map);
     await api.enregistrerJeton(reponse['token'] as String);
+    connexionParMotDePasse = true;
     utilisateur = Map<String, dynamic>.from(reponse['utilisateur'] as Map);
     await _appliquerLangue();
     notifyListeners();
@@ -89,6 +98,7 @@ class Session extends ChangeNotifier {
       await api.post('auth/deconnexion/');
     } catch (_) {}
     await api.enregistrerJeton(null);
+    await biometrie?.reinitialiser();
     utilisateur = null;
     notifyListeners();
   }
@@ -96,6 +106,7 @@ class Session extends ChangeNotifier {
   Future<void> supprimerCompte(String motDePasse) async {
     await api.delete('moi/', {'password': motDePasse});
     await api.enregistrerJeton(null);
+    await biometrie?.reinitialiser();
     utilisateur = null;
     notifyListeners();
   }

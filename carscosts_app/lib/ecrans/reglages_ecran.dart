@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../achats/abonnement.dart';
 import '../api/api_client.dart';
+import '../api/biometrie.dart';
 import '../api/session.dart';
 import '../l10n/langue.dart';
 import '../l10n/unites.dart';
@@ -214,6 +215,7 @@ class ReglagesEcran extends StatelessWidget {
   Widget build(BuildContext context) {
     final session = context.watch<Session>();
     final abonnement = context.watch<Abonnement>();
+    final biometrie = context.watch<Biometrie>();
     final u = session.utilisateur ?? {};
     final pays = '${u['pays_defaut'] ?? 'BE'}';
     return Scaffold(
@@ -242,6 +244,14 @@ class ReglagesEcran extends StatelessWidget {
             trailing: const Icon(Icons.chevron_right),
             onTap: () => _motDePasse(context),
           ),
+          if (biometrie.disponible)
+            SwitchListTile(
+              secondary: Icon(biometrie.methode == 'Face ID' ? Icons.face : Icons.fingerprint),
+              title: Text(t('Connexion avec {methode}', {'methode': biometrie.methode})),
+              subtitle: Text(t('Demandée à l\'ouverture de l\'application')),
+              value: biometrie.active,
+              onChanged: (v) => biometrie.activer(v),
+            ),
           _titre(context, t('Préférences')),
           ListTile(
             leading: const Icon(Icons.language),

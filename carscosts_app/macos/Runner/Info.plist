@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Touch ID sert à ouvrir CarsCosts sans retaper votre mot de passe.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>L'appareil photo sert à photographier vos tickets, documents et à lire le VIN.</string>
 	<key>NSLocationUsageDescription</key>
