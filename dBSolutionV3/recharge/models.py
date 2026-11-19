@@ -77,6 +77,15 @@ class RechargeCarburant(models.Model):
     }
 
 
+class NiveauReservoir(models.TextChoices):
+    """Niveau restant avant le plein / la recharge (mêmes codes que l'application CarsCosts)."""
+    FIN_RESERVE = "fin_reserve", _("Fin de réserve")
+    RESERVE = "reserve", _("Réserve")
+    QUART = "1/4", "¼"
+    MOITIE = "1/2", "½"
+    TROIS_QUARTS = "3/4", "¾"
+
+
 class Electricite(models.Model):
   
     id = models.UUIDField(
@@ -135,6 +144,10 @@ class Electricite(models.Model):
     date = models.DateField(default=timezone.now, verbose_name=_("Date de la recharge"))
     taille_batterie = models.FloatField(verbose_name= _("Capacité en KW"), null=True, blank=True)
     kW = models.FloatField(verbose_name=_("Kilos Watt"))
+    niveau_restant = models.CharField(
+        _("Batterie restante"), max_length=12, choices=NiveauReservoir.choices, blank=True,
+        help_text=_("Niveau de la batterie avant la recharge."),
+    )
     prix_recharge = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Prix de la recharge (€)"))
     prix_watt = models.DecimalField(max_digits=6, decimal_places=4, verbose_name=_("Prix au kilo Watt (€)"))
     date_recharge = models.DateField(default=timezone.now, verbose_name=_("Date de la recharge"), null=True, blank=True)

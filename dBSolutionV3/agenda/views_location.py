@@ -131,7 +131,12 @@ def _lignes(locations, jour):
 @never_cache
 @login_required
 def agenda_dashboard_view(request):
+    from .views_coaching import acces_coachings, coachings_periode, lignes_du_jour
+
     if not _peut(request.user, ROLES_AGENDA_LOCATION):
+        # Instructeur (ou direction / vendeur instructeur sans accès à l'agenda) : son planning de coachings
+        if acces_coachings(request.user):
+            return redirect("agenda:agenda_coaching")
         return _refuser(request)
 
     aujourdhui = timezone.localdate()
@@ -170,6 +175,8 @@ def agenda_dashboard_view(request):
 
     dispo = _compter_tags(disponibilites(request.user.societe, aujourdhui))
 
+    coachings_jour = lignes_du_jour(coachings_periode(request.user.societe, aujourdhui, aujourdhui), aujourdhui)
+
     def compte(etat):
         return sum(1 for l in lignes_jour if l["suivi"].etat == etat)
 
@@ -190,6 +197,9 @@ def agenda_dashboard_view(request):
         "en_retard": en_retard,
         "a_venir": a_venir,
         "dispo": dispo,
+        "nb_coachings_jour": len(coachings_jour),
+        "nb_conflits_coaching": sum(1 for l in coachings_jour if l["conflit"]),
+        "mes_coachings_jour": sum(1 for l in coachings_jour if l["instructeur"].pk == request.user.pk),
     })
 
 

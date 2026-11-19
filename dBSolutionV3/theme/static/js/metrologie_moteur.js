@@ -177,6 +177,41 @@
         document.getElementById("res-ecart").textContent = v && vc ? ((v - vc) / vc * 100).toFixed(2).replace(".", ",") + " %" : "—";
     }
 
+    /* ---------------- Chambres de combustion : écart et taux de compression ---------------- */
+    function cylindreeUnitaire() {
+        const n = nbCyl(), v = val("cylindree_cm3"), vc = val("cylindree_constructeur_cm3");
+        if (!n) return null;
+        return v ? v / n : (vc ? vc / n : null);
+    }
+    function taux(volumeChambre) {
+        const vu = cylindreeUnitaire();
+        if (volumeChambre === null || !vu) return null;
+        const vm = volumeChambre + (val("volume_complementaire_cm3") || 0);
+        return vm > 0 ? (vu + vm) / vm : null;
+    }
+    const fmtTaux = (t) => (t === null ? "—" : t.toFixed(2).replace(".", ",") + " : 1");
+
+    function chambres() {
+        const actifs = prefixes("ligne-cyl").filter((p) => { const d = champ(`${p}-DELETE`); return !(d && d.checked); });
+        const volumes = actifs.map((p) => val(`${p}-chambre_combustion_cm3`)).filter((x) => x !== null);
+        const moyenne = volumes.length ? volumes.reduce((a, b) => a + b, 0) / volumes.length : null;
+        prefixes("ligne-cyl").forEach((p) => {
+            const v = val(`${p}-chambre_combustion_cm3`);
+            lignesDe(p).forEach((r) => {
+                afficher(r, "chambre_ecart", v === null || moyenne === null ? "—" : (v - moyenne >= 0 ? "+" : "") + fmt(v - moyenne), null);
+                afficher(r, "taux_compression", fmtTaux(taux(v)), null);
+            });
+        });
+        const e = ecart(...volumes);
+        document.getElementById("res-chambre-moyenne").textContent = moyenne === null ? "—" : fmt(moyenne) + " cm³";
+        document.getElementById("res-chambre-ecart").textContent = e === null ? "—" : fmt(e) + " cm³";
+        document.getElementById("res-taux-moyen").textContent = fmtTaux(taux(moyenne));
+        const tn = taux(val("volume_chambre_nominal_cm3")), tc = val("taux_compression_constructeur");
+        document.getElementById("res-taux-nominal").textContent =
+            fmtTaux(tn) + (tn !== null && tc ? ` (${t_constructeur} ${tc.toFixed(2).replace(".", ",")})` : "");
+    }
+    const t_constructeur = (document.getElementById("res-taux-nominal") || {}).dataset?.libelle || "constructeur";
+
     function tout() {
         let hors = 0;
         prefixes("ligne-cyl").forEach((p) => { hors += calculerCylindre(p); });
@@ -186,6 +221,7 @@
         h.textContent = hors;
         h.className = "font-bold " + (hors ? "text-red-700" : "text-green-700");
         resumeCylindree();
+        chambres();
     }
 
     /* ---------------- Lignes ---------------- */
@@ -202,7 +238,7 @@
     }
 
     const GABARITS_CYL = [["tpl-cyl-chemise", "table-chemise"], ["tpl-cyl-segments", "table-segments"],
-        ["tpl-cyl-bielle", "table-bielle"]];
+        ["tpl-cyl-bielle", "table-bielle"], ["tpl-cyl-chambre", "table-chambre"]];
     const GABARITS_MAN = [["tpl-man", "table-maneton"]];
     const GABARITS_TOUR = [["tpl-tour", "table-tourillon"]];
 

@@ -51,9 +51,12 @@
 <h2 class="saut">{% trans "COMPTE DE RÉSULTATS" %}</h2>
 {% include "compta/bilan/_tableau.html" with lignes=resultats %}
 
+<h2 class="saut">{% trans "DÉTAIL DU COMPTE DE RÉSULTATS" %}</h2>
+{% include "compta/bilan/_detail_resultat.html" %}
+
 <p class="note">
     {% trans "Présentation selon le schéma des comptes annuels de la Banque nationale de Belgique (codes des rubriques), à partir du plan comptable minimum normalisé (PCMN). Montants en euros." %}
-    {% trans "Document de travail établi à partir des écritures de l'application (ventes, achats, salaires, immobilisations, stock, trésorerie, opérations diverses). Le dépôt à la BNB doit être effectué par votre comptable ou expert-comptable." %}
+    {% trans "Document de travail établi à partir des écritures de l'application (ventes, achats, carburants, recharges, maintenances et carrosserie externes, assurances, salaires, immobilisations, stock, trésorerie, opérations diverses). Le dépôt à la BNB doit être effectué par votre comptable ou expert-comptable." %}
     {% if source == "reference" %}{% blocktrans with a=annee %}Exercice {{ a }} : montants du bilan établi par le comptable.{% endblocktrans %}{% elif source == "reference_et_ecritures" %}{% blocktrans with r=reference.annee %}Base : bilan du comptable au 31/12/{{ r }}, complété par les écritures de l'application.{% endblocktrans %}{% endif %}
     {% trans "Document généré le" %} {{ date_export|date:"d/m/Y H:i" }}.
 </p>

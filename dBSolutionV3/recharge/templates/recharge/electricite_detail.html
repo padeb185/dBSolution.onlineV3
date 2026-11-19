@@ -52,6 +52,12 @@
                 <strong>{% trans "kiloWatts" %} :</strong>
                 {{ electricite.kW}} kW
             </p>
+            {% if electricite.niveau_restant %}
+            <p>
+                <strong>{% trans "Batterie restante" %} :</strong>
+                {{ electricite.get_niveau_restant_display }}
+            </p>
+            {% endif %}
 
              <p>
                 <strong>{% trans "Prix de la recharge" %} :</strong>

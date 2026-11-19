@@ -10,6 +10,8 @@ Métrologie moteur : relevé des cotes du moteur en centièmes de millimètre.
   (en ligne, en V, à plat, en W) : voir nombre_paliers().
 - Pied de bielle : alésage sur deux axes + diamètre de l'axe de piston → jeu.
 - Alésage / course / cylindrée : calcul dans les deux sens.
+- Chambres de combustion : volume par cylindre (cm³) → écart entre cylindres et taux de compression
+  ε = (cylindrée unitaire + volume chambre + volume joint / piston) / (volume chambre + volume joint / piston).
 
 Toutes les cotes sont saisies en millimètres avec deux décimales (centièmes).
 Les tolérances constructeur saisies sur l'intervention permettent de signaler
@@ -31,6 +33,22 @@ from utils.mixin import TechnicienMixin
 PI = Decimal("3.14159265358979323846")
 CENTIEME = Decimal("0.01")
 DIXIEME_CM3 = Decimal("0.1")
+
+
+def volume_cm3(verbose_name, help_text=""):
+    """Volume en cm³, au centième (mesure à la burette)."""
+    return models.DecimalField(
+        max_digits=7, decimal_places=2, null=True, blank=True,
+        verbose_name=verbose_name, help_text=help_text,
+    )
+
+
+def taux_compression(cylindree_unitaire, volume_mort):
+    """ε = (Vu + Vc) / Vc, arrondi au centième."""
+    if not cylindree_unitaire or not volume_mort:
+        return None
+    vu, vc = Decimal(str(cylindree_unitaire)), Decimal(str(volume_mort))
+    return ((vu + vc) / vc).quantize(CENTIEME, rounding=ROUND_HALF_UP)
 
 
 def cote(verbose_name, help_text=""):
@@ -209,6 +227,19 @@ class MetrologieMoteur(TechnicienMixin, models.Model):
     )
 
     # -------------------------
+    # CHAMBRES DE COMBUSTION
+    # -------------------------
+    volume_chambre_nominal_cm3 = volume_cm3(_("Volume de la chambre de combustion constructeur (cm³)"))
+    volume_complementaire_cm3 = volume_cm3(
+        _("Volume joint de culasse + piston (cm³)"),
+        _("Ajouté au volume de la chambre pour le taux de compression (épaisseur du joint, creux ou dôme "
+          "du piston, dépassement). Vide : 0."),
+    )
+    taux_compression_constructeur = models.DecimalField(
+        max_digits=5, decimal_places=2, null=True, blank=True, verbose_name=_("Taux de compression constructeur"),
+    )
+
+    # -------------------------
     # TOLÉRANCES CONSTRUCTEUR
     # -------------------------
     tol_chemise_diametre_min = cote(_("Chemise : diamètre mini"))
@@ -332,6 +363,45 @@ class MetrologieMoteur(TechnicienMixin, models.Model):
         if self.cylindree_cm3 and self.nombre_cylindres:
             return (self.cylindree_cm3 / self.nombre_cylindres).quantize(DIXIEME_CM3, rounding=ROUND_HALF_UP)
         return None
+
+    # ---- chambres de combustion
+    @property
+    def cylindree_unitaire_reference(self):
+        """Cylindrée unitaire mesurée, sinon constructeur."""
+        if self.cylindree_unitaire_cm3:
+            return self.cylindree_unitaire_cm3
+        if self.cylindree_constructeur_cm3 and self.nombre_cylindres:
+            return self.cylindree_constructeur_cm3 / self.nombre_cylindres
+        return None
+
+    def taux_compression_pour(self, volume_chambre):
+        if volume_chambre is None:
+            return None
+        return taux_compression(self.cylindree_unitaire_reference,
+                                Decimal(str(volume_chambre)) + (self.volume_complementaire_cm3 or 0))
+
+    @property
+    def taux_compression_nominal_calcule(self):
+        return self.taux_compression_pour(self.volume_chambre_nominal_cm3)
+
+    def _volumes_chambres(self):
+        if not self.pk:
+            return []
+        return [c.chambre_combustion_cm3 for c in self.cylindres.all() if c.chambre_combustion_cm3 is not None]
+
+    @property
+    def volume_chambre_moyen_cm3(self):
+        v = self._volumes_chambres()
+        return (sum(v) / len(v)).quantize(CENTIEME, rounding=ROUND_HALF_UP) if v else None
+
+    @property
+    def ecart_chambres_cm3(self):
+        """Écart entre la plus grande et la plus petite chambre (à égaliser sur un moteur préparé)."""
+        return _ecart(*self._volumes_chambres())
+
+    @property
+    def taux_compression_moyen(self):
+        return self.taux_compression_pour(self.volume_chambre_moyen_cm3)
 
     @property
     def rapport_course_alesage(self):
@@ -487,6 +557,8 @@ class MesureCylindre(models.Model):
     pied_bielle_b = cote(_("Pied de bielle – axe B"))
     axe_piston_diametre = cote(_("Axe de piston : diamètre"))
 
+    chambre_combustion_cm3 = volume_cm3(_("Volume de la chambre de combustion (cm³)"))
+
     remarque = models.CharField(max_length=200, blank=True, verbose_name=_("Remarque"))
 
     class Meta:
@@ -527,6 +599,11 @@ class MesureCylindre(models.Model):
         e = [x for x in (_ecart(self.chemise_haut_a, self.chemise_milieu_a, self.chemise_bas_a),
                          _ecart(self.chemise_haut_b, self.chemise_milieu_b, self.chemise_bas_b)) if x is not None]
         return max(e) if e else None
+
+    # ---- chambre de combustion
+    @property
+    def taux_compression(self):
+        return self.metrologie.taux_compression_pour(self.chambre_combustion_cm3)
 
     # ---- piston
     @property

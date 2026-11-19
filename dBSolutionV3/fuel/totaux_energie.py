@@ -170,6 +170,28 @@ def _modele(obj):
 
 
 def operations(societe, periode):
+    return _operations(societe, {"date__year": periode.annee, "date__month__in": periode.liste_mois})
+
+
+def operations_entre(societe, debut=None, fin=None):
+    """Opérations entre deux dates incluses (None = sans limite) – journal général et comptes annuels.
+    Filtre SQL par modèle (champ date ou date-heure), puis contrôle sur la date locale."""
+    from django.db import models as dj
+
+    def filtre(modele):
+        suffixe = "date__date" if isinstance(modele._meta.get_field("date"), dj.DateTimeField) else "date"
+        f = {}
+        if debut:
+            f[f"{suffixe}__gte"] = debut
+        if fin:
+            f[f"{suffixe}__lte"] = fin
+        return f
+
+    ops = _operations(societe, None, filtres={m: filtre(m) for m in (Fuel, Electricite, AdBlue)})
+    return [o for o in ops if (debut is None or o["date"] >= debut) and (fin is None or o["date"] <= fin)]
+
+
+def _operations(societe, filtre_commun, filtres=None):
     from core.pays import pays_societe
     pays_national = pays_societe(societe)
     pays_labels = dict(Fuel.PAYS_CHOICES)
@@ -206,19 +228,20 @@ def operations(societe, periode):
     sel = ("voiture_exemplaire", "voiture_exemplaire__voiture_modele",
            "voiture_exemplaire__voiture_modele__voiture_marque")
 
-    for f in (Fuel.objects.filter(societe=societe, date__year=periode.annee,
-                                  date__month__in=periode.liste_mois).select_related(*sel)):
+    def qs(modele):
+        f = filtres[modele] if filtres is not None else filtre_commun
+        return modele.objects.filter(societe=societe, **f).select_related(*sel)
+
+    for f in qs(Fuel):
         ajouter("carburant", f, f.type_carburant, str(labels_carburant.get(f.type_carburant, f.type_carburant)),
                 f.litres, "L", f.prix_refuelling, Fuel.TVA_CARBURANT.get(f.pays, 0), f"CARB-{f.pk}")
 
-    for e in (Electricite.objects.filter(societe=societe, date__year=periode.annee,
-                                         date__month__in=periode.liste_mois).select_related(*sel)):
+    for e in qs(Electricite):
         ajouter("electricite", e, "ELECTRICITE", _("Électricité"),
                 e.kW, "kWh", e.prix_recharge,
                 RechargeCarburant.TVA_ELECTRICITE.get(e.pays or pays_national, 0), f"ELEC-{str(e.pk)[:8]}")
 
-    for a in (AdBlue.objects.filter(societe=societe, date__year=periode.annee,
-                                    date__month__in=periode.liste_mois).select_related(*sel)):
+    for a in qs(AdBlue):
         ajouter("adblue", a, "ADBLUE", _("AdBlue"),
                 a.litres, "L", a.prix_adblue, AdBlue.TVA_CARBURANT.get(a.pays, 0), f"ADB-{a.pk}")
 

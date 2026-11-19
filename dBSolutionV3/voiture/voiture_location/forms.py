@@ -12,8 +12,8 @@ from societe_cliente.models import SocieteCliente
 # Rôles des vendeurs (statistiques et objectifs de ventes)
 ROLES_VENDEUR = ("vendeur", "direction", "chef_mecanicien")
 
-# Rôles pouvant être choisis comme instructeur
-ROLES_INSTRUCTEUR = ("instructeur", "instructeur externe")
+# Utilisateurs pouvant être choisis comme instructeur (rôles instructeur + option de la direction / des vendeurs)
+from utilisateurs.models import ROLES_INSTRUCTEUR, q_instructeurs  # noqa: E402
 
 
 NUMEROS_COURSE = [("", "—")] + [(n, n) for n in range(1, 201)]
@@ -199,8 +199,8 @@ class LocationForm(forms.ModelForm):
         else:
             self.fields["payee"].help_text = _("Facture %(numero)s") % {"numero": self.facture_emise.numero}
 
-        # Instructeur : utilisateurs actifs avec le rôle instructeur (interne ou externe)
-        instructeurs = Utilisateur.objects.filter(is_active=True, role__in=ROLES_INSTRUCTEUR)
+        # Instructeur : rôle instructeur (interne ou externe), ou direction / vendeur avec l'option instructeur
+        instructeurs = Utilisateur.objects.filter(q_instructeurs(), is_active=True)
         if societe is not None:
             instructeurs = instructeurs.filter(societe=societe)
         if self.instance.instructeur_id:

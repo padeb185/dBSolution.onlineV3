@@ -90,6 +90,7 @@ class FuelForm(forms.ModelForm):
             "type_carburant",
             "date",
             "litres",
+            "niveau_restant",
             "prix_refuelling",
             "pays",
         ]
@@ -127,6 +128,9 @@ class FuelForm(forms.ModelForm):
                     "class": "border rounded px-3 py-2 w-full text-sm",
                 }
             ),
+
+            # Niveau avant le plein : fin de réserve, réserve, ¼, ½, ¾ (comme l'application CarsCosts)
+            "niveau_restant": forms.RadioSelect(attrs={"class": "choix-niveau"}),
 
             "litres": forms.NumberInput(
                 attrs={
@@ -170,6 +174,12 @@ class FuelForm(forms.ModelForm):
             from core.pays import pays_societe
             self.initial["pays"] = pays_societe()
 
+        # Niveau restant : boutons sans choix vide (aucun bouton coché = non renseigné)
+        if "niveau_restant" in self.fields:
+            from recharge.models import NiveauReservoir
+            self.fields["niveau_restant"].choices = NiveauReservoir.choices
+            self.fields["niveau_restant"].required = False
+
         self.order_fields([
             "voiture_exemplaire",
             "immatriculation",
@@ -185,6 +195,7 @@ class FuelForm(forms.ModelForm):
             "type_carburant",
 
             "litres",
+            "niveau_restant",
             "prix_refuelling",
 
             "pays",

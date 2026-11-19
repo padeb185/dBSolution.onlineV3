@@ -1563,6 +1563,12 @@ def autocomplete_immatriculation(request):
                 },
                 request=request,
             ),
+            # Plaque taille normale : affichée à la place du champ une fois le véhicule choisi
+            "plaque_html_selection": render_to_string(
+                "maintenance/partials/plaque.html",
+                {"pays_plaque": voiture.pays, "immat_plaque": voiture.immatriculation},
+                request=request,
+            ),
         })
 
     return JsonResponse(resultats, safe=False)

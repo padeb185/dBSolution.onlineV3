@@ -61,10 +61,17 @@
     {% include "compta/bilan/_tableau.html" with lignes=resultats %}
 </div>
 
+<div class="bg-white shadow rounded overflow-x-auto mb-6">
+    <h2 class="text-xl font-bold p-3">{% trans "DÉTAIL DU COMPTE DE RÉSULTATS" %}
+        <span class="block text-sm font-normal text-gray-600">{% trans "Par compte : ventes (pièces, main-d'œuvre, locations), achats, carburants, recharges, AdBlue, maintenances et carrosserie externes, assurances, salaires, amortissements…" %}</span>
+    </h2>
+    {% include "compta/bilan/_detail_resultat.html" %}
+</div>
+
 <div class="text-xs text-gray-500 space-y-1 mb-8">
     <p>{% trans "Présentation selon le schéma des comptes annuels de la Banque nationale de Belgique (codes des rubriques), à partir du plan comptable minimum normalisé (PCMN). Montants en euros." %}</p>
     <p>{% trans "Exercice = année civile. Le résultat de l'exercice est présenté avant affectation ; les résultats des exercices antérieurs non affectés sont repris en « Bénéfice (Perte) reporté(e) ». Les amortissements sont déduits des immobilisations (valeurs nettes)." %}</p>
-    <p>{% trans "Document de travail établi à partir des écritures de l'application (ventes, achats, salaires, immobilisations, stock, trésorerie, opérations diverses). Le dépôt à la BNB doit être effectué par votre comptable ou expert-comptable." %}</p>
+    <p>{% trans "Document de travail établi à partir des écritures de l'application (ventes, achats, carburants, recharges, maintenances et carrosserie externes, assurances, salaires, immobilisations, stock, trésorerie, opérations diverses). Le dépôt à la BNB doit être effectué par votre comptable ou expert-comptable." %}</p>
 </div>
 </div>
 {% endblock %}

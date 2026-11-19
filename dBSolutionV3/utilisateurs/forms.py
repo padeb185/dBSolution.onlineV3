@@ -69,6 +69,12 @@ class LoginForm(forms.Form):
         return totp_code
 
 
+def option_instructeur(cleaned):
+    """L'option « Peut être instructeur » ne vaut que pour la direction et les vendeurs."""
+    from .models import ROLES_OPTION_INSTRUCTEUR
+    return bool(cleaned.get("est_instructeur")) and cleaned.get("role") in ROLES_OPTION_INSTRUCTEUR
+
+
 class UtilisateurCreationForm(forms.ModelForm):
     societe = forms.CharField(
         label=_("Société"),
@@ -117,7 +123,7 @@ class UtilisateurCreationForm(forms.ModelForm):
 
     field_order = [
         "societe", "schema_name", "nom", "prenom", "email", "email_entreprise", "telephone", "date_naissance",
-        "numero_compte_bancaire", "role", "password", "password_confirmation",
+        "numero_compte_bancaire", "role", "est_instructeur", "password", "password_confirmation",
     ]
 
     class Meta:
@@ -132,6 +138,7 @@ class UtilisateurCreationForm(forms.ModelForm):
             "date_naissance",
             "numero_compte_bancaire",
             "role",
+            "est_instructeur",
             "password",
         ]
 
@@ -223,6 +230,7 @@ class UtilisateurCreationForm(forms.ModelForm):
 
     def clean(self):
         cleaned = super().clean()
+        cleaned["est_instructeur"] = option_instructeur(cleaned)
         utilisateur = Utilisateur(email=cleaned.get("email"), nom=cleaned.get("nom") or "",
                                   prenom=cleaned.get("prenom") or "")
         verifier_confirmation(self, "password", "password_confirmation", utilisateur)
@@ -510,7 +518,7 @@ class UtilisateurProfilForm(forms.ModelForm):
     class Meta:
         model = Utilisateur
         fields = [
-            "nom", "prenom", "role", "email", "email_entreprise", "telephone",
+            "nom", "prenom", "role", "est_instructeur", "email", "email_entreprise", "telephone",
             "date_naissance", "numero_registre_national", "salaire_brut_heure", "is_active",
         ]
         labels = {
@@ -536,6 +544,12 @@ class UtilisateurProfilForm(forms.ModelForm):
         if editeur is not None and self.instance.pk == editeur.pk and not editeur.is_superuser:
             self.fields["role"].disabled = True
             self.fields["is_active"].disabled = True
+
+    def clean(self):
+        cleaned = super().clean()
+        role = cleaned.get("role") if "role" in cleaned else self.instance.role
+        cleaned["est_instructeur"] = option_instructeur({**cleaned, "role": role})
+        return cleaned
 
     def clean_email(self):
         return self.cleaned_data.get("email") or None

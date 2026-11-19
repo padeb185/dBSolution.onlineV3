@@ -94,6 +94,12 @@
                 {% trans "Mes maintenances à faire aujourd'hui :" %}
                 <span class="font-bold {% if agenda_a_faire %}text-red-700{% endif %}">{{ agenda_a_faire|default:0 }}</span>
             </p>
+            {% if request.user.peut_instruire %}
+            <p class="text-gray-600 text-sm">
+                {% trans "Mes coachings aujourd'hui :" %}
+                <span class="font-bold {% if mes_coachings_jour %}text-blue-700{% endif %}">{{ mes_coachings_jour|default:0 }}</span>
+            </p>
+            {% endif %}
         </div>
 
         <img src="{% static 'icons/agenda.png' %}"

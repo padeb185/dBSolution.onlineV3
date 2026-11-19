@@ -31,10 +31,17 @@
         {% for field in form %}
             {% if field.name != "rue" and field.name != "numero" and field.name != "code_postal" and field.name != "ville" and field.name != "pays" %}
                 <div class="mb-4">
+                    {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"h-5 w-5" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% else %}
                     <label class="block font-semibold mb-1">
                         {{ field.label }}{% if field.field.required %} <span class="text-red-600">*</span>{% endif %}
                     </label>
                     {% if field.field.disabled %}{{ field|add_class:"input bg-gray-100" }}{% else %}{{ field|add_class:"input" }}{% endif %}
+                    {% endif %}
                     {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
                     {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
                 </div>
@@ -73,4 +80,5 @@
 <style>
 .input { width: 100% !important; border: 1px solid #ccc !important; border-radius: 6px !important; padding: 8px !important; box-sizing: border-box !important; }
 </style>
+{% include "utilisateurs/_option_instructeur.html" %}
 {% endblock %}

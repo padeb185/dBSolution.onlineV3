@@ -409,6 +409,27 @@
 </table>
 {% endif %}{% endwith %}
 
+{% with m=metrologie %}{% if m.volume_chambre_moyen_cm3 is not None or m.volume_chambre_nominal_cm3 is not None %}
+<h2>{% trans "Chambres de combustion et taux de compression" %}</h2>
+<table class="mesures">
+    <thead><tr><th>{% trans "Cyl." %}</th><th>{% trans "Volume chambre (cm³)" %}</th><th>{% trans "Taux de compression" %}</th></tr></thead>
+    <tbody>{% for c in m.cylindres.all %}{% if c.chambre_combustion_cm3 is not None %}
+        <tr><td>{{ c.numero }}</td><td class="num">{{ c.chambre_combustion_cm3|floatformat:"2g" }}</td>
+            <td class="num">{% if c.taux_compression %}{{ c.taux_compression|floatformat:"2g" }} : 1{% else %}-{% endif %}</td></tr>
+    {% endif %}{% endfor %}</tbody>
+</table>
+<table class="table-2-cols">
+    <tbody>
+        <tr><td>{% trans "Volume moyen" %}</td><td class="text-right">{{ m.volume_chambre_moyen_cm3|floatformat:"2g"|default:"-" }} cm³</td></tr>
+        <tr><td>{% trans "Écart entre chambres" %}</td><td class="text-right">{{ m.ecart_chambres_cm3|floatformat:"2g"|default:"-" }} cm³</td></tr>
+        <tr><td>{% trans "Taux de compression moyen" %}</td><td class="text-right">{% if m.taux_compression_moyen %}{{ m.taux_compression_moyen|floatformat:"2g" }} : 1{% else %}-{% endif %}</td></tr>
+        <tr><td>{% trans "Volume de la chambre de combustion constructeur (cm³)" %}</td><td class="text-right">{{ m.volume_chambre_nominal_cm3|floatformat:"2g"|default:"-" }}</td></tr>
+        <tr><td>{% trans "Volume joint de culasse + piston (cm³)" %}</td><td class="text-right">{{ m.volume_complementaire_cm3|floatformat:"2g"|default:"-" }}</td></tr>
+        <tr><td>{% trans "Taux de compression constructeur" %}</td><td class="text-right">{% if m.taux_compression_constructeur %}{{ m.taux_compression_constructeur|floatformat:"2g" }} : 1{% else %}-{% endif %}</td></tr>
+    </tbody>
+</table>
+{% endif %}{% endwith %}
+
 {% with paliers=metrologie.manetons.all %}{% if paliers %}
 <h2>{% trans "Vilebrequin – manetons et coussinets de bielle" %}</h2>
 {% include "metrologie_moteur/_paliers_pdf.html" with maneton=True %}

@@ -202,6 +202,30 @@
             <div><strong>{% trans "Cotes hors tolérance" %} :</strong> <span id="res-hors" class="font-bold">0</span></div>
         </div>
 
+        <!-- CHAMBRES DE COMBUSTION -->
+        <h2 class="section-titre">{% trans "Chambres de combustion et taux de compression" %}</h2>
+        <p class="text-sm text-gray-600">{% trans "Volume de chaque chambre mesuré à la burette, en cm³. Taux de compression = (cylindrée unitaire + volume chambre + volume joint / piston) / (volume chambre + volume joint / piston)." %}</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {% for field in sections.chambre %}{% include "metrologie_moteur/_champ.html" %}{% endfor %}
+        </div>
+        <div class="overflow-x-auto">
+            <table class="border-collapse border border-gray-200 text-sm" id="table-chambre">
+                <thead><tr class="bg-gray-100">
+                    <th class="border px-2 py-1">{% trans "Cyl." %}</th>
+                    <th class="border px-2 py-1">{% trans "Volume chambre (cm³)" %}</th>
+                    <th class="border px-2 py-1">{% trans "Écart / moyenne" %}</th>
+                    <th class="border px-2 py-1">{% trans "Taux de compression" %}</th>
+                </tr></thead>
+                <tbody>{% for f in cylindres_fs %}{% include "metrologie_moteur/_lignes_cylindre.html" with bloc="chambre" %}{% endfor %}</tbody>
+            </table>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 bg-gray-50 border rounded p-4 text-sm">
+            <div><strong>{% trans "Volume moyen" %} :</strong> <span id="res-chambre-moyenne">—</span></div>
+            <div><strong>{% trans "Écart entre chambres" %} :</strong> <span id="res-chambre-ecart">—</span></div>
+            <div><strong>{% trans "Taux de compression moyen" %} :</strong> <span id="res-taux-moyen">—</span></div>
+            <div><strong>{% trans "Taux (chambre constructeur)" %} :</strong> <span id="res-taux-nominal" data-libelle="{% trans 'constructeur' %}">—</span></div>
+        </div>
+
         <!-- DIVERS -->
         <h2 class="section-titre"><img src="{% static 'icons/notes.png' %}" class="w-16 h-16" alt="">{% trans "Étiquette, pays et remarques" %}</h2>
         <div class="grid grid-cols-1 gap-4">{% for field in sections.divers %}{% include "metrologie_moteur/_champ.html" %}{% endfor %}</div>
@@ -235,6 +259,7 @@
 <template id="tpl-cyl-chemise">{% include "metrologie_moteur/_lignes_cylindre.html" with bloc="chemise" %}</template>
 <template id="tpl-cyl-segments">{% include "metrologie_moteur/_lignes_cylindre.html" with bloc="segments" %}</template>
 <template id="tpl-cyl-bielle">{% include "metrologie_moteur/_lignes_cylindre.html" with bloc="bielle" %}</template>
+<template id="tpl-cyl-chambre">{% include "metrologie_moteur/_lignes_cylindre.html" with bloc="chambre" %}</template>
 {% endwith %}
 {% with f=manetons_fs.empty_form %}<template id="tpl-man">{% include "metrologie_moteur/_ligne_palier.html" with classe="ligne-man" tol="maneton" %}</template>{% endwith %}
 {% with f=tourillons_fs.empty_form %}<template id="tpl-tour">{% include "metrologie_moteur/_ligne_palier.html" with classe="ligne-tour" tol="tourillon" %}</template>{% endwith %}
@@ -259,5 +284,5 @@ input.cote.hors { border-color: #dc2626 !important; background: #fef2f2; }
 .kilometrage-popup-confirmer { background-color: #991b1b; color: white; }
 </style>
 
-<script src="{% static 'js/metrologie_moteur.js' %}?v=3"></script>
+<script src="{% static 'js/metrologie_moteur.js' %}?v=4"></script>
 {% endblock %}

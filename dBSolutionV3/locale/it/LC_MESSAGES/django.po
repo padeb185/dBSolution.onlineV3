@@ -83262,3 +83262,229 @@ msgstr ""
 "banco. A V e a W: due bielle per perno, n / 2 perni di biella e n / 2 + 1 "
 "perni di banco. Lascia vuoti i numeri per calcolarli, oppure correggili "
 "(perni sfalsati, supporti aggiuntivi…)."
+
+msgid "Volume de la chambre de combustion constructeur (cm³)"
+msgstr "Volume camera di combustione costruttore (cm³)"
+
+msgid "Volume joint de culasse + piston (cm³)"
+msgstr "Volume guarnizione testata + pistone (cm³)"
+
+msgid ""
+"Ajouté au volume de la chambre pour le taux de compression (épaisseur du "
+"joint, creux ou dôme du piston, dépassement). Vide : 0."
+msgstr ""
+"Sommato al volume della camera per il rapporto di compressione (spessore "
+"della guarnizione, cavità o cupola del pistone, sporgenza). Vuoto: 0."
+
+msgid "Taux de compression constructeur"
+msgstr "Rapporto di compressione costruttore"
+
+msgid "Volume de la chambre de combustion (cm³)"
+msgstr "Volume camera di combustione (cm³)"
+
+msgid "Chambres de combustion et taux de compression"
+msgstr "Camere di combustione e rapporto di compressione"
+
+msgid ""
+"Volume de chaque chambre mesuré à la burette, en cm³. Taux de compression = "
+"(cylindrée unitaire + volume chambre + volume joint / piston) / (volume "
+"chambre + volume joint / piston)."
+msgstr ""
+"Volume di ogni camera misurato con la buretta, in cm³. Rapporto di "
+"compressione = (cilindrata unitaria + volume camera + volume guarnizione / "
+"pistone) / (volume camera + volume guarnizione / pistone)."
+
+msgid "Volume chambre (cm³)"
+msgstr "Volume camera (cm³)"
+
+msgid "Écart / moyenne"
+msgstr "Scarto / media"
+
+msgid "Taux de compression"
+msgstr "Rapporto di compressione"
+
+msgid "Volume moyen"
+msgstr "Volume medio"
+
+msgid "Écart entre chambres"
+msgstr "Differenza tra le camere"
+
+msgid "Taux de compression moyen"
+msgstr "Rapporto di compressione medio"
+
+msgid "Taux (chambre constructeur)"
+msgstr "Rapporto (camera costruttore)"
+
+msgid "constructeur"
+msgstr "costruttore"
+
+msgid "calculé"
+msgstr "calcolato"
+
+msgid "Peut être instructeur"
+msgstr "Può essere istruttore"
+
+msgid ""
+"Direction et vendeur : peut donner des coachings de pilotage (choix de "
+"l'instructeur d'une location, planning des coachings)."
+msgstr ""
+"Direzione e venditore: può tenere coaching di guida (scelta dell'istruttore "
+"di un noleggio, pianificazione dei coaching)."
+
+msgid "Planning des coachings instructeurs"
+msgstr "Pianificazione dei coaching istruttori"
+
+msgid "coaching(s)"
+msgstr "coaching"
+
+msgid "dont"
+msgstr "di cui"
+
+msgid "pour moi"
+msgstr "per me"
+
+msgid "Conflits d'horaire"
+msgstr "Conflitti di orario"
+
+msgid "Mes coachings"
+msgstr "I miei coaching"
+
+msgid "Semaine du %(debut)s au %(fin)s"
+msgstr "Settimana dal %(debut)s al %(fin)s"
+
+msgid "Semaine précédente"
+msgstr "Settimana precedente"
+
+msgid "Cette semaine"
+msgstr "Questa settimana"
+
+msgid "Semaine suivante"
+msgstr "Settimana successiva"
+
+msgid "Tous les instructeurs"
+msgstr "Tutti gli istruttori"
+
+msgid "Coachings"
+msgstr "Coaching"
+
+msgid "Horaire"
+msgstr "Orario"
+
+msgid "Toute la journée"
+msgstr "Tutto il giorno"
+
+msgid "Jour %(n)s / %(total)s"
+msgstr "Giorno %(n)s / %(total)s"
+
+msgid "Conflit d'horaire"
+msgstr "Conflitto di orario"
+
+msgid "Aucun coaching."
+msgstr "Nessun coaching."
+
+msgid ""
+"Un coaching est planifié en choisissant un instructeur sur la location "
+"(direction et vendeurs : option « Peut être instructeur » dans leur profil)."
+msgstr ""
+"Un coaching si pianifica scegliendo un istruttore sul noleggio (direzione e "
+"venditori: opzione «Può essere istruttore» nel loro profilo)."
+
+msgid "Mes coachings aujourd'hui :"
+msgstr "I miei coaching oggi:"
+
+msgid "%(n)s coaching en conflit d'horaire (même instructeur, mêmes heures)."
+msgid_plural ""
+"%(n)s coachings en conflit d'horaire (même instructeur, mêmes heures)."
+msgstr[0] ""
+"%(n)s coaching in conflitto di orario (stesso istruttore, stesse ore)."
+msgstr[1] ""
+"%(n)s coaching in conflitto di orario (stesso istruttore, stesse ore)."
+
+msgid "Carburants, recharges électriques et AdBlue"
+msgstr "Carburanti, ricariche elettriche e AdBlue"
+
+msgid "Maintenances et carrosserie externes"
+msgstr "Manutenzioni e carrozzeria esterne"
+
+msgid "Assurances des véhicules"
+msgstr "Assicurazioni dei veicoli"
+
+msgid "Chiffre d'affaires – pièces et produits"
+msgstr "Fatturato – ricambi e prodotti"
+
+msgid "Chiffre d'affaires – main-d'œuvre"
+msgstr "Fatturato – manodopera"
+
+msgid "Chiffre d'affaires – locations"
+msgstr "Fatturato – noleggi"
+
+msgid "Entretien et réparations véhicules – garages externes"
+msgstr "Manutenzione e riparazioni veicoli – officine esterne"
+
+msgid "Carrosserie véhicules – carrossiers externes"
+msgstr "Carrozzeria veicoli – carrozzieri esterni"
+
+msgid "Assurances véhicules"
+msgstr "Assicurazioni veicoli"
+
+msgid "Créances diverses – indemnités d'assurance à recevoir"
+msgstr "Crediti diversi – indennizzi assicurativi da ricevere"
+
+msgid "Indemnités d'assurance (sinistres)"
+msgstr "Indennizzi assicurativi (sinistri)"
+
+msgid "Prise en charge assurance"
+msgstr "Presa in carico assicurazione"
+
+msgid "Prime"
+msgstr "Premio"
+
+msgid "Comptes"
+msgstr "Conti"
+
+msgid "DÉTAIL DU COMPTE DE RÉSULTATS"
+msgstr "DETTAGLIO DEL CONTO ECONOMICO"
+
+msgid ""
+"Par compte : ventes (pièces, main-d'œuvre, locations), achats, carburants, "
+"recharges, AdBlue, maintenances et carrosserie externes, assurances, "
+"salaires, amortissements…"
+msgstr ""
+"Per conto: vendite (ricambi, manodopera, noleggi), acquisti, carburanti, "
+"ricariche, AdBlue, manutenzioni e carrozzeria esterne, assicurazioni, "
+"stipendi, ammortamenti…"
+
+msgid ""
+"Pas de détail par compte : le compte de résultats de cet exercice provient du"
+" bilan établi par le comptable."
+msgstr ""
+"Nessun dettaglio per conto: il conto economico di questo esercizio proviene "
+"dal bilancio redatto dal commercialista."
+
+msgid ""
+"Document de travail établi à partir des écritures de l'application (ventes, "
+"achats, carburants, recharges, maintenances et carrosserie externes, "
+"assurances, salaires, immobilisations, stock, trésorerie, opérations "
+"diverses). Le dépôt à la BNB doit être effectué par votre comptable ou "
+"expert-comptable."
+msgstr ""
+"Documento di lavoro redatto a partire dalle scritture dell'applicazione "
+"(vendite, acquisti, carburanti, ricariche, manutenzioni e carrozzeria "
+"esterne, assicurazioni, stipendi, immobilizzazioni, magazzino, tesoreria, "
+"operazioni diverse). Il deposito presso la BNB deve essere effettuato dal "
+"vostro commercialista."
+
+msgid "Carburant restant"
+msgstr "Carburante residuo"
+
+msgid "Batterie restante"
+msgstr "Batteria residua"
+
+msgid "Fin de réserve"
+msgstr "Fine riserva"
+
+msgid "Niveau dans le réservoir avant le plein."
+msgstr "Livello del serbatoio prima del rifornimento."
+
+msgid "Niveau de la batterie avant la recharge."
+msgstr "Livello della batteria prima della ricarica."

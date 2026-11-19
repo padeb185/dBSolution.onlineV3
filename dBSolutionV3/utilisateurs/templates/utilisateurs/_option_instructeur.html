@@ -1,0 +1,17 @@
+{% comment %}Option « Peut être instructeur » : affichée seulement pour la direction et les vendeurs.{% endcomment %}
+<script>
+(function () {
+    const role = document.querySelector('select[name="role"]');
+    const option = document.querySelector('input[name="est_instructeur"]');
+    if (!role || !option) return;
+    const bloc = option.closest("[data-option-instructeur]") || option.closest(".mb-4") || option.parentElement;
+    const ROLES = ["direction", "vendeur"];
+    function maj() {
+        const visible = ROLES.includes(role.value);
+        bloc.style.display = visible ? "" : "none";
+        if (!visible) option.checked = false;
+    }
+    role.addEventListener("change", maj);
+    maj();
+})();
+</script>

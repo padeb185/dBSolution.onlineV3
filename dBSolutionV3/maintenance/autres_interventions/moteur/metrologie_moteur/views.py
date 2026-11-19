@@ -49,6 +49,7 @@ def _sections(form):
         "moteur": champs("architecture", "nombre_cylindres", "nombre_manetons", "nombre_tourillons",
                          "alesage_nominal", "course_nominale", "cylindree_constructeur_cm3"),
         "cylindree": champs("alesage_mesure", "course_mesuree", "cylindree_cm3"),
+        "chambre": champs("volume_chambre_nominal_cm3", "volume_complementaire_cm3", "taux_compression_constructeur"),
         "tol_chemise": prefixe("tol_chemise_") + prefixe("tol_jeu_piston_"),
         "tol_segments": prefixe("tol_segment_"),
         "tol_vilebrequin": prefixe("tol_maneton_") + prefixe("tol_tourillon_"),
@@ -221,7 +222,9 @@ def metrologie_form_view(request, exemplaire_id):
             for f in MetrologieMoteur._meta.fields:
                 if f.name.startswith("tol_") or f.name in ("architecture", "nombre_cylindres", "nombre_manetons",
                                                             "nombre_tourillons", "alesage_nominal", "course_nominale",
-                                                            "cylindree_constructeur_cm3"):
+                                                            "cylindree_constructeur_cm3", "volume_chambre_nominal_cm3",
+                                                            "volume_complementaire_cm3",
+                                                            "taux_compression_constructeur"):
                     setattr(nouveau, f.name, getattr(precedente, f.name))
         # Le moteur lié est prioritaire : nombre de cylindres (= pistons) et cylindrée (litres → cm³)
         if moteur:

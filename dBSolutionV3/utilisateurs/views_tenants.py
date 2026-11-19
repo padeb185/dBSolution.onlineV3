@@ -219,6 +219,7 @@ def tenant_utilisateur_creer(request, pk):
                         nom=d["nom"],
                         prenom=d["prenom"],
                         role=d["role"],
+                        est_instructeur=d.get("est_instructeur", False),
                         telephone=d.get("telephone") or None,
                         email_entreprise=d.get("email_entreprise") or None,
                         date_naissance=d.get("date_naissance") or None,

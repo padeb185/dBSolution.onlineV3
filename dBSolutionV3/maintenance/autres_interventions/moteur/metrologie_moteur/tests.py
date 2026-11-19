@@ -44,3 +44,12 @@ class NombrePaliersTests(SimpleTestCase):
         self.assertEqual(cylindres_du_maneton(ArchitectureMoteur.EN_LIGNE, 4, 2), "2")
         self.assertEqual(cylindres_du_maneton(ArchitectureMoteur.V, 8, 1), "1 / 5")
         self.assertEqual(cylindres_du_maneton(ArchitectureMoteur.W, 12, 6), "6 / 12")
+
+
+class TauxCompressionTests(SimpleTestCase):
+    def test_taux(self):
+        from .models import taux_compression
+        # 500 cm³ par cylindre, 50 cm³ de volume mort → 11 : 1
+        self.assertEqual(taux_compression(Decimal("500"), Decimal("50")), Decimal("11.00"))
+        self.assertIsNone(taux_compression(None, Decimal("50")))
+        self.assertIsNone(taux_compression(Decimal("500"), None))

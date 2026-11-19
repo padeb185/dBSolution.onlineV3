@@ -1262,8 +1262,8 @@ class TrackdayCout(models.Model):
 # =====================================================================
 # Nous facturons toute la location au client (TVA due sur le total). La part HTVA des autres
 # propriétaires, moins notre commission, leur est due : elle sort de notre chiffre d'affaires
-# (700000) vers une dette (489000), soldée au paiement (550000 banque / 570000 caisse).
-COMPTE_CA_LOCATIONS = "700000"
+# (700300) vers une dette (489000), soldée au paiement (550000 banque / 570000 caisse).
+COMPTE_CA_LOCATIONS = "700300"   # chiffre d'affaires – locations (compta.journal.COMPTES_VENTES)
 COMPTE_DETTES_PROPRIETAIRES = "489000"
 COMPTE_BANQUE = "550000"
 COMPTE_CAISSE = "570000"
@@ -1323,7 +1323,7 @@ class ReversementLocation(models.Model):
 
     def ecritures(self):
         """
-        Constatation (date de la facture) : 700000 au débit / 489000 au crédit (part due, commission déduite).
+        Constatation (date de la facture) : 700300 au débit / 489000 au crédit (part due, commission déduite).
         Paiement : 489000 au débit / 550000 ou 570000 au crédit. Montant négatif : écritures inversées.
         """
         z = Decimal("0.00")

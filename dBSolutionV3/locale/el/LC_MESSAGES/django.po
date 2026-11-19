@@ -83327,3 +83327,228 @@ msgstr ""
 "και σε W: δύο μπιέλες ανά στροφέα, n / 2 στροφείς και n / 2 + 1 κομβία. "
 "Αφήστε τους αριθμούς κενούς για υπολογισμό ή διορθώστε τους (μετατοπισμένοι "
 "στροφείς, επιπλέον έδρανα…)."
+
+msgid "Volume de la chambre de combustion constructeur (cm³)"
+msgstr "Όγκος θαλάμου καύσης κατασκευαστή (cm³)"
+
+msgid "Volume joint de culasse + piston (cm³)"
+msgstr "Όγκος φλάντζας κεφαλής + εμβόλου (cm³)"
+
+msgid ""
+"Ajouté au volume de la chambre pour le taux de compression (épaisseur du "
+"joint, creux ou dôme du piston, dépassement). Vide : 0."
+msgstr ""
+"Προστίθεται στον όγκο του θαλάμου για τη σχέση συμπίεσης (πάχος φλάντζας, "
+"κοιλότητα ή θόλος εμβόλου, προεξοχή). Κενό: 0."
+
+msgid "Taux de compression constructeur"
+msgstr "Σχέση συμπίεσης κατασκευαστή"
+
+msgid "Volume de la chambre de combustion (cm³)"
+msgstr "Όγκος θαλάμου καύσης (cm³)"
+
+msgid "Chambres de combustion et taux de compression"
+msgstr "Θάλαμοι καύσης και σχέση συμπίεσης"
+
+msgid ""
+"Volume de chaque chambre mesuré à la burette, en cm³. Taux de compression = "
+"(cylindrée unitaire + volume chambre + volume joint / piston) / (volume "
+"chambre + volume joint / piston)."
+msgstr ""
+"Όγκος κάθε θαλάμου μετρημένος με προχοΐδα, σε cm³. Σχέση συμπίεσης = "
+"(κυβισμός ανά κύλινδρο + όγκος θαλάμου + όγκος φλάντζας / εμβόλου) / (όγκος "
+"θαλάμου + όγκος φλάντζας / εμβόλου)."
+
+msgid "Volume chambre (cm³)"
+msgstr "Όγκος θαλάμου (cm³)"
+
+msgid "Écart / moyenne"
+msgstr "Απόκλιση / μέσος όρος"
+
+msgid "Taux de compression"
+msgstr "Σχέση συμπίεσης"
+
+msgid "Volume moyen"
+msgstr "Μέσος όγκος"
+
+msgid "Écart entre chambres"
+msgstr "Διαφορά μεταξύ θαλάμων"
+
+msgid "Taux de compression moyen"
+msgstr "Μέση σχέση συμπίεσης"
+
+msgid "Taux (chambre constructeur)"
+msgstr "Σχέση (θάλαμος κατασκευαστή)"
+
+msgid "constructeur"
+msgstr "κατασκευαστής"
+
+msgid "calculé"
+msgstr "υπολογισμένο"
+
+msgid "Peut être instructeur"
+msgstr "Μπορεί να είναι εκπαιδευτής"
+
+msgid ""
+"Direction et vendeur : peut donner des coachings de pilotage (choix de "
+"l'instructeur d'une location, planning des coachings)."
+msgstr ""
+"Διεύθυνση και πωλητής: μπορεί να κάνει coaching οδήγησης (επιλογή εκπαιδευτή "
+"μίσθωσης, πρόγραμμα coaching)."
+
+msgid "Planning des coachings instructeurs"
+msgstr "Πρόγραμμα coaching εκπαιδευτών"
+
+msgid "coaching(s)"
+msgstr "coaching"
+
+msgid "dont"
+msgstr "εκ των οποίων"
+
+msgid "pour moi"
+msgstr "για μένα"
+
+msgid "Conflits d'horaire"
+msgstr "Συγκρούσεις ωραρίου"
+
+msgid "Mes coachings"
+msgstr "Τα coaching μου"
+
+msgid "Semaine du %(debut)s au %(fin)s"
+msgstr "Εβδομάδα από %(debut)s έως %(fin)s"
+
+msgid "Semaine précédente"
+msgstr "Προηγούμενη εβδομάδα"
+
+msgid "Cette semaine"
+msgstr "Αυτή την εβδομάδα"
+
+msgid "Semaine suivante"
+msgstr "Επόμενη εβδομάδα"
+
+msgid "Tous les instructeurs"
+msgstr "Όλοι οι εκπαιδευτές"
+
+msgid "Coachings"
+msgstr "Coaching"
+
+msgid "Horaire"
+msgstr "Ώρα"
+
+msgid "Toute la journée"
+msgstr "Όλη την ημέρα"
+
+msgid "Jour %(n)s / %(total)s"
+msgstr "Ημέρα %(n)s / %(total)s"
+
+msgid "Conflit d'horaire"
+msgstr "Σύγκρουση ωραρίου"
+
+msgid "Aucun coaching."
+msgstr "Κανένα coaching."
+
+msgid ""
+"Un coaching est planifié en choisissant un instructeur sur la location "
+"(direction et vendeurs : option « Peut être instructeur » dans leur profil)."
+msgstr ""
+"Ένα coaching προγραμματίζεται επιλέγοντας εκπαιδευτή στη μίσθωση (διεύθυνση "
+"και πωλητές: επιλογή «Μπορεί να είναι εκπαιδευτής» στο προφίλ τους)."
+
+msgid "Mes coachings aujourd'hui :"
+msgstr "Τα coaching μου σήμερα:"
+
+msgid "%(n)s coaching en conflit d'horaire (même instructeur, mêmes heures)."
+msgid_plural ""
+"%(n)s coachings en conflit d'horaire (même instructeur, mêmes heures)."
+msgstr[0] ""
+"%(n)s coaching με σύγκρουση ωραρίου (ίδιος εκπαιδευτής, ίδιες ώρες)."
+msgstr[1] ""
+"%(n)s coaching με σύγκρουση ωραρίου (ίδιος εκπαιδευτής, ίδιες ώρες)."
+
+msgid "Carburants, recharges électriques et AdBlue"
+msgstr "Καύσιμα, ηλεκτρικές φορτίσεις και AdBlue"
+
+msgid "Maintenances et carrosserie externes"
+msgstr "Εξωτερικές συντηρήσεις και φανοποιία"
+
+msgid "Assurances des véhicules"
+msgstr "Ασφάλειες οχημάτων"
+
+msgid "Chiffre d'affaires – pièces et produits"
+msgstr "Κύκλος εργασιών – ανταλλακτικά και προϊόντα"
+
+msgid "Chiffre d'affaires – main-d'œuvre"
+msgstr "Κύκλος εργασιών – εργατικά"
+
+msgid "Chiffre d'affaires – locations"
+msgstr "Κύκλος εργασιών – μισθώσεις"
+
+msgid "Entretien et réparations véhicules – garages externes"
+msgstr "Συντήρηση και επισκευές οχημάτων – εξωτερικά συνεργεία"
+
+msgid "Carrosserie véhicules – carrossiers externes"
+msgstr "Φανοποιία οχημάτων – εξωτερικά φανοποιεία"
+
+msgid "Assurances véhicules"
+msgstr "Ασφάλειες οχημάτων"
+
+msgid "Créances diverses – indemnités d'assurance à recevoir"
+msgstr "Λοιπές απαιτήσεις – ασφαλιστικές αποζημιώσεις προς είσπραξη"
+
+msgid "Indemnités d'assurance (sinistres)"
+msgstr "Ασφαλιστικές αποζημιώσεις (ζημιές)"
+
+msgid "Prise en charge assurance"
+msgstr "Κάλυψη από την ασφάλεια"
+
+msgid "Prime"
+msgstr "Ασφάλιστρο"
+
+msgid "Comptes"
+msgstr "Λογαριασμοί"
+
+msgid "DÉTAIL DU COMPTE DE RÉSULTATS"
+msgstr "ΑΝΑΛΥΣΗ ΚΑΤΑΣΤΑΣΗΣ ΑΠΟΤΕΛΕΣΜΑΤΩΝ"
+
+msgid ""
+"Par compte : ventes (pièces, main-d'œuvre, locations), achats, carburants, "
+"recharges, AdBlue, maintenances et carrosserie externes, assurances, "
+"salaires, amortissements…"
+msgstr ""
+"Ανά λογαριασμό: πωλήσεις (ανταλλακτικά, εργατικά, μισθώσεις), αγορές, "
+"καύσιμα, φορτίσεις, AdBlue, εξωτερικές συντηρήσεις και φανοποιία, ασφάλειες, "
+"μισθοί, αποσβέσεις…"
+
+msgid ""
+"Pas de détail par compte : le compte de résultats de cet exercice provient du"
+" bilan établi par le comptable."
+msgstr ""
+"Χωρίς ανάλυση ανά λογαριασμό: η κατάσταση αποτελεσμάτων αυτής της χρήσης "
+"προέρχεται από τον ισολογισμό του λογιστή."
+
+msgid ""
+"Document de travail établi à partir des écritures de l'application (ventes, "
+"achats, carburants, recharges, maintenances et carrosserie externes, "
+"assurances, salaires, immobilisations, stock, trésorerie, opérations "
+"diverses). Le dépôt à la BNB doit être effectué par votre comptable ou "
+"expert-comptable."
+msgstr ""
+"Έγγραφο εργασίας με βάση τις εγγραφές της εφαρμογής (πωλήσεις, αγορές, "
+"καύσιμα, φορτίσεις, εξωτερικές συντηρήσεις και φανοποιία, ασφάλειες, μισθοί, "
+"πάγια, αποθέματα, ταμείο, διάφορες πράξεις). Η κατάθεση στην ΕΤΒ πρέπει να "
+"γίνει από τον λογιστή σας."
+
+msgid "Carburant restant"
+msgstr "Υπόλοιπο καυσίμου"
+
+msgid "Batterie restante"
+msgstr "Υπόλοιπο μπαταρίας"
+
+msgid "Fin de réserve"
+msgstr "Τέλος ρεζέρβας"
+
+msgid "Niveau dans le réservoir avant le plein."
+msgstr "Στάθμη ρεζερβουάρ πριν από τον ανεφοδιασμό."
+
+msgid "Niveau de la batterie avant la recharge."
+msgstr "Στάθμη μπαταρίας πριν από τη φόρτιση."

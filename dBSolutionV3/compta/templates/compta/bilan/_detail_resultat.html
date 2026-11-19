@@ -1,0 +1,30 @@
+{% load i18n %}{% if detail_resultat %}
+<table class="tbl w-full">
+    <thead><tr>
+        <th class="text-left">{% trans "Comptes" %}</th>
+        <th class="code">{% trans "Compte" %}</th>
+        <th class="n">{% trans "Exercice" %} {{ annee }}</th>
+        <th class="n">{% trans "Exercice" %} {{ annee_precedente }}</th>
+    </tr></thead>
+    <tbody>
+    {% for g in detail_resultat %}
+        <tr class="niv-1 gras">
+            <td class="lib">{{ g.rubrique.libelle }}</td>
+            <td class="code">{{ g.rubrique.code }}</td>
+            <td class="n">{{ g.rubrique.n|floatformat:"2g" }}</td>
+            <td class="n">{{ g.rubrique.n1|floatformat:"2g" }}</td>
+        </tr>
+        {% for l in g.comptes %}
+        <tr class="niv-2">
+            <td class="lib">{{ l.libelle|default:"—" }}</td>
+            <td class="code">{{ l.code }}</td>
+            <td class="n">{% if l.n %}{{ l.n|floatformat:"2g" }}{% else %}—{% endif %}</td>
+            <td class="n">{% if l.n1 %}{{ l.n1|floatformat:"2g" }}{% else %}—{% endif %}</td>
+        </tr>
+        {% endfor %}
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="p-3 text-sm text-gray-600">{% trans "Pas de détail par compte : le compte de résultats de cet exercice provient du bilan établi par le comptable." %}</p>
+{% endif %}

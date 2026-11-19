@@ -77,6 +77,9 @@ SKR03 = {
     "612700": ("4500", "Fahrzeugkosten"),
     "612710": ("4500", "Fahrzeugkosten"),
     "612720": ("4500", "Fahrzeugkosten"),
+    "612730": ("4540", "Kfz-Reparaturen"),
+    "612740": ("4540", "Kfz-Reparaturen"),
+    "612750": ("4520", "Kfz-Versicherungen"),
     "612400": ("4570", "Mietleasing Kfz"),
     "613000": ("3100", "Fremdleistungen"),
     "618000": ("4127", "Geschäftsführergehälter"),
@@ -91,6 +94,10 @@ SKR03 = {
     "670000": ("2200", "Körperschaftsteuer"),
     # Classe 7 – produits
     "700000": ("8400", "Erlöse 19 % USt"),
+    "700100": ("8400", "Erlöse 19 % USt"),
+    "700200": ("8400", "Erlöse 19 % USt"),
+    "700300": ("8400", "Erlöse 19 % USt"),
+    "740000": ("2742", "Versicherungsentschädigungen"),
     "750000": ("2650", "Sonstige Zinsen und ähnliche Erträge"),
     "763000": ("2720", "Erträge aus dem Abgang von Gegenständen des Anlagevermögens"),
 }

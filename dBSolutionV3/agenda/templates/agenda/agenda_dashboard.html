@@ -38,6 +38,16 @@
         <img src="{% static 'icons/location.png' %}" alt="" class="w-[60px] h-[60px]">
     </a>
 
+    <a href="{% url 'agenda:agenda_coaching' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-xl font-semibold mb-2">{% trans "Planning des coachings instructeurs" %}</h2>
+            <p class="text-gray-600">{% trans "Aujourd'hui" %} : <strong>{{ nb_coachings_jour }}</strong> {% trans "coaching(s)" %}{% if mes_coachings_jour %} · {% trans "dont" %} <strong>{{ mes_coachings_jour }}</strong> {% trans "pour moi" %}{% endif %}</p>
+            {% if nb_conflits_coaching %}<p class="text-red-700 font-semibold">{% trans "Conflits d'horaire" %} : {{ nb_conflits_coaching }}</p>{% endif %}
+        </div>
+        <img src="{% static 'icons/agenda.png' %}" alt="" class="w-[60px] h-[60px]">
+    </a>
+
     <a href="{% url 'agenda:agenda_disponibilites' %}"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
         <div>

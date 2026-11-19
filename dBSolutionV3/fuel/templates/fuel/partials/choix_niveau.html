@@ -1,0 +1,37 @@
+{% load i18n %}{% comment %}
+Niveau restant avant le plein / la recharge : boutons fin de réserve, réserve, ¼, ½, ¾ (comme l'application CarsCosts).
+Un second clic sur le bouton coché le décoche (niveau non renseigné).
+{% endcomment %}
+<div class="mb-4">
+    <span class="block font-semibold mb-1">{{ field.label }}</span>
+    <div class="choix-niveau-groupe" role="radiogroup" aria-label="{{ field.label }}">
+        {% for radio in field %}
+            <label class="choix-niveau-option">
+                {{ radio.tag }}
+                <span>{{ radio.choice_label }}</span>
+            </label>
+        {% endfor %}
+    </div>
+    {% if field.help_text %}<p class="text-gray-500 text-xs mt-1">{{ field.help_text }}</p>{% endif %}
+    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+</div>
+<style>
+.choix-niveau-groupe { display: flex; flex-wrap: wrap; gap: 8px; }
+.choix-niveau-option { position: relative; cursor: pointer; }
+.choix-niveau-option input { position: absolute; opacity: 0; pointer-events: none; }
+.choix-niveau-option span {
+    display: inline-block; min-width: 56px; text-align: center; padding: 8px 14px;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-weight: 600;
+}
+.choix-niveau-option input:checked + span { background: #1d4ed8; border-color: #1d4ed8; color: #fff; }
+.choix-niveau-option input:focus-visible + span { outline: 2px solid #60a5fa; outline-offset: 2px; }
+</style>
+<script>
+(function () {
+    // Second clic sur le niveau coché : décoche (retour à « non renseigné »)
+    document.querySelectorAll('input[name="{{ field.html_name }}"]').forEach(function (r) {
+        r.addEventListener("mousedown", function () { this.dataset.etaitCoche = this.checked ? "1" : ""; });
+        r.addEventListener("click", function () { if (this.dataset.etaitCoche) { this.checked = false; } });
+    });
+})();
+</script>

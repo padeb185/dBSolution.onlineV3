@@ -28,7 +28,7 @@
                         <td class="px-4 py-2 border text-left"><a href="{% url 'utilisateurs:utilisateur_profil' u.pk %}" class="text-blue-700 font-semibold hover:underline">{{ u.nom }}</a>{% if not u.is_active %} <span class="px-2 py-0.5 rounded bg-gray-200 text-gray-700 text-xs">{% trans "Inactif" %}</span>{% endif %}</td>
                         <td class="px-4 py-2 border text-left"><a href="{% url 'utilisateurs:utilisateur_profil' u.pk %}" class="text-blue-700 hover:underline">{{ u.prenom }}</a></td>
                         <td class="px-4 py-2 border text-left">{{ u.email }}</td>
-                        <td class="px-4 py-2 border text-left">{{ u.get_role_display }}</td>
+                        <td class="px-4 py-2 border text-left">{{ u.get_role_display }}{% if u.est_instructeur and u.role != "instructeur" and u.role != "instructeur externe" %} <span class="ml-1 text-xs bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded">{% trans "Instructeur" %}</span>{% endif %}</td>
                         <td class="px-4 py-2 border text-left">{{ u.telephone }}</td>
                         <td class="px-4 py-2 border text-left whitespace-nowrap">
                             {% if u.numero_compte_bancaire %}

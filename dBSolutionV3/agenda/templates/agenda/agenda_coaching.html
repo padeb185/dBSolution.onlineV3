@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Planning des coachings instructeurs" %} – {{ lundi|date:"d/m" }} – {{ dimanche|date:"d/m/Y" }}{% endblock %}
+
+{% block content %}
+<br>
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+    <h1 class="text-2xl font-bold flex items-center gap-3">
+        <img src="{% static 'icons/agenda.png' %}" alt="" class="w-16 h-16">
+        <span>
+            {% if tout_voir %}{% trans "Planning des coachings instructeurs" %}{% else %}{% trans "Mes coachings" %}{% endif %}
+            <span class="block text-lg font-semibold text-gray-600">
+                {% blocktrans with debut=lundi|date:"j F" fin=dimanche|date:"j F Y" %}Semaine du {{ debut }} au {{ fin }}{% endblocktrans %}
+            </span>
+        </span>
+    </h1>
+    <div class="flex flex-wrap items-center gap-2">
+        <a href="{{ url_precedente }}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">← {% trans "Semaine précédente" %}</a>
+        <a href="{{ url_cette_semaine }}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Cette semaine" %}</a>
+        <a href="{{ url_suivante }}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Semaine suivante" %} →</a>
+        <form method="get" action="{% url 'agenda:agenda_coaching' %}">
+            <input type="date" name="date" value="{{ jour|date:'Y-m-d' }}" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            {% if instructeur and tout_voir %}<input type="hidden" name="instructeur" value="{{ instructeur.pk }}">{% endif %}
+        </form>
+    </div>
+</div>
+
+{% include "partials/messages.html" %}
+
+{% if tout_voir %}
+<div class="flex flex-wrap items-end gap-3 mb-4">
+    <a href="{% url 'agenda:agenda_dashboard' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Dashboard agenda" %}</a>
+    <a href="{% url 'agenda:agenda_location_date' jour.year jour.month jour.day %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Agenda des locations" %}</a>
+    <form method="get" class="flex items-end gap-2 text-sm">
+        <input type="hidden" name="date" value="{{ jour|date:'Y-m-d' }}">
+        <div>
+            <label class="block font-semibold text-gray-600 mb-1">{% trans "Instructeur" %}</label>
+            <select name="instructeur" class="border rounded px-3 py-2" onchange="this.form.submit()">
+                <option value="">{% trans "Tous les instructeurs" %}</option>
+                {% for i in instructeurs %}<option value="{{ i.pk }}" {% if instructeur and instructeur.pk == i.pk %}selected{% endif %}>{{ i.prenom }} {{ i.nom }} – {{ i.get_role_display }}</option>{% endfor %}
+            </select>
+        </div>
+    </form>
+</div>
+{% endif %}
+
+{% if nb_conflits %}
+<div class="mb-4 px-4 py-3 rounded bg-red-100 text-red-800 border border-red-300 font-semibold">
+    {% blocktrans count n=nb_conflits %}{{ n }} coaching en conflit d'horaire (même instructeur, mêmes heures).{% plural %}{{ n }} coachings en conflit d'horaire (même instructeur, mêmes heures).{% endblocktrans %}
+</div>
+{% endif %}
+
+<!-- Totaux de la semaine par instructeur -->
+{% if totaux %}
+<div class="bg-white shadow-md rounded-lg p-4 mb-6 overflow-x-auto">
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead><tr class="bg-gray-100">
+            <th class="border px-3 py-2 text-left">{% trans "Instructeur" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Coachings" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Heures" %}</th>
+            {% if tout_voir %}<th class="border px-3 py-2 text-right">{% trans "Montant TVAC" %}</th>{% endif %}
+        </tr></thead>
+        <tbody>{% for t in totaux %}
+            <tr>
+                <td class="border px-3 py-2">{{ t.instructeur.prenom }} {{ t.instructeur.nom }} <span class="text-gray-500 text-xs">{{ t.instructeur.get_role_display }}</span></td>
+                <td class="border px-3 py-2 text-right">{{ t.nombre }}</td>
+                <td class="border px-3 py-2 text-right font-mono">{{ t.heures|floatformat:"-2" }} h</td>
+                {% if tout_voir %}<td class="border px-3 py-2 text-right font-mono">{{ t.montant|floatformat:"2g" }} €</td>{% endif %}
+            </tr>{% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+<!-- Jours de la semaine -->
+<div class="space-y-4">
+{% for j in jours %}
+    <div class="bg-white shadow-md rounded-lg p-4 {% if j.date == aujourdhui %}ring-2 ring-blue-400{% endif %}">
+        <h2 class="text-lg font-semibold capitalize mb-2">
+            {{ j.date|date:"l j F" }}
+            {% if j.date == aujourdhui %}<span class="ml-2 text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded normal-case">{% trans "Aujourd'hui" %}</span>{% endif %}
+            <span class="text-sm font-normal text-gray-500 normal-case">· {{ j.lignes|length }} {% trans "coaching(s)" %}</span>
+        </h2>
+        {% if j.lignes %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+                <thead><tr class="bg-gray-100">
+                    <th class="border px-3 py-2 text-left">{% trans "Horaire" %}</th>
+                    <th class="border px-3 py-2 text-left">{% trans "Instructeur" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Heures" %}</th>
+                    <th class="border px-3 py-2 text-left">{% trans "Client" %}</th>
+                    <th class="border px-3 py-2 text-left">{% trans "Véhicule" %}</th>
+                    <th class="border px-3 py-2 text-left">{% trans "Lieu" %}</th>
+                    {% if tout_voir %}<th class="border px-3 py-2"></th>{% endif %}
+                </tr></thead>
+                <tbody>{% for l in j.lignes %}{% with loc=l.location %}
+                    <tr class="{% if l.conflit %}bg-red-50{% endif %}">
+                        <td class="border px-3 py-2 whitespace-nowrap">
+                            {% if loc.heure_debut %}{{ loc.heure_debut|time:"H:i" }}{% if loc.heure_fin %} – {{ loc.heure_fin|time:"H:i" }}{% endif %}{% else %}<span class="text-gray-500">{% trans "Toute la journée" %}</span>{% endif %}
+                            {% if l.nb_jours > 1 %}<span class="block text-xs text-gray-500">{% blocktrans with n=l.jour_n total=l.nb_jours %}Jour {{ n }} / {{ total }}{% endblocktrans %}</span>{% endif %}
+                            {% if l.conflit %}<span class="block text-xs font-bold text-red-700">{% trans "Conflit d'horaire" %}</span>{% endif %}
+                        </td>
+                        <td class="border px-3 py-2">{{ l.instructeur.prenom }} {{ l.instructeur.nom }}</td>
+                        <td class="border px-3 py-2 text-right font-mono whitespace-nowrap">{{ loc.instructeur_heures|floatformat:"-2"|default:"—" }} h</td>
+                        <td class="border px-3 py-2">{{ l.client }}</td>
+                        <td class="border px-3 py-2">{% include "agenda/partials/vehicule.html" with exemplaire=loc.voiture_exemplaire %}<span class="text-xs text-gray-500">{{ loc.voiture_exemplaire.immatriculation }}</span></td>
+                        <td class="border px-3 py-2">{{ loc.lieu|default:loc.get_type_location_display }}</td>
+                        {% if tout_voir %}<td class="border px-3 py-2 text-center"><a href="{% url 'voiture_location:location_detail' loc.pk %}" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">{% trans "Voir" %}</a></td>{% endif %}
+                    </tr>
+                {% endwith %}{% endfor %}</tbody>
+            </table>
+        </div>
+        {% else %}
+            <p class="text-gray-500 text-sm">{% trans "Aucun coaching." %}</p>
+        {% endif %}
+    </div>
+{% endfor %}
+</div>
+{% if tout_voir %}
+<p class="text-sm text-gray-600 mt-4">{% trans "Un coaching est planifié en choisissant un instructeur sur la location (direction et vendeurs : option « Peut être instructeur » dans leur profil)." %}</p>
+{% endif %}
+{% endblock %}

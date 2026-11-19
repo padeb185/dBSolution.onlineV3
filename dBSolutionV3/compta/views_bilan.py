@@ -13,7 +13,7 @@ from django.utils import timezone
 from django.utils.translation import gettext as _, gettext_lazy
 from django.views.decorators.cache import never_cache
 
-from .bilan import SAISIE, comptes_annuels, libelle_rubrique, presentation, reference_pour
+from .bilan import SAISIE, comptes_annuels, detail_resultat, libelle_rubrique, presentation, reference_pour
 from .models import COMPTES_CONTREPARTIE, BilanReference, LigneOperationDiverse, OperationDiverse
 from .views import _autorise, _log, _refus
 
@@ -47,6 +47,7 @@ def _contexte_bilan(request, annee):
         "reference": n.get("reference"), "source": n.get("source"),
         "annee": annee, "annee_precedente": annee - 1, "societe": societe,
         "actif": actif, "passif": passif, "resultats": resultats,
+        "detail_resultat": detail_resultat(n, n1),
         "n": n, "n1": n1, "ecart": n["totaux"]["ecart"],
         "equilibre": abs(n["totaux"]["ecart"]) < Decimal("0.01"),
         "annees": range(timezone.localdate().year - 6, timezone.localdate().year + 1),

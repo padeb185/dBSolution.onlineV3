@@ -116,6 +116,34 @@
 </div>
 {% endif %}{% endwith %}
 
+{% with cylindres=m.cylindres.all %}{% if m.volume_chambre_moyen_cm3 is not None or m.volume_chambre_nominal_cm3 is not None %}
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Chambres de combustion et taux de compression" %}</h2>
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm mb-4">
+        <thead><tr class="bg-gray-100">
+            <th class="border px-2 py-1">{% trans "Cyl." %}</th>
+            <th class="border px-2 py-1 text-right">{% trans "Volume chambre (cm³)" %}</th>
+            <th class="border px-2 py-1 text-right">{% trans "Taux de compression" %}</th>
+        </tr></thead>
+        <tbody>{% for c in cylindres %}{% if c.chambre_combustion_cm3 is not None %}
+            <tr>
+                <td class="border px-2 py-1 text-center font-semibold">{{ c.numero }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ c.chambre_combustion_cm3|floatformat:"2g" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{% if c.taux_compression %}{{ c.taux_compression|floatformat:"2g" }} : 1{% else %}—{% endif %}</td>
+            </tr>{% endif %}{% endfor %}
+        </tbody>
+    </table>
+    <dl class="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-2 text-sm">
+        <dt class="text-gray-600">{% trans "Volume moyen" %}</dt><dd class="font-mono">{{ m.volume_chambre_moyen_cm3|floatformat:"2g"|default:"—" }} cm³</dd>
+        <dt class="text-gray-600">{% trans "Écart entre chambres" %}</dt><dd class="font-mono">{{ m.ecart_chambres_cm3|floatformat:"2g"|default:"—" }} cm³</dd>
+        <dt class="text-gray-600">{% trans "Taux de compression moyen" %}</dt><dd class="font-mono">{% if m.taux_compression_moyen %}{{ m.taux_compression_moyen|floatformat:"2g" }} : 1{% else %}—{% endif %}</dd>
+        <dt class="text-gray-600">{% trans "Volume de la chambre de combustion constructeur (cm³)" %}</dt><dd class="font-mono">{{ m.volume_chambre_nominal_cm3|floatformat:"2g"|default:"—" }}</dd>
+        <dt class="text-gray-600">{% trans "Volume joint de culasse + piston (cm³)" %}</dt><dd class="font-mono">{{ m.volume_complementaire_cm3|floatformat:"2g"|default:"—" }}</dd>
+        <dt class="text-gray-600">{% trans "Taux de compression constructeur" %}</dt><dd class="font-mono">{% if m.taux_compression_constructeur %}{{ m.taux_compression_constructeur|floatformat:"2g" }} : 1{% else %}—{% endif %}{% if m.taux_compression_nominal_calcule %} ({% trans "calculé" %} {{ m.taux_compression_nominal_calcule|floatformat:"2g" }} : 1){% endif %}</dd>
+    </dl>
+</div>
+{% endif %}{% endwith %}
+
 {% with paliers=m.manetons.all %}{% if paliers %}
 <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
     <h2 class="text-lg font-semibold mb-4">{% trans "Vilebrequin – manetons et coussinets de bielle" %} <span class="text-sm font-normal text-gray-500">(mm)</span></h2>

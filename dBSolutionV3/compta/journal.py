@@ -1,6 +1,8 @@
 """
 Journal général (débit / crédit) – consolidation des écritures PCMN de l'application :
-ventes, encaissements, achats, salaires (et leur paiement), versements ONSS / précompte,
+ventes (ventilées : pièces, main-d'œuvre, locations, autres), encaissements, achats,
+charges des véhicules (carburants, recharges, AdBlue, garages et carrossiers externes, assurances),
+salaires (et leur paiement), versements ONSS / précompte,
 instructeurs indépendants, immobilisations (acquisitions, amortissements, cessions),
 variations de stock et mouvements de trésorerie encodés à la main.
 """
@@ -17,6 +19,9 @@ SOURCES = OrderedDict([
     ("vente", gettext_lazy("Ventes")),
     ("encaissement", gettext_lazy("Encaissements")),
     ("achat", gettext_lazy("Achats")),
+    ("energie", gettext_lazy("Carburants, recharges électriques et AdBlue")),
+    ("entretien_externe", gettext_lazy("Maintenances et carrosserie externes")),
+    ("assurance", gettext_lazy("Assurances des véhicules")),
     ("salaire", gettext_lazy("Salaires")),
     ("paiement_salaire", gettext_lazy("Paiement des salaires")),
     ("versement_social", gettext_lazy("Versements ONSS / précompte")),
@@ -43,6 +48,41 @@ def _norm(l, source, piece="", journal=None, jour=None):
     }
 
 
+# Chiffre d'affaires ventilé selon le type des lignes de facture
+COMPTES_VENTES = {
+    "PIECE": ("700100", gettext_lazy("Chiffre d'affaires – pièces et produits")),
+    "MAIN_OEUVRE": ("700200", gettext_lazy("Chiffre d'affaires – main-d'œuvre")),
+    "LOCATION": ("700300", gettext_lazy("Chiffre d'affaires – locations")),
+    "AUTRE": ("700000", gettext_lazy("Chiffre d'affaires – ventes")),
+}
+
+
+def ventilation_ventes(facture):
+    """
+    [(compte, intitulé, montant HTVA)] : total HTVA de la facture réparti selon le type des lignes
+    (au prorata des lignes, l'arrondi sur le dernier compte) ; sans ligne : tout en 700000.
+    """
+    total = Decimal(facture.total_ht or 0)
+    parts = {}
+    for l in facture.lines.all():
+        cle = l.type_ligne if l.type_ligne in COMPTES_VENTES else "AUTRE"
+        parts[cle] = parts.get(cle, ZERO) + Decimal(l.total_ht or 0)
+    somme = sum(parts.values(), ZERO)
+    if not parts or not somme or len(parts) == 1:
+        cle = next(iter(parts)) if len(parts) == 1 else "AUTRE"
+        compte, intitule = COMPTES_VENTES[cle]
+        return [(compte, str(intitule), total)]
+    resultat, reparti = [], ZERO
+    cles = sorted(parts, key=lambda k: list(COMPTES_VENTES).index(k))
+    for i, cle in enumerate(cles):
+        compte, intitule = COMPTES_VENTES[cle]
+        montant = total - reparti if i == len(cles) - 1 else (total * parts[cle] / somme).quantize(Decimal("0.01"))
+        reparti += montant
+        if montant:
+            resultat.append((compte, str(intitule), montant))
+    return resultat
+
+
 def ecritures_societe(societe, debut=None, fin=None, sources=None):
     sources = set(sources or SOURCES.keys())
     E = []
@@ -52,7 +92,8 @@ def ecritures_societe(societe, debut=None, fin=None, sources=None):
         from facture.models import Facture, PaiementFacture
         from facture.paiements import ecritures_paiement
         if "vente" in sources:
-            qs = Facture.objects.filter(societe=societe, statut=Facture.Statut.EMISE, client_est_societe=False)
+            qs = Facture.objects.filter(societe=societe, statut=Facture.Statut.EMISE,
+                                        client_est_societe=False).prefetch_related("lines")
             if debut:
                 qs = qs.filter(issue_date__gte=debut)
             if fin:
@@ -65,12 +106,14 @@ def ecritures_societe(societe, debut=None, fin=None, sources=None):
                     lib = f"{f.numero} – {_('Note de crédit')} – {f.nom_client_courant()}"
                     base = {"libelle": lib, "date": f.issue_date}
                     E.append(_norm(dict(base, compte="400000", intitule=_("Clients"), credit=f.total), "vente", f.numero, "VEN"))
-                    E.append(_norm(dict(base, compte="700000", intitule=_("Chiffre d'affaires – ventes"), debit=f.total_ht), "vente", f.numero, "VEN"))
+                    for compte, intitule, montant in ventilation_ventes(f):
+                        E.append(_norm(dict(base, compte=compte, intitule=intitule, debit=montant), "vente", f.numero, "VEN"))
                     if f.total_tva:
                         E.append(_norm(dict(base, compte="451000", intitule=_("TVA à payer"), debit=f.total_tva), "vente", f.numero, "VEN"))
                     continue
                 E.append(_norm(dict(base, compte="400000", intitule=_("Clients"), debit=f.total), "vente", f.numero, "VEN"))
-                E.append(_norm(dict(base, compte="700000", intitule=_("Chiffre d'affaires – ventes"), credit=f.total_ht), "vente", f.numero, "VEN"))
+                for compte, intitule, montant in ventilation_ventes(f):
+                    E.append(_norm(dict(base, compte=compte, intitule=intitule, credit=montant), "vente", f.numero, "VEN"))
                 if f.total_tva:
                     E.append(_norm(dict(base, compte="451000", intitule=_("TVA à payer"), credit=f.total_tva), "vente", f.numero, "VEN"))
         if "encaissement" in sources:
@@ -114,6 +157,20 @@ def ecritures_societe(societe, debut=None, fin=None, sources=None):
                     for l in a.ecritures_comptables():
                         if _dans(l["date"], debut, fin):
                             E.append(_norm(l, "achat", a.reference_facture or ""))
+            except Exception:
+                pass
+
+    # ---- Charges des véhicules : énergie, garages / carrossiers externes, assurances
+    from . import charges_vehicules as cv
+    for source, fonctions in (("energie", (cv.ecritures_energie,)),
+                              ("entretien_externe", (cv.ecritures_maintenances_externes, cv.ecritures_carrosseries)),
+                              ("assurance", (cv.ecritures_assurances,))):
+        if source not in sources:
+            continue
+        for fonction in fonctions:
+            try:
+                for l in fonction(societe, debut, fin):
+                    E.append(_norm(l, source, l["piece"], l["journal"], l["date"]))
             except Exception:
                 pass
 

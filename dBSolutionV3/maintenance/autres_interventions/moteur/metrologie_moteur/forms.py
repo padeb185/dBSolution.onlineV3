@@ -142,6 +142,7 @@ class MesureCylindreForm(_LigneMesureForm):
         "piston_diametre",
         "segment_feu_jeu", "segment_etancheite_jeu", "segment_racleur_jeu",
         "pied_bielle_a", "pied_bielle_b", "axe_piston_diametre",
+        "chambre_combustion_cm3",
     )
 
     class Meta:
@@ -151,6 +152,7 @@ class MesureCylindreForm(_LigneMesureForm):
             "piston_diametre",
             "segment_feu_jeu", "segment_etancheite_jeu", "segment_racleur_jeu",
                 "pied_bielle_a", "pied_bielle_b", "axe_piston_diametre",
+            "chambre_combustion_cm3",
             "remarque",
         )
 

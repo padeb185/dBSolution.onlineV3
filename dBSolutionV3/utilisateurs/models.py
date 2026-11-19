@@ -75,6 +75,18 @@ class UtilisateurManager(BaseUserManager):
         return user
 
 
+# Instructeurs (coachings de pilotage) : les rôles instructeur, plus la direction et les vendeurs
+# qui ont l'option « Peut être instructeur ».
+ROLES_INSTRUCTEUR = ("instructeur", "instructeur externe")
+ROLES_OPTION_INSTRUCTEUR = ("direction", "vendeur")
+
+
+def q_instructeurs(prefixe=""):
+    """Filtre des utilisateurs pouvant donner un coaching (prefixe : ex. "instructeur__")."""
+    return (models.Q(**{f"{prefixe}role__in": ROLES_INSTRUCTEUR})
+            | models.Q(**{f"{prefixe}role__in": ROLES_OPTION_INSTRUCTEUR, f"{prefixe}est_instructeur": True}))
+
+
 class Utilisateur(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
@@ -99,6 +111,12 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         choices=ROLE_CHOICES,
         default='apprentis',
         verbose_name=_("Rôle")
+    )
+    est_instructeur = models.BooleanField(
+        default=False,
+        verbose_name=_("Peut être instructeur"),
+        help_text=_("Direction et vendeur : peut donner des coachings de pilotage "
+                    "(choix de l'instructeur d'une location, planning des coachings)."),
     )
 
     adresse = models.ForeignKey(
@@ -175,6 +193,11 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         app_label = 'utilisateurs'
 
 
+
+    @property
+    def peut_instruire(self):
+        """Instructeur, ou direction / vendeur avec l'option « Peut être instructeur »."""
+        return self.role in ROLES_INSTRUCTEUR or (self.role in ROLES_OPTION_INSTRUCTEUR and self.est_instructeur)
 
     def generate_totp_secret(self):
         """

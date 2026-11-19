@@ -77,12 +77,16 @@ class ElectriciteForm(forms.ModelForm):
             "date_recharge",
             "type_carburant",
             "kW",
+            "niveau_restant",
             "prix_recharge",
             "pays",
         ]
 
         widgets = {
             "voiture_exemplaire": forms.HiddenInput(),
+
+            # Niveau avant la recharge : fin de réserve, réserve, ¼, ½, ¾ (comme l'application CarsCosts)
+            "niveau_restant": forms.RadioSelect(attrs={"class": "choix-niveau"}),
 
             "date_recharge": forms.DateInput(
                 attrs={
@@ -113,6 +117,12 @@ class ElectriciteForm(forms.ModelForm):
             from core.pays import pays_societe
             self.initial["pays"] = pays_societe()
 
+        # Niveau restant : boutons sans choix vide (aucun bouton coché = non renseigné)
+        if "niveau_restant" in self.fields:
+            from recharge.models import NiveauReservoir
+            self.fields["niveau_restant"].choices = NiveauReservoir.choices
+            self.fields["niveau_restant"].required = False
+
         self.order_fields([
             "voiture_exemplaire",
             "immatriculation",
@@ -129,6 +139,7 @@ class ElectriciteForm(forms.ModelForm):
             "type_carburant",
 
             "kW",
+            "niveau_restant",
             "prix_recharge",
 
             "pays",

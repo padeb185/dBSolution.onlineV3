@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.db.models import Sum
 from decimal import Decimal, ROUND_HALF_UP
 
-from recharge.models import RechargeCarburant
+from recharge.models import NiveauReservoir, RechargeCarburant
 from utilisateurs.models import Utilisateur
 from societe.models import Societe
 
@@ -190,6 +190,10 @@ class Fuel(models.Model):
 
     date = models.DateTimeField(default=timezone.now, verbose_name=_("Date du plein"))
     litres = models.DecimalField(max_digits = 10 , decimal_places = 2, verbose_name=_("Litres"))
+    niveau_restant = models.CharField(
+        _("Carburant restant"), max_length=12, choices=NiveauReservoir.choices, blank=True,
+        help_text=_("Niveau dans le réservoir avant le plein."),
+    )
 
     prix_refuelling = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Prix du plein (€)"))
 

@@ -82868,3 +82868,229 @@ msgstr ""
 " two connecting rods per crankpin, n / 2 crankpins and n / 2 + 1 main "
 "journals. Leave the numbers empty to calculate them, or correct them (split "
 "crankpins, extra bearings…)."
+
+msgid "Volume de la chambre de combustion constructeur (cm³)"
+msgstr "Manufacturer combustion chamber volume (cm³)"
+
+msgid "Volume joint de culasse + piston (cm³)"
+msgstr "Head gasket + piston volume (cm³)"
+
+msgid ""
+"Ajouté au volume de la chambre pour le taux de compression (épaisseur du "
+"joint, creux ou dôme du piston, dépassement). Vide : 0."
+msgstr ""
+"Added to the chamber volume for the compression ratio (gasket thickness, "
+"piston dish or dome, deck height). Empty: 0."
+
+msgid "Taux de compression constructeur"
+msgstr "Manufacturer compression ratio"
+
+msgid "Volume de la chambre de combustion (cm³)"
+msgstr "Combustion chamber volume (cm³)"
+
+msgid "Chambres de combustion et taux de compression"
+msgstr "Combustion chambers and compression ratio"
+
+msgid ""
+"Volume de chaque chambre mesuré à la burette, en cm³. Taux de compression = "
+"(cylindrée unitaire + volume chambre + volume joint / piston) / (volume "
+"chambre + volume joint / piston)."
+msgstr ""
+"Volume of each chamber measured with a burette, in cm³. Compression ratio = "
+"(swept volume per cylinder + chamber volume + gasket / piston volume) / "
+"(chamber volume + gasket / piston volume)."
+
+msgid "Volume chambre (cm³)"
+msgstr "Chamber volume (cm³)"
+
+msgid "Écart / moyenne"
+msgstr "Deviation / average"
+
+msgid "Taux de compression"
+msgstr "Compression ratio"
+
+msgid "Volume moyen"
+msgstr "Average volume"
+
+msgid "Écart entre chambres"
+msgstr "Difference between chambers"
+
+msgid "Taux de compression moyen"
+msgstr "Average compression ratio"
+
+msgid "Taux (chambre constructeur)"
+msgstr "Ratio (manufacturer chamber)"
+
+msgid "constructeur"
+msgstr "manufacturer"
+
+msgid "calculé"
+msgstr "calculated"
+
+msgid "Peut être instructeur"
+msgstr "Can be an instructor"
+
+msgid ""
+"Direction et vendeur : peut donner des coachings de pilotage (choix de "
+"l'instructeur d'une location, planning des coachings)."
+msgstr ""
+"Management and sales: can give driving coaching sessions (instructor choice "
+"on a rental, coaching schedule)."
+
+msgid "Planning des coachings instructeurs"
+msgstr "Instructor coaching schedule"
+
+msgid "coaching(s)"
+msgstr "coaching session(s)"
+
+msgid "dont"
+msgstr "of which"
+
+msgid "pour moi"
+msgstr "for me"
+
+msgid "Conflits d'horaire"
+msgstr "Schedule conflicts"
+
+msgid "Mes coachings"
+msgstr "My coaching sessions"
+
+msgid "Semaine du %(debut)s au %(fin)s"
+msgstr "Week from %(debut)s to %(fin)s"
+
+msgid "Semaine précédente"
+msgstr "Previous week"
+
+msgid "Cette semaine"
+msgstr "This week"
+
+msgid "Semaine suivante"
+msgstr "Next week"
+
+msgid "Tous les instructeurs"
+msgstr "All instructors"
+
+msgid "Coachings"
+msgstr "Coaching sessions"
+
+msgid "Horaire"
+msgstr "Time"
+
+msgid "Toute la journée"
+msgstr "All day"
+
+msgid "Jour %(n)s / %(total)s"
+msgstr "Day %(n)s / %(total)s"
+
+msgid "Conflit d'horaire"
+msgstr "Schedule conflict"
+
+msgid "Aucun coaching."
+msgstr "No coaching sessions."
+
+msgid ""
+"Un coaching est planifié en choisissant un instructeur sur la location "
+"(direction et vendeurs : option « Peut être instructeur » dans leur profil)."
+msgstr ""
+"A coaching session is scheduled by choosing an instructor on the rental "
+"(management and sales: ‘Can be an instructor’ option in their profile)."
+
+msgid "Mes coachings aujourd'hui :"
+msgstr "My coaching sessions today:"
+
+msgid "%(n)s coaching en conflit d'horaire (même instructeur, mêmes heures)."
+msgid_plural ""
+"%(n)s coachings en conflit d'horaire (même instructeur, mêmes heures)."
+msgstr[0] ""
+"%(n)s coaching session with a schedule conflict (same instructor, same "
+"hours)."
+msgstr[1] ""
+"%(n)s coaching sessions with a schedule conflict (same instructor, same "
+"hours)."
+
+msgid "Carburants, recharges électriques et AdBlue"
+msgstr "Fuel, electric charging and AdBlue"
+
+msgid "Maintenances et carrosserie externes"
+msgstr "External maintenance and bodywork"
+
+msgid "Assurances des véhicules"
+msgstr "Vehicle insurance"
+
+msgid "Chiffre d'affaires – pièces et produits"
+msgstr "Turnover – parts and products"
+
+msgid "Chiffre d'affaires – main-d'œuvre"
+msgstr "Turnover – labour"
+
+msgid "Chiffre d'affaires – locations"
+msgstr "Turnover – rentals"
+
+msgid "Entretien et réparations véhicules – garages externes"
+msgstr "Vehicle maintenance and repairs – external garages"
+
+msgid "Carrosserie véhicules – carrossiers externes"
+msgstr "Vehicle bodywork – external body shops"
+
+msgid "Assurances véhicules"
+msgstr "Vehicle insurance"
+
+msgid "Créances diverses – indemnités d'assurance à recevoir"
+msgstr "Other receivables – insurance compensation receivable"
+
+msgid "Indemnités d'assurance (sinistres)"
+msgstr "Insurance compensation (claims)"
+
+msgid "Prise en charge assurance"
+msgstr "Insurance cover"
+
+msgid "Prime"
+msgstr "Premium"
+
+msgid "Comptes"
+msgstr "Accounts"
+
+msgid "DÉTAIL DU COMPTE DE RÉSULTATS"
+msgstr "INCOME STATEMENT DETAIL"
+
+msgid ""
+"Par compte : ventes (pièces, main-d'œuvre, locations), achats, carburants, "
+"recharges, AdBlue, maintenances et carrosserie externes, assurances, "
+"salaires, amortissements…"
+msgstr ""
+"By account: sales (parts, labour, rentals), purchases, fuel, charging, "
+"AdBlue, external maintenance and bodywork, insurance, salaries, depreciation…"
+
+msgid ""
+"Pas de détail par compte : le compte de résultats de cet exercice provient du"
+" bilan établi par le comptable."
+msgstr ""
+"No detail by account: this year's income statement comes from the balance "
+"sheet prepared by the accountant."
+
+msgid ""
+"Document de travail établi à partir des écritures de l'application (ventes, "
+"achats, carburants, recharges, maintenances et carrosserie externes, "
+"assurances, salaires, immobilisations, stock, trésorerie, opérations "
+"diverses). Le dépôt à la BNB doit être effectué par votre comptable ou "
+"expert-comptable."
+msgstr ""
+"Working document based on the application's entries (sales, purchases, fuel, "
+"charging, external maintenance and bodywork, insurance, salaries, fixed "
+"assets, stock, cash, miscellaneous operations). Filing with the NBB must be "
+"done by your accountant."
+
+msgid "Carburant restant"
+msgstr "Fuel remaining"
+
+msgid "Batterie restante"
+msgstr "Battery remaining"
+
+msgid "Fin de réserve"
+msgstr "End of reserve"
+
+msgid "Niveau dans le réservoir avant le plein."
+msgstr "Tank level before refuelling."
+
+msgid "Niveau de la batterie avant la recharge."
+msgstr "Battery level before charging."

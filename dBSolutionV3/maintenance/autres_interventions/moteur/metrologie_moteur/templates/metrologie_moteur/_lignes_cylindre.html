@@ -1,5 +1,5 @@
 {% load i18n %}{% comment %}
-Cellules d'une ligne « cylindre » pour chacun des tableaux (bloc = chemise / segments / bielle).
+Cellules d'une ligne « cylindre » pour chacun des tableaux (bloc = chemise / segments / bielle / chambre).
 Utilisé pour les lignes existantes et pour le gabarit de nouvelle ligne (__prefix__).
 {% endcomment %}{% if bloc == "chemise" %}
 <tr class="ligne-cyl" data-prefix="{{ f.prefix }}">
@@ -38,5 +38,12 @@ Utilisé pour les lignes existantes et pour le gabarit de nouvelle ligne (__pref
     <td class="border px-2 py-1 text-right font-mono resultat" data-calc="pied_bielle_ovalisation">—</td>
     <td class="border px-1 py-1">{{ f.axe_piston_diametre }}</td>
     <td class="border px-2 py-1 text-right font-mono resultat whitespace-nowrap" data-calc="jeu_pied_bielle">—</td>
+</tr>
+{% elif bloc == "chambre" %}
+<tr data-prefix="{{ f.prefix }}">
+    <td class="border px-2 py-1 text-center font-semibold numero-cyl">{{ f.numero.value|default:"" }}</td>
+    <td class="border px-1 py-1">{{ f.chambre_combustion_cm3 }}</td>
+    <td class="border px-2 py-1 text-right font-mono resultat" data-calc="chambre_ecart">—</td>
+    <td class="border px-2 py-1 text-right font-mono resultat" data-calc="taux_compression">—</td>
 </tr>
 {% endif %}

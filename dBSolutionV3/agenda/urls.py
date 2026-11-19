@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views, views_location
+from . import views, views_coaching, views_location
 
 app_name = "agenda"
 
@@ -26,4 +26,9 @@ urlpatterns = [
          name="agenda_disponibilites_date"),
     path("locations/<uuid:location_id>/", views_location.agenda_location_controle_view,
          name="agenda_location_controle"),
+
+    # Planning des coachings instructeurs (semaine du jour indiqué)
+    path("coachings/", views_coaching.agenda_coaching_view, name="agenda_coaching"),
+    path("coachings/<int:annee>/<int:mois>/<int:jour>/", views_coaching.agenda_coaching_view,
+         name="agenda_coaching_date"),
 ]

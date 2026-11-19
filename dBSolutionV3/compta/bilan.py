@@ -200,6 +200,32 @@ def _resultat(soldes):
     return r, _totaux_resultat(r)
 
 
+def _montant_resultat(compte, solde):
+    """Montant présenté d'un compte de résultats : produits au crédit, charges au débit (positifs)."""
+    k = rubrique_resultat(compte)
+    return k, (-solde if k in PRODUITS else solde)
+
+
+def detail_comptes_resultat(ecritures):
+    """{compte: {intitule, rubrique, montant}} des comptes de résultats (classes 6 et 7) des écritures."""
+    d = {}
+    for e in ecritures:
+        c = e["compte"]
+        if c[:1] not in ("6", "7"):
+            continue
+        x = d.setdefault(c, {"intitule": "", "solde": ZERO})
+        x["solde"] += e["debit"] - e["credit"]
+        if not x["intitule"] and e.get("intitule"):
+            x["intitule"] = str(e["intitule"])
+    resultat = {}
+    for c, x in d.items():
+        if not x["solde"]:
+            continue
+        k, montant = _montant_resultat(c, x["solde"])
+        resultat[c] = {"intitule": x["intitule"], "rubrique": k, "montant": montant}
+    return resultat
+
+
 def _totaux_resultat(r):
     """Totaux du compte de résultats à partir des montants par rubrique."""
     ventes = sum((r[k] for k in ("chiffre_affaires", "variation_en_cours", "production_immobilisee",
@@ -289,13 +315,15 @@ def comptes_annuels(societe, annee):
     # ---- Exercice du bilan de référence
     if ref and ref.annee == annee:
         actif, passif, resultat = montants_reference(ref)
+        detail_resultat = {}
         if _resultat_saisi(resultat):
             totaux_resultat = _totaux_resultat(resultat)
         else:
-            resultat, totaux_resultat = _resultat(_soldes(
-                [e for e in ecritures_societe(societe, debut, fin)]))
+            ecritures_exercice = ecritures_societe(societe, debut, fin)
+            resultat, totaux_resultat = _resultat(_soldes(ecritures_exercice))
+            detail_resultat = detail_comptes_resultat(ecritures_exercice)
         return {
-            "annee": annee, "actif": actif, "passif": passif, "detail": {},
+            "annee": annee, "actif": actif, "passif": passif, "detail": {}, "detail_resultat": detail_resultat,
             "resultat": resultat, "totaux_resultat": totaux_resultat, "totaux": _totaux(actif, passif),
             "nb_ecritures": 0, "source": "reference", "reference": ref,
         }
@@ -335,7 +363,8 @@ def comptes_annuels(societe, annee):
             detail.setdefault(k, []).append({"compte": compte, "montant": montant})
         source = "ecritures"
 
-    exercice = _soldes([e for e in toutes if e["date"] >= debut])
+    ecritures_exercice = [e for e in toutes if e["date"] >= debut]
+    exercice = _soldes(ecritures_exercice)
     anterieur = _soldes([e for e in toutes if e["date"] < debut])
 
     # Résultats des exercices antérieurs non affectés → reporté ; exercice → à affecter
@@ -346,6 +375,7 @@ def comptes_annuels(societe, annee):
 
     return {
         "annee": annee, "actif": actif, "passif": passif, "detail": detail,
+        "detail_resultat": detail_comptes_resultat(ecritures_exercice),
         "resultat": rubriques_resultat, "totaux_resultat": totaux_resultat,
         "totaux": _totaux(actif, passif),
         "nb_ecritures": len(toutes), "source": source, "reference": ref,
@@ -412,6 +442,32 @@ def presentation(ca, cb, schema="COMPLET"):
         tr("9904", _("Bénéfice (Perte) de l'exercice"), "exercice"),
     ]
     return actif, passif, resultats
+
+
+def detail_resultat(ca, cb):
+    """
+    Détail du compte de résultats par compte (ventes, carburants, recharges, maintenances, assurances…),
+    regroupé par rubrique du schéma BNB, exercices N et N-1 : [{rubrique: ligne, comptes: [lignes]}].
+    """
+    dn, dn1 = ca.get("detail_resultat") or {}, cb.get("detail_resultat") or {}
+    groupes = []
+    for k, (code, libelle) in RESULTATS.items():
+        comptes = sorted({c for c, x in dn.items() if x["rubrique"] == k}
+                         | {c for c, x in dn1.items() if x["rubrique"] == k})
+        if not comptes:
+            continue
+        lignes = []
+        for c in comptes:
+            intitule = (dn.get(c) or dn1.get(c))["intitule"]
+            lignes.append(_ligne(c, intitule, dn.get(c, {}).get("montant", ZERO),
+                                 dn1.get(c, {}).get("montant", ZERO), 2))
+        groupes.append({
+            "rubrique": _ligne(code, libelle, sum((l["n"] for l in lignes), ZERO),
+                               sum((l["n1"] for l in lignes), ZERO), 1, True),
+            "comptes": lignes,
+            "produit": k in PRODUITS,
+        })
+    return groupes
 
 
 def presentation_abregee(ca, cb):

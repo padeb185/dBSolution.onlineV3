@@ -189,6 +189,9 @@
 
         <h2 class="text-lg font-semibold mb-2">{% trans "Carburant" %}</h2>
         {% for field in form %}
+            {% if field.name == "niveau_restant" %}
+                {% include "fuel/partials/choix_niveau.html" %}
+            {% else %}
             <div class="mb-4">
                 <label class="block font-semibold mb-1">{{ field.label }}</label>
                 {{ field|add_class:"input" }}
@@ -196,6 +199,7 @@
                     <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
                 {% endif %}
             </div>
+            {% endif %}
         {% endfor %}
 
 
@@ -959,5 +963,6 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
+<script src="{% static 'js/plaque_immatriculation.js' %}?v=1" data-url="{% url 'fuel:autocomplete_immatriculation' %}" data-changer="{% trans 'Changer' %}"></script>
 {% endblock %}
 

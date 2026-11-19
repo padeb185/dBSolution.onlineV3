@@ -83310,3 +83310,229 @@ msgstr ""
 "W-motor: twee drijfstangen per krukpen, n / 2 krukpennen en n / 2 + 1 "
 "lagertappen. Laat de aantallen leeg om ze te berekenen, of corrigeer ze "
 "(verzette krukpennen, extra lagers…)."
+
+msgid "Volume de la chambre de combustion constructeur (cm³)"
+msgstr "Volume verbrandingskamer fabrikant (cm³)"
+
+msgid "Volume joint de culasse + piston (cm³)"
+msgstr "Volume koppakking + zuiger (cm³)"
+
+msgid ""
+"Ajouté au volume de la chambre pour le taux de compression (épaisseur du "
+"joint, creux ou dôme du piston, dépassement). Vide : 0."
+msgstr ""
+"Opgeteld bij het kamervolume voor de compressieverhouding (dikte van de "
+"pakking, holte of koepel van de zuiger, uitsteeksel). Leeg: 0."
+
+msgid "Taux de compression constructeur"
+msgstr "Compressieverhouding fabrikant"
+
+msgid "Volume de la chambre de combustion (cm³)"
+msgstr "Volume verbrandingskamer (cm³)"
+
+msgid "Chambres de combustion et taux de compression"
+msgstr "Verbrandingskamers en compressieverhouding"
+
+msgid ""
+"Volume de chaque chambre mesuré à la burette, en cm³. Taux de compression = "
+"(cylindrée unitaire + volume chambre + volume joint / piston) / (volume "
+"chambre + volume joint / piston)."
+msgstr ""
+"Volume van elke kamer gemeten met de buret, in cm³. Compressieverhouding = "
+"(cilinderinhoud per cilinder + kamervolume + volume pakking / zuiger) / "
+"(kamervolume + volume pakking / zuiger)."
+
+msgid "Volume chambre (cm³)"
+msgstr "Kamervolume (cm³)"
+
+msgid "Écart / moyenne"
+msgstr "Afwijking / gemiddelde"
+
+msgid "Taux de compression"
+msgstr "Compressieverhouding"
+
+msgid "Volume moyen"
+msgstr "Gemiddeld volume"
+
+msgid "Écart entre chambres"
+msgstr "Verschil tussen kamers"
+
+msgid "Taux de compression moyen"
+msgstr "Gemiddelde compressieverhouding"
+
+msgid "Taux (chambre constructeur)"
+msgstr "Verhouding (kamer fabrikant)"
+
+msgid "constructeur"
+msgstr "fabrikant"
+
+msgid "calculé"
+msgstr "berekend"
+
+msgid "Peut être instructeur"
+msgstr "Kan instructeur zijn"
+
+msgid ""
+"Direction et vendeur : peut donner des coachings de pilotage (choix de "
+"l'instructeur d'une location, planning des coachings)."
+msgstr ""
+"Directie en verkoper: kan rijcoachings geven (keuze van de instructeur van "
+"een verhuur, planning van de coachings)."
+
+msgid "Planning des coachings instructeurs"
+msgstr "Planning van de instructeurscoachings"
+
+msgid "coaching(s)"
+msgstr "coaching(s)"
+
+msgid "dont"
+msgstr "waarvan"
+
+msgid "pour moi"
+msgstr "voor mij"
+
+msgid "Conflits d'horaire"
+msgstr "Tijdsconflicten"
+
+msgid "Mes coachings"
+msgstr "Mijn coachings"
+
+msgid "Semaine du %(debut)s au %(fin)s"
+msgstr "Week van %(debut)s tot %(fin)s"
+
+msgid "Semaine précédente"
+msgstr "Vorige week"
+
+msgid "Cette semaine"
+msgstr "Deze week"
+
+msgid "Semaine suivante"
+msgstr "Volgende week"
+
+msgid "Tous les instructeurs"
+msgstr "Alle instructeurs"
+
+msgid "Coachings"
+msgstr "Coachings"
+
+msgid "Horaire"
+msgstr "Uurrooster"
+
+msgid "Toute la journée"
+msgstr "Hele dag"
+
+msgid "Jour %(n)s / %(total)s"
+msgstr "Dag %(n)s / %(total)s"
+
+msgid "Conflit d'horaire"
+msgstr "Tijdsconflict"
+
+msgid "Aucun coaching."
+msgstr "Geen coaching."
+
+msgid ""
+"Un coaching est planifié en choisissant un instructeur sur la location "
+"(direction et vendeurs : option « Peut être instructeur » dans leur profil)."
+msgstr ""
+"Een coaching wordt gepland door een instructeur te kiezen op de verhuur "
+"(directie en verkopers: optie ‘Kan instructeur zijn’ in hun profiel)."
+
+msgid "Mes coachings aujourd'hui :"
+msgstr "Mijn coachings vandaag:"
+
+msgid "%(n)s coaching en conflit d'horaire (même instructeur, mêmes heures)."
+msgid_plural ""
+"%(n)s coachings en conflit d'horaire (même instructeur, mêmes heures)."
+msgstr[0] ""
+"%(n)s coaching met een tijdsconflict (zelfde instructeur, zelfde uren)."
+msgstr[1] ""
+"%(n)s coachings met een tijdsconflict (zelfde instructeur, zelfde uren)."
+
+msgid "Carburants, recharges électriques et AdBlue"
+msgstr "Brandstof, elektrisch laden en AdBlue"
+
+msgid "Maintenances et carrosserie externes"
+msgstr "Externe onderhoud en carrosserie"
+
+msgid "Assurances des véhicules"
+msgstr "Voertuigverzekeringen"
+
+msgid "Chiffre d'affaires – pièces et produits"
+msgstr "Omzet – onderdelen en producten"
+
+msgid "Chiffre d'affaires – main-d'œuvre"
+msgstr "Omzet – arbeidsloon"
+
+msgid "Chiffre d'affaires – locations"
+msgstr "Omzet – verhuur"
+
+msgid "Entretien et réparations véhicules – garages externes"
+msgstr "Onderhoud en herstellingen voertuigen – externe garages"
+
+msgid "Carrosserie véhicules – carrossiers externes"
+msgstr "Carrosserie voertuigen – externe carrossiers"
+
+msgid "Assurances véhicules"
+msgstr "Verzekeringen voertuigen"
+
+msgid "Créances diverses – indemnités d'assurance à recevoir"
+msgstr "Diverse vorderingen – te ontvangen verzekeringsvergoedingen"
+
+msgid "Indemnités d'assurance (sinistres)"
+msgstr "Verzekeringsvergoedingen (schadegevallen)"
+
+msgid "Prise en charge assurance"
+msgstr "Tenlasteneming verzekering"
+
+msgid "Prime"
+msgstr "Premie"
+
+msgid "Comptes"
+msgstr "Rekeningen"
+
+msgid "DÉTAIL DU COMPTE DE RÉSULTATS"
+msgstr "DETAIL VAN DE RESULTATENREKENING"
+
+msgid ""
+"Par compte : ventes (pièces, main-d'œuvre, locations), achats, carburants, "
+"recharges, AdBlue, maintenances et carrosserie externes, assurances, "
+"salaires, amortissements…"
+msgstr ""
+"Per rekening: verkopen (onderdelen, arbeidsloon, verhuur), aankopen, "
+"brandstof, elektrisch laden, AdBlue, externe onderhoud en carrosserie, "
+"verzekeringen, lonen, afschrijvingen…"
+
+msgid ""
+"Pas de détail par compte : le compte de résultats de cet exercice provient du"
+" bilan établi par le comptable."
+msgstr ""
+"Geen detail per rekening: de resultatenrekening van dit boekjaar komt uit de "
+"balans van de boekhouder."
+
+msgid ""
+"Document de travail établi à partir des écritures de l'application (ventes, "
+"achats, carburants, recharges, maintenances et carrosserie externes, "
+"assurances, salaires, immobilisations, stock, trésorerie, opérations "
+"diverses). Le dépôt à la BNB doit être effectué par votre comptable ou "
+"expert-comptable."
+msgstr ""
+"Werkdocument op basis van de boekingen van de applicatie (verkopen, aankopen,"
+" brandstof, elektrisch laden, externe onderhoud en carrosserie, "
+"verzekeringen, lonen, vaste activa, voorraad, thesaurie, diverse "
+"verrichtingen). De neerlegging bij de NBB moet gebeuren door uw boekhouder of"
+" accountant."
+
+msgid "Carburant restant"
+msgstr "Resterende brandstof"
+
+msgid "Batterie restante"
+msgstr "Resterende batterij"
+
+msgid "Fin de réserve"
+msgstr "Einde reserve"
+
+msgid "Niveau dans le réservoir avant le plein."
+msgstr "Niveau in de tank vóór het tanken."
+
+msgid "Niveau de la batterie avant la recharge."
+msgstr "Batterijniveau vóór het laden."

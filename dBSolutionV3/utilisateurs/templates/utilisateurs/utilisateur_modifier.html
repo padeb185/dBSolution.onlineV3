@@ -27,7 +27,15 @@
             <h2 class="text-lg font-semibold mb-4">{% trans "Informations" %}</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {% for field in form %}
-                    {% if field.name == "is_active" %}
+                    {% if field.name == "est_instructeur" %}
+                        <div class="md:col-span-2" data-option-instructeur>
+                            <label class="inline-flex items-center gap-2">
+                                {{ field|add_class:"h-5 w-5" }}
+                                <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                            </label>
+                            {% if field.help_text %}<p class="text-gray-500 text-xs mt-1">{{ field.help_text }}</p>{% endif %}
+                        </div>
+                    {% elif field.name == "is_active" %}
                         <label class="inline-flex items-center gap-2 md:col-span-2">
                             {{ field|add_class:"h-5 w-5" }}
                             <span class="font-semibold text-gray-700">{{ field.label }}</span>
@@ -76,4 +84,5 @@
 <style>
 .input { width: 100% !important; border: 1px solid #ccc !important; border-radius: 6px !important; padding: 8px !important; box-sizing: border-box !important; }
 </style>
+{% include "utilisateurs/_option_instructeur.html" %}
 {% endblock %}

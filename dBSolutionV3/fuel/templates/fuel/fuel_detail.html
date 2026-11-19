@@ -50,6 +50,12 @@
                 <strong>{% trans "Litres" %} :</strong>
                 {{ fuel.litres }}
             </p>
+            {% if fuel.niveau_restant %}
+            <p>
+                <strong>{% trans "Carburant restant" %} :</strong>
+                {{ fuel.get_niveau_restant_display }}
+            </p>
+            {% endif %}
              <p>
                 <strong>{% trans "Montant TVAC" %} :</strong>
                 {{ fuel.prix_refuelling }}

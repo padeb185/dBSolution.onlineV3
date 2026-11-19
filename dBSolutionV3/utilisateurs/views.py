@@ -458,6 +458,11 @@ def dashboard_view(request):
                     .exclude(~AgendaQ(type_maintenance=code_track) & AgendaQ(statut=AgendaTache.Statut.FAIT))
                     .count()
                 )
+                # Instructeur (ou direction / vendeur avec l'option) : ses coachings du jour
+                if getattr(request.user, "peut_instruire", False):
+                    from agenda.views_coaching import coachings_periode
+                    jour = agenda_tz.localdate()
+                    context["mes_coachings_jour"] = len(coachings_periode(societe, jour, jour, request.user))
     except Exception:
         context["agenda_a_faire"] = 0
 
@@ -732,6 +737,7 @@ def creer_utilisateur(request):
                     nom=data["nom"],
                     prenom=data["prenom"],
                     role=data["role"],
+                    est_instructeur=data.get("est_instructeur", False),
                     telephone=data["telephone"] or None,
                     email_entreprise=data["email_entreprise"] or None,
                     date_naissance=data["date_naissance"] or None,
