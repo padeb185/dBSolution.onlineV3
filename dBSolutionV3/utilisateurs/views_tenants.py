@@ -95,7 +95,8 @@ def tenant_creer(request):
                 societe.save()   # crée le schéma PostgreSQL + migrations
 
                 # En mode sous-dossier (/tenant/<schema>/), le domaine = nom du schéma
-                Domain.objects.create(domain=societe.schema_name, tenant=societe, is_primary=True)
+                Domain.objects.get_or_create(domain=societe.schema_name,
+                                             defaults={"tenant": societe, "is_primary": True})
 
                 # Premier utilisateur (direction) du tenant
                 if d.get("admin_email"):

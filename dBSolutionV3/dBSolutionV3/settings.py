@@ -457,7 +457,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 MIDDLEWARE = [
     # Résolution du tenant à partir du domaine :
     # dbsolution.localhost, campus.localhost, etc.
-    "django_tenants.middleware.TenantSubfolderMiddleware",
+    # (sous-classe de TenantSubfolderMiddleware : recrée le domaine d'un tenant s'il manque)
+    "dBSolutionV3.middleware.tenant_subfolder.TenantSubfolderTolerantMiddleware",
     # Monitoring : compte les requêtes par tenant (statut, durée) – juste après la résolution du tenant
     "monitoring.middleware.MonitoringMiddleware",
 
