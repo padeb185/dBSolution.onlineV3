@@ -90,6 +90,7 @@ urlpatterns = [
     path("admin/tenants/creer/", views_tenants.tenant_creer, name="tenant_creer"),
     path("admin/tenants/<int:pk>/", views_tenants.tenant_detail, name="tenant_detail"),
     path("admin/tenants/<int:pk>/modifier/", views_tenants.tenant_modifier, name="tenant_modifier"),
+    path("admin/tenants/<int:pk>/referentiel/", views_tenants.tenant_referentiel, name="tenant_referentiel"),
     path("admin/tenants/<int:pk>/utilisateur/creer/", views_tenants.tenant_utilisateur_creer,
          name="tenant_utilisateur_creer"),
     path("admin/tenants/<int:pk>/utilisateur/<uuid:utilisateur_id>/activer/",

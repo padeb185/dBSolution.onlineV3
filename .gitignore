@@ -42,3 +42,6 @@ staticfiles/
 *.pem
 localhost+*.crt
 .env
+
+# Journaux (chargement du référentiel véhicules des tenants…)
+dBSolutionV3/logs/

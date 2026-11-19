@@ -118,6 +118,17 @@ def tenant_creer(request):
 
             _log(request, f"Création du tenant {societe.nom} ({societe.schema_name})")
             messages.success(request, _("Le tenant « %(nom)s » a été créé.") % {"nom": societe.nom})
+            # Référentiel véhicules (moteurs, boîtes, marques, modèles) : toujours chargé, en arrière-plan
+            from .referentiel_tenant import lancer
+            try:
+                lancer(societe)
+                _log(request, f"Chargement du référentiel véhicules du tenant {societe.schema_name}")
+                messages.info(request, _(
+                    "Chargement du référentiel véhicules en cours (marques, modèles, moteurs, boîtes de "
+                    "vitesses) : quelques minutes. Suivi sur cette page."))
+            except Exception as e:
+                messages.warning(request, _(
+                    "Le référentiel véhicules n'a pas pu être lancé : %(erreur)s") % {"erreur": e})
             return redirect("utilisateurs:tenant_detail", pk=societe.pk)
 
         except Exception as e:
@@ -145,7 +156,35 @@ def tenant_detail(request, pk):
         "domaines": Domain.objects.filter(tenant=societe),
         "modules_libelles": [str(MODULES[c][0]) for c in (societe.modules or []) if c in MODULES],
         "places_restantes": max(0, societe.max_utilisateurs - societe.nb_actifs),
+        "referentiel": _etat_referentiel(societe),
     })
+
+
+def _etat_referentiel(societe):
+    from .referentiel_tenant import etat
+    try:
+        return etat(societe)
+    except Exception:
+        return None
+
+
+@never_cache
+@login_required
+@user_passes_test(is_admin)
+def tenant_referentiel(request, pk):
+    """(Re)lance le chargement du référentiel véhicules du tenant (POST)."""
+    from .referentiel_tenant import lancer
+    societe = get_object_or_404(_tenants(), pk=pk)
+    if request.method == "POST":
+        try:
+            if lancer(societe):
+                _log(request, f"Chargement du référentiel véhicules du tenant {societe.schema_name}")
+                messages.success(request, _("Chargement du référentiel véhicules lancé (quelques minutes)."))
+            else:
+                messages.info(request, _("Le chargement du référentiel véhicules est déjà en cours."))
+        except Exception as e:
+            messages.error(request, _("Le référentiel véhicules n'a pas pu être lancé : %(erreur)s") % {"erreur": e})
+    return redirect("utilisateurs:tenant_detail", pk=societe.pk)
 
 
 # ==================================================================
