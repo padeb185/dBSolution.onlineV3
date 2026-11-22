@@ -21,7 +21,7 @@ from .forms import UtilisateurCreationForm
 from .models import UserLog, Utilisateur
 
 
-# Rôle de l'administrateur d'un tenant : la direction gère les comptes de sa société
+# Administrateur d'un tenant = rôle Direction + is_staff + is_superuser (comme « Admin Campus »)
 ROLE_ADMIN_TENANT = "direction"
 
 
@@ -249,7 +249,7 @@ def tenant_utilisateur_creer(request, pk):
     form = UtilisateurCreationForm(request.POST or None, initial=initial)
     if mode_admin:
         form.fields["role"].disabled = True
-        form.fields["role"].help_text = _("Administrateur du tenant : gère les utilisateurs et les réglages de sa société.")
+        form.fields["role"].help_text = _("Administrateur : rôle Direction avec les droits d'administration (superutilisateur).")
 
     if request.method == "POST" and form.is_valid():
         if societe.nb_actifs >= societe.max_utilisateurs:
@@ -280,6 +280,11 @@ def tenant_utilisateur_creer(request, pk):
                         schema_name=societe.schema_name,
                         adresse=adresse,
                     )
+                    if mode_admin:
+                        # Administrateur du tenant : comme « Admin Campus » (Direction + superutilisateur)
+                        utilisateur.is_staff = True
+                        utilisateur.is_superuser = True
+                        utilisateur.save(update_fields=["is_staff", "is_superuser"])
                 if mode_admin:
                     _log(request, f"Création administrateur {utilisateur.email} – tenant {societe.nom}")
                     messages.success(request, _("Administrateur créé pour %(nom)s.") % {"nom": societe.nom})
@@ -320,18 +325,20 @@ def tenant_admin_choisir(request):
 @login_required
 @user_passes_test(is_admin)
 def tenant_utilisateur_admin(request, pk, utilisateur_id):
-    """Nomme un utilisateur existant administrateur de son tenant (rôle Direction) – POST."""
+    """Nomme un utilisateur existant administrateur de son tenant (Direction + superutilisateur) – POST."""
     societe = get_object_or_404(_tenants(), pk=pk)
     if request.method == "POST":
         utilisateur = get_object_or_404(Utilisateur, pk=utilisateur_id, societe=societe)
-        if utilisateur.role == ROLE_ADMIN_TENANT:
+        if utilisateur.is_superuser:
             messages.info(request, _("%(email)s est déjà administrateur du tenant.") % {"email": utilisateur.email})
         else:
             ancien = utilisateur.get_role_display()
-            # est_instructeur est conservé : un directeur peut garder l'option instructeur
-            Utilisateur.objects.filter(pk=utilisateur.pk).update(role=ROLE_ADMIN_TENANT)
-            _log(request, f"Utilisateur {utilisateur.email} nommé administrateur ({ancien} → Direction) – tenant {societe.nom}")
-            messages.success(request, _("%(email)s est maintenant administrateur du tenant (rôle Direction).")
+            # Administrateur = Direction + superutilisateur (comme « Admin Campus »).
+            # est_instructeur est conservé : un directeur peut garder l'option instructeur.
+            Utilisateur.objects.filter(pk=utilisateur.pk).update(
+                role=ROLE_ADMIN_TENANT, is_staff=True, is_superuser=True)
+            _log(request, f"Utilisateur {utilisateur.email} nommé administrateur ({ancien} → Direction + superutilisateur) – tenant {societe.nom}")
+            messages.success(request, _("%(email)s est maintenant administrateur du tenant.")
                              % {"email": utilisateur.email})
     return redirect("utilisateurs:tenant_detail", pk=societe.pk)
 

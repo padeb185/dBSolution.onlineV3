@@ -22,6 +22,7 @@
 
     <form method="post" class="space-y-6">
         {% csrf_token %}
+        {% if retour_tenant %}<input type="hidden" name="retour" value="tenant">{% endif %}
 
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">{% trans "Informations" %}</h2>
@@ -34,6 +35,15 @@
                                 <span class="font-semibold text-gray-700">{{ field.label }}</span>
                             </label>
                             {% if field.help_text %}<p class="text-gray-500 text-xs mt-1">{{ field.help_text }}</p>{% endif %}
+                        </div>
+                    {% elif field.name == "droits_admin" %}
+                        <div class="md:col-span-2 border border-blue-200 bg-blue-50 rounded p-3">
+                            <label class="inline-flex items-center gap-2">
+                                {{ field|add_class:"h-5 w-5" }}
+                                <span class="font-semibold text-blue-900">{{ field.label }}</span>
+                                {% if field.field.disabled %}<span class="text-xs text-gray-500">({% trans "non modifiable sur votre propre compte" %})</span>{% endif %}
+                            </label>
+                            {% if field.help_text %}<p class="text-gray-600 text-xs mt-1">{{ field.help_text }}</p>{% endif %}
                         </div>
                     {% elif field.name == "is_active" %}
                         <label class="inline-flex items-center gap-2 md:col-span-2">
@@ -75,7 +85,7 @@
 
         <div class="flex gap-3">
             <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold">{% trans "Enregistrer" %}</button>
-            <a href="{% url 'utilisateurs:utilisateur_profil' utilisateur.pk %}" class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+            <a href="{% if retour_tenant and utilisateur.societe_id %}{% url 'utilisateurs:tenant_detail' utilisateur.societe_id %}{% else %}{% url 'utilisateurs:utilisateur_profil' utilisateur.pk %}{% endif %}" class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
         </div>
     </form>
     <br>

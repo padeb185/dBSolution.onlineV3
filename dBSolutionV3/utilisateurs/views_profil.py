@@ -21,9 +21,11 @@ def peut_gerer_utilisateurs(user):
 def _utilisateur_gere(request, pk):
     qs = Utilisateur.objects.select_related("adresse", "societe")
     societe = getattr(request.user, "societe", None)
-    if societe is not None:
+    if request.user.is_superuser:
+        pass  # superutilisateur : utilisateurs de tous les tenants (fiche tenant du tableau de bord admin)
+    elif societe is not None:
         qs = qs.filter(societe=societe)
-    elif not request.user.is_superuser:
+    else:
         qs = qs.none()
     if not request.user.is_superuser:
         qs = qs.exclude(is_superuser=True)
@@ -53,6 +55,8 @@ def utilisateur_modifier(request, pk):
         return _refuser(request)
     utilisateur = _utilisateur_gere(request, pk)
     adresse = utilisateur.adresse
+    # Ouvert depuis la fiche d'un tenant (tableau de bord admin) : on y revient après l'enregistrement
+    retour_tenant = (request.GET.get("retour") or request.POST.get("retour")) == "tenant"
 
     if request.method == "POST":
         form = UtilisateurProfilForm(request.POST, instance=utilisateur, editeur=request.user)
@@ -70,9 +74,12 @@ def utilisateur_modifier(request, pk):
                         obj.save(update_fields=["adresse"])
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=f"Modification du profil de {obj.prenom} {obj.nom}",
+                    action=f"Modification du profil de {obj.prenom} {obj.nom}"
+                           + (" (administrateur)" if obj.is_superuser else ""),
                 )
             messages.success(request, _("Profil enregistré."))
+            if retour_tenant and request.user.is_superuser and obj.societe_id:
+                return redirect("utilisateurs:tenant_detail", pk=obj.societe_id)
             return redirect("utilisateurs:utilisateur_profil", pk=obj.pk)
         messages.error(request, _("Le formulaire contient des erreurs."))
     else:
@@ -83,4 +90,5 @@ def utilisateur_modifier(request, pk):
         "utilisateur": utilisateur,
         "form": form,
         "form_adresse": form_adresse,
+        "retour_tenant": retour_tenant,
     })

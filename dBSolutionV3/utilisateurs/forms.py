@@ -544,6 +544,16 @@ class UtilisateurProfilForm(forms.ModelForm):
         if editeur is not None and self.instance.pk == editeur.pk and not editeur.is_superuser:
             self.fields["role"].disabled = True
             self.fields["is_active"].disabled = True
+        # Droits d'administration (superutilisateur) : modifiables par un superutilisateur seulement,
+        # jamais sur son propre compte (pour ne pas se retirer l'accès par erreur)
+        if editeur is not None and editeur.is_superuser:
+            self.fields["droits_admin"] = forms.BooleanField(
+                label=_("Droits d'administration (superutilisateur)"),
+                required=False,
+                initial=self.instance.is_superuser,
+                disabled=self.instance.pk == editeur.pk,
+                help_text=_("Administrateur du tenant : accès à toutes les fonctions et à l'administration."),
+            )
 
     def clean(self):
         cleaned = super().clean()
@@ -556,6 +566,17 @@ class UtilisateurProfilForm(forms.ModelForm):
 
     def clean_email_entreprise(self):
         return self.cleaned_data.get("email_entreprise") or None
+
+    def save(self, commit=True):
+        obj = super().save(commit=False)
+        if "droits_admin" in self.fields and not self.fields["droits_admin"].disabled:
+            obj.is_superuser = bool(self.cleaned_data.get("droits_admin"))
+            if obj.is_superuser:
+                obj.is_staff = True
+        if commit:
+            obj.save()
+            self._save_m2m()
+        return obj
 
 
 class AdresseUtilisateurForm(forms.ModelForm):
