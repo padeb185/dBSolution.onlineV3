@@ -1147,23 +1147,35 @@ def rapport_voitures(request):
         messages.error(request, _("Accès refusé"))
         return redirect("utilisateurs:dashboard")
     from .models import TypeUtilisation
-    from .rapport import _annees_factures, rapport_clients, rapport_societe
+    from societe.modules import ModulesActifs
+    from .rapport import (_annees_factures, _annees_locations, rapport_bilan, rapport_clients,
+                          rapport_locations, rapport_societe)
 
-    onglet = request.GET.get("onglet") if request.GET.get("onglet") in ("societe", "clients") else "societe"
     societe = request.user.societe
-    contexte = {"onglet": onglet}
+    onglets = ["societe", "bilan", "clients"] + (["locations"] if "location" in ModulesActifs(societe) else [])
+    onglet = request.GET.get("onglet") if request.GET.get("onglet") in onglets else "societe"
+    contexte = {"onglet": onglet, "onglets": onglets}
 
-    if onglet == "societe":
-        qs = (_finance_queryset(request).filter(type_utilisation=TypeUtilisation.SOCIETE)
-              .order_by("voiture_marque__nom_marque", "voiture_modele__nom_modele", "immatriculation"))
-        contexte["rapport"] = rapport_societe(qs)
-    else:
-        annees = _annees_factures(societe)
+    def annee_demandee():
         try:
-            annee = int(request.GET.get("annee")) if request.GET.get("annee") else None
+            return int(request.GET.get("annee")) if request.GET.get("annee") else None
         except ValueError:
-            annee = None
-        contexte.update({"annees": annees, "annee": annee, "rapport": rapport_clients(societe, annee)})
+            return None
+
+    flotte = (_finance_queryset(request).filter(type_utilisation=TypeUtilisation.SOCIETE)
+              .order_by("voiture_marque__nom_marque", "voiture_modele__nom_modele", "immatriculation"))
+    if onglet == "societe":
+        contexte["rapport"] = rapport_societe(flotte)
+    elif onglet == "bilan":
+        contexte["rapport"] = rapport_bilan(flotte, request.GET.get("vehicule") or None)
+    elif onglet == "clients":
+        annee = annee_demandee()
+        contexte.update({"annees": _annees_factures(societe), "annee": annee,
+                         "rapport": rapport_clients(societe, annee)})
+    else:
+        annee = annee_demandee()
+        contexte.update({"annees": _annees_locations(societe), "annee": annee,
+                         "rapport": rapport_locations(societe, annee)})
 
     contexte["graphiques_json"] = list(contexte["rapport"]["graphiques"].values())
     return render(request, "voiture_exemplaire/rapport/rapport.html", contexte)

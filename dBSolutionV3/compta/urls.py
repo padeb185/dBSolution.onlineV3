@@ -29,6 +29,7 @@ urlpatterns = [
     path("journal/", vim.journal_general, name="journal_general"),
     path("bilan/", vb.bilan, name="bilan"),
     path("bilan/pdf/", vb.bilan_pdf, name="bilan_pdf"),
+    path("creances-clients/", vb.creances_clients, name="creances_clients"),
     path("bilan/dernier/", vb.references_liste, name="references_liste"),
     path("bilan/dernier/ajouter/", vb.reference_ajouter, name="reference_ajouter"),
     path("bilan/dernier/<uuid:pk>/modifier/", vb.reference_modifier, name="reference_modifier"),

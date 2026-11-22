@@ -18,6 +18,7 @@ ZERO = Decimal("0.00")
 SOURCES = OrderedDict([
     ("vente", gettext_lazy("Ventes")),
     ("encaissement", gettext_lazy("Encaissements")),
+    ("a_facturer", gettext_lazy("Locations à facturer (produits à recevoir)")),
     ("achat", gettext_lazy("Achats")),
     ("energie", gettext_lazy("Carburants, recharges électriques et AdBlue")),
     ("entretien_externe", gettext_lazy("Maintenances et carrosserie externes")),
@@ -134,6 +135,15 @@ def ecritures_societe(societe, debut=None, fin=None, sources=None):
                     E.append(_norm(l, "encaissement", p.piece, journal, p.date))
     except Exception:
         pass
+
+    # ---- Locations réalisées pas encore facturées : produits à recevoir (404000) et extourne à la facture
+    if "a_facturer" in sources:
+        try:
+            from .locations_a_facturer import ecritures as ecritures_a_facturer
+            for l in ecritures_a_facturer(societe, debut, fin):
+                E.append(_norm(l, "a_facturer", l["piece"], l["journal"], l["date"]))
+        except Exception:
+            pass
 
     # ---- Ventes de véhicules de la flotte (facture VH…, encaissement ; la cession est passée par l'immobilisation)
     if sources & {"vente", "encaissement"}:

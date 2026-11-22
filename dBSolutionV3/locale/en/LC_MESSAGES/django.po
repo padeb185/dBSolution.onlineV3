@@ -83330,3 +83330,221 @@ msgstr "Labour margin"
 
 msgid "Chiffre d'affaires par véhicule"
 msgstr "Revenue by vehicle"
+
+msgid "Coûts de la flotte · Véhicules clients · Locations"
+msgstr "Fleet costs · Customer vehicles · Rentals"
+
+msgid ""
+"Prix des locations HTVA, options comprises (box, instructeur, deuxième "
+"pilote, carburant, km supplémentaires)."
+msgstr ""
+"Rental prices excl. VAT, options included (box, instructor, second driver, "
+"fuel, extra km)."
+
+msgid "dont options"
+msgstr "of which options"
+
+msgid "Jours loués"
+msgstr "Days rented"
+
+msgid "jour"
+msgstr "day"
+
+msgid "Moyenne par location"
+msgstr "Average per rental"
+
+msgid "Reste à payer (TVAC)"
+msgstr "Outstanding (incl. VAT)"
+
+msgid "Options"
+msgstr "Options"
+
+msgid "€ / jour"
+msgstr "€ / day"
+
+msgid "Aucune location sur cette période."
+msgstr "No rentals in this period."
+
+msgid "Le reste à payer est TVAC ; les autres montants sont HTVA."
+msgstr "The outstanding amount includes VAT; other amounts exclude VAT."
+
+msgid "Location du véhicule"
+msgstr "Vehicle rental"
+
+msgid "Chiffre d'affaires des locations par composante"
+msgstr "Rental revenue by component"
+
+msgid "Chiffre d'affaires des locations par véhicule"
+msgstr "Rental revenue by vehicle"
+
+msgid "Chiffre d'affaires par circuit ou route"
+msgstr "Revenue by track or road"
+
+msgid "Facture brouillon"
+msgstr "Draft invoice"
+
+msgid "Location du %(date)s"
+msgstr "Rental of %(date)s"
+
+msgid "(filtré sur _MAX_ véhicules)"
+msgstr "(filtered from _MAX_ vehicles)"
+
+msgid "Coûts et gains"
+msgstr "Costs and gains"
+
+msgid "Toute la flotte"
+msgstr "Whole fleet"
+
+msgid ""
+"Depuis l'achat, montants HTVA. Les locations et la valeur de revente sont des"
+" gains."
+msgstr ""
+"Since purchase, amounts excl. VAT. Rentals and resale value count as gains."
+
+msgid "Total des coûts"
+msgstr "Total costs"
+
+msgid "Total des gains"
+msgstr "Total gains"
+
+msgid "Coût au km"
+msgstr "Cost per km"
+
+msgid "Résultat au km"
+msgstr "Result per km"
+
+msgid "Gains"
+msgstr "Gains"
+
+msgid "Aucun coût enregistré."
+msgstr "No costs recorded."
+
+msgid "Aucun gain enregistré."
+msgstr "No gains recorded."
+
+msgid "Perte"
+msgstr "Loss"
+
+msgid "Bénéfice"
+msgstr "Profit"
+
+msgid "Coûts et gains par véhicule"
+msgstr "Costs and gains by vehicle"
+
+msgid "Cliquez sur un véhicule pour voir le détail de ses coûts et gains."
+msgstr "Click a vehicle to see the breakdown of its costs and gains."
+
+msgid "Loyers de leasing / renting"
+msgstr "Leasing / renting payments"
+
+msgid "Intérêts du crédit"
+msgstr "Loan interest"
+
+msgid "Atelier interne (pièces et main-d'œuvre)"
+msgstr "In-house workshop (parts and labour)"
+
+msgid "Carrosserie (reste à charge après assurance)"
+msgstr "Bodywork (net of insurance)"
+
+msgid "Locations (HTVA)"
+msgstr "Rentals (excl. VAT)"
+
+msgid "Tous les coûts, poste par poste"
+msgstr "All costs, item by item"
+
+msgid "Coûts par catégorie"
+msgstr "Costs by category"
+
+msgid "Locations à facturer (produits à recevoir)"
+msgstr "Rentals to invoice (accrued income)"
+
+msgid "Produits à recevoir – factures à établir"
+msgstr "Accrued income – invoices to be issued"
+
+msgid "Location à facturer"
+msgstr "Rental to invoice"
+
+msgid "Extourne – facture émise"
+msgstr "Reversal – invoice issued"
+
+msgid "Créances clients"
+msgstr "Customer receivables"
+
+msgid "Non échu"
+msgstr "Not yet due"
+
+msgid "1 à 30 jours"
+msgstr "1 to 30 days"
+
+msgid ""
+"Situation au %(date)s : factures émises non payées (TVAC), classées selon le "
+"retard par rapport à l'échéance (ou à la date de la facture), et locations "
+"réalisées pas encore facturées."
+msgstr ""
+"Situation at %(date)s: unpaid issued invoices (incl. VAT), sorted by delay "
+"from the due date (or the invoice date), and completed rentals not yet "
+"invoiced."
+
+msgid "Créances clients (TVAC)"
+msgstr "Customer receivables (incl. VAT)"
+
+msgid "clients"
+msgstr "customers"
+
+msgid "Dont échues"
+msgstr "Of which overdue"
+
+msgid "Locations à facturer (HTVA)"
+msgstr "Rentals to invoice (excl. VAT)"
+
+msgid "locations"
+msgstr "rentals"
+
+msgid "Factures non payées par client et par ancienneté"
+msgstr "Unpaid invoices by customer and age"
+
+msgid "échéance"
+msgstr "due"
+
+msgid ""
+"Cliquez sur un client pour voir ses factures. Compte 400000 Clients (créances"
+" commerciales au bilan)."
+msgstr ""
+"Click a customer to see their invoices. Account 400000 Customers (trade "
+"receivables on the balance sheet)."
+
+msgid "Aucune facture client en attente de paiement."
+msgstr "No customer invoice awaiting payment."
+
+msgid "Locations réalisées pas encore facturées"
+msgstr "Completed rentals not yet invoiced"
+
+msgid ""
+"Comptabilisées en produits à recevoir (404000 au débit, 700300 au crédit, "
+"HTVA) à la fin de la location ; l'écriture est extournée à l'émission de la "
+"facture."
+msgstr ""
+"Recorded as accrued income (404000 debit, 700300 credit, excl. VAT) at the "
+"end of the rental; the entry is reversed when the invoice is issued."
+
+msgid "Fin de la location"
+msgstr "End of rental"
+
+msgid "Depuis"
+msgstr "Since"
+
+msgid "Toutes les locations réalisées sont facturées."
+msgstr "All completed rentals are invoiced."
+
+msgid "Factures non payées par ancienneté · Locations à facturer"
+msgstr "Unpaid invoices by age · Rentals to invoice"
+
+msgid "%(n)s jour de retard"
+msgid_plural "%(n)s jours de retard"
+msgstr[0] "%(n)s day overdue"
+msgstr[1] "%(n)s days overdue"
+
+msgid "%(n)s jour"
+msgid_plural "%(n)s jours"
+msgstr[0] "%(n)s day"
+msgstr[1] "%(n)s days"

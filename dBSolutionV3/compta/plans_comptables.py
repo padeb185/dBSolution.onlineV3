@@ -46,6 +46,7 @@ SKR03 = {
     "340000": ("3980", "Bestand Waren"),
     # Classe 4 – créances et dettes à un an au plus
     "400000": ("1400", "Forderungen aus Lieferungen und Leistungen"),
+    "404000": ("1405", "Forderungen aus noch nicht abgerechneten Leistungen"),
     "411000": ("1576", "Abziehbare Vorsteuer 19 %"),
     "416000": ("1500", "Sonstige Vermögensgegenstände"),
     "416100": ("1500", "Sonstige Vermögensgegenstände"),

@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load i18n static l10n %}
+{% block title %}{% trans "Créances clients" %}{% endblock %}
+{% block content %}
+<div class="p-6 max-w-7xl mx-auto">
+{% trans "Créances clients" as titre %}
+{% include "compta/immo/_nav.html" with icone="icons/bilan.png" %}
+
+<p class="text-gray-600 mb-4">{% blocktrans with date=c.aujourdhui|date:"d/m/Y" %}Situation au {{ date }} : factures émises non payées (TVAC), classées selon le retard par rapport à l'échéance (ou à la date de la facture), et locations réalisées pas encore facturées.{% endblocktrans %}</p>
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+    <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Créances clients (TVAC)" %}</p><p class="text-2xl font-bold">{{ c.total|floatformat:"2g" }} €</p><p class="text-xs text-gray-500">{{ c.nb_factures }} {% trans "factures" %} · {{ c.clients|length }} {% trans "clients" %}</p></div>
+    <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Dont échues" %}</p><p class="text-2xl font-bold {% if c.echu > 0 %}text-orange-600{% endif %}">{{ c.echu|floatformat:"2g" }} €</p></div>
+    <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Plus de 90 jours" %}</p><p class="text-2xl font-bold {% if c.totaux.plus90 > 0 %}text-red-700{% endif %}">{{ c.totaux.plus90|floatformat:"2g" }} €</p></div>
+    <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Locations à facturer (HTVA)" %}</p><p class="text-2xl font-bold {% if total_locations > 0 %}text-purple-700{% endif %}">{{ total_locations|floatformat:"2g" }} €</p><p class="text-xs text-gray-500">{{ locations|length }} {% trans "locations" %} · 404000</p></div>
+</div>
+
+<!-- Balance âgée -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Factures non payées par client et par ancienneté" %}</h2>
+    {% if c.clients %}
+    <table id="table-creances" class="min-w-full table-auto border-collapse border border-gray-200 text-sm stripe">
+        <thead><tr class="bg-gray-100">
+            <th class="border px-3 py-2 text-left">{% trans "Client" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Factures" %}</th>
+            {% for k, libelle in c.tranches.items %}<th class="border px-3 py-2 text-right">{{ libelle }}</th>{% endfor %}
+            <th class="border px-3 py-2 text-right">{% trans "Total" %}</th>
+        </tr></thead>
+        <tbody>
+        {% for cl in c.clients %}
+        <tr class="align-top">
+            <td class="border px-3 py-2" data-order="{{ cl.nom }}">
+                <details>
+                    <summary class="cursor-pointer font-semibold text-blue-700 hover:underline">{{ cl.nom }}</summary>
+                    <ul class="mt-2 space-y-1">
+                        {% for l in cl.factures %}
+                        <li><a href="{% url 'facture:detail' l.facture.pk %}" class="flex flex-wrap justify-between gap-3 px-2 py-1 rounded hover:bg-blue-50">
+                            <span><span class="text-blue-700 font-semibold">{{ l.facture.numero }}</span>
+                                <span class="text-gray-500 text-xs">{{ l.facture.issue_date|date:"d/m/Y" }} · {% trans "échéance" %} {{ l.echeance|date:"d/m/Y" }}{% if l.facture.voiture_exemplaire %} · {{ l.facture.voiture_exemplaire.immatriculation }}{% endif %}</span></span>
+                            <span class="tabular-nums {% if l.retard > 90 %}text-red-700{% elif l.retard > 0 %}text-orange-600{% endif %}">{{ l.reste|floatformat:"2g" }} €{% if l.retard > 0 %} · {% blocktrans count n=l.retard %}{{ n }} jour de retard{% plural %}{{ n }} jours de retard{% endblocktrans %}{% endif %}</span>
+                        </a></li>
+                        {% endfor %}
+                    </ul>
+                </details>
+            </td>
+            <td class="border px-3 py-2 text-right tabular-nums" data-order="{{ cl.nb }}">{{ cl.nb }}</td>
+            {% for k, montant in cl.tranches.items %}
+            <td class="border px-3 py-2 text-right tabular-nums {% if montant and k == 'plus90' %}text-red-700{% elif montant and k != 'non_echu' %}text-orange-600{% endif %}" data-order="{{ montant|unlocalize }}">{% if montant %}{{ montant|floatformat:"2g" }}{% else %}<span class="text-gray-300">—</span>{% endif %}</td>
+            {% endfor %}
+            <td class="border px-3 py-2 text-right tabular-nums font-semibold" data-order="{{ cl.total|unlocalize }}">{{ cl.total|floatformat:"2g" }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot><tr class="bg-gray-100 font-semibold">
+            <td class="border px-3 py-2">{% trans "Total" %}</td>
+            <td class="border px-3 py-2 text-right tabular-nums">{{ c.nb_factures }}</td>
+            {% for k, montant in c.totaux.items %}<td class="border px-3 py-2 text-right tabular-nums">{{ montant|floatformat:"2g" }}</td>{% endfor %}
+            <td class="border px-3 py-2 text-right tabular-nums">{{ c.total|floatformat:"2g" }}</td>
+        </tr></tfoot>
+    </table>
+    <p class="text-gray-500 text-xs mt-2">{% trans "Cliquez sur un client pour voir ses factures. Compte 400000 Clients (créances commerciales au bilan)." %}</p>
+    {% else %}
+    <p class="text-gray-500">{% trans "Aucune facture client en attente de paiement." %}</p>
+    {% endif %}
+</div>
+
+<!-- Locations à facturer -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-1">{% trans "Locations réalisées pas encore facturées" %}</h2>
+    <p class="text-gray-600 text-sm mb-4">{% trans "Comptabilisées en produits à recevoir (404000 au débit, 700300 au crédit, HTVA) à la fin de la location ; l'écriture est extournée à l'émission de la facture." %}</p>
+    {% if locations %}
+    <table id="table-locations" class="min-w-full table-auto border-collapse border border-gray-200 text-sm stripe">
+        <thead><tr class="bg-gray-100">
+            <th class="border px-3 py-2 text-left">{% trans "Fin de la location" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Véhicule" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Client" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Lieu" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "HTVA" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "TVAC" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Depuis" %}</th>
+        </tr></thead>
+        <tbody>
+        {% for l in locations %}
+        <tr class="hover:bg-blue-50">
+            <td class="border px-3 py-2" data-order="{{ l.date|date:'Y-m-d' }}"><a href="{% url 'voiture_location:location_detail' l.location.pk %}" class="text-blue-700 hover:underline">{{ l.date|date:"d/m/Y" }}</a></td>
+            <td class="border px-3 py-2" data-order="{{ l.location.voiture_exemplaire.immatriculation }}">{% if l.location.voiture_exemplaire.immatriculation %}{% include "maintenance/partials/plaque.html" with exemplaire=l.location.voiture_exemplaire taille="petite" %}{% else %}—{% endif %}</td>
+            <td class="border px-3 py-2">{{ l.location.nom_locataire|default:"—" }}</td>
+            <td class="border px-3 py-2">{{ l.location.lieu|default:"—" }}</td>
+            <td class="border px-3 py-2 text-right tabular-nums" data-order="{{ l.montant_htva|unlocalize }}">{{ l.montant_htva|floatformat:"2g" }}</td>
+            <td class="border px-3 py-2 text-right tabular-nums" data-order="{{ l.montant_tvac|unlocalize }}">{{ l.montant_tvac|floatformat:"2g" }}</td>
+            <td class="border px-3 py-2 text-right tabular-nums {% if l.jours > 30 %}text-red-700{% elif l.jours > 7 %}text-orange-600{% endif %}" data-order="{{ l.jours }}">{% blocktrans count n=l.jours %}{{ n }} jour{% plural %}{{ n }} jours{% endblocktrans %}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot><tr class="bg-gray-100 font-semibold">
+            <td class="border px-3 py-2" colspan="4">{% trans "Total" %}</td>
+            <td class="border px-3 py-2 text-right tabular-nums">{{ total_locations|floatformat:"2g" }}</td>
+            <td class="border px-3 py-2 text-right tabular-nums">{{ total_locations_tvac|floatformat:"2g" }}</td>
+            <td class="border px-3 py-2"></td>
+        </tr></tfoot>
+    </table>
+    {% else %}
+    <p class="text-gray-500">{% trans "Toutes les locations réalisées sont facturées." %}</p>
+    {% endif %}
+</div>
+</div>
+
+<script>
+$(function () {
+    var langue = {
+        search: "{% trans 'Recherche globale :' as t1 %}{{ t1|escapejs }}",
+        lengthMenu: "{% trans 'Afficher _MENU_ éléments' as t2 %}{{ t2|escapejs }}",
+        info: "", infoEmpty: "", zeroRecords: "{% trans 'Aucun élément enregistré.' as t3 %}{{ t3|escapejs }}",
+        paginate: {next: "{% trans 'Suivant' as t4 %}{{ t4|escapejs }}", previous: "{% trans 'Précédent' as t5 %}{{ t5|escapejs }}"}
+    };
+    if ($("#table-creances").length) $("#table-creances").DataTable({language: langue, order: [[7, "desc"]], pageLength: 25, autoWidth: false});
+    if ($("#table-locations").length) $("#table-locations").DataTable({language: langue, order: [[0, "asc"]], pageLength: 25, autoWidth: false});
+});
+</script>
+{% endblock %}

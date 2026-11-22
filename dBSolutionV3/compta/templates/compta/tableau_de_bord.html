@@ -133,6 +133,10 @@
                 <img src="{% static 'icons/bilan.png' %}" alt="" class="w-10 h-10">
                 <span>{% trans "Comptes annuels : bilan et compte de résultats" %}<span class="block text-xs font-normal text-gray-500">{% trans "Schéma BNB (normes belges) – exercice N et N-1, PDF" %}</span></span>
             </a>
+            <a href="{% url 'compta:creances_clients' %}" class="flex items-center gap-3 bg-gray-100 px-4 py-3 rounded hover:bg-blue-50 font-semibold">
+                <img src="{% static 'icons/bilan.png' %}" alt="" class="w-10 h-10">
+                <span>{% trans "Créances clients" %}<span class="block text-xs font-normal text-gray-500">{% trans "Factures non payées par ancienneté · Locations à facturer" %}</span></span>
+            </a>
             <a href="{% url 'compta:od_liste' %}" class="flex items-center gap-3 bg-gray-100 px-4 py-3 rounded hover:bg-blue-50 font-semibold">
                 <img src="{% static 'icons/comptabilite.png' %}" alt="" class="w-10 h-10">
                 <span>{% trans "Opérations diverses" %}<span class="block text-xs font-normal text-gray-500">{% trans "Bilan d'ouverture, capital, emprunts, régularisations" %}</span></span>

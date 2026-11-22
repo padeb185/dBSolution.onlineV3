@@ -83820,3 +83820,223 @@ msgstr "Marge Arbeitszeit"
 
 msgid "Chiffre d'affaires par véhicule"
 msgstr "Umsatz pro Fahrzeug"
+
+msgid "Coûts de la flotte · Véhicules clients · Locations"
+msgstr "Flottenkosten · Kundenfahrzeuge · Vermietungen"
+
+msgid ""
+"Prix des locations HTVA, options comprises (box, instructeur, deuxième "
+"pilote, carburant, km supplémentaires)."
+msgstr ""
+"Mietpreise ohne MwSt., inklusive Optionen (Box, Instruktor, zweiter Fahrer, "
+"Kraftstoff, Mehrkilometer)."
+
+msgid "dont options"
+msgstr "davon Optionen"
+
+msgid "Jours loués"
+msgstr "Vermietete Tage"
+
+msgid "jour"
+msgstr "Tag"
+
+msgid "Moyenne par location"
+msgstr "Durchschnitt pro Vermietung"
+
+msgid "Reste à payer (TVAC)"
+msgstr "Offener Betrag (inkl. MwSt.)"
+
+msgid "Options"
+msgstr "Optionen"
+
+msgid "€ / jour"
+msgstr "€ / Tag"
+
+msgid "Aucune location sur cette période."
+msgstr "Keine Vermietungen in diesem Zeitraum."
+
+msgid "Le reste à payer est TVAC ; les autres montants sont HTVA."
+msgstr "Der offene Betrag ist inkl. MwSt.; die übrigen Beträge sind ohne MwSt."
+
+msgid "Location du véhicule"
+msgstr "Fahrzeugmiete"
+
+msgid "Chiffre d'affaires des locations par composante"
+msgstr "Mietumsatz nach Bestandteil"
+
+msgid "Chiffre d'affaires des locations par véhicule"
+msgstr "Mietumsatz pro Fahrzeug"
+
+msgid "Chiffre d'affaires par circuit ou route"
+msgstr "Umsatz nach Rennstrecke oder Straße"
+
+msgid "Facture brouillon"
+msgstr "Rechnungsentwurf"
+
+msgid "Location du %(date)s"
+msgstr "Vermietung vom %(date)s"
+
+msgid "(filtré sur _MAX_ véhicules)"
+msgstr "(gefiltert aus _MAX_ Fahrzeugen)"
+
+msgid "Coûts et gains"
+msgstr "Kosten und Erträge"
+
+msgid "Toute la flotte"
+msgstr "Gesamte Flotte"
+
+msgid ""
+"Depuis l'achat, montants HTVA. Les locations et la valeur de revente sont des"
+" gains."
+msgstr ""
+"Seit dem Kauf, Beträge ohne MwSt. Vermietungen und Wiederverkaufswert sind "
+"Erträge."
+
+msgid "Total des coûts"
+msgstr "Gesamtkosten"
+
+msgid "Total des gains"
+msgstr "Gesamterträge"
+
+msgid "Coût au km"
+msgstr "Kosten pro km"
+
+msgid "Résultat au km"
+msgstr "Ergebnis pro km"
+
+msgid "Gains"
+msgstr "Erträge"
+
+msgid "Aucun coût enregistré."
+msgstr "Keine Kosten erfasst."
+
+msgid "Aucun gain enregistré."
+msgstr "Keine Erträge erfasst."
+
+msgid "Perte"
+msgstr "Verlust"
+
+msgid "Bénéfice"
+msgstr "Gewinn"
+
+msgid "Coûts et gains par véhicule"
+msgstr "Kosten und Erträge pro Fahrzeug"
+
+msgid "Cliquez sur un véhicule pour voir le détail de ses coûts et gains."
+msgstr ""
+"Klicken Sie auf ein Fahrzeug, um seine Kosten und Erträge im Detail zu sehen."
+
+msgid "Loyers de leasing / renting"
+msgstr "Leasing-/Mietraten"
+
+msgid "Intérêts du crédit"
+msgstr "Kreditzinsen"
+
+msgid "Atelier interne (pièces et main-d'œuvre)"
+msgstr "Eigene Werkstatt (Teile und Arbeitszeit)"
+
+msgid "Carrosserie (reste à charge après assurance)"
+msgstr "Karosserie (Eigenanteil nach Versicherung)"
+
+msgid "Locations (HTVA)"
+msgstr "Vermietungen (ohne MwSt.)"
+
+msgid "Tous les coûts, poste par poste"
+msgstr "Alle Kosten, Posten für Posten"
+
+msgid "Coûts par catégorie"
+msgstr "Kosten nach Kategorie"
+
+msgid "Locations à facturer (produits à recevoir)"
+msgstr "Abzurechnende Vermietungen (noch nicht abgerechnete Leistungen)"
+
+msgid "Produits à recevoir – factures à établir"
+msgstr "Noch nicht abgerechnete Leistungen"
+
+msgid "Location à facturer"
+msgstr "Abzurechnende Vermietung"
+
+msgid "Extourne – facture émise"
+msgstr "Storno – Rechnung ausgestellt"
+
+msgid "Créances clients"
+msgstr "Kundenforderungen"
+
+msgid "Non échu"
+msgstr "Nicht fällig"
+
+msgid "1 à 30 jours"
+msgstr "1 bis 30 Tage"
+
+msgid ""
+"Situation au %(date)s : factures émises non payées (TVAC), classées selon le "
+"retard par rapport à l'échéance (ou à la date de la facture), et locations "
+"réalisées pas encore facturées."
+msgstr ""
+"Stand am %(date)s: ausgestellte unbezahlte Rechnungen (inkl. MwSt.), nach "
+"Verzug ab Fälligkeit (oder Rechnungsdatum) geordnet, und durchgeführte, noch "
+"nicht abgerechnete Vermietungen."
+
+msgid "Créances clients (TVAC)"
+msgstr "Kundenforderungen (inkl. MwSt.)"
+
+msgid "clients"
+msgstr "Kunden"
+
+msgid "Dont échues"
+msgstr "Davon fällig"
+
+msgid "Locations à facturer (HTVA)"
+msgstr "Abzurechnende Vermietungen (ohne MwSt.)"
+
+msgid "locations"
+msgstr "Vermietungen"
+
+msgid "Factures non payées par client et par ancienneté"
+msgstr "Unbezahlte Rechnungen nach Kunde und Alter"
+
+msgid "échéance"
+msgstr "fällig"
+
+msgid ""
+"Cliquez sur un client pour voir ses factures. Compte 400000 Clients (créances"
+" commerciales au bilan)."
+msgstr ""
+"Klicken Sie auf einen Kunden, um seine Rechnungen zu sehen. Konto 400000 "
+"Kunden (Forderungen aus L. u. L. in der Bilanz)."
+
+msgid "Aucune facture client en attente de paiement."
+msgstr "Keine offene Kundenrechnung."
+
+msgid "Locations réalisées pas encore facturées"
+msgstr "Durchgeführte, noch nicht abgerechnete Vermietungen"
+
+msgid ""
+"Comptabilisées en produits à recevoir (404000 au débit, 700300 au crédit, "
+"HTVA) à la fin de la location ; l'écriture est extournée à l'émission de la "
+"facture."
+msgstr ""
+"Am Mietende als noch nicht abgerechnete Leistung gebucht (404000 Soll, 700300"
+" Haben, ohne MwSt.); die Buchung wird bei Rechnungsstellung storniert."
+
+msgid "Fin de la location"
+msgstr "Mietende"
+
+msgid "Depuis"
+msgstr "Seit"
+
+msgid "Toutes les locations réalisées sont facturées."
+msgstr "Alle durchgeführten Vermietungen sind abgerechnet."
+
+msgid "Factures non payées par ancienneté · Locations à facturer"
+msgstr "Unbezahlte Rechnungen nach Alter · Abzurechnende Vermietungen"
+
+msgid "%(n)s jour de retard"
+msgid_plural "%(n)s jours de retard"
+msgstr[0] "%(n)s Tag Verzug"
+msgstr[1] "%(n)s Tage Verzug"
+
+msgid "%(n)s jour"
+msgid_plural "%(n)s jours"
+msgstr[0] "%(n)s Tag"
+msgstr[1] "%(n)s Tage"

@@ -175,3 +175,225 @@ def rapport_clients(societe, annee=None):
                      "main_oeuvre": [float(m["main_oeuvre"]) for m in mois.values()],
                      "autres": [float(m["autres"]) for m in mois.values()]}
     return {"lignes": lignes, "totaux": totaux, "nb": len(lignes), "graphiques": graphiques, "evolution": evolution}
+
+
+# ------------------------------------------------------------------ locations
+def _annees_locations(societe):
+    from voiture.voiture_location.models import Location
+    return sorted({d.year for d in Location.objects.filter(societe=societe).values_list("date_debut", flat=True) if d},
+                  reverse=True)
+
+
+def rapport_locations(societe, annee=None):
+    """
+    Locations de véhicules : chiffre d'affaires HTVA (prix de la location, toutes options comprises),
+    ventilé par composante, par véhicule et par lieu (circuit ou route), avec jours loués, km et reste à payer.
+    """
+    from voiture.voiture_location.models import Location, prix_htva_depuis_tvac
+
+    qs = (Location.objects.filter(societe=societe)
+          .select_related("voiture_exemplaire__voiture_marque", "voiture_exemplaire__voiture_modele",
+                          "client", "societe_cliente", "client_pilotage__client_particulier", "instructeur",
+                          "societe")
+          .prefetch_related("boxes", "factures__lines"))
+    if annee:
+        qs = qs.filter(date_debut__year=annee)
+
+    composantes = OrderedDict([
+        ("vehicule", [_("Location du véhicule"), ZERO]), ("boxes", [_("Box en pit lane"), ZERO]),
+        ("instructeur", [_("Instructeur"), ZERO]), ("deuxieme_pilote", [_("Deuxième pilote"), ZERO]),
+        ("carburant", [_("Carburant inclus"), ZERO]), ("km_supp", [_("Kilomètres supplémentaires"), ZERO]),
+    ])
+    par_vehicule, par_lieu = OrderedDict(), OrderedDict()
+    mois = OrderedDict((m, ZERO) for m in range(1, 13))
+    nb = jours_total = km_total = 0
+    ca_total = reste_total = ZERO
+
+    for loc in qs:
+        taux = loc.taux_tva
+        htva = lambda tvac: prix_htva_depuis_tvac(tvac, taux)
+        parts = {
+            "vehicule": htva(loc.prix_vehicule_tvac), "boxes": htva(loc.total_boxes_tvac),
+            "instructeur": htva(loc.total_instructeur_tvac), "deuxieme_pilote": htva(loc.total_deuxieme_pilote_tvac),
+            "carburant": htva(loc.total_carburant_tvac), "km_supp": htva(loc.total_km_supplementaires_tvac),
+        }
+        ca = r2(loc.prix_htva)
+        jours = ((loc.date_fin - loc.date_debut).days + 1) if loc.date_fin and loc.date_fin >= loc.date_debut else 1
+        km = int(loc.kilometrage or 0)
+        reste = r2(loc.reste_a_payer)
+        nb += 1; jours_total += jours; km_total += km; ca_total += ca; reste_total += reste
+        for c, v in parts.items():
+            composantes[c][1] += v
+        if annee:
+            mois[loc.date_debut.month] += ca
+
+        ex = loc.voiture_exemplaire
+        v = par_vehicule.get(ex.pk) if ex else None
+        if ex and v is None:
+            v = par_vehicule[ex.pk] = {"ex": ex, "nom": _nom(ex), "immat": ex.immatriculation or "—",
+                                       "label": ex.immatriculation or _nom(ex), "nb": 0, "jours": 0, "km": 0,
+                                       "vehicule": ZERO, "options": ZERO, "total": ZERO, "reste": ZERO,
+                                       "circuit": 0, "route": 0, "a_payer": OrderedDict()}
+        if v is not None:
+            v["nb"] += 1; v["jours"] += jours; v["km"] += km
+            v["vehicule"] += parts["vehicule"]; v["options"] += ca - parts["vehicule"]
+            v["total"] += ca; v["reste"] += reste
+            v["circuit" if loc.type_location == "circuit" else "route"] += 1
+            if reste > 0:
+                _cibles_a_payer(v["a_payer"], loc, reste)
+
+        lieu = loc.lieu or loc.get_type_location_display()
+        par_lieu[lieu] = par_lieu.get(lieu, ZERO) + ca
+
+    lignes = []
+    for v in par_vehicule.values():
+        v["a_payer"] = list(v["a_payer"].values())
+        for c in ("vehicule", "options", "total", "reste"):
+            v[c] = r2(v[c])
+        v["par_jour"] = r2(v["total"] / v["jours"]) if v["jours"] else None
+        v["par_km"] = (v["total"] / v["km"]).quantize(Decimal("0.001")) if v["km"] else None
+        lignes.append(v)
+    lignes.sort(key=lambda l: l["total"], reverse=True)
+
+    ca_total = r2(ca_total)
+    totaux = {
+        "nb": nb, "jours": jours_total, "km": km_total, "total": ca_total, "reste": r2(reste_total),
+        "vehicule": r2(sum((l["vehicule"] for l in lignes), ZERO)),
+        "options": r2(sum((l["options"] for l in lignes), ZERO)),
+        "moyenne": r2(ca_total / nb) if nb else None,
+        "par_jour": r2(ca_total / jours_total) if jours_total else None,
+        "par_km": (ca_total / km_total).quantize(Decimal("0.001")) if km_total else None,
+    }
+    lieux = [{"label": l, "total": t} for l, t in par_lieu.items()]
+    graphiques = OrderedDict([
+        ("composantes", {"titre": _("Chiffre d'affaires des locations par composante"),
+                         "parts": _parts([(l, r2(v)) for l, v in composantes.values()])}),
+        ("vehicules", {"titre": _("Chiffre d'affaires des locations par véhicule"), "parts": _top(lignes, "total", "label")}),
+        ("lieux", {"titre": _("Chiffre d'affaires par circuit ou route"), "parts": _top(lieux, "total", "label")}),
+    ])
+    evolution = {"mois": list(mois.keys()), "locations": [float(x) for x in mois.values()]} if annee else None
+    return {"lignes": lignes, "totaux": totaux, "nb": len(lignes), "graphiques": graphiques, "evolution": evolution}
+
+
+def _cibles_a_payer(cibles, loc, reste):
+    """
+    Liens « reste à payer » d'une location : ses factures pas encore payées (principale et complémentaires
+    de kilomètres supplémentaires), sinon la location elle-même quand elle n'est pas encore facturée.
+    Une facture commune à plusieurs locations n'apparaît qu'une fois.
+    """
+    from django.urls import reverse
+
+    factures = [f for f in loc.factures.all() if f.statut_paiement != "PAYE" and f.type_document != "NOTE_CREDIT"]
+    for f in factures:
+        cle = f"f{f.pk}"
+        if cle not in cibles:
+            cibles[cle] = {"url": reverse("facture:detail", args=[f.pk]),
+                           "libelle": f.numero or _("Facture brouillon"),
+                           "detail": f.get_statut_paiement_display() if f.est_emise else _("Brouillon"),
+                           "montant": r2(f.reste_a_payer) if f.est_emise else r2(f.total)}
+    if not factures:
+        cibles[f"l{loc.pk}"] = {"url": reverse("voiture_location:location_detail", args=[loc.pk]),
+                                "libelle": _("Location du %(date)s") % {"date": loc.date_debut.strftime("%d/%m/%Y")},
+                                "detail": _("non facturée") if loc.facture is None else loc.statut_paiement_display,
+                                "montant": reste}
+
+
+# ------------------------------------------------------------------ coûts et gains (bilan)
+def _postes_vehicule(ex):
+    """
+    Tous les coûts (HTVA) et gains d'un véhicule depuis l'achat, poste par poste,
+    à partir des Données financières (rentabilite.py) :
+    coûts = acquisition + énergie + maintenances + coûts annuels ; gains = locations + valeur de revente.
+    """
+    from .models import CoutAnnuelVehicule as C
+
+    r = rentabilite(ex)
+    a, en, mt = r["acquisition"], r["energie"], r["maintenances"]
+    annuels = OrderedDict((t.value, ZERO) for t in C.Type)
+    for an in r["couts_annuels"]["annees"]:
+        for l in an["lignes"]:
+            annuels[l["type"]] = annuels.get(l["type"], ZERO) + l["montant"]
+
+    couts = OrderedDict([
+        ("acquisition", (_("Acquisition"), OrderedDict([
+            ("prix_achat", (_("Prix d'achat"), a.get("prix_achat", ZERO))),
+            ("loyers", (_("Loyers de leasing / renting"), a.get("loyers", ZERO))),
+            ("interets", (_("Intérêts du crédit"), a.get("interets", ZERO))),
+            ("taxe_mise_en_circulation", (_("Taxe de mise en circulation"), a.get("taxe_mise_en_circulation", ZERO))),
+            ("frais_achat", (_("Autres frais d'achat"), a.get("frais_achat", ZERO))),
+        ]))),
+        ("energie", (_("Énergie"), OrderedDict([
+            ("carburant", (_("Carburant"), en["carburant"]["ht"])),
+            ("carburant_estime", (_("Carburant non encodé (estimation)"), (en.get("carburant_estime") or {}).get("ht", ZERO))),
+            ("electricite", (_("Recharges électriques"), en["electricite"]["ht"])),
+            ("adblue", (_("AdBlue"), en["adblue"]["ht"])),
+        ]))),
+        ("maintenances", (_("Maintenances"), OrderedDict([
+            ("internes", (_("Atelier interne (pièces et main-d'œuvre)"), mt["total_internes"])),
+            ("externes", (_("Garages externes"), r2(mt["total_externes"] - mt["total_carrosseries"]))),
+            ("carrosseries", (_("Carrosserie (reste à charge après assurance)"), mt["total_carrosseries"])),
+        ]))),
+        ("annuels", (_("Coûts annuels"), OrderedDict(
+            (t, (C.Type(t).label, annuels.get(t, ZERO))) for t in annuels))),
+    ])
+    gains = OrderedDict([
+        ("locations", (_("Locations (HTVA)"), r["locations"]["htva"])),
+        ("revente", (_("Valeur de revente"), r["valeur_revente"])),
+    ])
+    return {"couts": couts, "gains": gains, "km": r["km"], "nb_locations": r["locations"]["nb"]}
+
+
+def rapport_bilan(qs, exemplaire_id=None):
+    """Bilan coûts / gains de toute la flotte ou d'un seul véhicule, et comparaison par véhicule."""
+    vehicules = list(qs)
+    selection = [v for v in vehicules if str(v.pk) == str(exemplaire_id)] if exemplaire_id else vehicules
+
+    couts, gains = OrderedDict(), OrderedDict()
+    par_vehicule, km = [], 0
+    for ex in selection:
+        p = _postes_vehicule(ex)
+        km += p["km"]
+        c_ex = g_ex = ZERO
+        for cle, (libelle, postes) in p["couts"].items():
+            bloc = couts.setdefault(cle, {"libelle": libelle, "postes": OrderedDict(), "total": ZERO})
+            for k, (lib, montant) in postes.items():
+                ligne = bloc["postes"].setdefault(k, {"libelle": lib, "montant": ZERO})
+                ligne["montant"] += montant
+                bloc["total"] += montant
+                c_ex += montant
+        for k, (lib, montant) in p["gains"].items():
+            ligne = gains.setdefault(k, {"libelle": lib, "montant": ZERO})
+            ligne["montant"] += montant
+            g_ex += montant
+        par_vehicule.append({"ex": ex, "label": ex.immatriculation or _nom(ex), "couts": r2(c_ex), "gains": r2(g_ex),
+                             "resultat": r2(g_ex - c_ex)})
+
+    # Postes à zéro masqués ; arrondis
+    for bloc in couts.values():
+        bloc["postes"] = [dict(l, montant=r2(l["montant"])) for l in bloc["postes"].values() if l["montant"]]
+        bloc["total"] = r2(bloc["total"])
+    blocs = [b for b in couts.values() if b["postes"]]
+    gains_l = [dict(l, montant=r2(l["montant"])) for l in gains.values() if l["montant"]]
+    total_couts = r2(sum((b["total"] for b in blocs), ZERO))
+    total_gains = r2(sum((l["montant"] for l in gains_l), ZERO))
+    resultat = r2(total_gains - total_couts)
+
+    detail = [(l["libelle"], l["montant"]) for b in blocs for l in b["postes"] if l["montant"] > 0]
+    graphiques = OrderedDict([
+        ("couts", {"titre": _("Tous les coûts, poste par poste"), "parts": _parts(detail)}),
+        ("blocs", {"titre": _("Coûts par catégorie"), "parts": _parts([(b["libelle"], b["total"]) for b in blocs])}),
+        ("gains", {"titre": _("Coûts et gains"), "parts": _parts([(_("Coûts"), total_couts)] +
+                                                                [(l["libelle"], l["montant"]) for l in gains_l])}),
+    ])
+    par_vehicule.sort(key=lambda v: v["resultat"])
+    return {
+        "vehicules": vehicules, "exemplaire_id": str(exemplaire_id or ""), "nb": len(selection),
+        "blocs": blocs, "gains": gains_l, "total_couts": total_couts, "total_gains": total_gains,
+        "resultat": resultat, "km": km,
+        "cout_km": (total_couts / km).quantize(Decimal("0.001")) if km else None,
+        "resultat_km": (resultat / km).quantize(Decimal("0.001")) if km else None,
+        "par_vehicule": par_vehicule, "graphiques": graphiques, "lignes": par_vehicule,
+        "comparaison": {"labels": [v["label"] for v in par_vehicule],
+                        "couts": [float(v["couts"]) for v in par_vehicule],
+                        "gains": [float(v["gains"]) for v in par_vehicule]} if len(selection) > 1 else None,
+    }

@@ -332,3 +332,26 @@ def reference_supprimer(request, pk):
     return render(request, "compta/immo/supprimer.html", {
         "titre": _("Supprimer le bilan de référence"), "objet": ref, "retour": "compta:references_liste",
     })
+
+
+# ==================================================================
+# CRÉANCES CLIENTS (factures non payées par ancienneté + locations à facturer)
+# ==================================================================
+@never_cache
+@login_required
+def creances_clients(request):
+    if not _autorise(request.user):
+        return _refus(request)
+    from .creances import creances_clients as calcul
+    from .locations_a_facturer import a_facturer
+
+    societe = request.user.societe
+    creances = calcul(societe)
+    locations = a_facturer(societe)
+    total_locations = sum((l["montant_htva"] for l in locations), Decimal("0.00"))
+    return render(request, "compta/creances_clients.html", {
+        "c": creances,
+        "locations": locations,
+        "total_locations": total_locations,
+        "total_locations_tvac": sum((l["montant_tvac"] for l in locations), Decimal("0.00")),
+    })

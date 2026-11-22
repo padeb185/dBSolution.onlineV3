@@ -26,6 +26,7 @@
     <div class="flex gap-2">
         <a href="{% url 'compta:od_ajouter' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">+ {% trans "Opération diverse" %}</a>
         <a href="{% url 'compta:journal_general' %}?annee={{ annee }}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Journal général" %}</a>
+        <a href="{% url 'compta:creances_clients' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Créances clients" %}</a>
         <a href="{% url 'compta:references_liste' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Dernier bilan (comptable)" %}</a>
         <a href="{% url 'compta:bilan_pdf' %}?annee={{ annee }}&schema={{ schema }}" target="_blank" class="bg-purple-700 hover:bg-purple-500 text-white px-4 py-2 rounded font-semibold">PDF</a>
     </div>
