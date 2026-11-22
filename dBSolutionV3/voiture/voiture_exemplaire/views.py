@@ -838,6 +838,9 @@ def finances_detail(request, exemplaire_id):
     from django.utils import timezone as _tz
 
     rent = rentabilite(exemplaire)
+    # Camemberts 3D (mêmes chiffres que le calcul de rentabilité ci-dessus)
+    from .rapport import graphiques_vehicule
+    graphiques_json = graphiques_vehicule(exemplaire, rent)
     # Maintenances : 10 par page, les plus récentes d'abord
     from django.core.paginator import Paginator
     page_mt = Paginator(rent["maintenances"]["lignes"], 10).get_page(request.GET.get("page_mt"))
@@ -848,6 +851,7 @@ def finances_detail(request, exemplaire_id):
     return render(request, "voiture_exemplaire/finances/detail.html", {
         "vente_active": vente_active,
         "rent": rent,
+        "graphiques_json": graphiques_json,
         "page_mt": page_mt,
         "form_cout": CoutAnnuelVehiculeForm(initial={"annee": _tz.localdate().year}),
         "entretiens": rent["maintenances"]["internes"],

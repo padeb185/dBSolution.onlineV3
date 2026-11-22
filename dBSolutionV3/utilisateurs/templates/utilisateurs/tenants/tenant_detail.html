@@ -96,7 +96,13 @@
     <!-- Utilisateurs -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
         <div class="flex justify-between items-center mb-4">
-            <h2 class="text-lg font-semibold">{% trans "Utilisateurs" %}</h2>
+            <div class="flex flex-wrap items-center gap-3">
+                <h2 id="utilisateurs" class="text-lg font-semibold scroll-mt-24">{% if filtre == "administrateurs" %}{% trans "Administrateurs" %}{% else %}{% trans "Utilisateurs" %}{% endif %}</h2>
+                <div class="flex text-sm rounded border overflow-hidden">
+                    <a href="{% url 'utilisateurs:tenant_detail' societe.pk %}#utilisateurs" class="px-3 py-1 {% if not filtre %}bg-blue-700 text-white{% else %}bg-white hover:bg-gray-100{% endif %}">{% trans "Tous" %}</a>
+                    <a href="{% url 'utilisateurs:tenant_detail' societe.pk %}?filtre=administrateurs#utilisateurs" class="px-3 py-1 border-l {% if filtre == 'administrateurs' %}bg-blue-700 text-white{% else %}bg-white hover:bg-gray-100{% endif %}">{% trans "Administrateurs" %}</a>
+                </div>
+            </div>
             {% if places_restantes %}
                 <div class="flex flex-wrap gap-2">
                     <a href="{% url 'utilisateurs:tenant_utilisateur_creer' societe.pk %}?admin=1"
@@ -130,15 +136,6 @@
                           <div class="flex flex-wrap justify-center gap-2">
                             <a href="{% url 'utilisateurs:utilisateur_modifier' u.pk %}?retour=tenant"
                                class="bg-gray-600 hover:bg-gray-500 text-white px-3 py-1 rounded text-sm">{% trans "Modifier" %}</a>
-                            {% if u.is_active and not u.is_superuser and u.role != "particulier" %}
-                            <form method="post" action="{% url 'utilisateurs:tenant_utilisateur_admin' societe.pk u.pk %}"
-                                  onsubmit="return confirm('{% trans "Nommer cet utilisateur administrateur (rôle Direction et droits d'administration) ?" as q %}{{ q|escapejs }}');">
-                                {% csrf_token %}
-                                <button type="submit" class="bg-blue-700 hover:bg-blue-500 text-white px-3 py-1 rounded text-sm">
-                                    {% trans "Nommer administrateur" %}
-                                </button>
-                            </form>
-                            {% endif %}
                             <form method="post" action="{% url 'utilisateurs:tenant_utilisateur_activer' societe.pk u.pk %}">
                                 {% csrf_token %}
                                 <button type="submit"
@@ -150,7 +147,7 @@
                         </td>
                     </tr>
                     {% empty %}
-                    <tr><td colspan="5" class="border px-3 py-2 text-gray-500">{% trans "Aucun utilisateur pour ce tenant." %}</td></tr>
+                    <tr><td colspan="5" class="border px-3 py-2 text-gray-500">{% if filtre == "administrateurs" %}{% trans "Aucun administrateur pour ce tenant." %}{% else %}{% trans "Aucun utilisateur pour ce tenant." %}{% endif %}</td></tr>
                     {% endfor %}
                 </tbody>
             </table>

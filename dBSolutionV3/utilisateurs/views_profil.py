@@ -78,8 +78,9 @@ def utilisateur_modifier(request, pk):
                            + (" (administrateur)" if obj.is_superuser else ""),
                 )
             messages.success(request, _("Profil enregistré."))
-            if retour_tenant and request.user.is_superuser and obj.societe_id:
-                return redirect("utilisateurs:tenant_detail", pk=obj.societe_id)
+            # societe_id contient l'identifiant UUID de la société (to_field), la fiche tenant attend sa clé primaire
+            if retour_tenant and request.user.is_superuser and obj.societe is not None:
+                return redirect("utilisateurs:tenant_detail", pk=obj.societe.pk)
             return redirect("utilisateurs:utilisateur_profil", pk=obj.pk)
         messages.error(request, _("Le formulaire contient des erreurs."))
     else:

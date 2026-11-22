@@ -11,32 +11,50 @@
     <!-- Cartes principales Admin -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
 
-        <!-- Total utilisateurs -->
-        <div class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <!-- Total utilisateurs : liste des utilisateurs du tenant -->
+        {% if tenant %}<a href="{% url 'utilisateurs:tenant_detail' tenant.pk %}#utilisateurs" title="{% trans 'Liste des utilisateurs du tenant' %}"{% else %}<div{% endif %}
+           class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
             <div>
                 <h2 class="text-lg font-semibold mb-2">{% trans "Total utilisateurs" %}</h2>
+                {% if tenant %}
+                <p class="text-gray-600 font-bold text-2xl">{{ tenant_utilisateurs }} <span class="text-base font-semibold {% if tenant_actifs >= max_utilisateurs %}text-red-600{% else %}text-gray-500{% endif %}">/ {{ max_utilisateurs }} max</span></p>
+                <p class="text-xs text-gray-500">{{ tenant.nom }} · {% blocktrans with n=tenant_actifs %}{{ n }} actifs{% endblocktrans %} · {% trans "toute la plateforme" %} : {{ total_utilisateurs }}</p>
+                {% else %}
                 <p class="text-gray-600 font-bold text-2xl">{{ total_utilisateurs }}</p>
+                {% endif %}
             </div>
-            <img src="{% static 'icons/equipe.png' %}" alt="Total utilisateurs" style="width:60px; height:60px; margin-right:10px;">
-        </div>
+            <img src="{% static 'icons/admin_utilisateurs_total.png' %}" alt="Total utilisateurs" style="width:60px; height:60px; margin-right:10px;">
+        {% if tenant %}</a>{% else %}</div>{% endif %}
 
-        <!-- Utilisateurs actifs -->
-        <div class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <!-- Utilisateurs actifs : liste des utilisateurs connectés (monitoring du tenant) -->
+        {% if tenant %}<a href="{% url 'monitoring:tenant' tenant.pk %}#utilisateurs" title="{% trans 'Utilisateurs connectés et dernière activité' %}"{% else %}<div{% endif %}
+           class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
             <div>
                 <h2 class="text-lg font-semibold mb-2">{% trans "Utilisateurs actifs" %}</h2>
+                {% if tenant and tenant_connectes is not None %}
+                <p class="text-gray-600 font-bold text-2xl">{{ tenant_connectes }} <span class="text-base font-semibold text-gray-500">/ {{ tenant_utilisateurs }}</span></p>
+                <p class="text-xs text-gray-500">{% trans "connectés / utilisateurs du tenant" %} · <span class="text-green-700 font-semibold">{% blocktrans with n=tenant_en_ligne %}{{ n }} en ligne{% endblocktrans %}</span></p>
+                {% else %}
                 <p class="text-gray-600 font-bold text-2xl">{{ utilisateurs_actifs }}</p>
+                {% endif %}
             </div>
-            <img src="{% static 'icons/equipe.png' %}" alt="Utilisateurs actifs" style="width:60px; height:60px; margin-right:10px;">
-        </div>
+            <img src="{% static 'icons/admin_utilisateurs_actifs.png' %}" alt="Utilisateurs actifs" style="width:60px; height:60px; margin-right:10px;">
+        {% if tenant %}</a>{% else %}</div>{% endif %}
 
-        <!-- Superadmins -->
-        <div class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <!-- Administrateurs du tenant : liste filtrée sur la fiche du tenant -->
+        {% if tenant %}<a href="{% url 'utilisateurs:tenant_detail' tenant.pk %}?filtre=administrateurs#utilisateurs" title="{% trans 'Liste des administrateurs du tenant' %}"{% else %}<div{% endif %}
+           class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
             <div>
                 <h2 class="text-lg font-semibold mb-2">{% trans "Administrateurs" %}</h2>
+                {% if tenant %}
+                <p class="text-gray-600 font-bold text-2xl">{{ tenant_admins }}</p>
+                <p class="text-xs text-gray-500">{% trans "administrateurs actifs du tenant" %} · {% trans "toute la plateforme" %} : {{ total_admins }}</p>
+                {% else %}
                 <p class="text-gray-600 font-bold text-2xl">{{ total_admins }}</p>
+                {% endif %}
             </div>
-            <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="Administrateurs" style="width:60px; height:60px; margin-right:10px;">
-        </div>
+            <img src="{% static 'icons/admin_administrateurs.png' %}" alt="Administrateurs" style="width:60px; height:60px; margin-right:10px;">
+        {% if tenant %}</a>{% else %}</div>{% endif %}
 
     </div>
 
@@ -49,7 +67,7 @@
                 <h2 class="text-lg font-semibold mb-2">{% trans "Tenants" %} ({{ total_tenants }})</h2>
                 <p>{% trans "Voir les sociétés clientes, créer un tenant et ses utilisateurs." %}</p>
             </div>
-            <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="{% trans 'Tenants' %}" style="width:60px; height:60px; margin-right:10px;">
+            <img src="{% static 'icons/admin_tenants.png' %}" alt="{% trans 'Tenants' %}" style="width:60px; height:60px; margin-right:10px;">
         </a>
 
         <a href="{% url 'monitoring:tableau' %}"
@@ -58,7 +76,7 @@
                 <h2 class="text-lg font-semibold mb-2">{% trans "Monitoring serveur" %}</h2>
                 <p>{% trans "CPU, mémoire, disque, utilisateurs connectés et trafic – global et par tenant." %}</p>
             </div>
-            <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="{% trans 'Monitoring serveur' %}" style="width:60px; height:60px; margin-right:10px;">
+            <img src="{% static 'icons/admin_monitoring.png' %}" alt="{% trans 'Monitoring serveur' %}" style="width:60px; height:60px; margin-right:10px;">
         </a>
 
         <a href="{% url 'utilisateurs:tenant_creer' %}"
@@ -67,7 +85,7 @@
                 <h2 class="text-lg font-semibold mb-2">{% trans "Créer un tenant" %}</h2>
                 <p>{% trans "Nouvelle société : schéma, adresse, abonnement et premier utilisateur." %}</p>
             </div>
-            <img src="{% static 'icons/equipe.png' %}" alt="{% trans 'Créer un tenant' %}" style="width:60px; height:60px; margin-right:10px;">
+            <img src="{% static 'icons/admin_tenant_creer.png' %}" alt="{% trans 'Créer un tenant' %}" style="width:60px; height:60px; margin-right:10px;">
         </a>
 
         <a href="{% url 'utilisateurs:tenant_admin_choisir' %}"
@@ -76,7 +94,7 @@
                 <h2 class="text-lg font-semibold mb-2">{% trans "Ajouter un administrateur de tenant" %}</h2>
                 <p>{% trans "Choisir un tenant et créer son administrateur (Direction + droits d'administration)." %}</p>
             </div>
-            <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="{% trans 'Ajouter un administrateur de tenant' %}" style="width:60px; height:60px; margin-right:10px;">
+            <img src="{% static 'icons/admin_tenant_administrateur.png' %}" alt="{% trans 'Ajouter un administrateur de tenant' %}" style="width:60px; height:60px; margin-right:10px;">
         </a>
 
         <a href="{% url 'utilisateurs:creer_utilisateur' %}"
@@ -86,7 +104,7 @@
                 <h2 class="text-lg font-semibold mb-2">{% trans "Créer un utilisateur" %}</h2>
                 <p>{% trans "Ajouter un nouvel employé ou administrateur." %}</p>
             </div>
-                <img src="{% static 'icons/mecanicien.png' %}" alt="Utilisateur" style="width:60px; height:60px; margin-right:10px;">
+                <img src="{% static 'icons/admin_utilisateur_creer.png' %}" alt="{% trans 'Créer un utilisateur' %}" style="width:60px; height:60px; margin-right:10px;">
         </a>
 
 
@@ -100,7 +118,7 @@
             </div>
 
             <!-- Icône à droite -->
-            <img src="{% static 'icons/equipe.png' %}" alt="Utilisateur" style="width:60px; height:60px; margin-right:10px;">
+            <img src="{% static 'icons/admin_utilisateurs_gerer.png' %}" alt="{% trans 'Gérer les utilisateurs' %}" style="width:60px; height:60px; margin-right:10px;">
         </a>
 
 
@@ -116,7 +134,7 @@
                 </p>
             </div>
 
-            <img src="{% static 'icons/ingenieur-logiciel.png' %}"
+            <img src="{% static 'icons/admin_django.png' %}"
                  alt="{% trans 'Admin Django' %}"
                  style="width:60px; height:60px; margin-right:10px;">
         </a>

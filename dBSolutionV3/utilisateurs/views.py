@@ -775,11 +775,39 @@ def dashboard_admin(request):
 
     from django_tenants.utils import get_public_schema_name
     from societe.models import Societe
-    total_tenants = Societe.objects.exclude(schema_name=get_public_schema_name()).count()
+    tenants = Societe.objects.exclude(schema_name=get_public_schema_name())
+    total_tenants = tenants.count()
+    # Tenant courant : ses utilisateurs face à sa limite (max_utilisateurs)
+    tenant = getattr(request, "tenant", None)
+    if tenant is None or getattr(tenant, "schema_name", None) == get_public_schema_name():
+        tenant = getattr(request.user, "societe", None)
+    tenant_utilisateurs = tenant_actifs = max_utilisateurs = tenant_admins = None
+    if tenant is not None:
+        qs_tenant = Utilisateur.objects.filter(societe=tenant)
+        tenant_utilisateurs = qs_tenant.count()
+        tenant_actifs = qs_tenant.filter(is_active=True).count()
+        tenant_admins = qs_tenant.filter(is_superuser=True, is_active=True).count()
+        max_utilisateurs = tenant.max_utilisateurs
+    # Utilisateurs connectés du tenant (sessions ouvertes) et en ligne (activité < 5 min) : monitoring
+    tenant_connectes = tenant_en_ligne = None
+    if tenant is not None:
+        try:
+            from monitoring.activite import connexions
+            cx = connexions()["par_tenant"].get(tenant.schema_name, {})
+            tenant_connectes, tenant_en_ligne = cx.get("connectes", 0), cx.get("en_ligne", 0)
+        except Exception:
+            pass
 
     context = {
         "total_tenants": total_tenants,
         "total_utilisateurs": total_utilisateurs,
+        "max_utilisateurs": max_utilisateurs,
+        "tenant": tenant,
+        "tenant_utilisateurs": tenant_utilisateurs,
+        "tenant_actifs": tenant_actifs,
+        "tenant_connectes": tenant_connectes,
+        "tenant_admins": tenant_admins,
+        "tenant_en_ligne": tenant_en_ligne,
         "utilisateurs_actifs": utilisateurs_actifs,
         "total_admins": total_admins,
     }

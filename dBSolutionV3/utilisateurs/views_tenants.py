@@ -157,9 +157,14 @@ def tenant_detail(request, pk):
         Utilisateur.objects.filter(societe=societe)
         .order_by("-is_active", "nom", "prenom")
     )
+    # ?filtre=administrateurs : seulement les administrateurs (superutilisateurs) du tenant
+    filtre = request.GET.get("filtre") if request.GET.get("filtre") == "administrateurs" else ""
+    if filtre:
+        utilisateurs = utilisateurs.filter(is_superuser=True)
     return render(request, "utilisateurs/tenants/tenant_detail.html", {
         "societe": societe,
         "utilisateurs": utilisateurs,
+        "filtre": filtre,
         "domaines": Domain.objects.filter(tenant=societe),
         "modules_libelles": [str(MODULES[c][0]) for c in (societe.modules or []) if c in MODULES],
         "places_restantes": max(0, societe.max_utilisateurs - societe.nb_actifs),

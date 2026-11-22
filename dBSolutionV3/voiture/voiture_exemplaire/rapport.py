@@ -299,7 +299,7 @@ def _cibles_a_payer(cibles, loc, reste):
 
 
 # ------------------------------------------------------------------ coûts et gains (bilan)
-def _postes_vehicule(ex):
+def _postes_vehicule(ex, r=None):
     """
     Tous les coûts (HTVA) et gains d'un véhicule depuis l'achat, poste par poste,
     à partir des Données financières (rentabilite.py) :
@@ -307,7 +307,7 @@ def _postes_vehicule(ex):
     """
     from .models import CoutAnnuelVehicule as C
 
-    r = rentabilite(ex)
+    r = r or rentabilite(ex)
     a, en, mt = r["acquisition"], r["energie"], r["maintenances"]
     annuels = OrderedDict((t.value, ZERO) for t in C.Type)
     for an in r["couts_annuels"]["annees"]:
@@ -397,3 +397,20 @@ def rapport_bilan(qs, exemplaire_id=None):
                         "couts": [float(v["couts"]) for v in par_vehicule],
                         "gains": [float(v["gains"]) for v in par_vehicule]} if len(selection) > 1 else None,
     }
+
+
+def graphiques_vehicule(ex, r):
+    """Camemberts 3D des Données financières d'un véhicule, à partir de son calcul de rentabilité."""
+    p = _postes_vehicule(ex, r)
+    blocs = [(libelle, sum((m for _l, m in postes.values()), ZERO)) for libelle, postes in p["couts"].values()]
+    detail = [(lib, m) for _b, postes in p["couts"].values() for lib, m in postes.values()]
+    total_couts = r2(sum((m for _l, m in blocs), ZERO))
+    gains = [(lib, m) for lib, m in p["gains"].values()]
+    mt = r["maintenances"]
+    return [
+        {"titre": _("Coûts par catégorie"), "parts": _parts(blocs)},
+        {"titre": _("Tous les coûts, poste par poste"), "parts": _parts(detail)},
+        {"titre": _("Coûts et gains"), "parts": _parts([(_("Coûts"), total_couts)] + gains)},
+        {"titre": _("Maintenances : pièces et main-d'œuvre"), "parts": _parts([
+            (_("Pièces"), mt["total_pieces"]), (_("Main-d'œuvre"), mt["total_main_oeuvre"])])},
+    ]

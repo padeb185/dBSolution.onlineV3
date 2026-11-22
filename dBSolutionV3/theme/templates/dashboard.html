@@ -991,16 +991,6 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
-    <!-- Rapport des voitures : statistiques et camemberts 3D des coûts -->
-    <a href="{% url 'voiture_exemplaire:rapport_voitures' %}"
-       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-        <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Rapport des voitures" %}</h2>
-            <p class="text-gray-600 text-sm">{% trans "Coûts de la flotte · Véhicules clients · Locations" %}</p>
-        </div>
-        {% include "voiture_exemplaire/finances/_icone.html" with classe="w-[60px] h-[60px]" %}
-    </a>
-
     {% if modules.assurances %}
     <!-- Assurances -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/assurance/"
@@ -1017,6 +1007,106 @@
              class="w-[60px] h-[60px]">
     </a>
     {% endif %}
+
+    {% if modules.comptabilite %}
+    <!-- Comptabilité – trésorerie -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/compta/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Comptabilité" %}
+            </h2>
+            <p class="text-gray-600 text-sm">
+                {% trans "Caisse, banque, soldes d'ouverture et journaux" %}
+            </p>
+        </div>
+        <img src="{% static 'icons/comptabilite.png' %}"
+             alt="{% trans 'Comptabilité' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+    {% endif %}
+
+    {% if modules.facturation %}
+    <!-- Conditions générales de vente (atelier / location), imprimées sur les factures -->
+    <a href="{% url 'facture:conditions_generales' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">{% trans "Conditions générales de vente" %}</h2>
+            <p class="text-gray-600 text-sm">{% trans "Atelier · Location" %}</p>
+        </div>
+        {% include "facture/_icone.html" with classe="w-[60px] h-[60px]" %}
+    </a>
+    {% endif %}
+
+    <!-- Créer utilisateur -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/creer/"
+       class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Créer un utilisateur" %}
+            </h2>
+
+            <p>
+                {% trans "Ajouter un nouvel employé" %}
+            </p>
+        </div>
+
+        <img src="{% static 'icons/mecanicien.png' %}"
+             alt="{% trans 'Utilisateur' %}"
+             class="w-[60px] h-[60px] mr-[10px]">
+    </a>
+
+     {% if request.user.is_superuser or request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.role == "comptable" %}
+    {% if modules.facturation %}
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/facture/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Facturation" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Factures clients et professionnelles (XML)" %}
+            </p>
+        </div>
+
+        {% include "facture/_icone.html" with classe="w-[60px] h-[60px]" %}
+    </a>
+    {% endif %}
+    {% endif %}
+
+    {% if modules.finances_vehicules %}
+    <!-- Données financières des véhicules -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/exemplaires/finances/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Finances véhicules" %}
+            </h2>
+            <p class="text-gray-600 text-sm">
+                {% trans "Prix d'achat, assurance, taxes" %}
+            </p>
+        </div>
+
+        {% include "voiture_exemplaire/finances/_icone.html" with classe="w-[60px] h-[60px]" %}
+    </a>
+    {% endif %}
+
+    <!-- Liste utilisateurs -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/admin/utilisateurs/"
+       class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Liste des utilisateurs" %}
+            </h2>
+        </div>
+
+        <img src="{% static 'icons/equipe.png' %}"
+             alt="{% trans 'Utilisateur' %}"
+             class="w-[60px] h-[60px] mr-[10px]">
+    </a>
 
     {% if modules.main_oeuvre %}
     <!-- Main d'œuvre -->
@@ -1042,30 +1132,20 @@
     </a>
     {% endif %}
 
-    {% if modules.proprietaires %}
-    <!-- Reversements aux propriétaires (locations de véhicules à plusieurs propriétaires) -->
-    <a href="{% url 'voiture_location:reversements_liste' %}"
-       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-        <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Reversements aux propriétaires" %}</h2>
-            <p class="text-gray-600 text-sm">
-                {% trans "À reverser :" %}
-                <span class="font-bold">{{ total_a_reverser|default:0|floatformat:"2g" }} €</span>
-            </p>
-        </div>
-        <img src="{% static 'icons/proprietaire.png' %}" alt="{% trans 'Reversements aux propriétaires' %}" class="w-[60px] h-[60px]">
-    </a>
-    {% endif %}
+    {% if modules.paie %}
+    <!-- Paies mensuelles -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/paie/"
+       class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
 
-    {% if modules.facturation %}
-    <!-- Conditions générales de vente (atelier / location), imprimées sur les factures -->
-    <a href="{% url 'facture:conditions_generales' %}"
-       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Conditions générales de vente" %}</h2>
-            <p class="text-gray-600 text-sm">{% trans "Atelier · Location" %}</p>
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Paies mensuelles" %}
+            </h2>
         </div>
-        {% include "facture/_icone.html" with classe="w-[60px] h-[60px]" %}
+
+        <img src="{% static 'icons/paie.png' %}"
+             alt="{% trans 'Paies mensuelles' %}"
+             class="w-[60px] h-[60px] mr-[10px]">
     </a>
     {% endif %}
 
@@ -1093,110 +1173,15 @@
     </a>
     {% endif %}
 
-    <!-- Créer utilisateur -->
-    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/creer/"
-       class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-        <div>
-            <h2 class="text-lg font-semibold mb-2">
-                {% trans "Créer un utilisateur" %}
-            </h2>
-
-            <p>
-                {% trans "Ajouter un nouvel employé" %}
-            </p>
-        </div>
-
-        <img src="{% static 'icons/mecanicien.png' %}"
-             alt="{% trans 'Utilisateur' %}"
-             class="w-[60px] h-[60px] mr-[10px]">
-    </a>
-
-    <!-- Liste utilisateurs -->
-    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/admin/utilisateurs/"
-       class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-        <div>
-            <h2 class="text-lg font-semibold mb-2">
-                {% trans "Liste des utilisateurs" %}
-            </h2>
-        </div>
-
-        <img src="{% static 'icons/equipe.png' %}"
-             alt="{% trans 'Utilisateur' %}"
-             class="w-[60px] h-[60px] mr-[10px]">
-    </a>
-
-    {% if modules.paie %}
-    <!-- Paies mensuelles -->
-    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/paie/"
-       class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-        <div>
-            <h2 class="text-lg font-semibold mb-2">
-                {% trans "Paies mensuelles" %}
-            </h2>
-        </div>
-
-        <img src="{% static 'icons/paie.png' %}"
-             alt="{% trans 'Paies mensuelles' %}"
-             class="w-[60px] h-[60px] mr-[10px]">
-    </a>
-    {% endif %}
-
-     {% if request.user.is_superuser or request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.role == "comptable" %}
-    {% if modules.facturation %}
-    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/facture/"
+    <!-- Rapport des voitures : statistiques et camemberts 3D des coûts -->
+    <a href="{% url 'voiture_exemplaire:rapport_voitures' %}"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
         <div>
-            <h2 class="text-lg font-semibold mb-1">
-                {% trans "Facturation" %}
-            </h2>
-
-            <p class="text-gray-600 text-sm">
-                {% trans "Factures clients et professionnelles (XML)" %}
-            </p>
+            <h2 class="text-lg font-semibold mb-1">{% trans "Rapport des voitures" %}</h2>
+            <p class="text-gray-600 text-sm">{% trans "Coûts de la flotte · Véhicules clients · Locations" %}</p>
         </div>
-
-        {% include "facture/_icone.html" with classe="w-[60px] h-[60px]" %}
-    </a>
-    {% endif %}
-    {% endif %}
-
-    {% if modules.comptabilite %}
-    <!-- Comptabilité – trésorerie -->
-    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/compta/"
-       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-        <div>
-            <h2 class="text-lg font-semibold mb-1">
-                {% trans "Comptabilité" %}
-            </h2>
-            <p class="text-gray-600 text-sm">
-                {% trans "Caisse, banque, soldes d'ouverture et journaux" %}
-            </p>
-        </div>
-        <img src="{% static 'icons/comptabilite.png' %}"
-             alt="{% trans 'Comptabilité' %}"
-             class="w-[60px] h-[60px]">
-    </a>
-    {% endif %}
-
-    {% if modules.finances_vehicules %}
-    <!-- Données financières des véhicules -->
-    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/exemplaires/finances/"
-       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-        <div>
-            <h2 class="text-lg font-semibold mb-1">
-                {% trans "Finances véhicules" %}
-            </h2>
-            <p class="text-gray-600 text-sm">
-                {% trans "Prix d'achat, assurance, taxes" %}
-            </p>
-        </div>
-
         {% include "voiture_exemplaire/finances/_icone.html" with classe="w-[60px] h-[60px]" %}
     </a>
-    {% endif %}
 
     {% if modules.revente %}
     <!-- Revente des véhicules de la flotte -->
@@ -1212,6 +1197,21 @@
         </div>
 
         {% include "voiture_vente/_icone.html" with classe="w-[60px] h-[60px]" taille="60px" %}
+    </a>
+    {% endif %}
+
+    {% if modules.proprietaires %}
+    <!-- Reversements aux propriétaires (locations de véhicules à plusieurs propriétaires) -->
+    <a href="{% url 'voiture_location:reversements_liste' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">{% trans "Reversements aux propriétaires" %}</h2>
+            <p class="text-gray-600 text-sm">
+                {% trans "À reverser :" %}
+                <span class="font-bold">{{ total_a_reverser|default:0|floatformat:"2g" }} €</span>
+            </p>
+        </div>
+        <img src="{% static 'icons/proprietaire.png' %}" alt="{% trans 'Reversements aux propriétaires' %}" class="w-[60px] h-[60px]">
     </a>
     {% endif %}
 

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block content %}
 <br>
@@ -158,6 +158,16 @@
         </div>
     </div>
     <p class="text-xs text-gray-500 mb-6">{% trans "Montants HTVA (énergie, maintenances, locations). Résultat net = revenus des locations + valeur de revente − coût d'acquisition − coûts d'utilisation." %}</p>
+
+    <!-- ================= GRAPHIQUES 3D ================= -->
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 my-6">
+        {% for g in graphiques_json %}
+        <div class="bg-white shadow-md rounded-lg p-5">
+            <h3 class="font-semibold mb-2">{{ g.titre }}</h3>
+            <div data-camembert3d="{{ forloop.counter0 }}"></div>
+        </div>
+        {% endfor %}
+    </div>
 
     <!-- ================= TABLEAU DE CALCUL ================= -->
     <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm mb-6">
@@ -465,4 +475,15 @@
         </a>
     </div>
 </div>
+{{ graphiques_json|json_script:"finances-graphiques" }}
+<script src="{% static 'js/camembert3d.js' %}"></script>
+<script>
+(function () {
+    var graphiques = JSON.parse(document.getElementById("finances-graphiques").textContent);
+    document.querySelectorAll("[data-camembert3d]").forEach(function (el) {
+        var g = graphiques[parseInt(el.dataset.camembert3d, 10)];
+        if (g) Camembert3D.dessiner(el, g.parts, {titre: g.titre, vide: "{% trans 'Aucune donnée' as v %}{{ v|escapejs }}"});
+    });
+})();
+</script>
 {% endblock %}

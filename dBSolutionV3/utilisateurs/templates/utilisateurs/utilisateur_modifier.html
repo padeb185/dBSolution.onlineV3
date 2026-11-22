@@ -85,7 +85,7 @@
 
         <div class="flex gap-3">
             <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold">{% trans "Enregistrer" %}</button>
-            <a href="{% if retour_tenant and utilisateur.societe_id %}{% url 'utilisateurs:tenant_detail' utilisateur.societe_id %}{% else %}{% url 'utilisateurs:utilisateur_profil' utilisateur.pk %}{% endif %}" class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+            <a href="{% if retour_tenant and utilisateur.societe %}{% url 'utilisateurs:tenant_detail' utilisateur.societe.pk %}{% else %}{% url 'utilisateurs:utilisateur_profil' utilisateur.pk %}{% endif %}" class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
         </div>
     </form>
     <br>
