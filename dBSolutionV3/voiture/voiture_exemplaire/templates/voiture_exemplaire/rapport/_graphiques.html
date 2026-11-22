@@ -1,0 +1,9 @@
+{% load i18n %}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+    {% for g in graphiques_json %}
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-2">{{ g.titre }}</h2>
+        <div data-camembert3d="{{ forloop.counter0 }}"></div>
+    </div>
+    {% endfor %}
+</div>

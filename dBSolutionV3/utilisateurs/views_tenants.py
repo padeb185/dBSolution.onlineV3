@@ -4,6 +4,7 @@ liste, création (schéma + domaine + premier utilisateur), détail,
 modification et création des utilisateurs d'un tenant.
 Réservé aux superadministrateurs (is_staff + is_superuser).
 """
+from django import forms
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db import transaction
@@ -250,6 +251,17 @@ def tenant_utilisateur_creer(request, pk):
     if mode_admin:
         form.fields["role"].disabled = True
         form.fields["role"].help_text = _("Administrateur : rôle Direction avec les droits d'administration (superutilisateur).")
+        # Case is_superuser visible et cochée par défaut
+        form.fields["is_superuser"] = forms.BooleanField(
+            label=_("Droits d'administration (superutilisateur)"),
+            required=False,
+            initial=True,
+            help_text=_("Administrateur du tenant : accès à toutes les fonctions et à l'administration."),
+        )
+        # Juste sous le rôle
+        ordre = [n for n in form.fields if n != "is_superuser"]
+        ordre.insert(ordre.index("role") + 1, "is_superuser")
+        form.order_fields(ordre)
 
     if request.method == "POST" and form.is_valid():
         if societe.nb_actifs >= societe.max_utilisateurs:
@@ -280,8 +292,8 @@ def tenant_utilisateur_creer(request, pk):
                         schema_name=societe.schema_name,
                         adresse=adresse,
                     )
-                    if mode_admin:
-                        # Administrateur du tenant : comme « Admin Campus » (Direction + superutilisateur)
+                    if mode_admin and d.get("is_superuser"):
+                        # Administrateur du tenant : Direction + superutilisateur (case cochée)
                         utilisateur.is_staff = True
                         utilisateur.is_superuser = True
                         utilisateur.save(update_fields=["is_staff", "is_superuser"])

@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+
+{% block title %}{% trans "Rapport des voitures" %}{% endblock %}
+
+{% block content %}
+<div class="p-6 w-full">
+
+    <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            {% include "voiture_exemplaire/finances/_icone.html" %}
+            {% trans "Rapport des voitures" %}
+        </h1>
+        <a href="{% url 'utilisateurs:dashboard' %}" class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold">{% trans "Retour" %}</a>
+    </div>
+
+    <!-- Onglets -->
+    <div class="flex gap-2 mb-6 border-b">
+        <a href="?onglet=societe"
+           class="px-5 py-3 font-semibold rounded-t {% if onglet == 'societe' %}bg-blue-700 text-white{% else %}bg-gray-100 hover:bg-gray-200{% endif %}">
+            {% trans "Véhicules de la société" %}</a>
+        <a href="?onglet=clients"
+           class="px-5 py-3 font-semibold rounded-t {% if onglet == 'clients' %}bg-blue-700 text-white{% else %}bg-gray-100 hover:bg-gray-200{% endif %}">
+            {% trans "Véhicules clients" %}</a>
+    </div>
+
+    {% with t=rapport.totaux %}
+    {% if onglet == "societe" %}
+    <!-- ============ VÉHICULES DE LA SOCIÉTÉ ============ -->
+    <p class="text-gray-600 mb-4">{% trans "Coûts depuis l'achat, montants HTVA, repris des données financières de chaque véhicule." %}</p>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+        <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Véhicules" %}</p><p class="text-2xl font-bold">{{ rapport.nb }}</p></div>
+        <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Coût total" %}</p><p class="text-2xl font-bold">{{ t.cout_total|floatformat:"0g" }} €</p></div>
+        <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Coûts d'utilisation" %}</p><p class="text-2xl font-bold">{{ t.utilisation|floatformat:"0g" }} €</p></div>
+        <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Kilomètres" %}</p><p class="text-2xl font-bold">{{ t.km|floatformat:"0g" }}</p></div>
+        <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Utilisation au km" %}</p><p class="text-2xl font-bold">{% if t.par_km %}{{ t.par_km|floatformat:"3g" }} €{% else %}—{% endif %}</p></div>
+        <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Résultat (locations − coût net)" %}</p><p class="text-2xl font-bold {% if t.resultat < 0 %}text-red-700{% else %}text-green-700{% endif %}">{{ t.resultat|floatformat:"0g" }} €</p></div>
+    </div>
+
+    {% include "voiture_exemplaire/rapport/_graphiques.html" %}
+
+    <div class="bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Détail par véhicule" %}</h2>
+        <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+            <thead><tr class="bg-gray-100">
+                <th class="border px-3 py-2 text-left">{% trans "Véhicule" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Km" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Acquisition" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Énergie" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Pièces" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Main-d'œuvre" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Maintenances" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Coûts annuels" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Coût total" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "€ / km" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Résultat" %}</th>
+            </tr></thead>
+            <tbody>
+            {% for l in rapport.lignes %}
+                <tr class="hover:bg-blue-50">
+                    <td class="border px-3 py-2"><a class="text-blue-700 hover:underline" href="{% url 'voiture_exemplaire:finances_detail' l.ex.pk %}">{{ l.immat }}</a> <span class="text-gray-500">{{ l.nom }}</span></td>
+                    <td class="border px-3 py-2 text-right tabular-nums">{{ l.km|floatformat:"0g" }}</td>
+                    <td class="border px-3 py-2 text-right tabular-nums">{{ l.acquisition|floatformat:"2g" }}</td>
+                    <td class="border px-3 py-2 text-right tabular-nums">{{ l.energie|floatformat:"2g" }}</td>
+                    <td class="border px-3 py-2 text-right tabular-nums">{{ l.pieces|floatformat:"2g" }}</td>
+                    <td class="border px-3 py-2 text-right tabular-nums">{{ l.main_oeuvre|floatformat:"2g" }}</td>
+                    <td class="border px-3 py-2 text-right tabular-nums">{{ l.maintenances|floatformat:"2g" }}</td>
+                    <td class="border px-3 py-2 text-right tabular-nums">{{ l.annuels|floatformat:"2g" }}</td>
+                    <td class="border px-3 py-2 text-right tabular-nums font-semibold">{{ l.cout_total|floatformat:"2g" }}</td>
+                    <td class="border px-3 py-2 text-right tabular-nums">{% if l.par_km %}{{ l.par_km|floatformat:"3g" }}{% else %}—{% endif %}</td>
+                    <td class="border px-3 py-2 text-right tabular-nums {% if l.resultat < 0 %}text-red-700{% else %}text-green-700{% endif %}">{{ l.resultat|floatformat:"2g" }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="11" class="border px-3 py-4 text-gray-500">{% trans "Aucun véhicule de la société (type d'utilisation « Société »)." %}</td></tr>
+            {% endfor %}
+            </tbody>
+            {% if rapport.lignes %}
+            <tfoot><tr class="bg-gray-100 font-semibold">
+                <td class="border px-3 py-2">{% trans "Total" %}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ t.km|floatformat:"0g" }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ t.acquisition|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ t.energie|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ t.pieces|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ t.main_oeuvre|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ t.maintenances|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ t.annuels|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ t.cout_total|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{% if t.par_km %}{{ t.par_km|floatformat:"3g" }}{% else %}—{% endif %}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ t.resultat|floatformat:"2g" }}</td>
+            </tr></tfoot>
+            {% endif %}
+        </table>
+        <p class="text-gray-500 text-xs mt-2">{% trans "Maintenances = pièces + main-d'œuvre + autres frais, après prise en charge de l'assurance pour la carrosserie." %}</p>
+    </div>
+
+    {% else %}
+    <!-- ============ VÉHICULES CLIENTS ============ -->
+    <form method="get" class="flex flex-wrap items-center gap-3 mb-4">
+        <input type="hidden" name="onglet" value="clients">
+        <label for="annee" class="font-semibold">{% trans "Année" %}</label>
+        <select id="annee" name="annee" onchange="this.form.submit()" class="border rounded px-3 py-2">
+            <option value="">{% trans "Toutes les années" %}</option>
+            {% for a in annees %}<option value="{{ a }}" {% if a == annee %}selected{% endif %}>{{ a }}</option>{% endfor %}
+        </select>
+        <span class="text-gray-600 text-sm">{% trans "Factures émises aux clients, montants HTVA, notes de crédit déduites, locations exclues." %}</span>
+    </form>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+        <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Véhicules" %}</p><p class="text-2xl font-bold">{{ rapport.nb }}</p><p class="text-xs text-gray-500">{{ t.nb_factures }} {% trans "factures" %}</p></div>
+        <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Chiffre d'affaires" %}</p><p class="text-2xl font-bold">{{ t.total|floatformat:"0g" }} €</p></div>
+        <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Pièces" %}</p><p class="text-2xl font-bold">{{ t.pieces|floatformat:"0g" }} €</p><p class="text-xs text-gray-500">{% trans "marge" %} {{ t.marge_pieces|floatformat:"0g" }} €</p></div>
+        <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Main-d'œuvre" %}</p><p class="text-2xl font-bold">{{ t.main_oeuvre|floatformat:"0g" }} €</p><p class="text-xs text-gray-500">{% trans "marge" %} {{ t.marge_main_oeuvre|floatformat:"0g" }} €</p></div>
+        <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Heures facturées" %}</p><p class="text-2xl font-bold">{{ t.heures|floatformat:"1g" }} h</p><p class="text-xs text-gray-500">{% if t.taux_horaire_moyen %}{{ t.taux_horaire_moyen|floatformat:"2g" }} € / h{% endif %}</p></div>
+        <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Marge" %}</p><p class="text-2xl font-bold {% if t.marge < 0 %}text-red-700{% else %}text-green-700{% endif %}">{{ t.marge|floatformat:"0g" }} €</p><p class="text-xs text-gray-500">{% if t.marge_pct is not None %}{{ t.marge_pct }} %{% endif %}</p></div>
+    </div>
+
+    {% include "voiture_exemplaire/rapport/_graphiques.html" %}
+
+    {% if rapport.evolution %}
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">{% blocktrans %}Évolution mensuelle {{ annee }}{% endblocktrans %}</h2>
+        <div style="height:300px"><canvas id="evolution-mensuelle"></canvas></div>
+    </div>
+    {% endif %}
+
+    <div class="bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Détail par véhicule" %}</h2>
+        <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+            <thead><tr class="bg-gray-100">
+                <th class="border px-3 py-2 text-left">{% trans "Véhicule" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "Client" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Factures" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Pièces" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Main-d'œuvre" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Heures" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Autres" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Total HTVA" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Marge" %}</th>
+            </tr></thead>
+            <tbody>
+            {% for l in rapport.lignes %}
+                <tr class="hover:bg-blue-50">
+                    <td class="border px-3 py-2"><a class="text-blue-700 hover:underline" href="{% url 'voiture_exemplaire:voiture_exemplaire_detail' l.ex.pk %}">{{ l.immat }}</a> <span class="text-gray-500">{{ l.nom }}</span></td>
+                    <td class="border px-3 py-2">{{ l.clients|default:"—" }}</td>
+                    <td class="border px-3 py-2 text-right tabular-nums">{{ l.nb }}</td>
+                    <td class="border px-3 py-2 text-right tabular-nums">{{ l.pieces|floatformat:"2g" }}</td>
+                    <td class="border px-3 py-2 text-right tabular-nums">{{ l.main_oeuvre|floatformat:"2g" }}</td>
+                    <td class="border px-3 py-2 text-right tabular-nums">{{ l.heures|floatformat:"2g" }}</td>
+                    <td class="border px-3 py-2 text-right tabular-nums">{{ l.autres|floatformat:"2g" }}</td>
+                    <td class="border px-3 py-2 text-right tabular-nums font-semibold">{{ l.total|floatformat:"2g" }}</td>
+                    <td class="border px-3 py-2 text-right tabular-nums {% if l.marge < 0 %}text-red-700{% endif %}">{{ l.marge|floatformat:"2g" }}{% if l.marge_pct is not None %} <span class="text-gray-500">({{ l.marge_pct }} %)</span>{% endif %}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="9" class="border px-3 py-4 text-gray-500">{% trans "Aucune facture émise à un client pour un véhicule sur cette période." %}</td></tr>
+            {% endfor %}
+            </tbody>
+            {% if rapport.lignes %}
+            <tfoot><tr class="bg-gray-100 font-semibold">
+                <td class="border px-3 py-2" colspan="2">{% trans "Total" %}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ t.nb_factures }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ t.pieces|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ t.main_oeuvre|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ t.heures|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ t.autres|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ t.total|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ t.marge|floatformat:"2g" }}</td>
+            </tr></tfoot>
+            {% endif %}
+        </table>
+    </div>
+    {% endif %}
+    {% endwith %}
+</div>
+
+{{ graphiques_json|json_script:"rapport-graphiques" }}
+<script src="{% static 'js/camembert3d.js' %}"></script>
+<script>
+(function () {
+    var graphiques = JSON.parse(document.getElementById("rapport-graphiques").textContent);
+    document.querySelectorAll("[data-camembert3d]").forEach(function (el) {
+        var g = graphiques[parseInt(el.dataset.camembert3d, 10)];
+        if (g) Camembert3D.dessiner(el, g.parts, {titre: g.titre, vide: "{% trans 'Aucune donnée' as v %}{{ v|escapejs }}"});
+    });
+})();
+</script>
+{% if rapport.evolution %}
+{{ rapport.evolution|json_script:"rapport-evolution" }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+(function () {
+    var e = JSON.parse(document.getElementById("rapport-evolution").textContent);
+    var mois = e.mois.map(function (m) { return new Date(2000, m - 1, 1).toLocaleDateString(document.documentElement.lang || "fr-BE", {month: "short"}); });
+    new Chart(document.getElementById("evolution-mensuelle"), {
+        type: "bar",
+        data: {labels: mois, datasets: [
+            {label: "{% trans 'Pièces' as a %}{{ a|escapejs }}", data: e.pieces, backgroundColor: "#2563eb"},
+            {label: "{% trans "Main-d'œuvre" as b %}{{ b|escapejs }}", data: e.main_oeuvre, backgroundColor: "#f59e0b"},
+            {label: "{% trans 'Autres' as c %}{{ c|escapejs }}", data: e.autres, backgroundColor: "#10b981"}
+        ]},
+        options: {responsive: true, maintainAspectRatio: false,
+                  scales: {x: {stacked: true}, y: {stacked: true, ticks: {callback: function (v) { return v.toLocaleString() + " €"; }}}}}
+    });
+})();
+</script>
+{% endif %}
+{% endblock %}

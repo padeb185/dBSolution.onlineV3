@@ -1135,3 +1135,35 @@ def finances_financement(request, exemplaire_id):
             "tva_loyer": _("TVA par loyer : %s"),
         },
     })
+
+
+# ======================================================================
+# RAPPORT DES VOITURES (Direction) : statistiques et camemberts 3D
+# ======================================================================
+@never_cache
+@login_required
+def rapport_voitures(request):
+    if not _finance_autorise(request.user):
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+    from .models import TypeUtilisation
+    from .rapport import _annees_factures, rapport_clients, rapport_societe
+
+    onglet = request.GET.get("onglet") if request.GET.get("onglet") in ("societe", "clients") else "societe"
+    societe = request.user.societe
+    contexte = {"onglet": onglet}
+
+    if onglet == "societe":
+        qs = (_finance_queryset(request).filter(type_utilisation=TypeUtilisation.SOCIETE)
+              .order_by("voiture_marque__nom_marque", "voiture_modele__nom_modele", "immatriculation"))
+        contexte["rapport"] = rapport_societe(qs)
+    else:
+        annees = _annees_factures(societe)
+        try:
+            annee = int(request.GET.get("annee")) if request.GET.get("annee") else None
+        except ValueError:
+            annee = None
+        contexte.update({"annees": annees, "annee": annee, "rapport": rapport_clients(societe, annee)})
+
+    contexte["graphiques_json"] = list(contexte["rapport"]["graphiques"].values())
+    return render(request, "voiture_exemplaire/rapport/rapport.html", contexte)

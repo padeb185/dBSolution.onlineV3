@@ -6,7 +6,7 @@ from .views import ajouter_exemplaire_all, liste_exemplaires, voiture_exemplaire
     remplacer_train_pneus, basculer_monte_pneus, \
     finances_liste, finances_detail, finances_modifier, finances_supprimer, finances_cout_annuel, \
     finances_financement, \
-    delier_composant
+    delier_composant, rapport_voitures
 
 app_name = "voiture_exemplaire"
 
@@ -56,4 +56,7 @@ urlpatterns = [
     path("finances/<uuid:exemplaire_id>/supprimer/", finances_supprimer, name="finances_supprimer"),
     path("finances/<uuid:exemplaire_id>/cout-annuel/", finances_cout_annuel, name="finances_cout_annuel"),
     path("finances/<uuid:exemplaire_id>/financement/", finances_financement, name="finances_financement"),
+
+    # Rapport des voitures (Direction) : statistiques et camemberts 3D
+    path("rapport/", rapport_voitures, name="rapport_voitures"),
 ]
