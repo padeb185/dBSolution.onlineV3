@@ -1,0 +1,10 @@
+[Unit]
+Description=Sauvegarde PostgreSQL CarsCosts par tenant (restic)
+After=postgresql.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/carscosts-backup-tenants.sh
+Nice=10
+IOSchedulingClass=idle

@@ -412,7 +412,6 @@ SESSION_SAVE_EVERY_REQUEST = True
 SESSION_COOKIE_PATH = "/"
 
 
-
 # ------------------------------------------------------------------------------
 # SÉCURITÉ HTTP (production : HTTPS derrière nginx)
 # ------------------------------------------------------------------------------
@@ -553,6 +552,9 @@ DATABASES = {
         "PASSWORD": env("DB_PASSWORD"),
         "HOST": env("DB_HOST"),
         "PORT": env("DB_PORT"),
+        # Connexions persistantes (60 s) avec vérification avant réutilisation
+        "CONN_MAX_AGE": env.int("DB_CONN_MAX_AGE", default=60),
+        "CONN_HEALTH_CHECKS": True,
     }
 }
 
