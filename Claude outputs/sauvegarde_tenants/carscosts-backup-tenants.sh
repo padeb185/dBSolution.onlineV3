@@ -2,7 +2,7 @@
 # Sauvegarde PostgreSQL de CarsCosts, un dump par tenant, dans le dépôt restic carscosts.
 #   - un snapshot restic par tenant (tag tenant:<schéma>) -> restauration d'un seul tenant possible
 #   - plus le schéma public (tables partagées) et les rôles (pg_dumpall --globals-only)
-#   - rétention 7 jours / 4 semaines / 12 mois / 1 an, par tenant
+#   - rétention 7 jours / 4 semaines / 12 mois / 3 ans, par tenant
 # Configuration : /etc/carscosts-backup.conf   Journal : /var/log/carscosts-backup-tenants.log
 # À lancer en root (systemd : carscosts-backup-tenants.timer).
 set -euo pipefail
@@ -22,7 +22,7 @@ PG_BIN="${PG_BIN:-/usr/lib/postgresql/19/bin}"
 TABLE_TENANTS="${TABLE_TENANTS:-societe_societe}"
 DUMP_DIR="${DUMP_DIR:-/var/backups/carscosts/dumps}"
 REPO_GROUP="${REPO_GROUP:-}"          # groupe qui doit pouvoir lire le dépôt (ex. backupreader)
-KEEP="${KEEP:---keep-daily 7 --keep-weekly 4 --keep-monthly 12 --keep-yearly 1}"
+KEEP="${KEEP:---keep-daily 7 --keep-weekly 4 --keep-monthly 12 --keep-yearly 3}"
 TAG="carscosts-db"
 HOTE="$(hostname -s)"
 LOG=/var/log/carscosts-backup-tenants.log
@@ -110,7 +110,7 @@ fi
 # 7) Droits de lecture pour la copie vers le Mac (utilisateur backupreader)
 if [ -n "$REPO_GROUP" ] && [ -d "$RESTIC_REPOSITORY" ]; then
   chgrp -R "$REPO_GROUP" "$RESTIC_REPOSITORY"
-  chmod -R g+rX "$RESTIC_REPOSITORY"
+  chmod -R g+rX,o-rwx "$RESTIC_REPOSITORY"
 fi
 
 find "$DUMP_DIR" -maxdepth 1 \( -name '*.dump' -o -name '*.sql' \) -delete
