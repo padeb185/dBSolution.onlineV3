@@ -83586,3 +83586,58 @@ msgstr "Versnellingsbakken"
 
 msgid "Journal du dernier chargement"
 msgstr "Logboek van de laatste lading"
+
+msgid "Ajouter un administrateur"
+msgstr "Beheerder toevoegen"
+
+msgid "+ Ajouter un administrateur"
+msgstr "+ Beheerder toevoegen"
+
+msgid "Ajouter un administrateur de tenant"
+msgstr "Tenantbeheerder toevoegen"
+
+msgid "Choisir un tenant et créer son administrateur (rôle Direction)."
+msgstr "Kies een tenant en maak de beheerder aan (rol Directie)."
+
+msgid ""
+"L'administrateur a le rôle Direction : il gère les utilisateurs et les "
+"réglages de sa société."
+msgstr ""
+"De beheerder heeft de rol Directie: hij beheert de gebruikers en instellingen"
+" van zijn bedrijf."
+
+msgid ""
+"Administrateur du tenant : gère les utilisateurs et les réglages de sa "
+"société."
+msgstr ""
+"Tenantbeheerder: beheert de gebruikers en instellingen van zijn bedrijf."
+
+msgid "Créer l'administrateur"
+msgstr "Beheerder aanmaken"
+
+msgid "Créer et ajouter un autre administrateur"
+msgstr "Aanmaken en nog een beheerder toevoegen"
+
+msgid "Administrateur créé pour %(nom)s."
+msgstr "Beheerder aangemaakt voor %(nom)s."
+
+msgid "Nommer administrateur"
+msgstr "Tot beheerder benoemen"
+
+msgid "Nommer cet utilisateur administrateur du tenant (rôle Direction) ?"
+msgstr "Deze gebruiker benoemen tot tenantbeheerder (rol Directie)?"
+
+msgid "%(email)s est déjà administrateur du tenant."
+msgstr "%(email)s is al tenantbeheerder."
+
+msgid "%(email)s est maintenant administrateur du tenant (rôle Direction)."
+msgstr "%(email)s is nu tenantbeheerder (rol Directie)."
+
+msgid "Choisir un tenant…"
+msgstr "Kies een tenant…"
+
+msgid "limite atteinte"
+msgstr "limiet bereikt"
+
+msgid "Aucun tenant. Créez d'abord un tenant."
+msgstr "Geen tenant. Maak eerst een tenant aan."

@@ -83627,3 +83627,61 @@ msgstr "Getriebe"
 
 msgid "Journal du dernier chargement"
 msgstr "Protokoll des letzten Ladevorgangs"
+
+msgid "Ajouter un administrateur"
+msgstr "Administrator hinzufügen"
+
+msgid "+ Ajouter un administrateur"
+msgstr "+ Administrator hinzufügen"
+
+msgid "Ajouter un administrateur de tenant"
+msgstr "Tenant-Administrator hinzufügen"
+
+msgid "Choisir un tenant et créer son administrateur (rôle Direction)."
+msgstr ""
+"Tenant wählen und seinen Administrator anlegen (Rolle Geschäftsleitung)."
+
+msgid ""
+"L'administrateur a le rôle Direction : il gère les utilisateurs et les "
+"réglages de sa société."
+msgstr ""
+"Der Administrator hat die Rolle Geschäftsleitung: Er verwaltet die Benutzer "
+"und Einstellungen seines Unternehmens."
+
+msgid ""
+"Administrateur du tenant : gère les utilisateurs et les réglages de sa "
+"société."
+msgstr ""
+"Tenant-Administrator: verwaltet die Benutzer und Einstellungen seines "
+"Unternehmens."
+
+msgid "Créer l'administrateur"
+msgstr "Administrator anlegen"
+
+msgid "Créer et ajouter un autre administrateur"
+msgstr "Anlegen und weiteren Administrator hinzufügen"
+
+msgid "Administrateur créé pour %(nom)s."
+msgstr "Administrator für %(nom)s angelegt."
+
+msgid "Nommer administrateur"
+msgstr "Zum Administrator ernennen"
+
+msgid "Nommer cet utilisateur administrateur du tenant (rôle Direction) ?"
+msgstr ""
+"Diesen Benutzer zum Tenant-Administrator ernennen (Rolle Geschäftsleitung)?"
+
+msgid "%(email)s est déjà administrateur du tenant."
+msgstr "%(email)s ist bereits Tenant-Administrator."
+
+msgid "%(email)s est maintenant administrateur du tenant (rôle Direction)."
+msgstr "%(email)s ist jetzt Tenant-Administrator (Rolle Geschäftsleitung)."
+
+msgid "Choisir un tenant…"
+msgstr "Tenant wählen…"
+
+msgid "limite atteinte"
+msgstr "Limit erreicht"
+
+msgid "Aucun tenant. Créez d'abord un tenant."
+msgstr "Kein Tenant. Legen Sie zuerst einen Tenant an."

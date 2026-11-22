@@ -83602,3 +83602,60 @@ msgstr "Κιβώτια ταχυτήτων"
 
 msgid "Journal du dernier chargement"
 msgstr "Αρχείο τελευταίας φόρτωσης"
+
+msgid "Ajouter un administrateur"
+msgstr "Προσθήκη διαχειριστή"
+
+msgid "+ Ajouter un administrateur"
+msgstr "+ Προσθήκη διαχειριστή"
+
+msgid "Ajouter un administrateur de tenant"
+msgstr "Προσθήκη διαχειριστή tenant"
+
+msgid "Choisir un tenant et créer son administrateur (rôle Direction)."
+msgstr ""
+"Επιλέξτε tenant και δημιουργήστε τον διαχειριστή του (ρόλος Διεύθυνση)."
+
+msgid ""
+"L'administrateur a le rôle Direction : il gère les utilisateurs et les "
+"réglages de sa société."
+msgstr ""
+"Ο διαχειριστής έχει τον ρόλο Διεύθυνση: διαχειρίζεται τους χρήστες και τις "
+"ρυθμίσεις της εταιρείας του."
+
+msgid ""
+"Administrateur du tenant : gère les utilisateurs et les réglages de sa "
+"société."
+msgstr ""
+"Διαχειριστής tenant: διαχειρίζεται τους χρήστες και τις ρυθμίσεις της "
+"εταιρείας του."
+
+msgid "Créer l'administrateur"
+msgstr "Δημιουργία διαχειριστή"
+
+msgid "Créer et ajouter un autre administrateur"
+msgstr "Δημιουργία και προσθήκη άλλου διαχειριστή"
+
+msgid "Administrateur créé pour %(nom)s."
+msgstr "Ο διαχειριστής δημιουργήθηκε για %(nom)s."
+
+msgid "Nommer administrateur"
+msgstr "Ορισμός ως διαχειριστή"
+
+msgid "Nommer cet utilisateur administrateur du tenant (rôle Direction) ?"
+msgstr "Ορισμός αυτού του χρήστη ως διαχειριστή tenant (ρόλος Διεύθυνση);"
+
+msgid "%(email)s est déjà administrateur du tenant."
+msgstr "Ο/Η %(email)s είναι ήδη διαχειριστής tenant."
+
+msgid "%(email)s est maintenant administrateur du tenant (rôle Direction)."
+msgstr "Ο/Η %(email)s είναι πλέον διαχειριστής tenant (ρόλος Διεύθυνση)."
+
+msgid "Choisir un tenant…"
+msgstr "Επιλέξτε tenant…"
+
+msgid "limite atteinte"
+msgstr "συμπληρώθηκε το όριο"
+
+msgid "Aucun tenant. Créez d'abord un tenant."
+msgstr "Κανένα tenant. Δημιουργήστε πρώτα ένα tenant."

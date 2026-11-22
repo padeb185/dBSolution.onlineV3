@@ -93,6 +93,9 @@ urlpatterns = [
     path("admin/tenants/<int:pk>/referentiel/", views_tenants.tenant_referentiel, name="tenant_referentiel"),
     path("admin/tenants/<int:pk>/utilisateur/creer/", views_tenants.tenant_utilisateur_creer,
          name="tenant_utilisateur_creer"),
+    path("admin/tenants/administrateur/", views_tenants.tenant_admin_choisir, name="tenant_admin_choisir"),
+    path("admin/tenants/<int:pk>/utilisateur/<uuid:utilisateur_id>/administrateur/",
+         views_tenants.tenant_utilisateur_admin, name="tenant_utilisateur_admin"),
     path("admin/tenants/<int:pk>/utilisateur/<uuid:utilisateur_id>/activer/",
          views_tenants.tenant_utilisateur_activer, name="tenant_utilisateur_activer"),
 

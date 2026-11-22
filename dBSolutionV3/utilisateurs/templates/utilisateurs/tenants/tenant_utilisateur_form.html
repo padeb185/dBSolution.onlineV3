@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
 
-{% block title %}{% trans "Ajouter un utilisateur" %}{% endblock %}
+{% block title %}{% if mode_admin %}{% trans "Ajouter un administrateur" %}{% else %}{% trans "Ajouter un utilisateur" %}{% endif %}{% endblock %}
 
 {% block content %}
 <br><br>
@@ -9,7 +9,7 @@
 
     <h1 class="text-2xl font-bold mb-2 flex items-center gap-4">
         <img src="{% static 'icons/mecanicien.png' %}" alt="" class="w-16 h-16">
-        <span>{% trans "Ajouter un utilisateur" %}</span>
+        <span>{% if mode_admin %}{% trans "Ajouter un administrateur" %}{% else %}{% trans "Ajouter un utilisateur" %}{% endif %}</span>
     </h1>
     <p class="text-gray-600 mb-6">
         {{ societe.nom }} · <span class="font-mono">{{ societe.schema_name }}</span>
@@ -26,6 +26,7 @@
 
     <form method="post">
         {% csrf_token %}
+        {% if mode_admin %}<input type="hidden" name="admin" value="1">{% endif %}
 
         <h2 class="text-xl font-semibold mb-4 mt-4 border-b pb-1">{% trans "Informations utilisateur" %}</h2>
         {% for field in form %}
@@ -62,11 +63,11 @@
         <div class="flex flex-col gap-3 mt-6">
             <button type="submit"
                     class="w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-                {% trans "Créer l'utilisateur" %}
+                {% if mode_admin %}{% trans "Créer l'administrateur" %}{% else %}{% trans "Créer l'utilisateur" %}{% endif %}
             </button>
             <button type="submit" name="ajouter_autre" value="1"
                     class="w-full bg-green-700 text-white px-5 py-4 rounded hover:bg-green-500 font-semibold text-center">
-                {% trans "Créer et ajouter un autre utilisateur" %}
+                {% if mode_admin %}{% trans "Créer et ajouter un autre administrateur" %}{% else %}{% trans "Créer et ajouter un autre utilisateur" %}{% endif %}
             </button>
             <a href="{% url 'utilisateurs:tenant_detail' societe.pk %}"
                class="w-full bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">

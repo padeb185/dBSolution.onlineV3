@@ -1,0 +1,37 @@
+"""Traductions Django : ajout d'un administrateur de tenant depuis le tableau de bord admin."""
+import sys
+import polib
+
+T = {
+ "Ajouter un administrateur": ("Beheerder toevoegen", "Add an administrator", "Administrator hinzufügen", "Añadir un administrador", "Aggiungi un amministratore", "Προσθήκη διαχειριστή"),
+ "+ Ajouter un administrateur": ("+ Beheerder toevoegen", "+ Add an administrator", "+ Administrator hinzufügen", "+ Añadir un administrador", "+ Aggiungi un amministratore", "+ Προσθήκη διαχειριστή"),
+ "Ajouter un administrateur de tenant": ("Tenantbeheerder toevoegen", "Add a tenant administrator", "Tenant-Administrator hinzufügen", "Añadir un administrador de tenant", "Aggiungi un amministratore del tenant", "Προσθήκη διαχειριστή tenant"),
+ "Choisir un tenant et créer son administrateur (rôle Direction).": ("Kies een tenant en maak de beheerder aan (rol Directie).", "Choose a tenant and create its administrator (Management role).", "Tenant wählen und seinen Administrator anlegen (Rolle Geschäftsleitung).", "Elija un tenant y cree su administrador (rol Dirección).", "Scegli un tenant e crea il suo amministratore (ruolo Direzione).", "Επιλέξτε tenant και δημιουργήστε τον διαχειριστή του (ρόλος Διεύθυνση)."),
+ "L'administrateur a le rôle Direction : il gère les utilisateurs et les réglages de sa société.": ("De beheerder heeft de rol Directie: hij beheert de gebruikers en instellingen van zijn bedrijf.", "The administrator has the Management role: they manage their company's users and settings.", "Der Administrator hat die Rolle Geschäftsleitung: Er verwaltet die Benutzer und Einstellungen seines Unternehmens.", "El administrador tiene el rol Dirección: gestiona los usuarios y la configuración de su empresa.", "L'amministratore ha il ruolo Direzione: gestisce gli utenti e le impostazioni della sua azienda.", "Ο διαχειριστής έχει τον ρόλο Διεύθυνση: διαχειρίζεται τους χρήστες και τις ρυθμίσεις της εταιρείας του."),
+ "Administrateur du tenant : gère les utilisateurs et les réglages de sa société.": ("Tenantbeheerder: beheert de gebruikers en instellingen van zijn bedrijf.", "Tenant administrator: manages their company's users and settings.", "Tenant-Administrator: verwaltet die Benutzer und Einstellungen seines Unternehmens.", "Administrador del tenant: gestiona los usuarios y la configuración de su empresa.", "Amministratore del tenant: gestisce gli utenti e le impostazioni della sua azienda.", "Διαχειριστής tenant: διαχειρίζεται τους χρήστες και τις ρυθμίσεις της εταιρείας του."),
+ "Créer l'administrateur": ("Beheerder aanmaken", "Create the administrator", "Administrator anlegen", "Crear el administrador", "Crea l'amministratore", "Δημιουργία διαχειριστή"),
+ "Créer et ajouter un autre administrateur": ("Aanmaken en nog een beheerder toevoegen", "Create and add another administrator", "Anlegen und weiteren Administrator hinzufügen", "Crear y añadir otro administrador", "Crea e aggiungi un altro amministratore", "Δημιουργία και προσθήκη άλλου διαχειριστή"),
+ "Administrateur créé pour %(nom)s.": ("Beheerder aangemaakt voor %(nom)s.", "Administrator created for %(nom)s.", "Administrator für %(nom)s angelegt.", "Administrador creado para %(nom)s.", "Amministratore creato per %(nom)s.", "Ο διαχειριστής δημιουργήθηκε για %(nom)s."),
+ "Administrateur": ("Beheerder", "Administrator", "Administrator", "Administrador", "Amministratore", "Διαχειριστής"),
+ "Nommer administrateur": ("Tot beheerder benoemen", "Make administrator", "Zum Administrator ernennen", "Nombrar administrador", "Nomina amministratore", "Ορισμός ως διαχειριστή"),
+ "Nommer cet utilisateur administrateur du tenant (rôle Direction) ?": ("Deze gebruiker benoemen tot tenantbeheerder (rol Directie)?", "Make this user a tenant administrator (Management role)?", "Diesen Benutzer zum Tenant-Administrator ernennen (Rolle Geschäftsleitung)?", "¿Nombrar a este usuario administrador del tenant (rol Dirección)?", "Nominare questo utente amministratore del tenant (ruolo Direzione)?", "Ορισμός αυτού του χρήστη ως διαχειριστή tenant (ρόλος Διεύθυνση);"),
+ "%(email)s est déjà administrateur du tenant.": ("%(email)s is al tenantbeheerder.", "%(email)s is already a tenant administrator.", "%(email)s ist bereits Tenant-Administrator.", "%(email)s ya es administrador del tenant.", "%(email)s è già amministratore del tenant.", "Ο/Η %(email)s είναι ήδη διαχειριστής tenant."),
+ "%(email)s est maintenant administrateur du tenant (rôle Direction).": ("%(email)s is nu tenantbeheerder (rol Directie).", "%(email)s is now a tenant administrator (Management role).", "%(email)s ist jetzt Tenant-Administrator (Rolle Geschäftsleitung).", "%(email)s es ahora administrador del tenant (rol Dirección).", "%(email)s è ora amministratore del tenant (ruolo Direzione).", "Ο/Η %(email)s είναι πλέον διαχειριστής tenant (ρόλος Διεύθυνση)."),
+ "Choisir un tenant…": ("Kies een tenant…", "Choose a tenant…", "Tenant wählen…", "Elegir un tenant…", "Scegli un tenant…", "Επιλέξτε tenant…"),
+ "limite atteinte": ("limiet bereikt", "limit reached", "Limit erreicht", "límite alcanzado", "limite raggiunto", "συμπληρώθηκε το όριο"),
+ "Continuer": ("Doorgaan", "Continue", "Weiter", "Continuar", "Continua", "Συνέχεια"),
+ "Aucun tenant. Créez d'abord un tenant.": ("Geen tenant. Maak eerst een tenant aan.", "No tenant. Create a tenant first.", "Kein Tenant. Legen Sie zuerst einen Tenant an.", "Ningún tenant. Cree primero un tenant.", "Nessun tenant. Crea prima un tenant.", "Κανένα tenant. Δημιουργήστε πρώτα ένα tenant."),
+}
+LANGS = ["nl", "en", "de", "es", "it", "el"]
+racine = sys.argv[1]
+for i, l in enumerate(LANGS):
+    chemin = f"{racine}/{l}/LC_MESSAGES/django.po"
+    po = polib.pofile(chemin)
+    existants = {(e.msgctxt, e.msgid) for e in po if not e.obsolete}
+    nouveaux = [polib.POEntry(msgid=k, msgstr=v[i]) for k, v in T.items() if (None, k) not in existants]
+    if nouveaux:
+        with open(chemin, "a", encoding="utf-8") as f:
+            for e in nouveaux:
+                f.write("\n" + e.__unicode__(wrapwidth=79))
+    polib.pofile(chemin).save_as_mofile(chemin[:-3] + ".mo")
+    print(l, len(nouveaux), "entrées ajoutées")

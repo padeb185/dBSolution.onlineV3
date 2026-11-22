@@ -70,6 +70,15 @@
             <img src="{% static 'icons/equipe.png' %}" alt="{% trans 'Créer un tenant' %}" style="width:60px; height:60px; margin-right:10px;">
         </a>
 
+        <a href="{% url 'utilisateurs:tenant_admin_choisir' %}"
+           class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+            <div>
+                <h2 class="text-lg font-semibold mb-2">{% trans "Ajouter un administrateur de tenant" %}</h2>
+                <p>{% trans "Choisir un tenant et créer son administrateur (rôle Direction)." %}</p>
+            </div>
+            <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="{% trans 'Ajouter un administrateur de tenant' %}" style="width:60px; height:60px; margin-right:10px;">
+        </a>
+
         <a href="{% url 'utilisateurs:creer_utilisateur' %}"
             class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
             <div>

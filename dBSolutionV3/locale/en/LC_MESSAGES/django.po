@@ -83144,3 +83144,57 @@ msgstr "Gearboxes"
 
 msgid "Journal du dernier chargement"
 msgstr "Log of the last load"
+
+msgid "Ajouter un administrateur"
+msgstr "Add an administrator"
+
+msgid "+ Ajouter un administrateur"
+msgstr "+ Add an administrator"
+
+msgid "Ajouter un administrateur de tenant"
+msgstr "Add a tenant administrator"
+
+msgid "Choisir un tenant et créer son administrateur (rôle Direction)."
+msgstr "Choose a tenant and create its administrator (Management role)."
+
+msgid ""
+"L'administrateur a le rôle Direction : il gère les utilisateurs et les "
+"réglages de sa société."
+msgstr ""
+"The administrator has the Management role: they manage their company's users "
+"and settings."
+
+msgid ""
+"Administrateur du tenant : gère les utilisateurs et les réglages de sa "
+"société."
+msgstr "Tenant administrator: manages their company's users and settings."
+
+msgid "Créer l'administrateur"
+msgstr "Create the administrator"
+
+msgid "Créer et ajouter un autre administrateur"
+msgstr "Create and add another administrator"
+
+msgid "Administrateur créé pour %(nom)s."
+msgstr "Administrator created for %(nom)s."
+
+msgid "Nommer administrateur"
+msgstr "Make administrator"
+
+msgid "Nommer cet utilisateur administrateur du tenant (rôle Direction) ?"
+msgstr "Make this user a tenant administrator (Management role)?"
+
+msgid "%(email)s est déjà administrateur du tenant."
+msgstr "%(email)s is already a tenant administrator."
+
+msgid "%(email)s est maintenant administrateur du tenant (rôle Direction)."
+msgstr "%(email)s is now a tenant administrator (Management role)."
+
+msgid "Choisir un tenant…"
+msgstr "Choose a tenant…"
+
+msgid "limite atteinte"
+msgstr "limit reached"
+
+msgid "Aucun tenant. Créez d'abord un tenant."
+msgstr "No tenant. Create a tenant first."
