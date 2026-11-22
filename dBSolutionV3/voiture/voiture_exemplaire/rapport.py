@@ -335,10 +335,16 @@ def _postes_vehicule(ex, r=None):
         ]))),
         ("annuels", (_("Coûts annuels"), OrderedDict(
             (t, (C.Type(t).label, annuels.get(t, ZERO))) for t in annuels))),
+        ("cession", (_("Vente du véhicule"), OrderedDict([
+            ("frais_vente", (_("Frais de vente"), r.get("frais_vente", ZERO))),
+        ]))),
     ])
+    v = r.get("vente")
+    libelle_revente = (_("Prix de vente %(numero)s du %(date)s") % {"numero": v["numero"], "date": v["date"].strftime("%d/%m/%Y")}
+                       if v else _("Valeur de revente (estimation)"))
     gains = OrderedDict([
         ("locations", (_("Locations (HTVA)"), r["locations"]["htva"])),
-        ("revente", (_("Valeur de revente"), r["valeur_revente"])),
+        ("revente", (libelle_revente, r["valeur_revente"])),
     ])
     return {"couts": couts, "gains": gains, "km": r["km"], "nb_locations": r["locations"]["nb"]}
 

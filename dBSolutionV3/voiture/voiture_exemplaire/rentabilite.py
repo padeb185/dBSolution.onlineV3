@@ -9,7 +9,8 @@ Rentabilité d'un véhicule (Données financières).
                           et maintenances d'atelier non facturées – + garages externes HTVA)
                         + coûts annuels (assurance, taxe de circulation, vignettes, contrôle technique…)
   = coût total
-  − valeur de revente (0 par défaut)
+  − valeur de revente (0 par défaut) ; véhicule vendu (facture de vente émise) : prix de vente HTVA,
+    frais de vente HTVA ajoutés aux coûts, coûts annuels arrêtés à la date de vente, km arrêtés au km de vente
   = coût net
   − revenus des locations (HTVA)
   = résultat net du véhicule
@@ -313,7 +314,16 @@ def locations(ex):
 # ------------------------------------------------------------------
 # Synthèse
 # ------------------------------------------------------------------
+def vente_emise(ex):
+    """Facture de vente émise du véhicule (module voiture_vente), sinon None."""
+    try:
+        return ex.ventes.filter(statut="EMISE").order_by("-date_vente").first()
+    except Exception:
+        return None
+
+
 def rentabilite(ex):
+    vente = vente_emise(ex)
     acquisition = {
         "prix_achat": r2(ex.prix_achat),
         "taxe_mise_en_circulation": r2(ex.taxe_mise_en_circulation),
@@ -332,7 +342,8 @@ def rentabilite(ex):
         acquisition["interets"] = r2(financement["lignes"].get("interets"))
     acquisition["total"] = r2(sum(acquisition.values(), ZERO))
 
-    km = max(int(ex.kilometres_chassis or 0) - int(ex.kilometrage_achat or 0), 0)
+    km_fin = (vente.kilometrage_vente if vente and vente.kilometrage_vente else ex.kilometres_chassis) or 0
+    km = max(int(km_fin) - int(ex.kilometrage_achat or 0), 0)
 
     en = energie(ex)
     # Carburant non encodé : estimation ajoutée aux coûts d'énergie (HTVA)
@@ -343,12 +354,14 @@ def rentabilite(ex):
                                   "estimation": True}
     total_energie = r2(sum((l["ht"] for l in en.values()), ZERO))
     mt = maintenances(ex)
-    an = couts_annuels(ex)
+    # Véhicule vendu : plus de coûts annuels après la date de vente
+    an = couts_annuels(ex, aujourdhui=vente.date_vente if vente else None)
     loc = locations(ex)
 
+    frais_vente = r2(vente.frais_vente_htva) if vente else ZERO
     utilisation = r2(total_energie + mt["total"] + an["total"])
-    cout_total = r2(acquisition["total"] + utilisation)
-    valeur_revente = r2(ex.valeur_revente)
+    cout_total = r2(acquisition["total"] + utilisation + frais_vente)
+    valeur_revente = r2(vente.prix_htva) if vente else r2(ex.valeur_revente)
     cout_net = r2(cout_total - valeur_revente)
     resultat = r2(loc["htva"] - cout_net)
 
@@ -366,6 +379,9 @@ def rentabilite(ex):
         "utilisation": utilisation,
         "cout_total": cout_total,
         "valeur_revente": valeur_revente,
+        "vente": ({"objet": vente, "numero": vente.numero, "date": vente.date_vente, "prix_htva": r2(vente.prix_htva),
+                   "frais": frais_vente, "km": vente.kilometrage_vente} if vente else None),
+        "frais_vente": frais_vente,
         "cout_net": cout_net,
         "resultat": resultat,
         "km": km,
