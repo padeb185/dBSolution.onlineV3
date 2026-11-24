@@ -63,6 +63,9 @@ MODULES = [
     "cadillac",
     "chevrolet",
     "dodge",
+    "chrysler",
+    "delorean",
+    "gmc",
 ]
 
 

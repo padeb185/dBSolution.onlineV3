@@ -448,17 +448,6 @@ MODELES = {
     'Chevrolet Corvette': [
     ],
     'Chrysler': [
-        {"modele": '300', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 75},
-        {"modele": 'Aspen', "variante": 'SUV', "portes": 5, "places": 7, "reservoir": 75},
-        {"modele": 'Imperial', "variante": 'Coupe', "portes": 2, "places": 4, "reservoir": 75},
-        {"modele": 'Imperial', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 75},
-        {"modele": 'LeBaron', "variante": 'Convertible', "portes": 2, "places": 4, "reservoir": 70},
-        {"modele": 'LeBaron', "variante": 'Coupe', "portes": 2, "places": 4, "reservoir": 70},
-        {"modele": 'New Yorker', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 70},
-        {"modele": 'Pacifica', "variante": 'Minivan', "portes": 5, "places": 7, "reservoir": 70},
-        {"modele": 'Pacifica Hybrid', "variante": 'Minivan Hybride', "portes": 5, "places": 7, "reservoir": 40},
-        {"modele": 'Town & Country', "variante": 'Minivan', "portes": 5, "places": 7, "reservoir": 75},
-        {"modele": 'Voyager', "variante": 'Minivan', "portes": 5, "places": 7, "reservoir": 65},
     ],
     'Citroën': [
     ],
@@ -627,7 +616,6 @@ MODELES = {
         {"modele": 'Voiturette', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1899, "annee_fin": 1901, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'DeLorean': [
-        {"modele": 'DMC-12', "variante": 'Coupé', "portes": 2, "places": 2, "reservoir": 51, "annee_debut": 1981, "annee_fin": 1983},
     ],
     'DeSoto': [
         {"modele": 'Adventurer', "variante": 'Coupé / Cabriolet', "portes": 2, "places": 6, "annee_debut": 1956, "annee_fin": 1960},
@@ -957,16 +945,6 @@ MODELES = {
         {"modele": 'Isar', "variante": 'Berline', "portes": 2, "places": 4, "annee_debut": 1958, "annee_fin": 1965},
     ],
     'GMC': [
-        {"modele": 'Acadia', "variante": 'SUV', "portes": 5, "places": 7, "reservoir": 75},
-        {"modele": 'Canyon', "variante": 'Pickup Moyen', "portes": 4, "places": 5, "reservoir": 80},
-        {"modele": 'Hummer EV', "variante": 'Pickup Electrique', "portes": 4, "places": 5, "reservoir": 0},
-        {"modele": 'Savana', "variante": 'Van', "portes": 4, "places": 12, "reservoir": 117},
-        {"modele": 'Sierra 1500', "variante": 'Pickup', "portes": 4, "places": 5, "reservoir": 98},
-        {"modele": 'Sierra 2500HD', "variante": 'Pickup', "portes": 4, "places": 5, "reservoir": 136},
-        {"modele": 'Sierra 3500HD', "variante": 'Pickup', "portes": 4, "places": 5, "reservoir": 136},
-        {"modele": 'Terrain', "variante": 'SUV Compact', "portes": 5, "places": 5, "reservoir": 60},
-        {"modele": 'Yukon', "variante": 'SUV', "portes": 5, "places": 7, "reservoir": 98},
-        {"modele": 'Yukon XL', "variante": 'SUV Long', "portes": 5, "places": 8, "reservoir": 106},
     ],
     'Gobron-Brillié': [
         {"modele": 'Gobron-Nagant', "variante": 'Torpedo', "portes": 0, "places": 4, "annee_debut": 1900, "annee_fin": 1903, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
