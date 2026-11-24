@@ -58,6 +58,11 @@ MODULES = [
     "byd",
     "daewoo",
     "daihatsu",
+    "benz",
+    "buick",
+    "cadillac",
+    "chevrolet",
+    "dodge",
 ]
 
 
