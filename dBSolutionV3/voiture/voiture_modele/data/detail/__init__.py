@@ -38,6 +38,8 @@ MODULES = [
     "bentley",
     "tesla",
     "bugatti",
+    "nissan",
+    "ds",
 ]
 
 

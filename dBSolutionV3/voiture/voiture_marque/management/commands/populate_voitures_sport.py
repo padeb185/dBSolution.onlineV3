@@ -20,7 +20,7 @@ class Command(BaseCommand):
         sportives = [
             # 🇫🇷 France
             "Renault RS", "Peugeot Sport", "Citroën Sport", "Alpine", "Venturi", "Matra",
-            "Ligier", "Ginetta", "Bugatti (ancien)", "Panhard Racing", "Talbot-Lago",
+            "Ligier", "Ginetta", "Panhard Racing", "Talbot-Lago",
 
             # 🇩🇪 Allemagne
             "BMW M", "Mercedes-AMG", "Audi S", "Audi RS", "Porsche", "Opel OPC", "Mercedes-Benz Maybach",

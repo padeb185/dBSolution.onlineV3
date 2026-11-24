@@ -62,7 +62,6 @@ MARQUES = [
     'Brossel',
     'Brush',
     'Bugatti',
-    'Bugatti (ancien)',
     'Buick',
     'Büssing',
     'BYD',
