@@ -46,6 +46,8 @@ MODULES = [
     "caterham",
     "dacia",
     "cupra",
+    "seat",
+    "skoda",
 ]
 
 
