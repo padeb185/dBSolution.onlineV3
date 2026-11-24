@@ -520,15 +520,6 @@ MODELES = {
         {"modele": 'Model V', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1922, "annee_fin": 1927, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Caterham': [
-        {"modele": 'Caterham Seven 160', "portes": 2, "places": 2, "reservoir": 35},
-        {"modele": 'Caterham Seven 270', "portes": 2, "places": 2, "reservoir": 40},
-        {"modele": 'Caterham Seven 310', "portes": 2, "places": 2, "reservoir": 40},
-        {"modele": 'Caterham Seven 360', "portes": 2, "places": 2, "reservoir": 40},
-        {"modele": 'Caterham Seven 420', "portes": 2, "places": 2, "reservoir": 40},
-        {"modele": 'Caterham Seven 485', "portes": 2, "places": 2, "reservoir": 40},
-        {"modele": 'Caterham Seven 620', "portes": 2, "places": 2, "reservoir": 45},
-        {"modele": 'Caterham Seven CSR', "portes": 2, "places": 2, "reservoir": 45},
-        {"modele": 'Caterham Seven R500', "portes": 2, "places": 2, "reservoir": 45},
     ],
     'CG': [
         {"modele": '1000', "variante": 'Spider', "portes": 2, "places": 2, "annee_debut": 1966, "annee_fin": 1968},
@@ -689,14 +680,6 @@ MODELES = {
         {"modele": 'V8 Model 1', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1916, "annee_fin": 1931, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Cupra': [
-        {"modele": 'Cupra Ateca', "variante": 'SUV Sport', "portes": 5, "places": 5, "reservoir": 60},
-        {"modele": 'Cupra Born', "variante": 'Hatchback Electrique', "portes": 5, "places": 5, "reservoir": 0},
-        {"modele": 'Cupra Formentor', "variante": 'SUV Coupé Sport', "portes": 5, "places": 5, "reservoir": 55},
-        {"modele": 'Cupra Ibiza', "variante": 'Sport', "portes": 5, "places": 5, "reservoir": 45},
-        {"modele": 'Cupra Leon', "variante": 'Sport', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'Cupra Leon Competición', "variante": 'Racing', "portes": 5, "places": 4, "reservoir": 50},
-        {"modele": 'Cupra Leon ST', "variante": 'Sport', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'Cupra Tavascan', "variante": 'SUV Electrique Concept', "portes": 5, "places": 5, "reservoir": 0},
     ],
     'Czinger': [
         {"modele": '21C', "variante": 'Hypercar', "portes": 2, "places": 2, "annee_debut": 2021},
@@ -706,17 +689,6 @@ MODELES = {
         {"modele": 'Coccinelle Cabriolet', "variante": 'Cabriolet', "portes": 2, "places": 4, "annee_debut": 1950, "annee_fin": 1960, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Dacia': [
-        {"modele": '1100', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 40},
-        {"modele": '1300', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 45},
-        {"modele": '1310', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 50},
-        {"modele": 'Duster', "variante": 'Prestige', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'Duster', "variante": 'SUV', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'Duster Oroch', "variante": 'Pickup', "portes": 4, "places": 5, "reservoir": 50},
-        {"modele": 'Logan', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 50},
-        {"modele": 'Logan MCV', "variante": 'Break', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'Sandero', "variante": 'Hatchback', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'Sandero Stepway', "variante": 'Hatchback SUV', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'Spring', "variante": 'Hatchback Electrique', "portes": 5, "places": 4, "reservoir": 0},
     ],
     'Daewoo': [
         {"modele": 'Espero', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 55},

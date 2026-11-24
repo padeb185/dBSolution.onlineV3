@@ -43,6 +43,9 @@ MODULES = [
     "ferrari",
     "fiat",
     "ford",
+    "caterham",
+    "dacia",
+    "cupra",
 ]
 
 
