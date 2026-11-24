@@ -83603,3 +83603,317 @@ msgstr ""
 
 msgid "et kilomètres arrêtés à %(km)s km"
 msgstr "and kilometres stopped at %(km)s km"
+
+msgid "%(n)s transactions sans carte (paiement direct)"
+msgstr "%(n)s transactions without a card (direct payment)"
+
+msgid "4 derniers chiffres"
+msgstr "Last 4 digits"
+
+msgid "Ajouter une carte"
+msgstr "Add a card"
+
+msgid "Ajouter une carte carburant / recharge"
+msgstr "Add a fuel / charging card"
+
+msgid ""
+"Aucun fournisseur : créez d'abord l'émetteur de la carte (TotalEnergies, "
+"Shell, DKV…) dans les fournisseurs."
+msgstr ""
+"No supplier: first create the card issuer (TotalEnergies, Shell, DKV…) in "
+"suppliers."
+
+msgid "Aucune (paiement direct)"
+msgstr "None (direct payment)"
+
+msgid ""
+"Aucune carte. Ajoutez vos cartes carburant ou de recharge pour les choisir "
+"lors de la saisie des pleins et recharges."
+msgstr ""
+"No card. Add your fuel or charging cards to choose them when recording fill-"
+"ups and charges."
+
+msgid ""
+"Aucune transaction : choisissez cette carte lors de la saisie d'un plein, "
+"d'une recharge ou d'AdBlue."
+msgstr ""
+"No transaction: choose this card when recording a fill-up, a charge or "
+"AdBlue."
+
+msgid "Aucune transaction avec cette carte."
+msgstr "No transaction with this card."
+
+msgid "Carburant et recharge"
+msgstr "Fuel and charging"
+
+msgid "Carte"
+msgstr "Card"
+
+msgid "Carte carburant / recharge"
+msgstr "Fuel / charging card"
+
+msgid "Carte enregistrée."
+msgstr "Card saved."
+
+msgid ""
+"Carte à relevé hebdomadaire / mensuel : la dépense est payée au fournisseur à"
+" l'échéance du relevé."
+msgstr ""
+"Card with weekly / monthly statement: the expense is paid to the supplier "
+"when the statement is due."
+
+msgid "Cartes"
+msgstr "Cards"
+
+msgid "Cartes carburant / recharge"
+msgstr "Fuel / charging cards"
+
+msgid "Cette carte est attribuée au véhicule %(immat)s."
+msgstr "This card is assigned to vehicle %(immat)s."
+
+msgid "Cette carte n'accepte pas ce type de dépense (%(type)s)."
+msgstr "This card does not accept this type of expense (%(type)s)."
+
+msgid ""
+"Chaque période est payée au fournisseur à la date de prélèvement : 440000 "
+"Fournisseurs au débit, banque au crédit."
+msgstr ""
+"Each period is paid to the supplier on the debit date: 440000 Suppliers "
+"debit, bank credit."
+
+msgid "Compte bancaire débité. Vide : compte bancaire principal (550000)."
+msgstr "Bank account debited. Empty: main bank account (550000)."
+
+msgid "Compte bancaire principal (550000)"
+msgstr "Main bank account (550000)"
+
+msgid "Date d'expiration"
+msgstr "Expiry date"
+
+msgid "Délai de paiement du relevé (jours)"
+msgstr "Statement payment delay (days)"
+
+msgid "Dépenses du mois (TVAC)"
+msgstr "Expenses this month (incl. VAT)"
+
+msgid "Détails de la carte"
+msgstr "Card details"
+
+msgid "Enregistrement comptable (dernière transaction)"
+msgstr "Accounting entry (last transaction)"
+
+msgid "Ex. : « Total Card Golf GTI », « DKV flotte »."
+msgstr "E.g. “Total Card Golf GTI”, “DKV fleet”."
+
+msgid "Expiration"
+msgstr "Expiry"
+
+msgid "Hebdomadaire (relevé chaque semaine)"
+msgstr "Weekly (statement every week)"
+
+msgid "Hebdomadaire / mensuel"
+msgstr "Weekly / monthly"
+
+msgid ""
+"Hebdomadaire / mensuel : nombre de jours entre la fin de la période et le "
+"prélèvement."
+msgstr ""
+"Weekly / monthly: number of days between the end of the period and the debit."
+
+msgid "Indiquez exactement les 4 derniers chiffres."
+msgstr "Enter exactly the last 4 digits."
+
+msgid "Instantané"
+msgstr "Instant"
+
+msgid "Instantané (débit à chaque transaction)"
+msgstr "Instant (debit at each transaction)"
+
+msgid ""
+"Journal des achats (ACH), repris automatiquement dans le journal général et "
+"le bilan."
+msgstr ""
+"Purchase journal (ACH), automatically included in the general journal and "
+"balance sheet."
+
+msgid "Mensuel (relevé chaque mois)"
+msgstr "Monthly (statement every month)"
+
+msgid "Modifier la carte"
+msgstr "Edit card"
+
+msgid "Mois en cours"
+msgstr "Current month"
+
+msgid "Nom de la carte"
+msgstr "Card name"
+
+msgid "Paiement et comptabilité"
+msgstr "Payment and accounting"
+
+msgid "Plafond journalier (€)"
+msgstr "Daily limit (€)"
+
+msgid "Plafond journalier dépassé"
+msgstr "Daily limit exceeded"
+
+msgid "Plafond mensuel (€)"
+msgstr "Monthly limit (€)"
+
+msgid "Plafond mensuel dépassé"
+msgstr "Monthly limit exceeded"
+
+msgid "Plafonds"
+msgstr "Limits"
+
+msgid "Prélèvement"
+msgstr "Debit"
+
+msgid "Période en cours"
+msgstr "Current period"
+
+msgid "Relevé carte"
+msgstr "Card statement"
+
+msgid "Relevés"
+msgstr "Statements"
+
+msgid "Relevés à payer"
+msgstr "Statements to pay"
+
+msgid "Seuls les 4 derniers chiffres sont enregistrés (sécurité)."
+msgstr "Only the last 4 digits are stored (security)."
+
+msgid "Station"
+msgstr "Station"
+
+msgid "Titulaire / conducteur"
+msgstr "Holder / driver"
+
+msgid "Total depuis le début"
+msgstr "Total since the start"
+
+msgid "Toutes les cartes"
+msgstr "All cards"
+
+msgid "Transactions"
+msgstr "Transactions"
+
+msgid "Vide : carte utilisable pour tous les véhicules."
+msgstr "Empty: card usable for all vehicles."
+
+msgid "Véhicule / titulaire"
+msgstr "Vehicle / holder"
+
+msgid "Véhicule attribué"
+msgstr "Assigned vehicle"
+
+msgid "carte"
+msgstr "card"
+
+msgid ""
+"chaque plein ou recharge est payé tout de suite : charge (6127xx) et TVA au "
+"débit, banque au crédit."
+msgstr ""
+"each fill-up or charge is paid immediately: expense (6127xx) and VAT debit, "
+"bank credit."
+
+msgid ""
+"chaque transaction est une dette envers le fournisseur de la carte (440000) ;"
+" le relevé de la période est payé à la date de prélèvement (fin de période + "
+"délai) : 440000 au débit, banque au crédit."
+msgstr ""
+"each transaction is a debt to the card supplier (440000); the period "
+"statement is paid on the debit date (end of period + delay): 440000 debit, "
+"bank credit."
+
+msgid "expirée"
+msgstr "expired"
+
+msgid "inactive"
+msgstr "inactive"
+
+msgid "prélèvement à %(n)s jours"
+msgstr "debit after %(n)s days"
+
+msgid "transactions"
+msgstr "transactions"
+
+msgid "Émetteur de la carte (TotalEnergies, Shell, DKV, Q8, Ionity…)."
+msgstr "Card issuer (TotalEnergies, Shell, DKV, Q8, Ionity…)."
+
+msgid "Fournisseurs, paiement instantané ou relevés, comptabilité"
+msgstr "Suppliers, instant payment or statements, accounting"
+
+msgid "%(n)s jour après la fin de la période"
+msgid_plural "%(n)s jours après la fin de la période"
+msgstr[0] "%(n)s day after the end of the period"
+msgstr[1] "%(n)s days after the end of the period"
+
+msgid "en production"
+msgstr "in production"
+
+msgid "Version de base"
+msgstr "Base version"
+
+msgid "phase %(p)s"
+msgstr "phase %(p)s"
+
+msgid "Génération / phase non précisée"
+msgstr "Generation / phase not specified"
+
+msgid "Voir sur AutoScout24"
+msgstr "View on AutoScout24"
+
+msgid ""
+"Modèle › génération / phase › variantes, avec les mois et années de "
+"production."
+msgstr ""
+"Model › generation / phase › variants, with production months and years."
+
+msgid "Rechercher un modèle, une génération ou une variante…"
+msgstr "Search a model, generation or variant…"
+
+msgid "Ajouter une phase"
+msgstr "Add a phase"
+
+msgid "Ajouter une variante"
+msgstr "Add a variant"
+
+msgid "Portes / places"
+msgstr "Doors / seats"
+
+msgid "Réservoir / batterie"
+msgstr "Tank / battery"
+
+msgid "en cours"
+msgstr "ongoing"
+
+msgid "Ajouter une phase – %(m)s"
+msgstr "Add a phase – %(m)s"
+
+msgid "Ajouter une variante – %(m)s"
+msgstr "Add a variant – %(m)s"
+
+msgid "phase"
+msgstr "phase"
+
+msgid "%(n)s modèle · %(v)s variantes"
+msgid_plural "%(n)s modèles · %(v)s variantes"
+msgstr[0] "%(n)s model · %(v)s variants"
+msgstr[1] "%(n)s models · %(v)s variants"
+
+msgid "%(n)s phase"
+msgid_plural "%(n)s phases"
+msgstr[0] "%(n)s phase"
+msgstr[1] "%(n)s phases"
+
+msgid "%(n)s variante"
+msgid_plural "%(n)s variantes"
+msgstr[0] "%(n)s variant"
+msgstr[1] "%(n)s variants"
+
+msgid "%(n)s véhicule"
+msgid_plural "%(n)s véhicules"
+msgstr[0] "%(n)s vehicle"
+msgstr[1] "%(n)s vehicles"

@@ -32,6 +32,12 @@ MODULES = [
     "alpine",
     "toyota",
     "volvo",
+    "neuf_ff",
+    "aston_martin",
+    "audi",
+    "bentley",
+    "tesla",
+    "bugatti",
 ]
 
 

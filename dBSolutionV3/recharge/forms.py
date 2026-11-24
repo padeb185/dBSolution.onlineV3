@@ -80,6 +80,7 @@ class ElectriciteForm(forms.ModelForm):
             "niveau_restant",
             "prix_recharge",
             "pays",
+            "carte",
         ]
 
         widgets = {
@@ -143,7 +144,12 @@ class ElectriciteForm(forms.ModelForm):
             "prix_recharge",
 
             "pays",
+            "carte",
         ])
+
+        # Carte carburant / recharge (cartes actives compatibles, carte du véhicule par défaut)
+        from fuel.cartes import configurer_champ_carte
+        configurer_champ_carte(self, "electricite")
 
 
         # =========================
@@ -263,6 +269,9 @@ class ElectriciteForm(forms.ModelForm):
                         f"({capacite_max} kWh)."
                     ),
                 )
+
+        from fuel.cartes import verifier_carte
+        verifier_carte(self, "electricite")
 
         return cleaned_data
 

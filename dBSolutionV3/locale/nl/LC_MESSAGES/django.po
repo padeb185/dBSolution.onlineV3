@@ -84044,3 +84044,318 @@ msgstr ""
 
 msgid "et kilomètres arrêtés à %(km)s km"
 msgstr "en kilometers gestopt op %(km)s km"
+
+msgid "%(n)s transactions sans carte (paiement direct)"
+msgstr "%(n)s transacties zonder kaart (directe betaling)"
+
+msgid "4 derniers chiffres"
+msgstr "Laatste 4 cijfers"
+
+msgid "Ajouter une carte"
+msgstr "Kaart toevoegen"
+
+msgid "Ajouter une carte carburant / recharge"
+msgstr "Tank- / laadkaart toevoegen"
+
+msgid ""
+"Aucun fournisseur : créez d'abord l'émetteur de la carte (TotalEnergies, "
+"Shell, DKV…) dans les fournisseurs."
+msgstr ""
+"Geen leverancier: maak eerst de uitgever van de kaart (TotalEnergies, Shell, "
+"DKV…) aan bij de leveranciers."
+
+msgid "Aucune (paiement direct)"
+msgstr "Geen (directe betaling)"
+
+msgid ""
+"Aucune carte. Ajoutez vos cartes carburant ou de recharge pour les choisir "
+"lors de la saisie des pleins et recharges."
+msgstr ""
+"Geen kaart. Voeg uw tank- of laadkaarten toe om ze te kiezen bij het invoeren"
+" van tankbeurten en laadbeurten."
+
+msgid ""
+"Aucune transaction : choisissez cette carte lors de la saisie d'un plein, "
+"d'une recharge ou d'AdBlue."
+msgstr ""
+"Geen transactie: kies deze kaart bij het invoeren van een tankbeurt, "
+"laadbeurt of AdBlue."
+
+msgid "Aucune transaction avec cette carte."
+msgstr "Geen transactie met deze kaart."
+
+msgid "Carburant et recharge"
+msgstr "Brandstof en laden"
+
+msgid "Carte"
+msgstr "Kaart"
+
+msgid "Carte carburant / recharge"
+msgstr "Tank- / laadkaart"
+
+msgid "Carte enregistrée."
+msgstr "Kaart opgeslagen."
+
+msgid ""
+"Carte à relevé hebdomadaire / mensuel : la dépense est payée au fournisseur à"
+" l'échéance du relevé."
+msgstr ""
+"Kaart met wekelijks / maandelijks overzicht: de uitgave wordt op de vervaldag"
+" van het overzicht aan de leverancier betaald."
+
+msgid "Cartes"
+msgstr "Kaarten"
+
+msgid "Cartes carburant / recharge"
+msgstr "Tank- / laadkaarten"
+
+msgid "Cette carte est attribuée au véhicule %(immat)s."
+msgstr "Deze kaart is toegewezen aan voertuig %(immat)s."
+
+msgid "Cette carte n'accepte pas ce type de dépense (%(type)s)."
+msgstr "Deze kaart aanvaardt dit soort uitgave niet (%(type)s)."
+
+msgid ""
+"Chaque période est payée au fournisseur à la date de prélèvement : 440000 "
+"Fournisseurs au débit, banque au crédit."
+msgstr ""
+"Elke periode wordt op de inningsdatum aan de leverancier betaald: 440000 "
+"Leveranciers debet, bank credit."
+
+msgid "Compte bancaire débité. Vide : compte bancaire principal (550000)."
+msgstr "Gedebiteerde bankrekening. Leeg: hoofdbankrekening (550000)."
+
+msgid "Compte bancaire principal (550000)"
+msgstr "Hoofdbankrekening (550000)"
+
+msgid "Date d'expiration"
+msgstr "Vervaldatum"
+
+msgid "Délai de paiement du relevé (jours)"
+msgstr "Betalingstermijn van het overzicht (dagen)"
+
+msgid "Dépenses du mois (TVAC)"
+msgstr "Uitgaven van de maand (incl. btw)"
+
+msgid "Détails de la carte"
+msgstr "Kaartgegevens"
+
+msgid "Enregistrement comptable (dernière transaction)"
+msgstr "Boekhoudkundige registratie (laatste transactie)"
+
+msgid "Ex. : « Total Card Golf GTI », « DKV flotte »."
+msgstr "Bv.: « Total Card Golf GTI », « DKV vloot »."
+
+msgid "Expiration"
+msgstr "Vervaldatum"
+
+msgid "Hebdomadaire (relevé chaque semaine)"
+msgstr "Wekelijks (overzicht elke week)"
+
+msgid "Hebdomadaire / mensuel"
+msgstr "Wekelijks / maandelijks"
+
+msgid ""
+"Hebdomadaire / mensuel : nombre de jours entre la fin de la période et le "
+"prélèvement."
+msgstr ""
+"Wekelijks / maandelijks: aantal dagen tussen het einde van de periode en de "
+"inning."
+
+msgid "Indiquez exactement les 4 derniers chiffres."
+msgstr "Geef precies de laatste 4 cijfers op."
+
+msgid "Instantané"
+msgstr "Onmiddellijk"
+
+msgid "Instantané (débit à chaque transaction)"
+msgstr "Onmiddellijk (debitering bij elke transactie)"
+
+msgid ""
+"Journal des achats (ACH), repris automatiquement dans le journal général et "
+"le bilan."
+msgstr ""
+"Aankoopdagboek (ACH), automatisch overgenomen in het algemeen dagboek en de "
+"balans."
+
+msgid "Mensuel (relevé chaque mois)"
+msgstr "Maandelijks (overzicht elke maand)"
+
+msgid "Modifier la carte"
+msgstr "Kaart wijzigen"
+
+msgid "Mois en cours"
+msgstr "Lopende maand"
+
+msgid "Nom de la carte"
+msgstr "Naam van de kaart"
+
+msgid "Paiement et comptabilité"
+msgstr "Betaling en boekhouding"
+
+msgid "Plafond journalier (€)"
+msgstr "Daglimiet (€)"
+
+msgid "Plafond journalier dépassé"
+msgstr "Daglimiet overschreden"
+
+msgid "Plafond mensuel (€)"
+msgstr "Maandlimiet (€)"
+
+msgid "Plafond mensuel dépassé"
+msgstr "Maandlimiet overschreden"
+
+msgid "Plafonds"
+msgstr "Limieten"
+
+msgid "Prélèvement"
+msgstr "Inning"
+
+msgid "Période en cours"
+msgstr "Lopende periode"
+
+msgid "Relevé carte"
+msgstr "Kaartoverzicht"
+
+msgid "Relevés"
+msgstr "Overzichten"
+
+msgid "Relevés à payer"
+msgstr "Te betalen overzichten"
+
+msgid "Seuls les 4 derniers chiffres sont enregistrés (sécurité)."
+msgstr "Alleen de laatste 4 cijfers worden opgeslagen (veiligheid)."
+
+msgid "Station"
+msgstr "Station"
+
+msgid "Titulaire / conducteur"
+msgstr "Houder / bestuurder"
+
+msgid "Total depuis le début"
+msgstr "Totaal sinds het begin"
+
+msgid "Toutes les cartes"
+msgstr "Alle kaarten"
+
+msgid "Transactions"
+msgstr "Transacties"
+
+msgid "Vide : carte utilisable pour tous les véhicules."
+msgstr "Leeg: kaart bruikbaar voor alle voertuigen."
+
+msgid "Véhicule / titulaire"
+msgstr "Voertuig / houder"
+
+msgid "Véhicule attribué"
+msgstr "Toegewezen voertuig"
+
+msgid "carte"
+msgstr "kaart"
+
+msgid ""
+"chaque plein ou recharge est payé tout de suite : charge (6127xx) et TVA au "
+"débit, banque au crédit."
+msgstr ""
+"elke tank- of laadbeurt wordt meteen betaald: kost (6127xx) en btw debet, "
+"bank credit."
+
+msgid ""
+"chaque transaction est une dette envers le fournisseur de la carte (440000) ;"
+" le relevé de la période est payé à la date de prélèvement (fin de période + "
+"délai) : 440000 au débit, banque au crédit."
+msgstr ""
+"elke transactie is een schuld aan de kaartleverancier (440000); het overzicht"
+" van de periode wordt betaald op de inningsdatum (einde periode + termijn): "
+"440000 debet, bank credit."
+
+msgid "expirée"
+msgstr "verlopen"
+
+msgid "inactive"
+msgstr "inactief"
+
+msgid "prélèvement à %(n)s jours"
+msgstr "inning na %(n)s dagen"
+
+msgid "transactions"
+msgstr "transacties"
+
+msgid "Émetteur de la carte (TotalEnergies, Shell, DKV, Q8, Ionity…)."
+msgstr "Uitgever van de kaart (TotalEnergies, Shell, DKV, Q8, Ionity…)."
+
+msgid "Fournisseurs, paiement instantané ou relevés, comptabilité"
+msgstr "Leveranciers, onmiddellijke betaling of overzichten, boekhouding"
+
+msgid "%(n)s jour après la fin de la période"
+msgid_plural "%(n)s jours après la fin de la période"
+msgstr[0] "%(n)s dag na het einde van de periode"
+msgstr[1] "%(n)s dagen na het einde van de periode"
+
+msgid "en production"
+msgstr "in productie"
+
+msgid "Version de base"
+msgstr "Basisversie"
+
+msgid "phase %(p)s"
+msgstr "fase %(p)s"
+
+msgid "Génération / phase non précisée"
+msgstr "Generatie / fase niet opgegeven"
+
+msgid "Voir sur AutoScout24"
+msgstr "Bekijken op AutoScout24"
+
+msgid ""
+"Modèle › génération / phase › variantes, avec les mois et années de "
+"production."
+msgstr ""
+"Model › generatie / fase › varianten, met de productiemaanden en -jaren."
+
+msgid "Rechercher un modèle, une génération ou une variante…"
+msgstr "Zoek een model, generatie of variant…"
+
+msgid "Ajouter une phase"
+msgstr "Fase toevoegen"
+
+msgid "Ajouter une variante"
+msgstr "Variant toevoegen"
+
+msgid "Portes / places"
+msgstr "Deuren / zitplaatsen"
+
+msgid "Réservoir / batterie"
+msgstr "Tank / batterij"
+
+msgid "en cours"
+msgstr "lopend"
+
+msgid "Ajouter une phase – %(m)s"
+msgstr "Fase toevoegen – %(m)s"
+
+msgid "Ajouter une variante – %(m)s"
+msgstr "Variant toevoegen – %(m)s"
+
+msgid "phase"
+msgstr "fase"
+
+msgid "%(n)s modèle · %(v)s variantes"
+msgid_plural "%(n)s modèles · %(v)s variantes"
+msgstr[0] "%(n)s model · %(v)s varianten"
+msgstr[1] "%(n)s modellen · %(v)s varianten"
+
+msgid "%(n)s phase"
+msgid_plural "%(n)s phases"
+msgstr[0] "%(n)s fase"
+msgstr[1] "%(n)s fasen"
+
+msgid "%(n)s variante"
+msgid_plural "%(n)s variantes"
+msgstr[0] "%(n)s variant"
+msgstr[1] "%(n)s varianten"
+
+msgid "%(n)s véhicule"
+msgid_plural "%(n)s véhicules"
+msgstr[0] "%(n)s voertuig"
+msgstr[1] "%(n)s voertuigen"

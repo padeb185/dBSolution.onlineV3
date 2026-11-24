@@ -221,6 +221,10 @@ class Electricite(models.Model):
     montant_tva = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("TVA"), blank=True, null=True)
 
 
+    # Carte carburant / recharge utilisée (paiement instantané ou relevé périodique)
+    carte = models.ForeignKey("fuel.CarteCarburant", on_delete=models.SET_NULL, null=True, blank=True,
+                              related_name="electricites", verbose_name=_("Carte carburant / recharge"))
+
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 

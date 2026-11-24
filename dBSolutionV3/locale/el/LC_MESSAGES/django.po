@@ -84068,3 +84068,316 @@ msgstr ""
 
 msgid "et kilomètres arrêtés à %(km)s km"
 msgstr "και χιλιόμετρα έως %(km)s χλμ"
+
+msgid "%(n)s transactions sans carte (paiement direct)"
+msgstr "%(n)s συναλλαγές χωρίς κάρτα (άμεση πληρωμή)"
+
+msgid "4 derniers chiffres"
+msgstr "Τελευταία 4 ψηφία"
+
+msgid "Ajouter une carte"
+msgstr "Προσθήκη κάρτας"
+
+msgid "Ajouter une carte carburant / recharge"
+msgstr "Προσθήκη κάρτας καυσίμου / φόρτισης"
+
+msgid ""
+"Aucun fournisseur : créez d'abord l'émetteur de la carte (TotalEnergies, "
+"Shell, DKV…) dans les fournisseurs."
+msgstr ""
+"Κανένας προμηθευτής: δημιουργήστε πρώτα τον εκδότη της κάρτας (TotalEnergies,"
+" Shell, DKV…) στους προμηθευτές."
+
+msgid "Aucune (paiement direct)"
+msgstr "Καμία (άμεση πληρωμή)"
+
+msgid ""
+"Aucune carte. Ajoutez vos cartes carburant ou de recharge pour les choisir "
+"lors de la saisie des pleins et recharges."
+msgstr ""
+"Καμία κάρτα. Προσθέστε τις κάρτες καυσίμου ή φόρτισης για να τις επιλέγετε "
+"κατά την καταχώριση ανεφοδιασμών και φορτίσεων."
+
+msgid ""
+"Aucune transaction : choisissez cette carte lors de la saisie d'un plein, "
+"d'une recharge ou d'AdBlue."
+msgstr ""
+"Καμία συναλλαγή: επιλέξτε αυτή την κάρτα κατά την καταχώριση ανεφοδιασμού, "
+"φόρτισης ή AdBlue."
+
+msgid "Aucune transaction avec cette carte."
+msgstr "Καμία συναλλαγή με αυτή την κάρτα."
+
+msgid "Carburant et recharge"
+msgstr "Καύσιμο και φόρτιση"
+
+msgid "Carte"
+msgstr "Κάρτα"
+
+msgid "Carte carburant / recharge"
+msgstr "Κάρτα καυσίμου / φόρτισης"
+
+msgid "Carte enregistrée."
+msgstr "Η κάρτα αποθηκεύτηκε."
+
+msgid ""
+"Carte à relevé hebdomadaire / mensuel : la dépense est payée au fournisseur à"
+" l'échéance du relevé."
+msgstr ""
+"Κάρτα με εβδομαδιαία / μηνιαία κατάσταση: η δαπάνη πληρώνεται στον προμηθευτή"
+" κατά τη λήξη της κατάστασης."
+
+msgid "Cartes"
+msgstr "Κάρτες"
+
+msgid "Cartes carburant / recharge"
+msgstr "Κάρτες καυσίμου / φόρτισης"
+
+msgid "Cette carte est attribuée au véhicule %(immat)s."
+msgstr "Αυτή η κάρτα έχει ανατεθεί στο όχημα %(immat)s."
+
+msgid "Cette carte n'accepte pas ce type de dépense (%(type)s)."
+msgstr "Αυτή η κάρτα δεν δέχεται αυτό το είδος δαπάνης (%(type)s)."
+
+msgid ""
+"Chaque période est payée au fournisseur à la date de prélèvement : 440000 "
+"Fournisseurs au débit, banque au crédit."
+msgstr ""
+"Κάθε περίοδος πληρώνεται στον προμηθευτή την ημερομηνία χρέωσης: 440000 "
+"Προμηθευτές χρέωση, τράπεζα πίστωση."
+
+msgid "Compte bancaire débité. Vide : compte bancaire principal (550000)."
+msgstr ""
+"Τραπεζικός λογαριασμός χρέωσης. Κενό: κύριος τραπεζικός λογαριασμός (550000)."
+
+msgid "Compte bancaire principal (550000)"
+msgstr "Κύριος τραπεζικός λογαριασμός (550000)"
+
+msgid "Date d'expiration"
+msgstr "Ημερομηνία λήξης"
+
+msgid "Délai de paiement du relevé (jours)"
+msgstr "Προθεσμία πληρωμής κατάστασης (ημέρες)"
+
+msgid "Dépenses du mois (TVAC)"
+msgstr "Δαπάνες του μήνα (με ΦΠΑ)"
+
+msgid "Détails de la carte"
+msgstr "Στοιχεία κάρτας"
+
+msgid "Enregistrement comptable (dernière transaction)"
+msgstr "Λογιστική εγγραφή (τελευταία συναλλαγή)"
+
+msgid "Ex. : « Total Card Golf GTI », « DKV flotte »."
+msgstr "Π.χ. «Total Card Golf GTI», «DKV στόλος»."
+
+msgid "Expiration"
+msgstr "Λήξη"
+
+msgid "Hebdomadaire (relevé chaque semaine)"
+msgstr "Εβδομαδιαία (κατάσταση κάθε εβδομάδα)"
+
+msgid "Hebdomadaire / mensuel"
+msgstr "Εβδομαδιαία / μηνιαία"
+
+msgid ""
+"Hebdomadaire / mensuel : nombre de jours entre la fin de la période et le "
+"prélèvement."
+msgstr "Εβδομαδιαία / μηνιαία: ημέρες μεταξύ τέλους περιόδου και χρέωσης."
+
+msgid "Indiquez exactement les 4 derniers chiffres."
+msgstr "Εισαγάγετε ακριβώς τα τελευταία 4 ψηφία."
+
+msgid "Instantané"
+msgstr "Άμεση"
+
+msgid "Instantané (débit à chaque transaction)"
+msgstr "Άμεση (χρέωση σε κάθε συναλλαγή)"
+
+msgid ""
+"Journal des achats (ACH), repris automatiquement dans le journal général et "
+"le bilan."
+msgstr ""
+"Ημερολόγιο αγορών (ACH), περιλαμβάνεται αυτόματα στο γενικό ημερολόγιο και "
+"τον ισολογισμό."
+
+msgid "Mensuel (relevé chaque mois)"
+msgstr "Μηνιαία (κατάσταση κάθε μήνα)"
+
+msgid "Modifier la carte"
+msgstr "Επεξεργασία κάρτας"
+
+msgid "Mois en cours"
+msgstr "Τρέχων μήνας"
+
+msgid "Nom de la carte"
+msgstr "Όνομα κάρτας"
+
+msgid "Paiement et comptabilité"
+msgstr "Πληρωμή και λογιστική"
+
+msgid "Plafond journalier (€)"
+msgstr "Ημερήσιο όριο (€)"
+
+msgid "Plafond journalier dépassé"
+msgstr "Υπέρβαση ημερήσιου ορίου"
+
+msgid "Plafond mensuel (€)"
+msgstr "Μηνιαίο όριο (€)"
+
+msgid "Plafond mensuel dépassé"
+msgstr "Υπέρβαση μηνιαίου ορίου"
+
+msgid "Plafonds"
+msgstr "Όρια"
+
+msgid "Prélèvement"
+msgstr "Χρέωση"
+
+msgid "Période en cours"
+msgstr "Τρέχουσα περίοδος"
+
+msgid "Relevé carte"
+msgstr "Κατάσταση κάρτας"
+
+msgid "Relevés"
+msgstr "Καταστάσεις"
+
+msgid "Relevés à payer"
+msgstr "Καταστάσεις προς πληρωμή"
+
+msgid "Seuls les 4 derniers chiffres sont enregistrés (sécurité)."
+msgstr "Αποθηκεύονται μόνο τα τελευταία 4 ψηφία (ασφάλεια)."
+
+msgid "Station"
+msgstr "Σταθμός"
+
+msgid "Titulaire / conducteur"
+msgstr "Κάτοχος / οδηγός"
+
+msgid "Total depuis le début"
+msgstr "Σύνολο από την αρχή"
+
+msgid "Toutes les cartes"
+msgstr "Όλες οι κάρτες"
+
+msgid "Transactions"
+msgstr "Συναλλαγές"
+
+msgid "Vide : carte utilisable pour tous les véhicules."
+msgstr "Κενό: η κάρτα ισχύει για όλα τα οχήματα."
+
+msgid "Véhicule / titulaire"
+msgstr "Όχημα / κάτοχος"
+
+msgid "Véhicule attribué"
+msgstr "Ανατεθειμένο όχημα"
+
+msgid "carte"
+msgstr "κάρτα"
+
+msgid ""
+"chaque plein ou recharge est payé tout de suite : charge (6127xx) et TVA au "
+"débit, banque au crédit."
+msgstr ""
+"κάθε ανεφοδιασμός ή φόρτιση πληρώνεται αμέσως: δαπάνη (6127xx) και ΦΠΑ "
+"χρέωση, τράπεζα πίστωση."
+
+msgid ""
+"chaque transaction est une dette envers le fournisseur de la carte (440000) ;"
+" le relevé de la période est payé à la date de prélèvement (fin de période + "
+"délai) : 440000 au débit, banque au crédit."
+msgstr ""
+"κάθε συναλλαγή είναι οφειλή προς τον προμηθευτή της κάρτας (440000)· η "
+"κατάσταση της περιόδου πληρώνεται την ημερομηνία χρέωσης (τέλος περιόδου + "
+"προθεσμία): 440000 χρέωση, τράπεζα πίστωση."
+
+msgid "expirée"
+msgstr "έληξε"
+
+msgid "inactive"
+msgstr "ανενεργή"
+
+msgid "prélèvement à %(n)s jours"
+msgstr "χρέωση σε %(n)s ημέρες"
+
+msgid "transactions"
+msgstr "συναλλαγές"
+
+msgid "Émetteur de la carte (TotalEnergies, Shell, DKV, Q8, Ionity…)."
+msgstr "Εκδότης της κάρτας (TotalEnergies, Shell, DKV, Q8, Ionity…)."
+
+msgid "Fournisseurs, paiement instantané ou relevés, comptabilité"
+msgstr "Προμηθευτές, άμεση πληρωμή ή καταστάσεις, λογιστική"
+
+msgid "%(n)s jour après la fin de la période"
+msgid_plural "%(n)s jours après la fin de la période"
+msgstr[0] "%(n)s ημέρα μετά το τέλος της περιόδου"
+msgstr[1] "%(n)s ημέρες μετά το τέλος της περιόδου"
+
+msgid "en production"
+msgstr "σε παραγωγή"
+
+msgid "Version de base"
+msgstr "Βασική έκδοση"
+
+msgid "phase %(p)s"
+msgstr "φάση %(p)s"
+
+msgid "Génération / phase non précisée"
+msgstr "Γενιά / φάση μη καθορισμένη"
+
+msgid "Voir sur AutoScout24"
+msgstr "Προβολή στο AutoScout24"
+
+msgid ""
+"Modèle › génération / phase › variantes, avec les mois et années de "
+"production."
+msgstr "Μοντέλο › γενιά / φάση › εκδόσεις, με μήνες και έτη παραγωγής."
+
+msgid "Rechercher un modèle, une génération ou une variante…"
+msgstr "Αναζήτηση μοντέλου, γενιάς ή έκδοσης…"
+
+msgid "Ajouter une phase"
+msgstr "Προσθήκη φάσης"
+
+msgid "Ajouter une variante"
+msgstr "Προσθήκη έκδοσης"
+
+msgid "Portes / places"
+msgstr "Πόρτες / θέσεις"
+
+msgid "Réservoir / batterie"
+msgstr "Ρεζερβουάρ / μπαταρία"
+
+msgid "en cours"
+msgstr "σε εξέλιξη"
+
+msgid "Ajouter une phase – %(m)s"
+msgstr "Προσθήκη φάσης – %(m)s"
+
+msgid "Ajouter une variante – %(m)s"
+msgstr "Προσθήκη έκδοσης – %(m)s"
+
+msgid "phase"
+msgstr "φάση"
+
+msgid "%(n)s modèle · %(v)s variantes"
+msgid_plural "%(n)s modèles · %(v)s variantes"
+msgstr[0] "%(n)s μοντέλο · %(v)s εκδόσεις"
+msgstr[1] "%(n)s μοντέλα · %(v)s εκδόσεις"
+
+msgid "%(n)s phase"
+msgid_plural "%(n)s phases"
+msgstr[0] "%(n)s φάση"
+msgstr[1] "%(n)s φάσεις"
+
+msgid "%(n)s variante"
+msgid_plural "%(n)s variantes"
+msgstr[0] "%(n)s έκδοση"
+msgstr[1] "%(n)s εκδόσεις"
+
+msgid "%(n)s véhicule"
+msgid_plural "%(n)s véhicules"
+msgstr[0] "%(n)s όχημα"
+msgstr[1] "%(n)s οχήματα"

@@ -49,6 +49,31 @@ def voiture_modele_detail(request, voiture_modele_id):
 
 
 
+def _initial_depuis_get(request):
+    """
+    Pré-remplissage depuis l'arborescence d'une marque :
+      ?marque=<id>&nom_modele=…&generation=…&phase=…  (+ depuis=<id> : reprend portes, places, réservoir, batterie,
+      et la production de la phase, d'une variante existante).
+    """
+    g = request.GET
+    initial = {}
+    if g.get("marque"):
+        initial["voiture_marque"] = g["marque"]
+    for champ in ("nom_modele", "generation", "phase"):
+        if g.get(champ):
+            initial[champ] = g[champ]
+    if g.get("depuis"):
+        ref = VoitureModele.objects.filter(pk=g["depuis"], societe=request.user.societe).first()
+        if ref is not None:
+            for champ in ("nombre_portes", "nbre_places", "taille_reservoir", "capacite_batterie"):
+                initial.setdefault(champ, getattr(ref, champ))
+            if g.get("phase") is not None and g.get("generation") is not None and g.get("variante") == "1":
+                # nouvelle variante d'une phase : même début de production par défaut
+                initial.setdefault("mois_debut", ref.mois_debut)
+                initial.setdefault("annee_debut", ref.annee_debut)
+    return initial
+
+
 @login_required
 def ajouter_modele(request):
 
@@ -72,10 +97,16 @@ def ajouter_modele(request):
                     "marque": nom_marque
                 }
             )
+            # Ajout depuis l'arborescence d'une marque : retour à la marque, sur le modèle ajouté
+            if request.POST.get("retour") == "marque":
+                from django.urls import reverse
+                from django.utils.text import slugify
+                url = reverse("voiture_marque:modeles_par_marque", args=[voiture_modele.voiture_marque.pk])
+                return redirect(f"{url}#modele-{slugify(voiture_modele.nom_modele) or voiture_modele.pk}")
             return redirect("voiture_modele:voituremodele_list")
 
     else:
-        form = VoitureModeleForm(user=request.user)
+        form = VoitureModeleForm(user=request.user, initial=_initial_depuis_get(request))
 
     return render(
         request,

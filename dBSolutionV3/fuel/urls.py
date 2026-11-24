@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from . import views_totaux
+from . import views_cartes
 from .views import ajouter_fuel_all, fuel_delete,  modifier_fuel, FuelStatView, FuelExemplaireStatView, FuelListView
 
 app_name = "fuel"
@@ -29,6 +30,12 @@ urlpatterns = [
     path("stats/", FuelStatView.as_view(), name="fuel_stat"),
 
     # Totaux énergie (carburants + recharges + AdBlue) : mois / trimestre / année, TVA par pays, compta
+    # Cartes carburant / recharge
+    path("cartes/", views_cartes.cartes_liste, name="cartes_liste"),
+    path("cartes/ajouter/", views_cartes.carte_ajouter, name="carte_ajouter"),
+    path("cartes/<int:pk>/", views_cartes.carte_detail, name="carte_detail"),
+    path("cartes/<int:pk>/modifier/", views_cartes.carte_modifier, name="carte_modifier"),
+
     path("totaux/", views_totaux.energie_totaux, name="energie_totaux"),
     path("totaux/pdf/", views_totaux.energie_totaux_pdf, name="energie_totaux_pdf"),
     path("totaux/journal.csv", views_totaux.energie_journal_csv, name="energie_journal_csv"),

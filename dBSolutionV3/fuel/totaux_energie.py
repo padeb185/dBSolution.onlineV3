@@ -33,6 +33,7 @@ COMPTE_ADBLUE = "612720"
 COMPTE_TVA_DEDUCTIBLE = "411000"
 COMPTE_TVA_ETRANGERE = "416100"
 COMPTE_CONTREPARTIE = "550000"
+COMPTE_FOURNISSEURS = "440000"     # cartes à relevé hebdomadaire / mensuel : dette envers l'émetteur de la carte
 
 COMPTES = OrderedDict([
     (COMPTE_CARBURANT, gettext_noop("Carburants véhicules")),
@@ -41,6 +42,7 @@ COMPTES = OrderedDict([
     (COMPTE_TVA_DEDUCTIBLE, gettext_noop("TVA à récupérer")),
     (COMPTE_TVA_ETRANGERE, gettext_noop("TVA étrangère à récupérer (remboursement UE)")),
     (COMPTE_CONTREPARTIE, gettext_noop("Banque – compte courant")),
+    (COMPTE_FOURNISSEURS, gettext_noop("Fournisseurs")),
 ])
 
 def pays_societe_courant():
@@ -223,10 +225,12 @@ def _operations(societe, filtre_commun, filtres=None):
             "ttc": r2(ttc),
             "ht": ht,
             "tva": tva,
+            "carte": getattr(obj, "carte", None),
         })
 
     sel = ("voiture_exemplaire", "voiture_exemplaire__voiture_modele",
-           "voiture_exemplaire__voiture_modele__voiture_marque")
+           "voiture_exemplaire__voiture_modele__voiture_marque",
+           "carte", "carte__fournisseur", "carte__compte_tresorerie")
 
     def qs(modele):
         f = filtres[modele] if filtres is not None else filtre_commun
@@ -419,7 +423,88 @@ def ecritures(o, deduction=Decimal("100")):
               % {"pays": o["pays"], "taux": o["taux"]}, debit=o["tva"])
     else:
         ligne(compte_charge, _("TVA %(pays)s non récupérable") % {"pays": o["pays"]}, debit=o["tva"])
-    ligne(COMPTE_CONTREPARTIE, libelle, credit=o["ttc"])
+    # Contrepartie : carte à relevé périodique -> fournisseur (440000) ; carte instantanée -> son compte bancaire
+    carte = o.get("carte")
+    if carte is not None and carte.est_periodique:
+        fourn = getattr(carte.fournisseur, "nom", "") or carte.nom
+        L.append({"compte": COMPTE_FOURNISSEURS, "intitule": _(COMPTES[COMPTE_FOURNISSEURS]),
+                  "libelle": f"{libelle} – {_('carte')} {carte.nom} ({fourn})", "debit": ZERO, "credit": r2(o["ttc"])})
+    elif carte is not None:
+        compte = carte.compte_banque
+        intitule = getattr(carte.compte_tresorerie, "nom", "") or _(COMPTES[COMPTE_CONTREPARTIE])
+        L.append({"compte": compte, "intitule": intitule, "libelle": f"{libelle} – {_('carte')} {carte.nom}",
+                  "debit": ZERO, "credit": r2(o["ttc"])})
+    else:
+        ligne(COMPTE_CONTREPARTIE, libelle, credit=o["ttc"])
+    return L
+
+
+# ==================================================================
+# CARTES À RELEVÉ PÉRIODIQUE (hebdomadaire / mensuel)
+# ==================================================================
+def releves_carte(carte, ops=None):
+    """
+    Relevés d'une carte périodique : [{debut, fin, prelevement, nb, ttc, ht, tva, ops, paye}],
+    le plus récent d'abord. « paye » : date de prélèvement atteinte.
+    """
+    if not carte.est_periodique:
+        return []
+    if ops is None:
+        ops = [o for o in operations_entre(carte.societe) if o.get("carte") and o["carte"].pk == carte.pk]
+    aujourdhui = timezone.localdate()
+    periodes = OrderedDict()
+    for o in sorted(ops, key=lambda o: o["date"]):
+        debut, fin = carte.periode_de(o["date"])
+        p = periodes.setdefault(debut, {"debut": debut, "fin": fin, "prelevement": carte.date_prelevement(fin),
+                                        "nb": 0, "ttc": ZERO, "ht": ZERO, "tva": ZERO, "ops": []})
+        p["nb"] += 1
+        p["ttc"] += o["ttc"]
+        p["ht"] += o["ht"]
+        p["tva"] += o["tva"]
+        p["ops"].append(o)
+    resultat = []
+    for p in periodes.values():
+        p["paye"] = p["prelevement"] <= aujourdhui
+        p["en_cours"] = p["fin"] >= aujourdhui
+        resultat.append(p)
+    resultat.reverse()
+    return resultat
+
+
+def ecritures_releves(societe, debut=None, fin=None):
+    """
+    Paiement des relevés des cartes périodiques, à la date de prélèvement (atteinte) :
+        440000 Fournisseurs   débit   (total TTC du relevé)
+        55xxxx Banque         crédit
+    """
+    from .models import CarteCarburant
+    cartes = {c.pk: c for c in CarteCarburant.objects.filter(societe=societe)
+              .exclude(mode_paiement=CarteCarburant.ModePaiement.INSTANTANE)
+              .select_related("fournisseur", "compte_tresorerie")}
+    if not cartes:
+        return []
+    par_carte = {}
+    for o in operations_entre(societe):
+        c = o.get("carte")
+        if c is not None and c.pk in cartes:
+            par_carte.setdefault(c.pk, []).append(o)
+    L = []
+    for pk, ops in par_carte.items():
+        carte = cartes[pk]
+        fourn = getattr(carte.fournisseur, "nom", "") or carte.nom
+        intitule_banque = getattr(carte.compte_tresorerie, "nom", "") or _(COMPTES[COMPTE_CONTREPARTIE])
+        for r in releves_carte(carte, ops):
+            jour = r["prelevement"]
+            if not r["paye"] or (debut and jour < debut) or (fin and jour > fin):
+                continue
+            piece = f"CARTE-{carte.pk}-{r['debut']:%Y%m%d}"
+            lib = (f"{_('Relevé carte')} {carte.nom} ({fourn}) – {r['debut']:%d/%m/%Y} → {r['fin']:%d/%m/%Y} "
+                   f"({r['nb']} {_('transactions')})")
+            montant = r2(r["ttc"])
+            L.append({"journal": "BQ", "date": jour, "piece": piece, "compte": COMPTE_FOURNISSEURS,
+                      "intitule": _(COMPTES[COMPTE_FOURNISSEURS]), "libelle": lib, "debit": montant, "credit": ZERO})
+            L.append({"journal": "BQ", "date": jour, "piece": piece, "compte": carte.compte_banque,
+                      "intitule": intitule_banque, "libelle": lib, "debit": ZERO, "credit": montant})
     return L
 
 
@@ -431,6 +516,8 @@ def comptabilite(ops, deduction=Decimal("100")):
         lignes = ecritures(o, deduction)
         journal.append({"op": o, "lignes": lignes})
         for l in lignes:
+            # compte bancaire propre à une carte : ajouté à la balance
+            balance.setdefault(l["compte"], {"compte": l["compte"], "intitule": l["intitule"], "debit": ZERO, "credit": ZERO})
             balance[l["compte"]]["debit"] += l["debit"]
             balance[l["compte"]]["credit"] += l["credit"]
     balance = [b for b in balance.values() if b["debit"] or b["credit"]]

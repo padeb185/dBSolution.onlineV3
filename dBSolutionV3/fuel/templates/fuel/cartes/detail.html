@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load i18n static l10n %}
+{% block title %}{{ carte.nom }}{% endblock %}
+{% block content %}
+<div class="p-6 w-full max-w-7xl mx-auto">
+    <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            <img src="{% static 'icons/carte_carburant.png' %}" alt="" class="w-16 h-16">
+            <span>{{ carte.nom }}{% if carte.numero_fin %} <span class="text-gray-500 font-mono text-xl">•••• {{ carte.numero_fin }}</span>{% endif %}</span>
+            {% if not carte.actif %}<span class="text-sm bg-gray-200 px-2 py-1 rounded">{% trans "inactive" %}</span>{% endif %}
+            {% if carte.est_expiree %}<span class="text-sm bg-red-100 text-red-800 px-2 py-1 rounded">{% trans "expirée" %}</span>{% endif %}
+        </h1>
+        <div class="flex gap-2">
+            <a href="{% url 'fuel:cartes_liste' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Toutes les cartes" %}</a>
+            <a href="{% url 'fuel:carte_modifier' carte.pk %}" class="bg-blue-700 hover:bg-blue-500 text-white px-4 py-2 rounded font-semibold">{% trans "Modifier" %}</a>
+        </div>
+    </div>
+    {% include "partials/messages.html" %}
+
+    <!-- Détails de la carte -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <div class="bg-white shadow-md rounded-lg p-6 lg:col-span-2">
+            <h2 class="text-lg font-semibold mb-3">{% trans "Détails de la carte" %}</h2>
+            <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
+                <dt class="text-gray-500">{% trans "Fournisseur" %}</dt><dd class="font-semibold">{{ carte.fournisseur.nom|default:"—" }}</dd>
+                <dt class="text-gray-500">{% trans "Type" %}</dt><dd>{{ carte.get_type_carte_display }}</dd>
+                <dt class="text-gray-500">{% trans "Véhicule attribué" %}</dt><dd>{% if carte.voiture_exemplaire %}{% include "maintenance/partials/plaque.html" with exemplaire=carte.voiture_exemplaire taille="petite" %}{% else %}{% trans "Tous les véhicules" %}{% endif %}</dd>
+                <dt class="text-gray-500">{% trans "Titulaire / conducteur" %}</dt><dd>{% if carte.titulaire %}{{ carte.titulaire.prenom }} {{ carte.titulaire.nom }}{% else %}—{% endif %}</dd>
+                <dt class="text-gray-500">{% trans "Date d'expiration" %}</dt><dd class="{% if carte.est_expiree %}text-red-700 font-semibold{% endif %}">{{ carte.date_expiration|date:"m/Y"|default:"—" }}</dd>
+                <dt class="text-gray-500">{% trans "Plafonds" %}</dt><dd>{% if carte.plafond_journalier %}{{ carte.plafond_journalier|floatformat:"0g" }} € / {% trans "jour" %}{% endif %}{% if carte.plafond_journalier and carte.plafond_mensuel %} · {% endif %}{% if carte.plafond_mensuel %}{{ carte.plafond_mensuel|floatformat:"0g" }} € / {% trans "mois" %}{% endif %}{% if not carte.plafond_journalier and not carte.plafond_mensuel %}—{% endif %}</dd>
+                <dt class="text-gray-500">{% trans "Paiement" %}</dt><dd class="font-semibold">{{ carte.get_mode_paiement_display }}</dd>
+                {% if carte.est_periodique %}<dt class="text-gray-500">{% trans "Prélèvement" %}</dt><dd>{% blocktrans count n=carte.delai_paiement_jours %}{{ n }} jour après la fin de la période{% plural %}{{ n }} jours après la fin de la période{% endblocktrans %}</dd>{% endif %}
+                <dt class="text-gray-500">{% trans "Compte de paiement" %}</dt><dd>{% if carte.compte_tresorerie %}{{ carte.compte_tresorerie.nom }} ({{ carte.compte_banque }}){% else %}{% trans "Compte bancaire principal (550000)" %}{% endif %}</dd>
+            </dl>
+            {% if carte.remarques %}<p class="text-sm text-gray-600 mt-4 whitespace-pre-line">{{ carte.remarques }}</p>{% endif %}
+        </div>
+        <div class="grid grid-cols-1 gap-4">
+            <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Aujourd'hui" %}</p><p class="text-2xl font-bold {% if depasse_jour %}text-red-700{% endif %}">{{ total_jour|floatformat:"2g" }} €</p>{% if depasse_jour %}<p class="text-xs text-red-700">{% trans "Plafond journalier dépassé" %}</p>{% endif %}</div>
+            <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Mois en cours" %}</p><p class="text-2xl font-bold {% if depasse_mois %}text-red-700{% endif %}">{{ total_mois|floatformat:"2g" }} €</p>{% if depasse_mois %}<p class="text-xs text-red-700">{% trans "Plafond mensuel dépassé" %}</p>{% endif %}</div>
+            <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% if carte.est_periodique %}{% trans "Relevés à payer" %}{% else %}{% trans "Total depuis le début" %}{% endif %}</p><p class="text-2xl font-bold {% if carte.est_periodique and a_payer > 0 %}text-orange-600{% endif %}">{% if carte.est_periodique %}{{ a_payer|floatformat:"2g" }}{% else %}{{ total|floatformat:"2g" }}{% endif %} €</p></div>
+        </div>
+    </div>
+
+    <!-- Répartition par énergie -->
+    {% if par_famille %}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        {% for libelle, f in par_famille.items %}
+        <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{{ libelle }}</p><p class="text-xl font-bold">{{ f.ttc|floatformat:"2g" }} €</p><p class="text-xs text-gray-500">{{ f.nb }} {% trans "transactions" %} · {{ f.quantite|floatformat:"-2g" }} {{ f.unite }}</p></div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Relevés (cartes hebdomadaires / mensuelles) -->
+    {% if carte.est_periodique %}
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+        <h2 class="text-lg font-semibold mb-1">{% trans "Relevés" %}</h2>
+        <p class="text-gray-600 text-sm mb-4">{% trans "Chaque période est payée au fournisseur à la date de prélèvement : 440000 Fournisseurs au débit, banque au crédit." %}</p>
+        <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+            <thead><tr class="bg-gray-100">
+                <th class="border px-3 py-2 text-left">{% trans "Période" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Transactions" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "HTVA" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "TVA" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "TVAC" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "Prélèvement" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "Statut" %}</th>
+            </tr></thead>
+            <tbody>
+            {% for r in releves %}
+            <tr>
+                <td class="border px-3 py-2">{{ r.debut|date:"d/m/Y" }} → {{ r.fin|date:"d/m/Y" }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ r.nb }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ r.ht|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums">{{ r.tva|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums font-semibold">{{ r.ttc|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2">{{ r.prelevement|date:"d/m/Y" }}</td>
+                <td class="border px-3 py-2">{% if r.paye %}<span class="text-green-700 font-semibold">{% trans "Payé" %}</span>{% elif r.en_cours %}<span class="text-blue-700">{% trans "Période en cours" %}</span>{% else %}<span class="text-orange-600 font-semibold">{% trans "À payer" %}</span>{% endif %}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="7" class="border px-3 py-3 text-gray-500">{% trans "Aucune transaction avec cette carte." %}</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+    <!-- Transactions -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Transactions" %}</h2>
+        {% if ops %}
+        <table id="table-ops" class="min-w-full table-auto border-collapse border border-gray-200 text-sm stripe">
+            <thead><tr class="bg-gray-100">
+                <th class="border px-3 py-2 text-left">{% trans "Date" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "Énergie" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "Véhicule" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "Station" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Quantité" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "HTVA" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "TVAC" %}</th>
+            </tr></thead>
+            <tbody>
+            {% for o in ops %}
+            <tr>
+                <td class="border px-3 py-2" data-order="{{ o.date|date:'Y-m-d' }}">{{ o.date|date:"d/m/Y" }}</td>
+                <td class="border px-3 py-2">{{ o.categorie_label }}</td>
+                <td class="border px-3 py-2">{{ o.immatriculation }}</td>
+                <td class="border px-3 py-2">{{ o.station|default:"—" }} <span class="text-gray-500 text-xs">{{ o.pays }}</span></td>
+                <td class="border px-3 py-2 text-right tabular-nums" data-order="{{ o.quantite|unlocalize }}">{{ o.quantite|floatformat:"-2g" }} {{ o.unite }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums" data-order="{{ o.ht|unlocalize }}">{{ o.ht|floatformat:"2g" }}</td>
+                <td class="border px-3 py-2 text-right tabular-nums" data-order="{{ o.ttc|unlocalize }}">{{ o.ttc|floatformat:"2g" }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="text-gray-500">{% trans "Aucune transaction : choisissez cette carte lors de la saisie d'un plein, d'une recharge ou d'AdBlue." %}</p>
+        {% endif %}
+    </div>
+
+    <!-- Écriture comptable type -->
+    {% if ecritures %}
+    <div class="bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+        <h2 class="text-lg font-semibold mb-1">{% trans "Enregistrement comptable (dernière transaction)" %}</h2>
+        <p class="text-gray-600 text-sm mb-3">{% trans "Journal des achats (ACH), repris automatiquement dans le journal général et le bilan." %}</p>
+        <table class="min-w-full text-sm border-collapse border border-gray-200">
+            <thead><tr class="bg-gray-100"><th class="border px-3 py-2 text-left">{% trans "Compte" %}</th><th class="border px-3 py-2 text-left">{% trans "Libellé" %}</th><th class="border px-3 py-2 text-right">{% trans "Débit" %}</th><th class="border px-3 py-2 text-right">{% trans "Crédit" %}</th></tr></thead>
+            <tbody>
+            {% for l in ecritures %}
+            <tr><td class="border px-3 py-1 font-mono">{{ l.compte }} <span class="font-sans text-gray-500">{{ l.intitule }}</span></td><td class="border px-3 py-1">{{ l.libelle }}</td><td class="border px-3 py-1 text-right tabular-nums">{% if l.debit %}{{ l.debit|floatformat:"2g" }}{% endif %}</td><td class="border px-3 py-1 text-right tabular-nums">{% if l.credit %}{{ l.credit|floatformat:"2g" }}{% endif %}</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% if ops %}
+<script>
+$(function () {
+    $("#table-ops").DataTable({
+        language: {search: "{% trans 'Recherche globale :' as t1 %}{{ t1|escapejs }}", lengthMenu: "{% trans 'Afficher _MENU_ éléments' as t2 %}{{ t2|escapejs }}",
+                   info: "", infoEmpty: "", zeroRecords: "{% trans 'Aucun élément enregistré.' as t3 %}{{ t3|escapejs }}",
+                   paginate: {next: "{% trans 'Suivant' as t4 %}{{ t4|escapejs }}", previous: "{% trans 'Précédent' as t5 %}{{ t5|escapejs }}"}},
+        order: [[0, "desc"]], pageLength: 25, autoWidth: false
+    });
+});
+</script>
+{% endif %}
+{% endblock %}

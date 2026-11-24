@@ -92,6 +92,7 @@ class AdBlueForm(forms.ModelForm):
             "litres",
             "prix_adblue",
             "pays",
+            "carte",
         ]
 
 
@@ -188,7 +189,12 @@ class AdBlueForm(forms.ModelForm):
             "prix_adblue",
 
             "pays",
+            "carte",
         ])
+
+        # Carte carburant / recharge (cartes actives compatibles, carte du véhicule par défaut)
+        from fuel.cartes import configurer_champ_carte
+        configurer_champ_carte(self, "adblue")
 
         # =========================
         # VARIATION KILOMÉTRAGE
@@ -318,6 +324,9 @@ class AdBlueForm(forms.ModelForm):
                         f"({volume_max} L)."
                     ),
                 )
+
+        from fuel.cartes import verifier_carte
+        verifier_carte(self, "adblue")
 
         return cleaned_data
 

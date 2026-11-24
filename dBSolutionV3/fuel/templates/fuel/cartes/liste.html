@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load i18n static l10n %}
+{% block title %}{% trans "Cartes carburant / recharge" %}{% endblock %}
+{% block content %}
+<div class="p-6 w-full">
+    <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            <img src="{% static 'icons/carte_carburant.png' %}" alt="" class="w-16 h-16">
+            {% trans "Cartes carburant / recharge" %}
+        </h1>
+        <div class="flex gap-2">
+            <a href="{% url 'fuel:energie_totaux' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Totaux énergie" %}</a>
+            <a href="{% url 'fuel:carte_ajouter' %}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded font-semibold">+ {% trans "Ajouter une carte" %}</a>
+        </div>
+    </div>
+    {% include "partials/messages.html" %}
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Cartes" %}</p><p class="text-2xl font-bold">{{ cartes|length }}</p></div>
+        <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Dépenses du mois (TVAC)" %}</p><p class="text-2xl font-bold">{{ total_mois|floatformat:"2g" }} €</p></div>
+        <div class="bg-white shadow rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Relevés à payer" %}</p><p class="text-2xl font-bold {% if total_a_payer > 0 %}text-orange-600{% endif %}">{{ total_a_payer|floatformat:"2g" }} €</p><p class="text-xs text-gray-500">{% blocktrans with n=sans_carte %}{{ n }} transactions sans carte (paiement direct){% endblocktrans %}</p></div>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+        <table id="table-cartes" class="min-w-full table-auto border-collapse border border-gray-200 text-sm stripe">
+            <thead><tr class="bg-gray-100">
+                <th class="border px-3 py-2 text-left">{% trans "Carte" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "Fournisseur" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "Type" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "Véhicule / titulaire" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "Paiement" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Mois en cours" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "À payer" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "Expiration" %}</th>
+            </tr></thead>
+            <tbody>
+            {% for c in cartes %}
+            <tr class="hover:bg-blue-50 {% if not c.actif %}text-gray-400{% endif %}">
+                <td class="border px-3 py-2" data-order="{{ c.nom }}"><a href="{% url 'fuel:carte_detail' c.pk %}" class="text-blue-700 font-semibold hover:underline">{{ c.nom }}</a>{% if c.numero_fin %} <span class="text-gray-500 font-mono">•••• {{ c.numero_fin }}</span>{% endif %}{% if not c.actif %} <span class="text-xs">({% trans "inactive" %})</span>{% endif %}</td>
+                <td class="border px-3 py-2">{{ c.fournisseur.nom|default:"—" }}</td>
+                <td class="border px-3 py-2">{{ c.get_type_carte_display }}</td>
+                <td class="border px-3 py-2">{% if c.voiture_exemplaire %}{% include "maintenance/partials/plaque.html" with exemplaire=c.voiture_exemplaire taille="petite" %}{% else %}<span class="text-gray-500">{% trans "Tous les véhicules" %}</span>{% endif %}{% if c.titulaire %}<div class="text-xs text-gray-500 mt-1">{{ c.titulaire.prenom }} {{ c.titulaire.nom }}</div>{% endif %}</td>
+                <td class="border px-3 py-2">{{ c.get_mode_paiement_display }}{% if c.est_periodique and c.delai_paiement_jours %}<div class="text-xs text-gray-500">{% blocktrans with n=c.delai_paiement_jours %}prélèvement à {{ n }} jours{% endblocktrans %}</div>{% endif %}</td>
+                <td class="border px-3 py-2 text-right tabular-nums" data-order="{{ c.total_mois|unlocalize }}">{{ c.total_mois|floatformat:"2g" }} €{% if c.plafond_mensuel %}<div class="text-xs {% if c.total_mois > c.plafond_mensuel %}text-red-700 font-semibold{% else %}text-gray-500{% endif %}">/ {{ c.plafond_mensuel|floatformat:"0g" }} €</div>{% endif %}</td>
+                <td class="border px-3 py-2 text-right tabular-nums" data-order="{{ c.a_payer|unlocalize }}">{% if c.est_periodique %}<span class="{% if c.a_payer > 0 %}text-orange-600 font-semibold{% endif %}">{{ c.a_payer|floatformat:"2g" }} €</span>{% if c.prochain_prelevement %}<div class="text-xs text-gray-500">{% trans "le" %} {{ c.prochain_prelevement|date:"d/m/Y" }}</div>{% endif %}{% else %}<span class="text-gray-400">—</span>{% endif %}</td>
+                <td class="border px-3 py-2" data-order="{{ c.date_expiration|date:'Y-m-d' }}">{% if c.date_expiration %}<span class="{% if c.est_expiree %}text-red-700 font-semibold{% endif %}">{{ c.date_expiration|date:"m/Y" }}</span>{% else %}—{% endif %}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="8" class="border px-3 py-4 text-gray-500">{% trans "Aucune carte. Ajoutez vos cartes carburant ou de recharge pour les choisir lors de la saisie des pleins et recharges." %}</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% if cartes %}
+<script>
+$(function () {
+    $("#table-cartes").DataTable({
+        language: {search: "{% trans 'Recherche globale :' as t1 %}{{ t1|escapejs }}", lengthMenu: "{% trans 'Afficher _MENU_ éléments' as t2 %}{{ t2|escapejs }}",
+                   info: "", infoEmpty: "", zeroRecords: "{% trans 'Aucun élément enregistré.' as t3 %}{{ t3|escapejs }}",
+                   paginate: {next: "{% trans 'Suivant' as t4 %}{{ t4|escapejs }}", previous: "{% trans 'Précédent' as t5 %}{{ t5|escapejs }}"}},
+        order: [[0, "asc"]], pageLength: 25, autoWidth: false
+    });
+});
+</script>
+{% endif %}
+{% endblock %}

@@ -2,117 +2,111 @@
 {% load i18n static %}
 
 {% block content %}
-<div class="p-6 w-full ml-[-10px] mr-[10px]">
+<div class="p-6 w-full max-w-7xl mx-auto">
 
-    <h1 class="text-2xl font-bold mb-6">
-    {% blocktrans trimmed with nom_marque=marque.nom_marque %}
-        Modèles de {{ nom_marque }}
-    {% endblocktrans %}
-    </h1>
-    <!-- Messages -->
-    {% if messages %}
-        {% for message in messages %}
-        <div class="mb-3 px-4 py-2 rounded border
-            {% if message.tags == 'success' %}
-                bg-green-100 text-green-800 border-green-300
-            {% else %}
-                bg-red-100 text-red-800 border-red-300
-            {% endif %}">
-            {{ message }}
+    <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            <img src="{% static 'exemplaires/' %}{{ marque.nom_marque|lower }}.png" alt="{{ marque.nom_marque }}" class="w-16"
+                 onerror="this.onerror=null; this.src='{% static 'icons/voiture_marques.png' %}';">
+            {% blocktrans trimmed with nom_marque=marque.nom_marque %}Modèles de {{ nom_marque }}{% endblocktrans %}
+        </h1>
+        <div class="flex flex-wrap gap-2">
+            <a href="{{ autoscout }}" target="_blank" rel="noopener" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Voir sur AutoScout24" %} ↗</a>
+            <a href="{% url 'voiture_modele:ajouter_modele' %}?marque={{ marque.pk }}&retour=marque"
+               class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded font-semibold">+ {% trans "Ajouter un modèle" %}</a>
         </div>
-        {% endfor %}
-    {% endif %}
-
-
-    <div class="mb-6">
-        <input
-            type="text"
-            id="search-modele"
-            class="border rounded-lg px-4 py-2 w-full"
-            placeholder="{% trans 'Rechercher un modèle...' %}"
-        >
     </div>
 
-    {% if modeles %}
-        <div
-            class="grid grid-cols-1 md:grid-cols-2 gap-6"
-            id="modeles-container"
-        >
-            {% for modele in modeles %}
-            <a
-                href="{% url 'voiture_exemplaire:voiture_exemplaire' modele_id=modele.id %}"
-                class="block"
-            >
-                <div
-                    class="bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-6 flex items-center justify-between gap-6 w-full modele-card"
-                    data-modele-nom="{{ modele.nom_modele|default:''|lower }}"
-                    data-modele-variante="{{ modele.nom_variante|default:''|lower }}"
-                >
+    {% include "partials/messages.html" %}
 
-                    <!-- Informations du modèle -->
-                    <div class="flex-1">
-                        <h2 class="text-lg font-semibold">
-                            {{ modele.nom_modele }}
-                        </h2>
+    <p class="text-gray-600 mb-4">{% blocktrans with v=nb_variantes count n=arbre|length %}{{ n }} modèle · {{ v }} variantes{% plural %}{{ n }} modèles · {{ v }} variantes{% endblocktrans %} — {% trans "Modèle › génération / phase › variantes, avec les mois et années de production." %}</p>
 
-                        {% if modele.nom_variante %}
-                            <p class="text-gray-600">
-                                {{ modele.nom_variante }}
-                            </p>
-                        {% endif %}
+    <div class="mb-6">
+        <input type="text" id="search-modele" class="border rounded-lg px-4 py-2 w-full"
+               placeholder="{% trans 'Rechercher un modèle, une génération ou une variante…' %}">
+    </div>
 
-                        <p class="text-gray-500">
-                            {{ modele.nombre_portes|default:0 }}
-                            {% trans "portes" %},
-                            {{ modele.nbre_places|default:0 }}
-                            {% trans "places" %}
-                        </p>
-                    </div>
-
-                    <!-- Logo -->
-                    <div class="flex-shrink-0">
-                        <img
-                            src="{% static 'exemplaires/' %}{{ marque.nom_marque|lower }}.png"
-                            alt="{{ marque.nom_marque }}"
-                            style="width:75px; margin-right:5px;"
-                            onerror="this.onerror=null; this.src='{% static 'exemplaires/default.png' %}';"
-                        >
-                    </div>
-
+    {% if arbre %}
+    <div class="space-y-4" id="modeles-container">
+        {% for m in arbre %}
+        <details id="{{ m.ancre }}" class="modele-bloc bg-white shadow-md rounded-lg scroll-mt-24" {% if arbre|length == 1 %}open{% endif %}
+                 data-recherche="{{ m.nom|lower }}{% for ph in m.phases %} {{ ph.libelle|lower }}{% for v in ph.variantes %} {{ v.nom|lower }}{% endfor %}{% endfor %}">
+            <summary class="cursor-pointer list-none p-5 flex flex-wrap items-center justify-between gap-4 hover:bg-blue-50 rounded-lg">
+                <div>
+                    <h2 class="text-xl font-semibold">{{ m.nom }}</h2>
+                    <p class="text-sm text-gray-500">{{ m.production }} · {% blocktrans count n=m.phases|length %}{{ n }} phase{% plural %}{{ n }} phases{% endblocktrans %} · {% blocktrans count n=m.nb_variantes %}{{ n }} variante{% plural %}{{ n }} variantes{% endblocktrans %}{% if m.nb_vehicules %} · {% blocktrans count n=m.nb_vehicules %}{{ n }} véhicule{% plural %}{{ n }} véhicules{% endblocktrans %}{% endif %}</p>
                 </div>
-            </a>
-            {% endfor %}
-        </div>
-    {% else %}
-        <p class="text-red-600 font-semibold mt-4">
-            {% trans "Aucun modèle enregistré pour cette marque." %}
-        </p>
-    {% endif %}
+                <span class="text-gray-400 text-xl">▾</span>
+            </summary>
 
+            <div class="px-5 pb-5">
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <a href="{% url 'voiture_modele:ajouter_modele' %}?marque={{ marque.pk }}&nom_modele={{ m.nom|urlencode }}&depuis={{ m.reference.pk }}&quoi=phase&retour=marque"
+                       class="bg-blue-700 hover:bg-blue-500 text-white px-3 py-1 rounded text-sm font-semibold">+ {% trans "Ajouter une phase" %}</a>
+                    <a href="{{ m.autoscout }}" target="_blank" rel="noopener" class="bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded text-sm">{% trans "Voir sur AutoScout24" %} ↗</a>
+                </div>
+
+                {% for ph in m.phases %}
+                <div id="{{ ph.ancre }}" class="border rounded-lg mb-4 phase-bloc">
+                    <div class="flex flex-wrap items-center justify-between gap-3 bg-gray-50 px-4 py-2 rounded-t-lg border-b">
+                        <div>
+                            <span class="font-semibold">{{ ph.libelle }}</span>
+                            <span class="text-sm text-gray-500 ml-2">{{ ph.production }}</span>
+                        </div>
+                        <a href="{% url 'voiture_modele:ajouter_modele' %}?marque={{ marque.pk }}&nom_modele={{ m.nom|urlencode }}&generation={{ ph.generation|urlencode }}&phase={{ ph.phase|urlencode }}&depuis={{ ph.reference.pk }}&variante=1&quoi=variante&retour=marque"
+                           class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm font-semibold">+ {% trans "Ajouter une variante" %}</a>
+                    </div>
+                    <div class="overflow-x-auto">
+                    <table class="min-w-full text-sm">
+                        <thead><tr class="text-gray-500 text-left">
+                            <th class="px-4 py-2">{% trans "Variante" %}</th>
+                            <th class="px-4 py-2">{% trans "Production" %}</th>
+                            <th class="px-4 py-2">{% trans "Portes / places" %}</th>
+                            <th class="px-4 py-2 text-right">{% trans "Réservoir / batterie" %}</th>
+                            <th class="px-4 py-2 text-right">{% trans "Véhicules" %}</th>
+                            <th class="px-4 py-2"></th>
+                        </tr></thead>
+                        <tbody>
+                        {% for v in ph.variantes %}
+                        <tr class="border-t hover:bg-blue-50 variante-ligne" data-recherche="{{ v.nom|lower }}">
+                            <td class="px-4 py-2 font-semibold"><a href="{% url 'voiture_exemplaire:voiture_exemplaire' modele_id=v.objet.id %}" class="text-blue-700 hover:underline">{{ v.nom }}</a></td>
+                            <td class="px-4 py-2 whitespace-nowrap">{{ v.production }}{% if v.en_production %} <span class="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded">{% trans "en cours" %}</span>{% endif %}</td>
+                            <td class="px-4 py-2">{{ v.objet.nombre_portes|default:"—" }} / {{ v.objet.nbre_places|default:"—" }}</td>
+                            <td class="px-4 py-2 text-right whitespace-nowrap">{% if v.objet.taille_reservoir %}{{ v.objet.taille_reservoir|floatformat:"-1" }} L{% endif %}{% if v.objet.taille_reservoir and v.objet.capacite_batterie %} · {% endif %}{% if v.objet.capacite_batterie %}{{ v.objet.capacite_batterie }} kWh{% endif %}</td>
+                            <td class="px-4 py-2 text-right">{{ v.objet.nb_vehicules }}</td>
+                            <td class="px-4 py-2 text-right whitespace-nowrap"><a href="{% url 'voiture_modele:modifier_voiture_modele' v.objet.id %}" class="text-gray-600 hover:text-blue-700 hover:underline">{% trans "Modifier" %}</a></td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </details>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p class="text-red-600 font-semibold mt-4">{% trans "Aucun modèle enregistré pour cette marque." %}</p>
+    {% endif %}
 </div>
 
 <script>
 (function () {
-    const input = document.getElementById("search-modele");
-
-    if (!input) {
-        return;
+    // Ouvre le modèle visé par l'ancre (retour après ajout d'une phase / variante)
+    if (location.hash) {
+        var cible = document.querySelector(location.hash);
+        var bloc = cible && cible.closest("details");
+        if (bloc) { bloc.open = true; setTimeout(function () { cible.scrollIntoView({block: "start"}); }, 50); }
     }
-
+    var input = document.getElementById("search-modele");
+    if (!input) return;
     input.addEventListener("input", function () {
-        const value = this.value.trim().toLowerCase();
-        const cards = document.querySelectorAll(".modele-card");
-
-        cards.forEach(function (card) {
-            const nom = card.dataset.modeleNom || "";
-            const variante = card.dataset.modeleVariante || "";
-
-            const visible =
-                !value ||
-                nom.includes(value) ||
-                variante.includes(value);
-
-            card.style.display = visible ? "flex" : "none";
+        var q = this.value.trim().toLowerCase();
+        document.querySelectorAll(".modele-bloc").forEach(function (bloc) {
+            var ok = !q || (bloc.dataset.recherche || "").indexOf(q) !== -1;
+            bloc.style.display = ok ? "" : "none";
+            if (q && ok) bloc.open = true;
         });
     });
 })();

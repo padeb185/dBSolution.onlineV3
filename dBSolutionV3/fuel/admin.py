@@ -15,3 +15,13 @@ class FuelAdmin(admin.ModelAdmin):
     def total_prix_all(self, obj):
         return Fuel.objects.filter(voiture_exemplaire=obj.voiture_exemplaire).aggregate(total=Sum('prix_refuelling'))['total'] or 0
     total_prix_all.short_description = "Total Prix Litres"
+
+
+from .models import CarteCarburant
+
+
+@admin.register(CarteCarburant)
+class CarteCarburantAdmin(admin.ModelAdmin):
+    list_display = ("nom", "fournisseur", "type_carte", "numero_fin", "voiture_exemplaire", "mode_paiement", "actif")
+    list_filter = ("type_carte", "mode_paiement", "actif")
+    search_fields = ("nom", "numero_fin", "fournisseur__nom", "voiture_exemplaire__immatriculation")

@@ -53,6 +53,8 @@
            class="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-500 font-semibold">{% trans "PDF" %}</a>
         <a href="{% url 'fuel:energie_totaux_pdf' %}?{{ query }}&journal=1" target="_blank"
            class="bg-red-900 text-white px-4 py-2 rounded hover:bg-red-600 font-semibold">{% trans "PDF + journal" %}</a>
+        <a href="{% url 'fuel:cartes_liste' %}"
+           class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-500 font-semibold">{% trans "Cartes" %}</a>
         <a href="{% url 'fuel:energie_journal_csv' %}?{{ query }}"
            class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-500 font-semibold">{% trans "Journal (CSV)" %}</a>
     </div>

@@ -83990,3 +83990,317 @@ msgstr ""
 
 msgid "et kilomètres arrêtés à %(km)s km"
 msgstr "y kilómetros detenidos en %(km)s km"
+
+msgid "%(n)s transactions sans carte (paiement direct)"
+msgstr "%(n)s transacciones sin tarjeta (pago directo)"
+
+msgid "4 derniers chiffres"
+msgstr "Últimos 4 dígitos"
+
+msgid "Ajouter une carte"
+msgstr "Añadir una tarjeta"
+
+msgid "Ajouter une carte carburant / recharge"
+msgstr "Añadir una tarjeta de combustible / recarga"
+
+msgid ""
+"Aucun fournisseur : créez d'abord l'émetteur de la carte (TotalEnergies, "
+"Shell, DKV…) dans les fournisseurs."
+msgstr ""
+"Ningún proveedor: cree primero el emisor de la tarjeta (TotalEnergies, Shell,"
+" DKV…) en los proveedores."
+
+msgid "Aucune (paiement direct)"
+msgstr "Ninguna (pago directo)"
+
+msgid ""
+"Aucune carte. Ajoutez vos cartes carburant ou de recharge pour les choisir "
+"lors de la saisie des pleins et recharges."
+msgstr ""
+"Ninguna tarjeta. Añada sus tarjetas de combustible o de recarga para "
+"elegirlas al registrar repostajes y recargas."
+
+msgid ""
+"Aucune transaction : choisissez cette carte lors de la saisie d'un plein, "
+"d'une recharge ou d'AdBlue."
+msgstr ""
+"Ninguna transacción: elija esta tarjeta al registrar un repostaje, una "
+"recarga o AdBlue."
+
+msgid "Aucune transaction avec cette carte."
+msgstr "Ninguna transacción con esta tarjeta."
+
+msgid "Carburant et recharge"
+msgstr "Combustible y recarga"
+
+msgid "Carte"
+msgstr "Tarjeta"
+
+msgid "Carte carburant / recharge"
+msgstr "Tarjeta de combustible / recarga"
+
+msgid "Carte enregistrée."
+msgstr "Tarjeta guardada."
+
+msgid ""
+"Carte à relevé hebdomadaire / mensuel : la dépense est payée au fournisseur à"
+" l'échéance du relevé."
+msgstr ""
+"Tarjeta con extracto semanal / mensual: el gasto se paga al proveedor al "
+"vencimiento del extracto."
+
+msgid "Cartes"
+msgstr "Tarjetas"
+
+msgid "Cartes carburant / recharge"
+msgstr "Tarjetas de combustible / recarga"
+
+msgid "Cette carte est attribuée au véhicule %(immat)s."
+msgstr "Esta tarjeta está asignada al vehículo %(immat)s."
+
+msgid "Cette carte n'accepte pas ce type de dépense (%(type)s)."
+msgstr "Esta tarjeta no acepta este tipo de gasto (%(type)s)."
+
+msgid ""
+"Chaque période est payée au fournisseur à la date de prélèvement : 440000 "
+"Fournisseurs au débit, banque au crédit."
+msgstr ""
+"Cada periodo se paga al proveedor en la fecha de cargo: 440000 Proveedores al"
+" debe, banco al haber."
+
+msgid "Compte bancaire débité. Vide : compte bancaire principal (550000)."
+msgstr "Cuenta bancaria cargada. Vacío: cuenta bancaria principal (550000)."
+
+msgid "Compte bancaire principal (550000)"
+msgstr "Cuenta bancaria principal (550000)"
+
+msgid "Date d'expiration"
+msgstr "Fecha de caducidad"
+
+msgid "Délai de paiement du relevé (jours)"
+msgstr "Plazo de pago del extracto (días)"
+
+msgid "Dépenses du mois (TVAC)"
+msgstr "Gastos del mes (IVA incl.)"
+
+msgid "Détails de la carte"
+msgstr "Detalles de la tarjeta"
+
+msgid "Enregistrement comptable (dernière transaction)"
+msgstr "Asiento contable (última transacción)"
+
+msgid "Ex. : « Total Card Golf GTI », « DKV flotte »."
+msgstr "Ej.: «Total Card Golf GTI», «DKV flota»."
+
+msgid "Expiration"
+msgstr "Caducidad"
+
+msgid "Hebdomadaire (relevé chaque semaine)"
+msgstr "Semanal (extracto cada semana)"
+
+msgid "Hebdomadaire / mensuel"
+msgstr "Semanal / mensual"
+
+msgid ""
+"Hebdomadaire / mensuel : nombre de jours entre la fin de la période et le "
+"prélèvement."
+msgstr ""
+"Semanal / mensual: número de días entre el final del periodo y el cargo."
+
+msgid "Indiquez exactement les 4 derniers chiffres."
+msgstr "Indique exactamente los 4 últimos dígitos."
+
+msgid "Instantané"
+msgstr "Instantáneo"
+
+msgid "Instantané (débit à chaque transaction)"
+msgstr "Instantáneo (cargo en cada transacción)"
+
+msgid ""
+"Journal des achats (ACH), repris automatiquement dans le journal général et "
+"le bilan."
+msgstr ""
+"Diario de compras (ACH), incluido automáticamente en el diario general y el "
+"balance."
+
+msgid "Mensuel (relevé chaque mois)"
+msgstr "Mensual (extracto cada mes)"
+
+msgid "Modifier la carte"
+msgstr "Modificar la tarjeta"
+
+msgid "Mois en cours"
+msgstr "Mes en curso"
+
+msgid "Nom de la carte"
+msgstr "Nombre de la tarjeta"
+
+msgid "Paiement et comptabilité"
+msgstr "Pago y contabilidad"
+
+msgid "Plafond journalier (€)"
+msgstr "Límite diario (€)"
+
+msgid "Plafond journalier dépassé"
+msgstr "Límite diario superado"
+
+msgid "Plafond mensuel (€)"
+msgstr "Límite mensual (€)"
+
+msgid "Plafond mensuel dépassé"
+msgstr "Límite mensual superado"
+
+msgid "Plafonds"
+msgstr "Límites"
+
+msgid "Prélèvement"
+msgstr "Cargo"
+
+msgid "Période en cours"
+msgstr "Periodo en curso"
+
+msgid "Relevé carte"
+msgstr "Extracto de tarjeta"
+
+msgid "Relevés"
+msgstr "Extractos"
+
+msgid "Relevés à payer"
+msgstr "Extractos por pagar"
+
+msgid "Seuls les 4 derniers chiffres sont enregistrés (sécurité)."
+msgstr "Solo se guardan los 4 últimos dígitos (seguridad)."
+
+msgid "Station"
+msgstr "Estación"
+
+msgid "Titulaire / conducteur"
+msgstr "Titular / conductor"
+
+msgid "Total depuis le début"
+msgstr "Total desde el inicio"
+
+msgid "Toutes les cartes"
+msgstr "Todas las tarjetas"
+
+msgid "Transactions"
+msgstr "Transacciones"
+
+msgid "Vide : carte utilisable pour tous les véhicules."
+msgstr "Vacío: tarjeta utilizable para todos los vehículos."
+
+msgid "Véhicule / titulaire"
+msgstr "Vehículo / titular"
+
+msgid "Véhicule attribué"
+msgstr "Vehículo asignado"
+
+msgid "carte"
+msgstr "tarjeta"
+
+msgid ""
+"chaque plein ou recharge est payé tout de suite : charge (6127xx) et TVA au "
+"débit, banque au crédit."
+msgstr ""
+"cada repostaje o recarga se paga de inmediato: gasto (6127xx) e IVA al debe, "
+"banco al haber."
+
+msgid ""
+"chaque transaction est une dette envers le fournisseur de la carte (440000) ;"
+" le relevé de la période est payé à la date de prélèvement (fin de période + "
+"délai) : 440000 au débit, banque au crédit."
+msgstr ""
+"cada transacción es una deuda con el proveedor de la tarjeta (440000); el "
+"extracto del periodo se paga en la fecha de cargo (fin del periodo + plazo): "
+"440000 al debe, banco al haber."
+
+msgid "expirée"
+msgstr "caducada"
+
+msgid "inactive"
+msgstr "inactiva"
+
+msgid "prélèvement à %(n)s jours"
+msgstr "cargo a %(n)s días"
+
+msgid "transactions"
+msgstr "transacciones"
+
+msgid "Émetteur de la carte (TotalEnergies, Shell, DKV, Q8, Ionity…)."
+msgstr "Emisor de la tarjeta (TotalEnergies, Shell, DKV, Q8, Ionity…)."
+
+msgid "Fournisseurs, paiement instantané ou relevés, comptabilité"
+msgstr "Proveedores, pago instantáneo o extractos, contabilidad"
+
+msgid "%(n)s jour après la fin de la période"
+msgid_plural "%(n)s jours après la fin de la période"
+msgstr[0] "%(n)s día tras el final del periodo"
+msgstr[1] "%(n)s días tras el final del periodo"
+
+msgid "en production"
+msgstr "en producción"
+
+msgid "Version de base"
+msgstr "Versión base"
+
+msgid "phase %(p)s"
+msgstr "fase %(p)s"
+
+msgid "Génération / phase non précisée"
+msgstr "Generación / fase no especificada"
+
+msgid "Voir sur AutoScout24"
+msgstr "Ver en AutoScout24"
+
+msgid ""
+"Modèle › génération / phase › variantes, avec les mois et années de "
+"production."
+msgstr ""
+"Modelo › generación / fase › variantes, con los meses y años de producción."
+
+msgid "Rechercher un modèle, une génération ou une variante…"
+msgstr "Buscar un modelo, una generación o una variante…"
+
+msgid "Ajouter une phase"
+msgstr "Añadir una fase"
+
+msgid "Ajouter une variante"
+msgstr "Añadir una variante"
+
+msgid "Portes / places"
+msgstr "Puertas / plazas"
+
+msgid "Réservoir / batterie"
+msgstr "Depósito / batería"
+
+msgid "en cours"
+msgstr "en curso"
+
+msgid "Ajouter une phase – %(m)s"
+msgstr "Añadir una fase – %(m)s"
+
+msgid "Ajouter une variante – %(m)s"
+msgstr "Añadir una variante – %(m)s"
+
+msgid "phase"
+msgstr "fase"
+
+msgid "%(n)s modèle · %(v)s variantes"
+msgid_plural "%(n)s modèles · %(v)s variantes"
+msgstr[0] "%(n)s modelo · %(v)s variantes"
+msgstr[1] "%(n)s modelos · %(v)s variantes"
+
+msgid "%(n)s phase"
+msgid_plural "%(n)s phases"
+msgstr[0] "%(n)s fase"
+msgstr[1] "%(n)s fases"
+
+msgid "%(n)s variante"
+msgid_plural "%(n)s variantes"
+msgstr[0] "%(n)s variante"
+msgstr[1] "%(n)s variantes"
+
+msgid "%(n)s véhicule"
+msgid_plural "%(n)s véhicules"
+msgstr[0] "%(n)s vehículo"
+msgstr[1] "%(n)s vehículos"

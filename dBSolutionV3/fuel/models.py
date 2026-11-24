@@ -216,6 +216,10 @@ class Fuel(models.Model):
     validation = models.BooleanField(default=True, verbose_name=_("Validation"))
 
 
+    # Carte carburant / recharge utilisée (paiement instantané ou relevé périodique)
+    carte = models.ForeignKey("fuel.CarteCarburant", on_delete=models.SET_NULL, null=True, blank=True,
+                              related_name="fuels", verbose_name=_("Carte carburant / recharge"))
+
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
@@ -467,3 +471,109 @@ class Fuel(models.Model):
 
         consommation = (Decimal(total_litres) / Decimal(total_distance)) * 100
         return consommation.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+
+# ======================================================================
+# CARTES CARBURANT / RECHARGE (TotalEnergies, Shell, DKV, Q8, Ionity…)
+# ======================================================================
+class CarteCarburant(models.Model):
+    """
+    Carte carburant / recharge électrique / AdBlue d'un fournisseur.
+    Paiement :
+      - instantané : chaque transaction est débitée tout de suite du compte bancaire de la carte ;
+      - hebdomadaire / mensuel : les transactions sont regroupées sur un relevé (dette envers le fournisseur,
+        compte 440000) payé à l'échéance (fin de période + délai de paiement).
+    Par sécurité, seuls les 4 derniers chiffres de la carte sont enregistrés.
+    """
+
+    class Type(models.TextChoices):
+        CARBURANT = "CARBURANT", _("Carburant")
+        RECHARGE = "RECHARGE", _("Recharge électrique")
+        MIXTE = "MIXTE", _("Carburant et recharge")
+
+    class ModePaiement(models.TextChoices):
+        INSTANTANE = "INSTANTANE", _("Instantané (débit à chaque transaction)")
+        HEBDOMADAIRE = "HEBDOMADAIRE", _("Hebdomadaire (relevé chaque semaine)")
+        MENSUEL = "MENSUEL", _("Mensuel (relevé chaque mois)")
+
+    societe = models.ForeignKey(Societe, on_delete=models.CASCADE, related_name="cartes_carburant",
+                                null=True, blank=True, verbose_name=_("Société"))
+    fournisseur = models.ForeignKey("fournisseur.Fournisseur", on_delete=models.SET_NULL, null=True, blank=True,
+                                    related_name="cartes_carburant", verbose_name=_("Fournisseur"),
+                                    help_text=_("Émetteur de la carte (TotalEnergies, Shell, DKV, Q8, Ionity…)."))
+    nom = models.CharField(_("Nom de la carte"), max_length=100,
+                           help_text=_("Ex. : « Total Card Golf GTI », « DKV flotte »."))
+    type_carte = models.CharField(_("Type"), max_length=10, choices=Type.choices, default=Type.CARBURANT)
+    numero_fin = models.CharField(_("4 derniers chiffres"), max_length=4, blank=True,
+                                  help_text=_("Seuls les 4 derniers chiffres sont enregistrés (sécurité)."))
+    voiture_exemplaire = models.ForeignKey("voiture_exemplaire.VoitureExemplaire", on_delete=models.SET_NULL,
+                                           null=True, blank=True, related_name="cartes_carburant",
+                                           verbose_name=_("Véhicule attribué"),
+                                           help_text=_("Vide : carte utilisable pour tous les véhicules."))
+    titulaire = models.ForeignKey(Utilisateur, on_delete=models.SET_NULL, null=True, blank=True,
+                                  related_name="cartes_carburant", verbose_name=_("Titulaire / conducteur"))
+    date_expiration = models.DateField(_("Date d'expiration"), null=True, blank=True)
+    plafond_journalier = models.DecimalField(_("Plafond journalier (€)"), max_digits=10, decimal_places=2,
+                                             null=True, blank=True)
+    plafond_mensuel = models.DecimalField(_("Plafond mensuel (€)"), max_digits=10, decimal_places=2,
+                                          null=True, blank=True)
+
+    mode_paiement = models.CharField(_("Paiement"), max_length=12, choices=ModePaiement.choices,
+                                     default=ModePaiement.INSTANTANE)
+    delai_paiement_jours = models.PositiveSmallIntegerField(
+        _("Délai de paiement du relevé (jours)"), default=0,
+        help_text=_("Hebdomadaire / mensuel : nombre de jours entre la fin de la période et le prélèvement."))
+    compte_tresorerie = models.ForeignKey("compta.CompteTresorerie", on_delete=models.SET_NULL, null=True,
+                                          blank=True, related_name="cartes_carburant",
+                                          verbose_name=_("Compte de paiement"),
+                                          help_text=_("Compte bancaire débité. Vide : compte bancaire principal (550000)."))
+    actif = models.BooleanField(_("Active"), default=True)
+    remarques = models.TextField(_("Remarques"), blank=True)
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("Carte carburant / recharge")
+        verbose_name_plural = _("Cartes carburant / recharge")
+        ordering = ["-actif", "nom"]
+
+    def __str__(self):
+        fin = f" •••• {self.numero_fin}" if self.numero_fin else ""
+        fournisseur = f" ({self.fournisseur.nom})" if self.fournisseur_id else ""
+        return f"{self.nom}{fin}{fournisseur}"
+
+    @property
+    def est_periodique(self):
+        return self.mode_paiement != self.ModePaiement.INSTANTANE
+
+    @property
+    def est_expiree(self):
+        return bool(self.date_expiration and self.date_expiration < timezone.localdate())
+
+    @property
+    def compte_banque(self):
+        """Compte PCMN de trésorerie débité (compte de la carte, sinon 550000)."""
+        return getattr(self.compte_tresorerie, "compte_pcmn", None) or "550000"
+
+    def periode_de(self, jour):
+        """(début, fin) de la période de relevé contenant le jour (semaine du lundi au dimanche, ou mois civil)."""
+        import calendar
+        from datetime import timedelta
+        if self.mode_paiement == self.ModePaiement.HEBDOMADAIRE:
+            debut = jour - timedelta(days=jour.weekday())
+            return debut, debut + timedelta(days=6)
+        if self.mode_paiement == self.ModePaiement.MENSUEL:
+            return jour.replace(day=1), jour.replace(day=calendar.monthrange(jour.year, jour.month)[1])
+        return jour, jour
+
+    def date_prelevement(self, fin_periode):
+        from datetime import timedelta
+        return fin_periode + timedelta(days=self.delai_paiement_jours or 0)
+
+    def accepte(self, famille):
+        """famille : carburant | electricite | adblue."""
+        if self.type_carte == self.Type.MIXTE:
+            return True
+        if self.type_carte == self.Type.RECHARGE:
+            return famille == "electricite"
+        return famille in ("carburant", "adblue")

@@ -207,6 +207,10 @@ class AdBlue(models.Model):
     validation = models.BooleanField(default=True, verbose_name=_("Validation"))
 
 
+    # Carte carburant / recharge utilisée (paiement instantané ou relevé périodique)
+    carte = models.ForeignKey("fuel.CarteCarburant", on_delete=models.SET_NULL, null=True, blank=True,
+                              related_name="adblues", verbose_name=_("Carte carburant / recharge"))
+
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 

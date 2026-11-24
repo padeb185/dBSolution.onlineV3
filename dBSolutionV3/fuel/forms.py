@@ -93,6 +93,7 @@ class FuelForm(forms.ModelForm):
             "niveau_restant",
             "prix_refuelling",
             "pays",
+            "carte",
         ]
 
 
@@ -199,7 +200,12 @@ class FuelForm(forms.ModelForm):
             "prix_refuelling",
 
             "pays",
+            "carte",
         ])
+
+        # Carte carburant / recharge (cartes actives compatibles, carte du véhicule par défaut)
+        from fuel.cartes import configurer_champ_carte
+        configurer_champ_carte(self, "carburant")
 
         # =========================
         # VARIATION KILOMÉTRAGE
@@ -329,6 +335,9 @@ class FuelForm(forms.ModelForm):
                         f"({volume_max} L)."
                     ),
                 )
+
+        from fuel.cartes import verifier_carte
+        verifier_carte(self, "carburant")
 
         return cleaned_data
 

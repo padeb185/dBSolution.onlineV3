@@ -61,6 +61,8 @@ def ecritures_energie(societe, debut=None, fin=None):
     for o in te.operations_entre(societe, debut, fin):
         for l in te.ecritures(o):
             L.append(dict(l, journal="ACH", date=o["date"], piece=o["piece"]))
+    # Cartes carburant / recharge à relevé hebdomadaire ou mensuel : paiement du relevé à l'échéance
+    L.extend(te.ecritures_releves(societe, debut, fin))
     return L
 
 

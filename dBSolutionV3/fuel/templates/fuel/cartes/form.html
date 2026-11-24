@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% if carte %}{% trans "Modifier la carte" %}{% else %}{% trans "Ajouter une carte" %}{% endif %}{% endblock %}
+{% block content %}
+<br>
+<div class="max-w-3xl mx-auto p-6 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-6 flex items-center gap-4">
+        <img src="{% static 'icons/carte_carburant.png' %}" alt="" class="w-16 h-16">
+        <span>{% if carte %}{% trans "Modifier la carte" %} – {{ carte.nom }}{% else %}{% trans "Ajouter une carte carburant / recharge" %}{% endif %}</span>
+    </h1>
+    {% include "partials/messages.html" %}
+    {% if form.non_field_errors %}<div class="bg-red-100 text-red-800 border border-red-300 p-4 rounded mb-6">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}</div>{% endif %}
+
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+        <h2 class="text-lg font-semibold border-b pb-1">{% trans "Carte" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {% for field in form %}{% if field.name in "nom fournisseur type_carte numero_fin voiture_exemplaire titulaire date_expiration plafond_journalier plafond_mensuel" %}
+            <div>
+                <label class="block font-semibold mb-1" for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} <span class="text-red-600">*</span>{% endif %}</label>
+                {{ field }}
+                {% if field.help_text %}<p class="text-gray-500 text-xs mt-1">{{ field.help_text }}</p>{% endif %}
+                {% for e in field.errors %}<p class="text-red-600 text-sm mt-1">{{ e }}</p>{% endfor %}
+            </div>
+            {% endif %}{% endfor %}
+        </div>
+        {% if not form.fournisseur.field.queryset.exists %}<p class="text-sm text-orange-700">{% trans "Aucun fournisseur : créez d'abord l'émetteur de la carte (TotalEnergies, Shell, DKV…) dans les fournisseurs." %}</p>{% endif %}
+
+        <h2 class="text-lg font-semibold border-b pb-1">{% trans "Paiement et comptabilité" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {% for field in form %}{% if field.name in "mode_paiement delai_paiement_jours compte_tresorerie" %}
+            <div id="bloc-{{ field.name }}">
+                <label class="block font-semibold mb-1" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}<p class="text-gray-500 text-xs mt-1">{{ field.help_text }}</p>{% endif %}
+                {% for e in field.errors %}<p class="text-red-600 text-sm mt-1">{{ e }}</p>{% endfor %}
+            </div>
+            {% endif %}{% endfor %}
+        </div>
+        <div class="bg-blue-50 border border-blue-200 rounded p-4 text-sm text-gray-700">
+            <p><b>{% trans "Instantané" %}</b> : {% trans "chaque plein ou recharge est payé tout de suite : charge (6127xx) et TVA au débit, banque au crédit." %}</p>
+            <p class="mt-1"><b>{% trans "Hebdomadaire / mensuel" %}</b> : {% trans "chaque transaction est une dette envers le fournisseur de la carte (440000) ; le relevé de la période est payé à la date de prélèvement (fin de période + délai) : 440000 au débit, banque au crédit." %}</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4">
+            <label class="inline-flex items-center gap-2">{{ form.actif }} <span class="font-semibold">{{ form.actif.label }}</span></label>
+            <div><label class="block font-semibold mb-1" for="{{ form.remarques.id_for_label }}">{{ form.remarques.label }}</label>{{ form.remarques }}</div>
+        </div>
+
+        <div class="flex gap-3">
+            <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold">{% trans "Enregistrer" %}</button>
+            <a href="{% if carte %}{% url 'fuel:carte_detail' carte.pk %}{% else %}{% url 'fuel:cartes_liste' %}{% endif %}" class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+        </div>
+    </form>
+</div>
+<br>
+<script>
+(function () {
+    var mode = document.getElementById("id_mode_paiement"), delai = document.getElementById("bloc-delai_paiement_jours");
+    function maj() { if (mode && delai) delai.style.display = mode.value === "INSTANTANE" ? "none" : ""; }
+    if (mode) { mode.addEventListener("change", maj); maj(); }
+})();
+</script>
+{% endblock %}

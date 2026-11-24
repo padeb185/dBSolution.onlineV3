@@ -6,8 +6,10 @@
 
     <!-- Titre avec icône -->
     <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
-        <img src="{% static 'icons/voiture-de-course.png' %}" alt="Modele" style="width:60px; height:60px; margin-right:10px;">
-        {% trans "Ajouter un modèle de voiture" %}
+        <img src="{% static 'icons/voiture_modeles.png' %}" alt="Modele" style="width:60px; height:60px; margin-right:10px;">
+        {% if request.GET.quoi == "phase" %}{% blocktrans with m=request.GET.nom_modele %}Ajouter une phase – {{ m }}{% endblocktrans %}
+        {% elif request.GET.quoi == "variante" %}{% blocktrans with m=request.GET.nom_modele %}Ajouter une variante – {{ m }}{% endblocktrans %}{% if request.GET.generation or request.GET.phase %} <span class="text-gray-500 font-normal ml-2">{{ request.GET.generation }}{% if request.GET.phase %} · {% trans "phase" %} {{ request.GET.phase }}{% endif %}</span>{% endif %}
+        {% else %}{% trans "Ajouter un modèle de voiture" %}{% endif %}
     </h1>
 
     <!-- Messages -->
@@ -60,6 +62,7 @@
 
     <form method="post" class="flex flex-col space-y-4">
         {% csrf_token %}
+        {% if request.GET.retour == "marque" or request.POST.retour == "marque" %}<input type="hidden" name="retour" value="marque">{% endif %}
 
         <!-- Marque -->
         <div class="flex flex-col">
@@ -184,7 +187,7 @@
                 {% trans "Enregistrer" %}
             </button>
 
-            <a href="{% url 'voiture_modele:voituremodele_list' %}"
+            <a href="{% if request.GET.marque %}{% url 'voiture_marque:modeles_par_marque' request.GET.marque %}{% else %}{% url 'voiture_modele:voituremodele_list' %}{% endif %}"
                class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
                 {% trans "Annuler" %}
             </a>

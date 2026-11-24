@@ -59,13 +59,11 @@ def modeles_par_marque(request, marque_id):
         societe=tenant,
     )
 
-    modeles = (
-        VoitureModele.objects.filter(
-            voiture_marque=marque,
-            societe=tenant,
-        )
-        .order_by("nom_modele")
-    )
+    modeles = VoitureModele.objects.filter(voiture_marque=marque, societe=tenant)
+
+    # Arborescence Modèle › Génération / phase › Variantes (mois / années de production)
+    from voiture.voiture_modele.arborescence import arborescence, lien_autoscout
+    arbre = arborescence(marque, modeles)
 
     return render(
         request,
@@ -73,6 +71,9 @@ def modeles_par_marque(request, marque_id):
         {
             "marque": marque,
             "modeles": modeles,
+            "arbre": arbre,
+            "nb_variantes": sum(m["nb_variantes"] for m in arbre),
+            "autoscout": lien_autoscout(marque.nom_marque),
         },
     )
 
