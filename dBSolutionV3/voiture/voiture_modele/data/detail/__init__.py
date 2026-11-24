@@ -48,6 +48,16 @@ MODULES = [
     "cupra",
     "seat",
     "skoda",
+    "alfa_romeo",
+    "honda",
+    "acura",
+    "apollo",
+    "aiways",
+    "brabus",
+    "alpina",
+    "byd",
+    "daewoo",
+    "daihatsu",
 ]
 
 
