@@ -1373,3 +1373,16 @@ MOTEURS = {
         {"code_moteur": 'ZIL-Prototype-V8', "type_moteur": 'ATM', "carburant": 'ESS', "cylindree_l": 7.5, "distribution": 'CHAINE', "nombre_cylindres": 8, "architecture": 'V', "puissance_ch": 350, "puissance_tr_min": 4200, "couple_nm": 600, "couple_tr_min": 2500, "qualite_huile": '15W40', "quantite_huile_l": 15.0, "intervalle_km_entretien": 15000},
     ],
 }
+
+# Moteurs générés par le détail des modèles (voiture_modele/data/detail/) : ajoutés ou mis à jour
+from voiture.voiture_modele.data.detail import moteurs as _moteurs_detail  # noqa: E402
+
+for _motoriste, _liste in _moteurs_detail().items():
+    _cible = MOTEURS.setdefault(_motoriste, [])
+    _index = {_m["code_moteur"].lower(): _i for _i, _m in enumerate(_cible)}
+    for _m in _liste:
+        _i = _index.get(_m["code_moteur"].lower())
+        if _i is None:
+            _cible.append(_m)
+        else:
+            _cible[_i] = _m
