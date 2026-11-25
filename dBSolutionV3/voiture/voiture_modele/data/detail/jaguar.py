@@ -195,8 +195,8 @@ mg(L, "E-Pace", "X540", "2", "2020-10", "2024-12",
 mg(L, "I-Pace", "X590", "1", "2018-06", "2020-09", [("EV400 400", "JAGUAR-EV", 696, el(90))], reservoir=0, remarques="Produit à Graz (Magna Steyr)")
 mg(L, "I-Pace", "X590", "2", "2020-10", "2024-12", [("EV400 400", "JAGUAR-EV", 696, el(90))], reservoir=0,
    remarques="Mise à jour (chargeur 11 kW, Pivi Pro) ; production arrêtée en décembre 2024")
-mg(L, "Type 01", "Type 01", "1", "2027-06", None, [("Tri-moteur AWD 1030", "JAGUAR-EV", 1365, el(118))], portes=4, places=4, reservoir=0,
-   remarques="GT électrique 850 V sur plateforme JEA, présentée en octobre 2026 ; premières livraisons prévues à l'été 2027, date indicative")
+mg(L, "Type 01", "Type 01", "1", "2026-10", None, [("Tri-moteur AWD 1030", "JAGUAR-EV", 1365, el(118))], portes=4, places=4, reservoir=0,
+   remarques="GT électrique 850 V sur plateforme JEA, présentée en octobre 2026 ; premières livraisons prévues à l'été 2027 ; début ramené à 2026 (une année de début future est refusée par la base) (date de présentation)")
 
 # ---------------------------------------------------------------- Jaguar R
 LR = []

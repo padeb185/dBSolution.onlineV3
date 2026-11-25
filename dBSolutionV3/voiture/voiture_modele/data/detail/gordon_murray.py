@@ -23,14 +23,14 @@ mg(L, "T.50s Niki Lauda", "T.50s", "1", "2025-09", None, [("3.9 V12 735", "GMA-V
    remarques="Version circuit non homologuée, 25 exemplaires ; boîte séquentielle 6 à palettes")
 mg(L, "T.33", "T.33", "1", "2026-12", None, [("3.9 V12 615", "GMA-V12-3.9", 451)], portes=2, places=2, reservoir=65,
    remarques="Production annoncée pour fin 2026 après plusieurs reports ; date indicative")
-mg(L, "T.33 Spider", "T.33 Spider", "1", "2027-06", None, [("3.9 V12 617", "GMA-V12-3.9", 451)], portes=2, places=2, reservoir=65,
-   remarques="Targa à toit amovible ; prototypes de validation en 2026 ; date indicative")
+mg(L, "T.33 Spider", "T.33 Spider", "1", "2026-12", None, [("3.9 V12 617", "GMA-V12-3.9", 451)], portes=2, places=2, reservoir=65,
+   remarques="Targa à toit amovible ; prototypes de validation en 2026, livraisons attendues en 2027 ; début ramené à 2026 (une année de début future est refusée par la base)")
 mg(L, "S1 LM", "S1 LM", "1", "2026-01", None, [("4.3 V12 700", "GMA-V12-4.3", 470)], portes=2, places=3, reservoir=60,
    remarques="Gordon Murray Special Vehicles, 5 exemplaires pour un seul client ; hommage à la McLaren F1 GTR ; date indicative")
-mg(L, "S1", "S1", "1", "2027-06", None, [("4.2 V12 690", "GMA-V12-4.2", 500)], portes=2, places=3, reservoir=60,
-   remarques="Gordon Murray Special Vehicles, 64 exemplaires, GT dérivée de la S1 LM ; date indicative")
-mg(L, "Le Mans GTR", "Le Mans GTR", "1", "2027-01", None, [("4.0 V12 664", "GMA-V12-4.0", 467)], portes=2, places=3, reservoir=60,
-   remarques="Gordon Murray Special Vehicles, 24 exemplaires à longue queue ; livraisons prévues en 2027, date indicative")
+mg(L, "S1", "S1", "1", "2026-12", None, [("4.2 V12 690", "GMA-V12-4.2", 500)], portes=2, places=3, reservoir=60,
+   remarques="Gordon Murray Special Vehicles, 64 exemplaires, GT dérivée de la S1 LM, présentée en août 2026, livraisons attendues en 2027 ; début ramené à 2026 (une année de début future est refusée par la base)")
+mg(L, "Le Mans GTR", "Le Mans GTR", "1", "2026-12", None, [("4.0 V12 664", "GMA-V12-4.0", 467)], portes=2, places=3, reservoir=60,
+   remarques="Gordon Murray Special Vehicles, 24 exemplaires à longue queue ; livraisons prévues en 2027 ; début ramené à 2026 (une année de début future est refusée par la base)")
 
 MOT = Motorisations("Cosworth", FAMILLES, mg.table, mg.eres, prefixes=())
 MOT.lier(L)

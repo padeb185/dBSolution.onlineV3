@@ -293,8 +293,8 @@ mg(L, "ES90", "SPA2-ES90", "1", "2025-09", None,
    remarques="Berline électrique à hayon, 800 V")
 mg(L, "EX60", "SPA3", "1", "2026-09", None,
    [("P6 374", "EV-SPA3", 480, el(80)), ("P10 AWD 510", "EV-SPA3", 710, el(95)),
-    ("P12 AWD 680", "EV-SPA3", 790, el(117, debut="2027-07"))], reservoir=0,
-   remarques="SUV moyen électrique 800 V (plateforme SPA3) ; P12 annoncée pour le 2e semestre 2027")
+    ("P12 AWD 680", "EV-SPA3", 790, el(117, debut="2026-12"))], reservoir=0,
+   remarques="SUV moyen électrique 800 V (plateforme SPA3) ; P12 annoncée pour le 2e semestre 2027 ; début ramené à 2026 (une année de début future est refusée par la base)")
 
 MOT = Motorisations("Volvo", FAMILLES, mg.table, mg.eres, prefixes=())
 MOT.lier(L)
