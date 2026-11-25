@@ -75,6 +75,14 @@ MODULES = [
     "desoto",
     "facel_vega",
     "hyundai",
+    "genesis",
+    "gillet",
+    "ginetta",
+    "gordon_murray",
+    "gumpert",
+    "infiniti",
+    "jaguar",
+    "jeep",
 ]
 
 
