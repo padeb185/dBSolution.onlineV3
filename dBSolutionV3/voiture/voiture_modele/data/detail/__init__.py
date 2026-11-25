@@ -94,6 +94,13 @@ MODULES = [
     "lincoln",
     "lola",
     "lotus",
+    "lucid",
+    "marcos",
+    "maserati",
+    "mazda",
+    "mclaren",
+    "maybach",
+    "mg",
 ]
 
 
