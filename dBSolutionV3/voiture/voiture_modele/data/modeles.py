@@ -58,9 +58,6 @@ MODELES = {
     'Alpine': [
     ],
     'AM General': [
-        {"modele": 'HMMWV', "variante": 'Tout-terrain militaire', "portes": 4, "places": 4, "reservoir": 95, "annee_debut": 1984},
-        {"modele": 'Hummer H1', "variante": 'Tout-terrain', "portes": 4, "places": 4, "reservoir": 95, "annee_debut": 1992, "annee_fin": 2006},
-        {"modele": 'M35', "variante": 'Camion militaire', "portes": 2, "places": 2, "annee_debut": 1950, "annee_fin": 1999},
     ],
     'AMC': [
         {"modele": 'Ambassador', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1966, "annee_fin": 1974},
@@ -161,11 +158,6 @@ MODELES = {
         {"modele": 'Pieper Hybride', "variante": 'Torpedo hybride', "portes": 4, "places": 4, "annee_debut": 1906, "annee_fin": 1912, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Auto Union': [
-        {"modele": '1000', "variante": 'Berline', "portes": 2, "places": 5, "reservoir": 45, "annee_debut": 1958, "annee_fin": 1963},
-        {"modele": '1000 Sp', "variante": 'Coupé / Roadster', "portes": 2, "places": 2, "reservoir": 45, "annee_debut": 1958, "annee_fin": 1965},
-        {"modele": 'Type A', "variante": 'Course', "portes": 0, "places": 1, "annee_debut": 1934, "annee_fin": 1934},
-        {"modele": 'Type C', "variante": 'Course', "portes": 0, "places": 1, "annee_debut": 1936, "annee_fin": 1937},
-        {"modele": 'Type D', "variante": 'Course', "portes": 0, "places": 1, "annee_debut": 1938, "annee_fin": 1939},
     ],
     'Autocar': [
         {"modele": 'ACX', "variante": 'Benne à ordures', "portes": 2, "places": 3, "annee_debut": 2006, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
@@ -323,19 +315,6 @@ MODELES = {
         {"modele": 'Isabella', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 45},
     ],
     'Brabham': [
-        {"modele": 'BT14', "variante": 'Formula', "portes": 0, "places": 1, "reservoir": 80},
-        {"modele": 'BT17', "variante": 'Sports Prototype', "portes": 0, "places": 1, "reservoir": 90},
-        {"modele": 'BT18', "variante": 'Formula 2/3', "portes": 0, "places": 1, "reservoir": 75},
-        {"modele": 'BT24', "variante": 'Formula 1', "portes": 0, "places": 1, "reservoir": 90},
-        {"modele": 'BT34', "variante": 'Formula 1', "portes": 0, "places": 1, "reservoir": 90},
-        {"modele": 'BT44', "variante": 'Formula 1', "portes": 0, "places": 1, "reservoir": 90},
-        {"modele": 'BT45', "variante": 'Formula 1', "portes": 0, "places": 1, "reservoir": 90},
-        {"modele": 'BT49', "variante": 'Formula 1', "portes": 0, "places": 1, "reservoir": 90},
-        {"modele": 'BT50', "variante": 'Formula 1', "portes": 0, "places": 1, "reservoir": 90},
-        {"modele": 'BT52', "variante": 'Formula 1', "portes": 0, "places": 1, "reservoir": 90},
-        {"modele": 'BT56', "variante": 'Formula 1', "portes": 0, "places": 1, "reservoir": 90},
-        {"modele": 'BT60', "variante": 'Formula 1', "portes": 0, "places": 1, "reservoir": 90},
-        {"modele": 'BT62', "variante": 'Track Hypercar', "portes": 2, "places": 2, "reservoir": 80},
     ],
     'Brabus': [
     ],
@@ -452,18 +431,6 @@ MODELES = {
     'Citroën': [
     ],
     'Citroën Sport': [
-        {"modele": 'BX 4TC', "variante": 'Rallye', "portes": 5, "places": 4, "reservoir": 70},
-        {"modele": 'C3 R5', "variante": 'Rallye', "portes": 5, "places": 4, "reservoir": 50},
-        {"modele": 'C3 Sport', "variante": 'GT / Edition Limitée', "portes": 5, "places": 4, "reservoir": 45},
-        {"modele": 'C4 Sport', "variante": 'GT', "portes": 5, "places": 4, "reservoir": 50},
-        {"modele": 'C4 WRC', "variante": 'Rallye', "portes": 5, "places": 4, "reservoir": 60},
-        {"modele": 'C4 WRC Edition', "variante": 'GT / Rallye', "portes": 5, "places": 4, "reservoir": 50},
-        {"modele": 'C-Elysée WTCC', "variante": 'Course', "portes": 4, "places": 4, "reservoir": 50},
-        {"modele": 'DS3 R3', "variante": 'Rallye / Route', "portes": 3, "places": 4, "reservoir": 50},
-        {"modele": 'DS3 WRC', "variante": 'Rallye', "portes": 3, "places": 4, "reservoir": 50},
-        {"modele": 'DS4 Racing', "variante": 'Sportive', "portes": 5, "places": 4, "reservoir": 50},
-        {"modele": 'DS5 Racing', "variante": 'Sportive', "portes": 5, "places": 4, "reservoir": 55},
-        {"modele": 'Xsara WRC', "variante": 'Rallye', "portes": 5, "places": 4, "reservoir": 60},
     ],
     'Clément-Bayard': [
         {"modele": '4M', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1908, "annee_fin": 1912, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
@@ -532,16 +499,6 @@ MODELES = {
         {"modele": 'Stahlradwagen', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1889, "annee_fin": 1890, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Dallara': [
-        {"modele": 'DPV8', "variante": 'Prototype', "portes": 0, "places": 1, "reservoir": 90},
-        {"modele": 'DW12', "variante": 'IndyCar chassis', "portes": 0, "places": 1, "reservoir": 80},
-        {"modele": 'F2', "variante": 'Formula 2', "portes": 0, "places": 1, "reservoir": 75},
-        {"modele": 'F3', "variante": 'Formula 3', "portes": 0, "places": 1, "reservoir": 70},
-        {"modele": 'GP2', "portes": 0, "places": 1, "reservoir": 75},
-        {"modele": 'IndyCar', "portes": 0, "places": 1, "reservoir": 80},
-        {"modele": 'PZero', "variante": 'GT', "portes": 2, "places": 2, "reservoir": 100},
-        {"modele": 'Stradale', "variante": 'Roadster', "portes": 2, "places": 2, "reservoir": 90},
-        {"modele": 'Super Formula', "portes": 0, "places": 1, "reservoir": 75},
-        {"modele": 'Tatuus F4 chassis', "portes": 0, "places": 1, "reservoir": 70},
     ],
     'Dangel': [
         {"modele": 'Partner 4x4', "variante": 'Utilitaire', "portes": 4, "places": 5, "annee_debut": 1999},
@@ -576,13 +533,6 @@ MODELES = {
         {"modele": 'Type 55', "variante": 'Réplique Bugatti', "portes": 2, "places": 2, "annee_debut": 1977, "annee_fin": 1997},
     ],
     'De Tomaso': [
-        {"modele": 'Deauville', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 70},
-        {"modele": 'Longchamp', "variante": 'Cabriolet', "portes": 2, "places": 2, "reservoir": 65},
-        {"modele": 'Mangusta', "variante": 'Coupe', "portes": 2, "places": 2, "reservoir": 75},
-        {"modele": 'P72', "variante": 'Coupé moderne', "portes": 2, "places": 2, "reservoir": 70},
-        {"modele": 'P72 Spider', "variante": 'Cabriolet moderne', "portes": 2, "places": 2, "reservoir": 70},
-        {"modele": 'Pantera', "variante": 'Coupe', "portes": 2, "places": 2, "reservoir": 80},
-        {"modele": 'Valentino', "variante": 'Coupe', "portes": 2, "places": 2, "reservoir": 70},
     ],
     'Decauville': [
         {"modele": 'Type 10 HP', "variante": 'Tonneau', "portes": 0, "places": 4, "annee_debut": 1902, "annee_fin": 1905, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
@@ -618,13 +568,6 @@ MODELES = {
     'DeLorean': [
     ],
     'DeSoto': [
-        {"modele": 'Adventurer', "variante": 'Coupé / Cabriolet', "portes": 2, "places": 6, "annee_debut": 1956, "annee_fin": 1960},
-        {"modele": 'Airflow', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1934, "annee_fin": 1936},
-        {"modele": 'Custom', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1939, "annee_fin": 1952},
-        {"modele": 'Diplomat', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1946, "annee_fin": 1961},
-        {"modele": 'Firedome', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1952, "annee_fin": 1959},
-        {"modele": 'Fireflite', "variante": 'Berline / Cabriolet', "portes": 4, "places": 6, "annee_debut": 1955, "annee_fin": 1960},
-        {"modele": 'Series K', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1928, "annee_fin": 1930},
     ],
     'Detroit Electric': [
         {"modele": 'Model 27', "variante": 'Électrique', "portes": 2, "places": 4, "reservoir": 0, "annee_debut": 1911, "annee_fin": 1912, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
@@ -762,13 +705,6 @@ MODELES = {
         {"modele": 'Type D', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1910, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Facel Vega': [
-        {"modele": 'Excellence', "variante": 'Berline', "portes": 4, "places": 5, "reservoir": 100, "annee_debut": 1958, "annee_fin": 1964},
-        {"modele": 'Facel 6', "variante": 'Coupé', "portes": 2, "places": 2, "reservoir": 58, "annee_debut": 1964, "annee_fin": 1964},
-        {"modele": 'Facel II', "variante": 'Coupé', "portes": 2, "places": 4, "reservoir": 100, "annee_debut": 1962, "annee_fin": 1964},
-        {"modele": 'Facel III', "variante": 'Coupé', "portes": 2, "places": 2, "reservoir": 58, "annee_debut": 1963, "annee_fin": 1964},
-        {"modele": 'Facellia', "variante": 'Coupé / Cabriolet', "portes": 2, "places": 2, "reservoir": 58, "annee_debut": 1959, "annee_fin": 1963},
-        {"modele": 'FV', "variante": 'Coupé', "portes": 2, "places": 4, "reservoir": 100, "annee_debut": 1954, "annee_fin": 1958},
-        {"modele": 'HK500', "variante": 'Coupé', "portes": 2, "places": 4, "reservoir": 100, "annee_debut": 1958, "annee_fin": 1961},
     ],
     'Falcon': [
         {"modele": 'F7', "variante": 'Supercar', "portes": 2, "places": 2, "annee_debut": 2012, "annee_fin": 2017},
@@ -1163,30 +1099,8 @@ MODELES = {
         {"modele": 'Skylark', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1939, "annee_fin": 1941, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Hyundai': [
-        {"modele": 'Elantra', "portes": 4, "places": 5, "reservoir": 50},
-        {"modele": 'i10', "portes": 5, "places": 5, "reservoir": 35},
-        {"modele": 'i20', "portes": 5, "places": 5, "reservoir": 45},
-        {"modele": 'i20', "variante": 'N', "portes": 5, "places": 5, "reservoir": 45},
-        {"modele": 'i30', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'i30', "variante": 'N', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'Ioniq 5', "variante": 'Electrique', "portes": 5, "places": 5, "reservoir": 0},
-        {"modele": 'Ioniq 6', "variante": 'Electrique', "portes": 4, "places": 5, "reservoir": 0},
-        {"modele": 'Kona', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'Kona Electric', "variante": 'Electrique', "portes": 5, "places": 5, "reservoir": 0},
-        {"modele": 'Palisade', "portes": 5, "places": 7, "reservoir": 71},
-        {"modele": 'Santa Fe', "portes": 5, "places": 7, "reservoir": 71},
-        {"modele": 'Santa Fe Hybrid', "variante": 'Hybride', "portes": 5, "places": 7, "reservoir": 71},
-        {"modele": 'Sonata', "portes": 4, "places": 5, "reservoir": 60},
-        {"modele": 'Tucson', "portes": 5, "places": 5, "reservoir": 60},
-        {"modele": 'Tucson Hybrid', "variante": 'Hybride', "portes": 5, "places": 5, "reservoir": 60},
-        {"modele": 'Veloster N', "variante": 'Sport', "portes": 3, "places": 4, "reservoir": 50},
     ],
     'Hyundai N': [
-        {"modele": 'Elantra N', "portes": 4, "places": 5, "reservoir": 50},
-        {"modele": 'i20 N', "portes": 5, "places": 5, "reservoir": 45},
-        {"modele": 'i30 N', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'Kona N', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'Veloster N', "portes": 3, "places": 4, "reservoir": 50},
     ],
     'IFA': [
         {"modele": 'F8', "variante": 'Berline', "portes": 2, "places": 4, "annee_debut": 1949, "annee_fin": 1955},

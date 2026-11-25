@@ -66,6 +66,15 @@ MODULES = [
     "chrysler",
     "delorean",
     "gmc",
+    "am_general",
+    "auto_union",
+    "brabham",
+    "citroen_sport",
+    "de_tomaso",
+    "dallara",
+    "desoto",
+    "facel_vega",
+    "hyundai",
 ]
 
 
