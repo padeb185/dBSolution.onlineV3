@@ -83,6 +83,17 @@ MODULES = [
     "infiniti",
     "jaguar",
     "jeep",
+    "isuzu",
+    "kia",
+    "koenigsegg",
+    "lamborghini",
+    "lancia",
+    "land_rover",
+    "lexus",
+    "ligier",
+    "lincoln",
+    "lola",
+    "lotus",
 ]
 
 

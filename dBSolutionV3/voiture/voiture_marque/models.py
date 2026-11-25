@@ -1,8 +1,25 @@
 from django.db import models
 from django.core.validators import MaxLengthValidator, MinLengthValidator
 import uuid
+from functools import lru_cache
 from django.conf import settings
+from django.contrib.staticfiles import finders
+from django.contrib.staticfiles.storage import staticfiles_storage
 from societe.models import Societe
+
+
+LOGO_PAR_DEFAUT = "images/marques/default.png"
+
+
+@lru_cache(maxsize=None)
+def _logo_existe(chemin):
+    """Vrai si le fichier statique existe (mis en cache jusqu'au redémarrage du serveur)."""
+    if finders.find(chemin):
+        return True
+    try:
+        return staticfiles_storage.exists(chemin)
+    except Exception:
+        return False
 
 
 class VoitureMarque(models.Model):
@@ -42,6 +59,12 @@ class VoitureMarque(models.Model):
     @property
     def nom_fichier_logo(self):
         return f"{self.nom_marque.strip().lower()}.png"
+
+    @property
+    def logo_static(self):
+        """Chemin statique du logo, ou du logo par défaut s'il n'existe pas (évite les 404)."""
+        chemin = f"images/marques/{self.nom_fichier_logo}"
+        return chemin if _logo_existe(chemin) else LOGO_PAR_DEFAUT
 
 
 class MarqueFavorite(models.Model):

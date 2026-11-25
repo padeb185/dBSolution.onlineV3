@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+
+{% block content %}
+
+<head>
+     <link rel="stylesheet" href="{% static 'theme/css/dist/styles.css' %}">
+</head>
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+
+
+    <h1 class="text-2xl font-bold mb-6">{% trans "Marques de voiture" %}</h1>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded border
+            {% if message.tags == 'success' %}
+                bg-green-100 text-green-800 border-green-300
+            {% else %}
+                bg-red-100 text-red-800 border-red-300
+            {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+
+
+    <!-- Conteneur flex pour aligner sur la même ligne -->
+    <div class="flex items-center gap-4 mb-6">
+        <!-- Recherche -->
+        <div class="flex-1 gap-4">
+            <input
+                type="text"
+                id="search-marque"
+                class="border rounded-lg px-4 py-2 w-full"
+                placeholder="{% trans 'Rechercher une marque...' %}"
+            >
+        </div>
+
+        <!-- Boutons -->
+        <div class="flex-1 flex gap-4">
+            <a href="{% url 'voiture_marque:marques_favorites' %}"
+               class="flex-1 inline-flex justify-center items-center gap-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg transition">
+                ⭐ {% trans "Mes marques favorites" %}
+            </a>
+        </div>
+        <div class="flex-1 flex gap-4">
+            <a href="{% url 'voiture_marque:ajouter_marque' %}"
+               class="flex-1 bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition">
+                {% trans "Ajouter une marque" %}
+            </a>
+        </div>
+    </div>
+
+        <!-- Marques -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                {% for marque in marques %}
+
+                    <a href="{% url 'voiture_marque:modeles_par_marque' marque_id=marque.id_marque %}"
+                       class="relative bg-white shadow-md transition duration-300
+                              hover:shadow-lg hover:bg-blue-50 rounded-lg p-6
+                              marque-card flex items-center gap-6 cursor-pointer w-full"
+                       data-marque-id="{{ marque.id_marque }}"
+                       data-marque-nom="{{ marque.nom_marque|lower }}">
+
+                        <!-- Étoile favori -->
+                        <div class="absolute right-3 z-10" style="bottom: 15px;">
+                            <button
+                                type="button"
+                                class="favorite-btn text-2xl"
+                                data-url="{% url 'voiture_marque:toggle_marque_favorite' marque_id=marque.id_marque %}"
+                                onclick="event.preventDefault(); event.stopPropagation();">
+
+                                {% if marque.id_marque in favorites_ids %}
+                                    ⭐
+                                {% else %}
+                                    ☆
+                                {% endif %}
+
+                            </button>
+                        </div>
+
+                        <div class="flex-1">
+                            <h2 class="text-lg font-semibold">
+                                {{ marque.nom_marque }}
+                            </h2>
+
+                            <p class="text-gray-600">
+                                {% trans "Voir les" %}
+                                {{ marque.modeles.count }}
+                                {% trans "modèles de" %}
+                                {{ marque.nom_marque }}
+                            </p>
+                        </div>
+
+                        <img
+                            src="{% static 'images/marques/' %}{{ marque.nom_fichier_logo }}"
+                            alt="{{ marque.nom_marque }}"
+                            style="width:75px; margin-right:20px;"
+                            onerror="
+                                console.error(
+                                    'Logo introuvable :',
+                                    '{{ marque.nom_marque|escapejs }}',
+                                    this.src
+                                );
+                                this.onerror = null;
+                                this.src = '{% static 'images/marques/default.png' %}';
+                            "
+                        >
+
+                    </a>
+
+                {% empty %}
+
+                    <p class="col-span-full text-center text-gray-500">
+                        {% trans "Aucune marque trouvée." %}
+                    </p>
+
+                {% endfor %}
+
+            </div>
+
+
+    <br>
+<br>
+
+<br>
+<br>
+<div>
+    <a href="{% url 'voiture_marque:dashboard_voiture' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord voiture" %}
+    </a>
+</div>
+<br>
+<br>
+</div>
+
+
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("search-marque");
+    const cards = document.querySelectorAll(".marque-card");
+
+    searchInput.addEventListener("input", function () {
+        const query = this.value.toLowerCase().trim();
+
+        cards.forEach(card => {
+            const nom = card.dataset.marqueNom;
+
+            if (nom.includes(query)) {
+                card.style.display = "flex";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    });
+});
+
+
+
+document.querySelectorAll(".favorite-btn").forEach(btn => {
+    btn.addEventListener("click", function () {
+        fetch(this.dataset.url, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+        })
+        .then(res => res.json())
+        .then(data => {
+            this.textContent = data.is_favorite ? "⭐" : "☆";
+        });
+    });
+});
+
+
+
+</script>
+
+
+{% endblock %}

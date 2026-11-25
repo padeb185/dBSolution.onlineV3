@@ -98,7 +98,7 @@
                         </div>
 
                         <img
-                            src="{% static 'images/marques/' %}{{ marque.nom_fichier_logo }}"
+                            src="{% static marque.logo_static %}"
                             alt="{{ marque.nom_marque }}"
                             style="width:75px; margin-right:20px;"
                             onerror="

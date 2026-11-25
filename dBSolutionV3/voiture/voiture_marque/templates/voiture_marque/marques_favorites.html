@@ -22,7 +22,7 @@
                     </div>
 
 
-                    <img src="{% static 'images/marques/' %}{{ marque.nom_marque|lower }}.png"
+                    <img src="{% static marque.logo_static %}"
                          style="width:75px;"
                          onerror="this.src='{% static 'images/marques/default.png' %}'">
                 </div>
