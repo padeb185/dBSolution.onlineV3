@@ -106,6 +106,11 @@ MODULES = [
     "noble",
     "nsu",
     "oldsmobile",
+    "opel",
+    "packard",
+    "pagani",
+    "peugeot_sport",
+    "plymouth",
 ]
 
 
