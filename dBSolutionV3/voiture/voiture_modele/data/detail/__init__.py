@@ -133,6 +133,18 @@ MODULES = [
     "trabant",
     "tvr",
     "ultima",
+    "adk",
+    "adler",
+    "aixam",
+    "allstate",
+    "amc",
+    "american_bantam",
+    "amilcar",
+    "amphicar",
+    "anteros",
+    "apal",
+    "apperson",
+    "aptera",
 ]
 
 

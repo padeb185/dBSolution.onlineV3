@@ -36,7 +36,7 @@ class Command(BaseCommand):
 
             # 🇯🇵 Japon
             "Nissan Nismo", "Toyota GR", "Honda Type R", "Mazda Speed", "Subaru STI",
-            "Mitsubishi Evo", "Lexus F", "Acura NSX", "Honda S2000",
+            "Mitsubishi Evo", "Lexus F", "Acura", "Honda S2000",
 
             # 🇰🇷 Corée du Sud
             "Hyundai N", "Kia GT", "Genesis G70 Sport", "Kia Stinger GT", "Hyundai Veloster N",
@@ -46,7 +46,7 @@ class Command(BaseCommand):
             "Cadillac V-Series", "Shelby", "Hennessey Venom", "Saleen", "SSC Tuatara",
 
             # 🇸🇪 Suède
-            "Koenigsegg", "Volvo Polestar", "NEVS", "Scania Racing", "Svenska Supercars",
+            "Koenigsegg", "Polestar", "NEVS", "Scania Racing", "Svenska Supercars",
 
             # 🌍 Autres / électriques & hypercars
             "Rimac", "Lotus", "Bugatti", "Pagani", "Vector", "Apollo", "Czinger", "Drako GTE",

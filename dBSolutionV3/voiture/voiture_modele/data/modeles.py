@@ -28,30 +28,16 @@ MODELES = {
     'Acura': [
     ],
     'ADK': [
-        {"modele": 'Mk 2', "variante": 'Roadster', "portes": 0, "places": 2, "annee_debut": 1978, "annee_fin": 1985, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Adler': [
-        {"modele": '2,5 Liter Autobahn', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1937, "annee_fin": 1940, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Diplomat', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1934, "annee_fin": 1938, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Favorit', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1929, "annee_fin": 1933, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Standard 6', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1927, "annee_fin": 1934, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Trumpf', "variante": 'Berline / Cabriolet', "portes": 2, "places": 4, "annee_debut": 1932, "annee_fin": 1936, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Trumpf Junior', "variante": 'Berline / Cabriolet', "portes": 2, "places": 4, "annee_debut": 1934, "annee_fin": 1941, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Vis-à-vis', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1900, "annee_fin": 1903, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Aiways': [
     ],
     'Aixam': [
-        {"modele": '500', "variante": 'Voiture sans permis', "portes": 2, "places": 2, "annee_debut": 1996, "annee_fin": 2005},
-        {"modele": 'City', "variante": 'Voiture sans permis', "portes": 2, "places": 2, "reservoir": 16, "annee_debut": 2008},
-        {"modele": 'Coupé', "variante": 'Voiture sans permis', "portes": 2, "places": 2, "reservoir": 16, "annee_debut": 2014},
-        {"modele": 'Crossline', "variante": 'Voiture sans permis', "portes": 2, "places": 2, "reservoir": 16, "annee_debut": 2008},
-        {"modele": 'e-Aixam', "variante": 'Électrique', "portes": 2, "places": 2, "reservoir": 0, "annee_debut": 2015},
     ],
     'Alfa Romeo': [
     ],
     'Allstate': [
-        {"modele": 'Allstate', "variante": 'Berline', "portes": 2, "places": 5, "annee_debut": 1952, "annee_fin": 1953},
     ],
     'Alpina': [
     ],
@@ -60,22 +46,8 @@ MODELES = {
     'AM General': [
     ],
     'AMC': [
-        {"modele": 'Ambassador', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1966, "annee_fin": 1974},
-        {"modele": 'AMX', "variante": 'Coupé', "portes": 2, "places": 2, "annee_debut": 1968, "annee_fin": 1970},
-        {"modele": 'Concord', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1978, "annee_fin": 1983},
-        {"modele": 'Eagle', "variante": 'Break 4x4', "portes": 5, "places": 5, "annee_debut": 1980, "annee_fin": 1988},
-        {"modele": 'Gremlin', "variante": 'Compacte', "portes": 2, "places": 4, "annee_debut": 1970, "annee_fin": 1978},
-        {"modele": 'Hornet', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1970, "annee_fin": 1977},
-        {"modele": 'Javelin', "variante": 'Coupé', "portes": 2, "places": 4, "annee_debut": 1968, "annee_fin": 1974},
-        {"modele": 'Marlin', "variante": 'Fastback', "portes": 2, "places": 6, "annee_debut": 1965, "annee_fin": 1967},
-        {"modele": 'Matador', "variante": 'Berline / Coupé', "portes": 4, "places": 6, "annee_debut": 1971, "annee_fin": 1978},
-        {"modele": 'Pacer', "variante": 'Compacte', "portes": 2, "places": 4, "annee_debut": 1975, "annee_fin": 1980},
-        {"modele": 'Rebel', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1967, "annee_fin": 1970},
-        {"modele": 'Spirit', "variante": 'Compacte', "portes": 2, "places": 4, "annee_debut": 1979, "annee_fin": 1983},
     ],
     'American Bantam': [
-        {"modele": '60', "variante": 'Roadster / Break', "portes": 2, "places": 2, "annee_debut": 1938, "annee_fin": 1941},
-        {"modele": 'BRC-40', "variante": 'Jeep militaire', "portes": 0, "places": 4, "annee_debut": 1941, "annee_fin": 1941},
     ],
     'AMG': [
         {"modele": 'C 36 AMG', "generation": 'W202', "variante": 'Berline', "portes": 4, "places": 5, "reservoir": 62, "annee_debut": 1993, "annee_fin": 1997},
@@ -88,35 +60,18 @@ MODELES = {
         {"modele": 'SLS AMG', "generation": 'C197', "variante": 'Coupé', "portes": 2, "places": 2, "reservoir": 85, "annee_debut": 2010, "annee_fin": 2014},
     ],
     'Amilcar': [
-        {"modele": 'C6', "variante": 'Course', "portes": 0, "places": 2, "annee_debut": 1926, "annee_fin": 1929, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'CC', "variante": 'Cyclecar', "portes": 0, "places": 2, "annee_debut": 1921, "annee_fin": 1922, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'CGS', "variante": 'Roadster', "portes": 0, "places": 2, "annee_debut": 1924, "annee_fin": 1927, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'CGSS', "variante": 'Roadster', "portes": 0, "places": 2, "annee_debut": 1926, "annee_fin": 1929, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Compound', "variante": 'Berline', "portes": 4, "places": 4, "annee_debut": 1938, "annee_fin": 1939, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'M', "variante": 'Berline', "portes": 4, "places": 4, "annee_debut": 1928, "annee_fin": 1935, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Pégase', "variante": 'Coupé / Cabriolet', "portes": 2, "places": 4, "annee_debut": 1934, "annee_fin": 1937, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Amphicar': [
-        {"modele": '770', "variante": 'Cabriolet amphibie', "portes": 2, "places": 4, "reservoir": 47, "annee_debut": 1961, "annee_fin": 1968},
     ],
     'Anteros': [
-        {"modele": 'Coupé', "variante": 'Coupé', "portes": 2, "places": 2, "annee_debut": 2005, "annee_fin": 2011},
     ],
     'Apal': [
-        {"modele": 'Apal Buggy', "variante": 'Buggy', "portes": 0, "places": 4, "annee_debut": 1968, "annee_fin": 1992},
-        {"modele": 'Corsaire', "variante": 'Cabriolet', "portes": 2, "places": 2, "annee_debut": 1975, "annee_fin": 1985},
-        {"modele": 'Coupé GT', "variante": 'Coupé', "portes": 2, "places": 2, "annee_debut": 1964, "annee_fin": 1972},
-        {"modele": 'Speedster', "variante": 'Roadster', "portes": 0, "places": 2, "annee_debut": 1961, "annee_fin": 1964},
-        {"modele": 'Speedster 356', "variante": 'Réplique Porsche 356', "portes": 0, "places": 2, "annee_debut": 1981, "annee_fin": 1998},
     ],
     'Apollo': [
     ],
     'Apperson': [
-        {"modele": 'Eight', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1916, "annee_fin": 1926, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Jack Rabbit', "variante": 'Roadster', "portes": 2, "places": 2, "annee_debut": 1907, "annee_fin": 1916, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Aptera': [
-        {"modele": 'Launch Edition', "variante": 'Tricycle électrique solaire', "portes": 2, "places": 2, "reservoir": 0, "annee_debut": 2025},
     ],
     'Artega': [
         {"modele": 'GT', "variante": 'Coupé', "portes": 2, "places": 2, "reservoir": 60, "annee_debut": 2009, "annee_fin": 2012},
@@ -2319,7 +2274,6 @@ MODELES = {
         {"modele": 'C28', "variante": 'Berline', "portes": 4, "places": 4, "annee_debut": 1935, "annee_fin": 1937, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Volkswagen': [
-        {"modele": 'Volkswagen Beetle', "portes": 2, "places": 4, "annee_debut": 1938, "annee_fin": 2003},
     ],
     'Volvo': [
     ],
