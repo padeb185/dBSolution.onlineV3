@@ -24,7 +24,7 @@ class Command(BaseCommand):
 
             # 🇩🇪 Allemagne
             "BMW M", "Mercedes-AMG", "Audi S", "Audi RS", "Porsche", "Opel OPC",
-            "Wiesmann", "Artega", "Porsche 918 Spyder", "BMW i8", "Alpina",
+            "Wiesmann", "Artega", "BMW i8", "Alpina",
 
             # 🇮🇹 Italie
             "Ferrari", "Lamborghini", "Maserati", "Alfa Romeo", "Abarth", "Pagani",
@@ -50,7 +50,7 @@ class Command(BaseCommand):
 
             # 🌍 Autres / électriques & hypercars
             "Rimac", "Lotus", "Bugatti", "Pagani", "Vector", "Apollo", "Czinger", "Drako GTE",
-            "Porsche Taycan Turbo S", "Tesla Roadster",
+            "Tesla Roadster",
 
             # Petites marques historiques ou courses
             "Brabham", "Lola", "Ginetta", "Ligier", "Osella", "March Engineering", "Caparo",

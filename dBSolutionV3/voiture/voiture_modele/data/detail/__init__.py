@@ -111,6 +111,14 @@ MODULES = [
     "pagani",
     "peugeot_sport",
     "plymouth",
+    "polestar",
+    "pontiac",
+    "radical",
+    "ram",
+    "rimac",
+    "rolls_royce",
+    "rover",
+    "ruf",
 ]
 
 

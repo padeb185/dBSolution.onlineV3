@@ -363,8 +363,6 @@ MARQUES = [
     'Pontiac',
     'Pope',
     'Porsche',
-    'Porsche 918 Spyder',
-    'Porsche Taycan Turbo S',
     'Premier',
     'Presto',
     'Protos',
