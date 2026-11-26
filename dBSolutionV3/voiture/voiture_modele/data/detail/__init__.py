@@ -119,6 +119,16 @@ MODULES = [
     "rolls_royce",
     "rover",
     "ruf",
+    "saab",
+    "saleen",
+    "shelby",
+    "simca",
+    "smart",
+    "ssangyong",
+    "studebaker",
+    "subaru",
+    "suzuki",
+    "talbot",
 ]
 
 

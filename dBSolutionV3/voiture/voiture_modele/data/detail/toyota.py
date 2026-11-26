@@ -62,6 +62,8 @@ FAMILLES = {
     # --- 6 et 8 cylindres essence
     "7M-GE": f("ATM", E_, 3.0, B, 6, 6000, 4800, "10W40", 4.9, 10000),
     "7M-GTE": f("TURBO", E_, 3.0, B, 6, 5600, 3200, "10W40", 4.9, 10000),
+    "4M-E": f("ATM", E_, 2.6, B, 6, 5000, 4000, "10W40", 4.9, 10000),
+    "5M-GE": f("ATM", E_, 2.8, B, 6, 5600, 4400, "10W40", 4.9, 10000),
     "2JZ-GTE": f("TURBO", E_, 3.0, B, 6, 5600, 4000, "10W40", 5.5, 10000),
     "5VZ-FE": f("ATM", E_, 3.4, B, 6, 4800, 3600, "10W40", 5.2, 15000, a="V"),
     "1GR-FE": f("ATM", E_, 4.0, C, 6, 5600, 4400, "5W30", 5.7, 15000, a="V"),
@@ -117,7 +119,7 @@ mg(L, "Aygo X", "AB70", "1", "2022-01", "2025-12", [("1.0 VVT-i 72", "1KR-FE", 9
 mg(L, "Aygo X", "AB70", "2", "2026-01", None, [("1.5 Hybrid 116", "M15A-FXE", 141)], portes=5, places=4, reservoir=36,
    remarques="Restylage : full hybride (moteur de la Yaris)")
 mg(L, "iQ", "AJ10", "1", "2009-01", "2015-12",
-   [("1.0 VVT-i 68", "1KR-FE", 91), ("1.33 Dual VVT-i 98", "1NR-FE", 123, {"debut": "2009-07"}),
+   [("1.0 VVT-i 68", "1KR-FE", 93), ("1.33 Dual VVT-i 98", "1NR-FE", 123, {"debut": "2009-07"}),
     ("1.4 D-4D 90", "1ND-TV", 190, {"fin": "2011-12"})], portes=3, places=4, reservoir=32, remarques="Micro-citadine 3+1")
 
 # ---------------------------------------------------------------- Yaris / Yaris Cross / Urban Cruiser
@@ -126,18 +128,18 @@ mg(L, "Yaris", "XP10", "1", "1999-04", "2003-02",
     ("1.5 T-Sport 106", "1NZ-FE", 144, {"debut": "2001-09"})], reservoir=45, remarques="3 et 5 portes ; Yaris Verso (1999-2005)")
 mg(L, "Yaris", "XP10", "2", "2003-03", "2005-08",
    [("1.0 VVT-i 65", "1SZ-FE", 90), ("1.3 VVT-i 87", "2NZ-FE", 123), ("1.5 T-Sport 106", "1NZ-FE", 144),
-    ("1.4 D-4D 75", "1ND-TV", 170)], reservoir=45, remarques="3 et 5 portes")
+    ("1.4 D-4D 75", "1ND-TV", 180)], reservoir=45, remarques="3 et 5 portes")
 mg(L, "Yaris", "XP90", "1", "2005-09", "2008-12",
-   [("1.0 VVT-i 69", "1KR-FE", 93), ("1.3 VVT-i 87", "2SZ-FE", 121), ("1.4 D-4D 90", "1ND-TV", 190),
+   [("1.0 VVT-i 69", "1KR-FE", 95), ("1.3 VVT-i 87", "2SZ-FE", 121), ("1.4 D-4D 90", "1ND-TV", 190),
     ("1.8 TS 133", "2ZR-FE", 173, {"debut": "2007-03"})], reservoir=42, remarques="3 et 5 portes")
 mg(L, "Yaris", "XP90", "2", "2009-01", "2011-08",
-   [("1.0 VVT-i 69", "1KR-FE", 93), ("1.33 Dual VVT-i 101", "1NR-FE", 132), ("1.4 D-4D 90", "1ND-TV", 190),
+   [("1.0 VVT-i 69", "1KR-FE", 95), ("1.33 Dual VVT-i 101", "1NR-FE", 132), ("1.4 D-4D 90", "1ND-TV", 190),
     ("1.8 TS 133", "2ZR-FE", 173)], reservoir=42, remarques="3 et 5 portes")
 mg(L, "Yaris", "XP130", "1", "2011-09", "2014-07",
-   [("1.0 VVT-i 69", "1KR-FE", 93), ("1.33 Dual VVT-i 99", "1NR-FE", 125), ("1.4 D-4D 90", "1ND-TV", 205),
+   [("1.0 VVT-i 69", "1KR-FE", 95), ("1.33 Dual VVT-i 99", "1NR-FE", 125), ("1.4 D-4D 90", "1ND-TV", 190),
     ("1.5 Hybrid 100", "1NZ-FXE", 111, {"debut": "2012-06"})], reservoir=42, remarques="3 et 5 portes")
 mg(L, "Yaris", "XP130", "2", "2014-08", "2017-03",
-   [("1.0 VVT-i 69", "1KR-FE", 95), ("1.33 Dual VVT-i 99", "1NR-FE", 125), ("1.4 D-4D 90", "1ND-TV", 205),
+   [("1.0 VVT-i 69", "1KR-FE", 95), ("1.33 Dual VVT-i 99", "1NR-FE", 125), ("1.4 D-4D 90", "1ND-TV", 190),
     ("1.5 Hybrid 100", "1NZ-FXE", 111)], reservoir=42, remarques="3 et 5 portes")
 mg(L, "Yaris", "XP130", "3", "2017-04", "2020-06",
    [("1.0 VVT-i 72", "1KR-FE", 93), ("1.5 Dual VVT-iE 111", "2NR-FKE", 136), ("1.5 Hybrid 100", "1NZ-FXE", 111),
@@ -155,7 +157,7 @@ mg(L, "Yaris Cross", "XP210", "2", "2024-04", None,
    [("1.5 Hybrid 116", "M15A-FXE", 141), ("1.5 Hybrid 130", "M15A-FXE", 185), ("1.5 Hybrid AWD-i 116", "M15A-FXE", 141)],
    reservoir=36, remarques="SUV urbain restylé")
 mg(L, "Urban Cruiser", "XP110", "1", "2009-03", "2014-12",
-   [("1.33 Dual VVT-i 101", "1NR-FE", 132), ("1.4 D-4D AWD 90", "1ND-TV", 205)], reservoir=42, remarques="Mini-SUV")
+   [("1.33 Dual VVT-i 101", "1NR-FE", 132), ("1.4 D-4D AWD 90", "1ND-TV", 190)], reservoir=42, remarques="Mini-SUV")
 mg(L, "Urban Cruiser", "eVitara", "1", "2025-11", None,
    [("Urban Cruiser 144", "Suzuki-EV", 189, el(49)), ("Urban Cruiser 174", "Suzuki-EV", 193, el(61)),
     ("Urban Cruiser AWD 184", "Suzuki-EV", 307, el(61))], reservoir=0,
@@ -181,7 +183,7 @@ mg(L, "Corolla", "E150", "1", "2007-02", "2013-08",
    [("1.33 Dual VVT-i 101", "1NR-FE", 132, {"debut": "2009-04"}), ("1.6 Dual VVT-i 132", "1ZR-FAE", 160),
     ("1.4 D-4D 90", "1ND-TV", 190), ("2.0 D-4D 126", "1AD-FTV", 300)], portes=4, reservoir=55, remarques="Berline")
 mg(L, "Corolla", "E170", "1", "2013-09", "2018-12",
-   [("1.33 Dual VVT-i 99", "1NR-FE", 128), ("1.6 Valvematic 132", "1ZR-FAE", 160), ("1.4 D-4D 90", "1ND-TV", 205)],
+   [("1.33 Dual VVT-i 99", "1NR-FE", 125), ("1.6 Valvematic 132", "1ZR-FAE", 160), ("1.4 D-4D 90", "1ND-TV", 190)],
    portes=4, reservoir=55, remarques="Berline")
 mg(L, "Corolla", "E210", "1", "2019-01", "2022-12",
    [("1.2 T 116", "8NR-FTS", 185, {"fin": "2020-12"}), ("1.8 Hybrid 122", "2ZR-FXE", 142), ("2.0 Hybrid 180", "M20A-FXS", 190)],
@@ -197,14 +199,14 @@ mg(L, "Auris", "E150", "1", "2007-02", "2010-03",
     ("1.4 D-4D 90", "1ND-TV", 190), ("2.0 D-4D 126", "1AD-FTV", 300), ("2.2 D-CAT 177", "2AD-FHV", 400)], reservoir=55,
    remarques="3 et 5 portes")
 mg(L, "Auris", "E150", "2", "2010-04", "2012-10",
-   [("1.33 Dual VVT-i 99", "1NR-FE", 128), ("1.6 Valvematic 132", "1ZR-FAE", 160), ("1.8 HSD 136", "2ZR-FXE", 142),
-    ("1.4 D-4D 90", "1ND-TV", 205), ("2.0 D-4D 126", "1AD-FTV", 300)], reservoir=55, remarques="3 et 5 portes ; hybride HSD")
+   [("1.33 Dual VVT-i 99", "1NR-FE", 125), ("1.6 Valvematic 132", "1ZR-FAE", 160), ("1.8 HSD 136", "2ZR-FXE", 142),
+    ("1.4 D-4D 90", "1ND-TV", 190), ("2.0 D-4D 126", "1AD-FTV", 300)], reservoir=55, remarques="3 et 5 portes ; hybride HSD")
 mg(L, "Auris", "E180", "1", "2012-11", "2015-06",
-   [("1.33 Dual VVT-i 99", "1NR-FE", 128), ("1.6 Valvematic 132", "1ZR-FAE", 160), ("1.8 Hybrid 136", "2ZR-FXE", 142),
-    ("1.4 D-4D 90", "1ND-TV", 205), ("2.0 D-4D 124", "1AD-FTV", 300)], reservoir=50, remarques="5 portes, Touring Sports (2013)")
+   [("1.33 Dual VVT-i 99", "1NR-FE", 125), ("1.6 Valvematic 132", "1ZR-FAE", 160), ("1.8 Hybrid 136", "2ZR-FXE", 142),
+    ("1.4 D-4D 90", "1ND-TV", 190), ("2.0 D-4D 124", "1AD-FTV", 300)], reservoir=50, remarques="5 portes, Touring Sports (2013)")
 mg(L, "Auris", "E180", "2", "2015-07", "2018-12",
-   [("1.2 T 116", "8NR-FTS", 185), ("1.33 Dual VVT-i 99", "1NR-FE", 128), ("1.8 Hybrid 136", "2ZR-FXE", 142),
-    ("1.4 D-4D 90", "1ND-TV", 205), ("1.6 D-4D 112", "1WW", 270)], reservoir=50, remarques="5 portes, Touring Sports")
+   [("1.2 T 116", "8NR-FTS", 185), ("1.33 Dual VVT-i 99", "1NR-FE", 125), ("1.8 Hybrid 136", "2ZR-FXE", 142),
+    ("1.4 D-4D 90", "1ND-TV", 190), ("1.6 D-4D 112", "1WW", 270)], reservoir=50, remarques="5 portes, Touring Sports")
 
 # ---------------------------------------------------------------- C-HR / C-HR+
 mg(L, "C-HR", "AX10", "1", "2016-12", "2019-09",
@@ -242,11 +244,11 @@ mg(L, "Avensis", "T220", "1", "1997-09", "2003-01",
 mg(L, "Avensis", "T250", "1", "2003-01", "2008-10",
    [("1.6 VVT-i 110", "3ZZ-FE", 150), ("1.8 VVT-i 129", "1ZZ-FE", 170), ("2.0 VVT-i 147", "1AZ-FE", 196),
     ("2.4 VVT-i 163", "2AZ-FE", 224), ("2.0 D-4D 116", "1CD-FTV", 280), ("2.0 D-4D 126", "1AD-FTV", 300, {"debut": "2006-06"}),
-    ("2.2 D-4D 150", "2AD-FTV", 310, {"debut": "2005-09"}), ("2.2 D-CAT 177", "2AD-FHV", 400, {"debut": "2005-09"})],
+    ("2.2 D-4D 150", "2AD-FTV", 340, {"debut": "2005-09"}), ("2.2 D-CAT 177", "2AD-FHV", 400, {"debut": "2005-09"})],
    portes=4, reservoir=60, remarques="Berline, Liftback, Break")
 mg(L, "Avensis", "T270", "1", "2009-01", "2015-06",
    [("1.6 Valvematic 132", "1ZR-FAE", 160), ("1.8 Valvematic 147", "2ZR-FAE", 180), ("2.0 Valvematic 152", "3ZR-FAE", 196),
-    ("2.0 D-4D 126", "1AD-FTV", 310), ("2.2 D-4D 150", "2AD-FTV", 340), ("2.2 D-CAT 177", "2AD-FHV", 400)], portes=4,
+    ("2.0 D-4D 126", "1AD-FTV", 300), ("2.2 D-4D 150", "2AD-FTV", 340), ("2.2 D-CAT 177", "2AD-FHV", 400)], portes=4,
    reservoir=60, remarques="Berline et Touring Sports ; restylage 2012 non détaillé")
 mg(L, "Avensis", "T270", "2", "2015-07", "2018-09",
    [("1.6 Valvematic 132", "1ZR-FAE", 160), ("1.8 Valvematic 147", "2ZR-FAE", 180), ("1.6 D-4D 112", "1WW", 270),
@@ -256,15 +258,15 @@ mg(L, "Corolla Verso", "AR10", "1", "2004-04", "2009-03",
     ("2.2 D-4D 136", "2AD-FTV", 310, {"debut": "2005-09"}), ("2.2 D-CAT 177", "2AD-FHV", 400, {"debut": "2006-01"})],
    places=7, reservoir=60, remarques="Monospace 7 places")
 mg(L, "Verso", "R20", "1", "2009-04", "2018-09",
-   [("1.6 Valvematic 132", "1ZR-FAE", 160), ("1.8 Valvematic 147", "2ZR-FAE", 180), ("2.0 D-4D 126", "1AD-FTV", 310, {"fin": "2014-02"}),
+   [("1.6 Valvematic 132", "1ZR-FAE", 160), ("1.8 Valvematic 147", "2ZR-FAE", 180), ("2.0 D-4D 126", "1AD-FTV", 300, {"fin": "2014-02"}),
     ("2.2 D-4D 150", "2AD-FTV", 340, {"fin": "2014-02"}), ("2.2 D-CAT 177", "2AD-FHV", 400, {"fin": "2012-12"}),
     ("1.6 D-4D 112", "1WW", 270, {"debut": "2014-03"})], places=7, reservoir=60, remarques="Monospace 5 ou 7 places ; restylage 2013")
 mg(L, "Verso-S", "P120", "1", "2011-01", "2015-12",
-   [("1.33 Dual VVT-i 99", "1NR-FE", 125), ("1.4 D-4D 90", "1ND-TV", 205)], reservoir=42, remarques="Mini-monospace")
+   [("1.33 Dual VVT-i 99", "1NR-FE", 125), ("1.4 D-4D 90", "1ND-TV", 190)], reservoir=42, remarques="Mini-monospace")
 mg(L, "Previa", "XR10", "1", "1990-06", "2000-06", [("2.4 132", "2TZ-FE", 204)], places=7, reservoir=75,
    remarques="Monospace à moteur central couché")
 mg(L, "Previa", "XR30", "1", "2000-07", "2006-06",
-   [("2.4 VVT-i 156", "2AZ-FE", 224), ("2.0 D-4D 116", "1CD-FTV", 250, {"debut": "2001-09"})], places=7, reservoir=65,
+   [("2.4 VVT-i 156", "2AZ-FE", 224), ("2.0 D-4D 116", "1CD-FTV", 280, {"debut": "2001-09"})], places=7, reservoir=65,
    remarques="Monospace 7 ou 8 places")
 mg(L, "Camry", "XV70", "1", "2019-03", "2024-12", [("2.5 Hybrid 218", "A25A-FXS", 221)], portes=4, reservoir=50,
    remarques="Retour en Europe (berline hybride)")
@@ -283,9 +285,13 @@ mg(L, "Celica", "T230", "1", "1999-09", "2006-03",
 mg(L, "MR2", "W10", "1", "1984-06", "1989-10", [("1.6 Twin Cam 124", "4A-GE", 142)], portes=2, places=2, reservoir=41,
    remarques="Coupé et T-Bar à moteur central")
 mg(L, "MR2", "W20", "1", "1989-11", "1999-12", [("2.0 GTi 156", "3S-GE", 186, {"fin": "1993-12"}),
-   ("2.0 GTi 175", "3S-GE", 191, {"debut": "1994-01"})], portes=2, places=2, reservoir=54, remarques="Coupé et T-Bar")
+   ("2.0 GTi 175", "3S-GE", 186, {"debut": "1994-01"})], portes=2, places=2, reservoir=54, remarques="Coupé et T-Bar")
 mg(L, "MR2", "W30", "1", "2000-01", "2007-07", [("1.8 VVT-i 140", "1ZZ-FE", 170)], portes=2, places=2, reservoir=48,
    remarques="MR2 Roadster")
+mg(L, "Supra", "A40", "1", "1978-04", "1981-06", [("Celica Supra 2.6i 110", "4M-E", 186)], portes=3, places=4, reservoir=61,
+   remarques="Celica Supra (MA46), liftback dérivé de la Celica ; données indicatives")
+mg(L, "Supra", "A60", "1", "1981-07", "1986-01", [("Celica Supra 2.8i 170", "5M-GE", 236)], portes=3, places=4, reservoir=61,
+   remarques="Celica Supra (MA61) ; données indicatives")
 mg(L, "Supra", "A70", "1", "1986-02", "1993-04",
    [("3.0i 204", "7M-GE", 254), ("3.0i Turbo 235", "7M-GTE", 324, {"debut": "1987-01"})], portes=3, places=4, reservoir=70,
    remarques="Liftback (Targa en option)")
@@ -299,16 +305,16 @@ mg(L, "GT86", "ZN6", "2", "2016-09", "2021-12", [("2.0 D-4S 200", "FA20", 205)],
 mg(L, "RAV4", "XA10", "1", "1994-06", "2000-05", [("2.0 129", "3S-FE", 178)], portes=3, reservoir=58,
    remarques="3 et 5 portes, Cabriolet")
 mg(L, "RAV4", "XA20", "1", "2000-06", "2005-11",
-   [("1.8 VVT-i 125", "1ZZ-FE", 161), ("2.0 VVT-i 150", "1AZ-FE", 192), ("2.0 D-4D 116", "1CD-FTV", 250, {"debut": "2001-06"})],
+   [("1.8 VVT-i 125", "1ZZ-FE", 161), ("2.0 VVT-i 150", "1AZ-FE", 200), ("2.0 D-4D 116", "1CD-FTV", 280, {"debut": "2001-06"})],
    reservoir=57, remarques="3 et 5 portes")
 mg(L, "RAV4", "XA30", "1", "2006-01", "2012-12",
    [("2.0 VVT-i 152", "1AZ-FE", 194), ("2.0 Valvematic 158", "3ZR-FAE", 198, {"debut": "2009-01"}),
     ("2.2 D-4D 136", "2AD-FTV", 310), ("2.2 D-4D 150", "2AD-FTV", 340, {"debut": "2009-01"}),
-    ("2.2 D-CAT 177", "2AD-FHV", 400), ("2.0 D-4D 126", "1AD-FTV", 310, {"debut": "2010-06"})], reservoir=60)
+    ("2.2 D-CAT 177", "2AD-FHV", 400), ("2.0 D-4D 126", "1AD-FTV", 300, {"debut": "2010-06"})], reservoir=60)
 mg(L, "RAV4", "XA40", "1", "2013-01", "2015-12",
-   [("2.0 Valvematic 151", "3ZR-FAE", 195), ("2.0 D-4D 124", "1AD-FTV", 310), ("2.2 D-4D 150", "2AD-FTV", 340)], reservoir=60)
+   [("2.0 Valvematic 151", "3ZR-FAE", 195), ("2.0 D-4D 124", "1AD-FTV", 300), ("2.2 D-4D 150", "2AD-FTV", 340)], reservoir=60)
 mg(L, "RAV4", "XA40", "2", "2016-01", "2018-12",
-   [("2.0 Valvematic 152", "3ZR-FAE", 195), ("2.5 Hybrid 197", "2AR-FXE", 206), ("2.0 D-4D 143", "2WW", 320)], reservoir=60)
+   [("2.0 Valvematic 152", "3ZR-FAE", 196), ("2.5 Hybrid 197", "2AR-FXE", 206), ("2.0 D-4D 143", "2WW", 320)], reservoir=60)
 mg(L, "RAV4", "XA50", "1", "2019-01", "2025-12",
    [("2.5 Hybrid 218", "A25A-FXS", 221), ("2.5 Hybrid AWD-i 222", "A25A-FXS", 221),
     ("2.5 Plug-in Hybrid 306", "A25A-PHEV", 227, ph(18, 55, debut="2020-09"))], reservoir=55)
@@ -347,7 +353,7 @@ mg(L, "Land Cruiser", "J80", "1", "1990-01", "1997-12",
    [("HDJ80 4.2 TD 167", "1HD-T", 360), ("FZJ80 4.5 205", "1FZ-FE", 362, {"debut": "1992-08"})], places=7, reservoir=95,
    remarques="Grand station wagon")
 mg(L, "Land Cruiser", "J90", "1", "1996-05", "2002-09",
-   [("KZJ90 3.0 TD 125", "1KZ-TE", 295), ("VZJ90 3.4 V6 178", "5VZ-FE", 303)], portes=3, places=7, reservoir=87,
+   [("KZJ90 3.0 TD 125", "1KZ-TE", 287), ("VZJ90 3.4 V6 178", "5VZ-FE", 303)], portes=3, places=7, reservoir=87,
    remarques="3 et 5 portes")
 mg(L, "Land Cruiser", "J120", "1", "2002-10", "2009-11",
    [("3.0 D-4D 163", "1KD-FTV", 343, {"fin": "2006-08"}), ("3.0 D-4D 173", "1KD-FTV", 410, {"debut": "2006-09"}),

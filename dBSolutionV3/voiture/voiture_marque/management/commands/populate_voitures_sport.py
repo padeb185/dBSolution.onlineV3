@@ -36,13 +36,13 @@ class Command(BaseCommand):
 
             # 🇯🇵 Japon
             "Nissan Nismo", "Toyota GR", "Honda Type R", "Mazda Speed", "Subaru STI",
-            "Mitsubishi Evo", "Lexus F", "Acura NSX", "Toyota Supra", "Honda S2000",
+            "Mitsubishi Evo", "Lexus F", "Acura NSX", "Honda S2000",
 
             # 🇰🇷 Corée du Sud
             "Hyundai N", "Kia GT", "Genesis G70 Sport", "Kia Stinger GT", "Hyundai Veloster N",
 
             # 🇺🇸 États-Unis
-            "Ford GT", "Chevrolet Corvette", "Chevrolet Camaro ZL1", "Dodge SRT", "Tesla Performance",
+            "Ford GT", "Chevrolet Corvette", "Chevrolet Camaro ZL1", "Dodge SRT", "Tesla",
             "Cadillac V-Series", "Shelby", "Hennessey Venom", "Saleen", "SSC Tuatara",
 
             # 🇸🇪 Suède
@@ -50,7 +50,6 @@ class Command(BaseCommand):
 
             # 🌍 Autres / électriques & hypercars
             "Rimac", "Lotus", "Bugatti", "Pagani", "Vector", "Apollo", "Czinger", "Drako GTE",
-            "Tesla Roadster",
 
             # Petites marques historiques ou courses
             "Brabham", "Lola", "Ginetta", "Ligier", "Osella", "March Engineering", "Caparo",

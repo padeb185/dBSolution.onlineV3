@@ -1,5 +1,6 @@
 """Tesla : générations, phases, versions (marché européen) et moteurs électriques liés.
-Roadster, Model S, Model X, Model 3, Model Y. Cybertruck et Semi non vendus officiellement en Europe (non couverts).
+Roadster, Model S, Model X, Model 3, Model Y et Cybertruck (Amérique du Nord). Versions Performance, P / Ludicrous et Plaid en variantes
+(ex-marques « Tesla Performance » et « Tesla Roadster » regroupées ici). Semi (camion) non couvert.
 Saisie (SaisieMoteurs) : (nom, famille, couple_nm[, surcharges]) ; la puissance est le dernier nombre du nom.
 Tesla ne publie pas toujours puissances, couples ni capacités de batterie : valeurs usuelles de la presse, indicatives."""
 from ._outil import Motorisations, SaisieMoteurs, electrique
@@ -9,7 +10,7 @@ def el(kwh, **kw):
     return {"reservoir": 0, "batterie": kwh, **kw}
 
 
-FAMILLES = {"Tesla-Roadster": electrique(), "Tesla-S-X": electrique(), "Tesla-3-Y": electrique()}
+FAMILLES = {"Tesla-Roadster": electrique(), "Tesla-S-X": electrique(), "Tesla-3-Y": electrique(), "Tesla-Cybertruck": electrique()}
 
 mg = SaisieMoteurs(FAMILLES, "Tesla")
 L = []
@@ -21,9 +22,10 @@ mg(L, "Roadster", "Roadster", "1", "2008-03", "2012-01",
 # ---------------------------------------------------------------- Model S
 mg(L, "Model S", "Model S", "1", "2013-08", "2016-03",
    [("S 60 306", "Tesla-S-X", 430, el(58)), ("S 85 367", "Tesla-S-X", 440, el(77)), ("S P85 421", "Tesla-S-X", 600, el(77)),
+    ("S P85+ 421", "Tesla-S-X", 600, el(77, fin="2014-12", remarques="Performance Plus (châssis et pneus spécifiques)")),
     ("S 85D 422", "Tesla-S-X", 660, el(77, debut="2014-10")), ("S P85D 700", "Tesla-S-X", 967, el(77, debut="2014-10")),
     ("S 70D 333", "Tesla-S-X", 525, el(66, debut="2015-04")), ("S 90D 422", "Tesla-S-X", 660, el(82, debut="2015-07")),
-    ("S P90D 772", "Tesla-S-X", 967, el(82, debut="2015-07"))], portes=5, reservoir=0,
+    ("S P90D 772", "Tesla-S-X", 1140, el(82, debut="2015-07"))], portes=5, reservoir=0,
    remarques="Grande berline à hayon ; livraisons européennes à partir d'août 2013")
 mg(L, "Model S", "Model S", "2", "2016-04", "2021-05",
    [("S 75D 333", "Tesla-S-X", 525, el(72)), ("S 90D 422", "Tesla-S-X", 660, el(82, fin="2017-03")), ("S 100D 422", "Tesla-S-X", 660, el(95, debut="2017-01")),
@@ -35,7 +37,7 @@ mg(L, "Model S", "Model S", "3", "2021-06", "2026-05",
 
 # ---------------------------------------------------------------- Model X
 mg(L, "Model X", "Model X", "1", "2016-08", "2021-05",
-   [("X 75D 333", "Tesla-S-X", 525, el(72)), ("X 90D 422", "Tesla-S-X", 660, el(82, fin="2017-03")), ("X P90D 772", "Tesla-S-X", 967, el(82, fin="2017-03")),
+   [("X 75D 333", "Tesla-S-X", 525, el(72)), ("X 90D 422", "Tesla-S-X", 660, el(82, fin="2017-03")), ("X P90D 772", "Tesla-S-X", 1140, el(82, fin="2017-03")),
     ("X 100D 422", "Tesla-S-X", 660, el(95, debut="2017-01")), ("X P100D 772", "Tesla-S-X", 1140, el(95, debut="2017-01")),
     ("X Grande Autonomie 422", "Tesla-S-X", 660, el(95, debut="2019-04")), ("X Performance 795", "Tesla-S-X", 1140, el(95, debut="2019-04"))],
    places=7, reservoir=0, remarques="SUV 5, 6 ou 7 places à portes « Falcon Wing »")
@@ -64,6 +66,12 @@ mg(L, "Model Y", "Model Y", "2", "2025-03", None,
     ("Y Performance 625", "Tesla-3-Y", 741, el(77, debut="2025-09")), ("Y Standard 299", "Tesla-3-Y", 420, el(62, debut="2025-10")),
     ("Y Standard Grande Autonomie Propulsion 349", "Tesla-3-Y", 420, el(77, debut="2026-02"))], reservoir=0,
    remarques="Restylage « Juniper » ; versions Standard (2025) ; Model YL 6 places non détaillé")
+
+# ---------------------------------------------------------------- Cybertruck
+mg(L, "Cybertruck", "Cybertruck", "1", "2023-11", None,
+   [("AWD 608", "Tesla-Cybertruck", 1000, el(123)), ("Cyberbeast 857", "Tesla-Cybertruck", 1400, el(123)),
+    ("Long Range RWD 367", "Tesla-Cybertruck", 600, el(123, debut="2025-04", fin="2025-09"))], portes=4, places=5, reservoir=0,
+   remarques="Pick-up électrique à carrosserie inox, Amérique du Nord (non homologué en Europe) ; couples indicatifs")
 
 MOT = Motorisations("Tesla", FAMILLES, mg.table, mg.eres, prefixes=())
 MOT.lier(L)
