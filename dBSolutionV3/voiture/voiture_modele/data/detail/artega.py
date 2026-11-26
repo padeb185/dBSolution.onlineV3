@@ -19,8 +19,8 @@ L = []
 mg(L, "GT", "GT", "1", "2009-01", "2012-12", [("3.6 VR6 300", "VR6-3.6", 350)], portes=2, places=2, reservoir=60,
    remarques="Coupé à moteur central arrière, environ 150 exemplaires ; données indicatives")
 mg(L, "Karo", "Karo-Isetta", "1", "2020-04", "2022-12", [("Électrique 8 kWh 20", "ARTEGA-KARO-EV", 110, {"batterie": 8}),
-                                                          ("Électrique 14.4 kWh 20", "ARTEGA-KARO-EV", 110, {"batterie": 14.4})],
-   portes=1, places=2, reservoir=0, remarques="Micro-citadine L7e inspirée de l'Isetta, 15 kW, 90 km/h, jusqu'à 215 km avec la grande batterie ; "
+                                                          ("Électrique 14.4 kWh 20", "ARTEGA-KARO-EV", 110, {"batterie": 14})],
+   portes=2, places=2, reservoir=0, remarques="Porte frontale unique (choix 1 porte absent) ; micro-citadine L7e inspirée de l'Isetta, 15 kW, 90 km/h, jusqu'à 215 km avec la grande batterie ; "
                                               "petite batterie et dates indicatives ; reprise par Electric Brands (Evetta)")
 
 MOT = Motorisations("Artega", FAMILLES, mg.table, mg.eres, prefixes=())
