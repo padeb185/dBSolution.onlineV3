@@ -74,11 +74,6 @@ MODELES = {
     'Aptera': [
     ],
     'Artega': [
-        {"modele": 'GT', "variante": 'Coupé', "portes": 2, "places": 2, "reservoir": 60, "annee_debut": 2009, "annee_fin": 2012},
-        {"modele": 'Karo', "variante": 'Roadster Prototype', "portes": 2, "places": 2, "reservoir": 60},
-        {"modele": 'Scalo', "variante": 'Electrique Concept', "portes": 2, "places": 2, "reservoir": 0},
-        {"modele": 'Scalo Superelletra', "variante": 'Coupé électrique', "portes": 2, "places": 2, "reservoir": 0, "annee_debut": 2015, "annee_fin": 2015},
-        {"modele": 'SE', "variante": 'Electrique', "portes": 2, "places": 2, "reservoir": 0},
     ],
     'Aston Martin': [
     ],
@@ -94,13 +89,6 @@ MODELES = {
         {"modele": 'Vantage V12', "variante": 'Roadster', "portes": 2, "places": 2, "reservoir": 95},
     ],
     'Auburn': [
-        {"modele": '8-88 Speedster', "variante": 'Speedster', "portes": 2, "places": 2, "annee_debut": 1925, "annee_fin": 1927},
-        {"modele": '8-98', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1931, "annee_fin": 1933},
-        {"modele": '8-120', "variante": 'Berline / Speedster', "portes": 4, "places": 5, "annee_debut": 1928, "annee_fin": 1929},
-        {"modele": '851 Speedster', "variante": 'Speedster', "portes": 2, "places": 2, "annee_debut": 1935, "annee_fin": 1935},
-        {"modele": '852 Speedster', "variante": 'Speedster', "portes": 2, "places": 2, "annee_debut": 1936, "annee_fin": 1936},
-        {"modele": 'Model 6-40', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1916, "annee_fin": 1919},
-        {"modele": 'V12', "variante": 'Berline / Speedster', "portes": 4, "places": 5, "annee_debut": 1932, "annee_fin": 1934},
     ],
     'Audi': [
     ],
@@ -109,19 +97,12 @@ MODELES = {
     'Audi S': [
     ],
     'Auto-Mixte': [
-        {"modele": 'Camion Mixte', "variante": 'Camion hybride', "portes": 2, "places": 2, "annee_debut": 1907, "annee_fin": 1912, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Pieper Hybride', "variante": 'Torpedo hybride', "portes": 4, "places": 4, "annee_debut": 1906, "annee_fin": 1912, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Auto Union': [
     ],
     'Autocar': [
-        {"modele": 'ACX', "variante": 'Benne à ordures', "portes": 2, "places": 3, "annee_debut": 2006, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'DC', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1950, "annee_fin": 1980, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Xpeditor', "variante": 'Benne à ordures', "portes": 2, "places": 3, "annee_debut": 1993, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Avanti': [
-        {"modele": 'Avanti Convertible', "variante": 'Cabriolet', "portes": 2, "places": 4, "annee_debut": 1985, "annee_fin": 1991},
-        {"modele": 'Avanti II', "variante": 'Coupé', "portes": 2, "places": 4, "annee_debut": 1965, "annee_fin": 1991},
     ],
     'Baker Electric': [
         {"modele": 'Model V', "variante": 'Électrique', "portes": 2, "places": 4, "reservoir": 0, "annee_debut": 1910, "annee_fin": 1915, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},

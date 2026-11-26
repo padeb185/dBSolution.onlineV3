@@ -145,6 +145,11 @@ MODULES = [
     "apal",
     "apperson",
     "aptera",
+    "artega",
+    "auburn",
+    "auto_mixte",
+    "autocar",
+    "avanti",
 ]
 
 

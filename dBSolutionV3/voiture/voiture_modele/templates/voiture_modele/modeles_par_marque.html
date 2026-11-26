@@ -6,7 +6,7 @@
 
     <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
-            <img src="{% static 'exemplaires/' %}{{ marque.nom_marque|lower }}.png" alt="{{ marque.nom_marque }}" class="w-16"
+            <img src="{% static marque.logo_static %}" alt="{{ marque.nom_marque }}" class="w-16 h-16 object-contain"
                  onerror="this.onerror=null; this.src='{% static 'icons/voiture_marques.png' %}';">
             {% blocktrans trimmed with nom_marque=marque.nom_marque %}Modèles de {{ nom_marque }}{% endblocktrans %}
         </h1>

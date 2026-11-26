@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+
+{% block content %}
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+
+    <h1 class="text-2xl font-bold mb-6">{% trans "Modèles de " %} {{ marque.nom_marque }}</h1>
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded border
+            {% if message.tags == 'success' %}
+                bg-green-100 text-green-800 border-green-300
+            {% else %}
+                bg-red-100 text-red-800 border-red-300
+            {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+
+    <!-- Champ de recherche -->
+    <div class="mb-4">
+        <input type="text" id="search-modele" placeholder="{% trans 'Rechercher un modèle...' %}"
+               class="border rounded p-2 w-full md:w-1/2">
+    </div>
+
+    {% if modeles %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="modeles-container">
+
+            {% for modele in modeles %}
+            <div class="bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-6 flex items-center gap-6 cursor-pointer w-full marque-card"
+                 data-modele-nom="{{ modele.nom_modele }}"
+                onclick="window.location.href='{% url 'voiture_exemplaire:voiture_exemplaire' modele_id=modele.id %}'">
+
+                <div class="flex-1">
+                    <h2 class="text-lg font-semibold">{{ modele.nom_modele }}</h2>
+                    {% if modele.nom_variante %}
+                        <p class="text-gray-600">{{ modele.nom_variante }}</p>
+                    {% endif %}
+                    <p class="text-gray-500">
+                        {{ modele.nombre_portes }} {% trans "portes" %}, {{ modele.nbre_places }} {% trans "places" %}
+                    </p>
+                </div>
+
+                <!-- Optionnel : petite image ou icône du modèle -->
+                <div class="flex-shrink-0">
+                    <img src="{% static 'images/modele/default.png' %}"
+                         class="w-[65px] h-[65px] object-contain">
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+    {% else %}
+        <p class="text-red-600 font-semibold mt-4">
+            {% trans "Aucun modèle enregistré pour cette marque." %}
+        </p>
+    {% endif %}
+
+</div>
+
+{% endblock %}
