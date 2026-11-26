@@ -1,7 +1,7 @@
 """Maybach : générations, phases, motorisations (marché européen) et moteurs liés.
 Maybach historique (DS7 et DS8 Zeppelin), Maybach 57 et 62 (2002-2012, dont S, Zeppelin, Landaulet) et Mercedes-Maybach
-(Classe S X222 et Z223, Pullman, GLS, EQS SUV, SL). Les marques « Mercedes-Maybach » et « Mercedes-Benz Maybach » ne sont pas
-traitées ici.
+(Classe S X222 et Z223, Pullman, GLS, EQS SUV, SL). Les anciennes marques « Mercedes-Maybach » et « Mercedes-Benz Maybach »
+ont été supprimées du référentiel.
 Moteurs Mercedes repris de mercedes.py (motoristes « Mercedes-Benz » et « Mercedes-AMG », mêmes codes) ; V12 historiques au
 motoriste « Maybach » ; V12 M285 des 57/62 au motoriste « Mercedes-Benz ». Données anciennes indicatives.
 Saisie (SaisieMoteurs) : (nom, famille, couple_nm[, surcharges]) ; la puissance est le dernier nombre du nom."""

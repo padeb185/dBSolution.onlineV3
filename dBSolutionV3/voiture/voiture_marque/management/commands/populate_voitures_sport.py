@@ -23,7 +23,7 @@ class Command(BaseCommand):
             "Ligier", "Ginetta", "Panhard Racing", "Talbot-Lago",
 
             # 🇩🇪 Allemagne
-            "BMW M", "Mercedes-AMG", "Audi S", "Audi RS", "Porsche", "Opel OPC", "Mercedes-Benz Maybach",
+            "BMW M", "Mercedes-AMG", "Audi S", "Audi RS", "Porsche", "Opel OPC",
             "Wiesmann", "Artega", "Porsche 918 Spyder", "BMW i8", "Alpina",
 
             # 🇮🇹 Italie

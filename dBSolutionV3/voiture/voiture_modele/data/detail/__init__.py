@@ -101,6 +101,11 @@ MODULES = [
     "mclaren",
     "maybach",
     "mg",
+    "mitsubishi",
+    "morgan",
+    "noble",
+    "nsu",
+    "oldsmobile",
 ]
 
 

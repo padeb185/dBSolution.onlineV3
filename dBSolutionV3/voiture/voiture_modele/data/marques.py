@@ -299,8 +299,6 @@ MARQUES = [
     'Melkus',
     'Mercedes-AMG',
     'Mercedes-Benz',
-    'Mercedes-Benz Maybach',
-    'Mercedes-Maybach',
     'Mercer',
     'Mercury',
     'Messerschmitt',
