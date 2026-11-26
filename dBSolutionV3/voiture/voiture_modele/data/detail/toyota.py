@@ -1,7 +1,7 @@
 """Toyota et Toyota GR : générations, phases, motorisations (marché européen) et moteurs liés.
 Citadines (Aygo, iQ, Yaris), compactes (Corolla, Auris, C-HR), familiales (Carina E, Avensis, Verso, Prius, Camry),
 SUV et 4x4 (RAV4, Land Cruiser, Hilux, Highlander, bZ4X, C-HR+, Urban Cruiser), sportives (Celica, MR2, Supra, GT86)
-et GR (GR Yaris, GR Supra, GR86). Saisie (SaisieMoteurs) : (nom, famille, couple_nm[, surcharges]) ;
+et GR (GR Yaris, GR86) ; toutes les Supra (A40 à A90) dans Toyota. Saisie (SaisieMoteurs) : (nom, famille, couple_nm[, surcharges]) ;
 la puissance est le dernier nombre du nom. Utilitaires (Proace) non couverts ; données anciennes indicatives."""
 from ._outil import Motorisations, SaisieMoteurs, electrique, famille as f
 
@@ -296,7 +296,7 @@ mg(L, "Supra", "A70", "1", "1986-02", "1993-04",
    [("3.0i 204", "7M-GE", 254), ("3.0i Turbo 235", "7M-GTE", 324, {"debut": "1987-01"})], portes=3, places=4, reservoir=70,
    remarques="Liftback (Targa en option)")
 mg(L, "Supra", "A80", "1", "1993-05", "2002-08", [("3.0 Biturbo 330", "2JZ-GTE", 441)], portes=3, places=4, reservoir=70,
-   remarques="Coupé (Targa en option) ; GR Supra (A90) sous Toyota GR")
+   remarques="Coupé (Targa en option)")
 mg(L, "GT86", "ZN6", "1", "2012-06", "2016-08", [("2.0 D-4S 200", "FA20", 205)], portes=2, places=4, reservoir=50,
    remarques="Coupé propulsion (jumeau Subaru BRZ)")
 mg(L, "GT86", "ZN6", "2", "2016-09", "2021-12", [("2.0 D-4S 200", "FA20", 205)], portes=2, places=4, reservoir=50)
@@ -393,9 +393,9 @@ mg(LG, "GR Yaris", "GXPA16", "1", "2020-09", "2024-03", [("GR Yaris 261", "G16E-
    reservoir=50, remarques="3 portes à transmission intégrale GR-Four")
 mg(LG, "GR Yaris", "GXPA16", "2", "2024-04", None, [("GR Yaris 280", "G16E-GTS", 390)], portes=3, places=4, reservoir=50,
    remarques="Évolution : boîte manuelle ou automatique 8 rapports")
-mg(LG, "GR Supra", "A90", "1", "2019-03", None,
+mg(L, "Supra", "A90", "1", "2019-03", None,
    [("GR Supra 3.0 340", "B58", 500), ("GR Supra 2.0 258", "B48", 400, {"debut": "2020-03", "fin": "2024-12"})],
-   portes=2, places=2, reservoir=52, remarques="Coupé (base BMW Z4 G29) ; boîte manuelle en option (2022)")
+   portes=2, places=2, reservoir=52, remarques="GR Supra, coupé (base BMW Z4 G29) ; boîte manuelle en option (2022)")
 mg(LG, "GR86", "ZN8", "1", "2022-04", "2024-12", [("GR86 2.4 234", "FA24", 250)], portes=2, places=4, reservoir=50,
    remarques="Coupé propulsion (jumeau Subaru BRZ) ; vendu deux ans en Europe")
 
