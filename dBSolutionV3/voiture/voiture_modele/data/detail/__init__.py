@@ -129,6 +129,10 @@ MODULES = [
     "subaru",
     "suzuki",
     "talbot",
+    "triumph",
+    "trabant",
+    "tvr",
+    "ultima",
 ]
 
 

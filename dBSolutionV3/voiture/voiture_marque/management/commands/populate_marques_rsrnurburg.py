@@ -53,7 +53,6 @@ class Command(BaseCommand):
             "Nissan Nismo", "Toyota GR", "Honda Type R", "Mazda Speed",
             "Subaru STI", "Mitsubishi Evo",  "Peugeot Sport", "Audi S", "Citroën Sport",
             "Mercedes-AMG", "Rolls-Royce", "Audi RS", "Radical", "Skoda",
-            "Volkswagen R"
         ]
 
         created_count = 0

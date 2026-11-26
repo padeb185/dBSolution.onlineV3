@@ -1,7 +1,7 @@
 """Toyota et Toyota GR : générations, phases, motorisations (marché européen) et moteurs liés.
 Citadines (Aygo, iQ, Yaris), compactes (Corolla, Auris, C-HR), familiales (Carina E, Avensis, Verso, Prius, Camry),
 SUV et 4x4 (RAV4, Land Cruiser, Hilux, Highlander, bZ4X, C-HR+, Urban Cruiser), sportives (Celica, MR2, Supra, GT86)
-et GR (GR Yaris, GR86) ; toutes les Supra (A40 à A90) dans Toyota. Saisie (SaisieMoteurs) : (nom, famille, couple_nm[, surcharges]) ;
+et GR (GR Yaris, Supra GR, Supra GR Sport, GR86) ; toutes les Supra (A40 à A90) aussi dans Toyota. Saisie (SaisieMoteurs) : (nom, famille, couple_nm[, surcharges]) ;
 la puissance est le dernier nombre du nom. Utilitaires (Proace) non couverts ; données anciennes indicatives."""
 from ._outil import Motorisations, SaisieMoteurs, electrique, famille as f
 
@@ -396,6 +396,10 @@ mg(LG, "GR Yaris", "GXPA16", "2", "2024-04", None, [("GR Yaris 280", "G16E-GTS",
 mg(L, "Supra", "A90", "1", "2019-03", None,
    [("GR Supra 3.0 340", "B58", 500), ("GR Supra 2.0 258", "B48", 400, {"debut": "2020-03", "fin": "2024-12"})],
    portes=2, places=2, reservoir=52, remarques="GR Supra, coupé (base BMW Z4 G29) ; boîte manuelle en option (2022)")
+mg(LG, "Supra GR", "A90", "1", "2019-03", None, [("Supra GR 3.0 340", "B58", 500)], portes=2, places=2, reservoir=52,
+   remarques="GR Supra 3.0 (base BMW Z4 G29) ; boîte manuelle en option (2022) ; aussi dans Toyota (Supra A90)")
+mg(LG, "Supra GR Sport", "A90", "1", "2020-03", "2024-12", [("Supra GR Sport 2.0 258", "B48", 400)], portes=2, places=2, reservoir=52,
+   remarques="GR Supra 2.0 quatre cylindres ; aussi dans Toyota (Supra A90)")
 mg(LG, "GR86", "ZN8", "1", "2022-04", "2024-12", [("GR86 2.4 234", "FA24", 250)], portes=2, places=4, reservoir=50,
    remarques="Coupé propulsion (jumeau Subaru BRZ) ; vendu deux ans en Europe")
 

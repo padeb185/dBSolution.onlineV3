@@ -1,4 +1,4 @@
-"""Volkswagen : modèles anciens et intermédiaires (Coccinelle, Transporter T1 à T4, Polo I à III, Passat B1 à B4,
+"""Volkswagen : modèles anciens et intermédiaires (Coccinelle, Karmann Ghia, Type 2 (Transporter T1 / T2), Transporter T3 / T4, Polo I à III, Passat B1 à B4,
 Jetta I/II, Vento, Bora, Jetta V, Scirocco I/II, Corrado, New Beetle, Sharan I) et moteurs liés."""
 from . import volkswagen as vw
 from ._outil import PREFIXES, Motorisations, famille as f, gamme as g
@@ -15,12 +15,17 @@ L += g("Coccinelle", "Type 1", "4", "1966-08", "1979-12",
        remarques="1300, 1500, 1302, 1303 ; Cabriolet jusqu'en 1980")
 L += g("Coccinelle", "Type 1", "5", "1978-01", "2003-07", ["1.6 44", ("1.6 50", {"debut": "1993-01"})], portes=2, places=4,
        reservoir=40, remarques="Production mexicaine (importations limitées en Europe)")
-L += g("Transporter", "T1", "1", "1950-03", "1967-07", ["1.1 25", "1.2 30", ("1.2 34", {"debut": "1959-01"}),
+L += g("Type 2", "T1", "1", "1950-03", "1967-07", ["1.1 25", "1.2 30", ("1.2 34", {"debut": "1959-01"}),
        ("1.5 42", {"debut": "1963-01"})], portes=3, places=8, reservoir=40, remarques="Combi, Fourgon, Pick-up, Samba")
-L += g("Transporter", "T2", "1", "1967-08", "1972-07", ["1.6 47", ("1.7 66", {"debut": "1971-08"})], portes=3, places=8,
+L += g("Type 2", "T2", "1", "1967-08", "1972-07", ["1.6 47", ("1.7 66", {"debut": "1971-08"})], portes=3, places=8,
        reservoir=60, remarques="T2a — Combi, Fourgon, Westfalia")
-L += g("Transporter", "T2", "2", "1972-08", "1979-07", ["1.6 50", "1.8 68", ("2.0 70", {"debut": "1975-08"})], portes=3,
+L += g("Type 2", "T2", "2", "1972-08", "1979-07", ["1.6 50", "1.8 68", ("2.0 70", {"debut": "1975-08"})], portes=3,
        places=8, reservoir=56, remarques="T2b — Combi, Fourgon, Westfalia")
+L += g("Karmann Ghia", "Type 14", "1", "1955-08", "1974-07",
+       ["1.2 30", ("1.2 34", {"debut": "1960-08"}), ("1.3 40", {"debut": "1965-08"}), ("1.5 44", {"debut": "1966-08"}),
+        ("1.6 50", {"debut": "1970-08"})], portes=2, places=4, reservoir=40, remarques="Coupé et cabriolet (Karmann), base Coccinelle ; données indicatives")
+L += g("Karmann Ghia", "Type 34", "1", "1961-09", "1969-07", ["1.5 45", ("1.5 54", {"debut": "1963-08"}), ("1.6 54", {"debut": "1965-08"})],
+       portes=2, places=4, reservoir=40, remarques="« Grand » Karmann Ghia sur base Type 3 ; données indicatives")
 L += g("Transporter", "T3", "1", "1979-05", "1985-08",
        ["1.6 50", "2.0 70", ("1.6 D 50", {"debut": "1981-01"}), ("1.9 60", {"debut": "1982-09"}), ("1.9 78", {"debut": "1982-09"})],
        portes=4, places=8, reservoir=60, remarques="Combi, Caravelle, Multivan, Westfalia")
@@ -145,9 +150,9 @@ TABLE = dict(vw.TABLE, **{
     "1.9 60": ("WBX-1.9", 60, 125), "1.9 78": ("WBX-1.9", 78, 141), "2.1 95": ("WBX-2.1", 95, 160),
     "2.1 112": ("WBX-2.1", 112, 174), "1.6 D 50": ("EA827-1.6D", 50, 103), "1.7 D 57": ("EA827-1.7D", 57, 103),
     "1.8 67": ("EA827-1.8-8v", 67, 140), "2.0 84": ("EA827-2.0", 84, 159), "2.5 110": ("R5-2.5", 110, 190),
-    "2.5 115": ("R5-2.5", 115, 200), "VR6 2.8 140": ("VR6-2.8", 140, 240), "VR6 2.8 204": ("VR6-2.8", 204, 265),
+    "2.5 115": ("R5-2.5", 115, 200), "VR6 2.8 140": ("VR6-2.8", 140, 240), "VR6 2.8 204": ("VR6-2.8", 204, 270),
     "1.9 D 61": ("EA827-1.9D", 61, 127), "1.9 TD 68": ("EA827-1.9TD", 68, 140), "2.4 D 78": ("R5-2.4D", 78, 164),
-    "2.5 TDI 88": ("R5-2.5TDI", 88, 195), "2.5 TDI 102": ("R5-2.5TDI", 102, 250), "2.5 TDI 150": ("R5-2.5TDI", 150, 295),
+    "2.5 TDI 88": ("R5-2.5TDI", 88, 220), "2.5 TDI 102": ("R5-2.5TDI", 102, 250), "2.5 TDI 150": ("R5-2.5TDI", 150, 295),
     "0.9 40": ("EA111-0.9", 40, 61), "1.1 60": ("EA111-1.1", 60, 83), "1.05 40": ("EA111-1.05", 40, 74),
     "1.05 45": ("EA111-1.05", 45, 76), "1.3 75": ("EA111-1.3", 75, 100), "G40 1.3 115": ("EA111-1.3G40", 115, 148),
     "1.3 D 45": ("EA827-1.3D", 45, 76), "1.4 D 48": ("EA827-1.4D", 48, 82), "1.0 45": ("EA111-1.0", 45, 74),
@@ -156,8 +161,9 @@ TABLE = dict(vw.TABLE, **{
     "1.9 115": ("Audi", "R5-1.9", 115, 154), "2.2 136": ("Audi", "R5-2.2", 136, 186),
     "1.8 16v 136": ("EA827-1.8-16v", 136, 162), "16v 1.8 136": ("EA827-1.8-16v", 136, 162),
     "2.0 16v 136": ("EA827-2.0-16v", 136, 180), "1.9 D 68": ("EA827-1.9D", 68, 127), "VR6 2.8 174@P": ("VR6-2.8", 174, 235),
-    "2.8 VR6 174": ("VR6-2.8", 174, 235), "2.8 VR6 204": ("VR6-2.8", 204, 265), "RSi 3.2 225": ("VR6-3.2", 225, 320),
+    "2.8 VR6 174": ("VR6-2.8", 174, 235), "2.8 VR6 204": ("VR6-2.8", 204, 270), "RSi 3.2 225": ("VR6-3.2", 225, 320),
     "1.9 D 64": ("EA827-1.9D", 64, 124),
+    "1.5 45": ("BOXER-1.5", 45, 102), "1.5 54": ("BOXER-1.5", 54, 108), "1.6 54": ("BOXER-1.6", 54, 110),
 })
 ERES = {"B1": "OLD", "B2": "OLD", "A1": "OLD", "53": "OLD", "53B": "OLD", "1K2": "A", "7M": "A"}
 

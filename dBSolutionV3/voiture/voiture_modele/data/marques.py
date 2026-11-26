@@ -462,7 +462,6 @@ MARQUES = [
     'Vivinus',
     'Voisin',
     'Volkswagen',
-    'Volkswagen R',
     'Volvo',
     'Volvo Polestar',
     'Wanderer',
