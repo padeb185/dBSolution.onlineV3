@@ -2,7 +2,7 @@
 Giulietta et Giulia classiques, Spider, Alfetta (et GT/GTV), Alfasud, Giulietta 116, 33, 75, 164, 155, 145/146, GTV/Spider 916,
 156, 166, 147, GT, 159, Brera/Spider, 8C, MiTo, Giulietta 940, 4C, Giulia 952, Stelvio, Tonale, Junior, 33 Stradale.
 Moteurs propres au motoriste « Alfa Romeo » ; moteurs FCA/Stellantis partagés (MultiAir, TwinAir, JTD/Multijet, Hybrid)
-avec les familles et codes de fiat.py (motoriste « Fiat »). Avant-guerre et 1900/2000/2600 non repris.
+avec les familles et codes de fiat.py (motoriste « Fiat »). Avant-guerre et modèles anciens dans alfa_romeo_classiques.py.
 Saisie (SaisieMoteurs) : (nom, famille, couple_nm[, surcharges]) ; la puissance est le dernier nombre du nom."""
 from ._outil import Motorisations, SaisieMoteurs, famille as f
 from .fiat import FAMILLES as FAMILLES_FIAT

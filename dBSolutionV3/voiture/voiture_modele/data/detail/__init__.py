@@ -236,6 +236,7 @@ MODULES = [
     "franklin",
     "freightliner",
     "audi_classiques",
+    "alfa_romeo_classiques",
 ]
 
 
