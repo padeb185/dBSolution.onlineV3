@@ -389,55 +389,24 @@ MODELES = {
     'GMC': [
     ],
     'Gobron-Brillié': [
-        {"modele": 'Gobron-Nagant', "variante": 'Torpedo', "portes": 0, "places": 4, "annee_debut": 1900, "annee_fin": 1903, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Record', "variante": 'Course', "portes": 0, "places": 1, "annee_debut": 1903, "annee_fin": 1904, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Goliath': [
-        {"modele": '1100', "variante": 'Berline / Break', "portes": 2, "places": 4, "annee_debut": 1957, "annee_fin": 1958},
-        {"modele": 'Goli', "variante": 'Triporteur', "portes": 2, "places": 2, "annee_debut": 1955, "annee_fin": 1961},
-        {"modele": 'GP 700', "variante": 'Berline', "portes": 2, "places": 4, "annee_debut": 1950, "annee_fin": 1957},
-        {"modele": 'GP 900', "variante": 'Berline', "portes": 2, "places": 4, "annee_debut": 1955, "annee_fin": 1957},
-        {"modele": 'Pionier', "variante": 'Triporteur / Berline', "portes": 2, "places": 2, "annee_debut": 1931, "annee_fin": 1934},
     ],
     'Gordon Murray Automotive': [
     ],
     'Graham': [
-        {"modele": 'Blue Streak', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1932, "annee_fin": 1934, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Hollywood', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1940, "annee_fin": 1941, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Spirit of Motion', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1938, "annee_fin": 1940, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Supercharger', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1934, "annee_fin": 1937, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Graham-Paige': [
-        {"modele": 'Model 610', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1928, "annee_fin": 1929, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model 837', "variante": 'Berline', "portes": 4, "places": 7, "annee_debut": 1928, "annee_fin": 1929, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Great Wall': [
-        {"modele": 'Haval H2', "variante": 'SUV', "portes": 5, "places": 5, "reservoir": 58},
-        {"modele": 'Haval H6', "variante": 'SUV', "portes": 5, "places": 5, "reservoir": 58},
-        {"modele": 'Haval H9', "variante": 'SUV 4x4', "portes": 5, "places": 7, "reservoir": 80},
-        {"modele": 'Ora Funky Cat', "variante": 'Hatchback Electrique', "portes": 5, "places": 5, "reservoir": 0},
-        {"modele": 'Poer', "variante": 'Pickup', "portes": 4, "places": 5, "reservoir": 78},
-        {"modele": 'Tank 300', "variante": 'SUV 4x4', "portes": 5, "places": 5, "reservoir": 80},
-        {"modele": 'Tank 500 Hybrid', "variante": 'SUV Hybride', "portes": 5, "places": 7, "reservoir": 70},
-        {"modele": 'Wingle 5', "variante": 'Pickup', "portes": 4, "places": 5, "reservoir": 70},
-        {"modele": 'Wingle 7', "variante": 'Pickup', "portes": 4, "places": 5, "reservoir": 70},
     ],
     'Gruau': [
-        {"modele": 'Electron', "variante": 'Utilitaire électrique', "portes": 4, "places": 2, "reservoir": 0, "annee_debut": 2011, "annee_fin": 2016},
-        {"modele": 'Microbus', "variante": 'Minibus', "portes": 4, "places": 9, "annee_debut": 1980},
     ],
     'Gumpert': [
     ],
     'Gurgel': [
-        {"modele": 'BR-800', "variante": 'Hatchback', "portes": 3, "places": 4, "reservoir": 30},
-        {"modele": 'Carajas', "variante": '4x4', "portes": 4, "places": 5, "reservoir": 60},
-        {"modele": 'Supermini', "variante": 'Hatchback', "portes": 3, "places": 4, "reservoir": 32},
-        {"modele": 'Tocantins', "variante": '4x4', "portes": 2, "places": 4, "reservoir": 45},
-        {"modele": 'X-12', "variante": '4x4', "portes": 2, "places": 4, "reservoir": 45},
-        {"modele": 'X-15', "variante": '4x4', "portes": 2, "places": 4, "reservoir": 45},
     ],
     'Gutbrod': [
-        {"modele": 'Superior', "variante": 'Berline / Cabriolet', "portes": 2, "places": 4, "annee_debut": 1950, "annee_fin": 1954},
     ],
     'Hanomag': [
         {"modele": '1,3 Liter', "variante": 'Berline', "portes": 4, "places": 4, "annee_debut": 1939, "annee_fin": 1941},

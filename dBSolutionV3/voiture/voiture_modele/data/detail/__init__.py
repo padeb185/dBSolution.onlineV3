@@ -255,6 +255,14 @@ MODULES = [
     "germain",
     "gillet_herstal",
     "glas",
+    "goliath",
+    "gobron_brillie",
+    "graham",
+    "graham_paige",
+    "great_wall",
+    "gutbrod",
+    "gruau",
+    "gurgel", "ferrari_ancetres_course",
 ]
 
 
