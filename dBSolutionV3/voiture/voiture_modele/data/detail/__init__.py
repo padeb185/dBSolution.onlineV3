@@ -168,6 +168,19 @@ MODULES = [
     "brossel",
     "brush",
     "bussing",
+    "cg",
+    "callaway",
+    "canoo",
+    "caparo",
+    "cartercar",
+    "case",
+    "chalmers",
+    "chandler",
+    "charron",
+    "chatenet",
+    "checker",
+    "chenard_walcker",
+    "chery",
 ]
 
 

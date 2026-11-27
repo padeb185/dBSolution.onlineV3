@@ -237,71 +237,30 @@ MODELES = {
     'Cadillac V-Series': [
     ],
     'Callaway': [
-        {"modele": 'C12', "variante": 'Coupé', "portes": 2, "places": 2, "annee_debut": 1998, "annee_fin": 2000},
-        {"modele": 'C16', "variante": 'Coupé', "portes": 2, "places": 2, "annee_debut": 2007, "annee_fin": 2010},
-        {"modele": 'Sledgehammer', "variante": 'Coupé', "portes": 2, "places": 2, "annee_debut": 1988, "annee_fin": 1988},
     ],
     'Canoo': [
-        {"modele": 'Lifestyle Vehicle', "variante": 'Minibus électrique', "portes": 5, "places": 7, "reservoir": 0, "annee_debut": 2023, "annee_fin": 2025},
     ],
     'Cartercar': [
-        {"modele": 'Model 5', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1912, "annee_fin": 1915, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model R', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1909, "annee_fin": 1910, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Case': [
-        {"modele": 'Model 40', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1911, "annee_fin": 1916, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model V', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1922, "annee_fin": 1927, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Caterham': [
     ],
     'CG': [
-        {"modele": '1000', "variante": 'Spider', "portes": 2, "places": 2, "annee_debut": 1966, "annee_fin": 1968},
-        {"modele": '1200 S', "variante": 'Coupé / Spider', "portes": 2, "places": 2, "annee_debut": 1968, "annee_fin": 1972},
-        {"modele": '1300', "variante": 'Coupé', "portes": 2, "places": 2, "annee_debut": 1971, "annee_fin": 1974},
     ],
     'Chalmers': [
-        {"modele": 'Model 30', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1910, "annee_fin": 1913, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Six', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1920, "annee_fin": 1923, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Six-30', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1916, "annee_fin": 1919, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Chandler': [
-        {"modele": 'Big Six', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1925, "annee_fin": 1928, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Royal Eight', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1928, "annee_fin": 1929, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Six', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1913, "annee_fin": 1925, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Charron': [
-        {"modele": 'CGV 30 HP', "variante": 'Torpedo', "portes": 0, "places": 4, "annee_debut": 1901, "annee_fin": 1906, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Charronette', "variante": 'Voiturette', "portes": 2, "places": 2, "annee_debut": 1920, "annee_fin": 1925, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Chatenet': [
-        {"modele": 'CH26', "variante": 'Voiture sans permis', "portes": 2, "places": 2, "annee_debut": 2008, "annee_fin": 2016},
-        {"modele": 'CH46', "variante": 'Voiture sans permis', "portes": 2, "places": 2, "annee_debut": 2016, "annee_fin": 2021},
     ],
     'Checker': [
-        {"modele": 'Aerobus', "variante": 'Limousine (8 portes)', "portes": 5, "places": 12, "annee_debut": 1962, "annee_fin": 1977},
-        {"modele": 'Marathon', "variante": 'Taxi / Berline', "portes": 4, "places": 8, "annee_debut": 1961, "annee_fin": 1982},
-        {"modele": 'Model A', "variante": 'Taxi', "portes": 4, "places": 7, "annee_debut": 1922, "annee_fin": 1927},
-        {"modele": 'Model A8', "variante": 'Taxi', "portes": 4, "places": 8, "annee_debut": 1956, "annee_fin": 1958},
     ],
     'Chenard-Walcker': [
-        {"modele": 'Aigle 8', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1934, "annee_fin": 1936, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Tank', "variante": 'Course', "portes": 0, "places": 2, "annee_debut": 1925, "annee_fin": 1926, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'U3', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1920, "annee_fin": 1923, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Y7', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1930, "annee_fin": 1932, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Chery': [
-        {"modele": 'Arrizo 5', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 50},
-        {"modele": 'Arrizo 6', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 55},
-        {"modele": 'Arrizo e', "variante": 'Sedan Electrique', "portes": 4, "places": 5, "reservoir": 0},
-        {"modele": 'Arrizo GX', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 55},
-        {"modele": 'QQ', "variante": 'Hatchback 3 portes', "portes": 3, "places": 4, "reservoir": 35},
-        {"modele": 'QQ', "variante": 'Hatchback 5 portes', "portes": 5, "places": 5, "reservoir": 35},
-        {"modele": 'Tiggo 3', "variante": 'SUV', "portes": 5, "places": 5, "reservoir": 55},
-        {"modele": 'Tiggo 3X', "variante": 'SUV Compact', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'Tiggo 5', "variante": 'SUV', "portes": 5, "places": 5, "reservoir": 60},
-        {"modele": 'Tiggo 7', "variante": 'SUV', "portes": 5, "places": 5, "reservoir": 60},
-        {"modele": 'Tiggo 8', "variante": 'SUV', "portes": 5, "places": 7, "reservoir": 65},
-        {"modele": 'Tiggo e', "variante": 'SUV Electrique', "portes": 5, "places": 5, "reservoir": 0},
     ],
     'Chevrolet': [
     ],
