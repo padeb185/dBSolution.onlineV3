@@ -673,8 +673,6 @@ MODELES = {
     ],
     'Ford': [
     ],
-    'Ford GT': [
-    ],
     'Franklin': [
         {"modele": 'Airman', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1928, "annee_fin": 1932},
         {"modele": 'Model A', "variante": 'Runabout', "portes": 0, "places": 2, "annee_debut": 1902, "annee_fin": 1904},

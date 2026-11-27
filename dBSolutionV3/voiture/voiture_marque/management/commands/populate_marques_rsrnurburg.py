@@ -45,7 +45,7 @@ class Command(BaseCommand):
             "Hyundai", "Hyundai N", "Kia GT",
 
             # 🇺🇸 États-Unis
-            "Ford", "Ford GT", "Chevrolet", "Cadillac", "Jeep", "Dodge", "Dodge SRT", "Tesla",
+            "Ford", "Chevrolet", "Cadillac", "Jeep", "Dodge", "Dodge SRT", "Tesla",
 
             # Versions sportives / spéciales
             "Renault RS", "BMW M", "Abarth",

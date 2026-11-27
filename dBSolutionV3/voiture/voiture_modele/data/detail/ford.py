@@ -1,7 +1,7 @@
-"""Ford et Ford GT : générations, phases, motorisations (marché européen) et moteurs liés.
+"""Ford : générations, phases, motorisations (marché européen) et moteurs liés.
 Ka, Fiesta, Escort, Sierra, Focus, Mondeo, Puma (coupé, crossover, Gen-E), Fusion, B-Max, C-Max, S-Max, Galaxy,
 Kuga, EcoSport, Edge, Explorer et Capri électriques, Mustang, Mustang Mach-E, Ranger, Bronco, Tourneo Courier/Connect/Custom.
-Ford GT : GT40, Ford GT (2005) et Ford GT (2017). Modèles nord-américains non vendus en Europe et utilitaires Transit non repris.
+GT40, GT (2005) et GT (2017), anciennement marque Ford GT. Modèles nord-américains non vendus en Europe et utilitaires Transit non repris.
 Saisie (SaisieMoteurs) : (nom, famille, couple_nm[, surcharges]) ; la puissance est le dernier nombre du nom."""
 from ._outil import Motorisations, SaisieMoteurs, electrique, famille as f
 
@@ -83,7 +83,7 @@ FAMILLES = {
 }
 
 mg = SaisieMoteurs(FAMILLES, "Ford")
-L, LG = [], []   # Ford, Ford GT
+L = []
 CL = "Données indicatives (modèle ancien), à vérifier"
 
 # ---------------------------------------------------------------- Ka / Fiesta
@@ -338,17 +338,16 @@ mg(L, "Tourneo Custom", "V710", "1", "2023-07", None,
     ("E-Tourneo Custom 218", "MACH-E", 415, el(64)), ("E-Tourneo Custom 136", "MACH-E", 415, el(64))], portes=4, places=8, reservoir=70,
    remarques="Minibus ; E-Tourneo Custom électrique")
 
-# ---------------------------------------------------------------- Ford GT
-mg(LG, "GT40", "Mk III", "1", "1967-01", "1969-12", [("GT40 Mk III 4.7 V8 306", "FORD-V8-4.7", 446)], portes=2, places=2, reservoir=106,
+# ---------------------------------------------------------------- GT40 et GT (ancienne marque Ford GT)
+mg(L, "GT40", "Mk III", "1", "1967-01", "1969-12", [("GT40 Mk III 4.7 V8 306", "FORD-V8-4.7", 446)], portes=2, places=2, reservoir=106,
    remarques="Version route (7 ex.) ; GT40 de course non reprises ; " + CL)
-mg(LG, "Ford GT", "2005", "1", "2004-09", "2006-09", [("GT 5.4 V8 550", "MODULAR-5.4S", 678)], portes=2, places=2, reservoir=65,
+mg(L, "GT", "2005", "1", "2004-09", "2006-09", [("GT 5.4 V8 550", "MODULAR-5.4S", 678)], portes=2, places=2, reservoir=65,
    remarques="V8 compresseur")
-mg(LG, "Ford GT", "2017", "1", "2017-01", "2022-12", [("GT 3.5 EcoBoost V6 656", "ECOBOOST-V6-3.5", 746)], portes=2, places=2, reservoir=57,
+mg(L, "GT", "2017", "1", "2017-01", "2022-12", [("GT 3.5 EcoBoost V6 656", "ECOBOOST-V6-3.5", 746)], portes=2, places=2, reservoir=57,
    remarques="Supercar biturbo (série limitée)")
 
 MOT = Motorisations("Ford", FAMILLES, mg.table, mg.eres, prefixes=())
 MOT.lier(L)
-MOT.lier(LG)
 
-DETAIL = {"Ford": L, "Ford GT": LG}
+DETAIL = {"Ford": L}
 MOTEURS = MOT.moteurs()

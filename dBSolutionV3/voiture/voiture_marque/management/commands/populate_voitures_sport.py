@@ -42,7 +42,7 @@ class Command(BaseCommand):
             "Hyundai N", "Kia GT", "Genesis G70 Sport", "Kia Stinger GT", "Hyundai Veloster N",
 
             # 🇺🇸 États-Unis
-            "Ford GT", "Chevrolet Corvette", "Chevrolet Camaro ZL1", "Dodge SRT", "Tesla",
+            "Ford", "Chevrolet Corvette", "Chevrolet Camaro ZL1", "Dodge SRT", "Tesla",
             "Cadillac V-Series", "Shelby", "Hennessey Venom", "Saleen", "SSC Tuatara",
 
             # 🇸🇪 Suède
