@@ -116,15 +116,6 @@ MODELES = {
     ],
     'Bentley': [
     ],
-    'Bentley Continental GT': [
-        {"modele": 'Continental GT', "variante": 'Coupe', "portes": 2, "places": 4, "reservoir": 90},
-        {"modele": 'Continental GT Convertible', "variante": 'Cabriolet', "portes": 2, "places": 4, "reservoir": 90},
-        {"modele": 'Continental GT Mulliner', "variante": 'Coupe', "portes": 2, "places": 4, "reservoir": 90},
-        {"modele": 'Continental GT Mulliner Convertible', "variante": 'Cabriolet', "portes": 2, "places": 4, "reservoir": 90},
-        {"modele": 'Continental GT Speed', "variante": 'Coupe', "portes": 2, "places": 4, "reservoir": 90},
-        {"modele": 'Continental GT Speed Convertible', "variante": 'Cabriolet', "portes": 2, "places": 4, "reservoir": 90},
-        {"modele": 'Continental GT V8', "variante": 'Coupe', "portes": 2, "places": 4, "reservoir": 90},
-    ],
     'Benz': [
     ],
     'Berliet': [

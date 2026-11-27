@@ -42,7 +42,6 @@ MARQUES = [
     'Belgica',
     'Bellier',
     'Bentley',
-    'Bentley Continental GT',
     'Benz',
     'Berliet',
     'Bernard',

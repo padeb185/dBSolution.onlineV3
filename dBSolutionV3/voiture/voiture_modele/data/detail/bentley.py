@@ -114,8 +114,9 @@ mg(L, "Continental GT", "3W", "1", "2011-01", "2018-06",
    [("Continental GT W12 575", "W12-6.0TT", 700, {"fin": "2015-06"}), ("Continental GT W12 590", "W12-6.0TT", 720, {"debut": "2015-07"}),
     ("Continental GT Speed W12 625", "W12-6.0TT", 800, {"debut": "2012-06", "fin": "2015-06"}),
     ("Continental GT Speed W12 642", "W12-6.0TT", 840, {"debut": "2015-07"}), ("Continental GT V8 507", "V8-4.0TT", 660, {"debut": "2012-03"}),
-    ("Continental GT V8 S 528", "V8-4.0TT", 680, {"debut": "2014-01"}), ("Continental Supersports W12 710", "W12-6.0TT", 1017, {"debut": "2017-03", "fin": "2018-02"})],
-   portes=2, places=4, reservoir=90, remarques="Coupé et GTC cabriolet ; restylage 2015")
+    ("Continental GT V8 S 528", "V8-4.0TT", 680, {"debut": "2014-01"}), ("Continental GT3-R V8 580", "V8-4.0TT", 700, {"debut": "2014-09", "fin": "2015-06"}),
+    ("Continental Supersports W12 710", "W12-6.0TT", 1017, {"debut": "2017-03", "fin": "2018-02"})],
+   portes=2, places=4, reservoir=90, remarques="Coupé et GTC cabriolet ; GT3-R (300 ex.) dérivée de la course ; restylage 2015")
 mg(L, "Continental GT", "3S", "2", "2018-01", "2024-03",
    [("Continental GT W12 635", "W12-6.0TT", 900), ("Continental GT V8 550", "V8-4.0TT", 770, {"debut": "2019-06"}),
     ("Continental GT Speed W12 659", "W12-6.0TT", 900, {"debut": "2021-06"}), ("Continental GT S V8 550", "V8-4.0TT", 770, {"debut": "2022-09"})],

@@ -32,7 +32,7 @@ class Command(BaseCommand):
 
             # 🇬🇧 Royaume-Uni
             "Jaguar R", "Aston Martin Vantage", "Lotus Exige", "McLaren", "Caterham",
-            "Bentley Continental GT", "TVR", "Noble", "Morgan Aero", "Gordon Murray Automotive",
+            "Bentley", "TVR", "Noble", "Morgan Aero", "Gordon Murray Automotive",
 
             # 🇯🇵 Japon
             "Nissan Nismo", "Toyota GR", "Honda Type R", "Mazda Speed", "Subaru STI",
