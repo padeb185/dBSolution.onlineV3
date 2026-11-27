@@ -128,25 +128,12 @@ MODELES = {
     'Benz': [
     ],
     'Berliet': [
-        {"modele": 'Dauphine', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1934, "annee_fin": 1939, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'GBH', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1958, "annee_fin": 1977, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'GLR', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1949, "annee_fin": 1977, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'PR 100', "variante": 'Autobus', "portes": 2, "places": 100, "annee_debut": 1971, "annee_fin": 1980, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'TR 280', "variante": 'Tracteur routier', "portes": 2, "places": 2, "annee_debut": 1977, "annee_fin": 1980, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type B', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1900, "annee_fin": 1902, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'VB', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1920, "annee_fin": 1925, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Bernard': [
-        {"modele": 'Type 110', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1950, "annee_fin": 1955, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type 150', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1955, "annee_fin": 1963, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Bignan': [
-        {"modele": 'Sport 2 L', "variante": 'Sport', "portes": 2, "places": 2, "annee_debut": 1923, "annee_fin": 1926, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type 11 HP', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1920, "annee_fin": 1924, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Bluecar': [
-        {"modele": 'Bluecar', "variante": 'Citadine électrique', "portes": 3, "places": 4, "reservoir": 0, "annee_debut": 2011, "annee_fin": 2018},
-        {"modele": 'Bluesummer', "variante": 'Cabriolet électrique', "portes": 2, "places": 4, "reservoir": 0, "annee_debut": 2016, "annee_fin": 2019},
     ],
     'BMW': [
 
@@ -220,56 +207,28 @@ MODELES = {
         {"modele": 'XM', "variante": 'Standard', "portes": 5, "places": 5, "reservoir": 90},
     ],
     'Bollée': [
-        {"modele": "L'Obéissante", "variante": 'Vapeur', "portes": 0, "places": 12, "annee_debut": 1873, "annee_fin": 1873, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'La Mancelle', "variante": 'Vapeur', "portes": 0, "places": 6, "annee_debut": 1878, "annee_fin": 1880, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Voiturette', "variante": 'Tricar', "portes": 0, "places": 2, "annee_debut": 1895, "annee_fin": 1898, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Bollinger': [
-        {"modele": 'B1', "variante": 'SUV électrique', "portes": 4, "places": 4, "reservoir": 0, "annee_debut": 2020, "annee_fin": 2022},
-        {"modele": 'B2', "variante": 'Pick-up électrique', "portes": 4, "places": 4, "reservoir": 0, "annee_debut": 2020, "annee_fin": 2022},
-        {"modele": 'B4', "variante": 'Camion électrique', "portes": 2, "places": 3, "reservoir": 0, "annee_debut": 2024},
     ],
     'Borgward': [
-        {"modele": 'BX5', "variante": 'SUV', "portes": 5, "places": 5, "reservoir": 60},
-        {"modele": 'BX7', "variante": 'SUV', "portes": 5, "places": 5, "reservoir": 70},
-        {"modele": 'BX7 TS', "variante": 'SUV Sport', "portes": 5, "places": 5, "reservoir": 70},
-        {"modele": 'Hansa 1500', "variante": 'Coupe', "portes": 2, "places": 4, "reservoir": 50},
-        {"modele": 'Hansa 1500', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 50},
-        {"modele": 'Isabella', "variante": 'Coupe', "portes": 2, "places": 4, "reservoir": 45},
-        {"modele": 'Isabella', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 45},
     ],
     'Brabham': [
     ],
     'Brabus': [
     ],
     'Brasier': [
-        {"modele": 'TC4', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1920, "annee_fin": 1926, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type TB', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1908, "annee_fin": 1910, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Brennabor': [
-        {"modele": 'Ideal', "variante": 'Berline', "portes": 4, "places": 4, "annee_debut": 1931, "annee_fin": 1933, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Juwel', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1928, "annee_fin": 1933, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Typ P', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1919, "annee_fin": 1925, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Typ R', "variante": 'Berline', "portes": 4, "places": 4, "annee_debut": 1925, "annee_fin": 1928, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Brossel': [
-        {"modele": 'BL 55', "variante": 'Autobus', "portes": 2, "places": 80, "annee_debut": 1949, "annee_fin": 1962, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Camion', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1933, "annee_fin": 1967, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Brush': [
-        {"modele": 'Runabout', "variante": 'Runabout', "portes": 0, "places": 2, "annee_debut": 1907, "annee_fin": 1911, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Bugatti': [
     ],
     'Buick': [
     ],
     'Büssing': [
-        {"modele": '8000', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1950, "annee_fin": 1955, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'BS 110 V', "variante": 'Autobus', "portes": 2, "places": 100, "annee_debut": 1968, "annee_fin": 1971, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Burglöwe', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1955, "annee_fin": 1962, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Commodore', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1964, "annee_fin": 1971, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'NAG 500', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1932, "annee_fin": 1940, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Präfekt', "variante": 'Autobus', "portes": 2, "places": 80, "annee_debut": 1960, "annee_fin": 1971, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'BYD': [
     ],

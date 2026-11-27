@@ -156,6 +156,18 @@ MODULES = [
     "barkas",
     "belgica",
     "bellier",
+    "berliet",
+    "bernard",
+    "bignan",
+    "bluecar",
+    "bollee",
+    "bollinger",
+    "borgward",
+    "brasier",
+    "brennabor",
+    "brossel",
+    "brush",
+    "bussing",
 ]
 
 
