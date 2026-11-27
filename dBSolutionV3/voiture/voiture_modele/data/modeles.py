@@ -397,19 +397,12 @@ MODELES = {
     'Facel Vega': [
     ],
     'Falcon': [
-        {"modele": 'F7', "variante": 'Supercar', "portes": 2, "places": 2, "annee_debut": 2012, "annee_fin": 2017},
     ],
     'Faraday Future': [
-        {"modele": 'FF 91', "variante": 'SUV électrique', "portes": 5, "places": 4, "reservoir": 0, "annee_debut": 2023},
     ],
     'Faun': [
-        {"modele": 'F 610', "variante": 'Tracteur lourd', "portes": 2, "places": 2, "annee_debut": 1950, "annee_fin": 1956, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'L 900', "variante": 'Camion lourd', "portes": 2, "places": 2, "annee_debut": 1936, "annee_fin": 1944, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'SLT 50 Elefant', "variante": 'Tracteur porte-char', "portes": 4, "places": 4, "annee_debut": 1976, "annee_fin": 1980, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Federal': [
-        {"modele": 'Model 94', "variante": 'Camion militaire', "portes": 2, "places": 2, "annee_debut": 1942, "annee_fin": 1945, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model 604', "variante": 'Tracteur militaire', "portes": 2, "places": 2, "annee_debut": 1942, "annee_fin": 1945, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Ferrari': [
     ],
@@ -427,42 +420,18 @@ MODELES = {
         {"modele": 'Model 80', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1926, "annee_fin": 1927, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'FN': [
-        {"modele": '1625', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1928, "annee_fin": 1932, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'AS 24', "variante": 'Tricycle militaire', "portes": 0, "places": 4, "annee_debut": 1959, "annee_fin": 1964, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Baudouin 8', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1934, "annee_fin": 1935, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Prince Baudouin', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1934, "annee_fin": 1935, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type 1300', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1923, "annee_fin": 1925, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type 1900', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1900, "annee_fin": 1902, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Fondu': [
-        {"modele": 'Type 1', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1906, "annee_fin": 1912, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Ford': [
     ],
     'Franklin': [
-        {"modele": 'Airman', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1928, "annee_fin": 1932},
-        {"modele": 'Model A', "variante": 'Runabout', "portes": 0, "places": 2, "annee_debut": 1902, "annee_fin": 1904},
-        {"modele": 'Olympic', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1933, "annee_fin": 1934},
-        {"modele": 'Series 9', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1925, "annee_fin": 1927},
-        {"modele": 'V12', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1932, "annee_fin": 1934},
     ],
     'Frazer': [
-        {"modele": 'Manhattan', "variante": 'Berline / Cabriolet', "portes": 4, "places": 6, "annee_debut": 1947, "annee_fin": 1951},
-        {"modele": 'Standard', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1947, "annee_fin": 1951},
-        {"modele": 'Vagabond', "variante": 'Hatchback', "portes": 4, "places": 6, "annee_debut": 1949, "annee_fin": 1951},
     ],
     'Freightliner': [
-        {"modele": 'Cascadia', "variante": 'Tracteur routier', "portes": 2, "places": 2, "annee_debut": 2007},
-        {"modele": 'Century Class', "variante": 'Tracteur routier', "portes": 2, "places": 2, "annee_debut": 1995, "annee_fin": 2010},
-        {"modele": 'Columbia', "variante": 'Tracteur routier', "portes": 2, "places": 2, "annee_debut": 2001, "annee_fin": 2010},
-        {"modele": 'Coronado', "variante": 'Tracteur routier', "portes": 2, "places": 2, "annee_debut": 2001, "annee_fin": 2020},
-        {"modele": 'eCascadia', "variante": 'Tracteur électrique', "portes": 2, "places": 2, "reservoir": 0, "annee_debut": 2022},
-        {"modele": 'FLD', "variante": 'Tracteur routier', "portes": 2, "places": 2, "annee_debut": 1989, "annee_fin": 2001},
-        {"modele": 'M2', "variante": 'Camion', "portes": 2, "places": 3, "annee_debut": 2002},
     ],
     'FWD': [
-        {"modele": 'HAR-1', "variante": 'Camion militaire', "portes": 2, "places": 2, "annee_debut": 1941, "annee_fin": 1945, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model B', "variante": 'Camion 4x4', "portes": 2, "places": 2, "annee_debut": 1912, "annee_fin": 1919, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Gardner': [
         {"modele": 'Model 5', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1920, "annee_fin": 1924, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},

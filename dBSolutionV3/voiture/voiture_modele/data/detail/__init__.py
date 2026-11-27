@@ -225,6 +225,17 @@ MODULES = [
     "erskine",
     "excalibur",
     "excelsior",
+    "fn",
+    "fwd",
+    "falcon",
+    "faun",
+    "faraday_future",
+    "federal",
+    "fondu",
+    "frazer",
+    "franklin",
+    "freightliner",
+    "audi_classiques",
 ]
 
 
