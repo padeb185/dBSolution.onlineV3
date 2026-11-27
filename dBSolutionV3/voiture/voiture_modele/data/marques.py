@@ -446,6 +446,7 @@ MARQUES = [
     'Unimog',
     'Van Hool',
     'Vanden Plas',
+    'Vauxhall',
     'Vector',
     'Velie',
     'Venturi',

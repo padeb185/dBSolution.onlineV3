@@ -1713,6 +1713,8 @@ MODELES = {
         {"modele": 'Princess 1100', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1963, "annee_fin": 1974},
         {"modele": 'Torpedo', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1910, "annee_fin": 1923},
     ],
+    'Vauxhall': [
+    ],
     'Vector': [
         {"modele": 'M12', "variante": 'Supercar', "portes": 2, "places": 2, "annee_debut": 1996, "annee_fin": 1999},
         {"modele": 'W8', "variante": 'Supercar', "portes": 2, "places": 2, "annee_debut": 1989, "annee_fin": 1993},
