@@ -105,26 +105,14 @@ MODELES = {
     'Avanti': [
     ],
     'Baker Electric': [
-        {"modele": 'Model V', "variante": 'Électrique', "portes": 2, "places": 4, "reservoir": 0, "annee_debut": 1910, "annee_fin": 1915, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Torpedo', "variante": 'Record électrique', "portes": 0, "places": 2, "reservoir": 0, "annee_debut": 1902, "annee_fin": 1902, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Victoria', "variante": 'Électrique', "portes": 0, "places": 2, "reservoir": 0, "annee_debut": 1906, "annee_fin": 1910, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Ballot': [
-        {"modele": '2 LS', "variante": 'Sport', "portes": 2, "places": 2, "annee_debut": 1922, "annee_fin": 1925, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": '2 LT', "variante": 'Berline', "portes": 4, "places": 4, "annee_debut": 1923, "annee_fin": 1928, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'RH', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1928, "annee_fin": 1932, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Barkas': [
-        {"modele": 'B 1000', "variante": 'Utilitaire / Minibus', "portes": 4, "places": 8, "annee_debut": 1961, "annee_fin": 1991},
-        {"modele": 'V 901/2', "variante": 'Utilitaire', "portes": 3, "places": 3, "annee_debut": 1954, "annee_fin": 1961},
     ],
     'Belgica': [
-        {"modele": 'Type 16/20 HP', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1900, "annee_fin": 1909, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Bellier': [
-        {"modele": 'Divane', "variante": 'Voiture sans permis', "portes": 2, "places": 2, "annee_debut": 2009, "annee_fin": 2014},
-        {"modele": 'Docker', "variante": 'Voiture sans permis', "portes": 2, "places": 2, "annee_debut": 2005, "annee_fin": 2012},
-        {"modele": 'Opale', "variante": 'Voiture sans permis', "portes": 2, "places": 2, "annee_debut": 2001, "annee_fin": 2007},
     ],
     'Bentley': [
     ],

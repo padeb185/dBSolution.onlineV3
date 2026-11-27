@@ -150,6 +150,12 @@ MODULES = [
     "auto_mixte",
     "autocar",
     "avanti",
+    "bac",
+    "baker_electric",
+    "ballot",
+    "barkas",
+    "belgica",
+    "bellier",
 ]
 
 
