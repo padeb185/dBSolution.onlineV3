@@ -373,61 +373,26 @@ MODELES = {
         {"modele": 'e.GO Mover', "variante": 'Minibus électrique', "portes": 4, "places": 15, "reservoir": 0, "annee_debut": 2019},
     ],
     'Eagle': [
-        {"modele": 'Medallion', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1988, "annee_fin": 1989},
-        {"modele": 'Premier', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1988, "annee_fin": 1992},
-        {"modele": 'Summit', "variante": 'Compacte', "portes": 4, "places": 5, "annee_debut": 1989, "annee_fin": 1996},
-        {"modele": 'Talon', "variante": 'Coupé', "portes": 2, "places": 4, "annee_debut": 1990, "annee_fin": 1998},
-        {"modele": 'Vision', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1993, "annee_fin": 1997},
-        {"modele": 'Vista', "variante": 'Compacte', "portes": 3, "places": 4, "annee_debut": 1989, "annee_fin": 1991},
     ],
     'Edran': [
-        {"modele": 'Hippo', "variante": 'Tout-terrain', "portes": 3, "places": 4, "annee_debut": 1979, "annee_fin": 1983, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Ranger', "variante": 'Roadster', "portes": 0, "places": 2, "annee_debut": 1984, "annee_fin": 1989, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Edsel': [
-        {"modele": 'Bermuda', "variante": 'Break', "portes": 5, "places": 9, "annee_debut": 1958, "annee_fin": 1958},
-        {"modele": 'Citation', "variante": 'Berline / Cabriolet', "portes": 4, "places": 6, "annee_debut": 1958, "annee_fin": 1958},
-        {"modele": 'Corsair', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1958, "annee_fin": 1959},
-        {"modele": 'Pacer', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1958, "annee_fin": 1958},
-        {"modele": 'Ranger', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1958, "annee_fin": 1960},
-        {"modele": 'Roundup', "variante": 'Break', "portes": 3, "places": 6, "annee_debut": 1958, "annee_fin": 1958},
-        {"modele": 'Villager', "variante": 'Break', "portes": 5, "places": 6, "annee_debut": 1958, "annee_fin": 1960},
     ],
     'Elio': [
-        {"modele": 'Elio', "variante": 'Tricycle (prototype)', "portes": 2, "places": 2, "annee_debut": 2016},
     ],
     'Elmore': [
-        {"modele": 'Model 30', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1908, "annee_fin": 1912, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model 46', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1910, "annee_fin": 1912, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'EMW': [
-        {"modele": '327', "variante": 'Coupé / Cabriolet', "portes": 2, "places": 4, "annee_debut": 1952, "annee_fin": 1955},
-        {"modele": '340', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1949, "annee_fin": 1955},
     ],
     'Equus': [
-        {"modele": 'Bass 770', "variante": 'Coupé', "portes": 2, "places": 4, "annee_debut": 2014},
     ],
     'Erskine': [
-        {"modele": 'Model 50', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1927, "annee_fin": 1929, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model 51', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1929, "annee_fin": 1930, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Essex': [
-        {"modele": 'Coach', "variante": 'Berline', "portes": 2, "places": 5, "annee_debut": 1922, "annee_fin": 1926, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Four', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1919, "annee_fin": 1923, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Super Six', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1927, "annee_fin": 1932, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Terraplane', "variante": 'Berline / Coupé', "portes": 2, "places": 5, "annee_debut": 1932, "annee_fin": 1933, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Excalibur': [
-        {"modele": 'Series I', "variante": 'Roadster', "portes": 2, "places": 2, "annee_debut": 1965, "annee_fin": 1969},
-        {"modele": 'Series II', "variante": 'Phaeton', "portes": 2, "places": 4, "annee_debut": 1970, "annee_fin": 1974},
-        {"modele": 'Series III', "variante": 'Phaeton', "portes": 2, "places": 4, "annee_debut": 1975, "annee_fin": 1979},
-        {"modele": 'Series IV', "variante": 'Phaeton', "portes": 2, "places": 4, "annee_debut": 1980, "annee_fin": 1984},
-        {"modele": 'Series V', "variante": 'Phaeton', "portes": 2, "places": 4, "annee_debut": 1985, "annee_fin": 1989},
     ],
     'Excelsior': [
-        {"modele": 'Adex', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1920, "annee_fin": 1926, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Albert I', "variante": 'Berline / Torpedo', "portes": 4, "places": 5, "annee_debut": 1923, "annee_fin": 1929, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type D', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1910, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Facel Vega': [
     ],

@@ -215,6 +215,16 @@ MODULES = [
     "durkopp",
     "duesenberg",
     "duryea",
+    "emw",
+    "eagle",
+    "edran",
+    "equus",
+    "essex",
+    "edsel",
+    "elmore",
+    "erskine",
+    "excalibur",
+    "excelsior",
 ]
 
 
