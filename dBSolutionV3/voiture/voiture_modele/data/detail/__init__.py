@@ -237,6 +237,14 @@ MODULES = [
     "freightliner",
     "audi_classiques",
     "alfa_romeo_classiques",
+    "renault_ancetres",
+    "abarth_ancetres",
+    "alpina_classiques",
+    "citroen_ancetres",
+    "bmw_ancetres",
+    "volkswagen_ancetres",
+    "renault_rs",
+    "bmw_m_complement",
 ]
 
 

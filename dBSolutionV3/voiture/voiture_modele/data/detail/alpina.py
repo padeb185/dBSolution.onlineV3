@@ -1,7 +1,7 @@
 """Alpina (Buchloe ; BMW Alpina depuis 2026) : générations, motorisations (marché européen) et moteurs liés.
 Modèles sur base BMW (la génération reprend le code BMW). Moteurs BMW retravaillés par Alpina, au motoriste « Alpina ».
 La production Bovensiepen s'est arrêtée fin 2025 ; le premier modèle BMW Alpina (base Série 7 restylée) n'est pas encore repris.
-Modèles d'avant 1988 non repris. Données de production indicatives (petites séries).
+Modèles d avant 1988 dans alpina_classiques.py. Données de production indicatives (petites séries).
 Saisie (SaisieMoteurs) : (nom, famille, couple_nm[, surcharges]) ; la puissance est le dernier nombre du nom."""
 from ._outil import Motorisations, SaisieMoteurs, famille as f
 
