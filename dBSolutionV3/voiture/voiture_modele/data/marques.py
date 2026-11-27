@@ -128,7 +128,6 @@ MARQUES = [
     'Donnet',
     'Dort',
     'Drako',
-    'Drako GTE',
     'DS Automobiles',
     'Duesenberg',
     'Durant',

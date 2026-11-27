@@ -275,56 +275,28 @@ MODELES = {
     'Citroën Sport': [
     ],
     'Clément-Bayard': [
-        {"modele": '4M', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1908, "annee_fin": 1912, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": '8 HP', "variante": 'Voiturette', "portes": 2, "places": 2, "annee_debut": 1910, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'AC4', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1904, "annee_fin": 1906, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Clénet': [
-        {"modele": 'Series I', "variante": 'Roadster', "portes": 2, "places": 2, "annee_debut": 1976, "annee_fin": 1979},
-        {"modele": 'Series II', "variante": 'Cabriolet', "portes": 2, "places": 4, "annee_debut": 1979, "annee_fin": 1982},
     ],
     'Cole': [
-        {"modele": 'Aero Eight', "variante": 'Torpedo', "portes": 4, "places": 7, "annee_debut": 1916, "annee_fin": 1925, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model 30', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1909, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Columbia': [
-        {"modele": 'Electric Runabout', "variante": 'Électrique', "portes": 0, "places": 2, "reservoir": 0, "annee_debut": 1897, "annee_fin": 1907, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Mark XLVI', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1905, "annee_fin": 1907, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Six', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1916, "annee_fin": 1924, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Continental': [
-        {"modele": 'Mark II', "variante": 'Coupé', "portes": 2, "places": 5, "annee_debut": 1956, "annee_fin": 1957},
-        {"modele": 'Mark III', "variante": 'Berline / Coupé', "portes": 4, "places": 6, "annee_debut": 1958, "annee_fin": 1958},
     ],
     'Cord': [
-        {"modele": '810', "variante": 'Berline / Cabriolet', "portes": 4, "places": 5, "annee_debut": 1936, "annee_fin": 1936},
-        {"modele": '812', "variante": 'Berline / Cabriolet', "portes": 4, "places": 5, "annee_debut": 1937, "annee_fin": 1937},
-        {"modele": 'L-29', "variante": 'Berline / Cabriolet', "portes": 4, "places": 5, "annee_debut": 1929, "annee_fin": 1932},
     ],
     'Cottin & Desgouttes': [
-        {"modele": 'Sans Secousses', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1927, "annee_fin": 1931, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type M', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1912, "annee_fin": 1922, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Crosley': [
-        {"modele": 'CB-41', "variante": 'Berline / Cabriolet', "portes": 2, "places": 2, "annee_debut": 1939, "annee_fin": 1942},
-        {"modele": 'CC', "variante": 'Berline / Break', "portes": 2, "places": 4, "annee_debut": 1946, "annee_fin": 1949},
-        {"modele": 'Farm-O-Road', "variante": 'Utilitaire', "portes": 0, "places": 2, "annee_debut": 1950, "annee_fin": 1952},
-        {"modele": 'Hotshot', "variante": 'Roadster', "portes": 0, "places": 2, "annee_debut": 1949, "annee_fin": 1952},
-        {"modele": 'Super Sports', "variante": 'Roadster', "portes": 2, "places": 2, "annee_debut": 1950, "annee_fin": 1952},
     ],
     'Cunningham': [
-        {"modele": 'C-3', "variante": 'Coupé', "portes": 2, "places": 2, "annee_debut": 1952, "annee_fin": 1955, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'C-4R', "variante": 'Course', "portes": 0, "places": 2, "annee_debut": 1952, "annee_fin": 1953, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'V8 Model 1', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1916, "annee_fin": 1931, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Cupra': [
     ],
     'Czinger': [
-        {"modele": '21C', "variante": 'Hypercar', "portes": 2, "places": 2, "annee_debut": 2021},
     ],
     "D'Ieteren": [
-        {"modele": 'Coach Springfield', "variante": 'Carrosserie', "portes": 2, "places": 4, "annee_debut": 1920, "annee_fin": 1939, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Coccinelle Cabriolet', "variante": 'Cabriolet', "portes": 2, "places": 4, "annee_debut": 1950, "annee_fin": 1960, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Dacia': [
     ],
@@ -333,113 +305,44 @@ MODELES = {
     'Daihatsu': [
     ],
     'Daimler': [
-        {"modele": 'Mercedes 6/25/40 PS', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1923, "annee_fin": 1926, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Mercedes 28/95 PS', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1914, "annee_fin": 1924, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Mercedes 35 PS', "variante": 'Course / Tourisme', "portes": 0, "places": 4, "annee_debut": 1901, "annee_fin": 1902, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Mercedes Simplex', "variante": 'Tonneau', "portes": 0, "places": 4, "annee_debut": 1902, "annee_fin": 1909, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Riemenwagen', "variante": 'Vis-à-vis', "portes": 0, "places": 4, "annee_debut": 1895, "annee_fin": 1899, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Stahlradwagen', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1889, "annee_fin": 1890, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Dallara': [
     ],
     'Dangel': [
-        {"modele": 'Partner 4x4', "variante": 'Utilitaire', "portes": 4, "places": 5, "annee_debut": 1999},
-        {"modele": 'Peugeot 504 4x4', "variante": 'Pick-up / Break', "portes": 4, "places": 5, "annee_debut": 1981, "annee_fin": 1990},
-        {"modele": 'Peugeot 505 4x4', "variante": 'Break', "portes": 5, "places": 7, "annee_debut": 1986, "annee_fin": 1992},
     ],
     'Darracq': [
-        {"modele": '200 HP', "variante": 'Record', "portes": 0, "places": 1, "annee_debut": 1905, "annee_fin": 1905, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Flying Fifteen', "variante": 'Tonneau', "portes": 0, "places": 4, "annee_debut": 1904, "annee_fin": 1906, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type L', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1905, "annee_fin": 1907, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type V', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1912, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Dasse': [
-        {"modele": 'Type 12/14 CV', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1920, "annee_fin": 1924, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type B', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1905, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'DB': [
-        {"modele": 'Coach Panhard', "variante": 'Coupé', "portes": 2, "places": 2, "annee_debut": 1952, "annee_fin": 1954},
-        {"modele": 'HBR5', "variante": 'Coupé', "portes": 2, "places": 2, "annee_debut": 1954, "annee_fin": 1961},
-        {"modele": 'Le Mans', "variante": 'Cabriolet', "portes": 2, "places": 2, "annee_debut": 1959, "annee_fin": 1964},
     ],
     'De Dion-Bouton': [
-        {"modele": 'Populaire', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1903, "annee_fin": 1904, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type AL', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1906, "annee_fin": 1907, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type BS', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1910, "annee_fin": 1912, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type IW', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1923, "annee_fin": 1925, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type Q', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1903, "annee_fin": 1904, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Vis-à-vis', "variante": 'Voiturette', "portes": 0, "places": 4, "annee_debut": 1900, "annee_fin": 1902, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'De la Chapelle': [
-        {"modele": 'Roadster', "variante": 'Roadster', "portes": 2, "places": 2, "annee_debut": 1999, "annee_fin": 2010},
-        {"modele": 'Type 55', "variante": 'Réplique Bugatti', "portes": 2, "places": 2, "annee_debut": 1977, "annee_fin": 1997},
     ],
     'De Tomaso': [
     ],
     'Decauville': [
-        {"modele": 'Type 10 HP', "variante": 'Tonneau', "portes": 0, "places": 4, "annee_debut": 1902, "annee_fin": 1905, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Voiturelle', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1898, "annee_fin": 1902, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Delage': [
-        {"modele": 'D6', "variante": 'Berline / Coupé', "portes": 4, "places": 5, "annee_debut": 1930, "annee_fin": 1954, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'D8', "variante": 'Berline / Cabriolet', "portes": 4, "places": 5, "annee_debut": 1929, "annee_fin": 1940, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'D8-120', "variante": 'Coupé / Cabriolet', "portes": 2, "places": 4, "annee_debut": 1937, "annee_fin": 1940, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'DE', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1923, "annee_fin": 1928, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'DI', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1923, "annee_fin": 1928, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'DM', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1926, "annee_fin": 1930, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type A', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1906, "annee_fin": 1908, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Delahaye': [
-        {"modele": 'Type 0', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1894, "annee_fin": 1898, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type 135', "variante": 'Coupé / Cabriolet', "portes": 2, "places": 4, "annee_debut": 1935, "annee_fin": 1954, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type 145', "variante": 'Course', "portes": 0, "places": 2, "annee_debut": 1937, "annee_fin": 1938, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type 148', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1936, "annee_fin": 1953, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type 165', "variante": 'Cabriolet', "portes": 2, "places": 2, "annee_debut": 1938, "annee_fin": 1939, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type 175', "variante": 'Cabriolet', "portes": 2, "places": 4, "annee_debut": 1948, "annee_fin": 1951, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type 235', "variante": 'Coupé', "portes": 2, "places": 4, "annee_debut": 1951, "annee_fin": 1954, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'VLR', "variante": 'Tout-terrain militaire', "portes": 0, "places": 4, "annee_debut": 1951, "annee_fin": 1955, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Delaunay-Belleville': [
-        {"modele": 'HB4', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1908, "annee_fin": 1912, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'SMT', "variante": 'Limousine', "portes": 4, "places": 6, "annee_debut": 1909, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'VL8', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1931, "annee_fin": 1936, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Delin': [
-        {"modele": 'Voiturette', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1899, "annee_fin": 1901, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'DeLorean': [
     ],
     'DeSoto': [
     ],
     'Detroit Electric': [
-        {"modele": 'Model 27', "variante": 'Électrique', "portes": 2, "places": 4, "reservoir": 0, "annee_debut": 1911, "annee_fin": 1912, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model 47', "variante": 'Électrique', "portes": 2, "places": 5, "reservoir": 0, "annee_debut": 1914, "annee_fin": 1916, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model 90', "variante": 'Électrique', "portes": 2, "places": 5, "reservoir": 0, "annee_debut": 1919, "annee_fin": 1928, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'SP:01', "variante": 'Roadster électrique', "portes": 2, "places": 2, "reservoir": 0, "annee_debut": 2016, "annee_fin": 2017, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Diamond T': [
-        {"modele": 'Model 201', "variante": 'Pick-up', "portes": 2, "places": 3, "annee_debut": 1937, "annee_fin": 1949, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model 968', "variante": 'Camion militaire', "portes": 2, "places": 2, "annee_debut": 1941, "annee_fin": 1945, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model 980', "variante": 'Tracteur porte-char', "portes": 2, "places": 2, "annee_debut": 1940, "annee_fin": 1945, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Dixi': [
-        {"modele": '3/15 PS DA-1', "variante": 'Berline / Cabriolet', "portes": 2, "places": 4, "annee_debut": 1927, "annee_fin": 1929, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'G1', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1920, "annee_fin": 1925, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'S6', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1910, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'DKW': [
-        {"modele": 'F1', "variante": 'Roadster', "portes": 2, "places": 2, "annee_debut": 1931, "annee_fin": 1932},
-        {"modele": 'F5', "variante": 'Berline / Cabriolet', "portes": 2, "places": 4, "annee_debut": 1935, "annee_fin": 1937},
-        {"modele": 'F7', "variante": 'Berline', "portes": 2, "places": 4, "annee_debut": 1937, "annee_fin": 1938},
-        {"modele": 'F8', "variante": 'Berline', "portes": 2, "places": 4, "annee_debut": 1939, "annee_fin": 1942},
-        {"modele": 'F12', "variante": 'Berline / Roadster', "portes": 2, "places": 4, "reservoir": 40, "annee_debut": 1963, "annee_fin": 1965},
-        {"modele": 'F89 Meisterklasse', "variante": 'Berline', "portes": 2, "places": 4, "reservoir": 30, "annee_debut": 1950, "annee_fin": 1954},
-        {"modele": 'F91 Sonderklasse', "variante": 'Berline', "portes": 2, "places": 4, "reservoir": 35, "annee_debut": 1953, "annee_fin": 1955},
-        {"modele": 'F93', "variante": 'Berline', "portes": 2, "places": 5, "reservoir": 35, "annee_debut": 1955, "annee_fin": 1957},
-        {"modele": 'F102', "variante": 'Berline', "portes": 4, "places": 5, "reservoir": 52, "annee_debut": 1963, "annee_fin": 1966},
-        {"modele": 'Junior', "variante": 'Berline', "portes": 2, "places": 4, "reservoir": 40, "annee_debut": 1959, "annee_fin": 1963},
-        {"modele": 'Munga', "variante": 'Tout-terrain militaire', "portes": 4, "places": 4, "annee_debut": 1956, "annee_fin": 1968},
-        {"modele": 'Sonderklasse', "variante": 'Berline', "portes": 4, "places": 4, "annee_debut": 1937, "annee_fin": 1940},
     ],
     'Doble': [
         {"modele": 'Model D', "variante": 'Vapeur', "portes": 4, "places": 5, "annee_debut": 1922, "annee_fin": 1923, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
@@ -450,40 +353,20 @@ MODELES = {
     'Dodge SRT': [
     ],
     'Donnet': [
-        {"modele": 'Donnet 5 CV', "variante": 'Berline', "portes": 2, "places": 4, "annee_debut": 1932, "annee_fin": 1934, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Donnet-Zédel Type G', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1924, "annee_fin": 1926, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type 7', "variante": 'Berline', "portes": 4, "places": 4, "annee_debut": 1926, "annee_fin": 1930, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Dort': [
-        {"modele": 'Model 5', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1915, "annee_fin": 1918, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model 11', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1918, "annee_fin": 1921, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model 27', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1921, "annee_fin": 1924, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Drako': [
-        {"modele": 'Dragon', "variante": 'SUV électrique', "portes": 5, "places": 5, "reservoir": 0, "annee_debut": 2025},
-        {"modele": 'GTE', "variante": 'Berline électrique', "portes": 4, "places": 4, "reservoir": 0, "annee_debut": 2020},
     ],
     'DS Automobiles': [
     ],
     'Duesenberg': [
-        {"modele": 'Model A', "variante": 'Berline / Torpedo', "portes": 4, "places": 5, "annee_debut": 1921, "annee_fin": 1926},
-        {"modele": 'Model J', "variante": 'Berline / Cabriolet', "portes": 4, "places": 5, "annee_debut": 1928, "annee_fin": 1937},
-        {"modele": 'Model SJ', "variante": 'Cabriolet / Roadster', "portes": 2, "places": 4, "annee_debut": 1932, "annee_fin": 1937},
-        {"modele": 'Model SSJ', "variante": 'Roadster', "portes": 2, "places": 2, "annee_debut": 1935, "annee_fin": 1935},
-        {"modele": 'Model X', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1927, "annee_fin": 1927},
     ],
     'Durant': [
-        {"modele": 'Model 40', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1926, "annee_fin": 1928, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model 65', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1928, "annee_fin": 1929, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model A-22', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1922, "annee_fin": 1926, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Dürkopp': [
-        {"modele": 'P 8', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1910, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'P 12', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1919, "annee_fin": 1923, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Duryea': [
-        {"modele": 'Motor Wagon', "variante": 'Buggy', "portes": 0, "places": 2, "annee_debut": 1893, "annee_fin": 1896, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Phaeton', "variante": 'Phaeton', "portes": 0, "places": 3, "annee_debut": 1900, "annee_fin": 1913, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'e.GO Mobile': [
         {"modele": 'e.GO Life', "variante": 'Citadine électrique', "portes": 3, "places": 4, "reservoir": 0, "annee_debut": 2019, "annee_fin": 2022},

@@ -49,7 +49,7 @@ class Command(BaseCommand):
             "Koenigsegg", "Polestar", "NEVS", "Scania Racing", "Svenska Supercars",
 
             # 🌍 Autres / électriques & hypercars
-            "Rimac", "Lotus", "Bugatti", "Pagani", "Vector", "Apollo", "Czinger", "Drako GTE",
+            "Rimac", "Lotus", "Bugatti", "Pagani", "Vector", "Apollo", "Czinger", "Drako",
 
             # Petites marques historiques ou courses
             "Brabham", "Lola", "Ginetta", "Ligier", "Osella", "March Engineering", "Caparo",
