@@ -359,87 +359,32 @@ MODELES = {
     'FWD': [
     ],
     'Gardner': [
-        {"modele": 'Model 5', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1920, "annee_fin": 1924, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model 8-80', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1925, "annee_fin": 1926, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model 136', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1929, "annee_fin": 1931, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'GAZ': [
-        {"modele": 'Chaika GAZ-13', "variante": 'Limousine', "portes": 4, "places": 7, "reservoir": 80},
-        {"modele": 'Chaika GAZ-14', "variante": 'Limousine', "portes": 4, "places": 7, "reservoir": 80},
-        {"modele": 'GAZ-51', "variante": 'Camion', "portes": 2, "places": 3, "reservoir": 90},
-        {"modele": 'GAZ-66', "variante": 'Camion 4x4', "portes": 2, "places": 2, "reservoir": 110},
-        {"modele": 'GAZelle', "variante": 'Fourgon', "portes": 4, "places": 3, "reservoir": 70},
-        {"modele": 'GAZelle Next', "variante": 'Fourgon', "portes": 4, "places": 3, "reservoir": 70},
-        {"modele": 'M20 Pobeda', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 55},
-        {"modele": 'Sobol', "variante": 'Van', "portes": 5, "places": 7, "reservoir": 70},
-        {"modele": 'Tigr', "variante": 'Militaire / 4x4', "portes": 5, "places": 7, "reservoir": 120},
-        {"modele": 'Volga 3102', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 60},
-        {"modele": 'Volga M21', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 55},
-        {"modele": 'Volga M24', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 60},
     ],
     'Geely': [
-        {"modele": 'Atlas', "variante": 'SUV', "portes": 5, "places": 5, "reservoir": 60},
-        {"modele": 'Binrui', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 50},
-        {"modele": 'Boyue', "variante": 'SUV', "portes": 5, "places": 5, "reservoir": 60},
-        {"modele": 'Coolray', "variante": 'SUV Compact', "portes": 5, "places": 5, "reservoir": 45},
-        {"modele": 'Emgrand EC7', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 50},
-        {"modele": 'Emgrand GT', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 55},
-        {"modele": 'Geometry A', "variante": 'Sedan Electrique', "portes": 4, "places": 5, "reservoir": 0},
-        {"modele": 'Geometry C', "variante": 'SUV Electrique', "portes": 5, "places": 5, "reservoir": 0},
-        {"modele": 'GX3', "variante": 'SUV Compact', "portes": 5, "places": 5, "reservoir": 45},
-        {"modele": 'Okavango', "variante": 'SUV 7 places', "portes": 5, "places": 7, "reservoir": 60},
-        {"modele": 'Panda', "variante": 'Hatchback', "portes": 5, "places": 4, "reservoir": 35},
-        {"modele": 'Panda Mini EV', "variante": 'Citadine Electrique', "portes": 3, "places": 4, "reservoir": 0},
-        {"modele": 'Vision', "variante": 'Sedan', "portes": 4, "places": 5, "reservoir": 50},
-        {"modele": 'Xingyue', "variante": 'SUV Coupé', "portes": 5, "places": 5, "reservoir": 60},
     ],
     'GEM': [
-        {"modele": 'e2', "variante": 'Véhicule électrique de quartier', "portes": 2, "places": 2, "reservoir": 0, "annee_debut": 1998},
-        {"modele": 'e4', "variante": 'Véhicule électrique de quartier', "portes": 4, "places": 4, "reservoir": 0, "annee_debut": 1998},
-        {"modele": 'e6', "variante": 'Véhicule électrique de quartier', "portes": 4, "places": 6, "reservoir": 0, "annee_debut": 2012},
     ],
     'Gemballa': [
-        {"modele": 'Avalanche', "variante": 'Coupé', "portes": 2, "places": 4, "annee_debut": 1985, "annee_fin": 1990},
-        {"modele": 'Marsien', "variante": 'Coupé tout-terrain', "portes": 2, "places": 2, "annee_debut": 2023},
-        {"modele": 'Mirage GT', "variante": 'Coupé', "portes": 2, "places": 2, "annee_debut": 2007, "annee_fin": 2009},
-        {"modele": 'Mistrale', "variante": 'Berline', "portes": 4, "places": 4, "annee_debut": 2010, "annee_fin": 2011},
     ],
     'Genesis': [
     ],
     'Genesis G70 Sport': [
     ],
     'Geo': [
-        {"modele": 'Metro', "variante": 'Citadine', "portes": 3, "places": 4, "annee_debut": 1989, "annee_fin": 1997},
-        {"modele": 'Prizm', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1990, "annee_fin": 1997},
-        {"modele": 'Spectrum', "variante": 'Compacte', "portes": 4, "places": 5, "annee_debut": 1989, "annee_fin": 1989},
-        {"modele": 'Storm', "variante": 'Coupé', "portes": 3, "places": 4, "annee_debut": 1990, "annee_fin": 1993},
-        {"modele": 'Tracker', "variante": 'SUV', "portes": 3, "places": 4, "annee_debut": 1989, "annee_fin": 1997},
     ],
     'Georges Richard': [
-        {"modele": 'Poney', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1901, "annee_fin": 1903, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type C', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1899, "annee_fin": 1902, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Germain': [
-        {"modele": 'Chainless', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1906, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Daimler-Belge', "variante": 'Tonneau', "portes": 0, "places": 4, "annee_debut": 1898, "annee_fin": 1901, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Standard 18 HP', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1904, "annee_fin": 1909, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Gillet': [
     ],
     'Gillet Herstal': [
-        {"modele": '720 RL', "variante": 'Moto militaire', "portes": 0, "places": 3, "annee_debut": 1938, "annee_fin": 1940},
-        {"modele": 'Super Sport 500', "variante": 'Moto', "portes": 0, "places": 2, "annee_debut": 1926, "annee_fin": 1932},
     ],
     'Ginetta': [
     ],
     'Glas': [
-        {"modele": '1004', "variante": 'Coupé / Berline', "portes": 2, "places": 4, "annee_debut": 1962, "annee_fin": 1967},
-        {"modele": '1300 GT', "variante": 'Coupé', "portes": 2, "places": 2, "annee_debut": 1964, "annee_fin": 1967},
-        {"modele": '1700', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1964, "annee_fin": 1967},
-        {"modele": '2600 V8', "variante": 'Coupé', "portes": 2, "places": 4, "annee_debut": 1966, "annee_fin": 1968},
-        {"modele": 'Goggomobil T 250', "variante": 'Microcar', "portes": 2, "places": 4, "reservoir": 21, "annee_debut": 1955, "annee_fin": 1969},
-        {"modele": 'Goggomobil TS', "variante": 'Coupé', "portes": 2, "places": 4, "reservoir": 21, "annee_debut": 1957, "annee_fin": 1969},
-        {"modele": 'Isar', "variante": 'Berline', "portes": 2, "places": 4, "annee_debut": 1958, "annee_fin": 1965},
     ],
     'GMC': [
     ],

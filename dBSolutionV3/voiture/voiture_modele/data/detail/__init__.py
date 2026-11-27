@@ -245,6 +245,16 @@ MODULES = [
     "volkswagen_ancetres",
     "renault_rs",
     "bmw_m_complement",
+    "gaz",
+    "geely",
+    "gem",
+    "gardner",
+    "gemballa",
+    "georges_richard",
+    "geo",
+    "germain",
+    "gillet_herstal",
+    "glas",
 ]
 
 
