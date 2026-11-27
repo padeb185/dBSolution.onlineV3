@@ -26,6 +26,7 @@ from voiture.voiture_marque.models import MarqueFavorite, VoitureMarque
 from voiture.voiture_modele.data.marques import MARQUES
 from voiture.voiture_modele.data.modeles import MODELES
 from voiture.voiture_modele.models import VoitureModele
+from voiture.progression import Progression
 
 AUTORISES = {m._meta.label for m in (VoitureMarque, VoitureModele, MarqueFavorite)}
 
@@ -76,12 +77,16 @@ class Command(BaseCommand):
             with tenant_context(tenant):
                 try:
                     with transaction.atomic():
-                        for marque in VoitureMarque.objects.order_by("nom_marque"):
+                        marques = list(VoitureMarque.objects.order_by("nom_marque"))
+                        barre = Progression(len(marques), f"[{tenant.schema_name}] marques")
+                        for marque in marques:
+                            barre.avancer()
                             nom = marque.nom_marque.casefold()
                             if nom in cles:
-                                self._aligner_marque(marque, cles[nom], st, gardes, opts["detail"])
+                                self._aligner_marque(marque, cles[nom], st, gardes, opts["detail"], barre)
                             elif (opts["supprimer_marques_absentes"] and not filtre and nom not in connues):
-                                self._supprimer_marque(marque, st, gardes)
+                                self._supprimer_marque(marque, st, gardes, barre)
+                        barre.terminer()
                         if opts["dry_run"]:
                             raise _DryRun
                 except _DryRun:
@@ -92,7 +97,7 @@ class Command(BaseCommand):
             for ligne in gardes:
                 self.stdout.write(f"   à réaffecter : {ligne}")
 
-    def _aligner_marque(self, marque, cles, st, gardes, detail):
+    def _aligner_marque(self, marque, cles, st, gardes, detail, barre):
         for modele in VoitureModele.objects.filter(voiture_marque=marque).order_by("nom_modele", "nom_variante"):
             cle = (_t(modele.nom_modele), _t(modele.generation), _t(modele.phase), _t(modele.nom_variante))
             if cle in cles:
@@ -105,9 +110,9 @@ class Command(BaseCommand):
             modele.delete()
             st["modeles"] += 1
             if detail:
-                self.stdout.write(f"   supprimé : {libelle}")
+                barre.message(f"   supprimé : {libelle}")
 
-    def _supprimer_marque(self, marque, st, gardes):
+    def _supprimer_marque(self, marque, st, gardes, barre):
         modeles = list(VoitureModele.objects.filter(voiture_marque=marque))
         liens = self._liens(modeles) | self._liens([marque])
         if liens:
@@ -118,7 +123,7 @@ class Command(BaseCommand):
         st["modeles"] += len(modeles)
         marque.delete()
         st["marques"] += 1
-        self.stdout.write(f"   marque supprimée : {marque.nom_marque} ({len(modeles)} modèles)")
+        barre.message(f"   marque supprimée : {marque.nom_marque} ({len(modeles)} modèles)")
 
     @staticmethod
     def _liens(objets):

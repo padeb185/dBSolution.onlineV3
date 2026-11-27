@@ -27,6 +27,7 @@ from voiture.voiture_modele.data.marques import MARQUES
 from voiture.voiture_modele.data.modeles import MODELES
 from voiture.voiture_modele.models import VoitureModele
 from voiture.voiture_moteur.models import MoteurVoiture
+from voiture.progression import Progression
 
 CHAMPS = {
     # clé des données -> champ du modèle
@@ -118,6 +119,7 @@ class Command(BaseCommand):
             cache_marques[nom] = obj
 
         # 2) Modèles
+        barre = Progression(sum(len(L) for L in modeles.values()), f"[{tenant.schema_name}] modèles")
         for nom_marque, liste in modeles.items():
             marque = cache_marques[nom_marque]
             for d in liste:
@@ -126,7 +128,9 @@ class Command(BaseCommand):
                         self._modele(tenant, marque, d, st, lier_moteurs)
                 except (ValidationError, IntegrityError) as e:
                     st["erreurs"] += 1
-                    self.stdout.write(self.style.ERROR(f"  {nom_marque} {d.get('modele')} {d.get('variante') or ''} : {e}"))
+                    barre.message(self.style.ERROR(f"  {nom_marque} {d.get('modele')} {d.get('variante') or ''} : {e}"))
+                barre.avancer()
+        barre.terminer()
         return st
 
     def _modele(self, tenant, marque, d, st, lier_moteurs):

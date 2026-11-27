@@ -20,6 +20,7 @@ from societe.models import Societe
 from voiture.voiture_moteur.data.moteurs import MOTEURS
 from voiture.voiture_moteur.models import ArchitectureMoteur, MoteurVoiture, TypeCarburant, TypeDistribution, TypeMoteur
 from maintenance.choices import HuileEtat
+from voiture.progression import Progression
 
 SPECS = ["type_moteur", "carburant", "cylindree_l", "distribution", "nombre_cylindres", "architecture", "puissance_ch",
          "puissance_tr_min", "couple_nm", "couple_tr_min", "qualite_huile", "quantite_huile_l",
@@ -60,12 +61,15 @@ class Command(BaseCommand):
         filtre = {m.casefold() for m in opts["motoristes"]}
         donnees = {m: L for m, L in MOTEURS.items() if not filtre or m.casefold() in filtre}
 
+        total = sum(len(L) for L in donnees.values())
         for tenant in tenants:
             st = {"crees": 0, "maj": 0, "corriges": 0}
             with tenant_context(tenant):
+                barre = Progression(total, f"[{tenant.schema_name}] moteurs")
                 try:
                     with transaction.atomic():
-                        self._peupler(donnees, st)
+                        self._peupler(donnees, st, barre)
+                        barre.terminer()
                         if opts["dry_run"]:
                             raise _DryRun
                 except _DryRun:
@@ -75,7 +79,7 @@ class Command(BaseCommand):
                 f"valeurs invalides corrigées sur moteurs d'exemplaires {st['corriges']}"
             ))
 
-    def _peupler(self, donnees, st):
+    def _peupler(self, donnees, st, barre=None):
         for motoriste, liste in donnees.items():
             for d in liste:
                 specs = {k: d[k] for k in SPECS}
@@ -98,3 +102,5 @@ class Command(BaseCommand):
                 for champ, valides in CHOIX.items():
                     n = tous.exclude(**{f"{champ}__in": valides}).update(**{champ: specs[champ]})
                     st["corriges"] += n
+                if barre:
+                    barre.avancer()
