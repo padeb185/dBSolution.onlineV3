@@ -350,6 +350,8 @@ MODELES = {
     ],
     'Ford': [
     ],
+    'Ford USA': [
+    ],
     'Franklin': [
     ],
     'Frazer': [
@@ -621,7 +623,6 @@ MODELES = {
     'McLaren': [
     ],
     'Méan': [
-        {"modele": 'Sonora', "variante": 'Barquette', "portes": 0, "places": 2, "annee_debut": 1966, "annee_fin": 1972, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Mega': [
     ],
@@ -660,9 +661,6 @@ MODELES = {
     'Messerschmitt': [
     ],
     'Métallurgique': [
-        {"modele": '12 HP', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1903, "annee_fin": 1906, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": '15/20 HP', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1920, "annee_fin": 1927, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": '26/60 HP', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1907, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Metropolitan': [
     ],
@@ -708,87 +706,34 @@ MODELES = {
     'Mitsubishi Evo': [
     ],
     'Monica': [
-        {"modele": '560', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1973, "annee_fin": 1975},
     ],
     'Moon': [
-        {"modele": 'Aerotype Eight', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1928, "annee_fin": 1930, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model 30', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1906, "annee_fin": 1910, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Victory', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1918, "annee_fin": 1925, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Morgan': [
     ],
     'Morgan Aero': [
     ],
     'Mors': [
-        {"modele": '14/19 HP', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1908, "annee_fin": 1912, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Dauphin', "variante": 'Course', "portes": 0, "places": 2, "annee_debut": 1902, "annee_fin": 1902, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Sans-soupapes', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1912, "annee_fin": 1925, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type C', "variante": 'Tonneau', "portes": 0, "places": 4, "annee_debut": 1899, "annee_fin": 1901, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Moskvitch': [
-        {"modele": 'Moskvitch 3', "portes": 5, "places": 5, "annee_debut": 2022},
-        {"modele": 'Moskvitch 3 Comfort', "variante": 'Confort', "portes": 5, "places": 5, "annee_debut": 2023},
-        {"modele": 'Moskvitch 3e', "variante": 'Électrique', "portes": 5, "places": 5, "annee_debut": 2022},
-        {"modele": 'Moskvitch 5', "portes": 5, "places": 5, "annee_debut": 2024},
-        {"modele": 'Moskvitch 6', "portes": 5, "places": 5, "annee_debut": 2023},
-        {"modele": 'Moskvitch 8', "portes": 5, "places": 7, "annee_debut": 2024},
-        {"modele": 'Moskvitch 400/401', "portes": 4, "places": 5, "annee_debut": 1946, "annee_fin": 1956},
-        {"modele": 'Moskvitch 402/403', "portes": 4, "places": 5, "annee_debut": 1956, "annee_fin": 1965},
-        {"modele": 'Moskvitch 407', "portes": 4, "places": 5, "annee_debut": 1958, "annee_fin": 1963},
-        {"modele": 'Moskvitch 408', "portes": 4, "places": 5, "annee_debut": 1964, "annee_fin": 1976},
-        {"modele": 'Moskvitch 410', "portes": 4, "places": 5, "annee_debut": 1957, "annee_fin": 1961},
-        {"modele": 'Moskvitch 411', "variante": 'Break', "portes": 5, "places": 5, "annee_debut": 1958, "annee_fin": 1961},
-        {"modele": 'Moskvitch 412', "portes": 4, "places": 5, "annee_debut": 1967, "annee_fin": 1976},
-        {"modele": 'Moskvitch 426', "variante": 'Break', "portes": 5, "places": 5, "annee_debut": 1966, "annee_fin": 1976},
-        {"modele": 'Moskvitch 2140', "portes": 4, "places": 5, "annee_debut": 1976, "annee_fin": 1988},
-        {"modele": 'Moskvitch 2141 Aleko', "variante": 'Hatchback', "portes": 5, "places": 5, "annee_debut": 1986, "annee_fin": 2001},
-        {"modele": 'Moskvitch 2142', "portes": 4, "places": 5, "annee_debut": 1998, "annee_fin": 2002},
     ],
     'Mosler': [
-        {"modele": 'MT900', "variante": 'Supercar', "portes": 2, "places": 2, "annee_debut": 2001, "annee_fin": 2011},
-        {"modele": 'Raptor', "variante": 'Coupé', "portes": 2, "places": 2, "annee_debut": 1993, "annee_fin": 1995},
     ],
     'Multicar': [
-        {"modele": 'Fumo', "variante": 'Utilitaire', "portes": 2, "places": 3, "annee_debut": 2005},
-        {"modele": 'M22', "variante": 'Utilitaire', "portes": 2, "places": 2, "annee_debut": 1964, "annee_fin": 1978},
-        {"modele": 'M25', "variante": 'Utilitaire', "portes": 2, "places": 2, "annee_debut": 1978, "annee_fin": 1992},
-        {"modele": 'M26', "variante": 'Utilitaire', "portes": 2, "places": 2, "annee_debut": 1992, "annee_fin": 2010},
-        {"modele": 'Tremo', "variante": 'Utilitaire', "portes": 2, "places": 2, "annee_debut": 2010},
     ],
     'Muntz': [
-        {"modele": 'Jet', "variante": 'Cabriolet', "portes": 2, "places": 4, "annee_debut": 1950, "annee_fin": 1954},
     ],
     'NAG': [
-        {"modele": '212', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1927, "annee_fin": 1929, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'C4', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1920, "annee_fin": 1924, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'D4', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1925, "annee_fin": 1927, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Nagant': [
-        {"modele": 'Gobron-Nagant', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1900, "annee_fin": 1903, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Nagant 10/12 HP', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1920, "annee_fin": 1928, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type C', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1910, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Nash': [
-        {"modele": '600', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1941, "annee_fin": 1949},
-        {"modele": 'Advanced Six', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1925, "annee_fin": 1930},
-        {"modele": 'Airflyte', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1949, "annee_fin": 1951},
-        {"modele": 'Ambassador', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1932, "annee_fin": 1957},
-        {"modele": 'Model 681', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1918, "annee_fin": 1921},
-        {"modele": 'Rambler', "variante": 'Berline / Break', "portes": 2, "places": 5, "annee_debut": 1950, "annee_fin": 1955},
-        {"modele": 'Statesman', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1950, "annee_fin": 1956},
     ],
     'Nash-Healey': [
-        {"modele": 'Le Mans Coupé', "variante": 'Coupé', "portes": 2, "places": 2, "annee_debut": 1953, "annee_fin": 1954},
-        {"modele": 'Roadster', "variante": 'Roadster', "portes": 2, "places": 2, "annee_debut": 1951, "annee_fin": 1954},
     ],
     'National': [
-        {"modele": 'Highway Six', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1915, "annee_fin": 1918, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model 40', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1911, "annee_fin": 1913, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Sextet', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1920, "annee_fin": 1924, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Navistar': [
-        {"modele": 'MaxxForce', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 2007, "annee_fin": 2016},
-        {"modele": 'MXT', "variante": 'Pick-up géant', "portes": 4, "places": 5, "annee_debut": 2006, "annee_fin": 2008},
     ],
     'Neoplan': [
         {"modele": 'Cityliner', "variante": 'Autocar', "portes": 2, "places": 50, "annee_debut": 1971},
@@ -802,17 +747,6 @@ MODELES = {
         {"modele": 'Tre FCEV', "variante": 'Tracteur routier hydrogène', "portes": 2, "places": 2, "reservoir": 0, "annee_debut": 2023, "annee_fin": 2025},
     ],
     'NIO': [
-        {"modele": 'NIO EC6', "variante": 'Coupé SUV', "portes": 5, "places": 5, "annee_debut": 2020},
-        {"modele": 'NIO EC7', "variante": 'Coupé SUV', "portes": 5, "places": 5, "annee_debut": 2023},
-        {"modele": 'NIO ES6', "portes": 5, "places": 5, "annee_debut": 2019},
-        {"modele": 'NIO ES7', "portes": 5, "places": 5, "annee_debut": 2022},
-        {"modele": 'NIO ES8', "portes": 5, "places": 7, "annee_debut": 2018},
-        {"modele": 'NIO ES9', "portes": 5, "places": 7, "annee_debut": 2026},
-        {"modele": 'NIO ET5', "portes": 4, "places": 5, "annee_debut": 2022},
-        {"modele": 'NIO ET5 Touring', "variante": 'Break', "portes": 5, "places": 5, "annee_debut": 2023},
-        {"modele": 'NIO ET7', "portes": 4, "places": 5, "annee_debut": 2022},
-        {"modele": 'NIO ET9', "variante": 'Flagship sedan', "portes": 4, "places": 5, "annee_debut": 2025},
-        {"modele": 'NIO Firefly', "portes": 5, "places": 5, "annee_debut": 2025},
     ],
     'Nissan': [
     ],

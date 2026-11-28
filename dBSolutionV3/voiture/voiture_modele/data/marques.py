@@ -156,6 +156,7 @@ MARQUES = [
     'FN',
     'Fondu',
     'Ford',
+    'Ford USA',
     'Franklin',
     'Frazer',
     'Freightliner',
