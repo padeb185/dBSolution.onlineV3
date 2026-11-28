@@ -262,7 +262,7 @@ MODULES = [
     "great_wall",
     "gutbrod",
     "gruau",
-    "gurgel", "ferrari_ancetres_course", "vauxhall", "hanomag", "haval", "heinkel", "hansa", "haynes_apperson", "hennessey", "henry_j", "henschel", "heuliez", "hispano_suiza", "holsman", "hermes", "hindustan_motors", "holden", "hommell",
+    "gurgel", "ferrari_ancetres_course", "vauxhall", "hanomag", "haval", "heinkel", "hansa", "haynes_apperson", "hennessey", "henry_j", "henschel", "heuliez", "hispano_suiza", "holsman", "hermes", "hindustan_motors", "holden", "hommell", "hongqi", "horch", "hudson", "hupmobile", "hotchkiss", "hummer", "ifa", "imperial", "innocenti", "international_harvester", "international", "isdera", "imperia", "iran_khodro", "jenatzy", "jordan", "jeffery", "jonckheere",
 ]
 
 

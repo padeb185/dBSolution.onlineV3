@@ -212,7 +212,6 @@ MARQUES = [
     'Hupmobile',
     'Hyundai',
     'Hyundai N',
-    'Hyundai Veloster N',
     'IFA',
     'Imperia',
     'Imperial',
