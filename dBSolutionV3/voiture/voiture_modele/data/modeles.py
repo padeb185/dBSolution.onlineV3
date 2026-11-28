@@ -576,35 +576,10 @@ MODELES = {
         {"modele": 'LM2 Streamliner', "variante": 'Hypercar (prototype)', "portes": 2, "places": 2, "annee_debut": 2015},
     ],
     'Mack': [
-        {"modele": 'AC Bulldog', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1916, "annee_fin": 1938},
-        {"modele": 'Anthem', "variante": 'Tracteur routier', "portes": 2, "places": 2, "annee_debut": 2018},
-        {"modele": 'B-Series', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1953, "annee_fin": 1966},
-        {"modele": 'Granite', "variante": 'Chantier', "portes": 2, "places": 2, "annee_debut": 2001},
-        {"modele": 'LR', "variante": 'Benne à ordures', "portes": 2, "places": 3, "annee_debut": 2015},
-        {"modele": 'Pinnacle', "variante": 'Tracteur routier', "portes": 2, "places": 2, "annee_debut": 2006},
-        {"modele": 'R-Series', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1965, "annee_fin": 2005},
-        {"modele": 'Superliner', "variante": 'Tracteur routier', "portes": 2, "places": 2, "annee_debut": 1977, "annee_fin": 1993},
     ],
     'Magirus-Deutz': [
-        {"modele": 'Eckhauber', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1965, "annee_fin": 1985, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Jupiter', "variante": 'Camion tout-terrain', "portes": 2, "places": 2, "annee_debut": 1955, "annee_fin": 1965, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Mercur', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1952, "annee_fin": 1970, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Saturn', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1953, "annee_fin": 1970, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Uranus', "variante": 'Camion lourd', "portes": 2, "places": 2, "annee_debut": 1953, "annee_fin": 1966, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Mahindra': [
-        {"modele": 'BE6', "portes": 5, "places": 5, "annee_debut": 2024},
-        {"modele": 'BE6 Formula E', "variante": 'Edition spéciale', "portes": 5, "places": 5, "annee_debut": 2025},
-        {"modele": 'Bolero Classic', "portes": 5, "places": 7, "annee_debut": 2000, "annee_fin": 2020},
-        {"modele": 'Bolero Neo', "portes": 5, "places": 7, "annee_debut": 2021},
-        {"modele": 'KUV100', "portes": 5, "places": 5, "annee_debut": 2016, "annee_fin": 2022},
-        {"modele": 'Scorpio-N', "portes": 5, "places": 7, "annee_debut": 2022},
-        {"modele": 'Thar ROXX', "portes": 5, "places": 5, "annee_debut": 2024},
-        {"modele": 'TUV300', "portes": 5, "places": 5, "annee_debut": 2015, "annee_fin": 2020},
-        {"modele": 'XEV 9S', "portes": 5, "places": 7, "annee_debut": 2025},
-        {"modele": 'XUV500', "portes": 5, "places": 7, "annee_debut": 2011, "annee_fin": 2021},
-        {"modele": 'XUV 3XO', "portes": 5, "places": 5, "annee_debut": 2024},
-        {"modele": 'XUV 7XO', "portes": 5, "places": 7, "annee_debut": 2026},
     ],
     'MAN': [
         {"modele": 'F8', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1971, "annee_fin": 1986},
@@ -622,43 +597,20 @@ MODELES = {
     'Marcos': [
     ],
     'Marmon': [
-        {"modele": 'Model 34', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1916, "annee_fin": 1924, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Roosevelt', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1929, "annee_fin": 1930, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Sixteen', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1931, "annee_fin": 1933, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Wasp', "variante": 'Course', "portes": 0, "places": 1, "annee_debut": 1911, "annee_fin": 1911, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Marquette': [
-        {"modele": 'Series 30', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1929, "annee_fin": 1930, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Maserati': [
     ],
     'Matford': [
-        {"modele": 'F82', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1938, "annee_fin": 1939, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'F92A', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1938, "annee_fin": 1940, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'V8-48', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1934, "annee_fin": 1936, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'V8-62', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1936, "annee_fin": 1937, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Matheson': [
-        {"modele": 'Model 50', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1906, "annee_fin": 1909, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Silent Six', "variante": 'Torpedo', "portes": 4, "places": 7, "annee_debut": 1910, "annee_fin": 1912, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Mathis': [
-        {"modele": '333', "variante": 'Berline', "portes": 2, "places": 3, "annee_debut": 1946, "annee_fin": 1948, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Babylette', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1913, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Emyquatre', "variante": 'Berline', "portes": 4, "places": 4, "annee_debut": 1932, "annee_fin": 1934, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'SB', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1921, "annee_fin": 1923, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Matra': [
-        {"modele": 'Matra 530', "portes": 2, "places": 2, "reservoir": 60},
-        {"modele": 'Matra Bagheera', "portes": 3, "places": 3, "reservoir": 60},
-        {"modele": 'Matra Djet', "portes": 2, "places": 2, "reservoir": 50},
-        {"modele": 'Matra Murena', "portes": 3, "places": 3, "reservoir": 60},
-        {"modele": 'Matra Rancho', "portes": 5, "places": 5, "reservoir": 70},
     ],
     'Maxwell': [
-        {"modele": 'Good Maxwell', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1922, "annee_fin": 1925, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model 25', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1914, "annee_fin": 1922, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model LC', "variante": 'Runabout', "portes": 0, "places": 2, "annee_debut": 1904, "annee_fin": 1906, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Maybach': [
     ],
@@ -672,14 +624,8 @@ MODELES = {
         {"modele": 'Sonora', "variante": 'Barquette', "portes": 0, "places": 2, "annee_debut": 1966, "annee_fin": 1972, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Mega': [
-        {"modele": 'Club', "variante": 'Buggy', "portes": 0, "places": 2, "annee_debut": 1996, "annee_fin": 1999},
-        {"modele": 'e-Worker', "variante": 'Utilitaire électrique', "portes": 2, "places": 2, "reservoir": 0, "annee_debut": 2009, "annee_fin": 2015},
-        {"modele": 'Monte Carlo', "variante": 'Supercar', "portes": 2, "places": 2, "annee_debut": 1996, "annee_fin": 1997},
-        {"modele": 'Track', "variante": 'Supercar', "portes": 2, "places": 2, "annee_debut": 1992, "annee_fin": 1993},
     ],
     'Melkus': [
-        {"modele": 'RS 1000', "variante": 'Coupé', "portes": 2, "places": 2, "annee_debut": 1969, "annee_fin": 1979},
-        {"modele": 'RS 2000', "variante": 'Coupé', "portes": 2, "places": 2, "annee_debut": 2009, "annee_fin": 2012},
     ],
     'Mercedes-AMG': [
         {"modele": 'AMG ONE', "variante": 'Hypercar', "portes": 2, "places": 2, "reservoir": 65},
@@ -708,33 +654,10 @@ MODELES = {
     'Mercedes-Benz': [
     ],
     'Mercer': [
-        {"modele": 'Raceabout Type 35', "variante": 'Roadster', "portes": 0, "places": 2, "annee_debut": 1911, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Series 6', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1923, "annee_fin": 1925, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Series 22', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1915, "annee_fin": 1918, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Mercury': [
-        {"modele": 'Capri', "portes": 2, "places": 4, "annee_debut": 1970, "annee_fin": 1994},
-        {"modele": 'Cougar', "portes": 2, "places": 4, "annee_debut": 1967, "annee_fin": 2002},
-        {"modele": 'Grand Marquis', "portes": 4, "places": 5, "annee_debut": 1975, "annee_fin": 2011},
-        {"modele": 'Mariner', "portes": 5, "places": 5, "annee_debut": 2005, "annee_fin": 2010},
-        {"modele": 'Medalist', "portes": 4, "places": 5, "annee_debut": 1956, "annee_fin": 1958},
-        {"modele": 'Mercury Eight', "portes": 4, "places": 5, "annee_debut": 1939, "annee_fin": 1951},
-        {"modele": 'Milan', "portes": 4, "places": 5, "annee_debut": 2006, "annee_fin": 2011},
-        {"modele": 'Monarch', "portes": 4, "places": 5, "annee_debut": 1975, "annee_fin": 1980},
-        {"modele": 'Montclair', "portes": 4, "places": 5, "annee_debut": 1955, "annee_fin": 1960},
-        {"modele": 'Montego', "portes": 4, "places": 5, "annee_debut": 2005, "annee_fin": 2007},
-        {"modele": 'Monterey', "portes": 4, "places": 5, "annee_debut": 1950, "annee_fin": 1974},
-        {"modele": 'Mountaineer', "portes": 5, "places": 7, "annee_debut": 1997, "annee_fin": 2010},
-        {"modele": 'S-55', "portes": 2, "places": 5, "annee_debut": 1962, "annee_fin": 1967},
-        {"modele": 'Sable', "portes": 4, "places": 5, "annee_debut": 1986, "annee_fin": 2009},
-        {"modele": 'Tracer', "portes": 4, "places": 5, "annee_debut": 1987, "annee_fin": 1999},
-        {"modele": 'Turnpike Cruiser', "portes": 4, "places": 5, "annee_debut": 1957, "annee_fin": 1958},
-        {"modele": 'Villager', "portes": 5, "places": 7, "annee_debut": 1993, "annee_fin": 2002},
     ],
     'Messerschmitt': [
-        {"modele": 'KR 175', "variante": 'Microcar', "portes": 2, "places": 2, "annee_debut": 1953, "annee_fin": 1955},
-        {"modele": 'KR 200', "variante": 'Microcar', "portes": 2, "places": 2, "annee_debut": 1955, "annee_fin": 1964},
-        {"modele": 'Tg 500 Tiger', "variante": 'Roadster', "portes": 2, "places": 2, "annee_debut": 1958, "annee_fin": 1961},
     ],
     'Métallurgique': [
         {"modele": '12 HP', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1903, "annee_fin": 1906, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
@@ -742,34 +665,16 @@ MODELES = {
         {"modele": '26/60 HP', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1907, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Metropolitan': [
-        {"modele": 'Metropolitan', "variante": 'Coupé / Cabriolet', "portes": 2, "places": 2, "annee_debut": 1953, "annee_fin": 1961},
     ],
     'MG': [
     ],
     'Mia Electric': [
-        {"modele": 'Mia', "variante": 'Citadine électrique', "portes": 2, "places": 3, "reservoir": 0, "annee_debut": 2011, "annee_fin": 2014},
-        {"modele": 'Mia L', "variante": 'Citadine électrique', "portes": 2, "places": 4, "reservoir": 0, "annee_debut": 2011, "annee_fin": 2014},
     ],
     'Microcar': [
-        {"modele": 'Due', "variante": 'Voiture sans permis', "portes": 2, "places": 2, "reservoir": 20, "annee_debut": 2010, "annee_fin": 2021},
-        {"modele": 'M.Go', "variante": 'Voiture sans permis', "portes": 2, "places": 2, "reservoir": 20, "annee_debut": 2008, "annee_fin": 2021},
-        {"modele": 'MC1', "variante": 'Voiture sans permis', "portes": 2, "places": 2, "annee_debut": 2003, "annee_fin": 2009},
-        {"modele": 'Virgo', "variante": 'Voiture sans permis', "portes": 2, "places": 2, "annee_debut": 1995, "annee_fin": 2004},
     ],
     'Miesse': [
-        {"modele": 'Camion', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1920, "annee_fin": 1972, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type 10/12 HP', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1904, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Vapeur', "variante": 'Vapeur', "portes": 0, "places": 4, "annee_debut": 1896, "annee_fin": 1904, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Minerva': [
-        {"modele": '20 CV', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1920, "annee_fin": 1923, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'AC', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1925, "annee_fin": 1927, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'AK', "variante": 'Berline / Limousine', "portes": 4, "places": 7, "annee_debut": 1927, "annee_fin": 1937, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'AL', "variante": 'Limousine', "portes": 4, "places": 7, "annee_debut": 1930, "annee_fin": 1937, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'M4', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1934, "annee_fin": 1937, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Minervette', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1904, "annee_fin": 1906, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'TT Land Rover', "variante": 'Tout-terrain', "portes": 0, "places": 6, "annee_debut": 1951, "annee_fin": 1956, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type CC', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1911, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Mini': [
         {"modele": 'Clubman', "portes": 5, "places": 4, "reservoir": 48},

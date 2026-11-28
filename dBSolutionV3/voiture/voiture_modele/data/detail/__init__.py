@@ -262,7 +262,7 @@ MODULES = [
     "great_wall",
     "gutbrod",
     "gruau",
-    "gurgel", "ferrari_ancetres_course", "vauxhall", "hanomag", "haval", "heinkel", "hansa", "haynes_apperson", "hennessey", "henry_j", "henschel", "heuliez", "hispano_suiza", "holsman", "hermes", "hindustan_motors", "holden", "hommell", "hongqi", "horch", "hudson", "hupmobile", "hotchkiss", "hummer", "ifa", "imperial", "innocenti", "international_harvester", "international", "isdera", "imperia", "iran_khodro", "jenatzy", "jordan", "jeffery", "jonckheere", "kaiser", "karma", "knox", "komnick", "kenworth", "kissel", "krupp", "kassbohrer", "kurtis", "lag", "la_licorne", "lasalle", "lafayette", "lada", "le_zebre", "li_auto", "linon", "locomobile", "lordstown", "lotec", "lloyd", "lorraine_dietrich",
+    "gurgel", "ferrari_ancetres_course", "vauxhall", "hanomag", "haval", "heinkel", "hansa", "haynes_apperson", "hennessey", "henry_j", "henschel", "heuliez", "hispano_suiza", "holsman", "hermes", "hindustan_motors", "holden", "hommell", "hongqi", "horch", "hudson", "hupmobile", "hotchkiss", "hummer", "ifa", "imperial", "innocenti", "international_harvester", "international", "isdera", "imperia", "iran_khodro", "jenatzy", "jordan", "jeffery", "jonckheere", "kaiser", "karma", "knox", "komnick", "kenworth", "kissel", "krupp", "kassbohrer", "kurtis", "lag", "la_licorne", "lasalle", "lafayette", "lada", "le_zebre", "li_auto", "linon", "locomobile", "lordstown", "lotec", "lloyd", "lorraine_dietrich", "magirus_deutz", "mack", "march_engineering", "marmon", "matheson", "mahindra", "marquette", "matford", "mathis", "matra", "melkus", "mazzanti", "maxwell", "mega", "mercer", "messerschmitt", "mia_electric", "miesse", "mercury", "metropolitan", "microcar", "minerva",
 ]
 
 
