@@ -497,98 +497,36 @@ MODELES = {
     'Jordan': [
     ],
     'Kaiser': [
-        {"modele": 'Darrin', "variante": 'Roadster', "portes": 2, "places": 2, "annee_debut": 1954, "annee_fin": 1954},
-        {"modele": 'Deluxe', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1949, "annee_fin": 1953},
-        {"modele": 'Dragon', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1951, "annee_fin": 1953},
-        {"modele": 'Manhattan', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1951, "annee_fin": 1955},
-        {"modele": 'Special', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1947, "annee_fin": 1950},
-        {"modele": 'Virginian', "variante": 'Berline', "portes": 4, "places": 6, "annee_debut": 1949, "annee_fin": 1950},
     ],
     'Karma': [
-        {"modele": 'GS-6', "variante": 'Berline hybride rechargeable', "portes": 4, "places": 4, "annee_debut": 2020},
-        {"modele": 'GSe-6', "variante": 'Berline électrique', "portes": 4, "places": 4, "reservoir": 0, "annee_debut": 2021},
-        {"modele": 'Revero', "variante": 'Berline hybride rechargeable', "portes": 4, "places": 4, "annee_debut": 2017, "annee_fin": 2019},
     ],
     'Kässbohrer': [
-        {"modele": 'PistenBully', "variante": 'Dameuse', "portes": 2, "places": 2, "annee_debut": 1969},
-        {"modele": 'Setra S 8', "variante": 'Autocar', "portes": 2, "places": 30, "annee_debut": 1951, "annee_fin": 1956},
     ],
     'Kenworth': [
-        {"modele": 'C500', "variante": 'Tout-terrain', "portes": 2, "places": 2, "annee_debut": 1987},
-        {"modele": 'K100', "variante": 'Tracteur routier', "portes": 2, "places": 2, "annee_debut": 1961, "annee_fin": 2004},
-        {"modele": 'T600', "variante": 'Tracteur routier', "portes": 2, "places": 2, "annee_debut": 1985, "annee_fin": 2011},
-        {"modele": 'T680', "variante": 'Tracteur routier', "portes": 2, "places": 2, "annee_debut": 2012},
-        {"modele": 'T880', "variante": 'Chantier', "portes": 2, "places": 2, "annee_debut": 2013},
-        {"modele": 'W900', "variante": 'Tracteur routier', "portes": 2, "places": 2, "annee_debut": 1961},
     ],
     'Kia': [
     ],
     'Kia GT': [
     ],
     'Kissel': [
-        {"modele": 'Gold Bug', "variante": 'Speedster', "portes": 2, "places": 2, "annee_debut": 1919, "annee_fin": 1928, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Kissel Kar 6-60', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1913, "annee_fin": 1917, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'White Eagle', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1929, "annee_fin": 1931, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Knox': [
-        {"modele": 'Model 40', "variante": 'Torpedo', "portes": 4, "places": 5, "annee_debut": 1910, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Waterless', "variante": 'Runabout', "portes": 0, "places": 2, "annee_debut": 1900, "annee_fin": 1904, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Koenigsegg': [
     ],
     'Komnick': [
-        {"modele": 'Typ G 6/18 PS', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1913, "annee_fin": 1918, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Krupp': [
-        {"modele": 'KF 380', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1963, "annee_fin": 1968, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Mustang', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1950, "annee_fin": 1954, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Protze', "variante": 'Tout-terrain militaire', "portes": 4, "places": 8, "annee_debut": 1934, "annee_fin": 1941, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Titan', "variante": 'Camion lourd', "portes": 2, "places": 2, "annee_debut": 1950, "annee_fin": 1954, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Kurtis': [
-        {"modele": '500S', "variante": 'Roadster', "portes": 0, "places": 2, "annee_debut": 1953, "annee_fin": 1955, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Sport Car', "variante": 'Roadster', "portes": 2, "places": 2, "annee_debut": 1949, "annee_fin": 1950, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'La Licorne': [
-        {"modele": 'BO', "variante": 'Berline', "portes": 4, "places": 4, "annee_debut": 1928, "annee_fin": 1934, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'L 760', "variante": 'Berline', "portes": 4, "places": 4, "annee_debut": 1936, "annee_fin": 1939, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type 14 CV', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1937, "annee_fin": 1940, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type V8', "variante": 'Torpedo', "portes": 2, "places": 4, "annee_debut": 1920, "annee_fin": 1924, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Lada': [
-        {"modele": '2101', "portes": 4, "places": 5, "reservoir": 42},
-        {"modele": '2102', "portes": 2, "places": 4, "reservoir": 42},
-        {"modele": '2103', "portes": 4, "places": 5, "reservoir": 42},
-        {"modele": '2104', "variante": 'Break', "portes": 5, "places": 5, "reservoir": 42},
-        {"modele": '2105', "portes": 4, "places": 5, "reservoir": 42},
-        {"modele": '2106', "portes": 4, "places": 5, "reservoir": 42},
-        {"modele": '2107', "portes": 4, "places": 5, "reservoir": 42},
-        {"modele": 'Granta', "portes": 4, "places": 5, "reservoir": 50},
-        {"modele": 'Granta Cross', "portes": 4, "places": 5, "reservoir": 50},
-        {"modele": 'Granta Liftback', "portes": 4, "places": 5, "reservoir": 50},
-        {"modele": 'Lada 110', "portes": 4, "places": 5, "reservoir": 50},
-        {"modele": 'Lada 111', "variante": 'Break', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'Lada 112', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'Largus', "portes": 5, "places": 5, "reservoir": 55},
-        {"modele": 'Niva 5 portes', "portes": 5, "places": 5, "reservoir": 60},
-        {"modele": 'Niva (2121)', "portes": 3, "places": 5, "reservoir": 60},
-        {"modele": 'Samara 3 portes', "portes": 3, "places": 5, "reservoir": 50},
-        {"modele": 'Samara 5 portes', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'Samara Coupe', "portes": 3, "places": 4, "reservoir": 50},
-        {"modele": 'Urban Niva', "portes": 5, "places": 5, "reservoir": 60},
-        {"modele": 'Vesta', "portes": 4, "places": 5, "reservoir": 50},
-        {"modele": 'Vesta Cross', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'Vesta SW', "variante": 'Break', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'X-Ray', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'X-Ray Cross', "portes": 5, "places": 5, "reservoir": 50},
     ],
     'Lafayette': [
-        {"modele": 'Model 134', "variante": 'Berline', "portes": 4, "places": 7, "annee_debut": 1920, "annee_fin": 1923, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Nash Lafayette', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1934, "annee_fin": 1940, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'LAG': [
-        {"modele": 'Galaxy', "variante": 'Autocar', "portes": 2, "places": 50, "annee_debut": 1982, "annee_fin": 1998, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Panoramic', "variante": 'Autocar', "portes": 2, "places": 50, "annee_debut": 1983, "annee_fin": 1995, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Lamborghini': [
     ],
@@ -599,58 +537,30 @@ MODELES = {
     'Land Rover': [
     ],
     'LaSalle': [
-        {"modele": 'Series 50', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1934, "annee_fin": 1937},
-        {"modele": 'Series 52', "variante": 'Berline / Cabriolet', "portes": 4, "places": 5, "annee_debut": 1938, "annee_fin": 1940},
-        {"modele": 'Series 303', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1927, "annee_fin": 1928},
-        {"modele": 'Series 340', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1930, "annee_fin": 1930},
     ],
     'Le Zèbre': [
-        {"modele": 'Type A', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1909, "annee_fin": 1912, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type D', "variante": 'Torpedo', "portes": 2, "places": 2, "annee_debut": 1914, "annee_fin": 1920, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type Z', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1924, "annee_fin": 1931, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Lexus': [
     ],
     'Li Auto': [
-        {"modele": 'Li i8', "variante": 'Électrique', "portes": 5, "places": 5, "annee_debut": 2025},
-        {"modele": 'Li L6', "portes": 5, "places": 5, "annee_debut": 2024},
-        {"modele": 'Li L7', "portes": 5, "places": 5, "annee_debut": 2023},
-        {"modele": 'Li L8', "portes": 5, "places": 6, "annee_debut": 2022},
-        {"modele": 'Li L9', "portes": 5, "places": 6, "annee_debut": 2022},
-        {"modele": 'Li MEGA', "variante": 'MPV électrique', "portes": 5, "places": 7, "annee_debut": 2024},
-        {"modele": 'Li ONE', "portes": 5, "places": 5, "annee_debut": 2019, "annee_fin": 2022},
     ],
     'Ligier': [
     ],
     'Lincoln': [
     ],
     'Linon': [
-        {"modele": 'Voiturette', "variante": 'Voiturette', "portes": 0, "places": 2, "annee_debut": 1900, "annee_fin": 1914, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Lloyd': [
-        {"modele": 'Arabella', "variante": 'Berline', "portes": 2, "places": 4, "annee_debut": 1959, "annee_fin": 1963},
-        {"modele": 'LP 300', "variante": 'Berline', "portes": 2, "places": 4, "annee_debut": 1950, "annee_fin": 1952},
-        {"modele": 'LP 400', "variante": 'Berline', "portes": 2, "places": 4, "reservoir": 25, "annee_debut": 1953, "annee_fin": 1957},
-        {"modele": 'LP 600 Alexander', "variante": 'Berline', "portes": 2, "places": 4, "reservoir": 25, "annee_debut": 1955, "annee_fin": 1961},
     ],
     'Locomobile': [
-        {"modele": 'Junior Eight', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1925, "annee_fin": 1929, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Model 48', "variante": 'Torpedo', "portes": 4, "places": 7, "annee_debut": 1911, "annee_fin": 1929, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Old 16', "variante": 'Course', "portes": 0, "places": 2, "annee_debut": 1906, "annee_fin": 1906, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Steam Runabout', "variante": 'Vapeur', "portes": 0, "places": 2, "annee_debut": 1899, "annee_fin": 1903, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Lola': [
     ],
     'Lordstown': [
-        {"modele": 'Endurance', "variante": 'Pick-up électrique', "portes": 4, "places": 5, "reservoir": 0, "annee_debut": 2022, "annee_fin": 2023},
     ],
     'Lorraine-Dietrich': [
-        {"modele": 'Type 15 Sport', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1925, "annee_fin": 1931, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type 20/30', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1931, "annee_fin": 1934, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Type B3-6', "variante": 'Torpedo Sport', "portes": 4, "places": 4, "annee_debut": 1922, "annee_fin": 1932, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Lotec': [
-        {"modele": 'Sirius', "variante": 'Supercar', "portes": 2, "places": 2, "annee_debut": 2000, "annee_fin": 2001},
     ],
     'Lotus': [
     ],

@@ -39,7 +39,7 @@ class Command(BaseCommand):
             "Mitsubishi Evo", "Lexus F", "Acura", "Honda S2000",
 
             # 🇰🇷 Corée du Sud
-            "Hyundai N", "Kia GT", "Genesis G70 Sport", "Kia Stinger GT",
+            "Hyundai N", "Kia GT", "Genesis G70 Sport",
 
             # 🇺🇸 États-Unis
             "Ford", "Chevrolet Corvette", "Chevrolet Camaro ZL1", "Dodge SRT", "Tesla",

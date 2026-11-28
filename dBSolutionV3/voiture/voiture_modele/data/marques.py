@@ -235,7 +235,6 @@ MARQUES = [
     'Kenworth',
     'Kia',
     'Kia GT',
-    'Kia Stinger GT',
     'Kissel',
     'Knox',
     'Koenigsegg',
