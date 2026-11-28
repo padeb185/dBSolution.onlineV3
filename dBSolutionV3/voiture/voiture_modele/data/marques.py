@@ -191,7 +191,6 @@ MARQUES = [
     'Haynes-Apperson',
     'Heinkel',
     'Hennessey',
-    'Hennessey Venom',
     'Henry J',
     'Henschel',
     'Hermes',

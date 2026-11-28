@@ -409,51 +409,18 @@ MODELES = {
     'Gutbrod': [
     ],
     'Hanomag': [
-        {"modele": '1,3 Liter', "variante": 'Berline', "portes": 4, "places": 4, "annee_debut": 1939, "annee_fin": 1941},
-        {"modele": '2/10 PS Kommissbrot', "variante": 'Microcar', "portes": 0, "places": 2, "annee_debut": 1925, "annee_fin": 1928},
-        {"modele": 'F 20', "variante": 'Utilitaire', "portes": 2, "places": 3, "annee_debut": 1967, "annee_fin": 1969},
-        {"modele": 'Garant', "variante": 'Berline', "portes": 2, "places": 4, "annee_debut": 1934, "annee_fin": 1938},
-        {"modele": 'Kurier', "variante": 'Utilitaire', "portes": 2, "places": 3, "annee_debut": 1958, "annee_fin": 1968},
-        {"modele": 'Rekord', "variante": 'Berline', "portes": 4, "places": 4, "annee_debut": 1934, "annee_fin": 1938},
-        {"modele": 'Sturm', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1934, "annee_fin": 1939},
     ],
     'Hansa': [
-        {"modele": 'Hansa 400', "variante": 'Berline', "portes": 2, "places": 4, "annee_debut": 1934, "annee_fin": 1939, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Hansa 1100', "variante": 'Berline', "portes": 2, "places": 4, "annee_debut": 1934, "annee_fin": 1939, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Hansa 1500', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1952, "annee_fin": 1955, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Hansa 1700', "variante": 'Berline', "portes": 4, "places": 4, "annee_debut": 1934, "annee_fin": 1939, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Hansa 2000', "variante": 'Berline', "portes": 4, "places": 5, "annee_debut": 1937, "annee_fin": 1939, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Haval': [
-        {"modele": 'H1', "variante": 'SUV Compact', "portes": 5, "places": 5, "reservoir": 45},
-        {"modele": 'H2', "variante": 'SUV', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'H4', "variante": 'SUV', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'H5', "variante": 'SUV 4x4', "portes": 5, "places": 5, "reservoir": 70},
-        {"modele": 'H6', "variante": 'SUV', "portes": 5, "places": 5, "reservoir": 58},
-        {"modele": 'H7', "variante": 'SUV', "portes": 5, "places": 5, "reservoir": 58},
-        {"modele": 'H8', "variante": 'SUV Luxe', "portes": 5, "places": 5, "reservoir": 72},
-        {"modele": 'H9', "variante": 'SUV 4x4', "portes": 5, "places": 7, "reservoir": 80},
-        {"modele": 'Jolion', "variante": 'SUV Compact', "portes": 5, "places": 5, "reservoir": 55},
     ],
     'Haynes-Apperson': [
-        {"modele": 'Runabout', "variante": 'Runabout', "portes": 0, "places": 2, "annee_debut": 1898, "annee_fin": 1904, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'Surrey', "variante": 'Surrey', "portes": 0, "places": 4, "annee_debut": 1901, "annee_fin": 1904, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Heinkel': [
-        {"modele": 'Kabine', "variante": 'Microcar (1 porte frontale)', "portes": 2, "places": 3, "annee_debut": 1956, "annee_fin": 1958},
     ],
     'Hennessey': [
-        {"modele": 'Venom F5', "variante": 'Hypercar', "portes": 2, "places": 2, "annee_debut": 2021},
-        {"modele": 'Venom GT', "variante": 'Hypercar', "portes": 2, "places": 2, "annee_debut": 2011, "annee_fin": 2017},
-    ],
-    'Hennessey Venom': [
-        {"modele": 'Venom F5', "portes": 2, "places": 2, "reservoir": 90},
-        {"modele": 'Venom F5 Roadster', "variante": 'Roadster', "portes": 2, "places": 2, "reservoir": 90},
-        {"modele": 'Venom GT', "portes": 2, "places": 2, "reservoir": 90},
     ],
     'Henry J': [
-        {"modele": 'Corsair', "variante": 'Berline', "portes": 2, "places": 5, "annee_debut": 1950, "annee_fin": 1954},
-        {"modele": 'Vagabond', "variante": 'Berline', "portes": 2, "places": 5, "annee_debut": 1952, "annee_fin": 1952},
     ],
     'Henschel': [
         {"modele": '33', "variante": 'Camion militaire', "portes": 2, "places": 2, "annee_debut": 1933, "annee_fin": 1945, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},

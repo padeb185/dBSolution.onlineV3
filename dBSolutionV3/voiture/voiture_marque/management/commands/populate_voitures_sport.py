@@ -43,7 +43,7 @@ class Command(BaseCommand):
 
             # 🇺🇸 États-Unis
             "Ford", "Chevrolet Corvette", "Chevrolet Camaro ZL1", "Dodge SRT", "Tesla",
-            "Cadillac V-Series", "Shelby", "Hennessey Venom", "Saleen", "SSC Tuatara",
+            "Cadillac V-Series", "Shelby", "Hennessey", "Saleen", "SSC Tuatara",
 
             # 🇸🇪 Suède
             "Koenigsegg", "Polestar", "NEVS", "Scania Racing", "Svenska Supercars",

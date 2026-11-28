@@ -262,7 +262,7 @@ MODULES = [
     "great_wall",
     "gutbrod",
     "gruau",
-    "gurgel", "ferrari_ancetres_course", "vauxhall",
+    "gurgel", "ferrari_ancetres_course", "vauxhall", "hanomag", "haval", "heinkel", "hansa", "haynes_apperson", "hennessey", "henry_j",
 ]
 
 
