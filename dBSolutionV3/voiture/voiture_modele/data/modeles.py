@@ -423,53 +423,20 @@ MODELES = {
     'Henry J': [
     ],
     'Henschel': [
-        {"modele": '33', "variante": 'Camion militaire', "portes": 2, "places": 2, "annee_debut": 1933, "annee_fin": 1945, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'HS 3-14', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1961, "annee_fin": 1970, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
-        {"modele": 'HS 140', "variante": 'Camion', "portes": 2, "places": 2, "annee_debut": 1951, "annee_fin": 1961, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Hermes': [
-        {"modele": 'Type HP', "variante": 'Torpedo', "portes": 4, "places": 4, "annee_debut": 1906, "annee_fin": 1909, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Heuliez': [
-        {"modele": 'GX 107', "variante": 'Autobus', "portes": 2, "places": 100, "annee_debut": 1987, "annee_fin": 2005},
-        {"modele": 'GX 327', "variante": 'Autobus', "portes": 2, "places": 100, "annee_debut": 1995, "annee_fin": 2008},
-        {"modele": 'GX 337', "variante": 'Autobus', "portes": 2, "places": 100, "annee_debut": 2013},
-        {"modele": 'Peugeot 205 Cabriolet', "variante": 'Cabriolet', "portes": 2, "places": 4, "annee_debut": 1986, "annee_fin": 1994},
     ],
     'Hindustan Motors': [
-        {"modele": 'Ambassador', "variante": 'Mark I', "portes": 4, "places": 5, "reservoir": 50},
-        {"modele": 'Ambassador', "variante": 'Mark II', "portes": 4, "places": 5, "reservoir": 50},
-        {"modele": 'Ambassador', "variante": 'Mark III', "portes": 4, "places": 5, "reservoir": 55},
-        {"modele": 'Ambassador', "variante": 'Mark IV', "portes": 4, "places": 5, "reservoir": 55},
-        {"modele": 'Ambassador Classic', "portes": 4, "places": 5, "reservoir": 55},
-        {"modele": 'Ambassador Grand', "portes": 4, "places": 5, "reservoir": 55},
     ],
     'Hispano-Suiza': [
-        {"modele": 'Carmen', "variante": 'Coupe Electrique', "portes": 2, "places": 2, "reservoir": 0},
-        {"modele": 'Carmen Boulogne', "variante": 'Coupe Electrique', "portes": 2, "places": 2, "reservoir": 0},
-        {"modele": 'H6B', "variante": 'Berlina', "portes": 4, "places": 5, "reservoir": 80},
-        {"modele": 'H6C', "variante": 'Sport', "portes": 2, "places": 2, "reservoir": 80},
-        {"modele": 'K6', "portes": 4, "places": 5, "reservoir": 80},
     ],
     'Holden': [
-        {"modele": 'Acadia', "portes": 5, "places": 7, "reservoir": 75},
-        {"modele": 'Astra', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'Caprice', "portes": 4, "places": 5, "reservoir": 75},
-        {"modele": 'Colorado', "variante": 'Pickup', "portes": 4, "places": 5, "reservoir": 80},
-        {"modele": 'Commodore', "portes": 4, "places": 5, "reservoir": 70},
-        {"modele": 'HSV Clubsport', "portes": 4, "places": 5, "reservoir": 70},
-        {"modele": 'HSV GTS', "portes": 4, "places": 5, "reservoir": 70},
-        {"modele": 'Statesman', "portes": 4, "places": 5, "reservoir": 75},
-        {"modele": 'Trax', "portes": 5, "places": 5, "reservoir": 50},
-        {"modele": 'Zafira', "portes": 5, "places": 7, "reservoir": 60},
     ],
     'Holsman': [
-        {"modele": 'High Wheeler', "variante": 'Buggy', "portes": 0, "places": 2, "annee_debut": 1902, "annee_fin": 1910, "remarques": 'Désignations et dates indicatives (marque ancienne), à vérifier.'},
     ],
     'Hommell': [
-        {"modele": 'Barquette', "variante": 'Barquette', "portes": 0, "places": 2, "annee_debut": 2000, "annee_fin": 2003},
-        {"modele": 'Berlinette Échappement', "variante": 'Coupé', "portes": 2, "places": 2, "annee_debut": 1994, "annee_fin": 1999},
-        {"modele": 'Berlinette RS', "variante": 'Coupé', "portes": 2, "places": 2, "annee_debut": 1999, "annee_fin": 2003},
     ],
     'Honda': [
     ],
